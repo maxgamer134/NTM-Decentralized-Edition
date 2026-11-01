@@ -1030,6 +1030,9 @@ public final class ResourceManager {
     public static final ResourceLocation whiskey_tex = Library.id("textures/models/weapons/whiskey.png");
     public static final HFRWavefrontObject stinger = load("models/weapons/stinger.obj");
     public static final ResourceLocation stinger_tex = Library.id("textures/models/weapons/stinger.png");
+    public static final HFRWavefrontObject fliegerfaust = load("models/weapons/fliegerfaust.obj");
+    public static final ResourceLocation fliegerfaust_tex =
+            Library.id("textures/models/weapons/fliegerfaust.png");
     public static final HFRWavefrontObject quadro = load("models/weapons/quadro.obj");
     public static final ResourceLocation quadro_tex = Library.id("textures/models/weapons/quadro.png");
     public static final ResourceLocation quadro_rocket_tex =

@@ -413,6 +413,36 @@ public class LegoClient {
                             true,
                             state.light);
             };
+    public static RenderBulletMK4.Tracer RENDER_FLIEGERFAUST =
+            (state, pose, collector) -> {
+                pose.pushPose();
+                pose.scale(0.25F * 4, 0.125F, 0.125F);
+                pose.mulPose(Axis.ZP.rotationDegrees(90));
+                pose.translate(0, 0.25F, 0);
+                collector.submitCustomGeometry(
+                        pose,
+                        RenderTypes.entityCutout(ResourceManager.grenade_tex),
+                        (p, buf) ->
+                                ResourceManager.projectiles.renderPart(
+                                        p, buf, state.light, -1, GRENADE));
+                pose.popPose();
+
+                // main takes the bullet's rotation back off so the flare faces the camera
+                pose.pushPose();
+                pose.mulPose(Axis.ZN.rotationDegrees(state.pitch + 180));
+                pose.mulPose(Axis.YN.rotationDegrees(state.yaw - 90));
+                submitFlareSprite(
+                        pose,
+                        collector,
+                        state.cameraOrientation,
+                        0.375F,
+                        1F,
+                        0.875F,
+                        0.25F,
+                        0.125F,
+                        0.25F);
+                pose.popPose();
+            };
     public static RenderBulletMK4.Tracer RENDER_QD =
             (state, pose, collector) -> {
                 pose.pushPose();

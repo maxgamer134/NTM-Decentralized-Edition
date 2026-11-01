@@ -315,6 +315,7 @@ public class GunFactory {
         CT_MORTAR_CHARGE,
         NUKE_BALEFIRE,
         BMG50_SM,
+        ROCKET_MICRO,
         ;
 
         public static EnumAmmo[] order =
@@ -390,6 +391,7 @@ public class GunFactory {
                     G40_DEMO,
                     G40_INC,
                     G40_PHOSPHORUS,
+                    ROCKET_MICRO,
                     ROCKET_HE,
                     ROCKET_HEAT,
                     ROCKET_DEMO,

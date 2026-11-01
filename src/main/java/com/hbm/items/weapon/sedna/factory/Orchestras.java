@@ -1252,6 +1252,26 @@ public class Orchestras {
                     if (timer == 30) play(entity, ModSounds.GUN_CANISTER_INSERT.get(), 1F, 1F);
                 }
             };
+    public static BiConsumer<ItemStack, LambdaContext> ORCHESTRA_FLIEGERFAUST =
+            (stack, ctx) -> {
+                LivingEntity entity = ctx.entity();
+                if (entity.level().isClientSide()) return;
+                GunAnimation type = ItemGunBaseNT.getLastAnim(stack, ctx.configIndex());
+                int timer = ItemGunBaseNT.getAnimTimer(stack, ctx.configIndex());
+
+                if (type == GunAnimation.CYCLE) {
+                    if (timer == 0) muzzleFlash(ctx);
+                }
+                if (type == GunAnimation.RELOAD) {
+                    if (timer == 20) play(entity, ModSounds.GUN_BOLT_OPEN.get(), 1F, 0.85F);
+                    if (timer == 62) play(entity, ModSounds.GUN_CANISTER_INSERT.get(), 1F, 1F);
+                    if (timer == 64) play(entity, ModSounds.GUN_BOLT_CLOSE.get(), 1F, 0.85F);
+                }
+                if (type == GunAnimation.JAMMED) {
+                    if (timer == 25) play(entity, ModSounds.GUN_BOLT_OPEN.get(), 1F, 0.85F);
+                    if (timer == 32) play(entity, ModSounds.GUN_BOLT_CLOSE.get(), 1F, 0.85F);
+                }
+            };
     public static BiConsumer<ItemStack, LambdaContext> ORCHESTRA_MISSILE_LAUNCHER =
             (stack, ctx) -> {
                 LivingEntity entity = ctx.entity();

@@ -27,6 +27,7 @@ import com.hbm.render.item.weapon.sedna.ItemRenderEOTT;
 import com.hbm.render.item.weapon.sedna.ItemRenderFatMan;
 import com.hbm.render.item.weapon.sedna.ItemRenderFlamer;
 import com.hbm.render.item.weapon.sedna.ItemRenderFlaregun;
+import com.hbm.render.item.weapon.sedna.ItemRenderFliegerfaust;
 import com.hbm.render.item.weapon.sedna.ItemRenderFolly;
 import com.hbm.render.item.weapon.sedna.ItemRenderG3;
 import com.hbm.render.item.weapon.sedna.ItemRenderGreasegun;
@@ -124,6 +125,8 @@ public class GunFactoryClient {
                 ModItems.GUN_PANZERSCHRECK::get, new ItemRenderPanzerschreck());
         ItemRenderWeaponBase.register(ModItems.GUN_STINGER::get, new ItemRenderStinger());
         ItemRenderWeaponBase.register(ModItems.GUN_QUADRO::get, new ItemRenderQuadro());
+        ItemRenderWeaponBase.register(
+                ModItems.GUN_FLIEGERFAUST::get, new ItemRenderFliegerfaust());
         ItemRenderWeaponBase.register(
                 ModItems.GUN_MISSILE_LAUNCHER::get, new ItemRenderMissileLauncher());
         ItemRenderWeaponBase.register(ModItems.GUN_TAU::get, new ItemRenderTau());
@@ -311,6 +314,10 @@ public class GunFactoryClient {
                 .getConfig(null, 0)
                 .hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
         ModItems.GUN_QUADRO
+                .get()
+                .getConfig(null, 0)
+                .hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
+        ModItems.GUN_FLIEGERFAUST
                 .get()
                 .getConfig(null, 0)
                 .hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
@@ -552,6 +559,7 @@ public class GunFactoryClient {
             RenderBulletMK4.setRenderer(rocket, LegoClient.RENDER_RPZB);
         for (BulletConfig rocket : XFactoryRocket.rocket_qd)
             RenderBulletMK4.setRenderer(rocket, LegoClient.RENDER_QD);
+        RenderBulletMK4.setRenderer(XFactoryRocket.rocket_ff, LegoClient.RENDER_FLIEGERFAUST);
         for (BulletConfig rocket : XFactoryRocket.rocket_ml)
             RenderBulletMK4.setRenderer(rocket, LegoClient.RENDER_ML);
         for (BulletConfig rocket : XFactoryRocket.rocket_ncrpa_steer)

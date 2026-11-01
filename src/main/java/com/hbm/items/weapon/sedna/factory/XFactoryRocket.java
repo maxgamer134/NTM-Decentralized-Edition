@@ -11,6 +11,7 @@ import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.standard.*;
 import com.hbm.items.ModItems;
 import com.hbm.items.weapon.sedna.*;
+import com.hbm.items.weapon.sedna.ItemGunBaseNT.GunState;
 import com.hbm.items.weapon.sedna.ItemGunBaseNT.LambdaContext;
 import com.hbm.items.weapon.sedna.ItemGunBaseNT.WeaponQuality;
 import com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo;
@@ -22,6 +23,7 @@ import com.hbm.render.anim.AnimationEnums.GunAnimation;
 import com.hbm.render.anim.BusAnimation;
 import com.hbm.render.anim.BusAnimationKeyframe.IType;
 import com.hbm.render.anim.BusAnimationSequence;
+import com.hbm.sound.EntitySounds;
 import com.hbm.sound.ModSounds;
 import com.hbm.util.DamageClass;
 import com.hbm.util.EntityDamageUtil;
@@ -30,6 +32,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -52,6 +55,8 @@ public class XFactoryRocket {
     public static BulletConfig[] rocket_ml;
     public static BulletConfig[] rocket_ncrpa;
     public static BulletConfig[] rocket_ncrpa_steer;
+
+    public static BulletConfig rocket_ff;
 
     public static Consumer<Entity> LAMBDA_STANDARD_ACCELERATE =
             (entity) -> {
@@ -80,6 +85,14 @@ public class XFactoryRocket {
             (bullet, mop) -> {
                 if (mop instanceof EntityHitResult && bullet.tickCount < 3) return;
                 Lego.standardExplode(bullet, mop, 5F);
+                bullet.discard();
+            };
+    public static BiConsumer<EntityBulletBaseMK4, HitResult> LAMBDA_MICRO_EXPLODE =
+            (bullet, mop) -> {
+                if (mop instanceof EntityHitResult entityHit
+                        && bullet.tickCount < 3
+                        && entityHit.getEntity() == bullet.getThrower()) return;
+                Lego.tinyExplode(bullet, mop, 1.5F);
                 bullet.discard();
             };
     public static BiConsumer<EntityBulletBaseMK4, HitResult> LAMBDA_STANDARD_EXPLODE_HEAT =
@@ -142,6 +155,61 @@ public class XFactoryRocket {
     public static BiConsumer<ItemStack, LambdaContext> LAMBDA_STINGER_SECONDARY_RELEASE =
             (stack, ctx) -> {
                 ItemGunStinger.setIsLockingOn(stack, false);
+            };
+    public static BiConsumer<ItemStack, LambdaContext> LAMBDA_FLIEGERFAUST_SECONDARY =
+            (stack, ctx) -> {
+                LivingEntity entity = ctx.entity();
+                Player player = ctx.getPlayer();
+                Receiver rec = ctx.config().getReceivers(stack)[0];
+                int index = ctx.configIndex();
+                GunState state = ItemGunBaseNT.getState(stack, index);
+
+                if (state == GunState.IDLE) {
+
+                    boolean soundPlayed = false;
+
+                    for (int i = 0; i < 9; i++) {
+                        if (rec.getCanFire(stack).apply(stack, ctx)) {
+                            rec.getOnFire(stack).accept(stack, ctx);
+
+                            if (rec.getFireSound(stack) != null && !soundPlayed) {
+                                EntitySounds.play(
+                                        entity,
+                                        entity.getX(),
+                                        entity.getY(),
+                                        entity.getZ(),
+                                        rec.getFireSound(stack).get(),
+                                        SoundSource.PLAYERS,
+                                        rec.getFireVolume(stack),
+                                        rec.getFirePitch(stack));
+                                soundPlayed = true;
+                            }
+                        } else {
+
+                            if (rec.getDoesDryFire(stack)) {
+                                ItemGunBaseNT.playAnimation(
+                                        player, stack, GunAnimation.CYCLE_DRY, index);
+                                ItemGunBaseNT.setState(
+                                        stack,
+                                        index,
+                                        rec.getRefireAfterDry(stack)
+                                                ? GunState.COOLDOWN
+                                                : GunState.DRAWING);
+                                ItemGunBaseNT.setTimer(
+                                        stack, index, rec.getDelayAfterDryFire(stack));
+                            }
+                        }
+                    }
+
+                    if (soundPlayed) {
+                        ItemGunBaseNT.setState(stack, index, GunState.COOLDOWN);
+                        ItemGunBaseNT.setTimer(stack, index, rec.getDelayAfterFire(stack));
+                    }
+                }
+
+                if (state == GunState.RELOADING) {
+                    ItemGunBaseNT.setReloadCancel(stack, true);
+                }
             };
     public static BiConsumer<ItemStack, LambdaContext> LAMBDA_MISSILE_LAUNCHER_PRIMARY_PRESS =
             (stack, ctx) -> {
@@ -250,6 +318,110 @@ public class XFactoryRocket {
                                                 .addPos(0, 0, 60, 750, IType.SIN_FULL)
                                                 .addPos(0, 0, 60, 500)
                                                 .addPos(0, 0, 0, 750, IType.SIN_FULL));
+                }
+                return null;
+            };
+
+    @SuppressWarnings("incomplete-switch")
+    public static BiFunction<ItemStack, GunAnimation, BusAnimation> LAMBDA_FLIEGERFAUST_ANIMS =
+            (stack, type) -> {
+                boolean empty =
+                        ((ItemGunBaseNT) stack.getItem())
+                                        .getConfig(stack, 0)
+                                        .getReceivers(stack)[0]
+                                        .getMagazine(stack)
+                                        .getAmount(
+                                                stack, ClientPlayerAccess.player().getInventory())
+                                <= 0;
+                switch (type) {
+                    case EQUIP:
+                        return new BusAnimation()
+                                .addBus(
+                                        "EQUIP",
+                                        new BusAnimationSequence()
+                                                .addPos(60, 0, 0, 0)
+                                                .addPos(0, 0, 0, 500, IType.SIN_DOWN));
+                    case CYCLE:
+                        return new BusAnimation()
+                                .addBus(
+                                        "RECOIL",
+                                        new BusAnimationSequence()
+                                                .addPos(0, 0, -0.125, 50, IType.SIN_DOWN)
+                                                .addPos(0, 0, 0, 150, IType.SIN_FULL));
+                    case RELOAD:
+                        return new BusAnimation()
+                                .addBus(
+                                        "RELOAD",
+                                        new BusAnimationSequence()
+                                                .addPos(75, 0, 0, 750, IType.SIN_FULL)
+                                                .hold(2750)
+                                                .addPos(0, 0, 0, 750, IType.SIN_FULL))
+                                .addBus(
+                                        "DRUM",
+                                        new BusAnimationSequence()
+                                                .hold(1000)
+                                                .addPos(0, 0, -1, 500, IType.SIN_FULL)
+                                                .addPos(0, -4, -1, 500, IType.SIN_UP)
+                                                .hold(500)
+                                                .addPos(0, 0, -1, 500, IType.SIN_DOWN)
+                                                .addPos(0, 0, 0, 250, IType.SIN_UP))
+                                .addBus(
+                                        "DRUMROT",
+                                        new BusAnimationSequence()
+                                                .hold(1500)
+                                                .addPos(-90, 0, 0, 500, IType.SIN_UP)
+                                                .hold(500)
+                                                .addPos(0, 0, 0, 500, IType.SIN_DOWN))
+                                .addBus(
+                                        "RECOIL",
+                                        new BusAnimationSequence()
+                                                .hold(3250)
+                                                .addPos(0, 0, 0.25, 150, IType.SIN_DOWN)
+                                                .addPos(0, 0, 0, 100, IType.SIN_FULL))
+                                .addBus(
+                                        "UNLOADING",
+                                        new BusAnimationSequence()
+                                                .setPos(1, 0, 0)
+                                                .hold(2500)
+                                                .setPos(0, 0, 0));
+                    case JAMMED:
+                        return new BusAnimation()
+                                .addBus(
+                                        "RELOAD",
+                                        new BusAnimationSequence()
+                                                .hold(500)
+                                                .addPos(75, 0, 0, 500, IType.SIN_FULL)
+                                                .hold(1500)
+                                                .addPos(0, 0, 0, 500, IType.SIN_FULL))
+                                .addBus(
+                                        "DRUM",
+                                        new BusAnimationSequence()
+                                                .hold(1250)
+                                                .addPos(0, 0, -1, 250, IType.SIN_FULL)
+                                                .addPos(0, 0, 0, 250, IType.SIN_UP))
+                                .addBus(
+                                        "RECOIL",
+                                        new BusAnimationSequence()
+                                                .hold(1750)
+                                                .addPos(0, 0, 0.25, 150, IType.SIN_DOWN)
+                                                .addPos(0, 0, 0, 100, IType.SIN_FULL))
+                                .addBus(
+                                        "UNLOADING",
+                                        new BusAnimationSequence()
+                                                .setPos(1, 0, 0)
+                                                .hold(1750)
+                                                .setPos(0, 0, 0));
+                    case INSPECT:
+                        return new BusAnimation()
+                                .addBus(
+                                        "RELOAD",
+                                        new BusAnimationSequence()
+                                                .addPos(75, 0, 0, 750, IType.SIN_FULL)
+                                                .hold(500)
+                                                .addPos(0, 0, 0, 750, IType.SIN_FULL))
+                                .addBus(
+                                        "ROCKET",
+                                        new BusAnimationSequence().addPos(0, empty ? -3 : 0, 0, 0));
                 }
                 return null;
             };
@@ -455,6 +627,14 @@ public class XFactoryRocket {
             rocket_ncrpa[i] = makeRPZB(rocket_template[i]);
         }
 
+        rocket_ff =
+                baseRocket
+                        .clone()
+                        .setItem(EnumAmmo.ROCKET_MICRO)
+                        .setOnUpdate(null)
+                        .setVel(7F)
+                        .setOnImpact(LAMBDA_MICRO_EXPLODE);
+
         ModItems.GUN_PANZERSCHRECK =
                 NeoForgeRegistrar.registerItem(
                         "gun_panzerschreck",
@@ -590,6 +770,59 @@ public class XFactoryRocket {
                                                         .anim(LAMBDA_QUADRO_ANIMS)
                                                         .orchestra(Orchestras.ORCHESTRA_QUADRO))
                                         .setDefaultAmmo(EnumAmmo.ROCKET_HE, 4),
+                        Item.Properties::new);
+
+        ModItems.GUN_FLIEGERFAUST =
+                NeoForgeRegistrar.registerItem(
+                        "gun_fliegerfaust",
+                        props ->
+                                new ItemGunBaseNT(
+                                                WeaponQuality.SPECIAL,
+                                                props,
+                                                new GunConfig()
+                                                        .dura(9 * 25)
+                                                        .draw(7)
+                                                        .inspect(40)
+                                                        .crosshair(Crosshair.L_CIRCUMFLEX)
+                                                        .rec(
+                                                                new Receiver(0)
+                                                                        .dmg(15F)
+                                                                        .spread(0.015F)
+                                                                        .spreadHipfire(0.015F)
+                                                                        .auto(true)
+                                                                        .delay(4)
+                                                                        .reload(85)
+                                                                        .jam(60)
+                                                                        .sound(
+                                                                                () ->
+                                                                                        ModSounds
+                                                                                                .WEAPON_ROCKET_FLAME
+                                                                                                .get(),
+                                                                                1.0F,
+                                                                                1.0F)
+                                                                        .mag(
+                                                                                new MagazineFullReload(
+                                                                                                0,
+                                                                                                9)
+                                                                                        .addConfigs(
+                                                                                                rocket_ff))
+                                                                        .offset(
+                                                                                1,
+                                                                                -0.0625 * 1.5,
+                                                                                -0.1875D)
+                                                                        .offsetScoped(
+                                                                                1,
+                                                                                -0.0625 * 1.5,
+                                                                                -0.125D)
+                                                                        .setupStandardFire()
+                                                                        .recoil(
+                                                                                LAMBDA_RECOIL_ROCKET))
+                                                        .setupStandardConfiguration()
+                                                        .ps(LAMBDA_FLIEGERFAUST_SECONDARY)
+                                                        .anim(LAMBDA_FLIEGERFAUST_ANIMS)
+                                                        .orchestra(
+                                                                Orchestras.ORCHESTRA_FLIEGERFAUST))
+                                        .setDefaultAmmo(EnumAmmo.ROCKET_MICRO, 9),
                         Item.Properties::new);
 
         ModItems.GUN_MISSILE_LAUNCHER =

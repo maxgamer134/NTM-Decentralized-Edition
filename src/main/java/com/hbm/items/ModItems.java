@@ -9128,6 +9128,7 @@ public final class ModItems {
     public static RegistryHandle<ItemGunBaseNT> GUN_COILGUN;
     public static RegistryHandle<ItemGunBaseNT> GUN_STINGER;
     public static RegistryHandle<ItemGunBaseNT> GUN_QUADRO;
+    public static RegistryHandle<ItemGunBaseNT> GUN_FLIEGERFAUST;
     public static RegistryHandle<ItemGunBaseNT> GUN_MISSILE_LAUNCHER;
     public static RegistryHandle<ItemGunNI4NI> GUN_N_I_4_N_I;
     public static RegistryHandle<ItemGunBaseNT> GUN_DOUBLE_BARREL;

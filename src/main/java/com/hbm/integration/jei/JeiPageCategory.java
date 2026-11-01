@@ -10,6 +10,7 @@ import com.hbm.inventory.fluid.trait.FluidTraitTooltip;
 import java.util.ArrayList;
 import java.util.List;
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.builder.IIngredientAcceptor;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
 import mezz.jei.api.gui.builder.ITooltipBuilder;
@@ -147,6 +148,16 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
         }
 
         @Override
+        public PageSlot hiddenInput() {
+            return new Hidden(builder.addInvisibleIngredients(RecipeIngredientRole.INPUT));
+        }
+
+        @Override
+        public PageSlot hiddenOutput() {
+            return new Hidden(builder.addInvisibleIngredients(RecipeIngredientRole.OUTPUT));
+        }
+
+        @Override
         public void arrow(int x, int y) {}
 
         @Override
@@ -204,6 +215,49 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
                         if (view.getDisplayedIngredient().isEmpty()) return;
                         tooltip.append(view.getDisplayedItemStack().orElse(null), lines::add);
                     });
+            return this;
+        }
+    }
+
+    private final class Hidden implements PageSlot {
+
+        private final IIngredientAcceptor<?> acceptor;
+
+        Hidden(IIngredientAcceptor<?> acceptor) {
+            this.acceptor = acceptor;
+        }
+
+        @Override
+        public PageSlot background() {
+            return this;
+        }
+
+        @Override
+        public PageSlot item(ItemStack stack) {
+            acceptor.addItemStack(stack);
+            return this;
+        }
+
+        @Override
+        public PageSlot items(List<ItemStack> stacks) {
+            acceptor.addItemStacks(stacks);
+            return this;
+        }
+
+        @Override
+        public PageSlot fluid(Fluid fluid, long milliBuckets, int pressure) {
+            acceptor.addFluidStack(fluid, milliBuckets * unitsPerMilliBucket);
+            return this;
+        }
+
+        @Override
+        public PageSlot fluid(Fluid fluid) {
+            acceptor.addFluidStack(fluid, 1000L * unitsPerMilliBucket);
+            return this;
+        }
+
+        @Override
+        public PageSlot tooltip(Tooltip tooltip) {
             return this;
         }
     }
@@ -266,6 +320,16 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
 
         @Override
         public PageSlot display(int x, int y) {
+            return IGNORED;
+        }
+
+        @Override
+        public PageSlot hiddenInput() {
+            return IGNORED;
+        }
+
+        @Override
+        public PageSlot hiddenOutput() {
             return IGNORED;
         }
 
@@ -366,6 +430,16 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
         @Override
         public PageSlot display(int x, int y) {
             return ExtrasLayout.IGNORED;
+        }
+
+        @Override
+        public PageSlot hiddenInput() {
+            return collect(inputs);
+        }
+
+        @Override
+        public PageSlot hiddenOutput() {
+            return collect(outputs);
         }
 
         @Override

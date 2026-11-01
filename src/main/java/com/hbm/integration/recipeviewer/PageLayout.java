@@ -15,6 +15,11 @@ public interface PageLayout {
 
     PageSlot display(int x, int y);
 
+    // lookup only, no slot drawn: JEI invisible ingredients, for rows found from both sides
+    PageSlot hiddenInput();
+
+    PageSlot hiddenOutput();
+
     void arrow(int x, int y);
 
     void text(Component text, int x, int y, int width, int height);

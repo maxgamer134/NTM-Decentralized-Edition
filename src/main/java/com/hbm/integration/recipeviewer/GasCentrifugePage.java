@@ -169,24 +169,6 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
         return a / gcd(a, b) * b;
     }
 
-    private static Component ladder(Cascade cascade) {
-        StringBuilder line = new StringBuilder();
-        for (Step step : cascade.steps()) {
-            if (!line.isEmpty()) line.append(" > ");
-            line.append(step.operations())
-                    .append("x ")
-                    .append(GasCentrifugeRecipe.stageName(step.recipe().stage));
-        }
-        Step deadEnd = cascade.deadEnd();
-        if (deadEnd != null) {
-            line.append(" > ")
-                    .append(deadEnd.operations())
-                    .append("x ")
-                    .append(GasCentrifugeRecipe.stageName(deadEnd.recipe().stage));
-        }
-        return Component.literal(line.toString());
-    }
-
     @Override
     public ResourceLocation rowId(Cascade row) {
         return row.id();
@@ -200,11 +182,6 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
     @Override
     public ItemStack icon() {
         return new ItemStack(ModBlocks.MACHINE_GASCENT);
-    }
-
-    @Override
-    public int height() {
-        return 76;
     }
 
     @Override
@@ -226,7 +203,8 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
     @Override
     public void layout(Cascade cascade, PageLayout page) {
         page.input(47, 24).fluid(cascade.feed(), cascade.volume());
-        page.catalyst(3, 42).items(batteries());
+        // main: an "other stack" that only cycles, so batteries do not list the centrifuge as a use
+        page.display(3, 42).items(batteries());
 
         int slot = 0;
         for (ItemStack output : cascade.outputs()) {
@@ -241,7 +219,6 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             }
         }
 
-        page.text(ladder(cascade), 3, 66, width() - 6, 9);
     }
 
     @Override

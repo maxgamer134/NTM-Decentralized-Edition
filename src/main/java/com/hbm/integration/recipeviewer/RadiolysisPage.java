@@ -9,34 +9,21 @@ import com.hbm.inventory.recipes.RadiolysisRecipe;
 import com.hbm.inventory.recipes.RadiolysisRecipes;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 
 public final class RadiolysisPage extends TablePage<RadiolysisRecipe> {
 
     RadiolysisPage() {
-        super(PageIds.page("radiolysis"), RadiolysisRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_radiolysis");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_RADIOLYSIS);
+        super(
+                PageIds.page("radiolysis"),
+                RadiolysisRecipe.class,
+                ModBlocks.MACHINE_RADIOLYSIS,
+                "block.hbm.machine_radiolysis");
     }
 
     @Override
     public List<RadiolysisRecipe> rows() {
         return RadiolysisRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_RADIOLYSIS));
     }
 
     @Override

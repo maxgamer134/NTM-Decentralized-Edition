@@ -11,14 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public final class ZirnoxPage extends RecipePage<ZirnoxPage.Recipe> {
 
     ZirnoxPage() {
-        super(PageIds.page("zirnox"), Recipe.class);
+        super(
+                PageIds.page("zirnox"),
+                Recipe.class,
+                ModBlocks.REACTOR_ZIRNOX,
+                "block.hbm.reactor_zirnox");
     }
 
     @Override
@@ -36,26 +39,6 @@ public final class ZirnoxPage extends RecipePage<ZirnoxPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.reactor_zirnox");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.REACTOR_ZIRNOX);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.REACTOR_ZIRNOX));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().item(recipe.rod());
         page.output(102, 24).background().item(recipe.spent());
@@ -67,5 +50,6 @@ public final class ZirnoxPage extends RecipePage<ZirnoxPage.Recipe> {
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack rod, ItemStack spent) {}
+    public record Recipe(ResourceLocation id, ItemStack rod, ItemStack spent)
+            implements RecipePage.Row {}
 }

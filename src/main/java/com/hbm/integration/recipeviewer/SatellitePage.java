@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,17 +23,7 @@ public final class SatellitePage extends RecipePage<SatellitePage.Recipe> {
     private static final int OUT_SLOTS = 18;
 
     SatellitePage() {
-        super(PageIds.page("satellite"), Recipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.satellite");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.SAT_DOCK.get());
+        super(PageIds.page("satellite"), Recipe.class, ModBlocks.SAT_DOCK, "jei.hbm.satellite");
     }
 
     @Override
@@ -59,16 +48,6 @@ public final class SatellitePage extends RecipePage<SatellitePage.Recipe> {
                                     SatelliteMiner.getCargoForItem(satellite))));
         }
         return rows;
-    }
-
-    @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.SAT_DOCK.get()));
     }
 
     @Override
@@ -117,5 +96,6 @@ public final class SatellitePage extends RecipePage<SatellitePage.Recipe> {
         RecipePanel.region(graphics, RecipePanel.ANVIL, 29, 14, 131, 96, 18, 36);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack satellite, List<ItemPool.Entry> pool) {}
+    public record Recipe(ResourceLocation id, ItemStack satellite, List<ItemPool.Entry> pool)
+            implements RecipePage.Row {}
 }

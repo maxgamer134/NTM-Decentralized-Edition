@@ -9,7 +9,6 @@ import com.hbm.inventory.recipes.RefineryRecipe;
 import com.hbm.inventory.recipes.RefineryRecipes;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 public final class RefineryPage extends TablePage<RefineryRecipe> {
@@ -19,28 +18,17 @@ public final class RefineryPage extends TablePage<RefineryRecipe> {
     private static final int FACTOR = 10;
 
     RefineryPage() {
-        super(PageIds.page("refinery"), RefineryRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_refinery");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_REFINERY);
+        super(
+                PageIds.page("refinery"),
+                RefineryRecipe.class,
+                ModBlocks.MACHINE_REFINERY,
+                "block.hbm.machine_refinery");
     }
 
     @Override
     public List<RefineryRecipe> rows() {
         // the refinery runs only the last recipe per oil (findLast), so only those are shown
         return RefineryRecipes.INSTANCE.byInputFluid().reachable();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_REFINERY));
     }
 
     @Override

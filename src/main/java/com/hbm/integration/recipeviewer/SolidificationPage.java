@@ -8,7 +8,6 @@ import com.hbm.inventory.recipes.SolidificationRecipe;
 import com.hbm.inventory.recipes.SolidificationRecipes;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import com.hbm.backport.random.WeightedList;
 import net.minecraft.world.item.ItemStack;
@@ -17,32 +16,16 @@ import net.minecraft.world.level.material.Fluid;
 public final class SolidificationPage extends RecipePage<SolidificationPage.Recipe> {
 
     SolidificationPage() {
-        super(PageIds.page("solidification"), Recipe.class);
+        super(
+                PageIds.page("solidification"),
+                Recipe.class,
+                ModBlocks.MACHINE_SOLIDIFIER,
+                "block.hbm.machine_solidifier");
     }
 
     @Override
     public List<Recipe> rows() {
         return SolidificationRecipes.INSTANCE.reachable().stream().map(Recipe::new).toList();
-    }
-
-    @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_solidifier");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_SOLIDIFIER);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_SOLIDIFIER));
     }
 
     @Override
@@ -63,7 +46,12 @@ public final class SolidificationPage extends RecipePage<SolidificationPage.Reci
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, Fluid input, int amount, WeightedList<ItemStack> output) {
+    public record Recipe(
+            ResourceLocation id,
+            Fluid input,
+            int amount,
+            WeightedList<ItemStack> output)
+            implements RecipePage.Row {
         public Recipe(SolidificationRecipe recipe) {
             this(
                     recipe.recipeId().location(),

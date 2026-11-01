@@ -44,11 +44,6 @@ public final class BoilingPage extends RecipePage<BoilingPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
     public Component title() {
         return Component.translatable("block.hbm.machine_boiler");
     }
@@ -82,5 +77,6 @@ public final class BoilingPage extends RecipePage<BoilingPage.Recipe> {
     }
 
     public record Recipe(
-            ResourceLocation id, Fluid input, int inputAmount, Fluid output, int outputAmount) {}
+            ResourceLocation id, Fluid input, int inputAmount, Fluid output, int outputAmount)
+            implements RecipePage.Row {}
 }

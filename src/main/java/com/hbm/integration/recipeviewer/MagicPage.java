@@ -10,9 +10,7 @@ import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 
 public final class MagicPage extends TablePage<MagicRecipe> {
 
@@ -20,27 +18,12 @@ public final class MagicPage extends TablePage<MagicRecipe> {
     private static final int MAX_INPUTS = 4;
 
     MagicPage() {
-        super(PageIds.page("magic"), MagicRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("item.hbm.book_of_");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModItems.BOOK_OF);
+        super(PageIds.page("magic"), MagicRecipe.class, ModItems.BOOK_OF, "item.hbm.book_of_");
     }
 
     @Override
     public List<MagicRecipe> rows() {
         return MagicRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModItems.BOOK_OF));
     }
 
     @Override

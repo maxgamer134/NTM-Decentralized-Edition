@@ -12,14 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public final class WasteDecayPage extends RecipePage<WasteDecayPage.Recipe> {
 
     WasteDecayPage() {
-        super(PageIds.page("waste_decay"), Recipe.class);
+        super(
+                PageIds.page("waste_decay"),
+                Recipe.class,
+                ModBlocks.STORAGE_DRUM,
+                "block.hbm.machine_storage_drum");
     }
 
     @Override
@@ -60,26 +63,6 @@ public final class WasteDecayPage extends RecipePage<WasteDecayPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_storage_drum");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.STORAGE_DRUM);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.STORAGE_DRUM));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().item(recipe.waste());
         page.output(102, 24).background().item(recipe.decayed());
@@ -91,5 +74,6 @@ public final class WasteDecayPage extends RecipePage<WasteDecayPage.Recipe> {
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack waste, ItemStack decayed) {}
+    public record Recipe(ResourceLocation id, ItemStack waste, ItemStack decayed)
+            implements RecipePage.Row {}
 }

@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,7 +23,11 @@ import org.jspecify.annotations.Nullable;
 public final class AshpitPage extends RecipePage<AshpitPage.Recipe> {
 
     AshpitPage() {
-        super(PageIds.page("ashpit"), Recipe.class);
+        super(
+                PageIds.page("ashpit"),
+                Recipe.class,
+                ModBlocks.MACHINE_ASHPIT,
+                "block.hbm.machine_ashpit");
     }
 
     @Override
@@ -92,26 +95,6 @@ public final class AshpitPage extends RecipePage<AshpitPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_ashpit");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_ASHPIT);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_ASHPIT));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         int[][] inputs = GenericMachinePage.universalInputPositions(2);
         page.input(inputs[0][0], inputs[0][1]).background().items(recipe.sources());
@@ -132,5 +115,5 @@ public final class AshpitPage extends RecipePage<AshpitPage.Recipe> {
             List<ItemStack> sources,
             List<ItemStack> fuels,
             @Nullable FluidStackNTM smoke,
-            EnumAshType ash) {}
+            EnumAshType ash) implements RecipePage.Row {}
 }

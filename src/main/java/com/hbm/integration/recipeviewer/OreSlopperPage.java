@@ -15,14 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public final class OreSlopperPage extends RecipePage<OreSlopperPage.Recipe> {
 
     OreSlopperPage() {
-        super(PageIds.page("ore_slopper"), Recipe.class);
+        super(
+                PageIds.page("ore_slopper"),
+                Recipe.class,
+                ModBlocks.MACHINE_ORE_SLOPPER,
+                "block.hbm.machine_ore_slopper");
     }
 
     @Override
@@ -40,26 +43,6 @@ public final class OreSlopperPage extends RecipePage<OreSlopperPage.Recipe> {
             rows.add(new Recipe(id, base, ores));
         }
         return rows;
-    }
-
-    @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_ore_slopper");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_ORE_SLOPPER);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_ORE_SLOPPER));
     }
 
     @Override
@@ -86,5 +69,6 @@ public final class OreSlopperPage extends RecipePage<OreSlopperPage.Recipe> {
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack input, List<ItemStack> ores) {}
+    public record Recipe(ResourceLocation id, ItemStack input, List<ItemStack> ores)
+            implements RecipePage.Row {}
 }

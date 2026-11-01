@@ -34,11 +34,6 @@ public final class CastingPage extends RecipePage<CastingPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
     public Component title() {
         return Component.translatable("jei.hbm.casting");
     }
@@ -75,5 +70,6 @@ public final class CastingPage extends RecipePage<CastingPage.Recipe> {
     }
 
     public record Recipe(
-            ResourceLocation id, ItemStack metal, ItemStack mold, ItemStack block, ItemStack result) {}
+            ResourceLocation id, ItemStack metal, ItemStack mold, ItemStack block, ItemStack result)
+            implements RecipePage.Row {}
 }

@@ -10,33 +10,20 @@ import com.hbm.inventory.recipes.ElectrolyserMetalRecipes;
 import com.hbm.items.machine.ItemScraps;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public final class ElectrolyserMetalPage extends TablePage<ElectrolyserMetalRecipe> {
 
     ElectrolyserMetalPage() {
-        super(PageIds.page("electrolyser_metal"), ElectrolyserMetalRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_electrolyser");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_ELECTROLYSER);
+        super(
+                PageIds.page("electrolyser_metal"),
+                ElectrolyserMetalRecipe.class,
+                ModBlocks.MACHINE_ELECTROLYSER,
+                "block.hbm.machine_electrolyser");
     }
 
     @Override
     public List<ElectrolyserMetalRecipe> rows() {
         return ElectrolyserMetalRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_ELECTROLYSER));
     }
 
     @Override

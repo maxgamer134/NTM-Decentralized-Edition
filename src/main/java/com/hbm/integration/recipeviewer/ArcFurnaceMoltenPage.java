@@ -15,7 +15,6 @@ import com.hbm.items.machine.ItemScraps;
 import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
@@ -23,7 +22,11 @@ import org.jspecify.annotations.Nullable;
 public final class ArcFurnaceMoltenPage extends RecipePage<ArcFurnaceMoltenPage.Row> {
 
     ArcFurnaceMoltenPage() {
-        super(PageIds.page("arc_furnace_fluid"), Row.class);
+        super(
+                PageIds.page("arc_furnace_fluid"),
+                Row.class,
+                ModBlocks.MACHINE_ARC_FURNACE,
+                "block.hbm.machine_arc_furnace");
     }
 
     @Override
@@ -50,26 +53,6 @@ public final class ArcFurnaceMoltenPage extends RecipePage<ArcFurnaceMoltenPage.
     }
 
     @Override
-    public ResourceLocation rowId(Row row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_arc_furnace");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_ARC_FURNACE);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_ARC_FURNACE));
-    }
-
-    @Override
     public void layout(Row row, PageLayout page) {
         page.input(48, 24)
                 .background()
@@ -93,5 +76,5 @@ public final class ArcFurnaceMoltenPage extends RecipePage<ArcFurnaceMoltenPage.
             ResourceLocation id,
             @Nullable CountIngredient ingredient,
             @Nullable ItemStack scraps,
-            List<ItemStack> outputs) {}
+            List<ItemStack> outputs) implements RecipePage.Row {}
 }

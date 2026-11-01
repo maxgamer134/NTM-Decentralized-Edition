@@ -8,8 +8,6 @@ import com.hbm.inventory.recipes.CyclotronRecipe;
 import com.hbm.inventory.recipes.CyclotronRecipes;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public final class CyclotronPage extends TablePage<CyclotronRecipe> {
     private static final int PARTICLE_X = 21, PARTICLE_Y = 24;
@@ -17,27 +15,16 @@ public final class CyclotronPage extends TablePage<CyclotronRecipe> {
     private static final int OUTPUT_X = 129, OUTPUT_Y = 24;
 
     CyclotronPage() {
-        super(PageIds.page("cyclotron"), CyclotronRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_cyclotron");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_CYCLOTRON);
+        super(
+                PageIds.page("cyclotron"),
+                CyclotronRecipe.class,
+                ModBlocks.MACHINE_CYCLOTRON,
+                "block.hbm.machine_cyclotron");
     }
 
     @Override
     public List<CyclotronRecipe> rows() {
         return CyclotronRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_CYCLOTRON));
     }
 
     @Override

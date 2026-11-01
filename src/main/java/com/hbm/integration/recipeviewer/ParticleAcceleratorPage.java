@@ -15,27 +15,16 @@ import net.minecraft.world.item.ItemStack;
 public final class ParticleAcceleratorPage extends TablePage<ParticleAcceleratorRecipe> {
 
     ParticleAcceleratorPage() {
-        super(PageIds.page("particle_accelerator"), ParticleAcceleratorRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.particle_accelerator");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.PA_DETECTOR);
+        super(
+                PageIds.page("particle_accelerator"),
+                ParticleAcceleratorRecipe.class,
+                ModBlocks.PA_DETECTOR,
+                "jei.hbm.particle_accelerator");
     }
 
     @Override
     public List<ParticleAcceleratorRecipe> rows() {
         return ParticleAcceleratorRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.PA_DETECTOR));
     }
 
     @Override

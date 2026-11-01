@@ -12,12 +12,15 @@ import java.util.List;
 import java.util.Locale;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public final class SolderingStationPage extends TablePage<SolderingRecipe> {
 
     SolderingStationPage() {
-        super(PageIds.page("soldering_station"), SolderingRecipe.class);
+        super(
+                PageIds.page("soldering_station"),
+                SolderingRecipe.class,
+                ModBlocks.MACHINE_SOLDERING_STATION,
+                "block.hbm.machine_soldering_station");
     }
 
     private static int addInputs(
@@ -32,23 +35,8 @@ public final class SolderingStationPage extends TablePage<SolderingRecipe> {
     }
 
     @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_soldering_station");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_SOLDERING_STATION);
-    }
-
-    @Override
     public List<SolderingRecipe> rows() {
         return SolderingRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_SOLDERING_STATION));
     }
 
     @Override

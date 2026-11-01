@@ -10,8 +10,6 @@ import com.hbm.inventory.recipes.ingredient.CountIngredient;
 import com.hbm.blockentity.machine.BlockEntityMachineExposureChamber;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public final class ExposureChamberPage extends TablePage<ExposureChamberRecipe> {
 
@@ -22,27 +20,16 @@ public final class ExposureChamberPage extends TablePage<ExposureChamberRecipe> 
     private static final int BATCH = BlockEntityMachineExposureChamber.MAX_PARTICLES;
 
     ExposureChamberPage() {
-        super(PageIds.page("exposure_chamber"), ExposureChamberRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_exposure_chamber");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_EXPOSURE_CHAMBER);
+        super(
+                PageIds.page("exposure_chamber"),
+                ExposureChamberRecipe.class,
+                ModBlocks.MACHINE_EXPOSURE_CHAMBER,
+                "block.hbm.machine_exposure_chamber");
     }
 
     @Override
     public List<ExposureChamberRecipe> rows() {
         return ExposureChamberRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_EXPOSURE_CHAMBER));
     }
 
     @Override

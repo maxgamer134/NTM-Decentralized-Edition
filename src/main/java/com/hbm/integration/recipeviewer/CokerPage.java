@@ -9,15 +9,17 @@ import com.hbm.inventory.recipes.CokerRecipe;
 import com.hbm.inventory.recipes.CokerRecipes;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 
 public final class CokerPage extends RecipePage<CokerPage.Recipe> {
 
     CokerPage() {
-        super(PageIds.page("coker"), Recipe.class);
+        super(
+                PageIds.page("coker"),
+                Recipe.class,
+                ModBlocks.MACHINE_COKER,
+                "block.hbm.machine_coker");
     }
 
     @Override
@@ -28,21 +30,6 @@ public final class CokerPage extends RecipePage<CokerPage.Recipe> {
     @Override
     public ResourceLocation rowId(Recipe row) {
         return row.recipe().recipeId().location();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_coker");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_COKER);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_COKER));
     }
 
     @Override

@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Locale;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +17,7 @@ import net.minecraft.world.item.ItemStack;
 public final class WatzFuelPage extends RecipePage<WatzFuelPage.Recipe> {
 
     WatzFuelPage() {
-        super(PageIds.page("watz_fuel"), Recipe.class);
+        super(PageIds.page("watz_fuel"), Recipe.class, ModBlocks.WATZ, "block.hbm.watz");
     }
 
     @Override
@@ -36,26 +35,6 @@ public final class WatzFuelPage extends RecipePage<WatzFuelPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.watz");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.WATZ);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.WATZ));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().items(List.of(recipe.input()));
         page.output(102, 24).background().items(List.of(recipe.output()));
@@ -67,5 +46,6 @@ public final class WatzFuelPage extends RecipePage<WatzFuelPage.Recipe> {
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack input, ItemStack output) {}
+    public record Recipe(ResourceLocation id, ItemStack input, ItemStack output)
+            implements RecipePage.Row {}
 }

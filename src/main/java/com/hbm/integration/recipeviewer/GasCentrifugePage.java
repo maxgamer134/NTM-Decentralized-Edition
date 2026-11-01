@@ -26,7 +26,11 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
     private static final int MAX_STEPS = 32;
 
     GasCentrifugePage() {
-        super(PageIds.page("gas_centrifuge"), Cascade.class);
+        super(
+                PageIds.page("gas_centrifuge"),
+                Cascade.class,
+                ModBlocks.MACHINE_GASCENT,
+                "gui.jei.category.gasCentrifuge");
     }
 
     @Override
@@ -169,26 +173,6 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
         return a / gcd(a, b) * b;
     }
 
-    @Override
-    public ResourceLocation rowId(Cascade row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("gui.jei.category.gasCentrifuge");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_GASCENT);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_GASCENT));
-    }
-
     // main: battery packs, then single-cell batteries, then the creative one
     private static List<ItemStack> batteries() {
         List<ItemStack> batteries = new ArrayList<>();
@@ -247,5 +231,5 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             @Nullable Step deadEnd,
             List<ItemStack> outputs,
             List<WeightedList<ItemStack>> alternatives,
-            boolean requiresUpgrade) {}
+            boolean requiresUpgrade) implements RecipePage.Row {}
 }

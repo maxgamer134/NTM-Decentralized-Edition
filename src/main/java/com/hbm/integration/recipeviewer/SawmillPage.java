@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -22,7 +21,11 @@ import net.minecraft.world.item.Items;
 public final class SawmillPage extends RecipePage<SawmillPage.Recipe> {
 
     SawmillPage() {
-        super(PageIds.page("sawmill"), Recipe.class);
+        super(
+                PageIds.page("sawmill"),
+                Recipe.class,
+                ModBlocks.MACHINE_SAWMILL,
+                "block.hbm.machine_sawmill");
     }
 
     @Override
@@ -42,26 +45,6 @@ public final class SawmillPage extends RecipePage<SawmillPage.Recipe> {
                 input,
                 output,
                 BlockEntitySawmill.sawdustChance(output));
-    }
-
-    @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_sawmill");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_SAWMILL);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_SAWMILL));
     }
 
     @Override
@@ -88,5 +71,6 @@ public final class SawmillPage extends RecipePage<SawmillPage.Recipe> {
     }
 
     public record Recipe(
-            ResourceLocation id, List<ItemStack> input, ItemStack output, float sawdustChance) {}
+            ResourceLocation id, List<ItemStack> input, ItemStack output, float sawdustChance)
+            implements RecipePage.Row {}
 }

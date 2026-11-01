@@ -8,14 +8,17 @@ import com.hbm.inventory.recipes.CentrifugeRecipe;
 import com.hbm.inventory.recipes.CentrifugeRecipes;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import com.hbm.backport.random.WeightedList;
 import net.minecraft.world.item.ItemStack;
 
 public final class CentrifugePage extends TablePage<CentrifugeRecipe> {
 
     CentrifugePage() {
-        super(PageIds.page("centrifuge"), CentrifugeRecipe.class);
+        super(
+                PageIds.page("centrifuge"),
+                CentrifugeRecipe.class,
+                ModBlocks.MACHINE_CENTRIFUGE,
+                "block.hbm.machine_centrifuge");
     }
 
     private static int[][] outputPositions(int count) {
@@ -30,23 +33,8 @@ public final class CentrifugePage extends TablePage<CentrifugeRecipe> {
     }
 
     @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_centrifuge");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_CENTRIFUGE);
-    }
-
-    @Override
     public List<CentrifugeRecipe> rows() {
         return CentrifugeRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_CENTRIFUGE));
     }
 
     @Override

@@ -42,11 +42,6 @@ public final class ToolingPage extends RecipePage<ToolingPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
     public Component title() {
         return Component.translatable("jei.hbm.tooling");
     }
@@ -81,5 +76,9 @@ public final class ToolingPage extends RecipePage<ToolingPage.Recipe> {
     }
 
     public record Recipe(
-            ResourceLocation id, List<List<ItemStack>> inputs, ItemStack output, List<ItemStack> tools) {}
+            ResourceLocation id,
+            List<List<ItemStack>> inputs,
+            ItemStack output,
+            List<ItemStack> tools)
+            implements RecipePage.Row {}
 }

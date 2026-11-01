@@ -11,14 +11,17 @@ import com.hbm.items.machine.ItemScraps;
 import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public final class CrucibleAlloyingPage extends RecipePage<CrucibleAlloyingPage.Recipe> {
 
     CrucibleAlloyingPage() {
-        super(PageIds.page("crucible_alloying"), Recipe.class);
+        super(
+                PageIds.page("crucible_alloying"),
+                Recipe.class,
+                ModBlocks.MACHINE_CRUCIBLE,
+                "jei.hbm.crucible_alloying");
     }
 
     private static List<ItemStack> molten(MaterialStack[] materials) {
@@ -41,28 +44,8 @@ public final class CrucibleAlloyingPage extends RecipePage<CrucibleAlloyingPage.
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.crucible_alloying");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_CRUCIBLE);
-    }
-
-    @Override
     public int height() {
         return 60;
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_CRUCIBLE));
     }
 
     @Override
@@ -81,5 +64,6 @@ public final class CrucibleAlloyingPage extends RecipePage<CrucibleAlloyingPage.
         RecipePanel.page(graphics, RecipePanel.CRUCIBLE);
     }
 
-    public record Recipe(ResourceLocation id, List<ItemStack> input, List<ItemStack> output) {}
+    public record Recipe(ResourceLocation id, List<ItemStack> input, List<ItemStack> output)
+            implements RecipePage.Row {}
 }

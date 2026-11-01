@@ -9,14 +9,17 @@ import com.hbm.items.machine.ItemPWRFuel.EnumPWRFuel;
 import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public final class PWRPage extends RecipePage<PWRPage.Recipe> {
 
     PWRPage() {
-        super(PageIds.page("pwr"), Recipe.class);
+        super(
+                PageIds.page("pwr"),
+                Recipe.class,
+                ModBlocks.PWR_CONTROLLER,
+                "block.hbm.pwr_controller");
     }
 
     @Override
@@ -33,26 +36,6 @@ public final class PWRPage extends RecipePage<PWRPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.pwr_controller");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.PWR_CONTROLLER);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.PWR_CONTROLLER));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().item(recipe.fuel());
         page.output(102, 24).background().item(recipe.hot());
@@ -64,5 +47,6 @@ public final class PWRPage extends RecipePage<PWRPage.Recipe> {
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack fuel, ItemStack hot) {}
+    public record Recipe(ResourceLocation id, ItemStack fuel, ItemStack hot)
+            implements RecipePage.Row {}
 }

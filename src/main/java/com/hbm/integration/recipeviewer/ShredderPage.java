@@ -11,13 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import com.hbm.backport.random.WeightedList;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
 public final class ShredderPage extends TablePage<ShredderRecipe> {
 
     ShredderPage() {
-        super(PageIds.page("shredder"), ShredderRecipe.class);
+        super(
+                PageIds.page("shredder"),
+                ShredderRecipe.class,
+                ModBlocks.MACHINE_SHREDDER,
+                "block.hbm.machine_shredder");
     }
 
     private static List<ItemStack> claimedInputs(ShredderRecipe recipe) {
@@ -29,25 +32,10 @@ public final class ShredderPage extends TablePage<ShredderRecipe> {
     }
 
     @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_shredder");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_SHREDDER);
-    }
-
-    @Override
     public List<ShredderRecipe> rows() {
         return ShredderRecipes.INSTANCE.recipes().stream()
                 .filter(r -> !claimedInputs(r).isEmpty())
                 .toList();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_SHREDDER));
     }
 
     @Override

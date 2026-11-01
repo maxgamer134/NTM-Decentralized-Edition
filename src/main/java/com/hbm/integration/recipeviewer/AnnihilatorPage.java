@@ -27,7 +27,11 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 public final class AnnihilatorPage extends RecipePage<AnnihilatorPage.Recipe> {
 
     AnnihilatorPage() {
-        super(PageIds.page("annihilator"), Recipe.class);
+        super(
+                PageIds.page("annihilator"),
+                Recipe.class,
+                ModBlocks.MACHINE_ANNIHILATOR,
+                "jei.hbm.annihilator");
     }
 
     @Override
@@ -66,26 +70,6 @@ public final class AnnihilatorPage extends RecipePage<AnnihilatorPage.Recipe> {
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.annihilator");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_ANNIHILATOR);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_ANNIHILATOR));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         PageSlot input = page.input(48, 24).background();
         if (recipe.key().fluid() != null) {
@@ -108,5 +92,10 @@ public final class AnnihilatorPage extends RecipePage<AnnihilatorPage.Recipe> {
     }
 
     public record Recipe(
-            ResourceLocation id, Key key, List<ItemStack> input, BigInteger amount, ItemStack payout) {}
+            ResourceLocation id,
+            Key key,
+            List<ItemStack> input,
+            BigInteger amount,
+            ItemStack payout)
+            implements RecipePage.Row {}
 }

@@ -9,13 +9,15 @@ import com.hbm.inventory.recipes.FuelPoolRecipes;
 import com.hbm.items.machine.ItemRBMKRod;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public final class FuelPoolPage extends TablePage<FuelPoolRecipe> {
 
     FuelPoolPage() {
-        super(PageIds.page("fuel_pool"), FuelPoolRecipe.class);
+        super(
+                PageIds.page("fuel_pool"),
+                FuelPoolRecipe.class,
+                ModBlocks.WASTE_DRUM,
+                "jei.hbm.fuel_pool");
     }
 
     @Override
@@ -31,21 +33,6 @@ public final class FuelPoolPage extends TablePage<FuelPoolRecipe> {
                     ItemRBMKRod.getCoreHeat(looked) >= 50 || ItemRBMKRod.getHullHeat(looked) >= 50;
             return lookup == Lookup.USES ? hot : !hot;
         };
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.fuel_pool");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.WASTE_DRUM);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.WASTE_DRUM));
     }
 
     @Override

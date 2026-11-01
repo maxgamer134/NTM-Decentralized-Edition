@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,7 +23,11 @@ import org.jspecify.annotations.Nullable;
 public final class GrenadeAssemblyPage extends RecipePage<GrenadeAssemblyPage.Recipe> {
 
     GrenadeAssemblyPage() {
-        super(PageIds.page("grenade_assembly"), Recipe.class);
+        super(
+                PageIds.page("grenade_assembly"),
+                Recipe.class,
+                Items.CRAFTING_TABLE,
+                "item.hbm.grenade_universal");
     }
 
     @Override
@@ -63,26 +66,6 @@ public final class GrenadeAssemblyPage extends RecipePage<GrenadeAssemblyPage.Re
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("item.hbm.grenade_universal");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(Items.CRAFTING_TABLE);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(Items.CRAFTING_TABLE));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         int[][] positions =
                 GenericMachinePage.universalInputPositions(recipe.extra() == null ? 3 : 4);
@@ -106,5 +89,5 @@ public final class GrenadeAssemblyPage extends RecipePage<GrenadeAssemblyPage.Re
             ItemStack filling,
             ItemStack fuze,
             @Nullable ItemStack extra,
-            ItemStack output) {}
+            ItemStack output) implements RecipePage.Row {}
 }

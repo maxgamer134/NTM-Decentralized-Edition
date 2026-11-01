@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -19,7 +18,11 @@ import net.minecraft.world.item.Items;
 public final class RBMKDisassemblyPage extends RecipePage<RBMKDisassemblyPage.Recipe> {
 
     RBMKDisassemblyPage() {
-        super(PageIds.page("rbmk_rod_disassembly"), Recipe.class);
+        super(
+                PageIds.page("rbmk_rod_disassembly"),
+                Recipe.class,
+                Items.CRAFTING_TABLE,
+                "jei.hbm.rbmk_rod_disassembly");
     }
 
     @Override
@@ -60,26 +63,6 @@ public final class RBMKDisassemblyPage extends RecipePage<RBMKDisassemblyPage.Re
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.rbmk_rod_disassembly");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(Items.CRAFTING_TABLE);
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(Items.CRAFTING_TABLE));
-    }
-
-    @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().item(recipe.rod());
         page.output(102, 24).background().item(recipe.pellets());
@@ -91,5 +74,6 @@ public final class RBMKDisassemblyPage extends RecipePage<RBMKDisassemblyPage.Re
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, ItemStack rod, ItemStack pellets) {}
+    public record Recipe(ResourceLocation id, ItemStack rod, ItemStack pellets)
+            implements RecipePage.Row {}
 }

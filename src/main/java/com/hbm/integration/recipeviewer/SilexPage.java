@@ -18,7 +18,11 @@ import net.minecraft.world.item.ItemStack;
 public final class SilexPage extends TablePage<SILEXRecipe> {
 
     SilexPage() {
-        super(PageIds.page("silex"), SILEXRecipe.class);
+        super(
+                PageIds.page("silex"),
+                SILEXRecipe.class,
+                ModBlocks.MACHINE_SILEX,
+                "block.hbm.machine_silex");
     }
 
     private static int[] outputPosition(int index, int count) {
@@ -37,23 +41,8 @@ public final class SilexPage extends TablePage<SILEXRecipe> {
     }
 
     @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_silex");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_SILEX);
-    }
-
-    @Override
     public List<SILEXRecipe> rows() {
         return SILEXRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_SILEX));
     }
 
     @Override

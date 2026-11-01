@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -24,7 +23,11 @@ import net.minecraft.world.item.crafting.Ingredient;
 public final class CrucibleSmeltingPage extends RecipePage<CrucibleSmeltingPage.Recipe> {
 
     CrucibleSmeltingPage() {
-        super(PageIds.page("crucible_smelting"), Recipe.class);
+        super(
+                PageIds.page("crucible_smelting"),
+                Recipe.class,
+                ModBlocks.MACHINE_CRUCIBLE,
+                "jei.hbm.crucible_smelting");
     }
 
     @Override
@@ -60,28 +63,8 @@ public final class CrucibleSmeltingPage extends RecipePage<CrucibleSmeltingPage.
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("jei.hbm.crucible_smelting");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_CRUCIBLE);
-    }
-
-    @Override
     public int height() {
         return 60;
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_CRUCIBLE));
     }
 
     @Override
@@ -98,5 +81,6 @@ public final class CrucibleSmeltingPage extends RecipePage<CrucibleSmeltingPage.
         RecipePanel.page(graphics, RecipePanel.CRUCIBLE_SMELTING);
     }
 
-    public record Recipe(ResourceLocation id, List<ItemStack> input, List<ItemStack> output) {}
+    public record Recipe(ResourceLocation id, List<ItemStack> input, List<ItemStack> output)
+            implements RecipePage.Row {}
 }

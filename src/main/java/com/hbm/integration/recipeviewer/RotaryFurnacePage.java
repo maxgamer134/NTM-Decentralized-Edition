@@ -15,32 +15,20 @@ import java.util.List;
 import java.util.Locale;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public final class RotaryFurnacePage extends TablePage<RotaryFurnaceRecipe> {
 
     RotaryFurnacePage() {
-        super(PageIds.page("rotary_furnace"), RotaryFurnaceRecipe.class);
-    }
-
-    @Override
-    public Component title() {
-        return Component.translatable("block.hbm.machine_rotary_furnace");
-    }
-
-    @Override
-    public ItemStack icon() {
-        return new ItemStack(ModBlocks.MACHINE_ROTARY_FURNACE);
+        super(
+                PageIds.page("rotary_furnace"),
+                RotaryFurnaceRecipe.class,
+                ModBlocks.MACHINE_ROTARY_FURNACE,
+                "block.hbm.machine_rotary_furnace");
     }
 
     @Override
     public List<RotaryFurnaceRecipe> rows() {
         return RotaryFurnaceRecipes.INSTANCE.recipes();
-    }
-
-    @Override
-    public List<ItemStack> catalysts() {
-        return List.of(new ItemStack(ModBlocks.MACHINE_ROTARY_FURNACE));
     }
 
     @Override

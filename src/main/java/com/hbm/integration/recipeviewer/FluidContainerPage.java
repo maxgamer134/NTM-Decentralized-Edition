@@ -72,11 +72,6 @@ public final class FluidContainerPage extends RecipePage<FluidContainerPage.Reci
     }
 
     @Override
-    public ResourceLocation rowId(Recipe row) {
-        return row.id();
-    }
-
-    @Override
     public Component title() {
         return Component.translatable("jei.hbm.fluid_containers");
     }
@@ -114,5 +109,5 @@ public final class FluidContainerPage extends RecipePage<FluidContainerPage.Reci
             Fluid fluid,
             int amount,
             ItemStack empty,
-            ItemStack full) {}
+            ItemStack full) implements RecipePage.Row {}
 }

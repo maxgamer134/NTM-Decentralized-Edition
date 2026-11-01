@@ -7,7 +7,13 @@
   ],
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:cobalt_decorated_axe",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:cobalt_decorated_axe"
+    },
     "I": "#c:ingots/starmetal",
     "S": "hbm:ring_starmetal"
   },

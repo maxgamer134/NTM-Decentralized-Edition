@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shapeless",
   "ingredients": [
-    "hbm:ajr_boots",
+    {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:ajr_boots"
+    },
     "#c:dyes/red",
     "#c:dyes/black"
   ],

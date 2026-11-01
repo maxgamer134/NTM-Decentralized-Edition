@@ -9,7 +9,13 @@
   "key": {
     "E": "#c:ingots/schrabidium",
     "P": "hbm:pellet_charged",
-    "S": "hbm:starmetal_legs"
+    "S": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:starmetal_legs"
+    }
   },
   "pattern": [
     "EEE",

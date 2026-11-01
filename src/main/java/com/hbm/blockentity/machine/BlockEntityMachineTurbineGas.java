@@ -4,6 +4,7 @@
 
 package com.hbm.blockentity.machine;
 
+import com.hbm.inventory.fluid.trait.FluidTrait.FluidReleaseType;
 import com.hbm.api.control.IControlReceiver;
 import com.hbm.api.energymk2.IBatteryItem;
 import com.hbm.api.energymk2.IEnergyHandlerMK2;
@@ -14,12 +15,10 @@ import com.hbm.api.fluidmk2.FlushLanes;
 import com.hbm.api.redstoneoverradio.IRORInteractive;
 import com.hbm.api.redstoneoverradio.IRORValueProvider;
 import com.hbm.blockentity.AudioLoop;
-import com.hbm.blockentity.BlockEntityMachineBase;
+import com.hbm.blockentity.BlockEntityMachinePolluting;
 import com.hbm.blockentity.IFluidCopiable;
 import com.hbm.blocks.ModBlockEntities;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
-import com.hbm.handler.pollution.PollutionHandler;
-import com.hbm.handler.pollution.PollutionType;
 import com.hbm.inventory.container.MenuMachineTurbineGas;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.NTMFluids;
@@ -38,7 +37,6 @@ import com.hbm.sound.ModSounds;
 import com.hbm.util.TickPhase;
 import io.netty.buffer.ByteBuf;
 import java.util.function.Consumer;
-import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -61,7 +59,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.hbm.backport.Nbt;
 
-public class BlockEntityMachineTurbineGas extends BlockEntityMachineBase
+public class BlockEntityMachineTurbineGas extends BlockEntityMachinePolluting
         implements FluidTankAccess,
                 AudioLoop,
                 IEnergyHandlerMK2,
@@ -140,12 +138,12 @@ public class BlockEntityMachineTurbineGas extends BlockEntityMachineBase
     private final FluidTankNTM[] sending;
 
     public BlockEntityMachineTurbineGas(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.MACHINE_GASTURBINE.get(), pos, state, SLOT_COUNT);
+        super(ModBlockEntities.MACHINE_GASTURBINE.get(), pos, state, SLOT_COUNT, 150);
         tanks[0] = new FluidTankNTM(NTMFluids.GAS, 100_000);
         tanks[1] = new FluidTankNTM(NTMFluids.LUBRICANT, 16_000);
         tanks[2] = new FluidTankNTM(NTMFluids.WATER, 16_000);
         tanks[3] = new FluidTankNTM(NTMFluids.HOTSTEAM, 160_000);
-        sending = new FluidTankNTM[] {tanks[3]};
+        sending = new FluidTankNTM[] {tanks[3], smoke, smokeLeaded, smokePoison};
     }
 
     public static double fuelMaxConsumption(@Nullable Fluid type) {
@@ -326,17 +324,17 @@ public class BlockEntityMachineTurbineGas extends BlockEntityMachineBase
         if (rpm != prevRpm || temp != prevTemp) markChanged();
 
         double consumption = fuelMaxConsumption(tanks[0].getTankType());
-        if (TickPhase.every(this, SharedConstants.TICKS_PER_SECOND)
-                && tanks[0].getTankType() != NTMFluids.OXYHYDROGEN) {
-            PollutionHandler.incrementPollution(
-                    level, worldPosition, PollutionType.SOOT, PollutionHandler.SOOT_PER_SECOND * 3);
-        }
         makePower(consumption, throttle);
     }
 
     private void makePower(double consMax, int throttle) {
         double idleConsumption = consMax * 0.05D;
         double consumption = idleConsumption + consMax * throttle / 100;
+
+        // main: the fuel's own burn pollution goes into the smoke tanks, vented through the outlet
+        if (TickPhase.every(this, 5)) {
+            pollute(tanks[0].getTankType(), FluidReleaseType.BURN, (float) consumption * 0.5F);
+        }
 
         fuelToConsume += consumption;
 
@@ -545,23 +543,31 @@ public class BlockEntityMachineTurbineGas extends BlockEntityMachineBase
 
     @Override
     public void declareFlush(FlushLanes out) {
-        out.add(
-                tanks[3],
-                (server, pos, contacts) -> {
-                    Direction rot =
-                            getBlockState().getValue(BlockMultiblockCore.FACING).getClockWise();
-                    contacts.contact(pos.offset(rot.getStepX() * -6, 1, rot.getStepZ() * -6), rot);
-                });
+        for (FluidTankNTM tank : sending) {
+            out.add(
+                    tank,
+                    (server, pos, contacts) -> {
+                        Direction rot =
+                                getBlockState().getValue(BlockMultiblockCore.FACING).getClockWise();
+                        contacts.contact(
+                                pos.offset(rot.getStepX() * -6, 1, rot.getStepZ() * -6), rot);
+                    });
+        }
     }
 
     @Override
     public long getFluidAvailable(Fluid type, int pressure) {
+        if (pressure == 0 && smokeFluidAvailable(type) > 0) return smokeFluidAvailable(type);
         if (tanks[3].getTankType() != type || tanks[3].getPressure() != pressure) return 0L;
         return tanks[3].getFill();
     }
 
     @Override
     public void useUpFluid(Fluid type, int pressure, long amount) {
+        if (pressure == 0 && smokeFluidAvailable(type) > 0) {
+            useUpSmokeFluid(type, amount);
+            return;
+        }
         if (tanks[3].getTankType() != type || tanks[3].getPressure() != pressure) return;
         if (tanks[3].drain((int) Math.min(amount, Integer.MAX_VALUE), true) > 0) setChanged();
     }

@@ -2,7 +2,13 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "C": "hbm:catalyst_clay",
-    "F": "hbm:gas_mask_filter",
+    "F": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:gas_mask_filter"
+    },
     "Z": "#c:ingots/zirconium"
   },
   "pattern": [

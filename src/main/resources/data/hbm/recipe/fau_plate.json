@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:starmetal_plate",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:starmetal_plate"
+    },
     "C": "hbm:demon_core_closed",
     "M": "hbm:motor_desh",
     "P": "hbm:plate_armor_fau",

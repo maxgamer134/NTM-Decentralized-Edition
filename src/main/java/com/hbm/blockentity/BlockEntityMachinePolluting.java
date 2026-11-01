@@ -71,7 +71,7 @@ public abstract class BlockEntityMachinePolluting extends BlockEntityMachineBase
                         : trait.getReleaseMap();
 
         for (Map.Entry<PollutionType, Float> entry : map.entrySet()) {
-            pollute(entry.getKey(), entry.getValue());
+            pollute(entry.getKey(), entry.getValue() * amount);
         }
     }
 

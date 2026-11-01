@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "C": "hbm:blades_titanium",
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:blades_titanium"
+    },
     "D": "#c:plates/titanium",
     "H": "minecraft:hopper",
     "P": "hbm:motor",

@@ -5,7 +5,13 @@
     "F": "hbm:fins_quad_titanium",
     "I": "hbm:mp_thruster_10_xenon",
     "N": "hbm:plate_armor_lunar",
-    "P": "hbm:bj_plate",
+    "P": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:bj_plate"
+    },
     "T": {
       "type": "neoforge:components",
       "components": {

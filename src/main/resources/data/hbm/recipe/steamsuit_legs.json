@@ -3,7 +3,13 @@
   "key": {
     "C": "#c:plates/copper",
     "D": "#c:ingots/workers_alloy",
-    "X": "hbm:steel_legs"
+    "X": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:steel_legs"
+    }
   },
   "pattern": [
     "CCC",

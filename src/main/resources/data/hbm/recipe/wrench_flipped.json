@@ -2,8 +2,20 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "D": "hbm:ducttape",
-    "S": "minecraft:iron_sword",
-    "W": "hbm:wrench"
+    "S": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "minecraft:iron_sword"
+    },
+    "W": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:wrench"
+    }
   },
   "pattern": [
     "S",

@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:blades_titanium",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:blades_titanium"
+    },
     "P": "hbm:plate_desh"
   },
   "pattern": [

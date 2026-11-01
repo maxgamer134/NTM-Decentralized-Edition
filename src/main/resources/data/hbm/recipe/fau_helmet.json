@@ -1,8 +1,20 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:starmetal_helmet",
-    "F": "hbm:gas_mask_filter",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:starmetal_helmet"
+    },
+    "F": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:gas_mask_filter"
+    },
     "P": "hbm:plate_armor_fau",
     "S": "#hbm:pipes/steel",
     "W": "minecraft:red_wool"

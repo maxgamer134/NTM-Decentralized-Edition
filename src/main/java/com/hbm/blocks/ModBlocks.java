@@ -190,7 +190,7 @@ public final class ModBlocks {
                     BlockNetworkSeparator::new,
                     () ->
                             BlockBehaviour.Properties.of()
-                                    .strength(5.0F, 10.0F)
+                                    .strength(5.0F, 6.0F)
                                     .requiresCorrectToolForDrops()
                                     .noOcclusion());
     public static final RegistryHandle<CableGaugeBlock> RED_CABLE_GAUGE =
@@ -653,7 +653,7 @@ public final class ModBlocks {
                     FlowControlPump::new,
                     () ->
                             BlockBehaviour.Properties.of()
-                                    .strength(5.0F, 10.0F)
+                                    .strength(5.0F, 6.0F)
                                     .requiresCorrectToolForDrops()
                                     .noOcclusion());
     public static final RegistryHandle<BlockRadiobox> RADIOBOX =
@@ -1909,7 +1909,7 @@ public final class ModBlocks {
     public static final RegistryHandle<BlockFluidBarrel> BARREL_CORRODED =
             Reg.blockItem(
                             "barrel_corroded",
-                            props -> new BlockFluidBarrel(props, 6_000, 4),
+                            props -> new BlockFluidBarrel(props, 16_000, 4),
                             () ->
                                     BlockBehaviour.Properties.of()
                                             .strength(2.0F, 3.0F)
@@ -6231,7 +6231,7 @@ public final class ModBlocks {
         TILE_LAB_CRACKED = tileLab("tile_lab_cracked", false);
         TILE_LAB_BROKEN = tileLab("tile_lab_broken", true);
         GRAVEL_OBSIDIAN =
-                fallingCubeBlast("gravel_obsidian", MapColor.METAL, SoundType.GRAVEL, 5.0F, 144.0F);
+                fallingCubeBlast("gravel_obsidian", MapColor.METAL, SoundType.GRAVEL, 5.0F, 12.0F);
         GRAVEL_DIAMOND =
                 Reg.block(
                         "gravel_diamond",

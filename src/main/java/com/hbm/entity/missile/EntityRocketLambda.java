@@ -72,15 +72,22 @@ public class EntityRocketLambda extends EntityCompat implements StoredItems {
                 0.0D,
                 300 + random.nextInt(50));
 
+        // main's "missileContrail" is a rocket flame thrown sideways, not a smoke trail
         if (tickCount % 10 == 0) {
             double angle = Math.toRadians(45 * random.nextInt(8));
+            double vx = Math.cos(angle);
+            double vz = -Math.sin(angle);
             double j = 0.5;
-            ClientEffects.spawnContrail(
+            ClientEffects.spawnRocketFlame(
                     level(),
-                    getX() - Math.cos(angle) * j,
+                    getX() - vx * j,
                     getY(),
-                    getZ() + Math.sin(angle) * j,
-                    ClientEffects.Contrail.KEROSENE);
+                    getZ() - vz * j,
+                    1F,
+                    vx,
+                    getDeltaMovement().y - 0.5D,
+                    vz,
+                    60 + random.nextInt(20));
         }
     }
 

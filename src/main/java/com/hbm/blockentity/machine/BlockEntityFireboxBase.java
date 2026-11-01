@@ -35,6 +35,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.hbm.backport.ItemStackTemplate;
@@ -239,6 +240,8 @@ public abstract class BlockEntityFireboxBase extends BlockEntityMachinePolluting
         EnumBriquetteType briquette = ModItems.BRIQUETTE.typeOf(stack);
         if (briquette != null)
             return briquette == EnumBriquetteType.WOOD ? EnumAshType.WOOD : EnumAshType.COAL;
+        // main: charcoal leaves wood ash, it has no coal ore dict entry there
+        if (stack.is(Items.CHARCOAL)) return EnumAshType.WOOD;
         for (TagKey<Item> tag : COAL_ASH) if (stack.is(tag)) return EnumAshType.COAL;
         for (TagKey<Item> tag : WOOD_ASH) if (stack.is(tag)) return EnumAshType.WOOD;
         return EnumAshType.MISC;

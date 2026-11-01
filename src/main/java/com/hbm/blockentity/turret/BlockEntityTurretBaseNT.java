@@ -625,7 +625,8 @@ public abstract class BlockEntityTurretBaseNT extends BlockEntityMachineBase
             }
         }
         if ((PREFIX_FUNCTION + "addwhitelist").equals(name) && params.length > 0) {
-            addName(params[0]);
+            List<String> whitelist = getWhitelist();
+            if (whitelist == null || !whitelist.contains(params[0])) addName(params[0]);
             markChanged();
         }
         if ((PREFIX_FUNCTION + "removewhitelist").equals(name) && params.length > 0) {

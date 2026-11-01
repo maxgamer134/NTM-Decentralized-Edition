@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "G": "hbm:wood_gavel",
+    "G": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:wood_gavel"
+    },
     "I": "#c:ingots/lead",
     "P": "hbm:pellet_buckshot"
   },

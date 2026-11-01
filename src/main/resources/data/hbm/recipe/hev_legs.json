@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:titanium_legs",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:titanium_legs"
+    },
     "I": "#hbm:ingots/any_plastic",
     "M": "hbm:motor_desh",
     "P": "hbm:plate_armor_hev"

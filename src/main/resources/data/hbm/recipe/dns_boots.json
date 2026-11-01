@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:bj_boots",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:bj_boots"
+    },
     "C": "hbm:demon_core_closed",
     "P": "hbm:plate_armor_dnt",
     "S": "hbm:ingot_chainsteel"

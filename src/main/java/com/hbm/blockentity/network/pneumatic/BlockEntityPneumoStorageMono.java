@@ -111,6 +111,12 @@ public class BlockEntityPneumoStorageMono extends BlockEntityPneumaticStorageBas
     }
 
     @Override
+    public void setItem(int slot, ItemStack stack) {
+        if (level != null && !level.isClientSide() && amounts[slot] > 0) return;
+        super.setItem(slot, stack);
+    }
+
+    @Override
     public long getAmountAt(int index) {
         return amounts[index];
     }

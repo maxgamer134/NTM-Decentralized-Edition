@@ -1,7 +1,13 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": "hbm:blades_steel",
+    "B": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:blades_steel"
+    },
     "C": "hbm:dungeon_chain",
     "E": {
       "type": "neoforge:components",

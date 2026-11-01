@@ -7,7 +7,13 @@
   ],
   "type": "hbm:crafting_shaped",
   "key": {
-    "C": "hbm:cobalt_boots",
+    "C": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:cobalt_boots"
+    },
     "E": "#c:ingots/starmetal"
   },
   "pattern": [

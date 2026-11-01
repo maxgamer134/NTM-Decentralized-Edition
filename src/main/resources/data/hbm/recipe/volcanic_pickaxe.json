@@ -3,7 +3,13 @@
   "key": {
     "B": "hbm:gem_volcanic",
     "M": "hbm:ingot_meteorite",
-    "P": "hbm:starmetal_pickaxe",
+    "P": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:starmetal_pickaxe"
+    },
     "T": "#c:bolts/tungsten"
   },
   "pattern": [

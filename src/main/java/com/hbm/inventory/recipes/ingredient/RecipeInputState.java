@@ -49,18 +49,6 @@ public final class RecipeInputState {
         return set.contains(type);
     }
 
-    /**
-     * Wear on a tool or armor piece (a damageable, unstackable item) never turns it away either:
-     * worn tools and armor fit any recipe that names them. Damage that stands in for metadata on
-     * stackable items keeps matching exactly.
-     */
-    public static boolean ignoredByRecipes(DataComponentType<?> type, ItemStack stack) {
-        if (ignoredByRecipes(type)) return true;
-        return type == DataComponents.DAMAGE
-                && stack.isDamageableItem()
-                && stack.getMaxStackSize() == 1;
-    }
-
     private static Set<DataComponentType<?>> buildNbtLike() {
         Set<DataComponentType<?>> set = Collections.newSetFromMap(new IdentityHashMap<>());
         // vanilla: all NBT in 1.7.10 (display name/lore, ench, RepairCost, color, BlockEntityTag...)
@@ -130,10 +118,8 @@ public final class RecipeInputState {
                 ModDataComponents.CONVEYOR_RUN,
                 ModDataComponents.UNSTABLE_AT,
                 ModDataComponents.TANK_CONTENTS,
-                ModDataComponents.CANTEEN_COOLDOWN,
                 ModDataComponents.TOOL_PRESETS,
                 ModDataComponents.TOOLBOX_OPEN,
-                ModDataComponents.POLARIZED,
                 ModDataComponents.DETONATOR_POS_LIST,
                 ModDataComponents.REBAR_CONCRETE,
                 ModDataComponents.REBAR_CORNER,
@@ -180,7 +166,7 @@ public final class RecipeInputState {
             if (!stack.is(expected.getItem())) continue;
             boolean matched = true;
             for (var change : stack.getComponentsPatch().entrySet()) {
-                if (ignoredByRecipes(change.getKey(), stack)) continue;
+                if (ignoredByRecipes(change.getKey())) continue;
                 if (!claims(additional, change.getKey(), stack)
                         && !Objects.equals(
                                 stack.get(change.getKey()), expected.get(change.getKey()))) {
@@ -200,7 +186,7 @@ public final class RecipeInputState {
     public static boolean accepts(
             DataComponentMatchers matchers, DataComponentMatchers additional, ItemStack stack) {
         for (var change : stack.getComponentsPatch().entrySet()) {
-            if (ignoredByRecipes(change.getKey(), stack)) continue;
+            if (ignoredByRecipes(change.getKey())) continue;
             if (!claims(matchers, change.getKey(), stack)
                     && !claims(additional, change.getKey(), stack)) return false;
         }
@@ -237,7 +223,7 @@ public final class RecipeInputState {
 
     public static boolean only(ItemStack stack, DataComponentType<?>... required) {
         for (var change : stack.getComponentsPatch().entrySet()) {
-            if (ignoredByRecipes(change.getKey(), stack)) continue;
+            if (ignoredByRecipes(change.getKey())) continue;
             boolean allowed = false;
             for (DataComponentType<?> type : required) {
                 if (change.getKey() == type) {

@@ -2,7 +2,13 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "D": "hbm:ducttape",
-    "K": "hbm:insert_sapi",
+    "K": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:insert_sapi"
+    },
     "P": "#hbm:ingots/any_plastic",
     "S": "#c:plates/weapon_steel"
   },

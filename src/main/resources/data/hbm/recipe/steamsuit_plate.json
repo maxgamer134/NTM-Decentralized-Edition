@@ -4,7 +4,13 @@
     "C": "#c:plates/copper",
     "D": "#c:ingots/workers_alloy",
     "F": "hbm:tank_steel",
-    "X": "hbm:steel_plate"
+    "X": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:steel_plate"
+    }
   },
   "pattern": [
     "C C",

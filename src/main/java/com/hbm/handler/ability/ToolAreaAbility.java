@@ -3,6 +3,8 @@
 
 package com.hbm.handler.ability;
 
+import com.hbm.blocks.network.FluidDuctBlockBase;
+import com.hbm.blocks.network.FluidPipeBlock;
 import com.hbm.config.NeoForgeHbmConfig;
 import com.hbm.data.ItemData;
 import com.hbm.explosion.vanillant.ExplosionVNT;
@@ -90,6 +92,11 @@ public enum ToolAreaAbility implements BaseAbility, StringRepresentable {
                 if (step.pos().distSqr(dig.reference()) > (long) radius * radius) continue;
                 BlockState candidate = level.getBlockState(step.pos());
                 if (!candidate.is(reference.getBlock()) && !sharesOreTag(candidate, veinTags)) continue;
+                // main: fluid ducts of one block only join the vein when they carry the same fluid
+                if (reference.getBlock() instanceof FluidDuctBlockBase
+                        && candidate.is(reference.getBlock())
+                        && FluidPipeBlock.pipeFluidAt(level, step.pos())
+                                != FluidPipeBlock.pipeFluidAt(level, dig.reference())) continue;
                 if (dig.player().getMainHandItem().isEmpty()) return false;
 
                 ItemToolAbility.breakExtraBlock(dig, step.pos());

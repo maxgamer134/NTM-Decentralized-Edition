@@ -4,7 +4,13 @@
     "C": "hbm:steel_scaffold",
     "P": "hbm:pedestal_steel",
     "S": "#c:plates/steel",
-    "W": "hbm:wrench"
+    "W": {
+      "type": "neoforge:components",
+      "components": {
+        "minecraft:damage": 0
+      },
+      "items": "hbm:wrench"
+    }
   },
   "pattern": [
     "PWP",

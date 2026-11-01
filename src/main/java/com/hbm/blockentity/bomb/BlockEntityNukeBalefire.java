@@ -80,8 +80,9 @@ public class BlockEntityNukeBalefire extends BlockEntityMachineBase
                         5.0F,
                         1.0F);
             }
+            // main: only an armed bomb goes off
+            if (timer <= 0) explode();
         }
-        if (timer <= 0) explode();
         networkPackNT(250);
     }
 
@@ -146,7 +147,8 @@ public class BlockEntityNukeBalefire extends BlockEntityMachineBase
             started = true;
         }
         if (data.contains("timer")) {
-            timer = Nbt.getIntOr(data, "timer", timer / 20) * 20;
+            int value = Nbt.getIntOr(data, "timer", timer / 20);
+            if (value >= 1 && value <= 999) timer = value * 20;
         }
         setChanged();
     }

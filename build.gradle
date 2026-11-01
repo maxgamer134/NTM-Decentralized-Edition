@@ -303,8 +303,7 @@ tasks.withType(JavaCompile).configureEach {
     // vector kernels + UnsafeBootstrap (it opens jdk.internal.misc itself at run time)
     options.compilerArgs += ['--add-modules=jdk.incubator.vector',
                              '--add-exports=java.base/jdk.internal.misc=ALL-UNNAMED']
-    options.fork = true
-    options.forkOptions.memoryMaximumSize = '3g'
+    // javac runs inside the warm Gradle daemon (heap in gradle.properties) instead of a cold forked JVM
 }
 
 tasks.named('jar') {

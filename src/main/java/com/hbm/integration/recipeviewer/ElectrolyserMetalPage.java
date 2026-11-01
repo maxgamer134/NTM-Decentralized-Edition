@@ -62,9 +62,8 @@ public final class ElectrolyserMetalPage extends TablePage<ElectrolyserMetalReci
         if (byproducts != null) {
             for (var output : byproducts) {
                 position = positions[slot++];
-                page.output(position[0], position[1])
-                        .background()
-                        .items(GenericMachinePage.outputStacks(output));
+                GenericMachinePage.outputSlot(
+                        page.output(position[0], position[1]).background(), output);
             }
         }
         page.catalyst(75, 31).item(ModBlocks.MACHINE_ELECTROLYSER.get());

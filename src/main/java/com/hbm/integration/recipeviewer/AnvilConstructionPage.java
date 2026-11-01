@@ -12,7 +12,6 @@ import com.hbm.inventory.recipes.ingredient.CountIngredient;
 import com.hbm.registration.RegistryHandle;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -81,11 +80,7 @@ public final class AnvilConstructionPage extends TablePage<AnvilConstructionReci
             if (output.chance() != 1F) {
                 slot.tooltip(
                         (shown, lines) ->
-                                lines.accept(
-                                        Component.literal(
-                                                        ((int) (output.chance() * 1000)) / 10D
-                                                                + "%")
-                                                .withStyle(ChatFormatting.RED)));
+                                lines.accept(GenericMachinePage.percentLine(output.chance())));
             }
         }
 

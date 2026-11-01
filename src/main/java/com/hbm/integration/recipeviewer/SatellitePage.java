@@ -9,7 +9,6 @@ import com.hbm.items.ModItems;
 import com.hbm.saveddata.satellites.SatelliteMiner;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -102,11 +101,7 @@ public final class SatellitePage extends RecipePage<SatellitePage.Recipe> {
                                 for (int k = 0; k < stacks.size(); k++) {
                                     if (!ItemStack.isSameItemSameComponents(shown, stacks.get(k)))
                                         continue;
-                                    lines.accept(
-                                            Component.translatable(
-                                                            "jei.hbm.satellite_chance",
-                                                            (int) (odds.get(k) * 10F) / 10F)
-                                                    .withStyle(ChatFormatting.RED));
+                                    lines.accept(GenericMachinePage.percentLine(odds.get(k) / 100D));
                                     return;
                                 }
                             });

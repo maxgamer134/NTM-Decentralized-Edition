@@ -9,7 +9,6 @@ import com.hbm.items.ModItems;
 import com.hbm.blockentity.machine.BlockEntitySawmill;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -78,11 +77,7 @@ public final class SawmillPage extends RecipePage<SawmillPage.Recipe> {
                     .tooltip(
                             (shown, lines) ->
                                     lines.accept(
-                                            Component.translatable(
-                                                            "jei.hbm.sawmill_chance",
-                                                            Math.round(
-                                                                    recipe.sawdustChance() * 100F))
-                                                    .withStyle(ChatFormatting.RED)));
+                                            GenericMachinePage.percentLine(recipe.sawdustChance())));
         }
         page.catalyst(75, 31).item(ModBlocks.MACHINE_SAWMILL.get());
     }

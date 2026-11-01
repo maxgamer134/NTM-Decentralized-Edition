@@ -61,9 +61,14 @@ public final class SilexPage extends TablePage<SILEXRecipe> {
         if (recipe.inputFluid.length > 0) page.input(12, 24).fluid(recipe.inputFluid[0].type());
         else page.input(12, 24).items(recipe.inputItem[0].displayStacks());
         List<Weighted<ItemStack>> outputs = entries(recipe);
+        int weight = 0;
+        for (Weighted<ItemStack> entry : outputs) weight += entry.weight();
         for (int i = 0; i < outputs.size(); i++) {
             int[] at = outputPosition(i, outputs.size());
-            page.output(at[0], at[1]).item(outputs.get(i).value());
+            double chance = weight == 0 ? 0D : (double) outputs.get(i).weight() / weight;
+            page.output(at[0], at[1])
+                    .item(outputs.get(i).value())
+                    .tooltip((shown, lines) -> lines.accept(GenericMachinePage.percentLine(chance)));
         }
     }
 

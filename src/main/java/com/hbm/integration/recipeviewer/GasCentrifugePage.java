@@ -89,7 +89,7 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
 
         List<Step> steps = new ArrayList<>(size);
         List<ItemStack> outputs = new ArrayList<>();
-        List<List<ItemStack>> alternatives = new ArrayList<>();
+        List<WeightedList<ItemStack>> alternatives = new ArrayList<>();
         boolean requiresUpgrade = false;
 
         for (int k = 0; k < size; k++) {
@@ -125,7 +125,7 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             WeightedList<ItemStack> @Nullable [] slots,
             long operations,
             List<ItemStack> outputs,
-            List<List<ItemStack>> alternatives) {
+            List<WeightedList<ItemStack>> alternatives) {
         if (slots == null) return;
         for (WeightedList<ItemStack> slot : slots) {
             List<ItemStack> entries = new ArrayList<>();
@@ -136,9 +136,7 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             if (entries.size() == 1) {
                 merge(outputs, entries.get(0), operations);
             } else {
-                List<ItemStack> copies = new ArrayList<>(entries.size());
-                for (ItemStack entry : entries) copies.add(entry.copy());
-                alternatives.add(List.copyOf(copies));
+                alternatives.add(slot);
             }
         }
     }
@@ -227,8 +225,9 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             page.output(84 + slot % 4 * 18, 14 + slot / 4 * 18).background().item(output);
             slot++;
         }
-        for (List<ItemStack> alternative : cascade.alternatives()) {
-            page.output(84 + slot % 4 * 18, 14 + slot / 4 * 18).background().items(alternative);
+        for (WeightedList<ItemStack> alternative : cascade.alternatives()) {
+            GenericMachinePage.outputSlot(
+                    page.output(84 + slot % 4 * 18, 14 + slot / 4 * 18).background(), alternative);
             slot++;
         }
 
@@ -251,6 +250,6 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             List<Step> steps,
             @Nullable Step deadEnd,
             List<ItemStack> outputs,
-            List<List<ItemStack>> alternatives,
+            List<WeightedList<ItemStack>> alternatives,
             boolean requiresUpgrade) {}
 }

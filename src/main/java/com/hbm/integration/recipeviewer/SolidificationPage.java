@@ -6,12 +6,10 @@ package com.hbm.integration.recipeviewer;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.recipes.SolidificationRecipe;
 import com.hbm.inventory.recipes.SolidificationRecipes;
-import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import com.hbm.backport.random.Weighted;
 import com.hbm.backport.random.WeightedList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
@@ -50,7 +48,7 @@ public final class SolidificationPage extends RecipePage<SolidificationPage.Reci
     @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().fluid(recipe.input(), recipe.amount());
-        page.output(102, 24).background().items(recipe.outputs());
+        GenericMachinePage.outputSlot(page.output(102, 24).background(), recipe.output());
         page.catalyst(75, 31).item(ModBlocks.MACHINE_SOLIDIFIER.get());
     }
 
@@ -59,7 +57,7 @@ public final class SolidificationPage extends RecipePage<SolidificationPage.Reci
         RecipePanel.universalPage(graphics);
     }
 
-    public record Recipe(ResourceLocation id, Fluid input, int amount, List<ItemStack> outputs) {
+    public record Recipe(ResourceLocation id, Fluid input, int amount, WeightedList<ItemStack> output) {
         public Recipe(SolidificationRecipe recipe) {
             this(
                     recipe.recipeId().location(),
@@ -68,13 +66,8 @@ public final class SolidificationPage extends RecipePage<SolidificationPage.Reci
                     unwrap(recipe.outputItems()));
         }
 
-        private static List<ItemStack> unwrap(WeightedList<ItemStack>[] outputs) {
-            List<ItemStack> stacks = new ArrayList<>();
-            if (outputs.length > 0) {
-                for (Weighted<ItemStack> entry : outputs[0].unwrap())
-                    stacks.add(entry.value().copy());
-            }
-            return stacks;
+        private static WeightedList<ItemStack> unwrap(WeightedList<ItemStack>[] outputs) {
+            return outputs.length > 0 ? outputs[0] : WeightedList.of();
         }
     }
 }

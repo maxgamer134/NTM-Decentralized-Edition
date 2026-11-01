@@ -8,15 +8,11 @@ import com.hbm.inventory.fluid.FluidStackNTM;
 import com.hbm.inventory.machine.CustomMachineDefinition;
 import com.hbm.inventory.recipes.CustomMachineRecipe;
 import com.hbm.inventory.recipes.CustomMachineRecipes;
-import com.hbm.inventory.recipes.loader.Outputs;
 import com.hbm.items.block.ItemCustomMachine;
-import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import com.hbm.backport.random.Weighted;
 import com.hbm.backport.random.WeightedList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
@@ -49,24 +45,6 @@ public final class CustomMachinePage extends TablePage<CustomMachineRecipe> {
 
     public ResourceKey<CustomMachineDefinition> key() {
         return key;
-    }
-
-    private static float chance(WeightedList<ItemStack> output) {
-        int total = 0;
-        int present = 0;
-        for (Weighted<ItemStack> entry : output.unwrap()) {
-            total += entry.weight();
-            if (!entry.value().isEmpty()) present += entry.weight();
-        }
-        return total == 0 ? 0F : (float) present / total;
-    }
-
-    private static List<ItemStack> stacks(WeightedList<ItemStack> output) {
-        List<ItemStack> out = new ArrayList<>();
-        for (Weighted<ItemStack> entry : output.unwrap()) {
-            if (!entry.value().isEmpty()) out.add(entry.value().copy());
-        }
-        return out;
     }
 
     private static int[] slotAt(int base, int index) {
@@ -125,17 +103,7 @@ public final class CustomMachinePage extends TablePage<CustomMachineRecipe> {
         WeightedList<ItemStack>[] outputs = recipe.outputItems();
         for (int i = 0; i < Math.min(outputs.length, ROW * 2); i++) {
             int[] at = slotAt(OUT_X, i);
-            PageSlot slot = page.output(at[0], at[1]).background().items(stacks(outputs[i]));
-            float chance = chance(outputs[i]);
-            if (chance < 1F) {
-                slot.tooltip(
-                        (shown, lines) ->
-                                lines.accept(
-                                        Component.translatable(
-                                                        "jei.hbm.customMachine.chance",
-                                                        (int) (chance * Outputs.RESOLUTION) / 10D)
-                                                .withStyle(ChatFormatting.RED)));
-            }
+            GenericMachinePage.outputSlot(page.output(at[0], at[1]).background(), outputs[i]);
         }
 
         page.catalyst(MACHINE_X, MACHINE_Y).item(machine);

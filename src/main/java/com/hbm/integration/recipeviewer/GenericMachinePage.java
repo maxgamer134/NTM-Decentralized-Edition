@@ -165,24 +165,34 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
     }
 
     static void outputSlot(PageSlot slot, WeightedList<ItemStack> output) {
-        ItemStack single = Outputs.single(output);
-        if (single == null || single.isEmpty() || output.unwrap().size() == 1) {
-            slot.items(outputStacks(output));
-            return;
+        List<ItemStack> shown = new ArrayList<>();
+        for (Weighted<ItemStack> entry : output.unwrap()) {
+            if (!entry.value().isEmpty()) shown.add(entry.value().copy());
         }
-        int total = 0;
-        int present = 0;
+        if (shown.isEmpty()) return;
+        slot.items(shown).tooltip((stack, lines) -> chanceLine(output, stack, lines));
+    }
+
+    // every chance output gets the acidizer's red percent line, per item when the slot cycles
+    static void chanceLine(
+            WeightedList<ItemStack> output,
+            @Nullable ItemStack stack,
+            java.util.function.Consumer<Component> lines) {
+        if (stack == null || stack.isEmpty()) return;
+        long total = 0;
+        long matching = 0;
         for (Weighted<ItemStack> entry : output.unwrap()) {
             total += entry.weight();
-            if (!entry.value().isEmpty()) present += entry.weight();
+            if (ItemStack.isSameItemSameComponents(entry.value(), stack)
+                    && entry.value().getCount() == stack.getCount()) matching += entry.weight();
         }
-        double percent = (int) ((long) present * Outputs.RESOLUTION / total) / 10D;
-        slot.item(single.copy())
-                .tooltip(
-                        (shown, lines) ->
-                                lines.accept(
-                                        Component.translatable("unit.percent", percent)
-                                                .withStyle(ChatFormatting.RED)));
+        if (total == 0 || matching >= total) return;
+        lines.accept(percentLine((double) matching / total));
+    }
+
+    static Component percentLine(double chance) {
+        double percent = (int) (chance * Outputs.RESOLUTION) / 10D;
+        return Component.translatable("unit.percent", percent).withStyle(ChatFormatting.RED);
     }
 
     private static List<ItemStack> blueprintStacks(String[] pools) {

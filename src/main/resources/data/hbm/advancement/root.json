@@ -1,7 +1,7 @@
 {
   "criteria": {
-    "joined": {
-      "trigger": "minecraft:tick"
+    "impossible": {
+      "trigger": "minecraft:impossible"
     }
   },
   "display": {
@@ -20,7 +20,7 @@
   },
   "requirements": [
     [
-      "joined"
+      "impossible"
     ]
   ]
 }

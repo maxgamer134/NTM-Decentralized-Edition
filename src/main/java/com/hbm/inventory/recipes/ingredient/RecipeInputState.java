@@ -49,6 +49,17 @@ public final class RecipeInputState {
         return set.contains(type);
     }
 
+    /**
+     * A tool or armor piece only had its damage as metadata in 1.7.10, so for an item with
+     * durability every other component (names, enchantments, trims, fuel, abilities, data from
+     * other mods, ...) is NBT-like and never turns the stack away.
+     */
+    public static boolean ignoredByRecipes(DataComponentType<?> type, ItemStack stack) {
+        if (ignoredByRecipes(type)) return true;
+        return type != DataComponents.DAMAGE
+                && stack.getItem().components().has(DataComponents.MAX_DAMAGE);
+    }
+
     private static Set<DataComponentType<?>> buildNbtLike() {
         Set<DataComponentType<?>> set = Collections.newSetFromMap(new IdentityHashMap<>());
         // vanilla: all NBT in 1.7.10 (display name/lore, ench, RepairCost, color, BlockEntityTag...)
@@ -166,7 +177,7 @@ public final class RecipeInputState {
             if (!stack.is(expected.getItem())) continue;
             boolean matched = true;
             for (var change : stack.getComponentsPatch().entrySet()) {
-                if (ignoredByRecipes(change.getKey())) continue;
+                if (ignoredByRecipes(change.getKey(), stack)) continue;
                 if (!claims(additional, change.getKey(), stack)
                         && !Objects.equals(
                                 stack.get(change.getKey()), expected.get(change.getKey()))) {
@@ -186,7 +197,7 @@ public final class RecipeInputState {
     public static boolean accepts(
             DataComponentMatchers matchers, DataComponentMatchers additional, ItemStack stack) {
         for (var change : stack.getComponentsPatch().entrySet()) {
-            if (ignoredByRecipes(change.getKey())) continue;
+            if (ignoredByRecipes(change.getKey(), stack)) continue;
             if (!claims(matchers, change.getKey(), stack)
                     && !claims(additional, change.getKey(), stack)) return false;
         }
@@ -223,7 +234,7 @@ public final class RecipeInputState {
 
     public static boolean only(ItemStack stack, DataComponentType<?>... required) {
         for (var change : stack.getComponentsPatch().entrySet()) {
-            if (ignoredByRecipes(change.getKey())) continue;
+            if (ignoredByRecipes(change.getKey(), stack)) continue;
             boolean allowed = false;
             for (DataComponentType<?> type : required) {
                 if (change.getKey() == type) {

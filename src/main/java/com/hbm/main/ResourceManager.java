@@ -266,6 +266,8 @@ public final class ResourceManager {
             load("models/fluidtank_exploded.obj");
     public static final HFRWavefrontObject floodlight = load("models/blocks/floodlight.obj");
     public static final HFRWavefrontObject pipe_anchor = load("models/network/pipe_anchor.obj");
+    public static final HFRWavefrontObject flow_control_pump =
+            load("models/network/flow_control_pump.obj");
     public static final HFRWavefrontObject fan = load("models/machines/fan.obj");
     public static final HFRWavefrontObject piston_inserter =
             load("models/machines/piston_inserter.obj");
@@ -346,6 +348,8 @@ public final class ResourceManager {
     public static final HFRWavefrontObject launch_pad_silo =
             load("models/weapons/launch_pad_silo.obj");
 
+    public static final ResourceLocation flow_control_pump_tex =
+            Library.id("textures/block/models/network/flow_control_pump.png");
     public static final ResourceLocation pipe_anchor_tex =
             Library.id("textures/block/models/network/pipe_anchor.png");
     public static final ResourceLocation pipe_anchor_exhaust_tex =

@@ -5,6 +5,8 @@ package com.hbm.client.gui;
 
 import com.hbm.api.energymk2.IEnergyHandlerMK2.ConnectionPriority;
 import com.hbm.blockentity.network.BlockEntityCableDiode;
+import com.hbm.blockentity.network.BlockEntityNetworkSeparator;
+import net.minecraft.core.BlockPos;
 import com.hbm.packet.PacketWire;
 import com.hbm.packet.toserver.NbtControlPayload;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
@@ -19,14 +21,25 @@ import com.hbm.backport.client.gui.WidgetBridge;
 
 public final class ScreenCableDiode extends ScreenCompat {
 
-    private final BlockEntityCableDiode diode;
+    private final BlockPos pos;
+    private final long limit;
     private EditBox throughput;
     private int priority;
 
     public ScreenCableDiode(BlockEntityCableDiode diode) {
+        this(diode.getBlockPos(), diode.limit, diode.priority);
+    }
+
+    /** main's GUIDiode belongs to the network separator; the cable diode shares it */
+    public ScreenCableDiode(BlockEntityNetworkSeparator separator) {
+        this(separator.getBlockPos(), separator.configuredLimit, separator.priority);
+    }
+
+    private ScreenCableDiode(BlockPos pos, long limit, ConnectionPriority priority) {
         super(Component.empty());
-        this.diode = diode;
-        this.priority = diode.priority.ordinal();
+        this.pos = pos;
+        this.limit = limit;
+        this.priority = priority.ordinal();
     }
 
     @Override
@@ -41,7 +54,7 @@ public final class ScreenCableDiode extends ScreenCompat {
                         20,
                         Component.translatable("gui.diode.throughput"));
         throughput.setMaxLength(11);
-        throughput.setValue(Long.toString(diode.limit));
+        throughput.setValue(Long.toString(limit));
         addRenderableWidget(throughput);
         addRenderableWidget(
                 Button.builder(
@@ -88,7 +101,7 @@ public final class ScreenCableDiode extends ScreenCompat {
             data.putLong("limit", Long.parseLong(throughput.getValue()));
         } catch (NumberFormatException ignored) {
         }
-        PacketWire.sendToServer(new NbtControlPayload(diode.getBlockPos(), data));
+        PacketWire.sendToServer(new NbtControlPayload(pos, data));
         super.onClose();
     }
 

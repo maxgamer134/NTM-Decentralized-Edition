@@ -184,6 +184,15 @@ public final class ModBlocks {
                             (block, props) ->
                                     new DescBlockItem(block, props, 1, DescBlockItem.Desc.PLAIN))
                     .bakedBy(() -> new DiodeModel());
+    public static final RegistryHandle<BlockNetworkSeparator> NETWORK_SEPARATOR =
+            Reg.blockItem(
+                    "network_separator",
+                    BlockNetworkSeparator::new,
+                    () ->
+                            BlockBehaviour.Properties.of()
+                                    .strength(5.0F, 10.0F)
+                                    .requiresCorrectToolForDrops()
+                                    .noOcclusion());
     public static final RegistryHandle<CableGaugeBlock> RED_CABLE_GAUGE =
             Reg.blockItem(
                     "red_cable_gauge",
@@ -638,6 +647,15 @@ public final class ModBlocks {
                                     .strength(5.0F, 6.0F)
                                     .noOcclusion()
                                     .requiresCorrectToolForDrops());
+    public static final RegistryHandle<FlowControlPump> FLOW_CONTROL_PUMP =
+            Reg.blockItem(
+                    "flow_control_pump",
+                    FlowControlPump::new,
+                    () ->
+                            BlockBehaviour.Properties.of()
+                                    .strength(5.0F, 10.0F)
+                                    .requiresCorrectToolForDrops()
+                                    .noOcclusion());
     public static final RegistryHandle<BlockRadiobox> RADIOBOX =
             Reg.blockItem(
                     "radiobox",

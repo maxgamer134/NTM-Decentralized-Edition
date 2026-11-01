@@ -79,6 +79,13 @@ public final class PowerNetwork {
         return DOMAIN.census(graph, net);
     }
 
+    public static void forEachReceiver(
+            LevelNodeGraph<CableData> graph,
+            NodeNetwork<CableData> net,
+            java.util.function.Consumer<IEnergyHandlerMK2> action) {
+        DOMAIN.forEachReceiver(graph, net, action);
+    }
+
     public static void distribute(
             ServerLevel level, LevelNodeGraph<CableData> graph, NodeNetwork<CableData> net) {
         ForeignEnergyBridge bridge =

@@ -6,11 +6,11 @@
     "S": "#hbm:shells/steel"
   },
   "pattern": [
-    "S",
-    "G",
-    "M"
+    " G ",
+    "SMS",
+    " G "
   ],
   "result": {
-    "id": "hbm:fluid_pump"
+    "id": "hbm:flow_control_pump"
   }
 }

@@ -18,8 +18,10 @@ import com.hbm.blocks.machine.rbmk.RBMKKeyPad;
 import com.hbm.blocks.machine.rbmk.RBMKLever;
 import com.hbm.blocks.machine.rbmk.RBMKNumitron;
 import com.hbm.blocks.machine.rbmk.RBMKTerminal;
+import com.hbm.blocks.network.BlockNetworkSeparator;
 import com.hbm.blocks.network.CableDiodeBlock;
 import com.hbm.blocks.network.CraneRouter;
+import com.hbm.blocks.network.FlowControlPump;
 import com.hbm.blocks.network.FluidPumpBlock;
 import com.hbm.blocks.network.RadioAUTOCAL;
 import com.hbm.blocks.network.RadioTelex;
@@ -285,8 +287,13 @@ public final class ClientRegistry {
                 hand -> Minecraft.getInstance().setScreen(new ScreenHolotape(hand));
         FluidPumpBlock.OPEN_GUI =
                 pump -> Minecraft.getInstance().setScreen(new ScreenFluidPump(pump));
+        FlowControlPump.OPEN_SCREEN =
+                pump -> Minecraft.getInstance().setScreen(new ScreenFluidPump(pump));
         CableDiodeBlock.OPEN_SCREEN =
                 diode -> Minecraft.getInstance().setScreen(new ScreenCableDiode(diode));
+        BlockNetworkSeparator.OPEN_SCREEN =
+                separator ->
+                        Minecraft.getInstance().setScreen(new ScreenCableDiode(separator));
         RadioRec.OPEN_GUI =
                 radio -> Minecraft.getInstance().setScreen(new ScreenRadioRec(radio));
         RadioTorchBlock.OPEN_SCREEN =
@@ -1376,6 +1383,8 @@ public final class ClientRegistry {
         reg.accept(ModBlockEntities.SAWMILL.get(), context -> new RenderSawmill());
         reg.accept(ModBlockEntities.STIRLING.get(), context -> new RenderStirling());
         reg.accept(ModBlockEntities.AMMO_PRESS.get(), context -> new RenderAmmoPress());
+        reg.accept(
+                ModBlockEntities.FLOW_CONTROL_PUMP.get(), context -> new RenderFlowControlPump());
         reg.accept(
                 ModBlockEntities.NTM_SKELETON.get(), context -> new RenderSkeletonHolder(context));
         reg.accept(ModBlockEntities.NTM_PEDESTAL.get(), RenderPedestal::new);

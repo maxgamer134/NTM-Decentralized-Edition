@@ -1,0 +1,20 @@
+{
+  "ambientocclusion": false,
+  "gui_light": "side",
+  "hidden": [
+    "Rotor",
+    "RailBottom",
+    "RailTop"
+  ],
+  "loader": "hbm:obj",
+  "model": "hbm:models/network/flow_control_pump.obj",
+  "skins": {
+    "all": [
+      "Pump"
+    ]
+  },
+  "textures": {
+    "all": "hbm:block/models/network/flow_control_pump",
+    "particle": "hbm:block/models/network/flow_control_pump"
+  }
+}

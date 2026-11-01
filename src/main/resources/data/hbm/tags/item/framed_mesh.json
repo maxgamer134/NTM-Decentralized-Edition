@@ -99,6 +99,8 @@
     "hbm:machine_stirling_creative",
     "hbm:machine_sawmill",
     "hbm:machine_ammo_press",
+    "hbm:network_separator",
+    "hbm:flow_control_pump",
     "hbm:machine_compressor",
     "hbm:machine_compressor_compact",
     "hbm:machine_flare",

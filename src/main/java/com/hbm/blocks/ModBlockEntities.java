@@ -635,6 +635,13 @@ public final class ModBlockEntities {
                             .ticksServer(BlockEntityFluidCounterValve::tickServer);
     public static final RegistryHandle<BlockEntityType<BlockEntityCableDiode>> CABLE_DIODE =
             be("cable_diode", BlockEntityCableDiode::new, ModBlocks.CABLE_DIODE);
+    public static final RegistryHandle<BlockEntityType<BlockEntityNetworkSeparator>>
+            NETWORK_SEPARATOR =
+                    be(
+                                    "network_separator",
+                                    BlockEntityNetworkSeparator::new,
+                                    ModBlocks.NETWORK_SEPARATOR)
+                            .ticksServerAt(BlockEntityNetworkSeparator::tickServer);
     public static final RegistryHandle<BlockEntityType<BlockEntityPylonMedium>> PYLON_MEDIUM =
             be(
                     "pylon_medium",
@@ -667,6 +674,12 @@ public final class ModBlockEntities {
     public static final RegistryHandle<BlockEntityType<BlockEntityFluidPump>> PIPE_PUMP =
             be("pipe_pump", BlockEntityFluidPump::new, ModBlocks.FLUID_PUMP)
                     .ticksServer(BlockEntityFluidPump::tickServer);
+    public static final RegistryHandle<BlockEntityType<BlockEntityFlowControlPump>>
+            FLOW_CONTROL_PUMP =
+                    clientMachine(
+                            "flow_control_pump",
+                            BlockEntityFlowControlPump::new,
+                            ModBlocks.FLOW_CONTROL_PUMP);
     public static final RegistryHandle<BlockEntityType<BlockEntityRadiobox>> RADIOBOX =
             machine("radio_broadcaster", BlockEntityRadiobox::new, ModBlocks.RADIOBOX);
     public static final RegistryHandle<BlockEntityType<BlockEntityRadioRec>> RADIO_RECEIVER =

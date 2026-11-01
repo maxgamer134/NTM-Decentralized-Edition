@@ -224,6 +224,25 @@ public abstract class EndpointDomain<D, H, E, C, F extends GatherFace<H, ?, E>>
         return new NetCensus(net.nodeCount(), net.size(), provs.size(), recs.size(), net.tracker);
     }
 
+    public final void forEachReceiver(
+            LevelNodeGraph<D> graph, NodeNetwork<D> net, java.util.function.Consumer<H> action) {
+        ReferenceOpenHashSet<H> recs = new ReferenceOpenHashSet<>();
+        for (GraphNode<D> fe : graph.activeFaces(net)) {
+            EdgeFaces ef = fe.ef;
+            if (ef == null) continue;
+            for (int d = 0; d <= EdgeFaces.SELF; d++) {
+                int bit = 1 << d;
+                if ((ef.activeMask & bit) == 0) continue;
+                @SuppressWarnings("unchecked")
+                F fc = (F) ef.attachments[d];
+                if (fc == null) continue;
+                if ((ef.probedMask & bit) != 0 && (ef.roleB & bit) == 0) continue;
+                H rec = fc.receiver.find();
+                if (rec != null && recs.add(rec)) action.accept(rec);
+            }
+        }
+    }
+
     private F face(ServerLevel level, LevelNodeGraph<D> graph, EdgeFaces ef, long nodeKey, int d) {
         @SuppressWarnings("unchecked")
         F fc = (F) ef.attachments[d];

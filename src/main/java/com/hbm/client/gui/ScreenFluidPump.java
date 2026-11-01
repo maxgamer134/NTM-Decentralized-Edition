@@ -4,7 +4,9 @@
 package com.hbm.client.gui;
 
 import com.hbm.api.energymk2.IEnergyHandlerMK2.ConnectionPriority;
+import com.hbm.blockentity.network.BlockEntityFlowControlPump;
 import com.hbm.blockentity.network.BlockEntityFluidPump;
+import net.minecraft.core.BlockPos;
 import com.hbm.packet.PacketWire;
 import com.hbm.packet.toserver.NbtControlPayload;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
@@ -17,16 +19,38 @@ import com.hbm.backport.client.gui.ScreenCompat;
 
 public class ScreenFluidPump extends ScreenCompat {
 
-    private final BlockEntityFluidPump pump;
+    private final BlockPos pos;
+    private final int rate;
     private EditBox throughput;
     private int pressure;
     private int priority;
 
     public ScreenFluidPump(BlockEntityFluidPump pump) {
-        super(Component.translatable("block.hbm.fluid_pump"));
-        this.pump = pump;
-        this.pressure = pump.pressure;
-        this.priority = pump.priority.ordinal();
+        this(
+                Component.translatable("block.hbm.fluid_pump"),
+                pump.getBlockPos(),
+                pump.rate,
+                pump.pressure,
+                pump.priority);
+    }
+
+    /** main's GUIPump belongs to the flow control pump; the old fluid pump shares it */
+    public ScreenFluidPump(BlockEntityFlowControlPump pump) {
+        this(
+                Component.translatable("block.hbm.flow_control_pump"),
+                pump.getBlockPos(),
+                pump.rate,
+                pump.tank.getPressure(),
+                pump.priority);
+    }
+
+    private ScreenFluidPump(
+            Component title, BlockPos pos, int rate, int pressure, ConnectionPriority priority) {
+        super(title);
+        this.pos = pos;
+        this.rate = rate;
+        this.pressure = pressure;
+        this.priority = priority.ordinal();
     }
 
     @Override
@@ -42,7 +66,7 @@ public class ScreenFluidPump extends ScreenCompat {
                         20,
                         Component.translatable("gui.pump.throughput"));
         throughput.setMaxLength(5);
-        throughput.setValue(Integer.toString(pump.rate));
+        throughput.setValue(Integer.toString(rate));
         addRenderableWidget(throughput);
 
         addRenderableWidget(
@@ -99,7 +123,7 @@ public class ScreenFluidPump extends ScreenCompat {
             data.putInt("rate", Integer.parseInt(throughput.getValue().trim()));
         } catch (NumberFormatException ignored) {
         }
-        PacketWire.sendToServer(new NbtControlPayload(pump.getBlockPos(), data));
+        PacketWire.sendToServer(new NbtControlPayload(pos, data));
         super.onClose();
     }
 

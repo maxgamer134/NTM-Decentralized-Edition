@@ -49,6 +49,31 @@ public final class MultiblockMaskTable {
         this.sizeZ = sizeZ;
     }
 
+    /** This table with each cell limited to the roles {@code roles} gives it (MachineCaps bits). */
+    public MultiblockMaskTable withRoles(CellRoles roles) {
+        byte[][] planes = new byte[CapRole.COUNT][masks.length];
+        for (int ly = minY; ly < minY + sizeY; ly++) {
+            for (int lz = minZ; lz < minZ + sizeZ; lz++) {
+                for (int lx = minX; lx < minX + sizeX; lx++) {
+                    int index = index(lx, ly, lz);
+                    int allowed = roles.at(lx, ly, lz);
+                    for (CapRole role : CapRole.VALUES) {
+                        byte base = byRole == null ? masks[index] : byRole[role.planeIndex][index];
+                        boolean keep = base == (byte) NOT_A_CELL || (allowed & role.bit) != 0;
+                        planes[role.planeIndex][index] = keep ? base : 0;
+                    }
+                }
+            }
+        }
+        return new MultiblockMaskTable(
+                masks, passive, planes, flags, kinds, minX, minY, minZ, sizeX, sizeY, sizeZ);
+    }
+
+    @FunctionalInterface
+    public interface CellRoles {
+        int at(int lx, int ly, int lz);
+    }
+
     public static Builder builder() {
         return new Builder();
     }

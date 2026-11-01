@@ -26,6 +26,12 @@ public record MultiblockLayout(
 
     public static final long[] NO_CELLS = {};
 
+    public MultiblockLayout withRoles(MultiblockMaskTable.CellRoles roles) {
+        MultiblockMaskTable[] limited = new MultiblockMaskTable[tables.length];
+        for (int i = 0; i < tables.length; i++) limited[i] = tables[i].withRoles(roles);
+        return new MultiblockLayout(declaredCaps, limited, offsets, clearance, placement, geometry);
+    }
+
     public record Placement(
             int[] dimensions,
             int offset,

@@ -55,7 +55,7 @@ public final class MultiblockLayouts {
                             + id
                             + " - run :neoforge:runData / :fabric:runDatagen");
         }
-        return layout;
+        return MultiblockPortRoles.apply(id, layout);
     }
 
     public static synchronized void release() {

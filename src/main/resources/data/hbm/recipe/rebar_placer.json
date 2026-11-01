@@ -3,13 +3,7 @@
   "key": {
     "D": "hbm:ducttape",
     "R": "hbm:rebar",
-    "W": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:wrench"
-    }
+    "W": "hbm:wrench"
   },
   "pattern": [
     "RDR",

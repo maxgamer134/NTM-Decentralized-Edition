@@ -3,13 +3,7 @@
   "key": {
     "B": "#c:storage_blocks/starmetal",
     "N": "hbm:plate_armor_lunar",
-    "S": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:starmetal_boots"
-    }
+    "S": "hbm:starmetal_boots"
   },
   "pattern": [
     "N N",

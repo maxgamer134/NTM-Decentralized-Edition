@@ -1,13 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:hazmat_helmet_grey"
-    },
+    "B": "hbm:hazmat_helmet_grey",
     "C": "hbm:cladding_lead",
     "I": "#hbm:ingots/any_rubber"
   },

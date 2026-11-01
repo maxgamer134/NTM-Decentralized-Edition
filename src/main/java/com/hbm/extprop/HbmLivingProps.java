@@ -166,7 +166,7 @@ public final class HbmLivingProps {
     }
 
     public int blackLung() {
-        return RadiationData.DISABLE_COAL.get() ? 0 : blacklung;
+        return RadiationData.coalDisabled() ? 0 : blacklung;
     }
 
     public List<ContaminationEffect> getCont() {
@@ -312,7 +312,7 @@ public final class HbmLivingProps {
     }
 
     public static void setBlackLung(LivingEntity entity, int bl) {
-        if (RadiationData.DISABLE_COAL.get()) return;
+        if (RadiationData.coalDisabled()) return;
         HbmLivingProps p = getData(entity);
         p.blacklung = bl;
         if (bl >= maxBlacklung) {
@@ -324,7 +324,7 @@ public final class HbmLivingProps {
     }
 
     public static void incrementBlackLung(LivingEntity entity, int bl) {
-        if (RadiationData.DISABLE_COAL.get()) return;
+        if (RadiationData.coalDisabled()) return;
         setBlackLung(entity, getBlackLung(entity) + bl);
         informGasHazard(entity, "info.coaldust");
     }

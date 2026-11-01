@@ -2,13 +2,7 @@
   "type": "hbm:crafting_shapeless",
   "ingredients": [
     "#c:bolts/steel",
-    {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:wrench"
-    }
+    "hbm:wrench"
   ],
   "result": {
     "id": "hbm:cbt_device"

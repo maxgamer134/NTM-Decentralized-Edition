@@ -3,20 +3,8 @@
   "key": {
     "C": "#c:plates/copper",
     "D": "#c:ingots/workers_alloy",
-    "F": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:gas_mask_filter"
-    },
-    "X": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:steel_helmet"
-    }
+    "F": "hbm:gas_mask_filter",
+    "X": "hbm:steel_helmet"
   },
   "pattern": [
     "DCD",

@@ -5,13 +5,7 @@
     "M": "#hbm:gun_mechanisms/weapon_steel",
     "P": "#hbm:barrels_heavy/weapon_steel",
     "S": "#hbm:shells/weapon_steel",
-    "W": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:wrench"
-    }
+    "W": "hbm:wrench"
   },
   "pattern": [
     "MHW",

@@ -77,6 +77,11 @@ public final class RadiationData {
 
     private RadiationData() {}
 
+    /** Coal dust hazards are off: by this world's datapack or by the runtime config. */
+    public static boolean coalDisabled() {
+        return DISABLE_COAL.get() || com.hbm.config.RadiationConfig.disableCoalDust;
+    }
+
     public static List<DataGroups.Group> groups() {
         return List.copyOf(GROUPS);
     }

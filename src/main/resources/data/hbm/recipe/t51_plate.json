@@ -1,13 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:titanium_plate"
-    },
+    "B": "hbm:titanium_plate",
     "M": "hbm:motor",
     "P": "hbm:plate_armor_titanium",
     "T": {

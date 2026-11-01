@@ -6,13 +6,7 @@
     }
   },
   "key": {
-    "B": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:bj_plate_jetpack"
-    },
+    "B": "hbm:bj_plate_jetpack",
     "C": "hbm:singularity_spark",
     "P": "hbm:plate_armor_dnt",
     "S": "hbm:ingot_chainsteel"

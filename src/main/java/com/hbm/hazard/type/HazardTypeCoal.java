@@ -23,7 +23,7 @@ public class HazardTypeCoal implements IHazardType {
 
     @Override
     public void onUpdate(LivingEntity target, double level, ItemStack stack) {
-        if (RadiationData.DISABLE_COAL.get()) return;
+        if (RadiationData.coalDisabled()) return;
         if (!ArmorRegistry.hasProtection(target, EquipmentSlot.HEAD, HazardClass.PARTICLE_COARSE)) {
             HbmLivingProps.incrementBlackLung(
                     target,

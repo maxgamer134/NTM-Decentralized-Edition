@@ -1,21 +1,9 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:titanium_helmet"
-    },
+    "B": "hbm:titanium_helmet",
     "C": "hbm:circuit_basic",
-    "F": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:gas_mask_filter"
-    },
+    "F": "hbm:gas_mask_filter",
     "I": "#hbm:ingots/any_plastic",
     "P": "hbm:plate_armor_hev"
   },

@@ -9,6 +9,8 @@ public final class RadiationConfig {
 
     public static int radTickRate = 1;
 
+    public static boolean disableCoalDust = false;
+
     public static boolean enableDebugMode = false;
 
     private RadiationConfig() {}
@@ -17,5 +19,6 @@ public final class RadiationConfig {
         enableDebugMode = c.get(ConfigSchema.ENABLE_DEBUG_MODE);
         radTickRate = c.get(ConfigSchema.RAD_TICK_RATE);
         hazardRate = c.get(ConfigSchema.HAZARD_RATE);
+        disableCoalDust = c.get(ConfigSchema.DISABLE_COAL_DUST);
     }
 }

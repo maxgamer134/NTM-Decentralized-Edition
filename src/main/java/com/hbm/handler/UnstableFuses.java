@@ -281,7 +281,8 @@ public final class UnstableFuses {
                 if (owner == null || queue.isChanged(owner)) continue;
                 if (!InventoryOwnerAccess.of(owner).live(owner)) continue;
                 int slot = deltas.slots()[i];
-                if (slot != InventoryChanges.LAYOUT)
+                // a broken or shrunk inventory can leave deltas past its last slot behind
+                if (slot != InventoryChanges.LAYOUT && inBounds(source, slot))
                     InventorySlotAccess.of(source).prepare(source, slot);
                 SlotSource canonical = ItemInteriors.canonicalSource(server, source);
                 if (canonical != null && canonical != source) {
@@ -408,7 +409,12 @@ public final class UnstableFuses {
         Object owner = access.owner(source);
         return owner != null
                 && InventoryOwnerAccess.of(owner).live(owner)
+                && inBounds(source, slot)
                 && access.physical(source, slot);
+    }
+
+    private static boolean inBounds(Object source, int slot) {
+        return slot >= 0 && slot < InventorySlotAccess.of(source).size(source);
     }
 
     public static void menuSlotChanged(ServerPlayer player, Slot slot) {

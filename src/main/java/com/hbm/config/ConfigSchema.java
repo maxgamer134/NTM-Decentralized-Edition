@@ -251,6 +251,14 @@ public final class ConfigSchema {
                     1,
                     Integer.MAX_VALUE,
                     "Ticks between radiation simulation steps. Consumed once at startup.");
+    public static final ConfigEntry<Boolean> DISABLE_COAL_DUST =
+            bool(
+                    Domain.RUNTIME,
+                    "radiation",
+                    "disable_coal_dust",
+                    false,
+                    "Turns off every coal dust hazard (coal gas from mined coal, black lung, coal items) in "
+                            + "all worlds. The per-world datapack value disable_coal still works too.");
     public static final ConfigEntry<Integer> HAZARD_RATE =
             integer(
                     Domain.RUNTIME,
@@ -567,6 +575,7 @@ public final class ConfigSchema {
                     ENABLE_528_FORCE_REASIM_BOILERS,
                     ENABLE_528_BOSNIA_SIMULATOR,
                     RAD_TICK_RATE,
+                    DISABLE_COAL_DUST,
                     HAZARD_RATE,
                     LIMIT_EXPLOSION_LIFESPAN,
                     BLAST_SPEED,

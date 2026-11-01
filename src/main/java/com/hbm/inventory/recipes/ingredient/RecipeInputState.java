@@ -49,6 +49,18 @@ public final class RecipeInputState {
         return set.contains(type);
     }
 
+    /**
+     * Wear on a tool or armor piece (a damageable, unstackable item) never turns it away either:
+     * worn tools and armor fit any recipe that names them. Damage that stands in for metadata on
+     * stackable items keeps matching exactly.
+     */
+    public static boolean ignoredByRecipes(DataComponentType<?> type, ItemStack stack) {
+        if (ignoredByRecipes(type)) return true;
+        return type == DataComponents.DAMAGE
+                && stack.isDamageableItem()
+                && stack.getMaxStackSize() == 1;
+    }
+
     private static Set<DataComponentType<?>> buildNbtLike() {
         Set<DataComponentType<?>> set = Collections.newSetFromMap(new IdentityHashMap<>());
         // vanilla: all NBT in 1.7.10 (display name/lore, ench, RepairCost, color, BlockEntityTag...)
@@ -115,7 +127,34 @@ public final class RecipeInputState {
                 ModDataComponents.SETTINGS_TOOL_DATA,
                 ModDataComponents.TOOL_PRESET_INDEX,
                 ModDataComponents.RTTY_PAGER_CHANNEL,
-                ModDataComponents.CONVEYOR_RUN);
+                ModDataComponents.CONVEYOR_RUN,
+                ModDataComponents.UNSTABLE_AT,
+                ModDataComponents.TANK_CONTENTS,
+                ModDataComponents.CANTEEN_COOLDOWN,
+                ModDataComponents.TOOL_PRESETS,
+                ModDataComponents.TOOLBOX_OPEN,
+                ModDataComponents.POLARIZED,
+                ModDataComponents.DETONATOR_POS_LIST,
+                ModDataComponents.REBAR_CONCRETE,
+                ModDataComponents.REBAR_CORNER,
+                ModDataComponents.CASING_PROGRESS,
+                ModDataComponents.PNEUMATIC_BULK,
+                ModDataComponents.SPIDERS,
+                ModDataComponents.TURRET_WHITELIST,
+                ModDataComponents.KIT_CONTENTS,
+                ModDataComponents.KIT_COLOR_1,
+                ModDataComponents.KIT_COLOR_2,
+                ModDataComponents.B92_ANIMATION,
+                ModDataComponents.AKIMBO_GHOST,
+                ModDataComponents.POTATO_TIMER,
+                ModDataComponents.NO9_LAMP,
+                ModDataComponents.CONTAGION,
+                ModDataComponents.TABLET_SEED,
+                ModDataComponents.LORE_BOOK_KEY,
+                ModDataComponents.LORE_BOOK_TITLE,
+                ModDataComponents.LORE_BOOK_PAGES,
+                ModDataComponents.LORE_BOOK_ARGS,
+                ModDataComponents.LORE_BOOK_COVER);
         return set;
     }
 
@@ -141,7 +180,7 @@ public final class RecipeInputState {
             if (!stack.is(expected.getItem())) continue;
             boolean matched = true;
             for (var change : stack.getComponentsPatch().entrySet()) {
-                if (ignoredByRecipes(change.getKey())) continue;
+                if (ignoredByRecipes(change.getKey(), stack)) continue;
                 if (!claims(additional, change.getKey(), stack)
                         && !Objects.equals(
                                 stack.get(change.getKey()), expected.get(change.getKey()))) {
@@ -161,7 +200,7 @@ public final class RecipeInputState {
     public static boolean accepts(
             DataComponentMatchers matchers, DataComponentMatchers additional, ItemStack stack) {
         for (var change : stack.getComponentsPatch().entrySet()) {
-            if (ignoredByRecipes(change.getKey())) continue;
+            if (ignoredByRecipes(change.getKey(), stack)) continue;
             if (!claims(matchers, change.getKey(), stack)
                     && !claims(additional, change.getKey(), stack)) return false;
         }
@@ -198,7 +237,7 @@ public final class RecipeInputState {
 
     public static boolean only(ItemStack stack, DataComponentType<?>... required) {
         for (var change : stack.getComponentsPatch().entrySet()) {
-            if (ignoredByRecipes(change.getKey())) continue;
+            if (ignoredByRecipes(change.getKey(), stack)) continue;
             boolean allowed = false;
             for (DataComponentType<?> type : required) {
                 if (change.getKey() == type) {

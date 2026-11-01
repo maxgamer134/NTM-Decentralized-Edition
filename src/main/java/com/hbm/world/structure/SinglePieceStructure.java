@@ -43,8 +43,11 @@ public final class SinglePieceStructure extends JigsawStructure implements Colum
                                                             .forGetter(
                                                                     structure ->
                                                                             structure.minHeight),
+                                                    // no max_height: follow the terrain up to the build limit (1.7.10 capped
+                                                    // at y 128, which buries them under tall modded terrain)
                                                     Codec.INT
-                                                            .optionalFieldOf("max_height", 128)
+                                                            .optionalFieldOf(
+                                                                    "max_height", Integer.MAX_VALUE)
                                                             .forGetter(
                                                                     structure ->
                                                                             structure.maxHeight),
@@ -144,7 +147,18 @@ public final class SinglePieceStructure extends JigsawStructure implements Colum
                                                                 + heightOffset;
                                                 if (!(context.chunkGenerator()
                                                         instanceof FlatLevelSource))
-                                                    y = Math.clamp(y, minHeight, maxHeight);
+                                                    y =
+                                                            Math.clamp(
+                                                                    y,
+                                                                    minHeight,
+                                                                    Math.max(
+                                                                            minHeight,
+                                                                            Math.min(
+                                                                                    maxHeight,
+                                                                                    context.heightAccessor()
+                                                                                                    .getMaxBuildHeight()
+                                                                                            - piece.getBoundingBox()
+                                                                                                    .getYSpan())));
                                                 piece.move(0, y - piece.getBoundingBox().minY(), 0);
                                                 output.addPiece(piece);
                                             }));

@@ -3,13 +3,7 @@
   "key": {
     "B": "hbm:gem_volcanic",
     "M": "hbm:ingot_meteorite",
-    "P": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:starmetal_axe"
-    },
+    "P": "hbm:starmetal_axe",
     "T": "#c:bolts/tungsten"
   },
   "pattern": [

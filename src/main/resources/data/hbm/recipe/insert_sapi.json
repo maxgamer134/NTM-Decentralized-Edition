@@ -2,13 +2,7 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "D": "hbm:ducttape",
-    "K": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:insert_kevlar"
-    },
+    "K": "hbm:insert_kevlar",
     "P": "#hbm:ingots/any_plastic"
   },
   "pattern": [

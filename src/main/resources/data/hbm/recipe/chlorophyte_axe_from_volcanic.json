@@ -5,13 +5,7 @@
     "D": "hbm:powder_chlorophyte",
     "F": "#c:bolts/dura_steel",
     "P": "hbm:volcanic_axe",
-    "S": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:blades_steel"
-    }
+    "S": "hbm:blades_steel"
   },
   "pattern": [
     " SD",

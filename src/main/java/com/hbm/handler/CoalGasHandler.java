@@ -4,6 +4,7 @@
 package com.hbm.handler;
 
 import com.hbm.blocks.ModBlocks;
+import com.hbm.data.RadiationData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -15,7 +16,7 @@ public final class CoalGasHandler {
     private CoalGasHandler() {}
 
     public static void onBlockBroken(Level level, BlockPos pos, BlockState broken) {
-        if (level.isClientSide()) return;
+        if (level.isClientSide() || RadiationData.coalDisabled()) return;
         if (!broken.is(Blocks.COAL_ORE)
                 && !broken.is(Blocks.DEEPSLATE_COAL_ORE)
                 && !broken.is(Blocks.COAL_BLOCK)

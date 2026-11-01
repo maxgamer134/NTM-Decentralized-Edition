@@ -1,13 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "B": {
-      "type": "neoforge:components",
-      "components": {
-        "minecraft:damage": 0
-      },
-      "items": "hbm:titanium_boots"
-    },
+    "B": "hbm:titanium_boots",
     "P": "hbm:plate_armor_hev"
   },
   "pattern": [

@@ -40,6 +40,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.neoforged.fml.ModList;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -48,6 +49,13 @@ public class NTMJeiPlugin implements IModPlugin {
     private final Map<ResourceKey<CustomMachineDefinition>, CustomMachinePage> customMachines =
             new LinkedHashMap<>();
     private final Map<ResourceLocation, JeiLookupPlugin<?>> lookupPlugins = new HashMap<>();
+
+    // EMI (through JEMI) and TMRV never ask advanced recipe manager plugins for rows, so a page
+    // whose rows only live in its JeiLookupPlugin (fuel pool, rod disassembly) shows up empty there
+    private static boolean advancedLookups() {
+        ModList mods = ModList.get();
+        return !mods.isLoaded("emi") && !mods.isLoaded("toomanyrecipeviewers");
+    }
 
     // backport: JEI 19.x RecipeType (26.x JEI IRecipeType.create(id, class)); same uid and row class
     private static <T> RecipeType<T> typeOf(RecipePage<T> page) {
@@ -88,7 +96,7 @@ public class NTMJeiPlugin implements IModPlugin {
                         page, typeOf(page), helpers.getGuiHelper(), unitsPerMilliBucket);
         registration.addRecipeCategories(category);
         RecipePage.LookupFilter filter = page.lookupFilter();
-        if (filter != null) {
+        if (filter != null && advancedLookups()) {
             lookupPlugins.put(
                     page.id(),
                     new JeiLookupPlugin<>(

@@ -6,7 +6,9 @@ package com.hbm.integration.recipeviewer;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.recipes.GasCentrifugeRecipe;
 import com.hbm.inventory.recipes.GasCentrifugeRecipes;
+import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import com.hbm.items.ModItems;
+import com.hbm.items.machine.ItemBatterySC;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -202,7 +204,7 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
 
     @Override
     public int height() {
-        return 80;
+        return 76;
     }
 
     @Override
@@ -210,37 +212,52 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
         return List.of(new ItemStack(ModBlocks.MACHINE_GASCENT));
     }
 
+    // main: battery packs, then single-cell batteries, then the creative one
+    private static List<ItemStack> batteries() {
+        List<ItemStack> batteries = new ArrayList<>();
+        for (var pack : ModItems.BATTERY_PACKS) batteries.add(new ItemStack(pack));
+        for (var battery : ModItems.BATTERIES)
+            if (battery.get() instanceof ItemBatterySC) batteries.add(new ItemStack(battery));
+        batteries.add(new ItemStack(ModItems.BATTERY_CREATIVE));
+        return batteries;
+    }
+
+    // main: GasCentrifugeRecipeHandler, fluid left, two output columns right, battery bottom left
     @Override
     public void layout(Cascade cascade, PageLayout page) {
-        page.input(5, 14).fluid(cascade.feed(), cascade.volume());
-
-        ItemStack machines = new ItemStack(ModBlocks.MACHINE_GASCENT, cascade.steps().size());
-        page.catalyst(56, 14).background().item(machines);
-
-        if (cascade.requiresUpgrade())
-            page.catalyst(56, 32).background().item(ModItems.UPGRADE_GC_SPEED.get());
+        page.input(47, 24).fluid(cascade.feed(), cascade.volume());
+        page.catalyst(3, 42).items(batteries());
 
         int slot = 0;
         for (ItemStack output : cascade.outputs()) {
-            page.output(84 + slot % 4 * 18, 14 + slot / 4 * 18).background().item(output);
+            page.output(129 + slot % 2 * 18, 15 + slot / 2 * 18).item(output);
             slot++;
         }
         for (WeightedList<ItemStack> alternative : cascade.alternatives()) {
             for (GenericMachinePage.Outcome outcome : GenericMachinePage.outcomes(alternative)) {
                 GenericMachinePage.outcomeSlot(
-                        page, 84 + slot % 4 * 18, 14 + slot / 4 * 18, outcome, true);
+                        page, 129 + slot % 2 * 18, 15 + slot / 2 * 18, outcome, slot >= 4);
                 slot++;
             }
         }
 
-        page.arrow(27, 15);
-        page.text(
+        page.text(ladder(cascade), 3, 66, width() - 6, 9);
+    }
+
+    @Override
+    public void draw(Cascade cascade, GuiGraphicsExtractor graphics) {
+        ResourceLocation sheet = RecipePanel.GAS_CENTRIFUGE;
+        RecipePanel.page(graphics, sheet);
+        if (cascade.requiresUpgrade()) RecipePanel.region(graphics, sheet, 25, 24, 192, 0, 16, 16);
+        RecipePanel.progress(graphics, sheet, 3, 6, 176, 0, 16, 34, 480, 7);
+        RecipePanel.progress(
+                graphics, sheet, 74, 17, 208, 0, 44, 37, cascade.requiresUpgrade() ? 80 : 150, 0);
+        RecipePanel.centred(
+                graphics,
                 Component.translatable("jei.hbm.gas_centrifuge.cascade", cascade.steps().size()),
-                3,
-                51,
-                width() - 6,
-                9);
-        page.text(ladder(cascade), 3, 61, width() - 6, 18);
+                50,
+                10,
+                0xFF00FF00);
     }
 
     public record Step(GasCentrifugeRecipe recipe, long operations) {}

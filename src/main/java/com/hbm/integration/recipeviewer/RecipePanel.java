@@ -23,6 +23,8 @@ public final class RecipePanel {
     public static final ResourceLocation ANVIL = sheet("gui_nei_anvil");
     public static final ResourceLocation CRUCIBLE = sheet("gui_nei_crucible");
     public static final ResourceLocation CRUCIBLE_SMELTING = sheet("gui_nei_crucible_smelting");
+    public static final ResourceLocation GAS_CENTRIFUGE = sheet("gui_nei_centrifuge_gas");
+    public static final ResourceLocation FLUID = sheet("gui_nei_fluid");
     public static final ResourceLocation FOUNDRY = sheet("gui_nei_foundry");
     public static final ResourceLocation CUSTOM = sheet("gui_nei_custom");
     public static final ResourceLocation CYCLOTRON = sheet("gui_nei_cyclotron");

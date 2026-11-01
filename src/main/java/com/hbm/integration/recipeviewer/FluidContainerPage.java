@@ -49,26 +49,31 @@ public final class FluidContainerPage extends RecipePage<FluidContainerPage.Reci
         for (Fluid fluid : NTMFluids.displayOrder()) {
             for (ItemFluidTank family : families()) {
                 if (!family.canStore(fluid)) continue;
-                rows.add(row(fluid, family.capacity, emptyOf(family), family.make(fluid, family.capacity)));
+                row(rows, fluid, family.capacity, emptyOf(family), family.make(fluid, family.capacity));
             }
         }
         for (ItemFluidCell cell : ItemFluidCell.filledCells()) {
             Fluid fluid = cell.fluid();
-            if (fluid != null) rows.add(row(fluid, ItemFluidCell.CAPACITY, cell.emptyStack(), new ItemStack(cell)));
+            if (fluid != null) row(rows, fluid, ItemFluidCell.CAPACITY, cell.emptyStack(), new ItemStack(cell));
         }
         for (FluidContainerRows.Row row : FluidContainerRows.rows()) {
-            rows.add(row(row.fluid().get(), row.amount().getAsInt(), row.emptyStack(), row.fullStack()));
+            row(rows, row.fluid().get(), row.amount().getAsInt(), row.emptyStack(), row.fullStack());
         }
         return rows;
     }
 
-    private Recipe row(Fluid fluid, int amount, ItemStack empty, ItemStack full) {
-        ResourceLocation id =
-                PageIds.derived(
-                        id(),
-                        PageIds.segment(BuiltInRegistries.ITEM.getKey(full.getItem())),
-                        PageIds.segment(BuiltInRegistries.FLUID.getKey(fluid)));
-        return new Recipe(id, fluid, amount, empty, full);
+    // main matches the fluid, the empty and the full container both ways, so each container is
+    // listed as filled and as emptied
+    private void row(List<Recipe> rows, Fluid fluid, int amount, ItemStack empty, ItemStack full) {
+        for (boolean fill : new boolean[] {true, false}) {
+            ResourceLocation id =
+                    PageIds.derived(
+                            id(),
+                            PageIds.segment(BuiltInRegistries.ITEM.getKey(full.getItem())),
+                            PageIds.segment(BuiltInRegistries.FLUID.getKey(fluid)),
+                            fill ? "fill" : "empty");
+            rows.add(new Recipe(id, fluid, amount, empty, full, fill));
+        }
     }
 
     @Override
@@ -93,16 +98,28 @@ public final class FluidContainerPage extends RecipePage<FluidContainerPage.Reci
 
     @Override
     public void layout(Recipe recipe, PageLayout page) {
-        page.input(30, 24).background().fluid(recipe.fluid(), recipe.amount());
-        if (!recipe.empty().isEmpty()) page.input(48, 24).background().item(recipe.empty());
-        page.output(102, 24).background().item(recipe.full());
+        if (recipe.fill()) {
+            page.input(30, 24).fluid(recipe.fluid(), recipe.amount());
+            if (!recipe.empty().isEmpty()) page.input(48, 24).item(recipe.empty());
+            page.output(120, 24).item(recipe.full());
+        } else {
+            // main's arrow points both ways: emptying reads right to left
+            page.input(120, 24).item(recipe.full());
+            page.output(30, 24).fluid(recipe.fluid(), recipe.amount());
+            if (!recipe.empty().isEmpty()) page.output(48, 24).item(recipe.empty());
+        }
     }
 
     @Override
     public void draw(Recipe recipe, GuiGraphicsExtractor graphics) {
-        RecipePanel.universalPage(graphics);
+        RecipePanel.page(graphics, RecipePanel.FLUID);
     }
 
     public record Recipe(
-            ResourceLocation id, Fluid fluid, int amount, ItemStack empty, ItemStack full) {}
+            ResourceLocation id,
+            Fluid fluid,
+            int amount,
+            ItemStack empty,
+            ItemStack full,
+            boolean fill) {}
 }

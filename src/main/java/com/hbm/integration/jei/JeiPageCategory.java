@@ -169,13 +169,13 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
 
         @Override
         public PageSlot item(ItemStack stack) {
-            slot.addItemStack(stack);
+            slot.addItemStacks(UnifiedStacks.expand(stack));
             return this;
         }
 
         @Override
         public PageSlot items(List<ItemStack> stacks) {
-            slot.addItemStacks(stacks);
+            slot.addItemStacks(UnifiedStacks.expand(stacks));
             return this;
         }
 
@@ -319,13 +319,15 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
 
                 @Override
                 public PageSlot item(ItemStack stack) {
-                    add(into, VanillaTypes.ITEM_STACK, stack);
+                    for (ItemStack each : UnifiedStacks.expand(stack))
+                        add(into, VanillaTypes.ITEM_STACK, each);
                     return this;
                 }
 
                 @Override
                 public PageSlot items(List<ItemStack> stacks) {
-                    for (ItemStack stack : stacks) add(into, VanillaTypes.ITEM_STACK, stack);
+                    for (ItemStack stack : UnifiedStacks.expand(stacks))
+                        add(into, VanillaTypes.ITEM_STACK, stack);
                     return this;
                 }
 

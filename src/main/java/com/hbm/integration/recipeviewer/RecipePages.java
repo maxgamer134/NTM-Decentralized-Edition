@@ -68,6 +68,7 @@ public final class RecipePages {
     public static final BoilingPage BOILING = new BoilingPage();
     public static final SawmillPage SAWMILL = new SawmillPage();
     public static final AshpitPage ASHPIT = new AshpitPage();
+    public static final FluidContainerPage FLUID_CONTAINERS = new FluidContainerPage();
 
     public static final GenericMachinePage<GenericRecipe> ASSEMBLY =
             GenericMachinePage.<GenericRecipe>builder(
@@ -420,6 +421,7 @@ public final class RecipePages {
                     MIXER,
                     PYRO_OVEN,
                     VACUUM_REFINERY,
+                    FLUID_CONTAINERS,
                     ORE_GENERATION);
 
     private static final List<ClickArea> CLICK_AREAS =

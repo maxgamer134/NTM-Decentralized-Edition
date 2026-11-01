@@ -35,6 +35,18 @@ public class ItemFluidCell extends ItemCustomLore implements IFluidContainerItem
         FILLED.add(this);
     }
 
+    public static List<ItemFluidCell> filledCells() {
+        return List.copyOf(FILLED);
+    }
+
+    public ItemStack emptyStack() {
+        return emptyCell == null ? ItemStack.EMPTY : new ItemStack(emptyCell.get());
+    }
+
+    public @Nullable Fluid fluid() {
+        return fluid == null ? null : fluid.get();
+    }
+
     private @Nullable ItemFluidCell filledFor(Fluid type) {
         for (ItemFluidCell cell : FILLED) {
             if (cell.emptyCell.get() == this && cell.fluid.get() == type) return cell;

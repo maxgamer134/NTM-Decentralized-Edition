@@ -125,6 +125,10 @@ public final class FluidContainerRows {
 
     private FluidContainerRows() {}
 
+    public static List<Row> rows() {
+        return List.copyOf(ROWS);
+    }
+
     public static void addon(Row row) {
         ROWS.add(row);
     }

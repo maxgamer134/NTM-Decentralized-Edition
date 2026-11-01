@@ -24,9 +24,8 @@ public final class CentrifugePage extends TablePage<CentrifugeRecipe> {
             case 2 -> new int[][] {{102, 24}, {120, 24}};
             case 3 -> new int[][] {{102, 24}, {120, 24}, {138, 24}};
             case 4 -> new int[][] {{102, 15}, {120, 15}, {102, 33}, {120, 33}};
-            default ->
-                    throw new IllegalArgumentException(
-                            "unsupported centrifuge output count: " + count);
+            // datapack rows past the machine's four slots still show, on the generic grid
+            default -> GenericMachinePage.outputPositions(count);
         };
     }
 

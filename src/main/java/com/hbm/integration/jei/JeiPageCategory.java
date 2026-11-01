@@ -219,17 +219,47 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
         }
     }
 
-    private final class Hidden implements PageSlot {
+    // a slot that takes nothing; the lookup-only slots below override just what they keep
+    private static class Ignored implements PageSlot {
+
+        @Override
+        public PageSlot background() {
+            return this;
+        }
+
+        @Override
+        public PageSlot item(ItemStack stack) {
+            return this;
+        }
+
+        @Override
+        public PageSlot items(List<ItemStack> stacks) {
+            for (ItemStack stack : stacks) item(stack);
+            return this;
+        }
+
+        @Override
+        public PageSlot fluid(Fluid fluid, long milliBuckets, int pressure) {
+            return this;
+        }
+
+        @Override
+        public PageSlot fluid(Fluid fluid) {
+            return fluid(fluid, 1000L, 0);
+        }
+
+        @Override
+        public PageSlot tooltip(Tooltip tooltip) {
+            return this;
+        }
+    }
+
+    private final class Hidden extends Ignored {
 
         private final IIngredientAcceptor<?> acceptor;
 
         Hidden(IIngredientAcceptor<?> acceptor) {
             this.acceptor = acceptor;
-        }
-
-        @Override
-        public PageSlot background() {
-            return this;
         }
 
         @Override
@@ -249,53 +279,11 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
             acceptor.addFluidStack(fluid, milliBuckets * unitsPerMilliBucket);
             return this;
         }
-
-        @Override
-        public PageSlot fluid(Fluid fluid) {
-            acceptor.addFluidStack(fluid, 1000L * unitsPerMilliBucket);
-            return this;
-        }
-
-        @Override
-        public PageSlot tooltip(Tooltip tooltip) {
-            return this;
-        }
     }
 
     private static final class ExtrasLayout implements PageLayout {
 
-        private static final PageSlot IGNORED =
-                new PageSlot() {
-                    @Override
-                    public PageSlot background() {
-                        return this;
-                    }
-
-                    @Override
-                    public PageSlot item(ItemStack stack) {
-                        return this;
-                    }
-
-                    @Override
-                    public PageSlot items(List<ItemStack> stacks) {
-                        return this;
-                    }
-
-                    @Override
-                    public PageSlot fluid(Fluid fluid, long milliBuckets, int pressure) {
-                        return this;
-                    }
-
-                    @Override
-                    public PageSlot fluid(Fluid fluid) {
-                        return this;
-                    }
-
-                    @Override
-                    public PageSlot tooltip(Tooltip tooltip) {
-                        return this;
-                    }
-                };
+        private static final PageSlot IGNORED = new Ignored();
 
         private final IRecipeExtrasBuilder builder;
 
@@ -375,12 +363,7 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
         }
 
         private PageSlot collect(List<ITypedIngredient<?>> into) {
-            return new PageSlot() {
-                @Override
-                public PageSlot background() {
-                    return this;
-                }
-
+            return new Ignored() {
                 @Override
                 public PageSlot item(ItemStack stack) {
                     add(into, VanillaTypes.ITEM_STACK, stack);
@@ -388,25 +371,8 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
                 }
 
                 @Override
-                public PageSlot items(List<ItemStack> stacks) {
-                    for (ItemStack stack : stacks) add(into, VanillaTypes.ITEM_STACK, stack);
-                    return this;
-                }
-
-                @Override
                 public PageSlot fluid(Fluid fluid, long milliBuckets, int pressure) {
                     addFluid(into, fluids, fluid, milliBuckets * unitsPerMilliBucket);
-                    return this;
-                }
-
-                @Override
-                public PageSlot fluid(Fluid fluid) {
-                    addFluid(into, fluids, fluid, 1000L * unitsPerMilliBucket);
-                    return this;
-                }
-
-                @Override
-                public PageSlot tooltip(Tooltip tooltip) {
                     return this;
                 }
             };

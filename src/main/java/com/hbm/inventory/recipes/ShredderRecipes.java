@@ -16,9 +16,8 @@ public class ShredderRecipes extends SimpleGenericRecipes<ShredderRecipe> {
     public static ItemStack getShredderResult(ItemStack stack) {
         ShredderRecipe recipe = getRecipe(stack);
         if (recipe != null) return recipe.output().copy();
-        return stack.getComponentsPatch().isEmpty()
-                ? new ItemStack(ModItems.SCRAP)
-                : ItemStack.EMPTY;
+        // main: anything without a recipe shreds to scrap, whatever its NBT or meta
+        return new ItemStack(ModItems.SCRAP);
     }
 
     public static ItemStack shred(ItemStack stack) {

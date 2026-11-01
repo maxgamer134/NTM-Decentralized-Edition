@@ -79,7 +79,7 @@ public record HbmFluidContentIngredient(Fluid fluid, int amount)
 
     @Override
     public boolean acceptsState(ItemStack stack) {
-        if (stack.getComponentsPatch().isEmpty()) return true;
+        if (RecipeInputState.only(stack)) return true;
         if (acceptsBdcl() && stack.is(ModItems.BDCL.get())) return false;
         if (stack.getItem() instanceof IFluidContainerItem) {
             return RecipeInputState.only(stack, ModDataComponents.FLUID_CONTENT.get());

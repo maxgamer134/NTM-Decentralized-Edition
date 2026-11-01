@@ -348,6 +348,10 @@ public final class ResourceManager {
 
     public static final ResourceLocation pipe_anchor_tex =
             Library.id("textures/block/models/network/pipe_anchor.png");
+    public static final ResourceLocation pipe_anchor_exhaust_tex =
+            Library.id("textures/block/models/network/pipe_anchor_exhaust.png");
+    public static final ResourceLocation pipe_anchor_pneumatic_tex =
+            Library.id("textures/block/models/network/pipe_anchor_pneumatic.png");
     public static final ResourceLocation wire_tex = Library.id("textures/models/network/wire.png");
     public static final ResourceLocation wire_greyscale_tex =
             Library.id("textures/models/network/wire_greyscale.png");

@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "C": "hbm:basalt_polished"
+    "C": "#hbm:basalt_polished"
   },
   "pattern": [
     "CC",

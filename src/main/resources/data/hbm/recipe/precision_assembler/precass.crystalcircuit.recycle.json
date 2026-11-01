@@ -35,5 +35,11 @@
       "id": "hbm:wire_fine_gold"
     }
   ],
-  "power": 20000
+  "power": 20000,
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ]
 }

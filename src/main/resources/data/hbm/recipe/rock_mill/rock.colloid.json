@@ -1,0 +1,15 @@
+{
+  "type": "hbm:rock_mill",
+  "duration": 100,
+  "input_fluids": [
+    {
+      "type": "hbm:colloid",
+      "amount": 1000
+    }
+  ],
+  "order": 4736,
+  "output_items": [
+    "minecraft:sand"
+  ],
+  "power": 25
+}

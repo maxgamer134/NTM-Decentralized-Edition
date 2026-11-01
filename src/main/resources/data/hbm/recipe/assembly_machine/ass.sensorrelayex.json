@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 600,
+  "input_items": [
+    {
+      "ingredient": "hbm:item_expensive_bronze_tubes"
+    },
+    {
+      "ingredient": "hbm:circuit_quantum"
+    },
+    {
+      "ingredient": "hbm:part_generic_lde"
+    }
+  ],
+  "name": "ass.sensorrelayEx",
+  "order": 107016,
+  "output_items": [
+    "hbm:satellite_science_sensor"
+  ],
+  "power": 25000
+}

@@ -1,0 +1,26 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "count": 5,
+      "ingredient": "#c:ingots/steel"
+    },
+    "B": {
+      "count": 5,
+      "ingredient": "#hbm:dusts/any_smokeless"
+    },
+    "C": {
+      "count": 5,
+      "ingredient": "#c:plates/gun_metal"
+    }
+  },
+  "order": 22656,
+  "output_items": [
+    "hbm:ammo_dgk"
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 240,
+  "ignition_temp": 1000000,
+  "input_fluids": [
+    {
+      "type": "hbm:unsaturateds",
+      "amount": 1000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "hbm:item_expensive_lead_plating"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/ferrouranium"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:ingots/any_resistant_alloy"
+    }
+  ],
+  "order": 672,
+  "output_items": [
+    "hbm:item_expensive_ferro_plating"
+  ],
+  "power": 100000
+}

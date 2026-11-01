@@ -1,6 +1,6 @@
 {
   "type": "hbm:crystallizer",
-  "duration": 10,
+  "duration": 1,
   "input_fluids": [
     {
       "type": "hbm:liquid_concrete",

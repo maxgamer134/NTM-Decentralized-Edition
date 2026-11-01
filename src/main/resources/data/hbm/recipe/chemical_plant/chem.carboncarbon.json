@@ -1,0 +1,29 @@
+{
+  "type": "hbm:chemical_plant",
+  "custom_localization": true,
+  "duration": 400,
+  "input_fluids": [
+    {
+      "type": "hbm:heavyoil_vacuum",
+      "amount": 1000
+    },
+    {
+      "type": "hbm:syngas",
+      "amount": 8000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "#hbm:gems/any_coke"
+    },
+    {
+      "ingredient": "#c:plates/titanium"
+    }
+  ],
+  "order": 12424,
+  "output_items": [
+    "hbm:part_generic_alclad"
+  ],
+  "power": 100000
+}

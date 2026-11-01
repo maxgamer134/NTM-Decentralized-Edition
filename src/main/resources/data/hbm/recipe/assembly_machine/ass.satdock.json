@@ -1,0 +1,22 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_resistant_alloy"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:ingots/any_hard_plastic"
+    },
+    {
+      "ingredient": "hbm:circuit_controller"
+    }
+  ],
+  "order": 105888,
+  "output_items": [
+    "hbm:sat_dock"
+  ],
+  "power": 5000
+}

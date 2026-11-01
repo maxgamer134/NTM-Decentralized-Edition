@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "type": "hbm:hot",
+      "level": 0.1
+    },
+    {
+      "type": "hbm:hydroactive",
+      "level": 0.1
+    }
+  ],
+  "mutex": 1,
+  "targets": "#c:nuggets/strontium"
+}

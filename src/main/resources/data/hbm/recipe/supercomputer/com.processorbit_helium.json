@@ -1,6 +1,6 @@
 {
   "type": "hbm:supercomputer",
-  "duration": 18000,
+  "duration": 6000,
   "input_fluids": [
     {
       "type": "hbm:helium4",

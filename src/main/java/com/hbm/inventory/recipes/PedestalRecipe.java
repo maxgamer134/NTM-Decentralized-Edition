@@ -140,7 +140,9 @@ public class PedestalRecipe extends GenericRecipe {
                 if (!empty) return false;
                 continue;
             }
-            if (empty || stack.getCount() != ingredient.count() || !ingredient.matchesItem(stack))
+            if (empty
+                    || stack.getCount() != ingredient.count()
+                    || !ingredient.ingredient().test(stack))
                 return false;
         }
         return true;

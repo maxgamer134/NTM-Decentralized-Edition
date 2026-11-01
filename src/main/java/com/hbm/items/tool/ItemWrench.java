@@ -5,7 +5,10 @@ package com.hbm.items.tool;
 
 import com.hbm.api.fluidmk2.FluidPipeGraph;
 import com.hbm.api.fluidmk2.PipeData;
+import com.hbm.api.ntl.PneumaticNetwork;
+import com.hbm.blocks.network.ExhaustPipeAnchorBlock;
 import com.hbm.blocks.network.FluidPipeAnchorBlock;
+import com.hbm.blocks.network.PneumaticPipeAnchorBlock;
 import com.hbm.blocks.network.FluidPipeBlock;
 import com.hbm.inventory.material.MaterialShapes;
 import com.hbm.items.ModDataComponents;
@@ -64,6 +67,27 @@ public class ItemWrench extends ItemCompat {
 
         long firstKey = first.asLong();
         long secondKey = second.asLong();
+
+        // main: anchors only link within one network type (fluid / exhaust / pneumatic)
+        var firstBlock = level.getBlockState(first).getBlock();
+        var secondBlock = level.getBlockState(second).getBlock();
+        boolean firstExhaust = firstBlock instanceof ExhaustPipeAnchorBlock;
+        boolean firstPneumatic = firstBlock instanceof PneumaticPipeAnchorBlock;
+        if (firstExhaust != secondBlock instanceof ExhaustPipeAnchorBlock
+                || firstPneumatic != secondBlock instanceof PneumaticPipeAnchorBlock)
+            return "Pipe error - Pipe anchor fluid types do not match";
+        if (firstExhaust || firstPneumatic) {
+            Vec3 span = Vec3.atCenterOf(second).subtract(Vec3.atCenterOf(first));
+            if (span.length() > FluidPipeAnchorBlock.MAX_PIPE_LENGTH)
+                return "Pipe error - Pipe anchor is too far away";
+            if (firstPneumatic) {
+                PneumaticNetwork.get(level).addRemoteLink(firstKey, secondKey);
+            } else {
+                for (Fluid smoke : FluidPipeGraph.smokes())
+                    FluidPipeGraph.get(level, smoke).addRemoteLink(firstKey, secondKey);
+            }
+            return "Pipe end";
+        }
         PipeData firstData = FluidPipeGraph.dataAt(level, firstKey);
         PipeData secondData = FluidPipeGraph.dataAt(level, secondKey);
         if (firstData == null || secondData == null) return "Pipe error";

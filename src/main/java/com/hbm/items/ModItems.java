@@ -2856,6 +2856,11 @@ public final class ModItems {
             Reg.item("settings_tool", ItemSettingsTool::new, Item.Properties::new);
     public static final RegistryHandle<ItemRTTYPager> RTTY_PAGER =
             Reg.item("rtty_pager", ItemRTTYPager::new, () -> new Item.Properties().stacksTo(1));
+    public static final RegistryHandle<ItemRTTYDesignator> RTTY_DESIGNATOR =
+            Reg.item(
+                    "rtty_designator",
+                    ItemRTTYDesignator::new,
+                    () -> new Item.Properties().stacksTo(1));
     public static final RegistryHandle<ItemTurretChip> TURRET_CHIP =
             Reg.item("turret_chip", ItemTurretChip::new, () -> new Item.Properties().stacksTo(1))
                     .addTo(WEAPON_ALL);
@@ -3018,6 +3023,8 @@ public final class ModItems {
             soyuz(2, "postWar", Rarity.EPIC);
     public static final RegistryHandle<ItemCustomLore> MISSILE_SOYUZ_LANDER =
             missileLore("missile_soyuz_lander");
+    public static final RegistryHandle<Item> MISSILE_LAMBDA =
+            Reg.item("missile_lambda", Item::new, () -> new Item.Properties().stacksTo(1));
 
     public static final RegistryHandle<ItemCustomMissile> MISSILE_CUSTOM =
             Reg.item(
@@ -4975,7 +4982,8 @@ public final class ModItems {
                     .addTo(MISSILE_ALL);
     public static final RegistryHandle<ItemSatelliteChip> SAT_RELAY = satChip("sat_relay", null);
     public static final RegistryHandle<ItemCustomLore> AMMO_DGK =
-            Reg.item("ammo_dgk", ItemCustomLore::new, Item.Properties::new).addTo(WEAPON_ALL);
+            Reg.item("ammo_dgk", ItemCustomLore::new, () -> new Item.Properties().stacksTo(4))
+                    .addTo(WEAPON_ALL);
     public static final RegistryHandle<ItemAmmoContainer> AMMO_CONTAINER =
             Reg.item(
                     "ammo_container",

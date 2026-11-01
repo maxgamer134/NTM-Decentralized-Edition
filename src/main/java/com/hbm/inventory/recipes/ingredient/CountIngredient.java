@@ -127,6 +127,11 @@ public record CountIngredient(Ingredient ingredient, int count) {
         return matchesItem(stack) && stack.getCount() >= count;
     }
 
+    /** Item and count only: whatever components the stack carries are not checked. */
+    public boolean testFuzzy(ItemStack stack) {
+        return !stack.isEmpty() && stack.getCount() >= count && ingredient.test(stack);
+    }
+
     public boolean matchesItem(ItemStack stack) {
         return ingredient.test(stack) && RecipeInputState.accepts(ingredient, stack);
     }

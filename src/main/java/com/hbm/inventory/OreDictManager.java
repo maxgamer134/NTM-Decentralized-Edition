@@ -143,6 +143,7 @@ public final class OreDictManager {
     public static final DictFrame SLAG = new DictFrame("slag");
     public static final DictFrame BAUXITE = new DictFrame("bauxite");
     public static final DictFrame CRYOLITE = new DictFrame("cryolite");
+    public static final DictFrame ILMENITE = new DictFrame("ilmenite");
     public static final DictFrame LI = new DictFrame("lithium");
     public static final DictFrame NA = new DictFrame("sodium");
     public static final DictFrame P_WHITE = new DictFrame("white_phosphorus");

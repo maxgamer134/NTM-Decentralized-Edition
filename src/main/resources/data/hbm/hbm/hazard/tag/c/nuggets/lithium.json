@@ -1,0 +1,10 @@
+{
+  "entries": [
+    {
+      "type": "hbm:hydroactive",
+      "level": 0.1
+    }
+  ],
+  "mutex": 1,
+  "targets": "#c:nuggets/lithium"
+}

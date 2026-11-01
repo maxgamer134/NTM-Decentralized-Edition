@@ -1,10 +1,4 @@
 {
-  "neoforge:conditions": [
-    {
-      "type": "hbm:flag",
-      "name": "!enable_528"
-    }
-  ],
   "type": "hbm:assembly_machine",
   "duration": 200,
   "input_items": [

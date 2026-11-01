@@ -5,7 +5,10 @@ package com.hbm.client.render.flywheel;
 
 import com.hbm.api.fluidmk2.FluidPipeTintData;
 import com.hbm.blockentity.network.BlockEntityPipeAnchor;
+import com.hbm.blocks.network.ExhaustPipeAnchorBlock;
 import com.hbm.blocks.network.FluidPipeAnchorBlock;
+import com.hbm.blocks.network.PneumaticPipeAnchorBlock;
+import net.minecraft.resources.ResourceLocation;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.loader.HFRWavefrontObject;
 import com.hbm.util.ChunkUtil;
@@ -33,16 +36,28 @@ public final class PipeAnchorVisual extends HbmBlockEntityVisual<BlockEntityPipe
     private static final int PIPE = ResourceManager.pipe_anchor.partId("Pipe");
     private static final int RING = ResourceManager.pipe_anchor.partId("Ring");
     private static final HFRWavefrontObject MODEL = ResourceManager.pipe_anchor;
-    private static final MeshPart PIPE_PART =
-            MeshPart.obj(
-                    MODEL.groups[PIPE],
-                    MODEL.smoothing(),
-                    MeshPart.litCutout(ResourceManager.pipe_anchor_tex));
-    private static final MeshPart RING_PART =
-            MeshPart.obj(
-                    MODEL.groups[RING],
-                    MODEL.smoothing(),
-                    MeshPart.litCutout(ResourceManager.pipe_anchor_tex));
+    // index: 0 fluid, 1 exhaust, 2 pneumatic (main draws each anchor type in its own texture)
+    private static final ResourceLocation[] TEXTURES = {
+        ResourceManager.pipe_anchor_tex,
+        ResourceManager.pipe_anchor_exhaust_tex,
+        ResourceManager.pipe_anchor_pneumatic_tex
+    };
+    private static final MeshPart[] PIPE_PARTS = parts(PIPE);
+    private static final MeshPart[] RING_PARTS = parts(RING);
+    private final MeshPart PIPE_PART;
+    private final MeshPart RING_PART;
+    private final int kind;
+
+    private static MeshPart[] parts(int group) {
+        MeshPart[] parts = new MeshPart[TEXTURES.length];
+        for (int i = 0; i < parts.length; i++)
+            parts[i] =
+                    MeshPart.obj(
+                            MODEL.groups[group],
+                            MODEL.smoothing(),
+                            MeshPart.litCutout(TEXTURES[i]));
+        return parts;
+    }
     private final AABB bodyBounds;
     private TransformedInstance[] pipes = new TransformedInstance[0];
     private TransformedInstance[] rings = new TransformedInstance[0];
@@ -65,6 +80,12 @@ public final class PipeAnchorVisual extends HbmBlockEntityVisual<BlockEntityPipe
     public PipeAnchorVisual(
             VisualizationContext context, BlockEntityPipeAnchor blockEntity, float partialTick) {
         super(context, blockEntity, partialTick);
+        kind =
+                blockState.getBlock() instanceof PneumaticPipeAnchorBlock
+                        ? 2
+                        : blockState.getBlock() instanceof ExhaustPipeAnchorBlock ? 1 : 0;
+        PIPE_PART = PIPE_PARTS[kind];
+        RING_PART = RING_PARTS[kind];
         Direction facing = blockState.getValue(FluidPipeAnchorBlock.FACING);
         Matrix4f bodyLocal =
                 new Matrix4f()
@@ -158,7 +179,10 @@ public final class PipeAnchorVisual extends HbmBlockEntityVisual<BlockEntityPipe
     private void collectRuns() {
         runCount = 0;
         if (blockEntity.fluid == Fluids.EMPTY && blockEntity.connections.length == 0) return;
-        int color = lighten(ARGB.transparent(FluidPipeTintData.colorFor(blockEntity.fluid)), .25D);
+        int color =
+                kind == 0
+                        ? lighten(ARGB.transparent(FluidPipeTintData.colorFor(blockEntity.fluid)), .25D)
+                        : 0xFFFFFF;
         for (int i = 0; i < lastConnections.length; i++) {
             BlockEntityPipeAnchor other = lastPeers[i];
             if (other == null || lastPeerFluids[i] != lastFluid) continue;

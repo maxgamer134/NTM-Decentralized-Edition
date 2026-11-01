@@ -12,8 +12,8 @@
   "input_items": [
     {
       "ingredient": [
-        "minecraft:basalt",
-        "minecraft:smooth_basalt"
+        "#hbm:basalt",
+        "#hbm:basalt_smooth"
       ]
     }
   ],
@@ -21,8 +21,8 @@
   "order": 3840,
   "output_fluids": [
     {
-      "type": "minecraft:lava",
-      "amount": 100
+      "type": "hbm:colloid",
+      "amount": 250
     }
   ],
   "output_items": [
@@ -35,27 +35,21 @@
       },
       {
         "data": {
-          "id": "hbm:sulfur"
+          "id": "hbm:powder_ash_misc"
         },
-        "weight": 20
+        "weight": 25
       },
       {
         "data": {
-          "id": "hbm:fluorite"
+          "id": "hbm:powder_quartz"
         },
         "weight": 15
       },
       {
         "data": {
-          "id": "hbm:powder_asbestos"
+          "id": "hbm:gravel_obsidian"
         },
         "weight": 10
-      },
-      {
-        "data": {
-          "id": "hbm:powder_molysite"
-        },
-        "weight": 5
       }
     ]
   ],

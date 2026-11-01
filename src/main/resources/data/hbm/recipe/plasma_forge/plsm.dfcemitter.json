@@ -20,6 +20,10 @@
     {
       "count": 8,
       "ingredient": "hbm:circuit_controller_quantum"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:circuit_crystal"
     }
   ],
   "order": 11008,

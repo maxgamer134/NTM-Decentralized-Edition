@@ -13,8 +13,8 @@
   "ignition_temp": 1000000,
   "input_items": [
     {
-      "count": 16,
-      "ingredient": "hbm:item_expensive_bronze_tubes"
+      "count": 12,
+      "ingredient": "hbm:item_expensive_cmb_tubes"
     },
     {
       "count": 16,

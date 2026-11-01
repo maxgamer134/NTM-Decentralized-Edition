@@ -36,7 +36,7 @@ public class BlockEntityCrateTungsten extends BlockEntityCrate implements ILaser
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
         if (!super.canTakeItemThroughFace(slot, stack, side)) return false;
-        if (stack.is(ModItems.billetOf(Mats.MAT_POLONIUM)) && stack.getComponentsPatch().isEmpty())
+        if (stack.is(ModItems.billetOf(Mats.MAT_POLONIUM)) && RecipeInputState.only(stack))
             return false;
         if (stack.is(ModItems.CRUCIBLE.get())
                 && stack.getDamageValue() > 0
@@ -74,7 +74,7 @@ public class BlockEntityCrateTungsten extends BlockEntityCrate implements ILaser
                             .orElse(ItemStack.EMPTY);
             if (energy > 10_000_000L) {
                 if (stack.is(ModItems.billetOf(Mats.MAT_POLONIUM))
-                        && stack.getComponentsPatch().isEmpty()) {
+                        && RecipeInputState.only(stack)) {
                     result = new ItemStack(ModItems.BILLET_YHARONITE.get());
                 } else if (stack.is(ModItems.CRUCIBLE.get())
                         && stack.getDamageValue() > 0

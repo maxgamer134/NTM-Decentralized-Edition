@@ -9,7 +9,7 @@
   "duration": 200,
   "input_items": [
     {
-      "count": 8,
+      "count": 4,
       "ingredient": "hbm:item_expensive_heavy_frame"
     },
     {

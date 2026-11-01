@@ -1,0 +1,24 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 40,
+  "ignition_temp": 1000000,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/steel"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:plates/titanium"
+    },
+    {
+      "count": 16,
+      "ingredient": "#c:bolts/steel"
+    }
+  ],
+  "order": 640,
+  "output_items": [
+    "hbm:item_expensive_steel_plating"
+  ],
+  "power": 100000
+}

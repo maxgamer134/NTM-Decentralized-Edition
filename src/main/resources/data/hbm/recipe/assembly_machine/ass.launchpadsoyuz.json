@@ -1,0 +1,40 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 1200,
+  "input_items": [
+    {
+      "count": 64,
+      "ingredient": "hbm:concrete_rebar"
+    },
+    {
+      "count": 48,
+      "ingredient": "#hbm:plates_welded/steel"
+    },
+    {
+      "count": 12,
+      "ingredient": "#hbm:plates_welded/any_resistant_alloy"
+    },
+    {
+      "count": 24,
+      "ingredient": "#hbm:ingots/any_hard_plastic"
+    },
+    {
+      "count": 24,
+      "ingredient": "hbm:motor"
+    },
+    {
+      "ingredient": "hbm:circuit_controller_advanced"
+    }
+  ],
+  "order": 105856,
+  "output_items": [
+    "hbm:launchpad_soyuz"
+  ],
+  "power": 5000
+}

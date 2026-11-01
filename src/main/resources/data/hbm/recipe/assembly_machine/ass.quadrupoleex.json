@@ -15,12 +15,12 @@
       "ingredient": "hbm:pa_beamline"
     },
     {
-      "count": 4,
-      "ingredient": "hbm:item_expensive_lead_plating"
+      "count": 2,
+      "ingredient": "hbm:item_expensive_cmb_tubes"
     },
     {
-      "count": 16,
-      "ingredient": "#hbm:ingots/any_hard_plastic"
+      "count": 4,
+      "ingredient": "hbm:item_expensive_plastic"
     },
     {
       "count": 4,

@@ -3,6 +3,7 @@
 
 package com.hbm.packet.toserver;
 
+import com.hbm.items.tool.ItemRTTYDesignator;
 import com.hbm.items.tool.ItemRTTYPager;
 import com.hbm.lib.Library;
 import com.hbm.packet.IPayloadHandlerContext;
@@ -36,7 +37,8 @@ public final class RTTYPagerControlPayload extends ThreadedPayload {
             RTTYPagerControlPayload payload, IPayloadHandlerContext context) {
         if (!(context.player() instanceof ServerPlayer player)) return;
         ItemStack stack = player.getMainHandItem();
-        if (stack.getItem() instanceof ItemRTTYPager)
+        if (stack.getItem() instanceof ItemRTTYPager
+                || stack.getItem() instanceof ItemRTTYDesignator)
             ItemRTTYPager.setChannel(stack, payload.channel);
     }
 

@@ -601,6 +601,34 @@ public final class ModBlocks {
                             (block, props) ->
                                     new FluidPipeAnchorBlock.AnchorBlockItem(block, props))
                     .bakedBy(() -> new AnchorModel());
+    public static final RegistryHandle<ExhaustPipeAnchorBlock> PIPE_ANCHOR_EXHAUST =
+            Reg.blockItem(
+                            "pipe_anchor_exhaust",
+                            ExhaustPipeAnchorBlock::new,
+                            () ->
+                                    BlockBehaviour.Properties.of()
+                                            .strength(5.0F, 6.0F)
+                                            .sound(ModSoundTypes.PIPE)
+                                            .noOcclusion()
+                                            .forceSolidOn()
+                                            .requiresCorrectToolForDrops(),
+                            (block, props) ->
+                                    new FluidPipeAnchorBlock.AnchorBlockItem(block, props))
+                    .bakedBy(() -> new AnchorModel());
+    public static final RegistryHandle<PneumaticPipeAnchorBlock> PIPE_ANCHOR_PNEUMATIC =
+            Reg.blockItem(
+                            "pipe_anchor_pneumatic",
+                            PneumaticPipeAnchorBlock::new,
+                            () ->
+                                    BlockBehaviour.Properties.of()
+                                            .strength(5.0F, 6.0F)
+                                            .sound(ModSoundTypes.PIPE)
+                                            .noOcclusion()
+                                            .forceSolidOn()
+                                            .requiresCorrectToolForDrops(),
+                            (block, props) ->
+                                    new FluidPipeAnchorBlock.AnchorBlockItem(block, props))
+                    .bakedBy(() -> new AnchorModel());
     public static final RegistryHandle<FluidPumpBlock> FLUID_PUMP =
             Reg.blockItem(
                     "fluid_pump",

@@ -50,11 +50,12 @@
       "ingredient": "hbm:circuit_controller_quantum"
     },
     {
-      "count": 16,
-      "ingredient": "hbm:drive_disk_orbitdata_processed"
+      "count": 12,
+      "ingredient": "hbm:circuit_crystal"
     },
     {
-      "ingredient": "hbm:coin_ufo"
+      "count": 16,
+      "ingredient": "hbm:drive_disk_orbitdata_processed"
     }
   ],
   "order": 10240,

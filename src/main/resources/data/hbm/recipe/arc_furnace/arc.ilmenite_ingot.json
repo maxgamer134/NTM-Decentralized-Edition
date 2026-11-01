@@ -1,0 +1,25 @@
+{
+  "type": "hbm:arc_furnace",
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/ilmenite"
+    }
+  ],
+  "order": 2432,
+  "output_items": [
+    {
+      "count": 3,
+      "id": "hbm:ingot_titanium"
+    }
+  ],
+  "output_materials": [
+    {
+      "amount": 216,
+      "material": "titanium"
+    },
+    {
+      "amount": 144,
+      "material": "iron"
+    }
+  ]
+}

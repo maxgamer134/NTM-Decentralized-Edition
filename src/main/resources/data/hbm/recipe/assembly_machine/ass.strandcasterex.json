@@ -9,7 +9,8 @@
   "duration": 200,
   "input_items": [
     {
-      "ingredient": "hbm:item_expensive_heavy_frame"
+      "count": 8,
+      "ingredient": "hbm:item_expensive_steel_plating"
     },
     {
       "count": 16,

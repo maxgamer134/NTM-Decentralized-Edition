@@ -3,8 +3,8 @@
 
 package com.hbm.inventory.recipes.anvil;
 
+import com.hbm.config.BalanceConfig;
 import com.hbm.inventory.recipes.ingredient.CountIngredient;
-import com.hbm.inventory.recipes.ingredient.RecipeInputState;
 import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.inventory.recipes.loader.GenericRecipes;
 import com.hbm.items.ModDataComponents;
@@ -74,6 +74,15 @@ public class AnvilSmithingRecipe extends GenericRecipe {
                 recipe.shapeless = extras.shapeless();
                 recipe.shapeTag = extras.shapeTag().orElse(null);
             };
+    // main: AnvilSmithingRecipe sets tier 1 when LBSM + unlock_anvil are on (as construction does)
+    private static final BiConsumer<AnvilSmithingRecipe, Extras> APPLY_DATAPACK_EXTRAS =
+            (recipe, extras) -> {
+                APPLY_EXTRAS.accept(recipe, extras);
+                recipe.tier =
+                        AnvilConstructionRecipe.unlockedTier(
+                                recipe.tier,
+                                BalanceConfig.enableLBSM && BalanceConfig.enableLBSMUnlockAnvil);
+            };
     private static final Function<AnvilSmithingRecipe, Extras> EXTRACT_EXTRAS =
             recipe ->
                     new Extras(
@@ -83,7 +92,7 @@ public class AnvilSmithingRecipe extends GenericRecipe {
                             Optional.ofNullable(recipe.shapeTag));
     public static final MapCodec<AnvilSmithingRecipe> MAP_CODEC =
             GenericRecipe.mapCodec(
-                    AnvilSmithingRecipe::new, EXTRAS_MAP_CODEC, APPLY_EXTRAS, EXTRACT_EXTRAS);
+                    AnvilSmithingRecipe::new, EXTRAS_MAP_CODEC, APPLY_DATAPACK_EXTRAS, EXTRACT_EXTRAS);
     public static final StreamCodec<RegistryFriendlyByteBuf, AnvilSmithingRecipe> STREAM_CODEC =
             GenericRecipe.streamCodec(
                     AnvilSmithingRecipe::new, EXTRAS_STREAM_CODEC, APPLY_EXTRAS, EXTRACT_EXTRAS);
@@ -154,8 +163,8 @@ public class AnvilSmithingRecipe extends GenericRecipe {
         }
         if (kind == Kind.MOLD) {
             if (!doesStackMatch(right, right(), gameTime)) return -1;
-            if (left.getCount() != left().count() || left.isDamaged()) return -1;
-            return (shapeTag != null ? matchesShape(left) : left().ingredient().test(left))
+            if (left.getCount() < left().count()) return -1;
+            return (shapeTag != null ? matchesShape(left) : left().testFuzzy(left))
                     ? 0
                     : -1;
         }
@@ -171,18 +180,10 @@ public class AnvilSmithingRecipe extends GenericRecipe {
     }
 
     public boolean doesStackMatch(ItemStack input, CountIngredient recipe, long gameTime) {
-        if (kind == Kind.RENAME)
-            return input.getCount() >= recipe.count() && recipe.ingredient().test(input);
         if (kind == Kind.HOT && input.getItem() instanceof ItemHot) {
-            return ItemHot.getHeat(input, gameTime) >= 0.5D
-                    && input.getCount() >= recipe.count()
-                    && recipe.ingredient().test(input)
-                    && RecipeInputState.only(
-                            input,
-                            ModDataComponents.HOT_ITEM_HEAT.get(),
-                            ModDataComponents.HOT_UNTIL.get());
+            return ItemHot.getHeat(input, gameTime) >= 0.5D && recipe.testFuzzy(input);
         }
-        return recipe.test(input);
+        return recipe.testFuzzy(input);
     }
 
     public long expiresAt(ItemStack left, ItemStack right) {

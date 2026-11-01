@@ -3,6 +3,7 @@
 
 package com.hbm.client.gui;
 
+import com.hbm.items.tool.ItemRTTYDesignator;
 import com.hbm.items.tool.ItemRTTYPager;
 import com.hbm.lib.Library;
 import com.hbm.packet.PacketWire;
@@ -39,7 +40,10 @@ public final class ScreenPager extends ScreenCompat {
     public ScreenPager(ItemStack pager) {
         super(Component.translatable("container.rttyPager"));
         startingChannel =
-                pager.getItem() instanceof ItemRTTYPager ? ItemRTTYPager.channel(pager) : "";
+                pager.getItem() instanceof ItemRTTYPager
+                                || pager.getItem() instanceof ItemRTTYDesignator
+                        ? ItemRTTYPager.channel(pager)
+                        : "";
     }
 
     @Override

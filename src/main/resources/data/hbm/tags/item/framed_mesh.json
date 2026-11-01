@@ -12,6 +12,8 @@
     "hbm:substation",
     "hbm:machine_conveyor_press",
     "hbm:pipe_anchor",
+    "hbm:pipe_anchor_exhaust",
+    "hbm:pipe_anchor_pneumatic",
     "hbm:fluid_pump",
     "hbm:radio_telex",
     "hbm:radio_autocal",

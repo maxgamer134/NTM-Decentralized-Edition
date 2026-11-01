@@ -145,7 +145,7 @@ public class ItemBedrockOreNew extends ItemCompat {
                 "light",
                 o(MAT_IRON, 9),
                 o(MAT_COPPER, 9),
-                o(MAT_TITANIUM, 6),
+                o(MAT_ILMENITE, 6),
                 o(MAT_BAUXITE, 9),
                 o(MAT_CRYOLITE, 3),
                 o(MAT_CHLOROCALCITE, 5),

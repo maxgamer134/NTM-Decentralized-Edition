@@ -737,7 +737,12 @@ public final class ModBlockEntities {
     public static final RegistryHandle<BlockEntityType<BlockEntityCablePaintable>> CABLE_PAINTABLE =
             be("cable_paintable", BlockEntityCablePaintable::new, ModBlocks.RED_CABLE_PAINTABLE);
     public static final RegistryHandle<BlockEntityType<BlockEntityPipeAnchor>> PIOE_ANCHOR =
-            be("pioe_anchor", BlockEntityPipeAnchor::new, ModBlocks.PIPE_ANCHOR)
+            be(
+                            "pioe_anchor",
+                            BlockEntityPipeAnchor::new,
+                            ModBlocks.PIPE_ANCHOR,
+                            ModBlocks.PIPE_ANCHOR_EXHAUST,
+                            ModBlocks.PIPE_ANCHOR_PNEUMATIC)
                     .ticksServer(BlockEntityPipeAnchor::tickServer);
     public static final RegistryHandle<BlockEntityType<BlockEntityMachineWoodBurner>> WOOD_BURNER =
             clientMachine(

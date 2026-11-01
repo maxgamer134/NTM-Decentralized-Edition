@@ -1,0 +1,30 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 120,
+  "ignition_temp": 1000000,
+  "input_fluids": [
+    {
+      "type": "hbm:solvent",
+      "amount": 1000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:ingots/any_hard_plastic"
+    },
+    {
+      "count": 16,
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:ingots/rubber"
+    }
+  ],
+  "order": 696,
+  "output_items": [
+    "hbm:item_expensive_plastic"
+  ],
+  "power": 100000
+}

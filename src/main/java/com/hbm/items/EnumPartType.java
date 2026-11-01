@@ -10,7 +10,8 @@ public enum EnumPartType {
     PISTON_ELECTRIC("piston_electric"),
     LDE("low_density_element"),
     HDE("heavy_duty_element"),
-    GLASS_POLARIZED("glass_polarized");
+    GLASS_POLARIZED("glass_polarized"),
+    ALCLAD("plate_alclad_generic");
 
     public final String texture;
 

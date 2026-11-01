@@ -9,7 +9,7 @@
   "key": {
     "C": "hbm:circuit_advanced",
     "D": "hbm:crt_display",
-    "R": "hbm:rbmk_control"
+    "R": "hbm:rbmk_control_reasim"
   },
   "pattern": [
     "C",

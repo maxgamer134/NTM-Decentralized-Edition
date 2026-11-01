@@ -198,7 +198,10 @@ public class BlockEntityMachineRotaryFurnace extends BlockEntityMachinePolluting
 
         RotaryFurnaceRecipe recipe =
                 RotaryFurnaceRecipes.getRecipe(
-                        inventory.get(0), inventory.get(1), inventory.get(2));
+                        tanks[0].getTankType(),
+                        inventory.get(0),
+                        inventory.get(1),
+                        inventory.get(2));
         this.isProgressing = false;
 
         if (recipe != null) {

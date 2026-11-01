@@ -185,7 +185,8 @@ public final class NTMFluids {
         "LIQUID_CONCRETE",
         "DHC",
         "AIRBLAST",
-        "FLUE"
+        "FLUE",
+        "TITANIUM_TETRACHLORIDE"
     };
     private static final String[] DISPLAY_ORDER = {
         "AIR", "AIRBLAST", "WATER", "HEAVYWATER",
@@ -220,7 +221,7 @@ public final class NTMFluids {
         "WATZ_MUD", "REDMUD", "FULLERENE", "EGG",
         "CHOLESTEROL", "CHLOROCALCITE_SOLUTION", "CHLOROCALCITE_MIX", "CHLOROCALCITE_CLEANED",
         "POTASSIUM_CHLORIDE", "CALCIUM_CHLORIDE", "CALCIUM_SOLUTION", "SODIUM_ALUMINATE",
-        "BAUXITE_SOLUTION", "ALUMINA", "LIQUID_CONCRETE", "FRACKSOL",
+        "BAUXITE_SOLUTION", "ALUMINA", "TITANIUM_TETRACHLORIDE", "LIQUID_CONCRETE", "FRACKSOL",
         "LYE", "PHOSGENE", "MUSTARDGAS", "ESTRADIOL",
         "NITROGLYCERIN", "AMAT", "ASCHRAB", "WASTEFLUID",
         "WASTEGAS", "XPJUICE", "ENDERJUICE", "STELLAR_FLUX",
@@ -354,6 +355,7 @@ public final class NTMFluids {
     public static Fluid CHLOROCALCITE_CLEANED;
     public static Fluid POTASSIUM_CHLORIDE;
     public static Fluid CALCIUM_CHLORIDE;
+    public static Fluid TITANIUM_TETRACHLORIDE;
     public static Fluid CALCIUM_SOLUTION;
     public static Fluid SCHRABIDIC;
     public static Fluid UF6;

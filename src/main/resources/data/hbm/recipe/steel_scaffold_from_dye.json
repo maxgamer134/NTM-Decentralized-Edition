@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "D": "minecraft:gray_dye",
+    "D": "#c:dyes/gray",
     "S": [
       "hbm:steel_scaffold",
       "hbm:steel_scaffold_red",

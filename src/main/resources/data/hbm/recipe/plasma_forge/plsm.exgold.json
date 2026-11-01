@@ -1,0 +1,20 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 120,
+  "ignition_temp": 1000000,
+  "input_items": [
+    {
+      "count": 64,
+      "ingredient": "#c:dusts/gold"
+    },
+    {
+      "count": 64,
+      "ingredient": "#c:dusts/gold"
+    }
+  ],
+  "order": 704,
+  "output_items": [
+    "hbm:item_expensive_gold_dust"
+  ],
+  "power": 100000
+}

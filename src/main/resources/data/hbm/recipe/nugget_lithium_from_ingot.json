@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:lithium"
+  ],
+  "result": {
+    "count": 9,
+    "id": "hbm:nugget_lithium"
+  }
+}

@@ -44,6 +44,8 @@
     "hbm:fluid_duct_paintable",
     "hbm:fluid_duct_paintable_block_exhaust",
     "hbm:pipe_anchor",
+    "hbm:pipe_anchor_exhaust",
+    "hbm:pipe_anchor_pneumatic",
     "hbm:fluid_pump",
     "hbm:radiobox",
     "hbm:radio_autocal",

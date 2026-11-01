@@ -1,0 +1,30 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 6000,
+  "ignition_temp": 12500000,
+  "input_fluids": [
+    {
+      "type": "hbm:reformgas",
+      "amount": 4000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "hbm:item_expensive_bronze_tubes"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/cmbsteel"
+    },
+    {
+      "count": 12,
+      "ingredient": "hbm:powder_chlorophyte"
+    }
+  ],
+  "order": 712,
+  "output_items": [
+    "hbm:item_expensive_cmb_tubes"
+  ],
+  "power": 10000000
+}

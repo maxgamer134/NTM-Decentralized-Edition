@@ -1,0 +1,30 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 80,
+  "ignition_temp": 1000000,
+  "input_fluids": [
+    {
+      "type": "hbm:sulfuric_acid",
+      "amount": 1000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:circuit_basic"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:circuit_capacitor"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:ingots/rubber"
+    }
+  ],
+  "order": 656,
+  "output_items": [
+    "hbm:item_expensive_circuit"
+  ],
+  "power": 100000
+}

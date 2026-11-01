@@ -14,5 +14,6 @@ public enum EnumExpensiveType {
     BRONZE_TUBES,
     PLASTIC,
     GOLD_DUST,
-    DEGENERATE_MATTER
+    DEGENERATE_MATTER,
+    CMB_TUBES
 }

@@ -1,0 +1,35 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:shells/aluminum"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/any_bismoid_bronze"
+    },
+    {
+      "count": 16,
+      "ingredient": "#hbm:billets/plutonium_rg"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:motor_bismuth"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:circuit_quantum"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:part_generic_lde"
+    }
+  ],
+  "order": 107136,
+  "output_items": [
+    "hbm:satellite_science_assembler"
+  ],
+  "power": 25000
+}

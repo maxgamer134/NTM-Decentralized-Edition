@@ -3,6 +3,7 @@
 
 package com.hbm.inventory.recipes;
 
+import com.hbm.inventory.fluid.FluidStackNTM;
 import com.hbm.inventory.recipes.ingredient.CountIngredient;
 import com.hbm.inventory.recipes.loader.SimpleGenericRecipes;
 import java.util.ArrayList;
@@ -10,15 +11,21 @@ import java.util.Iterator;
 import java.util.List;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.material.Fluid;
 import org.jspecify.annotations.Nullable;
 
 public class RotaryFurnaceRecipes extends SimpleGenericRecipes<RotaryFurnaceRecipe> {
 
     public static final RotaryFurnaceRecipes INSTANCE = new RotaryFurnaceRecipes();
 
-    public static @Nullable RotaryFurnaceRecipe getRecipe(ItemStack... inputs) {
+    public static @Nullable RotaryFurnaceRecipe getRecipe(
+            @Nullable Fluid fluid, ItemStack... inputs) {
         outer:
         for (RotaryFurnaceRecipe recipe : INSTANCE.recipes()) {
+
+            // never try to match if a fluid is required and our tank doesn't match it
+            FluidStackNTM required = recipe.fluid();
+            if (required != null && required.type() != fluid) continue;
 
             List<CountIngredient> recipeList = new ArrayList<>(List.of(recipe.inputItem));
 

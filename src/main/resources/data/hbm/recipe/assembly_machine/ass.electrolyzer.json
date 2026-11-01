@@ -17,10 +17,6 @@
       "ingredient": "#c:plates/copper"
     },
     {
-      "count": 3,
-      "ingredient": "#hbm:shells/titanium"
-    },
-    {
       "count": 8,
       "ingredient": "#c:ingots/rubber"
     },
@@ -29,11 +25,10 @@
       "ingredient": "hbm:ingot_firebrick"
     },
     {
-      "count": 16,
-      "ingredient": "hbm:coil_copper"
+      "ingredient": "hbm:arc_electrode_graphite"
     },
     {
-      "count": 8,
+      "count": 4,
       "ingredient": "hbm:circuit_basic"
     }
   ],

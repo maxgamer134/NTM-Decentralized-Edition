@@ -7,5 +7,6 @@ public enum EnumChunkType {
     RARE,
     MALACHITE,
     CRYOLITE,
-    MOONSTONE
+    MOONSTONE,
+    ILMENITE
 }

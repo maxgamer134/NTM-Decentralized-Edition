@@ -1,0 +1,27 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 60,
+  "input_fluids": [
+    {
+      "type": "hbm:chlorine",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#c:ingots/ilmenite"
+    },
+    {
+      "ingredient": "#hbm:gems/any_coke"
+    }
+  ],
+  "order": 2176,
+  "output_fluids": [
+    {
+      "type": "hbm:titanium_tetrachloride",
+      "amount": 4000
+    }
+  ],
+  "power": 500
+}

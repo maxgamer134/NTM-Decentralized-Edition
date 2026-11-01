@@ -16,12 +16,16 @@
       "ingredient": "hbm:item_expensive_ferro_plating"
     },
     {
-      "count": 6,
-      "ingredient": "#c:ingots/saturnite"
+      "count": 8,
+      "ingredient": "hbm:item_expensive_plastic"
     },
     {
-      "count": 4,
-      "ingredient": "#hbm:ingots/any_hard_plastic"
+      "count": 3,
+      "ingredient": "#hbm:plates_cast/saturnite"
+    },
+    {
+      "count": 3,
+      "ingredient": "#hbm:plates_cast/zirconium"
     }
   ],
   "name": "ass.watzrodEx",

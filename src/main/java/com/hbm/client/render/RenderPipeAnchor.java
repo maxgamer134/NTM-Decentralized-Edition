@@ -5,6 +5,8 @@ package com.hbm.client.render;
 
 import com.hbm.api.fluidmk2.FluidPipeTintData;
 import com.hbm.blockentity.network.BlockEntityPipeAnchor;
+import com.hbm.blocks.network.ExhaustPipeAnchorBlock;
+import com.hbm.blocks.network.PneumaticPipeAnchorBlock;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.loader.HFRWavefrontObject;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -36,6 +38,10 @@ public class RenderPipeAnchor
     private final HFRWavefrontObject model = ResourceManager.pipe_anchor;
     private final RenderType renderType =
             RenderTypes.entityCutoutCull(ResourceManager.pipe_anchor_tex);
+    private final RenderType exhaustType =
+            RenderTypes.entityCutoutCull(ResourceManager.pipe_anchor_exhaust_tex);
+    private final RenderType pneumaticType =
+            RenderTypes.entityCutoutCull(ResourceManager.pipe_anchor_pneumatic_tex);
 
     public static boolean isDominant(Vec3 first, Vec3 second) {
         if (first.x != second.x) return first.x < second.x;
@@ -73,7 +79,16 @@ public class RenderPipeAnchor
                 be, state, partialTicks, cameraPosition, breakProgress);
         state.runs.clear();
         if (be.fluid == Fluids.EMPTY && be.connections.length == 0) return;
-        state.color = lighten(ARGB.transparent(FluidPipeTintData.colorFor(be.fluid)), 0.25);
+        // main: exhaust and pneumatic anchors draw untinted pipes in their own texture
+        var block = be.getBlockState().getBlock();
+        state.kind =
+                block instanceof PneumaticPipeAnchorBlock
+                        ? 2
+                        : block instanceof ExhaustPipeAnchorBlock ? 1 : 0;
+        state.color =
+                state.kind == 0
+                        ? lighten(ARGB.transparent(FluidPipeTintData.colorFor(be.fluid)), 0.25)
+                        : 0xFFFFFF;
 
         Vec3 self = Vec3.atCenterOf(be.getBlockPos());
         for (long key : be.connections) {
@@ -102,6 +117,8 @@ public class RenderPipeAnchor
         if (s.runs.isEmpty()) return;
         int light = s.lightCoords;
         int pipeColor = ARGB.opaque(s.color);
+        RenderType renderType =
+                s.kind == 2 ? pneumaticType : s.kind == 1 ? exhaustType : this.renderType;
         ps.pushPose();
         ps.translate(0.5, 0.5, 0.5);
         for (Run run : s.runs) {
@@ -157,5 +174,6 @@ public class RenderPipeAnchor
     public static final class State extends BlockEntityRenderState {
         public final List<Run> runs = new ArrayList<>();
         public int color = 0xFFFFFF;
+        public int kind;
     }
 }

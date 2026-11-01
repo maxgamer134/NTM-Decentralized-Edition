@@ -1,0 +1,20 @@
+{
+  "type": "hbm:assembly_machine",
+  "custom_localization": true,
+  "duration": 200,
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "#c:dusts/aluminum"
+    },
+    {
+      "count": 2,
+      "ingredient": "#c:plates/copper"
+    }
+  ],
+  "order": 105896,
+  "output_items": [
+    "hbm:part_generic_alclad"
+  ],
+  "power": 50000
+}

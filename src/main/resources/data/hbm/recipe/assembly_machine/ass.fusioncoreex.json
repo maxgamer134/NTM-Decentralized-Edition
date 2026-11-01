@@ -12,15 +12,18 @@
   "duration": 600,
   "input_items": [
     {
-      "count": 8,
-      "ingredient": "hbm:item_expensive_ferro_plating"
+      "count": 4,
+      "ingredient": "hbm:item_expensive_bronze_tubes"
     },
     {
       "count": 8,
       "ingredient": "hbm:item_expensive_plastic"
     },
     {
-      "count": 16,
+      "ingredient": "hbm:item_expensive_computer"
+    },
+    {
+      "count": 8,
       "ingredient": "hbm:circuit_bismoid"
     },
     {

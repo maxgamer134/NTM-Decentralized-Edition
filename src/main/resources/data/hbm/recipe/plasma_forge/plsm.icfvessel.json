@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ],
   "type": "hbm:plasma_forge",
   "blueprint_pools_528": [
     "528.chlorophyte"

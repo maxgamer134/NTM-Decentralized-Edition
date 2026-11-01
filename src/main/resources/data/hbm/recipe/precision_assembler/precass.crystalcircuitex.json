@@ -1,0 +1,54 @@
+{
+  "type": "hbm:precision_assembler",
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "hbm:circuit_chip_quantum"
+    },
+    {
+      "count": 16,
+      "ingredient": "hbm:circuit_capacitor_tantalium"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:ingot_cft"
+    },
+    {
+      "count": 16,
+      "ingredient": "hbm:circuit_pcb"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:wires_dense/bscco"
+    }
+  ],
+  "order": 128,
+  "output_items": [
+    [
+      {
+        "data": {
+          "id": "hbm:orbital_assembly"
+        },
+        "weight": 250
+      },
+      {
+        "data": {
+          "components": {
+            "hbm:broken_item_source": "hbm:orbital_assembly"
+          },
+          "id": "hbm:broken_item"
+        },
+        "weight": 750
+      }
+    ]
+  ],
+  "power": 20000,
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "name": "precass.crystalcircuitEx"
+}

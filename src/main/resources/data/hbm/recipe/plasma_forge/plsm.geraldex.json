@@ -23,11 +23,11 @@
     },
     {
       "count": 64,
-      "ingredient": "hbm:item_expensive_bronze_tubes"
+      "ingredient": "hbm:item_expensive_cmb_tubes"
     },
     {
       "count": 64,
-      "ingredient": "hbm:item_expensive_bronze_tubes"
+      "ingredient": "hbm:item_expensive_cmb_tubes"
     },
     {
       "count": 64,
@@ -47,14 +47,15 @@
     },
     {
       "count": 64,
+      "ingredient": "hbm:circuit_crystal"
+    },
+    {
+      "count": 64,
       "ingredient": "hbm:item_expensive_computer"
     },
     {
       "count": 64,
       "ingredient": "hbm:drive_disk_orbitdata_processed"
-    },
-    {
-      "ingredient": "hbm:coin_ufo"
     }
   ],
   "name": "plsm.geraldEx",

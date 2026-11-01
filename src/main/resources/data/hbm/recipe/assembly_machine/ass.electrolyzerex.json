@@ -13,10 +13,6 @@
       "ingredient": "hbm:item_expensive_heavy_frame"
     },
     {
-      "count": 3,
-      "ingredient": "#hbm:shells/titanium"
-    },
-    {
       "count": 8,
       "ingredient": "#c:ingots/rubber"
     },

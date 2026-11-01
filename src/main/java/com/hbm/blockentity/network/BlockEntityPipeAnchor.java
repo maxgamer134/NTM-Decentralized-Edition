@@ -5,6 +5,9 @@ package com.hbm.blockentity.network;
 
 import com.hbm.api.fluidmk2.FluidPipeGraph;
 import com.hbm.api.fluidmk2.PipeData;
+import com.hbm.api.ntl.PneumaticData;
+import com.hbm.api.ntl.PneumaticNetwork;
+import com.hbm.blocks.network.PneumaticPipeAnchorBlock;
 import com.hbm.blockentity.GraphResident;
 import com.hbm.blockentity.Synced;
 import com.hbm.blocks.ModBlockEntities;
@@ -67,6 +70,17 @@ public class BlockEntityPipeAnchor extends BlockEntityCompat
 
     public void tickServer() {
         ServerLevel sl = (ServerLevel) level;
+        if (getBlockState().getBlock() instanceof PneumaticPipeAnchorBlock) {
+            GraphNode<PneumaticData> tube =
+                    PneumaticNetwork.get(sl).getNode(worldPosition.asLong());
+            this.fluid = Fluids.EMPTY;
+            this.connections =
+                    tube != null && tube.hasRemoteLinks()
+                            ? tube.remoteLinks.toLongArray()
+                            : new long[0];
+            networkPackNTTracking();
+            return;
+        }
         LevelNodeGraph<PipeData> graph = FluidPipeGraph.graphAt(sl, worldPosition.asLong());
         GraphNode<PipeData> node = graph == null ? null : graph.getNode(worldPosition.asLong());
         if (node != null) {

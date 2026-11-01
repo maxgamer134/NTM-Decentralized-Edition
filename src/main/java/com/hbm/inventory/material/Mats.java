@@ -129,6 +129,10 @@ public class Mats {
                     .setAutogen(FRAGMENT)
                     .setTagOnly(CRYSTAL)
                     .n();
+    public static final NTMMaterial MAT_ILMENITE =
+            makeNonSmeltable(2201, ILMENITE, 0x868686, 0x1F1F1F, 0x666666)
+                    .setAutogen(FRAGMENT)
+                    .n();
 
     public static final NTMMaterial MAT_URANIUM =
             makeSmeltable(9200, U, 0xC1C7BD, 0x2B3227, 0x9AA196)
@@ -395,9 +399,18 @@ public class Mats {
     public static final NTMMaterial MAT_TITANIUM =
             makeSmeltable(2200, TI, 0xF7F3F2, 0x4F4C4B, 0xA99E79)
                     .setAutogen(
-                            FRAGMENT, DUST, PLATE, DENSEWIRE, CASTPLATE, WELDEDPLATE, SHELL, BLOCK)
+                            FRAGMENT,
+                            NUGGET,
+                            DUST,
+                            PLATE,
+                            DENSEWIRE,
+                            CASTPLATE,
+                            WELDEDPLATE,
+                            SHELL,
+                            BLOCK)
                     .setTagOnly(INGOT, ORE)
                     .legacy(INGOT, "ingot_titanium")
+                    .legacy(NUGGET, "nugget_titanium")
                     .legacy(DUST, "powder_titanium")
                     .legacy(PLATE, "plate_titanium")
                     .m();
@@ -405,6 +418,7 @@ public class Mats {
             makeSmeltable(2900, CU, 0xFDCA88, 0x601E0D, 0xC18336)
                     .setAutogen(
                             FRAGMENT,
+                            NUGGET,
                             WIRE,
                             DUST,
                             PLATE,
@@ -416,23 +430,43 @@ public class Mats {
                             BLOCK)
                     .setTagOnly(INGOT, ORE)
                     .legacy(DUST, "powder_copper")
+                    .legacy(NUGGET, "nugget_copper")
                     .legacy(PLATE, "plate_copper")
                     .m();
     public static final NTMMaterial MAT_TUNGSTEN =
             makeSmeltable(7400, W, 0x868686, 0x000000, 0x977474)
                     .setAutogen(
-                            FRAGMENT, WIRE, BOLT, DUST, DENSEWIRE, CASTPLATE, WELDEDPLATE, BLOCK)
+                            FRAGMENT,
+                            NUGGET,
+                            WIRE,
+                            BOLT,
+                            DUST,
+                            DENSEWIRE,
+                            CASTPLATE,
+                            WELDEDPLATE,
+                            BLOCK)
                     .setTagOnly(INGOT, ORE)
                     .legacy(INGOT, "ingot_tungsten")
                     .legacy(DUST, "powder_tungsten")
+                    .legacy(NUGGET, "nugget_tungsten")
                     .m();
     public static final NTMMaterial MAT_ALUMINIUM =
             makeSmeltable(1300, AL, 0xFFFFFF, 0x344550, 0xD0B8EB)
                     .setAutogen(
-                            FRAGMENT, WIRE, DUST, PLATE, CASTPLATE, WELDEDPLATE, SHELL, PIPE, BLOCK)
+                            FRAGMENT,
+                            NUGGET,
+                            WIRE,
+                            DUST,
+                            PLATE,
+                            CASTPLATE,
+                            WELDEDPLATE,
+                            SHELL,
+                            PIPE,
+                            BLOCK)
                     .setTagOnly(INGOT, ORE)
                     .legacy(INGOT, "ingot_aluminium")
                     .legacy(DUST, "powder_aluminium")
+                    .legacy(NUGGET, "nugget_aluminium")
                     .legacy(PLATE, "plate_aluminium")
                     .m();
     public static final NTMMaterial MAT_LEAD =
@@ -538,8 +572,9 @@ public class Mats {
                     .m();
     public static final NTMMaterial MAT_SODIUM =
             makeSmeltable(1100, NA, 0xD3BF9E, 0x3A5A6B, 0x7E9493)
-                    .setAutogen(FRAGMENT, INGOT, DUST)
+                    .setAutogen(FRAGMENT, NUGGET, INGOT, DUST)
                     .legacy(DUST, "powder_sodium")
+                    .legacy(NUGGET, "nugget_sodium")
                     .m();
     public static final NTMMaterial MAT_SODALITE =
             makeNonSmeltable(1101, SODALITE, 0xDCE5F6, 0x4927B4, 0x96A7E6)
@@ -547,8 +582,9 @@ public class Mats {
                     .n();
     public static final NTMMaterial MAT_STRONTIUM =
             makeSmeltable(3800, SR, 0xF1E8BA, 0x271E00, 0xCAC193)
-                    .setAutogen(FRAGMENT, INGOT, DUST)
+                    .setAutogen(FRAGMENT, NUGGET, INGOT, DUST)
                     .legacy(DUST, "powder_strontium")
+                    .legacy(NUGGET, "nugget_strontium")
                     .m();
     public static final NTMMaterial MAT_CALCIUM =
             makeSmeltable(2000, CA, 0xCFCFA6, 0x747F6E, 0xB7B784)
@@ -559,9 +595,10 @@ public class Mats {
                     .m();
     public static final NTMMaterial MAT_LITHIUM =
             makeSmeltable(300, LI, 0xFFFFFF, 0x818181, 0xD6D6D6)
-                    .setAutogen(FRAGMENT, DUST, BLOCK)
+                    .setAutogen(FRAGMENT, NUGGET, DUST, BLOCK)
                     .setTagOnly(INGOT, DUSTTINY, ORE)
                     .legacy(DUST, "powder_lithium")
+                    .legacy(NUGGET, "nugget_lithium")
                     .m();
     public static final NTMMaterial MAT_SULFUR =
             makeNonSmeltable(1600, S, 0xFCEE80, 0xBDA022, 0xF1DF68)

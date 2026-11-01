@@ -192,7 +192,7 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         PageSlot slot;
         if (outcome.stack().isEmpty()) {
             ItemStack air = new ItemStack(Items.BARRIER);
-            air.set(DataComponents.CUSTOM_NAME, Component.translatable("block.minecraft.air"));
+            air.set(DataComponents.CUSTOM_NAME, Component.translatable("jei.hbm.nothing"));
             slot = page.display(x, y).item(air);
         } else {
             slot = page.output(x, y).item(outcome.stack());

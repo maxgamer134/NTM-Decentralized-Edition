@@ -125,6 +125,7 @@ import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.TntRenderer;
 import com.hbm.backport.client.itemmodel.ItemModel;
+import com.hbm.backport.client.itemmodel.RangeSelectItemModelProperty;
 import com.hbm.backport.client.itemmodel.SelectItemModelProperty;
 import com.hbm.backport.client.itemmodel.SpecialModelRenderer;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -435,6 +436,11 @@ public final class ClientRegistry {
         reg.register("full_schrab", FullSchrabProperty.TYPE);
         reg.register("polaroid", PolaroidProperty.TYPE);
         reg.register("scrap_material", ScrapMaterialProperty.TYPE);
+    }
+
+    public static void registerRangeItemModelProperties(
+            IdRegistrar<MapCodec<? extends RangeSelectItemModelProperty>> reg) {
+        reg.register("alexandrite_light", AlexandriteLightProperty.MAP_CODEC);
     }
 
     public static void registerItemTintSources(

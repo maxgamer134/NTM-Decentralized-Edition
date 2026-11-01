@@ -8379,6 +8379,7 @@
   "jei.hbm.effectiveness": "Effectiveness: +%s%% per level",
   "jei.hbm.fluid_rate": "%s: %s mB/t",
   "jei.hbm.fluid_containers": "Fluid Containers",
+  "jei.hbm.nothing": "Nothing",
   "jei.hbm.fuel_pool": "Spent Fuel Pool Drum",
   "jei.hbm.gas_centrifuge.cascade": "%s G. Cents",
   "jei.hbm.ignition_ky": "%sKy/t",

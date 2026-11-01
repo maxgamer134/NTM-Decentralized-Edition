@@ -31,6 +31,7 @@ public final class ItemModelBootstrap {
         ClientRegistry.registerSpecialModelRenderers(SpecialModelRenderers.ID_MAPPER::put);
         ClientRegistry.registerItemTintSources(ItemTintSources.ID_MAPPER::put);
         ClientRegistry.registerSelectItemModelProperties(SelectItemModelProperties.ID_MAPPER::put);
+        ClientRegistry.registerRangeItemModelProperties(RangeSelectItemModelProperties.ID_MAPPER::put);
 
         modBus.addListener(ModelEvent.RegisterAdditional.class, ClientItems::onRegisterAdditional);
         modBus.addListener(ModelEvent.ModifyBakingResult.class, ClientItems::onModifyBakingResult);

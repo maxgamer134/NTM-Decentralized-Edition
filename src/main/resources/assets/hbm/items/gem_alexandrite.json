@@ -1,6 +1,124 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "hbm:item/gem_alexandrite"
+    "type": "minecraft:range_dispatch",
+    "property": "hbm:alexandrite_light",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_0"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_1"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_2"
+        },
+        "threshold": 2.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_3"
+        },
+        "threshold": 3.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_4"
+        },
+        "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_5"
+        },
+        "threshold": 5.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_6"
+        },
+        "threshold": 6.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_7"
+        },
+        "threshold": 7.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_8"
+        },
+        "threshold": 8.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_9"
+        },
+        "threshold": 9.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_10"
+        },
+        "threshold": 10.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_11"
+        },
+        "threshold": 11.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_12"
+        },
+        "threshold": 12.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_13"
+        },
+        "threshold": 13.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_14"
+        },
+        "threshold": 14.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gem_alexandrite_15"
+        },
+        "threshold": 15.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:item/gem_alexandrite_0"
+    }
   }
 }

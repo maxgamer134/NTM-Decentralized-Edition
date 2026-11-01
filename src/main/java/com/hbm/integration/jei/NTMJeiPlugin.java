@@ -13,6 +13,7 @@ import com.hbm.integration.recipeviewer.RecipePages;
 import com.hbm.inventory.machine.CustomMachineDefinition;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
+import com.hbm.registration.ItemSubtype;
 import com.hbm.registration.Reg;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -115,7 +116,8 @@ public class NTMJeiPlugin implements IModPlugin {
 
     private <T> void addRows(IRecipeRegistration registration, RecipePage<T> page) {
         JeiLookupPlugin<?> plugin = lookupPlugins.get(page.id());
-        // secret rows are left out up front too: EMI and TMRV may not honour the runtime hideRecipes
+        // secret rows are left out up front (lookup pages filter in fill): EMI and TMRV do not
+        // honour JEI's runtime hideRecipes
         if (plugin == null)
             registration.addRecipes(
                     typeOf(page), page.rows().stream().filter(row -> !page.hidden(row)).toList());
@@ -155,24 +157,21 @@ public class NTMJeiPlugin implements IModPlugin {
         // no lambda; the legacy string is only read for old JEI config files (unverified: toString of
         // the subtype data is an adequate legacy key, 26.x JEI no longer has this method)
         Reg.visitItemSubtypes(
-                (item, kind) ->
-                        registration.registerSubtypeInterpreter(
-                                item,
-                                new ISubtypeInterpreter<ItemStack>() {
-                                    @Override
-                                    public @Nullable Object getSubtypeData(
-                                            ItemStack stack, UidContext context) {
-                                        return kind.getSubtypeData(stack);
-                                    }
+                (item, kind) -> registration.registerSubtypeInterpreter(item, new Subtypes(kind)));
+    }
 
-                                    @Override
-                                    @SuppressWarnings("removal")
-                                    public String getLegacyStringSubtypeInfo(
-                                            ItemStack stack, UidContext context) {
-                                        Object data = kind.getSubtypeData(stack);
-                                        return data == null ? "" : data.toString();
-                                    }
-                                }));
+    private record Subtypes(ItemSubtype kind) implements ISubtypeInterpreter<ItemStack> {
+        @Override
+        public @Nullable Object getSubtypeData(ItemStack stack, UidContext context) {
+            return kind.getSubtypeData(stack);
+        }
+
+        @Override
+        @SuppressWarnings("removal")
+        public String getLegacyStringSubtypeInfo(ItemStack stack, UidContext context) {
+            Object data = kind.getSubtypeData(stack);
+            return data == null ? "" : data.toString();
+        }
     }
 
     @Override
@@ -180,7 +179,6 @@ public class NTMJeiPlugin implements IModPlugin {
         jeiRuntime
                 .getIngredientManager()
                 .removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, RecipePages.hiddenStacks());
-        for (RecipePage<?> page : RecipePages.fixed()) hideRows(jeiRuntime, page);
     }
 
     private record CraftingRowsLookup(CraftingRows rows)
@@ -209,18 +207,6 @@ public class NTMJeiPlugin implements IModPlugin {
         public List<RecipeHolder<CraftingRecipe>> getAllRecipes() {
             return List.of();
         }
-    }
-
-    private <T> void hideRows(IJeiRuntime runtime, RecipePage<T> page) {
-        RecipeType<T> type = typeOf(page);
-        List<T> hidden =
-                runtime.getRecipeManager()
-                        .createRecipeLookup(type)
-                        .includeHidden()
-                        .get()
-                        .filter(page::hidden)
-                        .toList();
-        if (!hidden.isEmpty()) runtime.getRecipeManager().hideRecipes(type, hidden);
     }
 
     @Override

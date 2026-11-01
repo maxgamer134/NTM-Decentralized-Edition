@@ -322,11 +322,8 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
         }
 
         @Override
-        @SuppressWarnings("removal")
         public void arrow(int x, int y) {
-            // backport: addRecipeArrow() (JEI 19.19.1+) instead of 19.51's addRecipeArrowWidget(), same
-            // widget, so older 19.x releases work too
-            builder.addRecipeArrow().setPosition(x, y);
+            builder.addRecipeArrowWidget().setPosition(x, y);
         }
 
         @Override

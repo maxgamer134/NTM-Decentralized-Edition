@@ -3,7 +3,6 @@
 
 package com.hbm.inventory.recipes.anvil;
 
-import com.hbm.config.BalanceConfig;
 import com.hbm.inventory.recipes.ingredient.CountIngredient;
 import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.inventory.recipes.loader.GenericRecipes;
@@ -74,15 +73,6 @@ public class AnvilSmithingRecipe extends GenericRecipe {
                 recipe.shapeless = extras.shapeless();
                 recipe.shapeTag = extras.shapeTag().orElse(null);
             };
-    // main: AnvilSmithingRecipe sets tier 1 when LBSM + unlock_anvil are on (as construction does)
-    private static final BiConsumer<AnvilSmithingRecipe, Extras> APPLY_DATAPACK_EXTRAS =
-            (recipe, extras) -> {
-                APPLY_EXTRAS.accept(recipe, extras);
-                recipe.tier =
-                        AnvilConstructionRecipe.unlockedTier(
-                                recipe.tier,
-                                BalanceConfig.enableLBSM && BalanceConfig.enableLBSMUnlockAnvil);
-            };
     private static final Function<AnvilSmithingRecipe, Extras> EXTRACT_EXTRAS =
             recipe ->
                     new Extras(
@@ -92,7 +82,7 @@ public class AnvilSmithingRecipe extends GenericRecipe {
                             Optional.ofNullable(recipe.shapeTag));
     public static final MapCodec<AnvilSmithingRecipe> MAP_CODEC =
             GenericRecipe.mapCodec(
-                    AnvilSmithingRecipe::new, EXTRAS_MAP_CODEC, APPLY_DATAPACK_EXTRAS, EXTRACT_EXTRAS);
+                    AnvilSmithingRecipe::new, EXTRAS_MAP_CODEC, APPLY_EXTRAS, EXTRACT_EXTRAS);
     public static final StreamCodec<RegistryFriendlyByteBuf, AnvilSmithingRecipe> STREAM_CODEC =
             GenericRecipe.streamCodec(
                     AnvilSmithingRecipe::new, EXTRAS_STREAM_CODEC, APPLY_EXTRAS, EXTRACT_EXTRAS);

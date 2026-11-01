@@ -14,6 +14,7 @@ import com.hbm.lib.Library;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -38,13 +39,31 @@ public final class CraftingRows {
 
     private List<Variant> variants;
     private List<Fluid> fluids;
+    private Set<Fluid> known;
+
+    // cheap checks for JEI's isHandled calls, which run for every ingredient it looks at: the same
+    // answer as recipesFor/usesOf being non-empty, without building the rows
+    public boolean hasRecipesFor(ItemStack stack) {
+        if (variant(stack) == null) return false;
+        Fluid fluid = FluidPipeBlock.stampedFluid(stack);
+        return fluid == Fluids.EMPTY || known(fluid);
+    }
+
+    public boolean hasUsesOf(ItemStack stack) {
+        if (variant(stack) != null) return true;
+        if (!stack.is(ModItems.FLUID_IDENTIFIER.get())) return false;
+        return known(
+                stack.getOrDefault(
+                                ModDataComponents.FLUID_IDENTIFIER.get(), FluidIdentifierData.EMPTY)
+                        .primary());
+    }
 
     public List<RecipeHolder<CraftingRecipe>> recipesFor(ItemStack stack) {
         Variant variant = variant(stack);
         if (variant == null) return List.of();
         Fluid fluid = FluidPipeBlock.stampedFluid(stack);
         if (fluid == Fluids.EMPTY) return List.of(untype(variant, variant.typed()));
-        if (!fluids().contains(fluid)) return List.of();
+        if (!known(fluid)) return List.of();
         List<RecipeHolder<CraftingRecipe>> out = new ArrayList<>();
         retype(out, variant, fluid, true, true);
         return out;
@@ -72,7 +91,7 @@ public final class CraftingRows {
                 stack.getOrDefault(
                                 ModDataComponents.FLUID_IDENTIFIER.get(), FluidIdentifierData.EMPTY)
                         .primary();
-        if (!fluids().contains(fluid)) return out;
+        if (!known(fluid)) return out;
         for (Variant each : variants()) retype(out, each, fluid, true, true);
         return out;
     }
@@ -121,8 +140,14 @@ public final class CraftingRows {
             for (int id = 1; id < NTMFluids.legacyIdCount(); id++)
                 built.add(NTMFluids.byLegacyId(id));
             fluids = List.copyOf(built);
+            known = Set.copyOf(built);
         }
         return fluids;
+    }
+
+    private synchronized boolean known(Fluid fluid) {
+        fluids();
+        return known.contains(fluid);
     }
 
     private static void retype(

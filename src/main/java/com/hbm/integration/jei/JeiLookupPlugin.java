@@ -5,8 +5,10 @@ package com.hbm.integration.jei;
 
 import com.hbm.integration.recipeviewer.RecipePage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import mezz.jei.api.helpers.IPlatformFluidHelper;
 import mezz.jei.api.ingredients.ITypedIngredient;
@@ -23,7 +25,7 @@ final class JeiLookupPlugin<T> implements ISimpleRecipeManagerPlugin<T> {
     private final RecipePage.LookupFilter filter;
     private final IIngredientManager ingredients;
     private final IPlatformFluidHelper<?> fluids;
-    private Index<T> index = new Index<>(List.of(), List.of(), List.of());
+    private Index<T> index = new Index<>(List.of(), Map.of(), Map.of());
 
     JeiLookupPlugin(
             RecipePage<T> page,
@@ -44,20 +46,26 @@ final class JeiLookupPlugin<T> implements ISimpleRecipeManagerPlugin<T> {
 
     void fill() {
         List<T> rows = page.rows();
-        List<Set<Object>> inputs = new ArrayList<>(rows.size());
-        List<Set<Object>> outputs = new ArrayList<>(rows.size());
+        Map<Object, List<T>> inputs = new HashMap<>();
+        Map<Object, List<T>> outputs = new HashMap<>();
         for (T row : rows) {
             JeiPageCategory.RowIngredients slots = category.ingredients(row, ingredients, fluids);
-            inputs.add(uids(slots.inputs()));
-            outputs.add(uids(slots.outputs()));
+            index(inputs, row, slots.inputs());
+            index(outputs, row, slots.outputs());
         }
+        inputs.replaceAll((uid, found) -> List.copyOf(found));
+        outputs.replaceAll((uid, found) -> List.copyOf(found));
         index = new Index<>(rows, inputs, outputs);
     }
 
-    private Set<Object> uids(List<ITypedIngredient<?>> slotIngredients) {
-        Set<Object> uids = new HashSet<>();
-        for (ITypedIngredient<?> ingredient : slotIngredients) uids.add(uid(ingredient));
-        return uids;
+    // uid -> rows in page order, each row once per uid, so a lookup is one map hit instead of a
+    // scan over every row
+    private void index(Map<Object, List<T>> into, T row, List<ITypedIngredient<?>> slots) {
+        Set<Object> seen = new HashSet<>();
+        for (ITypedIngredient<?> ingredient : slots) {
+            Object uid = uid(ingredient);
+            if (seen.add(uid)) into.computeIfAbsent(uid, key -> new ArrayList<>()).add(row);
+        }
     }
 
     private <V> Object uid(ITypedIngredient<V> ingredient) {
@@ -70,23 +78,18 @@ final class JeiLookupPlugin<T> implements ISimpleRecipeManagerPlugin<T> {
         ItemStack stack = looked.getItemStack().orElse(null);
         if (stack != null && !filter.answers(stack, lookup)) return List.of();
         Index<T> current = index;
-        List<Set<Object>> sides = input ? current.inputs() : current.outputs();
-        Object uid = uid(looked);
-        List<T> found = new ArrayList<>();
-        for (int i = 0; i < sides.size(); i++) {
-            if (sides.get(i).contains(uid)) found.add(current.rows().get(i));
-        }
-        return found;
+        List<T> found = (input ? current.inputs() : current.outputs()).get(uid(looked));
+        return found == null ? List.of() : found;
     }
 
     @Override
     public boolean isHandledInput(ITypedIngredient<?> input) {
-        return !getRecipesForInput(input).isEmpty();
+        return !matching(true, input, RecipePage.Lookup.USES).isEmpty();
     }
 
     @Override
     public boolean isHandledOutput(ITypedIngredient<?> output) {
-        return !getRecipesForOutput(output).isEmpty();
+        return !matching(false, output, RecipePage.Lookup.RECIPES).isEmpty();
     }
 
     @Override
@@ -104,5 +107,6 @@ final class JeiLookupPlugin<T> implements ISimpleRecipeManagerPlugin<T> {
         return index.rows();
     }
 
-    private record Index<T>(List<T> rows, List<Set<Object>> inputs, List<Set<Object>> outputs) {}
+    private record Index<T>(
+            List<T> rows, Map<Object, List<T>> inputs, Map<Object, List<T>> outputs) {}
 }

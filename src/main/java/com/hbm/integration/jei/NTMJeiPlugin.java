@@ -187,12 +187,12 @@ public class NTMJeiPlugin implements IModPlugin {
             implements ISimpleRecipeManagerPlugin<RecipeHolder<CraftingRecipe>> {
         @Override
         public boolean isHandledInput(ITypedIngredient<?> input) {
-            return !getRecipesForInput(input).isEmpty();
+            return input.getItemStack().map(rows::hasUsesOf).orElse(false);
         }
 
         @Override
         public boolean isHandledOutput(ITypedIngredient<?> output) {
-            return !getRecipesForOutput(output).isEmpty();
+            return output.getItemStack().map(rows::hasRecipesFor).orElse(false);
         }
 
         @Override

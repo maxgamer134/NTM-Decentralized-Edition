@@ -54,7 +54,8 @@ public final class AshpitPage extends RecipePage<AshpitPage.Recipe> {
                                 new ItemStack(Items.OAK_LOG),
                                 new ItemStack(Items.ACACIA_LOG),
                                 new ItemStack(Items.OAK_PLANKS),
-                                new ItemStack(Items.OAK_SAPLING)),
+                                new ItemStack(Items.OAK_SAPLING),
+                                new ItemStack(Items.CHARCOAL)),
                         EnumAshType.WOOD));
         rows.add(
                 fuel(

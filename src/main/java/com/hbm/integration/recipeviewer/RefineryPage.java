@@ -34,7 +34,8 @@ public final class RefineryPage extends TablePage<RefineryRecipe> {
 
     @Override
     public List<RefineryRecipe> rows() {
-        return RefineryRecipes.INSTANCE.recipes();
+        // the refinery runs only the last recipe per oil (findLast), so only those are shown
+        return RefineryRecipes.INSTANCE.byInputFluid().reachable();
     }
 
     @Override

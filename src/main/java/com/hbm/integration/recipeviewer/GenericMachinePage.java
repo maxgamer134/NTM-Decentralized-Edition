@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import net.minecraft.ChatFormatting;
@@ -47,6 +48,7 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
     private final boolean fluidOutputsFirst;
     private final FluidView fluidView;
     private final boolean secretRows;
+    private final @Nullable Function<T, List<ItemLike>> rowMachines;
 
     private GenericMachinePage(Builder<T> builder) {
         super(builder.id, builder.rowType);
@@ -63,6 +65,7 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         this.fluidOutputsFirst = builder.fluidOutputsFirst;
         this.fluidView = builder.fluidView;
         this.secretRows = builder.secretRows;
+        this.rowMachines = builder.rowMachines;
     }
 
     public static <T extends GenericRecipe> Builder<T> builder(
@@ -299,7 +302,10 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
             List<ItemStack> blueprints = blueprintStacks(recipe.getPools());
             if (!blueprints.isEmpty()) page.catalyst(75 + machineOffset, 10).items(blueprints);
         }
-        page.catalyst(75 + machineOffset, hasBlueprint ? 38 : 31).item(machine);
+        // main: NEIGenericRecipeHandler/NEIUniversalHandler cycle every machine of the handler here
+        List<ItemLike> machines = rowMachines == null ? catalysts : rowMachines.apply(recipe);
+        page.catalyst(75 + machineOffset, hasBlueprint ? 38 : 31)
+                .items(machines.stream().map(ItemStack::new).toList());
     }
 
     private int inputItems(PageLayout page, T recipe, int[][] inputs, int offset, int slot) {
@@ -372,6 +378,7 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         private boolean fluidOutputsFirst;
         private FluidView fluidView = FluidView.TABLE;
         private boolean secretRows;
+        private @Nullable Function<T, List<ItemLike>> rowMachines;
 
         private Builder(
                 ResourceLocation id,
@@ -420,6 +427,11 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
 
         public Builder<T> secretRows() {
             this.secretRows = true;
+            return this;
+        }
+
+        public Builder<T> rowMachines(Function<T, List<ItemLike>> rowMachines) {
+            this.rowMachines = rowMachines;
             return this;
         }
 

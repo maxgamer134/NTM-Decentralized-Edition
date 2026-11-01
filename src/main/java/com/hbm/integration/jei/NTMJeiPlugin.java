@@ -115,7 +115,10 @@ public class NTMJeiPlugin implements IModPlugin {
 
     private <T> void addRows(IRecipeRegistration registration, RecipePage<T> page) {
         JeiLookupPlugin<?> plugin = lookupPlugins.get(page.id());
-        if (plugin == null) registration.addRecipes(typeOf(page), page.rows());
+        // secret rows are left out up front too: EMI and TMRV may not honour the runtime hideRecipes
+        if (plugin == null)
+            registration.addRecipes(
+                    typeOf(page), page.rows().stream().filter(row -> !page.hidden(row)).toList());
         else plugin.fill();
     }
 

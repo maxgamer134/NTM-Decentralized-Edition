@@ -108,6 +108,7 @@ public final class RecipePages {
                             "block.hbm.machine_rockmill",
                             ModBlocks.MACHINE_ROCK_MILL.get(),
                             Layout.GENERIC)
+                    .secretRows()
                     .build();
     public static final GenericMachinePage<GenericRecipe> PRECISION_ASSEMBLER =
             GenericMachinePage.<GenericRecipe>builder(
@@ -149,6 +150,7 @@ public final class RecipePages {
                             "block.hbm.machine_supercomputer",
                             ModBlocks.MACHINE_SUPERCOMPUTER.get(),
                             Layout.GENERIC)
+                    .secretRows()
                     .build();
     public static final GenericMachinePage<FusionRecipe> FUSION =
             GenericMachinePage.builder(
@@ -170,6 +172,7 @@ public final class RecipePages {
                             ModBlocks.FUSION_PLASMA_FORGE.get(),
                             Layout.ASSEMBLY)
                     .extras(Extras.IGNITION)
+                    .secretRows()
                     .build();
     public static final GenericMachinePage<ReformingRecipe> REFORMING =
             universal(
@@ -196,6 +199,15 @@ public final class RecipePages {
                             OutgasserRecipes.INSTANCE,
                             "block.hbm.rbmk_outgasser",
                             ModBlocks.RBMK_OUTGASSER.get())
+                    .catalysts(ModBlocks.FUSION_BREEDER.get())
+                    // main: OutgasserHandler shows fusion-only rows on the breeder alone
+                    .rowMachines(
+                            recipe ->
+                                    recipe.fusionOnly
+                                            ? List.of(ModBlocks.FUSION_BREEDER.get())
+                                            : List.of(
+                                                    ModBlocks.RBMK_OUTGASSER.get(),
+                                                    ModBlocks.FUSION_BREEDER.get()))
                     .build();
     public static final GenericMachinePage<AmmoPressRecipe> AMMO_PRESS =
             universal(

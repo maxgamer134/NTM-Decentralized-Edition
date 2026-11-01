@@ -164,30 +164,39 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         return stacks;
     }
 
+    // one fixed item per slot (the likeliest), every other outcome listed with its own percent
     static void outputSlot(PageSlot slot, WeightedList<ItemStack> output) {
-        List<ItemStack> shown = new ArrayList<>();
-        for (Weighted<ItemStack> entry : output.unwrap()) {
-            if (!entry.value().isEmpty()) shown.add(entry.value().copy());
-        }
-        if (shown.isEmpty()) return;
-        slot.items(shown).tooltip((stack, lines) -> chanceLine(output, stack, lines));
-    }
-
-    // every chance output gets the acidizer's red percent line, per item when the slot cycles
-    static void chanceLine(
-            WeightedList<ItemStack> output,
-            @Nullable ItemStack stack,
-            java.util.function.Consumer<Component> lines) {
-        if (stack == null || stack.isEmpty()) return;
         long total = 0;
-        long matching = 0;
+        Weighted<ItemStack> likeliest = null;
         for (Weighted<ItemStack> entry : output.unwrap()) {
             total += entry.weight();
-            if (ItemStack.isSameItemSameComponents(entry.value(), stack)
-                    && entry.value().getCount() == stack.getCount()) matching += entry.weight();
+            if (entry.value().isEmpty()) continue;
+            if (likeliest == null || entry.weight() > likeliest.weight()) likeliest = entry;
         }
-        if (total == 0 || matching >= total) return;
-        lines.accept(percentLine((double) matching / total));
+        if (likeliest == null) return;
+        ItemStack shown = likeliest.value();
+        long sum = total;
+        slot.item(shown.copy())
+                .tooltip(
+                        (stack, lines) -> {
+                            if (sum == 0) return;
+                            List<Weighted<ItemStack>> entries = output.unwrap();
+                            if (entries.size() == 1) return;
+                            for (Weighted<ItemStack> entry : entries) {
+                                if (entry.value().isEmpty()) continue;
+                                double chance = (double) entry.weight() / sum;
+                                if (entry.value() == shown) {
+                                    lines.accept(percentLine(chance));
+                                    continue;
+                                }
+                                lines.accept(
+                                        Component.literal(entry.value().getCount() + "x ")
+                                                .append(entry.value().getHoverName())
+                                                .append(" ")
+                                                .append(percentLine(chance))
+                                                .withStyle(ChatFormatting.RED));
+                            }
+                        });
     }
 
     static Component percentLine(double chance) {
@@ -312,10 +321,8 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
             List<ItemStack> blueprints = blueprintStacks(recipe.getPools());
             if (!blueprints.isEmpty()) page.catalyst(75 + machineOffset, 10).items(blueprints);
         }
-        // main: NEIGenericRecipeHandler/NEIUniversalHandler cycle every machine of the handler here
-        List<ItemLike> machines = rowMachines == null ? catalysts : rowMachines.apply(recipe);
-        page.catalyst(75 + machineOffset, hasBlueprint ? 38 : 31)
-                .items(machines.stream().map(ItemStack::new).toList());
+        ItemLike shown = rowMachines == null ? machine : rowMachines.apply(recipe).getFirst();
+        page.catalyst(75 + machineOffset, hasBlueprint ? 38 : 31).item(shown);
     }
 
     private int inputItems(PageLayout page, T recipe, int[][] inputs, int offset, int slot) {

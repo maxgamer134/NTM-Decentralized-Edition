@@ -321,8 +321,10 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
             List<ItemStack> blueprints = blueprintStacks(recipe.getPools());
             if (!blueprints.isEmpty()) page.catalyst(75 + machineOffset, 10).items(blueprints);
         }
-        ItemLike shown = rowMachines == null ? machine : rowMachines.apply(recipe).getFirst();
-        page.catalyst(75 + machineOffset, hasBlueprint ? 38 : 31).item(shown);
+        // main: NEIGenericRecipeHandler/NEIUniversalHandler cycle every machine of the handler here
+        List<ItemLike> machines = rowMachines == null ? catalysts : rowMachines.apply(recipe);
+        page.catalyst(75 + machineOffset, hasBlueprint ? 38 : 31)
+                .items(machines.stream().map(ItemStack::new).toList());
     }
 
     private int inputItems(PageLayout page, T recipe, int[][] inputs, int offset, int slot) {

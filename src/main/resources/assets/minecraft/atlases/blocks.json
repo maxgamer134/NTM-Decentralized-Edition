@@ -746,6 +746,10 @@
     },
     {
       "type": "hbm:padded",
+      "resource": "hbm:block/models/machines/launchpad_lambda"
+    },
+    {
+      "type": "hbm:padded",
       "resource": "hbm:block/models/machines/launchpad_soyuz"
     },
     {
@@ -978,7 +982,15 @@
     },
     {
       "type": "hbm:padded",
+      "resource": "hbm:block/models/network/flow_control_pump"
+    },
+    {
+      "type": "hbm:padded",
       "resource": "hbm:block/models/network/fluid_diode"
+    },
+    {
+      "type": "hbm:padded",
+      "resource": "hbm:block/models/network/network_separator"
     },
     {
       "type": "hbm:padded",

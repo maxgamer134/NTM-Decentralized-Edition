@@ -1,0 +1,29 @@
+{
+  "ambientocclusion": false,
+  "gui_light": "side",
+  "hidden": [
+    "DoorLeft",
+    "DoorRight",
+    "Erector",
+    "Rotor",
+    "PivotUpper1",
+    "ClampUpper1",
+    "PivotLower1",
+    "ClampLower1",
+    "PivotUpper2",
+    "ClampUpper2",
+    "PivotLower2",
+    "ClampLower2"
+  ],
+  "loader": "hbm:obj",
+  "model": "hbm:models/machines/launchpad_lambda.obj",
+  "skins": {
+    "all": [
+      "Silo"
+    ]
+  },
+  "textures": {
+    "all": "hbm:block/models/machines/launchpad_lambda",
+    "particle": "hbm:block/models/machines/launchpad_lambda"
+  }
+}

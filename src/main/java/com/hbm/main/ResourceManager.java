@@ -1196,6 +1196,9 @@ public final class ResourceManager {
     public static final ResourceLocation[][] soyuz_skin_tex =
             soyuzSkins("soyuz", "soyuz_luna", "soyuz_authentic");
 
+    public static final HFRWavefrontObject lambda_rocket = load("models/lambda_rocket.obj");
+    public static final ResourceLocation lambda_rocket_tex =
+            Library.id("textures/models/lambda_rocket.png");
     public static final HFRWavefrontObject miner_rocket = load("models/miner_rocket.obj");
     public static final ResourceLocation bobmazon_tex = Library.id("textures/models/bobmazon.png");
     public static final HFRWavefrontObject lil_boy = load("models/lil_boy.obj");
@@ -1469,6 +1472,10 @@ public final class ResourceManager {
             load("models/machines/launchpad_soyuz.obj");
     public static final ResourceLocation launchpad_soyuz_tex =
             Library.id("textures/models/machines/launchpad_soyuz.png");
+    public static final HFRWavefrontObject launchpad_lambda =
+            load("models/machines/launchpad_lambda.obj");
+    public static final ResourceLocation launchpad_lambda_tex =
+            Library.id("textures/models/machines/launchpad_lambda.png");
     public static final ResourceLocation soyuz_launcher_legs_tex =
             Library.id("textures/models/soyuz_launcher/launcher_leg.png");
     public static final ResourceLocation soyuz_launcher_table_tex =

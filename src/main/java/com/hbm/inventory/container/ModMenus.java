@@ -180,6 +180,7 @@ public final class ModMenus {
     public static RegistryHandle<MenuType<MenuSoyuzCapsule>> SOYUZ_CAPSULE;
     public static RegistryHandle<MenuType<MenuSoyuzLauncher>> SOYUZ_LAUNCHER;
     public static RegistryHandle<MenuType<MenuLaunchpadSoyuz>> LAUNCHPAD_SOYUZ;
+    public static RegistryHandle<MenuType<MenuLaunchpadLambda>> LAUNCHPAD_LAMBDA;
     public static RegistryHandle<MenuType<MenuSatDock>> SAT_DOCK;
     public static RegistryHandle<MenuType<MenuRadioTorchCounter>> RADIO_TORCH_COUNTER;
     public static RegistryHandle<MenuType<MenuDroneCrate>> DRONE_CRATE;
@@ -539,6 +540,9 @@ public final class ModMenus {
         LAUNCHPAD_SOYUZ =
                 NeoForgeRegistrar.registerBlockEntityMenu(
                         "launchpad_soyuz", BlockEntityLaunchpadSoyuz.class);
+        LAUNCHPAD_LAMBDA =
+                NeoForgeRegistrar.registerBlockEntityMenu(
+                        "launchpad_lambda", BlockEntityLaunchpadLambda.class);
         SAT_DOCK =
                 NeoForgeRegistrar.registerBlockEntityMenu(
                         "sat_dock", BlockEntityMachineSatDock.class);

@@ -42,6 +42,7 @@ import com.hbm.entity.logic.EntityWaypoint;
 import com.hbm.entity.missile.EntityBobmazon;
 import com.hbm.entity.missile.EntityMissileAntiBallistic;
 import com.hbm.entity.missile.EntityMissileBaseNT;
+import com.hbm.entity.missile.EntityRocketLambda;
 import com.hbm.entity.missile.EntityMissileCustom;
 import com.hbm.entity.missile.EntityMissileShuttle;
 import com.hbm.entity.missile.EntityMissileStealth;
@@ -302,6 +303,7 @@ public final class ModEntities {
 
     public static RegistryHandle<EntityType<EntitySoyuz>> SOYUZ;
     public static RegistryHandle<EntityType<EntitySoyuzCapsule>> SOYUZ_CAPSULE;
+    public static RegistryHandle<EntityType<EntityRocketLambda>> ROCKET_LAMBDA;
     public static RegistryHandle<EntityType<EntitySatellitePod>> SATELLITE_POD;
     public static RegistryHandle<EntityType<EntityChopperMine>> CHOPPER_MINE;
 
@@ -1969,6 +1971,18 @@ public final class ModEntities {
                                         .build((ResourceKey.create(
                                                         Registries.ENTITY_TYPE,
                                                         Library.id("entity_soyuz_capsule"))).location().toString()));
+        ROCKET_LAMBDA =
+                Reg.entity(
+                        "entity_lambda_rocket",
+                        () ->
+                                EntityType.Builder.of(EntityRocketLambda::new, MobCategory.MISC)
+                                        .fireImmune()
+                                        .sized(0.6F, 1.8F)
+                                        .clientTrackingRange(63)
+                                        .updateInterval(1)
+                                        .build((ResourceKey.create(
+                                                        Registries.ENTITY_TYPE,
+                                                        Library.id("entity_lambda_rocket"))).location().toString()));
         CHOPPER_MINE =
                 Reg.entity(
                         "entity_chopper_mine",

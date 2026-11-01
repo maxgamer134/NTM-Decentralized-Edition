@@ -879,6 +879,7 @@ public final class ClientRegistry {
         reg.accept(ModEntities.BURNING_FOEQ.get(), RenderFOEQ::new);
         reg.accept(ModEntities.BOBMAZON_DELIVERY.get(), RenderMinerRocket::bobmazon);
         reg.accept(ModEntities.SOYUZ.get(), RenderSoyuz::new);
+        reg.accept(ModEntities.ROCKET_LAMBDA.get(), RenderLambdaRocket::new);
         reg.accept(ModEntities.SOYUZ_CAPSULE.get(), RenderSoyuzCapsule::new);
         reg.accept(ModEntities.SATELLITE_POD.get(), RenderDropship::new);
         reg.accept(ModEntities.TOM_THE_MOONSTONE.get(), RenderTom::new);
@@ -1103,6 +1104,7 @@ public final class ClientRegistry {
         reg.accept(ModMenus.SOYUZ_CAPSULE.get(), ScreenSoyuzCapsule::new);
         reg.accept(ModMenus.SOYUZ_LAUNCHER.get(), ScreenSoyuzLauncher::new);
         reg.accept(ModMenus.LAUNCHPAD_SOYUZ.get(), ScreenLaunchpadSoyuz::new);
+        reg.accept(ModMenus.LAUNCHPAD_LAMBDA.get(), ScreenLaunchpadLambda::new);
         reg.accept(ModMenus.SAT_DOCK.get(), ScreenSatDock::new);
         reg.accept(ModMenus.RADIO_TORCH_COUNTER.get(), ScreenRadioTorchCounter::new);
         reg.accept(ModMenus.DRONE_CRATE.get(), ScreenDroneCrate::new);
@@ -1294,6 +1296,7 @@ public final class ClientRegistry {
         reg.accept(ModBlockEntities.SOYUZ_STRUCT.get(), context -> new RenderSoyuzStructPreview());
         reg.accept(ModBlockEntities.SOYUZ_LAUNCHER.get(), context -> new RenderSoyuzLauncher());
         reg.accept(ModBlockEntities.LAUNCHPAD_SOYUZ.get(), context -> new RenderLaunchpadSoyuz());
+        reg.accept(ModBlockEntities.LAUNCHPAD_LAMBDA.get(), context -> new RenderLaunchpadLambda());
         reg.accept(
                 ModBlockEntities.LAUNCHPAD_SOYUZ_ANCHOR.get(),
                 context -> new RenderLaunchpadSoyuz());

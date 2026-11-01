@@ -47,6 +47,14 @@ public interface IRORInteractive extends IRORInfo {
         return result;
     }
 
+    static boolean parseBool(String val) {
+        if ("1".equals(val) || "true".equalsIgnoreCase(val) || "on".equalsIgnoreCase(val))
+            return true;
+        if ("0".equals(val) || "false".equalsIgnoreCase(val) || "off".equalsIgnoreCase(val))
+            return false;
+        throw new RORFunctionException(EX_FORMAT);
+    }
+
     static long parseLong(String val, long min, long max) {
         long result;
         try {

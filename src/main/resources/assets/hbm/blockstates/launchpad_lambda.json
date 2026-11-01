@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "hbm:block/launchpad_lambda"
+    },
+    "facing=north": {
+      "model": "hbm:block/launchpad_lambda",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "hbm:block/launchpad_lambda",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "hbm:block/launchpad_lambda",
+      "y": 180
+    }
+  }
+}

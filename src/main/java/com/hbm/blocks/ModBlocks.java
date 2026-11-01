@@ -3181,6 +3181,16 @@ public final class ModBlocks {
                                     .strength(5.0F, 6.0F)
                                     .requiresCorrectToolForDrops()
                                     .noOcclusion());
+    public static final RegistryHandle<LaunchpadLambda> LAUNCHPAD_LAMBDA =
+            Reg.blockItem(
+                    "launchpad_lambda",
+                    LaunchpadLambda::new,
+                    () ->
+                            BlockBehaviour.Properties.of()
+                                    .mapColor(MapColor.METAL)
+                                    .strength(5.0F, 6.0F)
+                                    .requiresCorrectToolForDrops()
+                                    .noOcclusion());
     public static final RegistryHandle<MachineSatDock> SAT_DOCK =
             Reg.blockItem(
                     "sat_dock",

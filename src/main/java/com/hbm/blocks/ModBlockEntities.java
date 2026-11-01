@@ -194,6 +194,12 @@ public final class ModBlockEntities {
     public static final RegistryHandle<BlockEntityType<BlockEntityLaunchpadSoyuz>> LAUNCHPAD_SOYUZ =
             clientMachine(
                     "launchpad_soyuz", BlockEntityLaunchpadSoyuz::new, ModBlocks.LAUNCHPAD_SOYUZ);
+    public static final RegistryHandle<BlockEntityType<BlockEntityLaunchpadLambda>>
+            LAUNCHPAD_LAMBDA =
+                    clientMachine(
+                            "launchpad_lambda",
+                            BlockEntityLaunchpadLambda::new,
+                            ModBlocks.LAUNCHPAD_LAMBDA);
     public static final RegistryHandle<BlockEntityType<BlockEntitySoyuzRenderAnchor>>
             LAUNCHPAD_SOYUZ_ANCHOR =
                     be(

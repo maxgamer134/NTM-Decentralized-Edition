@@ -537,19 +537,33 @@ public class LegoClient {
             float scale =
                     (float) (Math.min(5, (state.age - 2) * 0.5) * (0.8 + Math.random() * 0.4));
 
-            pose.pushPose();
-            if (state.cameraOrientation != null) pose.mulPose(state.cameraOrientation);
-            float outer = scale;
-            float inner = scale * 0.5F;
-            collector.submitCustomGeometry(
-                    pose,
-                    WeaponRenderTypes.flash(FLARE_TEX),
-                    (p, buf) -> {
-                        flareQuad(p, buf, outer, r, g, b, 0.5F);
-                        flareQuad(p, buf, inner, 1F, 1F, 1F, 0.75F);
-                    });
-            pose.popPose();
+            submitFlareSprite(pose, collector, state.cameraOrientation, scale, r, g, b, 0.5F, 0.75F);
         };
+    }
+
+    /** main's renderFlareSprite: a camera-facing tinted flare with a white core of half size */
+    public static void submitFlareSprite(
+            PoseStack pose,
+            SubmitNodeCollector collector,
+            org.joml.@org.jspecify.annotations.Nullable Quaternionf cameraOrientation,
+            float scale,
+            float r,
+            float g,
+            float b,
+            float outerAlpha,
+            float innerAlpha) {
+        pose.pushPose();
+        if (cameraOrientation != null) pose.mulPose(cameraOrientation);
+        float outer = scale;
+        float inner = scale * 0.5F;
+        collector.submitCustomGeometry(
+                pose,
+                WeaponRenderTypes.flash(FLARE_TEX),
+                (p, buf) -> {
+                    flareQuad(p, buf, outer, r, g, b, outerAlpha);
+                    flareQuad(p, buf, inner, 1F, 1F, 1F, innerAlpha);
+                });
+        pose.popPose();
     }
 
     private static void flareQuad(

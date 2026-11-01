@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 1200,
+  "input_items": [
+    {
+      "count": 64,
+      "ingredient": "hbm:concrete_rebar"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:item_expensive_bronze_tubes"
+    },
+    {
+      "count": 3,
+      "ingredient": "hbm:circuit_controller_advanced"
+    },
+    {
+      "count": 16,
+      "ingredient": "hbm:drive_disk_flightdata_processed"
+    }
+  ],
+  "name": "ass.launchpadlambdaEx",
+  "order": 105880,
+  "output_items": [
+    "hbm:launchpad_lambda"
+  ],
+  "power": 5000
+}

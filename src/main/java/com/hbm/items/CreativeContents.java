@@ -3059,6 +3059,7 @@ public final class CreativeContents {
                 "launch_table",
                 "soyuz_launcher",
                 "launchpad_soyuz",
+                "launchpad_lambda",
                 "sat_dock",
                 "soyuz_capsule",
                 "crate_supply",

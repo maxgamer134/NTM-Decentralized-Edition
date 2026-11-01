@@ -101,10 +101,11 @@ public final class CustomMachinePage extends TablePage<CustomMachineRecipe> {
             page.output(OUT_X + i * STRIDE, FLUID_Y).background().fluid(fluid);
         }
         WeightedList<ItemStack>[] outputs = recipe.outputItems();
-        for (int i = 0; i < Math.min(outputs.length, ROW * 2); i++) {
-            int[] at = slotAt(OUT_X, i);
-            GenericMachinePage.outputSlot(page.output(at[0], at[1]).background(), outputs[i]);
-        }
+        int[][] cells = new int[ROW * 2][];
+        for (int i = 0; i < cells.length; i++) cells[i] = slotAt(OUT_X, i);
+        int slot = 0;
+        for (WeightedList<ItemStack> output : outputs)
+            slot = GenericMachinePage.outputSlots(page, cells, slot, 0, output, true);
 
         page.catalyst(MACHINE_X, MACHINE_Y).item(machine);
     }

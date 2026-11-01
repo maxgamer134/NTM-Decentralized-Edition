@@ -54,11 +54,10 @@ public final class CentrifugePage extends TablePage<CentrifugeRecipe> {
         page.input(48, 24).background().items(recipe.inputItem[0].displayStacks());
 
         WeightedList<ItemStack>[] outputs = recipe.outputItems();
-        int[][] positions = outputPositions(outputs.length);
-        for (int i = 0; i < outputs.length; i++) {
-            GenericMachinePage.outputSlot(
-                    page.output(positions[i][0], positions[i][1]).background(), outputs[i]);
-        }
+        int[][] positions = outputPositions(GenericMachinePage.outcomeCount(outputs));
+        int slot = 0;
+        for (WeightedList<ItemStack> output : outputs)
+            slot = GenericMachinePage.outputSlots(page, positions, slot, 0, output, true);
 
         page.catalyst(75, 31).item(ModBlocks.MACHINE_CENTRIFUGE.get());
     }

@@ -10,6 +10,7 @@ import com.hbm.items.ModItems;
 import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
+import com.hbm.backport.random.WeightedList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
@@ -52,7 +53,11 @@ public final class ShredderPage extends TablePage<ShredderRecipe> {
     @Override
     public void layout(ShredderRecipe recipe, PageLayout page) {
         page.input(39, 24).items(claimedInputs(recipe));
-        GenericMachinePage.outputSlot(page.output(129, 24), recipe.outputItems()[0]);
+        WeightedList<ItemStack> output = recipe.outputItems()[0];
+        int count = GenericMachinePage.outcomes(output).size();
+        int[][] column = new int[count][];
+        for (int i = 0; i < count; i++) column[i] = new int[] {129, 24 + 18 * i - 9 * (count - 1)};
+        GenericMachinePage.outputSlots(page, column, 0, 0, output, false);
         List<ItemStack> blades =
                 List.of(
                         new ItemStack(ModItems.BLADES_STEEL.get()),

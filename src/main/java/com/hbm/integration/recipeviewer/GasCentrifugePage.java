@@ -226,9 +226,11 @@ public final class GasCentrifugePage extends RecipePage<GasCentrifugePage.Cascad
             slot++;
         }
         for (WeightedList<ItemStack> alternative : cascade.alternatives()) {
-            GenericMachinePage.outputSlot(
-                    page.output(84 + slot % 4 * 18, 14 + slot / 4 * 18).background(), alternative);
-            slot++;
+            for (GenericMachinePage.Outcome outcome : GenericMachinePage.outcomes(alternative)) {
+                GenericMachinePage.outcomeSlot(
+                        page, 84 + slot % 4 * 18, 14 + slot / 4 * 18, outcome, true);
+                slot++;
+            }
         }
 
         page.arrow(27, 15);

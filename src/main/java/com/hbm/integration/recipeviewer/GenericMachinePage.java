@@ -25,6 +25,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Items;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -158,45 +160,63 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         };
     }
 
-    static List<ItemStack> outputStacks(WeightedList<ItemStack> output) {
-        List<ItemStack> stacks = new ArrayList<>();
-        for (Weighted<ItemStack> entry : output.unwrap()) stacks.add(entry.value().copy());
-        return stacks;
-    }
+    // every possible item of a chance output gets its own fixed slot with its percent; "nothing"
+    // gets an Air slot too once there is more than one item to choose from
+    record Outcome(ItemStack stack, double chance) {}
 
-    // one fixed item per slot (the likeliest), every other outcome listed with its own percent
-    static void outputSlot(PageSlot slot, WeightedList<ItemStack> output) {
+    static List<Outcome> outcomes(WeightedList<ItemStack> output) {
         long total = 0;
-        Weighted<ItemStack> likeliest = null;
+        long nothing = 0;
         for (Weighted<ItemStack> entry : output.unwrap()) {
             total += entry.weight();
-            if (entry.value().isEmpty()) continue;
-            if (likeliest == null || entry.weight() > likeliest.weight()) likeliest = entry;
+            if (entry.value().isEmpty()) nothing += entry.weight();
         }
-        if (likeliest == null) return;
-        ItemStack shown = likeliest.value();
-        long sum = total;
-        slot.item(shown.copy())
-                .tooltip(
-                        (stack, lines) -> {
-                            if (sum == 0) return;
-                            List<Weighted<ItemStack>> entries = output.unwrap();
-                            if (entries.size() == 1) return;
-                            for (Weighted<ItemStack> entry : entries) {
-                                if (entry.value().isEmpty()) continue;
-                                double chance = (double) entry.weight() / sum;
-                                if (entry.value() == shown) {
-                                    lines.accept(percentLine(chance));
-                                    continue;
-                                }
-                                lines.accept(
-                                        Component.literal(entry.value().getCount() + "x ")
-                                                .append(entry.value().getHoverName())
-                                                .append(" ")
-                                                .append(percentLine(chance))
-                                                .withStyle(ChatFormatting.RED));
-                            }
-                        });
+        List<Outcome> out = new ArrayList<>();
+        if (total == 0) return out;
+        for (Weighted<ItemStack> entry : output.unwrap()) {
+            if (!entry.value().isEmpty())
+                out.add(new Outcome(entry.value().copy(), (double) entry.weight() / total));
+        }
+        if (nothing > 0 && out.size() > 1) out.add(new Outcome(ItemStack.EMPTY, (double) nothing / total));
+        return out;
+    }
+
+    static int outcomeCount(WeightedList<ItemStack> @Nullable [] outputs) {
+        if (outputs == null) return 0;
+        int count = 0;
+        for (WeightedList<ItemStack> output : outputs) count += outcomes(output).size();
+        return count;
+    }
+
+    static void outcomeSlot(PageLayout page, int x, int y, Outcome outcome, boolean background) {
+        PageSlot slot;
+        if (outcome.stack().isEmpty()) {
+            ItemStack air = new ItemStack(Items.BARRIER);
+            air.set(DataComponents.CUSTOM_NAME, Component.translatable("block.minecraft.air"));
+            slot = page.display(x, y).item(air);
+        } else {
+            slot = page.output(x, y).item(outcome.stack());
+        }
+        if (background) slot.background();
+        if (outcome.chance() < 1D)
+            slot.tooltip((shown, lines) -> lines.accept(percentLine(outcome.chance())));
+    }
+
+    /** Lays out every outcome of {@code output} from {@code positions[start]} on; returns the next index. */
+    static int outputSlots(
+            PageLayout page,
+            int[][] positions,
+            int start,
+            int offset,
+            WeightedList<ItemStack> output,
+            boolean background) {
+        int slot = start;
+        for (Outcome outcome : outcomes(output)) {
+            if (slot >= positions.length) break;
+            outcomeSlot(page, positions[slot][0] + offset, positions[slot][1], outcome, background);
+            slot++;
+        }
+        return slot;
     }
 
     static Component percentLine(double chance) {
@@ -296,7 +316,7 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         List<FluidStackNTM> shownInputs = fluidView.inputs().apply(fluids(recipe.inputFluid));
         List<FluidStackNTM> shownOutputs = fluidView.outputs().apply(fluids(recipe.outputFluid));
         int inputCount = length(recipe.inputItem) + shownInputs.size();
-        int outputCount = length(recipe.outputItems()) + shownOutputs.size();
+        int outputCount = outcomeCount(recipe.outputItems()) + shownOutputs.size();
         int inputOffset = layout == Layout.ASSEMBLY ? inputOffset(inputCount) : 0;
         int machineOffset = layout == Layout.ASSEMBLY ? machineOffset(inputCount) : 0;
         int[][] inputs =
@@ -356,11 +376,8 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
 
     private int outputItems(PageLayout page, T recipe, int[][] outputs, int offset, int slot) {
         if (recipe.outputItems() == null) return slot;
-        for (WeightedList<ItemStack> output : recipe.outputItems()) {
-            outputSlot(
-                    page.output(outputs[slot][0] + offset, outputs[slot][1]).background(), output);
-            slot++;
-        }
+        for (WeightedList<ItemStack> output : recipe.outputItems())
+            slot = outputSlots(page, outputs, slot, offset, output, true);
         return slot;
     }
 

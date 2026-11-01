@@ -46,7 +46,9 @@ public final class ElectrolyserMetalPage extends TablePage<ElectrolyserMetalReci
 
         var byproducts = recipe.outputItems();
         int count =
-                1 + (recipe.output2 == null ? 0 : 1) + (byproducts == null ? 0 : byproducts.length);
+                1
+                        + (recipe.output2 == null ? 0 : 1)
+                        + GenericMachinePage.outcomeCount(byproducts);
         int[][] positions = GenericMachinePage.outputPositions(count);
         int slot = 0;
         int[] position = positions[slot++];
@@ -60,11 +62,8 @@ public final class ElectrolyserMetalPage extends TablePage<ElectrolyserMetalReci
                     .item(ItemScraps.create(recipe.output2, true));
         }
         if (byproducts != null) {
-            for (var output : byproducts) {
-                position = positions[slot++];
-                GenericMachinePage.outputSlot(
-                        page.output(position[0], position[1]).background(), output);
-            }
+            for (var output : byproducts)
+                slot = GenericMachinePage.outputSlots(page, positions, slot, 0, output, true);
         }
         page.catalyst(75, 31).item(ModBlocks.MACHINE_ELECTROLYSER.get());
     }

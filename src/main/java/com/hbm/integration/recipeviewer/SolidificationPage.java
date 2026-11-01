@@ -48,7 +48,13 @@ public final class SolidificationPage extends RecipePage<SolidificationPage.Reci
     @Override
     public void layout(Recipe recipe, PageLayout page) {
         page.input(48, 24).background().fluid(recipe.input(), recipe.amount());
-        GenericMachinePage.outputSlot(page.output(102, 24).background(), recipe.output());
+        GenericMachinePage.outputSlots(
+                page,
+                GenericMachinePage.outputPositions(GenericMachinePage.outcomes(recipe.output()).size()),
+                0,
+                0,
+                recipe.output(),
+                true);
         page.catalyst(75, 31).item(ModBlocks.MACHINE_SOLIDIFIER.get());
     }
 

@@ -6,15 +6,21 @@ package com.hbm.integration.recipeviewer;
 import com.hbm.world.ore.OreGeneration;
 import com.hbm.world.ore.OreGenerationProfile;
 import com.hbm.world.ore.OreHeightProfile;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Consumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.locale.Language;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -23,6 +29,8 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
     private static final int GRAPH_Y = 48;
     private static final int GRAPH_WIDTH = 204;
     private static final int GRAPH_HEIGHT = 30;
+    private static final int LINE = 11;
+    private static final FormattedText ELLIPSIS = FormattedText.of("...");
 
     OreGenerationPage() {
         super(PageIds.page("ore_generation"), OreGenerationProfile.class);
@@ -86,51 +94,94 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
                         .filter(stack -> !stack.isEmpty())
                         .toList();
         layout.output(4, 4).background().items(outputs);
-        layout.text(text("dimension", name("dimension", row.dimension())), 26, 3, 208, 11);
-        layout.text(text("server_profile"), 26, 16, 208, 11);
+    }
+
+    // drawn by the page instead of JEI text widgets: EMI's JEI bridge drops those and the page
+    // failed there; same look as JEI's (black, no shadow, 11px lines, "..." when cut off)
+    private record Box(Component text, int x, int y, int width, int height) {}
+
+    private static List<Box> boxes(OreGenerationProfile row) {
+        List<Box> boxes = new ArrayList<>();
+        boxes.add(new Box(text("dimension", name("dimension", row.dimension())), 26, 3, 208, 11));
+        boxes.add(new Box(text("server_profile"), 26, 16, 208, 11));
         OreHeightProfile height = row.height();
         if (height.hasGraph()) {
-            layout.text(text("origin_probability"), 4, 31, 232, 11);
+            boxes.add(new Box(text("origin_probability"), 4, 31, 232, 11));
         } else {
-            layout.text(
-                    text(height.shape() == OreHeightProfile.Shape.UNKNOWN ? "no_graph" : "spatial"),
-                    GRAPH_X,
-                    GRAPH_Y,
-                    GRAPH_WIDTH,
-                    GRAPH_HEIGHT);
+            boxes.add(
+                    new Box(
+                            text(
+                                    height.shape() == OreHeightProfile.Shape.UNKNOWN
+                                            ? "no_graph"
+                                            : "spatial"),
+                            GRAPH_X,
+                            GRAPH_Y,
+                            GRAPH_WIDTH,
+                            GRAPH_HEIGHT));
         }
         if (height.shape() != OreHeightProfile.Shape.UNKNOWN) {
-            layout.text(
-                    text(
-                            height.hasGraph() ? "origin_band" : "block_band",
-                            height.minY(),
-                            height.maxY()),
-                    4,
-                    82,
-                    232,
-                    11);
+            boxes.add(
+                    new Box(
+                            text(
+                                    height.hasGraph() ? "origin_band" : "block_band",
+                                    height.minY(),
+                                    height.maxY()),
+                            4,
+                            82,
+                            232,
+                            11));
         }
-        layout.text(
-                row.attempts() >= 0
-                        ? text("attempts", number(row.attempts()))
-                        : text("attempts_unknown"),
-                4,
-                95,
-                232,
-                11);
-        layout.text(
-                row.veinSize() >= 0 ? text("size", row.veinSize()) : text("not_density"),
-                4,
-                108,
-                232,
-                11);
+        boxes.add(
+                new Box(
+                        row.attempts() >= 0
+                                ? text("attempts", number(row.attempts()))
+                                : text("attempts_unknown"),
+                        4,
+                        95,
+                        232,
+                        11));
+        boxes.add(
+                new Box(
+                        row.veinSize() >= 0 ? text("size", row.veinSize()) : text("not_density"),
+                        4,
+                        108,
+                        232,
+                        11));
         MutableComponent details = Component.empty();
         for (Component condition : row.conditions()) {
             if (!details.getSiblings().isEmpty()) details.append("\n");
             details.append(condition);
         }
         details.append("\n").append(text("biomes", biomeNames(row)));
-        layout.text(details, 4, 124, 232, 23);
+        boxes.add(new Box(details, 4, 124, 232, 23));
+        return boxes;
+    }
+
+    private static List<FormattedText> wrapped(Box box) {
+        return RecipePanel.font().getSplitter().splitLines(box.text(), box.width(), Style.EMPTY);
+    }
+
+    private static int fit(Box box) {
+        return Math.max(1, (box.height() + 2) / LINE);
+    }
+
+    // the box's lines as JEI wraps them, the last one cut with "..." when the rest does not fit
+    private static List<FormattedCharSequence> lines(Box box) {
+        Font font = RecipePanel.font();
+        List<FormattedText> wrapped = wrapped(box);
+        int fit = fit(box);
+        List<FormattedCharSequence> lines = new ArrayList<>();
+        for (int i = 0; i < Math.min(fit, wrapped.size()); i++) {
+            FormattedText line = wrapped.get(i);
+            if (i == fit - 1 && wrapped.size() > fit) {
+                line =
+                        FormattedText.composite(
+                                font.substrByWidth(line, box.width() - font.width(ELLIPSIS)),
+                                ELLIPSIS);
+            }
+            lines.add(Language.getInstance().getVisualOrder(line));
+        }
+        return lines;
     }
 
     private static Component biomeNames(OreGenerationProfile row) {
@@ -162,6 +213,12 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
 
     @Override
     public void draw(OreGenerationProfile row, GuiGraphicsExtractor graphics) {
+        Font font = RecipePanel.font();
+        for (Box box : boxes(row)) {
+            List<FormattedCharSequence> lines = lines(box);
+            for (int i = 0; i < lines.size(); i++)
+                graphics.text(font, lines.get(i), box.x(), box.y() + i * LINE, 0xFF000000, false);
+        }
         OreHeightProfile height = row.height();
         if (!height.hasGraph()) return;
         int bottom = GRAPH_Y + GRAPH_HEIGHT;
@@ -174,7 +231,6 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
                     Math.max(1, (int) Math.round(height.probability(y) / max * (GRAPH_HEIGHT - 2)));
             graphics.fill(GRAPH_X + x, bottom - pixels, GRAPH_X + x + 1, bottom, 0xFF43874B);
         }
-        var font = Minecraft.getInstance().font;
         graphics.text(font, "0", 15, bottom - font.lineHeight, 0xFF333333, false);
         Component peak = text("peak", number(max * 100));
         graphics.text(
@@ -189,6 +245,18 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
     @Override
     public void tooltip(
             OreGenerationProfile row, double mouseX, double mouseY, Consumer<Component> output) {
+        for (Box box : boxes(row)) {
+            if (mouseX < box.x()
+                    || mouseX >= box.x() + box.width()
+                    || mouseY < box.y()
+                    || mouseY >= box.y() + box.height()) continue;
+            // a cut-off box shows its whole text on hover, as JEI's text widget does
+            if (wrapped(box).size() > fit(box)) {
+                for (String line : box.text().getString().split("\n"))
+                    output.accept(Component.literal(line));
+                return;
+            }
+        }
         if (!row.height().hasGraph()
                 || mouseX < GRAPH_X
                 || mouseX >= GRAPH_X + GRAPH_WIDTH

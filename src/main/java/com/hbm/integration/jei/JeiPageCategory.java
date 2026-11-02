@@ -322,8 +322,11 @@ final class JeiPageCategory<T> implements IRecipeCategory<T> {
         }
 
         @Override
+        @SuppressWarnings("removal")
         public void arrow(int x, int y) {
-            builder.addRecipeArrowWidget().setPosition(x, y);
+            // addRecipeArrow(), not 19.51's addRecipeArrowWidget(): EMI's JEI bridge (JEMI) only
+            // implements the older one, and both draw the same arrow
+            builder.addRecipeArrow().setPosition(x, y);
         }
 
         @Override

@@ -84,10 +84,6 @@ public abstract class RecipePage<T> {
 
     public void tooltip(T row, double mouseX, double mouseY, Consumer<Component> output) {}
 
-    public boolean hidden(T row) {
-        return false;
-    }
-
     public @Nullable LookupFilter lookupFilter() {
         return null;
     }

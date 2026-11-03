@@ -5,7 +5,6 @@ package com.hbm.integration.recipeviewer;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.client.gui.*;
-import com.hbm.config.InteractionConfig;
 import com.hbm.integration.recipeviewer.GenericMachinePage.Extras;
 import com.hbm.integration.recipeviewer.GenericMachinePage.FluidView;
 import com.hbm.integration.recipeviewer.GenericMachinePage.Layout;
@@ -78,7 +77,6 @@ public final class RecipePages {
                             "block.hbm.machine_assembly_machine",
                             ModBlocks.MACHINE_ASSEMBLY_MACHINE.get(),
                             Layout.ASSEMBLY)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<SpaceAssemblerRecipe> SPACE_ASSEMBLER =
             GenericMachinePage.builder(
@@ -88,7 +86,6 @@ public final class RecipePages {
                             "item.hbm.satellite_science_assembler",
                             ModItems.SATELLITE_SCIENCE_ASSEMBLER.get(),
                             Layout.GENERIC)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<ChemicalPlantRecipe> CHEMICAL_PLANT =
             GenericMachinePage.builder(
@@ -99,7 +96,6 @@ public final class RecipePages {
                             ModBlocks.MACHINE_CHEMICAL_PLANT.get(),
                             Layout.GENERIC)
                     .catalysts(ModBlocks.MACHINE_CHEMICAL_FACTORY.get())
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<RockMillRecipe> ROCK_MILL =
             GenericMachinePage.builder(
@@ -109,7 +105,6 @@ public final class RecipePages {
                             "block.hbm.machine_rockmill",
                             ModBlocks.MACHINE_ROCK_MILL.get(),
                             Layout.GENERIC)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<GenericRecipe> PRECISION_ASSEMBLER =
             GenericMachinePage.<GenericRecipe>builder(
@@ -119,7 +114,6 @@ public final class RecipePages {
                             "block.hbm.machine_precass",
                             ModBlocks.MACHINE_PRECASS.get(),
                             Layout.GENERIC)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<PUREXRecipe> PUREX =
             GenericMachinePage.builder(
@@ -130,7 +124,6 @@ public final class RecipePages {
                             ModBlocks.MACHINE_PUREX.get(),
                             Layout.GENERIC)
                     .extras(Extras.ONE_GREEN_LINE)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<BlastFurnaceRecipe> BLAST_FURNACE =
             GenericMachinePage.builder(
@@ -141,7 +134,6 @@ public final class RecipePages {
                             ModBlocks.MACHINE_BLAST_FURNACE.get(),
                             Layout.GENERIC)
                     .extras(Extras.DURATION_ONLY)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<SuperComputerRecipe> SUPERCOMPUTER =
             GenericMachinePage.builder(
@@ -151,7 +143,6 @@ public final class RecipePages {
                             "block.hbm.machine_supercomputer",
                             ModBlocks.MACHINE_SUPERCOMPUTER.get(),
                             Layout.GENERIC)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<FusionRecipe> FUSION =
             GenericMachinePage.builder(
@@ -162,7 +153,6 @@ public final class RecipePages {
                             ModBlocks.FUSION_TORUS.get(),
                             Layout.GENERIC)
                     .extras(Extras.IGNITION)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<PlasmaForgeRecipe> PLASMA_FORGE =
             GenericMachinePage.builder(
@@ -173,7 +163,6 @@ public final class RecipePages {
                             ModBlocks.FUSION_PLASMA_FORGE.get(),
                             Layout.ASSEMBLY)
                     .extras(Extras.IGNITION)
-                    .secretRows()
                     .build();
     public static final GenericMachinePage<ReformingRecipe> REFORMING =
             universal(
@@ -572,9 +561,6 @@ public final class RecipePages {
                         BuiltInRegistries.ITEM
                                 .getOptional(Library.id("coal_eternal"))
                                 .orElseThrow()));
-        if (InteractionConfig.recipeViewerHidesSecrets) {
-            for (var member : ModItems.ITEM_SECRET) hidden.add(new ItemStack(member.get()));
-        }
         return hidden;
     }
 

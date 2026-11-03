@@ -4,7 +4,6 @@
 
 package com.hbm.integration.recipeviewer;
 
-import com.hbm.config.InteractionConfig;
 import com.hbm.inventory.fluid.FluidStackNTM;
 import com.hbm.inventory.recipes.CrystallizerRecipe;
 import com.hbm.inventory.recipes.FusionRecipe;
@@ -13,14 +12,11 @@ import com.hbm.inventory.recipes.ingredient.CountIngredient;
 import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.inventory.recipes.loader.GenericRecipes;
 import com.hbm.inventory.recipes.loader.Outputs;
-import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemBlueprints;
 import com.hbm.util.BobMathUtil;
 import com.hbm.util.GameTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -32,7 +28,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import com.hbm.backport.random.Weighted;
 import com.hbm.backport.random.WeightedList;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluids;
@@ -49,7 +44,6 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
     private final boolean fluidInputsFirst;
     private final boolean fluidOutputsFirst;
     private final FluidView fluidView;
-    private final boolean secretRows;
     private final @Nullable Function<T, List<ItemLike>> rowMachines;
 
     private GenericMachinePage(Builder<T> builder) {
@@ -66,7 +60,6 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         this.fluidInputsFirst = builder.fluidInputsFirst;
         this.fluidOutputsFirst = builder.fluidOutputsFirst;
         this.fluidView = builder.fluidView;
-        this.secretRows = builder.secretRows;
         this.rowMachines = builder.rowMachines;
     }
 
@@ -259,33 +252,6 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         return Component.translatable("jei.hbm.consumption", BobMathUtil.getShortNumber(power));
     }
 
-    private static boolean isSecret(GenericRecipe recipe) {
-        if (recipe.isPooled()) {
-            for (String pool : recipe.getPools()) {
-                if (pool.startsWith(GenericRecipes.POOL_PREFIX_SECRET)) return true;
-            }
-        }
-        Set<Item> excluded = new HashSet<>();
-        for (var member : ModItems.ITEM_SECRET) excluded.add(member.get());
-        var ladder = ModItems.METEORITE_SWORDS;
-        for (var sword : ladder.subList(1, ladder.size())) excluded.add(sword.get());
-        if (recipe.inputItem != null) {
-            for (CountIngredient input : recipe.inputItem) {
-                if (com.hbm.backport.recipe.Ingredients.items(input.ingredient()).anyMatch(item -> excluded.contains(item.value())))
-                    return true;
-            }
-        }
-        WeightedList<ItemStack>[] outputs = recipe.outputItems();
-        if (outputs != null) {
-            for (WeightedList<ItemStack> output : outputs) {
-                for (Weighted<ItemStack> weighted : output.unwrap()) {
-                    if (excluded.contains(weighted.value().getItem())) return true;
-                }
-            }
-        }
-        return false;
-    }
-
     @Override
     public Component title() {
         return title;
@@ -304,11 +270,6 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
     @Override
     public List<ItemStack> catalysts() {
         return catalysts.stream().map(ItemStack::new).toList();
-    }
-
-    @Override
-    public boolean hidden(T row) {
-        return secretRows && InteractionConfig.recipeViewerHidesSecrets && isSecret(row);
     }
 
     @Override
@@ -413,7 +374,6 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
         private boolean fluidInputsFirst;
         private boolean fluidOutputsFirst;
         private FluidView fluidView = FluidView.TABLE;
-        private boolean secretRows;
         private @Nullable Function<T, List<ItemLike>> rowMachines;
 
         private Builder(
@@ -458,11 +418,6 @@ public final class GenericMachinePage<T extends GenericRecipe> extends TablePage
 
         public Builder<T> rows(Supplier<List<T>> rows) {
             this.rows = rows;
-            return this;
-        }
-
-        public Builder<T> secretRows() {
-            this.secretRows = true;
             return this;
         }
 

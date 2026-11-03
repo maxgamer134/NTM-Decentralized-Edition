@@ -45,7 +45,7 @@ final class JeiLookupPlugin<T> implements ISimpleRecipeManagerPlugin<T> {
     }
 
     void fill() {
-        List<T> rows = page.rows().stream().filter(row -> !page.hidden(row)).toList();
+        List<T> rows = page.rows();
         Map<Object, List<T>> inputs = new HashMap<>();
         Map<Object, List<T>> outputs = new HashMap<>();
         for (T row : rows) {

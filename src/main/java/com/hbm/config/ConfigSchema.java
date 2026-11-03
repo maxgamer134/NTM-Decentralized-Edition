@@ -432,14 +432,6 @@ public final class ConfigSchema {
                             + "Mono recordings remain positional. Applies to newly played sounds.");
     public static final ConfigEntry<Boolean> COOLING_TOWER_PARTICLES =
             bool(Domain.CLIENT, "render", "cooling_tower_particles", true, "");
-    public static final ConfigEntry<Boolean> JEI_HIDE_SECRETS =
-            bool(
-                    Domain.CLIENT,
-                    "interaction",
-                    "recipe_viewer_hides_secrets",
-                    true,
-                    "Keep the recipe browser from offering the recipes that are meant to be found rather than "
-                            + "looked up. They stay craftable.");
     public static final ConfigEntry<Boolean> GUN_MODEL_FOV =
             bool(
                     Domain.CLIENT,
@@ -596,7 +588,6 @@ public final class ConfigSchema {
                     CRATE_OPEN_HELD,
                     ORIGINAL_STEREO_EXPLOSIONS,
                     COOLING_TOWER_PARTICLES,
-                    JEI_HIDE_SECRETS,
                     GUN_MODEL_FOV,
                     GUN_VISUAL_RECOIL,
                     GUN_ANIMATION_SPEED,

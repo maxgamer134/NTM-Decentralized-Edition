@@ -8,19 +8,15 @@ import com.hbm.inventory.recipes.AnnihilatorRecipe.Key;
 import com.hbm.inventory.recipes.AnnihilatorRecipe.Milestone;
 import com.hbm.inventory.recipes.AnnihilatorRecipe;
 import com.hbm.inventory.recipes.AnnihilatorRecipes;
-import com.hbm.items.ModItems;
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 
@@ -36,16 +32,12 @@ public final class AnnihilatorPage extends RecipePage<AnnihilatorPage.Recipe> {
 
     @Override
     public List<Recipe> rows() {
-        Set<Item> secret = new HashSet<>();
-        for (var member : ModItems.ITEM_SECRET) secret.add(member.get());
         List<Recipe> rows = new ArrayList<>();
         for (RecipeHolder<AnnihilatorRecipe> holder : AnnihilatorRecipes.rows()) {
             Key key = holder.value().key();
             List<ItemStack> input = key.fluid() != null ? List.of() : inputStacks(key);
-            if (input.stream().anyMatch(stack -> secret.contains(stack.getItem()))) continue;
             for (Milestone milestone : holder.value().milestones()) {
                 ItemStack payout = milestone.payout().create();
-                if (secret.contains(payout.getItem())) continue;
                 rows.add(
                         new Recipe(
                                 PageIds.derived(

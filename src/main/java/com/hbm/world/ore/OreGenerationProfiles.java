@@ -3,6 +3,9 @@
 
 package com.hbm.world.ore;
 
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
+import com.hbm.world.placement.LightBlockingHeightPlacement;
+import com.hbm.world.feature.MeteoriteFeature;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.hbm.blocks.ModBlocks;
@@ -214,6 +217,16 @@ public final class OreGenerationProfiles {
                                 level.getMinBuildHeight(), level.getMinBuildHeight() + BedrockOilDepositFeature.MAX_Y);
                 conditions.add(text("bedrock_oil"));
             }
+            // main's meteorites are where its meteor ores come from; the crater itself is not an ore
+            case NoneFeatureConfiguration none when configured.feature()
+                    instanceof MeteoriteFeature -> {
+                targets.add(ModBlocks.ORE_METEOR_IRON.get().defaultBlockState());
+                targets.add(ModBlocks.ORE_METEOR_COPPER.get().defaultBlockState());
+                targets.add(ModBlocks.ORE_METEOR_ALUMINIUM.get().defaultBlockState());
+                targets.add(ModBlocks.ORE_METEOR_RAREEARTH.get().defaultBlockState());
+                targets.add(ModBlocks.ORE_METEOR_COBALT.get().defaultBlockState());
+                conditions.add(text("meteorite"));
+            }
             default -> {
                 return null;
             }
@@ -293,6 +306,8 @@ public final class OreGenerationProfiles {
                     attempts = -1;
                     conditions.add(text("variable_count"));
                 }
+            } else if (modifier instanceof LightBlockingHeightPlacement) {
+                // surface height only: no curve, the meteorite case explains where it lands
             } else if (modifier instanceof WorldConfigPlacement gate) {
                 if (!gate.open()) return new Placement(height, 0, supported);
             } else if (modifier instanceof RarityFilter rarity) {

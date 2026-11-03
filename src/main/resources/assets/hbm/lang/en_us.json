@@ -8493,6 +8493,7 @@
   "ore.hbm.stone": "stone-family host blocks",
   "ore.hbm.stratum": "Noise-shaped horizontal stratum. The height band is a bound, not an equal chance at every height.",
   "ore.hbm.stratum_3d": "Three-dimensional noise selects resource-stone bodies within the height band.",
+  "ore.hbm.meteorite": "Meteorite craters on the surface; each meteorite holds a few of these ores, picked at random.",
   "ore.hbm.surface": "Scans for netherrack with air immediately above it; the band bounds the scan, not a uniform ore distribution.",
   "ore.hbm.title": "Ore generation",
   "ore.hbm.unnamed_biome": "unnamed biome",

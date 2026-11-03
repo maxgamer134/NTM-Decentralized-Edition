@@ -29,7 +29,7 @@ public abstract class EmiFluidTooltipMixin {
 
     private static Method hbm$getKey;
 
-    @Inject(method = "getTooltip", at = @At("RETURN"), require = 0)
+    @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true, require = 0)
     private void hbm$fluidTraits(CallbackInfoReturnable<List<ClientTooltipComponent>> cir) {
         Fluid fluid;
         try {

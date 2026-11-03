@@ -8,6 +8,7 @@
     "sodium.LightCacheMixin",
     "sodium.QuadLightDataMixin",
     "jei.JeiFluidTooltipMixin",
+    "emi.EmiFluidTooltipMixin",
     "create.CreateDrainJeiMixin"
   ],
   "injectors": {

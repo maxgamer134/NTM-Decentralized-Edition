@@ -21,6 +21,12 @@ public final class ClientCompatPlugin implements IMixinConfigPlugin {
                             .getClassLoader()
                             .getResource("mezz/jei/neoforge/platform/FluidHelper.class")
                     != null;
+        // backport-fix: EMI fluid tooltips (traits and the fluid-coloured border), only with EMI
+        if (mixin.contains(".emi."))
+            return getClass()
+                            .getClassLoader()
+                            .getResource("dev/emi/emi/api/stack/FluidEmiStack.class")
+                    != null;
         // backport-fix: BF-069 Create's JEI Item Drain page, only with Create installed
         if (mixin.contains(".create."))
             return getClass()

@@ -150,6 +150,10 @@ public final class CreativeContents {
             if (BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(NuclearTech.MOD_ID))
                 out.accept(new ItemStack(item));
         }
+        // the secret blueprints are left out of the templates tab, as main leaves them out of its tab
+        for (String pool : GenericRecipes.poolNames()) {
+            if (pool.startsWith(GenericRecipes.POOL_PREFIX_SECRET)) out.accept(ItemBlueprints.make(pool));
+        }
     }
 
     private static void emitInserted(

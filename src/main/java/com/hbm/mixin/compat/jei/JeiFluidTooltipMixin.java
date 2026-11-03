@@ -29,10 +29,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets = "mezz.jei.neoforge.platform.FluidHelper", remap = false)
 public abstract class JeiFluidTooltipMixin {
 
+    private static boolean hbm$warned;
+
     @Inject(method = "getTooltip", at = @At("TAIL"), require = 0)
     private void hbm$fluidTraits(
             List<Component> tooltip, FluidStack ingredient, TooltipFlag flag, CallbackInfo ci) {
-        if (ingredient.isEmpty()) return;
-        FluidTraitTooltip.addInfo(ingredient.getFluid(), tooltip::add);
+        // a tooltip hook must never break JEI's tooltip: any failure keeps JEI's own lines
+        try {
+            if (ingredient.isEmpty()) return;
+            FluidTraitTooltip.addInfo(ingredient.getFluid(), tooltip::add);
+        } catch (Throwable t) {
+            if (!hbm$warned) {
+                hbm$warned = true;
+                org.slf4j.LoggerFactory.getLogger("hbm").warn("NTM fluid tooltip for JEI failed", t);
+            }
+        }
     }
 }

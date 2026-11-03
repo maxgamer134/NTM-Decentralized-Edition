@@ -31,19 +31,32 @@ public abstract class EmiFluidTooltipMixin {
 
     @Inject(method = "getTooltip", at = @At("RETURN"), cancellable = true, require = 0)
     private void hbm$fluidTraits(CallbackInfoReturnable<List<ClientTooltipComponent>> cir) {
-        Fluid fluid;
+        // a tooltip hook must never break EMI's tooltip: any failure keeps EMI's own tooltip
         try {
-            if (hbm$getKey == null) hbm$getKey = getClass().getMethod("getKey");
-            if (!(hbm$getKey.invoke(this) instanceof Fluid f)) return;
-            fluid = f;
-        } catch (ReflectiveOperationException e) {
-            return;
+            hbm$addTraits(cir);
+        } catch (Throwable t) {
+            if (!hbm$warned) {
+                hbm$warned = true;
+                org.slf4j.LoggerFactory.getLogger("hbm").warn("NTM fluid tooltip for EMI failed", t);
+            }
         }
+    }
+
+    private static boolean hbm$warned;
+
+    private void hbm$addTraits(CallbackInfoReturnable<List<ClientTooltipComponent>> cir)
+            throws ReflectiveOperationException {
+        Fluid fluid;
+        if (hbm$getKey == null) hbm$getKey = getClass().getMethod("getKey");
+        if (!(hbm$getKey.invoke(this) instanceof Fluid f)) return;
+        fluid = f;
+        List<ClientTooltipComponent> base = cir.getReturnValue();
+        if (base == null) return;
         List<ClientTooltipComponent> extra = new ArrayList<>();
         FluidTraitTooltip.addInfo(
                 fluid, line -> extra.add(ClientTooltipComponent.create(line.getVisualOrderText())));
         if (extra.isEmpty()) return;
-        List<ClientTooltipComponent> list = new ArrayList<>(cir.getReturnValue());
+        List<ClientTooltipComponent> list = new ArrayList<>(base);
         // traits go before the trailing mod name line, as main lists them under name and amount
         list.addAll(list.size() > 1 ? list.size() - 1 : list.size(), extra);
         list.add(Math.min(1, list.size()), new FluidTooltipFrame.Renderer(FluidTooltipFrame.of(fluid)));

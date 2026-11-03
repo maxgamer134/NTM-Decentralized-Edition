@@ -34,6 +34,7 @@ import com.hbm.items.weapon.grenade.ItemGrenadeFilling.EnumGrenadeFilling;
 import com.hbm.items.weapon.grenade.ItemGrenadeFuze.EnumGrenadeFuze;
 import com.hbm.items.weapon.grenade.ItemGrenadeShell.EnumGrenadeShell;
 import com.hbm.items.weapon.grenade.ItemGrenadeUniversal;
+import com.hbm.NuclearTech;
 import com.hbm.lib.Library;
 import com.hbm.main.Polaroid;
 import java.util.ArrayList;
@@ -135,6 +136,19 @@ public final class CreativeContents {
             missing.removeAll(dropped);
             throw new IllegalStateException(
                     tab + " lists none of " + missing + ", so removing them removes nothing");
+        }
+    }
+
+    // every hbm item no tab lists (main's legendary and secret guns, secret ammo and the like):
+    // EMI and TMRV take their item list from the creative tabs, so these go to the search tab alone
+    public static void acceptUnlisted(Consumer<ItemStack> out) {
+        Set<Item> listed = new HashSet<>();
+        for (Tab tab : Tab.values()) accept(tab, stack -> listed.add(stack.getItem()));
+        acceptLegacyVanillaTabs((tab, entry) -> listed.add(entry.get().getItem()));
+        for (Item item : BuiltInRegistries.ITEM) {
+            if (listed.contains(item)) continue;
+            if (BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(NuclearTech.MOD_ID))
+                out.accept(new ItemStack(item));
         }
     }
 

@@ -101,8 +101,16 @@ public final class ModCreativeTabs {
                     builder.title(Component.translatable("itemGroup.hbm." + name))
                             .icon(icon)
                             .displayItems(
-                                    (params, output) ->
-                                            CreativeContents.accept(tab, output::accept));
+                                    (params, output) -> {
+                                        CreativeContents.accept(tab, output::accept);
+                                        if (tab == CreativeContents.Tab.WEAPONS)
+                                            CreativeContents.acceptUnlisted(
+                                                    stack ->
+                                                            output.accept(
+                                                                    stack,
+                                                                    CreativeModeTab.TabVisibility
+                                                                            .SEARCH_TAB_ONLY));
+                                    });
                     extra.accept(builder);
                 });
     }

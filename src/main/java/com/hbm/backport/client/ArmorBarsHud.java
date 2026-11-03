@@ -31,7 +31,7 @@ import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
  * fuel's colour). One bar fills the 81 px of the row; with several, the first takes 40 px and the rest share the
  * other 40. Every piece with bars moves the left HUD column up by 4 px. NTM: NEXT had dropped this HUD.
  */
-@EventBusSubscriber(modid = "hbm", bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = "hbm", value = Dist.CLIENT)
 public final class ArmorBarsHud {
 
     private static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath("hbm", "armor_bars");

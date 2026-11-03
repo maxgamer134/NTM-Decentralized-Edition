@@ -71,8 +71,10 @@ public final class BlockModels {
     }
 
     private static void registerSpriteSources(net.neoforged.neoforge.client.event.RegisterSpriteSourceTypesEvent event) {
-        com.hbm.client.model.PaddedSpriteSource.TYPE =
-                event.register(Library.id("padded"), com.hbm.client.model.PaddedSpriteSource.MAP_CODEC);
+        var type = new net.minecraft.client.renderer.texture.atlas.SpriteSourceType(
+                com.hbm.client.model.PaddedSpriteSource.MAP_CODEC);
+        event.register(Library.id("padded"), type);
+        com.hbm.client.model.PaddedSpriteSource.TYPE = type;
     }
 
     private static void registerLoaders(ModelEvent.RegisterGeometryLoaders event) {

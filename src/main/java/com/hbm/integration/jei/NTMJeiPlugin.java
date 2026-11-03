@@ -34,7 +34,6 @@ import mezz.jei.api.ingredients.subtypes.UidContext;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.advanced.ISimpleRecipeManagerPlugin;
 import mezz.jei.api.registration.*;
-import mezz.jei.api.runtime.IJeiRuntime;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.resources.ResourceKey;
@@ -168,13 +167,6 @@ public class NTMJeiPlugin implements IModPlugin {
             Object data = kind.getSubtypeData(stack);
             return data == null ? "" : data.toString();
         }
-    }
-
-    @Override
-    public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
-        jeiRuntime
-                .getIngredientManager()
-                .removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, RecipePages.hiddenStacks());
     }
 
     private record CraftingRowsLookup(CraftingRows rows)

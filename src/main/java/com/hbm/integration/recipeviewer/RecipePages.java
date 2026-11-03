@@ -15,14 +15,10 @@ import com.hbm.inventory.recipes.*;
 import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.inventory.recipes.loader.GenericRecipes;
 import com.hbm.items.ModItems;
-import com.hbm.items.machine.ItemBattery;
-import com.hbm.lib.Library;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 
 public final class RecipePages {
@@ -53,6 +49,7 @@ public final class RecipePages {
     public static final RadiolysisPage RADIOLYSIS = new RadiolysisPage();
     public static final AnvilSmithingPage ANVIL_SMITHING = new AnvilSmithingPage();
     public static final MagicPage MAGIC = new MagicPage();
+    public static final PedestalPage PEDESTAL = new PedestalPage();
     public static final RefineryPage REFINERY = new RefineryPage();
     public static final SilexPage SILEX = new SilexPage();
     public static final FuelPoolPage FUEL_POOL = new FuelPoolPage();
@@ -371,6 +368,7 @@ public final class RecipePages {
                     RADIOLYSIS,
                     ANVIL_SMITHING,
                     MAGIC,
+                    PEDESTAL,
                     REFINERY,
                     SILEX,
                     FUEL_POOL,
@@ -536,32 +534,6 @@ public final class RecipePages {
 
     public static List<ClickArea> clickAreas() {
         return clickAreas;
-    }
-
-    public static List<ItemStack> hiddenStacks() {
-        List<ItemStack> hidden = new ArrayList<>();
-        hidden.add(new ItemStack(ModItems.BOBMAZON_HIDDEN));
-        hidden.add(new ItemStack(ModItems.COAL_ETERNAL));
-        hidden.add(new ItemStack(ModItems.BOOK_LEMEGETON));
-        hidden.add(ModItems.GUIDE_BOOK.stack(com.hbm.items.tool.ItemGuideBook.BookType.TEST));
-        hidden.add(ModItems.GUIDE_BOOK.stack(com.hbm.items.tool.ItemGuideBook.BookType.HADRON));
-        hidden.add(new ItemStack(ModItems.AMS_CORE_THINGY));
-        ItemBattery memory = ModItems.MEMORY.get();
-        hidden.add(memory.empty());
-        hidden.add(memory.full());
-        hidden.add(new ItemStack(ModBlocks.BRICK_FORGOTTEN.get()));
-        hidden.add(
-                new ItemStack(
-                        BuiltInRegistries.BLOCK
-                                .getOptional(Library.id("brick_forgotten_lock"))
-                                .orElseThrow()
-                                .asItem()));
-        hidden.add(
-                new ItemStack(
-                        BuiltInRegistries.ITEM
-                                .getOptional(Library.id("coal_eternal"))
-                                .orElseThrow()));
-        return hidden;
     }
 
     public record ClickArea(

@@ -15,6 +15,9 @@ import com.hbm.backport.client.gui.ContainerScreenCompat;
 
 public class ScreenCrate extends ContainerScreenCompat<MenuCrate> {
 
+    private static final net.minecraft.resources.ResourceLocation TUNGSTEN_HOT =
+            com.hbm.lib.Library.id("textures/gui/storage/gui_crate_tungsten_hot.png");
+
     private final CrateType type;
 
     public ScreenCrate(MenuCrate menu, Inventory playerInventory, Component title) {
@@ -31,7 +34,7 @@ public class ScreenCrate extends ContainerScreenCompat<MenuCrate> {
     protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         graphics.blit(
                 RenderPipelines.GUI_TEXTURED,
-                type.texture,
+                type == CrateType.TUNGSTEN && menu.isHot() ? TUNGSTEN_HOT : type.texture,
                 0,
                 0,
                 0.0F,

@@ -4,6 +4,7 @@
 package com.hbm.inventory.container;
 
 import com.hbm.blockentity.machine.storage.BlockEntityCrate;
+import com.hbm.blockentity.machine.storage.BlockEntityCrateTungsten;
 import com.hbm.blockentity.machine.storage.CrateType;
 import com.hbm.platform.SophisticatedCoreNesting;
 import com.hbm.tags.HbmItemTags;
@@ -13,6 +14,8 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.ShulkerBoxSlot;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
@@ -23,6 +26,7 @@ import com.hbm.lib.neotransfer.access.ItemAccess;
 public class MenuCrate extends NtmContainerMenu {
 
     private final CrateType type;
+    private int hot;
 
     public MenuCrate(int containerId, Inventory playerInv, CrateType type) {
         this(containerId, playerInv, type, new SimpleContainer(type.slots));
@@ -62,6 +66,22 @@ public class MenuCrate extends NtmContainerMenu {
                         });
             }
         }
+
+        // main's GUICrateTungsten swaps to the glowing sheet while the crate is heated
+        addDataSlot(
+                new DataSlot() {
+                    @Override
+                    public int get() {
+                        if (container instanceof BlockEntityCrateTungsten crate)
+                            return crate.getBlockState().getValue(BlockStateProperties.LIT) ? 1 : 0;
+                        return hot;
+                    }
+
+                    @Override
+                    public void set(int value) {
+                        hot = value;
+                    }
+                });
 
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -109,6 +129,10 @@ public class MenuCrate extends NtmContainerMenu {
 
     public CrateType getCrateType() {
         return type;
+    }
+
+    public boolean isHot() {
+        return hot != 0;
     }
 
     @Override

@@ -42,7 +42,8 @@ public class BlockEntityBroadcaster extends BlockEntityCompat implements Audible
 
     public static void tickServer(
             Level level, BlockPos pos, BlockState state, BlockEntityBroadcaster be) {
-        Vec3 center = Vec3.atCenterOf(pos);
+        // backport-fix: BF-117 measure from where the broadcaster is in the world (also on a build)
+        Vec3 center = com.hbm.backport.SubLevelSpace.toWorld(com.hbm.backport.SubLevelSpace.frame(level, pos), Vec3.atCenterOf(pos));
         AABB box = new AABB(center, center).inflate(CONFUSION_RANGE);
 
         List<LivingEntity> living = level.getEntitiesOfClass(LivingEntity.class, box);

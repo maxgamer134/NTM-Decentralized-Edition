@@ -135,15 +135,21 @@ public class BlockEntityCargoElevator extends BlockEntityCompat
                         worldPosition.getX() + 1.99,
                         upper,
                         worldPosition.getZ() + 1.99);
+        // backport-fix: BF-117 on a build: riders' feet are compared in the elevator's own frame
+        // and lifted along the build's up axis
+        var sub = com.hbm.backport.SubLevelSpace.frame(level, worldPosition);
         for (Entity entity : level.getEntitiesOfClass(Entity.class, swept)) {
             if (entity instanceof Player && !level.isClientSide()) continue;
             double feet = entity.getBoundingBox().minY;
+            if (sub != null)
+                feet = com.hbm.backport.SubLevelSpace.toLocal(sub, new Vec3(entity.getX(), feet, entity.getZ())).y;
             if (feet >= lower && feet <= upper) {
                 entity.move(
                         MoverType.SELF,
-                        new Vec3(0, worldPosition.getY() + 1 + extension - feet, 0));
+                        com.hbm.backport.SubLevelSpace.dirToWorld(
+                                sub, new Vec3(0, worldPosition.getY() + 1 + extension - feet, 0)));
                 entity.setOnGround(true);
-                entity.move(MoverType.SELF, new Vec3(0, -0.125, 0));
+                entity.move(MoverType.SELF, com.hbm.backport.SubLevelSpace.dirToWorld(sub, new Vec3(0, -0.125, 0)));
             }
         }
     }

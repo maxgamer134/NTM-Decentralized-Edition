@@ -229,13 +229,22 @@ public class BlockEntityCore extends BlockEntityMachineBase
         double x = worldPosition.getX() + 0.5;
         double y = worldPosition.getY() + 0.5;
         double z = worldPosition.getZ() + 0.5;
+        // backport-fix: BF-117 on a build: search and cast the line-of-sight ray from where the
+        // core is in the world; a ray from the plot out to the world walked millions of blocks
+        var sub = com.hbm.backport.SubLevelSpace.frame(server, worldPosition);
+        Vec3 eye = com.hbm.backport.SubLevelSpace.toWorld(sub, new Vec3(x, y + 6, z));
+        Vec3 c = com.hbm.backport.SubLevelSpace.toWorld(sub, new Vec3(x, y, z));
+        x = c.x;
+        y = c.y;
+        z = c.z;
 
         DamageSource ams = server.damageSources().source(ModDamageTypes.AMS);
         for (Entity e :
                 server.getEntities(
                         (Entity) null, new AABB(x, y, z, x, y, z).inflate(range), e -> true)) {
             if (e instanceof Player player && ArmorUtil.checkForHazmat(player)) continue;
-            if (isObstructed(server, x, y + 6, z, e.getX(), e.getY() + e.getEyeHeight(), e.getZ()))
+            if (isObstructed(
+                    server, eye.x, eye.y, eye.z, e.getX(), e.getY() + e.getEyeHeight(), e.getZ()))
                 continue;
             e.hurt(ams, 1000);
             e.igniteForSeconds(3);

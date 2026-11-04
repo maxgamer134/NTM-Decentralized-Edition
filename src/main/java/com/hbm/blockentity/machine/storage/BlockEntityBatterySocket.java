@@ -309,17 +309,23 @@ public class BlockEntityBatterySocket extends BlockEntityMachineBase
         double ez = pos.getZ() + 0.5 - dir.getStepZ() * 0.5 + rot.getStepX() * 0.5;
 
         double range = 15D;
+        // backport-fix: BF-117 on a build: aim and spawn the beams from where the socket is in the
+        // world (the targets are world entities); the discharge burst stays in the build
+        var sub = com.hbm.backport.SubLevelSpace.frame(level, pos);
+        Vec3 from = com.hbm.backport.SubLevelSpace.toWorld(sub, new Vec3(ex, ey, ez));
+        Vec3 base = com.hbm.backport.SubLevelSpace.toWorld(sub, new Vec3(pos.getX(), pos.getY(), pos.getZ()));
         List<LivingEntity> targets =
                 level.getEntitiesOfClass(
-                        LivingEntity.class, new AABB(ex, ey, ez, ex, ey, ez).inflate(range));
+                        LivingEntity.class,
+                        new AABB(from.x, from.y, from.z, from.x, from.y, from.z).inflate(range));
         Collections.shuffle(targets);
 
         for (LivingEntity target : targets) {
             Vec3 delta =
                     new Vec3(
-                            target.getX() - ex,
-                            target.getY() + target.getBbHeight() / 2D - ey,
-                            target.getZ() - ez);
+                            target.getX() - from.x,
+                            target.getY() + target.getBbHeight() / 2D - from.y,
+                            target.getZ() - from.z);
             if (delta.length() > range) continue;
             Vec3 n = delta.normalize();
             double dominant = Math.max(Math.abs(n.x), Math.max(Math.abs(n.y), Math.abs(n.z)));
@@ -327,7 +333,7 @@ public class BlockEntityBatterySocket extends BlockEntityMachineBase
 
             EntityDischargeBeam beam =
                     new EntityDischargeBeam(ModEntities.BEAM_DISCHARGE.get(), level);
-            beam.setPos(pos.getX() + spawn.x, pos.getY() + spawn.y, pos.getZ() + spawn.z);
+            beam.setPos(base.x + spawn.x, base.y + spawn.y, base.z + spawn.z);
             Vec3 aim =
                     new Vec3(
                             target.getX() - beam.getX(),

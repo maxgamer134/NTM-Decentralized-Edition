@@ -29,19 +29,21 @@ public final class BlockEntityStatueElbF extends BlockEntityCompat {
         int x = worldPosition.getX();
         int y = worldPosition.getY();
         int z = worldPosition.getZ();
+        // backport-fix: BF-117 measure from where the statue is in the world (also on a build)
+        net.minecraft.world.phys.Vec3 o = com.hbm.backport.SubLevelSpace.toWorld(com.hbm.backport.SubLevelSpace.frame(server, worldPosition), new net.minecraft.world.phys.Vec3(x, y, z));
         AABB search =
                 new AABB(
-                        x - SEARCH_RADIUS,
-                        y - SEARCH_RADIUS,
-                        z - SEARCH_RADIUS,
-                        x + SEARCH_RADIUS,
-                        y + SEARCH_RADIUS,
-                        z + SEARCH_RADIUS);
+                        o.x - SEARCH_RADIUS,
+                        o.y - SEARCH_RADIUS,
+                        o.z - SEARCH_RADIUS,
+                        o.x + SEARCH_RADIUS,
+                        o.y + SEARCH_RADIUS,
+                        o.z + SEARCH_RADIUS);
         for (Player player : server.getEntitiesOfClass(Player.class, search)) {
-            if (player.distanceToSqr(x, y, z) > FEET_RADIUS_SQ) continue;
-            double dx = player.getX() - x;
-            double dy = player.getEyeY() - y;
-            double dz = player.getZ() - z;
+            if (player.distanceToSqr(o.x, o.y, o.z) > FEET_RADIUS_SQ) continue;
+            double dx = player.getX() - o.x;
+            double dy = player.getEyeY() - o.y;
+            double dz = player.getZ() - o.z;
             if (dx * dx + dy * dy + dz * dz >= EYE_RADIUS_SQ) continue;
             player.addEffect(new MobEffectInstance(MobEffects.HEAL, 5, 99));
             player.addEffect(new MobEffectInstance(MobEffects.SATURATION, 5, 99));

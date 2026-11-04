@@ -177,9 +177,10 @@ public class BlockEntityForceField extends BlockEntityMachineBase
         outside.clear();
         inside.clear();
 
-        double cx = worldPosition.getX() + 0.5D;
-        double cy = worldPosition.getY() + 0.5D;
-        double cz = worldPosition.getZ() + 0.5D;
+        Vec3 c = center();
+        double cx = c.x;
+        double cy = c.y;
+        double cz = c.z;
         double sweep = rad + SWEEP_MARGIN;
         AABB box = new AABB(cx - sweep, cy - sweep, cz - sweep, cx + sweep, cy + sweep, cz + sweep);
 
@@ -228,10 +229,17 @@ public class BlockEntityForceField extends BlockEntityMachineBase
         }
     }
 
+    // backport-fix: BF-117 the field's centre in the world, where the entities it sorts are (also
+    // on a build, whose blocks sit in a far-away plot); the field is a sphere, so no turning
+    private Vec3 center() {
+        return com.hbm.backport.SubLevelSpace.toWorld(com.hbm.backport.SubLevelSpace.frame(level, worldPosition), Vec3.atCenterOf(worldPosition));
+    }
+
     private void bounce(Entity entity, float shell, double sign) {
-        double cx = worldPosition.getX() + 0.5D;
-        double cy = worldPosition.getY() + 0.5D;
-        double cz = worldPosition.getZ() + 0.5D;
+        Vec3 c = center();
+        double cx = c.x;
+        double cy = c.y;
+        double cz = c.z;
 
         Vec3 vec = new Vec3(cx - entity.getX(), cy - entity.getY(), cz - entity.getZ()).normalize();
         entity.moveTo(cx - vec.x * shell, cy - vec.y * shell, cz - vec.z * shell, 0F, 0F);

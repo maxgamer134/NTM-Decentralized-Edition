@@ -86,7 +86,13 @@ public class BlockEntityTesla extends BlockEntityMachineBase
             double x = worldPosition.getX() + 0.5D;
             double y = worldPosition.getY() + OFFSET;
             double z = worldPosition.getZ() + 0.5D;
-            targets.addAll(zap(serverLevel, x, y, z, RANGE, null));
+            // backport-fix: BF-117 zap from where the coil is in the world (also on a build), and
+            // keep the beam ends in the coil's own frame, which its renderer draws in
+            var sub = com.hbm.backport.SubLevelSpace.frame(level, worldPosition);
+            Vec3 at = com.hbm.backport.SubLevelSpace.toWorld(sub, new Vec3(x, y, z));
+            List<Vec3> hit = zap(serverLevel, at.x, at.y, at.z, RANGE, null);
+            if (sub == null) targets.addAll(hit);
+            else for (Vec3 end : hit) targets.add(com.hbm.backport.SubLevelSpace.toLocal(sub, end));
         }
 
         networkPackNT(100);

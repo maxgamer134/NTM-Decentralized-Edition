@@ -5,6 +5,8 @@
 package com.hbm.backport;
 
 import dev.ryanhcode.sable.companion.SableCompanion;
+import dev.ryanhcode.sable.companion.SubLevelAccess;
+import org.jspecify.annotations.Nullable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
@@ -45,6 +47,43 @@ public final class SubLevelSpace {
             if (id.equals(sub.getUniqueId())) return sub;
         }
         return null;
+    }
+
+    /*
+     * backport-fix: BF-117 block entities that measure from themselves to entities. Sable hands a
+     * search box around a plot position the world entities around the build (world coordinates),
+     * and makes Entity.distanceTo / distanceToSqr build-aware, but raw coordinate math (getX() - x,
+     * Vec3.distanceTo, block rays, push directions) still mixes plot and world. These bring a block
+     * entity's own points into the world and back; with no build (or no Sable) they change nothing.
+     */
+
+    /** The build holding the block at {@code pos}, or null in the world (or without Sable). */
+    public static @Nullable SubLevelAccess frame(
+            @Nullable Level level, net.minecraft.core.BlockPos pos) {
+        return level == null ? null : SableCompanion.INSTANCE.getContaining(level, pos);
+    }
+
+    /** A point of {@code sub}'s block frame in the world. */
+    public static Vec3 toWorld(
+            @Nullable SubLevelAccess sub,
+            Vec3 local) {
+        return sub == null ? local : sub.logicalPose().transformPosition(local);
+    }
+
+    /** A world point in {@code sub}'s block frame. */
+    public static Vec3 toLocal(
+            @Nullable SubLevelAccess sub,
+            Vec3 world) {
+        return sub == null ? world : sub.logicalPose().transformPositionInverse(world);
+    }
+
+    /** A direction of {@code sub}'s block frame in the world (rotation only). */
+    public static Vec3 dirToWorld(
+            @Nullable SubLevelAccess sub,
+            Vec3 dir) {
+        if (sub == null) return dir;
+        Vector3d v = sub.logicalPose().orientation().transform(new Vector3d(dir.x, dir.y, dir.z));
+        return new Vec3(v.x, v.y, v.z);
     }
 
     /** True when {@code (x, z)} lies inside a sub-level plot. */

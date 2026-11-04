@@ -140,6 +140,12 @@ public class BlockEntityFan extends BlockEntityCompat implements Synced, GraphRe
                                         worldPosition.getZ() + 0.5 + Math.max(z, 0))
                                 .inflate(0.5, 0.5, 0.5));
 
+        // backport-fix: BF-117 on a build the fan blows along its own facing as the build turns it
+        // (the falloff distance is already build-aware: Sable patches Entity.distanceToSqr)
+        net.minecraft.world.phys.Vec3 blow =
+                com.hbm.backport.SubLevelSpace.dirToWorld(
+                        affected.isEmpty() ? null : com.hbm.backport.SubLevelSpace.frame(level, worldPosition),
+                        new net.minecraft.world.phys.Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()));
         for (Entity e : affected) {
 
             double coeff = push;
@@ -156,11 +162,7 @@ public class BlockEntityFan extends BlockEntityCompat implements Synced, GraphRe
             if (suck) coeff *= -1;
 
             e.setDeltaMovement(
-                    e.getDeltaMovement()
-                            .add(
-                                    dir.getStepX() * coeff,
-                                    dir.getStepY() * coeff,
-                                    dir.getStepZ() * coeff));
+                    e.getDeltaMovement().add(blow.x * coeff, blow.y * coeff, blow.z * coeff));
         }
 
         if (level.isClientSide() && level.getRandom().nextInt(30) == 0) {

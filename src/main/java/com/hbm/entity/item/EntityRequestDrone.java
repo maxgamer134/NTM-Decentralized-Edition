@@ -204,6 +204,9 @@ public class EntityRequestDrone extends EntityDroneBase implements StoredItems {
 
     private @Nullable BlockEntity nodeBelow(ServerLevel server) {
         Vec3 from = position();
+        // backport-fix: BF-118 over a build, look down the build's own axis at its blocks in the plot
+        var sub = targetFrame();
+        if (sub != null) from = com.hbm.backport.SubLevelSpace.toLocal(sub, from);
         Vec3 to = from.subtract(0, NODE_REACH, 0);
         BlockHitResult hit =
                 server.clip(

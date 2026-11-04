@@ -18,6 +18,11 @@ import net.minecraft.world.level.Level;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.BlockPos;
+import org.jspecify.annotations.Nullable;
+import dev.ryanhcode.sable.companion.SableCompanion;
+import dev.ryanhcode.sable.companion.SubLevelAccess;
+import com.hbm.backport.SubLevelSpace;
 import com.hbm.backport.compat.EntityCompat;
 
 public abstract class EntityDroneBase extends EntityCompat {
@@ -101,7 +106,8 @@ public abstract class EntityDroneBase extends EntityCompat {
         setDeltaMovement(Vec3.ZERO);
 
         if (this.targetY != -1) {
-            Vec3 delta = new Vec3(targetX - getX(), targetY - getY(), targetZ - getZ());
+            Vec3 goal = goal();
+            Vec3 delta = new Vec3(goal.x - getX(), goal.y - getY(), goal.z - getZ());
             double speed = Math.min(getSpeed(), delta.length());
             setDeltaMovement(delta.normalize().scale(speed));
         }
@@ -120,6 +126,23 @@ public abstract class EntityDroneBase extends EntityCompat {
     };
 
     protected void loadNeighboringChunks() {}
+
+    // backport-fix: BF-118 the physics build (Sable sub-level) the target lies on, a waypoint, crate
+    // or dock in its far-away plot; null for a target in the world
+    protected @Nullable SubLevelAccess targetFrame() {
+        return SubLevelSpace.frame(level(), BlockPos.containing(targetX, targetY, targetZ));
+    }
+
+    // backport-fix: BF-118 where the target is in the world right now: a target on a build is
+    // chased as the build moves, and while that build isn't loaded the drone waits where it is
+    private Vec3 goal() {
+        Vec3 target = new Vec3(targetX, targetY, targetZ);
+        SubLevelAccess sub = targetFrame();
+        if (sub != null) return SubLevelSpace.toWorld(sub, target);
+        if (SableCompanion.INSTANCE.isInPlotGrid(level(), BlockPos.containing(target)))
+            return position();
+        return target;
+    }
 
     public double getSpeed() {
         return 0.125D;

@@ -53,6 +53,12 @@ public class BlockEntityTrappedBrick extends BlockEntityCompat {
             trigger(level, pos, trapBlock.trap);
     }
 
+    // backport-fix: BF-118 traps on a physics build spawn their rocks, arrows and mobs where the
+    // brick is in the world, not in the build's far-away plot
+    private static net.minecraft.world.phys.Vec3 world(ServerLevel level, double x, double y, double z) {
+        return com.hbm.backport.SubLevelSpace.toWorld(level, x, y, z);
+    }
+
     private void trigger(ServerLevel level, BlockPos pos, Trap trap) {
         double cx = pos.getX() + 0.5D, cz = pos.getZ() + 0.5D;
 
@@ -60,12 +66,13 @@ public class BlockEntityTrappedBrick extends BlockEntityCompat {
             case FALLING_ROCKS -> {
                 for (int x = 0; x < 3; x++) {
                     for (int z = 0; z < 3; z++) {
-                        EntityRubble rubble =
-                                new EntityRubble(
+                        net.minecraft.world.phys.Vec3 at =
+                                world(
                                         level,
                                         pos.getX() - 0.5 + x,
                                         pos.getY() - 0.5,
                                         pos.getZ() - 0.5 + z);
+                        EntityRubble rubble = new EntityRubble(level, at.x, at.y, at.z);
                         rubble.setBlockState(ModBlocks.REINFORCED_STONE.get().defaultBlockState());
                         level.addFreshEntity(rubble);
                     }
@@ -83,7 +90,7 @@ public class BlockEntityTrappedBrick extends BlockEntityCompat {
             case ZOMBIE -> {
                 Zombie zombie = EntityType.ZOMBIE.create(level);
                 if (zombie != null) {
-                    zombie.setPos(cx, pos.getY() + 1, cz);
+                    zombie.setPos(world(level, cx, pos.getY() + 1, cz));
                     zombie.setItemSlot(
                             EquipmentSlot.MAINHAND,
                             new ItemStack(
@@ -101,7 +108,7 @@ public class BlockEntityTrappedBrick extends BlockEntityCompat {
                     CaveSpider spider =
                             EntityType.CAVE_SPIDER.create(level);
                     if (spider != null) {
-                        spider.setPos(cx, pos.getY() - 1, cz);
+                        spider.setPos(world(level, cx, pos.getY() - 1, cz));
                         level.addFreshEntity(spider);
                     }
                 }
@@ -116,15 +123,10 @@ public class BlockEntityTrappedBrick extends BlockEntityCompat {
     private void spawnArrow(ServerLevel level, BlockPos pos, boolean flaming) {
         int dx = dir == null ? 0 : dir.getStepX();
         int dz = dir == null ? 0 : dir.getStepZ();
-        Arrow arrow =
-                new Arrow(
-                        level,
-                        pos.getX() + 0.5 + dx,
-                        pos.getY() + 0.5,
-                        pos.getZ() + 0.5 + dz,
-                        ItemStack.EMPTY,
-                        ItemStack.EMPTY);
-        arrow.setDeltaMovement(dx, 0, dz);
+        net.minecraft.world.phys.Vec3 at = world(level, pos.getX() + 0.5 + dx, pos.getY() + 0.5, pos.getZ() + 0.5 + dz);
+        Arrow arrow = new Arrow(level, at.x, at.y, at.z, ItemStack.EMPTY, ItemStack.EMPTY);
+        arrow.setDeltaMovement(
+                com.hbm.backport.SubLevelSpace.dirToWorld(com.hbm.backport.SubLevelSpace.frame(level, pos), new net.minecraft.world.phys.Vec3(dx, 0, dz)));
         if (flaming) arrow.igniteForSeconds(60);
         level.addFreshEntity(arrow);
     }

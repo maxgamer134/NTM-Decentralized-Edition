@@ -117,8 +117,14 @@ public class BlockEntityDroneDock extends BlockEntityRequestNetwork
         }
 
         EntityRequestDrone drone = new EntityRequestDrone(server);
-        drone.setPos(
-                worldPosition.getX() + 0.5, worldPosition.getY() + 1, worldPosition.getZ() + 0.5);
+        // backport-fix: BF-118 a dock on a build launches its drone where the dock is in the world
+        net.minecraft.world.phys.Vec3 at =
+                com.hbm.backport.SubLevelSpace.toWorld(
+                        server,
+                        worldPosition.getX() + 0.5,
+                        worldPosition.getY() + 1,
+                        worldPosition.getZ() + 0.5);
+        drone.setPos(at.x, at.y, at.z);
 
         for (PathNode node : toOffer) drone.program.add(new Step.Goto(node.pos));
         drone.program.add(new Step.Goto(offer.pos));

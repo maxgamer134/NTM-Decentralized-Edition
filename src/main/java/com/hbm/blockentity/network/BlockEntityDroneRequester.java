@@ -87,7 +87,11 @@ public class BlockEntityDroneRequester extends BlockEntityRequestNetwork
 
     @Override
     public boolean hasPermission(Player player) {
-        return player.position().distanceTo(Vec3.atLowerCornerOf(worldPosition)) < CONTROL_RANGE;
+        // backport-fix: BF-118 measured from where the requester is in the world (also on a build)
+        Vec3 at =
+                com.hbm.backport.SubLevelSpace.toWorld(
+                        com.hbm.backport.SubLevelSpace.frame(level, worldPosition), Vec3.atLowerCornerOf(worldPosition));
+        return player.position().distanceTo(at) < CONTROL_RANGE;
     }
 
     @Override

@@ -186,16 +186,21 @@ public final class ChunkPublication {
     public static SignalGetter signals(ServerLevel level, BlockPos origin) {
         ChunkHolder holder =
                 level.getChunkSource().chunkMap.getUpdatingChunkIfPresent(ChunkPos.asLong(origin));
-        return new Signals(level, holder.getLatestChunk());
+        // backport-fix: BF-115 a block Sable moves onto a build lands in a plot chunk the chunk map
+        // has no chunk for (no holder, or a holder without one): no owner then, see chunk()
+        return new Signals(level, holder == null ? null : holder.getLatestChunk());
     }
 
-    private record Signals(ServerLevel level, ChunkAccess owner) implements SignalGetter {
+    private record Signals(ServerLevel level, @Nullable ChunkAccess owner) implements SignalGetter {
         private @Nullable ChunkAccess chunk(BlockPos pos) {
             int x = pos.getX() >> 4, z = pos.getZ() >> 4;
-            if (owner.getPos().x == x && owner.getPos().z == z) return owner;
+            if (owner != null && owner.getPos().x == x && owner.getPos().z == z) return owner;
             ChunkHolder holder =
                     level.getChunkSource().chunkMap.getUpdatingChunkIfPresent(ChunkPos.asLong(x, z));
-            return holder == null ? null : holder.getChunkIfPresentUnchecked(ChunkStatus.FEATURES);
+            ChunkAccess found =
+                    holder == null ? null : holder.getChunkIfPresentUnchecked(ChunkStatus.FEATURES);
+            // backport-fix: BF-115 plot chunks: the chunk source's loaded chunk (never loads one)
+            return found != null ? found : level.getChunkSource().getChunkNow(x, z);
         }
 
         @Override

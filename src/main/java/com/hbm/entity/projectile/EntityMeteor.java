@@ -43,6 +43,10 @@ public class EntityMeteor extends EntityCompat implements IRadarDetectableNT, Fa
 
     public EntityMeteor(EntityType<? extends EntityMeteor> type, Level level) {
         super(type, level);
+        // main's ignoreFrustumCheck. backport-fix: BF-123 it also tells client mods that skip the
+        // ticks of hidden entities (Entity Culling's tick culling) to leave the meteor alone: a
+        // skipped tick left gaps in its trail and stopped its sound following it
+        noCulling = true;
     }
 
     public EntityMeteor(Level level) {

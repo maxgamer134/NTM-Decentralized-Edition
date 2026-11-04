@@ -69,7 +69,62 @@ public abstract class BlockEntityPylonBase extends BlockEntityCompat
         if (first.connectionType() != second.connectionType()) return 1;
         if (first == second) return 2;
         double reach = Math.min(first.maxWireLength(), second.maxWireLength());
-        return reach >= first.connectionPoint().distanceTo(second.connectionPoint()) ? 0 : 3;
+        return reach >= wireLength(first, second) ? 0 : 3;
+    }
+
+    /**
+     * backport-fix: BF-114 length of the wire between two pylons. Main's block-frame distance when
+     * both are in the world or on the same build; between the world positions of both ends when
+     * the wire leaves a build (Sable sub-level), whose blocks sit in a far-away plot.
+     */
+    public static double wireLength(BlockEntityPylonBase first, BlockEntityPylonBase second) {
+        Vec3 a = first.connectionPoint(), b = second.connectionPoint();
+        Level level = first.getLevel();
+        if (level == null
+                || com.hbm.backport.SubLevelWires.sameSpace(
+                        level, first.getBlockPos(), second.getBlockPos())) return a.distanceTo(b);
+        return com.hbm.backport.SubLevelWires.toWorld(level, a)
+                .distanceTo(com.hbm.backport.SubLevelWires.toWorld(level, b));
+    }
+
+    // backport-fix: BF-114 whether a wire leaves this pylon's frame, worked out once per wire list
+    private record Span(long[] wires, boolean spans) {}
+
+    private volatile Span span;
+
+    /** True when a wire runs between this pylon's frame (world or build) and another one. */
+    public boolean spansSubLevels() {
+        long[] wires = connections;
+        Span cached = span;
+        if (cached != null && cached.wires == wires) return cached.spans;
+        Level level = getLevel();
+        if (level == null || wires.length == 0) return false;
+        BlockPos self = getBlockPos();
+        boolean selfPlot = com.hbm.backport.SubLevelWires.inPlot(level, self);
+        boolean spans = false, settled = true;
+        for (long key : wires) {
+            BlockPos peer = BlockPos.of(key);
+            boolean peerPlot = com.hbm.backport.SubLevelWires.inPlot(level, peer);
+            if (!selfPlot && !peerPlot) continue;
+            if (selfPlot != peerPlot) {
+                spans = true;
+                break;
+            }
+            // both on builds: the same one unless proven otherwise; an unresolved build is retried
+            if (dev.ryanhcode.sable.companion.SableCompanion.INSTANCE.getContaining(level, self) == null
+                    || dev.ryanhcode.sable.companion.SableCompanion.INSTANCE.getContaining(level, peer)
+                            == null) {
+                spans = true;
+                settled = false;
+                break;
+            }
+            if (!com.hbm.backport.SubLevelWires.sameSpace(level, self, peer)) {
+                spans = true;
+                break;
+            }
+        }
+        if (settled) span = new Span(wires, spans);
+        return spans;
     }
 
     public abstract ConnectionType connectionType();
@@ -100,6 +155,7 @@ public abstract class BlockEntityPylonBase extends BlockEntityCompat
                         ? node.remoteLinks.toLongArray()
                         : new long[0];
         networkPackNTTracking();
+        com.hbm.backport.SubLevelWires.track((ServerLevel) level, this); // backport-fix: BF-114
     }
 
     public static void refreshIfLoaded(ServerLevel level, long pos) {

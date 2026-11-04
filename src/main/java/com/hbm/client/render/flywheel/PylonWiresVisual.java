@@ -57,6 +57,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     private @Nullable BlockState[] lastPeerStates = new BlockState[0];
     private int lastColor;
     private boolean lastHang;
+    private boolean lastSpans;
     private boolean built;
 
     public PylonWiresVisual(
@@ -100,6 +101,14 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
         if (!inputsChanged() && built) return;
         built = true;
         path.clear();
+        // backport-fix: BF-114 a wire to or from a moving build is redrawn every frame by
+        // RenderPylonWires (skipVanillaRender is off for this pylon then): draw nothing here
+        if (lastSpans) {
+            clear();
+            used = 0;
+            publishSections();
+            return;
+        }
         Vec3[] mine = blockEntity.mounts();
         for (int c = 0; c < lastConnections.length; c++) {
             BlockEntityPylonBase other = lastPeers[c];
@@ -145,10 +154,13 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
 
     private boolean inputsChanged() {
         long[] connections = blockEntity.connections;
+        boolean spans = blockEntity.spansSubLevels();
         boolean changed =
                 blockEntity.color != lastColor
                         || RenderConfig.cableHang != lastHang
+                        || spans != lastSpans
                         || !Arrays.equals(connections, lastConnections);
+        lastSpans = spans;
         if (changed) {
             lastConnections = connections.clone();
             lastColor = blockEntity.color;

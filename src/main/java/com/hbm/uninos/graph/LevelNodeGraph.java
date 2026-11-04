@@ -1614,6 +1614,24 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
         if (na.net != null && nb.net != null && na.net != nb.net) unite(na.net, nb.net);
     }
 
+    /**
+     * backport-fix: BF-114 drops the wire between {@code a} and {@code b} (both sides) and splits
+     * their network if that wire was the only path between them.
+     */
+    public void removeRemoteLink(long a, long b) {
+        GraphNode<D> na = nodesByPos.get(a);
+        GraphNode<D> nb = nodesByPos.get(b);
+        boolean changed = na != null && na.remoteLinks != null && na.remoteLinks.remove(b);
+        changed |= nb != null && nb.remoteLinks != null && nb.remoteLinks.remove(a);
+        if (!changed) return;
+        setDirty();
+        if (na == null || nb == null || na.net == null || na.net != nb.net) return;
+        List<Object> seeds = new ArrayList<>(2);
+        seeds.add(na);
+        seeds.add(nb);
+        splitNet(na.net, seeds);
+    }
+
     public void compact() {
         for (GraphNode<D> node : new ArrayList<>(nodesByPos.values())) foldAt(node);
     }

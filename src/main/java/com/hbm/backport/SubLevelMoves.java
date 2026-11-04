@@ -55,11 +55,14 @@ public final class SubLevelMoves {
         markVacating(origin, from);
         BlockState moved = resulting.getBlockState(to);
         int turns = quarterTurns(state, moved);
+        Batch batch = batch(resulting);
+        batch.movedTo.put(from.asLong(), to.asLong()); // backport-fix: BF-114
 
         // 1.0.3: hbm$graphs() is an array indexed by graph kind; unloaded kinds are null slots
         for (LevelNodeGraph<?> graph : origin.hbm$graphs())
             if (graph != null)
-                moveNode(graph, origin, from.asLong(), to.asLong(), turns, origin == resulting);
+                moveNode(
+                        graph, origin, from.asLong(), to.asLong(), turns, origin == resulting, batch);
 
         if (state.getBlock() instanceof BlockMultiblockCell || state.getBlock() instanceof BlockMultiblockCore)
             BlockMultiblockCore.unindexCell(origin, from);
@@ -73,11 +76,9 @@ public final class SubLevelMoves {
         LevelNodeGraph.invalidateEndpointsAround(origin, from);
         LevelNodeGraph.invalidateEndpointsAt(resulting, to);
 
-        schedule(
-                resulting,
-                to,
-                moved.getBlock() instanceof BlockMultiblockCore
-                        || moved.getBlock() instanceof SubLevelRebuild.Owner);
+        batch.moved.add(to);
+        if (moved.getBlock() instanceof BlockMultiblockCore
+                || moved.getBlock() instanceof SubLevelRebuild.Owner) batch.cores.add(to);
     }
 
     // backport-fix: BF-076 positions Sable is moving blocks away from, until the move is done
@@ -114,9 +115,15 @@ public final class SubLevelMoves {
     private static final class Batch {
         final java.util.List<BlockPos> moved = new java.util.ArrayList<>();
         final java.util.List<BlockPos> cores = new java.util.ArrayList<>();
+        // backport-fix: BF-114 old -> new position of every moved block, and the wires to put back
+        final it.unimi.dsi.fastutil.longs.Long2LongOpenHashMap movedTo =
+                new it.unimi.dsi.fastutil.longs.Long2LongOpenHashMap();
+        final java.util.List<Relink> relinks = new java.util.ArrayList<>();
     }
 
-    private static void schedule(ServerLevel level, BlockPos to, boolean core) {
+    private record Relink(LevelNodeGraph<?> graph, long to, long[] peers) {}
+
+    private static Batch batch(ServerLevel level) {
         Batch batch = BATCHES.get(level);
         if (batch == null) {
             Batch fresh = new Batch();
@@ -125,8 +132,7 @@ public final class SubLevelMoves {
             server.tell(server.wrapRunnable(() -> finish(level, fresh)));
             batch = fresh;
         }
-        batch.moved.add(to);
-        if (core) batch.cores.add(to);
+        return batch;
     }
 
     private static void finish(ServerLevel level, Batch batch) {
@@ -145,10 +151,52 @@ public final class SubLevelMoves {
             BlockState state = level.getBlockState(pos);
             if (!state.isAir()) state.updateNeighbourShapes(level, pos, 3);
         }
+        for (Relink relink : batch.relinks) relink(level, relink, batch.movedTo);
+    }
+
+    /**
+     * backport-fix: BF-114 a moved wire end links again to where its peer is now (moved with it, or
+     * left where it was). Pylon wires stay while the ends are still in reach, measured in the
+     * world ({@link SubLevelWires}); other wires (pipe anchors) only within one frame, since they
+     * are drawn in block space.
+     */
+    private static void relink(
+            ServerLevel level,
+            Relink relink,
+            it.unimi.dsi.fastutil.longs.Long2LongOpenHashMap movedTo) {
+        boolean power = relink.graph() == com.hbm.api.energymk2.PowerGraph.get(level);
+        BlockEntityPylonBase self =
+                power
+                        ? com.hbm.util.ChunkUtil.blockEntityIfLoaded(
+                                BlockEntityPylonBase.class, level, BlockPos.of(relink.to()))
+                        : null;
+        for (long peer : relink.peers()) {
+            long at = movedTo.getOrDefault(peer, peer);
+            if (at == relink.to()) continue;
+            if (power) {
+                BlockEntityPylonBase other =
+                        com.hbm.util.ChunkUtil.blockEntityIfLoaded(
+                                BlockEntityPylonBase.class, level, BlockPos.of(at));
+                if (self == null
+                        || other == null
+                        || BlockEntityPylonBase.canConnect(self, other) != 0) continue;
+                relink.graph().addRemoteLink(relink.to(), at);
+                other.refreshConnections();
+            } else if (SubLevelWires.sameSpace(level, BlockPos.of(relink.to()), BlockPos.of(at))) {
+                relink.graph().addRemoteLink(relink.to(), at);
+            }
+        }
+        if (self != null) self.refreshConnections();
     }
 
     private static <D> void moveNode(
-            LevelNodeGraph<D> graph, ServerLevel origin, long from, long to, int turns, boolean sameLevel) {
+            LevelNodeGraph<D> graph,
+            ServerLevel origin,
+            long from,
+            long to,
+            int turns,
+            boolean sameLevel,
+            Batch batch) {
         if (!graph.containsCell(from)) return;
         GraphNode<D> node = graph.firstClass(from); // promotes a segment interior cell to a node
         if (node == null) return;
@@ -164,6 +212,8 @@ public final class SubLevelMoves {
         if (!sameLevel || graph.containsCell(to)) return;
         graph.addNode(to, data, mask);
         if (self) graph.setSelfEndpoint(to, true);
+        // backport-fix: BF-114 its wires follow it once the whole build has moved (see relink)
+        if (peers.length != 0) batch.relinks.add(new Relink(graph, to, peers));
     }
 
     /** Clockwise quarter turns about Y between the horizontal facing before and after the move. */

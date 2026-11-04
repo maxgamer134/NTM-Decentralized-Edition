@@ -23,6 +23,57 @@ public final class SyncWire {
     public static final ThreadLocal<ByteBuf> SCRATCH =
             ThreadLocal.withInitial(() -> Unpooled.buffer(256));
     private static long revision;
+
+    private static final class DiffScratch {
+        final ByteBuf buf = Unpooled.buffer(256);
+        boolean busy;
+    }
+
+    private static final ThreadLocal<DiffScratch> DIFF = ThreadLocal.withInitial(DiffScratch::new);
+
+    /**
+     * Writes every sync unit in {@code mask}, compares it with the copy in {@code last} and
+     * returns the units whose bytes changed (their copies in {@code last} are replaced). One
+     * reused buffer per thread; a byte[] is only allocated for a unit that actually changed.
+     */
+    public static long diffUnits(SyncUnitSchema schema, long mask, byte[][] last) {
+        DiffScratch holder = DIFF.get();
+        boolean own = !holder.busy;
+        ByteBuf scratch = own ? holder.buf : Unpooled.buffer(64);
+        if (own) holder.busy = true;
+        long changed = 0;
+        try {
+            for (int unit = 0; unit < 64; unit++) {
+                if ((mask & (1L << unit)) == 0) continue;
+                scratch.clear();
+                schema.writeSyncUnit(unit, scratch);
+                int n = scratch.readableBytes();
+                byte[] prev = last[unit];
+                if (prev != null && prev.length == n) {
+                    boolean same;
+                    if (scratch.hasArray()) {
+                        int off = scratch.arrayOffset() + scratch.readerIndex();
+                        same = java.util.Arrays.equals(scratch.array(), off, off + n, prev, 0, n);
+                    } else {
+                        same = java.util.Arrays.equals(io.netty.buffer.ByteBufUtil.getBytes(scratch), prev);
+                    }
+                    if (same) continue;
+                }
+                last[unit] = io.netty.buffer.ByteBufUtil.getBytes(scratch);
+                changed |= 1L << unit;
+            }
+        } finally {
+            if (own) {
+                holder.busy = false;
+                // don't keep a huge buffer around after one oversized unit
+                if (scratch.capacity() > 65536) holder.buf.capacity(256);
+                scratch.clear();
+            } else {
+                scratch.release();
+            }
+        }
+        return changed;
+    }
     private static volatile boolean recipesChanged;
 
     private static final class Replay {

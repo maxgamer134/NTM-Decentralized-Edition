@@ -594,21 +594,7 @@ public class BlockEntityEmitter extends BlockEntityCompat implements Synced, Syn
         long mask = schema.syncUnitMask();
         if (mask == 0) return;
         if (hbm$syncLastUnits == null) hbm$syncLastUnits = new byte[64][];
-        io.netty.buffer.ByteBuf scratch = io.netty.buffer.Unpooled.buffer(64);
-        long changed = 0;
-        try {
-            for (int unit = 0; unit < 64; unit++) {
-                if ((mask & (1L << unit)) == 0) continue;
-                scratch.clear();
-                schema.writeSyncUnit(unit, scratch);
-                byte[] now = io.netty.buffer.ByteBufUtil.getBytes(scratch);
-                if (java.util.Arrays.equals(now, hbm$syncLastUnits[unit])) continue;
-                hbm$syncLastUnits[unit] = now;
-                changed |= 1L << unit;
-            }
-        } finally {
-            scratch.release();
-        }
+        long changed = com.hbm.packet.SyncWire.diffUnits(schema, mask, hbm$syncLastUnits);
         if (changed != 0) syncUnitsChanged(3, changed);
     }
 }

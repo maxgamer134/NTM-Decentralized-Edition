@@ -34,12 +34,20 @@ import com.hbm.backport.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import com.hbm.backport.LaunchAxis;
+import org.joml.Vector3f;
 import com.hbm.backport.compat.ProjectileCompat;
 
 public abstract class EntityMissileBaseNT extends ProjectileCompat
         implements IRadarDetectableNT, FarVisible {
     private static final EntityDataAccessor<Byte> FACING =
             SynchedEntityData.defineId(EntityMissileBaseNT.class, EntityDataSerializers.BYTE);
+    // backport-fix: BF-113 the pad's up axis in the world (straight up unless it sits tilted on a build)
+    private static final EntityDataAccessor<Vector3f> AXIS =
+            SynchedEntityData.defineId(EntityMissileBaseNT.class, EntityDataSerializers.VECTOR3);
+    private Vec3 launchAxis = LaunchAxis.UP;
+    private double exitTravelled;
+    private boolean renderInit;
     private final InterpolationHandler interpolation = new InterpolationHandler(this);
     public int startX;
     public int startZ;
@@ -63,6 +71,7 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         // backport-fix: BF-019 a pad on an airship (Sable sub-level) hands over plot coordinates,
         // millions of blocks from the visible ship: start from the matching world position. A target
         // designated on a ship is moved the same way, to where that ship is now.
+        setLaunchAxis(LaunchAxis.padUp(level(), x, y, z));
         Vec3 from = com.hbm.backport.SubLevelSpace.toWorld(level(), x, y, z);
         Vec3 to = com.hbm.backport.SubLevelSpace.toWorld(level(), targetX + 0.5D, from.y, targetZ + 0.5D);
         x = from.x;
@@ -88,6 +97,14 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(FACING, (byte) 5);
+        builder.define(AXIS, new Vector3f(0F, 1F, 0F));
+    }
+
+    public void setLaunchAxis(Vec3 axis) {
+        this.launchAxis = LaunchAxis.upright(axis) ? LaunchAxis.UP : axis;
+        entityData.set(
+                AXIS,
+                new Vector3f((float) launchAxis.x, (float) launchAxis.y, (float) launchAxis.z));
     }
 
     @Override
@@ -128,6 +145,10 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         super.tick();
 
         if (level().isClientSide()) {
+            if (!renderInit) {
+                renderInit = true;
+                initRenderRotation();
+            }
             Vec3 step = position().subtract(prePos);
             updateRenderRotation(step);
             spawnContrail(step);
@@ -140,7 +161,14 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
     protected void fly() {
         double mult = velocity;
         Vec3 from = position();
-        Vec3 to = from.add(getDeltaMovement().scale(mult));
+        Vec3 step = getDeltaMovement().scale(mult);
+        // backport-fix: BF-113 leave a tilted pad along its axis, fading back into main's arc
+        if (!LaunchAxis.upright(launchAxis) && exitTravelled < LaunchAxis.EXIT_LENGTH) {
+            Vec3 before = LaunchAxis.exitOffset(launchAxis, exitTravelled);
+            exitTravelled += step.length();
+            step = step.add(LaunchAxis.exitOffset(launchAxis, exitTravelled).subtract(before));
+        }
+        Vec3 to = from.add(step);
 
         BlockHitResult mop =
                 level().clip(
@@ -192,6 +220,16 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         this.xRot = (float) (Math.atan2(flight.y, horiz) * 180.0D / Math.PI) - 90F;
 
         ChunkUtil.holdOwnChunk(this);
+    }
+
+    /** Start a missile off a tilted pad already pointing along the pad (main: always upright). */
+    private void initRenderRotation() {
+        Vector3f a = entityData.get(AXIS);
+        if (a.y() > 0.99999F) return;
+        float horiz = Mth.sqrt(a.x() * a.x() + a.z() * a.z());
+        this.renderPitch = this.renderPitchO = (float) (Math.atan2(a.y(), horiz) * 180.0D / Math.PI) - 90F;
+        if (horiz > 1.0e-3F)
+            this.renderYaw = this.renderYawO = (float) (Math.atan2(a.x(), a.z()) * 180.0D / Math.PI);
     }
 
     private void updateRenderRotation(Vec3 step) {
@@ -358,6 +396,12 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         accelXZ = input.getDoubleOr("accel", accelXZ);
         health = input.getIntOr("health", health);
         isCluster = input.getBooleanOr("cluster", isCluster);
+        setLaunchAxis(
+                new Vec3(
+                        input.getDoubleOr("axisX", 0D),
+                        input.getDoubleOr("axisY", 1D),
+                        input.getDoubleOr("axisZ", 0D)));
+        exitTravelled = input.getDoubleOr("exitT", 0D);
     }
 
     @Override
@@ -372,5 +416,9 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         output.putDouble("accel", accelXZ);
         output.putInt("health", health);
         output.putBoolean("cluster", isCluster);
+        output.putDouble("axisX", launchAxis.x);
+        output.putDouble("axisY", launchAxis.y);
+        output.putDouble("axisZ", launchAxis.z);
+        output.putDouble("exitT", exitTravelled);
     }
 }

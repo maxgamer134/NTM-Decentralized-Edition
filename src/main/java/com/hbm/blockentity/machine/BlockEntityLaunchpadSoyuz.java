@@ -450,7 +450,10 @@ public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
         EntitySoyuz soyuz = new EntitySoyuz(ModEntities.SOYUZ.get(), level);
         soyuz.setSkin(loadedType);
         soyuz.mode = cargoMode ? 1 : 0;
-        soyuz.moveTo(x, y, z, 0F, 0F);
+        // backport-fix: BF-113 a pad on a build starts the rocket in world space, along the pad's axis
+        net.minecraft.world.phys.Vec3 at = com.hbm.backport.SubLevelSpace.toWorld(level, x, y, z);
+        soyuz.moveTo(at.x, at.y, at.z, 0F, 0F);
+        soyuz.setLaunchAxis(com.hbm.backport.LaunchAxis.padUp(level, x, y, z));
         level.addFreshEntity(soyuz);
         level.playSound(
                 null, worldPosition, ModSounds.SOYUZ_TAKEOFF.get(), SoundSource.BLOCKS, 100F, 1.1F);

@@ -198,12 +198,13 @@ public class BlockEntitySoyuzLauncher extends BlockEntityMachineBase
         EntitySoyuz soyuz = new EntitySoyuz(ModEntities.SOYUZ.get(), level);
         soyuz.setSkin(rocketSkin());
         soyuz.mode = mode;
-        soyuz.moveTo(
-                worldPosition.getX() + 0.5D,
-                worldPosition.getY() + 1,
-                worldPosition.getZ() + 0.5D,
-                0.0F,
-                0.0F);
+        double sx = worldPosition.getX() + 0.5D;
+        double sy = worldPosition.getY() + 1;
+        double sz = worldPosition.getZ() + 0.5D;
+        // backport-fix: BF-113 a launcher on a build starts the rocket in world space, along its axis
+        net.minecraft.world.phys.Vec3 at = com.hbm.backport.SubLevelSpace.toWorld(level, sx, sy, sz);
+        soyuz.moveTo(at.x, at.y, at.z, 0.0F, 0.0F);
+        soyuz.setLaunchAxis(com.hbm.backport.LaunchAxis.padUp(level, sx, sy, sz));
         level.addFreshEntity(soyuz);
 
         level.playSound(

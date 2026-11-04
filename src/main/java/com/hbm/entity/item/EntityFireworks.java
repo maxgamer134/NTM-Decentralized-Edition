@@ -6,7 +6,10 @@ package com.hbm.entity.item;
 import com.hbm.entity.ModEntities;
 import com.hbm.particle.helper.ParticleCreators;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import org.joml.Vector3f;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,6 +24,9 @@ import net.minecraft.world.phys.Vec3;
 import com.hbm.backport.compat.EntityCompat;
 
 public class EntityFireworks extends EntityCompat {
+    // backport-fix: BF-113 the launcher's up axis in the world (straight up unless it sits tilted on a build)
+    private static final EntityDataAccessor<Vector3f> AXIS =
+            SynchedEntityData.defineId(EntityFireworks.class, EntityDataSerializers.VECTOR3);
 
     private int color;
     private int character;
@@ -45,7 +51,13 @@ public class EntityFireworks extends EntityCompat {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {}
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(AXIS, new Vector3f(0F, 1F, 0F));
+    }
+
+    public void setLaunchAxis(Vec3 axis) {
+        entityData.set(AXIS, new Vector3f((float) axis.x, (float) axis.y, (float) axis.z));
+    }
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
@@ -54,7 +66,8 @@ public class EntityFireworks extends EntityCompat {
 
     @Override
     public void tick() {
-        move(MoverType.SELF, new Vec3(0.0D, 3.0D, 0.0D));
+        Vector3f axis = entityData.get(AXIS);
+        move(MoverType.SELF, new Vec3(axis.x() * 3.0D, axis.y() * 3.0D, axis.z() * 3.0D));
 
         if (level().isClientSide()) {
             level().addParticle(ParticleTypes.FLAME, getX(), getY(), getZ(), 0.0D, -0.3D, 0.0D);
@@ -83,6 +96,11 @@ public class EntityFireworks extends EntityCompat {
     protected void readAdditionalSaveData(ValueInput input) {
         character = input.getIntOr("char", 0);
         color = input.getIntOr("color", 0);
+        setLaunchAxis(
+                new Vec3(
+                        input.getDoubleOr("axisX", 0D),
+                        input.getDoubleOr("axisY", 1D),
+                        input.getDoubleOr("axisZ", 0D)));
         tickCount = input.getIntOr("ticksExisted", 0);
     }
 
@@ -90,6 +108,10 @@ public class EntityFireworks extends EntityCompat {
     protected void addAdditionalSaveData(ValueOutput output) {
         output.putInt("char", character);
         output.putInt("color", color);
+        Vector3f axis = entityData.get(AXIS);
+        output.putDouble("axisX", axis.x());
+        output.putDouble("axisY", axis.y());
+        output.putDouble("axisZ", axis.z());
         output.putInt("ticksExisted", tickCount);
     }
 }

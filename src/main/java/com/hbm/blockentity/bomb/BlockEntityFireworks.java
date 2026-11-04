@@ -57,8 +57,12 @@ public class BlockEntityFireworks extends BlockEntityCompat {
         double x = pos.getX() + 0.5D + offX;
         double z = pos.getZ() + 0.5D + offZ;
 
+        // backport-fix: BF-113 a launcher on a build fires from world space, along its axis
+        net.minecraft.world.phys.Vec3 at =
+                com.hbm.backport.SubLevelSpace.toWorld(level, x, pos.getY() + 1.5D, z);
         EntityFireworks shot =
-                new EntityFireworks(level, x, pos.getY() + 1.5D, z, color, message.charAt(index));
+                new EntityFireworks(level, at.x, at.y, at.z, color, message.charAt(index));
+        shot.setLaunchAxis(com.hbm.backport.LaunchAxis.padUp(level, x, pos.getY() + 1.5D, z));
         level.addFreshEntity(shot);
         level.playSound(
                 null,

@@ -46,6 +46,14 @@ public class EntityMissileAntiBallistic extends EntityThrowableInterp
         this.setDeltaMovement(0.0D, baseSpeed, 0.0D);
     }
 
+    // backport-fix: BF-113 boost along the pad's axis when it sits tilted on a build (main: up)
+    private Vec3 launchAxis = com.hbm.backport.LaunchAxis.UP;
+
+    public void setLaunchAxis(Vec3 axis) {
+        this.launchAxis = com.hbm.backport.LaunchAxis.upright(axis) ? com.hbm.backport.LaunchAxis.UP : axis;
+        if (launchAxis != com.hbm.backport.LaunchAxis.UP) this.setDeltaMovement(launchAxis.scale(baseSpeed));
+    }
+
     @Override
     protected double motionMult() {
         return this.velocity;
@@ -73,8 +81,10 @@ public class EntityMissileAntiBallistic extends EntityThrowableInterp
 
             if (this.activationTimer < 40) {
                 this.activationTimer++;
-                this.setDeltaMovement(
-                        this.getDeltaMovement().x, baseSpeed, this.getDeltaMovement().z);
+                if (launchAxis == com.hbm.backport.LaunchAxis.UP)
+                    this.setDeltaMovement(
+                            this.getDeltaMovement().x, baseSpeed, this.getDeltaMovement().z);
+                else this.setDeltaMovement(launchAxis.scale(baseSpeed));
             } else if (this.trackingSubLevel != null) {
                 // backport: radar-assigned airship; if it's lost, fall back to hunting missiles
                 if (!this.chaseSubLevel()) this.trackingSubLevel = null;
@@ -284,12 +294,20 @@ public class EntityMissileAntiBallistic extends EntityThrowableInterp
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.velocity = input.getDoubleOr("veloc", this.velocity);
+        setLaunchAxis(
+                new Vec3(
+                        input.getDoubleOr("axisX", 0D),
+                        input.getDoubleOr("axisY", 1D),
+                        input.getDoubleOr("axisZ", 0D)));
     }
 
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putDouble("veloc", this.velocity);
+        output.putDouble("axisX", launchAxis.x);
+        output.putDouble("axisY", launchAxis.y);
+        output.putDouble("axisZ", launchAxis.z);
     }
 
     public void loadNeighboringChunks(int newChunkX, int newChunkZ) {

@@ -289,6 +289,9 @@ public abstract class BlockEntityLaunchPadBase extends BlockEntityMachineBase
                         core.getX() + 0.5,
                         core.getY() + getLaunchOffset(),
                         core.getZ() + 0.5));
+        interceptor.setLaunchAxis(
+                com.hbm.backport.LaunchAxis.padUp(
+                        getLevel(), core.getX() + 0.5, core.getY() + getLaunchOffset(), core.getZ() + 0.5));
         interceptor.trackSubLevel(subLevel, new net.minecraft.world.phys.Vec3(x + 0.5, y, z + 0.5));
         getLevel().addFreshEntity(interceptor);
         finalizeLaunch();
@@ -307,6 +310,12 @@ public abstract class BlockEntityLaunchPadBase extends BlockEntityMachineBase
             // backport-fix: BF-019 on an airship the pad sits in a Sable plot, start in world space
             interceptor.setPos(
                     com.hbm.backport.SubLevelSpace.toWorld(
+                            getLevel(),
+                            core.getX() + 0.5,
+                            core.getY() + getLaunchOffset(),
+                            core.getZ() + 0.5));
+            interceptor.setLaunchAxis(
+                    com.hbm.backport.LaunchAxis.padUp(
                             getLevel(),
                             core.getX() + 0.5,
                             core.getY() + getLaunchOffset(),

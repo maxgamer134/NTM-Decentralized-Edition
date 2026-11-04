@@ -46,6 +46,7 @@ public class RenderLambdaRocket extends EntityRenderer<EntityRocketLambda, Rende
         super.extractRenderState(entity, state, partialTicks);
         state.age = entity.tickCount + partialTicks;
         state.flicker = 0.8F + entity.getRandom().nextFloat() * 0.4F;
+        state.dir = entity.flightDirection();
     }
 
     @Override
@@ -55,10 +56,17 @@ public class RenderLambdaRocket extends EntityRenderer<EntityRocketLambda, Rende
             SubmitNodeCollector collector,
             CameraRenderState camera) {
         int light = state.lightCoords;
+        // backport-fix: BF-113 nose along the flight direction (main: always upright)
+        boolean tilted = !com.hbm.backport.LaunchAxis.upright(state.dir);
+        if (tilted) {
+            poseStack.pushPose();
+            poseStack.mulPose(com.hbm.backport.LaunchAxis.rotation(state.dir));
+        }
         collector.submitCustomGeometry(
                 poseStack,
                 RenderTypes.entityCutoutCull(ResourceManager.lambda_rocket_tex),
                 (pose, buffer) -> ResourceManager.lambda_rocket.render(pose, buffer, light, -1));
+        if (tilted) poseStack.popPose();
 
         if (state.age >= 2) {
             // move the flare one block towards the player so it doesn't clip into the model
@@ -78,5 +86,6 @@ public class RenderLambdaRocket extends EntityRenderer<EntityRocketLambda, Rende
     public static final class State extends EntityRenderState {
         float age;
         float flicker;
+        Vec3 dir = com.hbm.backport.LaunchAxis.UP;
     }
 }

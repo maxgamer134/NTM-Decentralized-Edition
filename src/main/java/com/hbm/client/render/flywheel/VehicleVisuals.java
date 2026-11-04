@@ -426,7 +426,15 @@ public final class VehicleVisuals {
                                     "BoosterSide" + tag,
                                     skin[SOYUZ_BOOSTER_SIDE]));
                 }
-                rigs.add(new CraftVisual.Rig<EntitySoyuz>(null, List.copyOf(parts)));
+                // backport-fix: BF-113 nose along the flight direction (main: always upright)
+                rigs.add(
+                        new CraftVisual.Rig<EntitySoyuz>(
+                                (pose, entity, partialTick) -> {
+                                    net.minecraft.world.phys.Vec3 d = entity.flightDirection();
+                                    if (!com.hbm.backport.LaunchAxis.upright(d))
+                                        pose.rotate(com.hbm.backport.LaunchAxis.rotation(d));
+                                },
+                                List.copyOf(parts)));
             }
             return List.copyOf(rigs);
         }

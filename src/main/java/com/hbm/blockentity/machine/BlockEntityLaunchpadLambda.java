@@ -351,12 +351,13 @@ public class BlockEntityLaunchpadLambda extends BlockEntityMachineBase
 
     private void liftOff() {
         EntityRocketLambda rocket = new EntityRocketLambda(ModEntities.ROCKET_LAMBDA.get(), level);
-        rocket.moveTo(
-                worldPosition.getX() + 0.5D,
-                worldPosition.getY() + 2D,
-                worldPosition.getZ() + 0.5D,
-                0F,
-                0F);
+        double rx = worldPosition.getX() + 0.5D;
+        double ry = worldPosition.getY() + 2D;
+        double rz = worldPosition.getZ() + 0.5D;
+        // backport-fix: BF-113 a pad on a build starts the rocket in world space, along the pad's axis
+        net.minecraft.world.phys.Vec3 at = com.hbm.backport.SubLevelSpace.toWorld(level, rx, ry, rz);
+        rocket.moveTo(at.x, at.y, at.z, 0F, 0F);
+        rocket.setLaunchAxis(com.hbm.backport.LaunchAxis.padUp(level, rx, ry, rz));
         rocket.setSat(getItem(1).copy());
         level.addFreshEntity(rocket);
 

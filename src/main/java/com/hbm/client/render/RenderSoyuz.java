@@ -41,6 +41,7 @@ public class RenderSoyuz extends EntityRenderer<EntitySoyuz, RenderSoyuz.State>
     public void extractRenderState(EntitySoyuz entity, State state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.skin = SoyuzMesh.wrapSkin(entity.getSkin());
+        state.dir = entity.flightDirection();
     }
 
     @Override
@@ -49,11 +50,19 @@ public class RenderSoyuz extends EntityRenderer<EntitySoyuz, RenderSoyuz.State>
             PoseStack poseStack,
             SubmitNodeCollector collector,
             CameraRenderState camera) {
+        // backport-fix: BF-113 nose along the flight direction (main: always upright)
+        boolean tilted = !com.hbm.backport.LaunchAxis.upright(state.dir);
+        if (tilted) {
+            poseStack.pushPose();
+            poseStack.mulPose(com.hbm.backport.LaunchAxis.rotation(state.dir));
+        }
         SoyuzMesh.submit(poseStack, collector, state.lightCoords, state.skin);
+        if (tilted) poseStack.popPose();
         super.submit(state, poseStack, collector, camera);
     }
 
     public static final class State extends EntityRenderState {
         int skin;
+        net.minecraft.world.phys.Vec3 dir = com.hbm.backport.LaunchAxis.UP;
     }
 }

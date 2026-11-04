@@ -37,6 +37,9 @@ public final class LaunchAxis {
     /** Blocks of flight over which a missile's exit offset fades back into main's arc. */
     public static final double EXIT_LENGTH = 30D;
 
+    /** backport-fix: BF-121 how far off a tilted pad a missile starts, along the pad's axis. */
+    public static final double PAD_CLEARANCE = 0.05D;
+
     private LaunchAxis() {}
 
     /**

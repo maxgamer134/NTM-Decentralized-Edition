@@ -48,6 +48,8 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
     private Vec3 launchAxis = LaunchAxis.UP;
     private double exitTravelled;
     private boolean renderInit;
+    // backport-fix: BF-121 launched off a tilted pad (client side, from the synced axis)
+    private boolean tiltedLaunch;
     private final InterpolationHandler interpolation = new InterpolationHandler(this);
     public int startX;
     public int startZ;
@@ -80,6 +82,11 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         targetX = Mth.floor(to.x);
         targetZ = Mth.floor(to.z);
         setPos(x, y, z);
+        // backport-fix: BF-121 off a tilted pad, start a few centimetres out along its axis: the
+        // pad's top rounds to just inside the pad block once tilted, and the first collision check
+        // blew the missile up on the pad
+        if (!LaunchAxis.upright(launchAxis))
+            setPos(position().add(launchAxis.scale(LaunchAxis.PAD_CLEARANCE)));
         this.startX = (int) x;
         this.startZ = (int) z;
         this.targetX = targetX;
@@ -226,6 +233,7 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
     private void initRenderRotation() {
         Vector3f a = entityData.get(AXIS);
         if (a.y() > 0.99999F) return;
+        this.tiltedLaunch = true;
         float horiz = Mth.sqrt(a.x() * a.x() + a.z() * a.z());
         this.renderPitch = this.renderPitchO = (float) (Math.atan2(a.y(), horiz) * 180.0D / Math.PI) - 90F;
         if (horiz > 1.0e-3F)
@@ -239,7 +247,12 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         if (step.lengthSqr() > 1.0e-8) {
             this.renderPitch = (float) (Math.atan2(step.y, horiz) * 180.0D / Math.PI) - 90F;
         }
-        if (horiz > 1.0e-3F) {
+        // backport-fix: BF-121 off a tilted pad the flight swings through straight up on its way
+        // into main's arc; there a tick's sideways drift is mostly rounding, and following it made
+        // the missile flick between two headings. Keep the heading while within ~2 degrees of
+        // vertical (main's own launch never leans back, so it keeps main's 1.0e-3)
+        double yawFloor = tiltedLaunch ? Math.max(1.0e-3D, step.length() * 0.035D) : 1.0e-3D;
+        if (horiz > yawFloor) {
             this.renderYaw = (float) (Math.atan2(step.x, step.z) * 180.0D / Math.PI);
         }
     }

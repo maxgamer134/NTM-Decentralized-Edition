@@ -4,6 +4,8 @@
 
 package com.hbm.blockentity.turret;
 
+import net.minecraft.world.phys.Vec3;
+import com.hbm.particle.helper.ParticleCreators;
 import com.hbm.blocks.ModBlockEntities;
 import com.hbm.inventory.container.MenuTurretBase;
 import com.hbm.items.weapon.sedna.BulletConfig;
@@ -135,6 +137,10 @@ public class BlockEntityTurretTauon extends BlockEntityTurretBaseNT {
 
                 shotSequence++;
                 networkPackNT(250);
+
+                // main sends a "tau" burst (sparks and a hadron flash) at the muzzle every shot
+                Vec3 tip = barrelTip();
+                ParticleCreators.sparks(server, tip.x, tip.y, tip.z, 5, false, 50);
             }
         }
     }

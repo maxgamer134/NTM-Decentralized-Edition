@@ -336,6 +336,7 @@ public final class ClientRegistry {
         FluidPipeTintData.flushRequests(Minecraft.getInstance().level);
         Keybinds.poll();
         ArmorMovementHandler.clientTick();
+        ClientEffects.dieselExhaust();
         if (Minecraft.getInstance().player != null)
             ArmorModHandler.clientTick(Minecraft.getInstance().player);
         No9Flashlight.clientTick();

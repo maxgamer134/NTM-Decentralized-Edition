@@ -3,6 +3,7 @@
 
 package com.hbm.client;
 
+import com.hbm.particle.ParticleMukeCloud;
 import com.hbm.client.particle.ContrailVisuals;
 import com.hbm.client.particle.DebrisVisuals;
 import com.hbm.client.particle.ParticleGasFlame;
@@ -92,6 +93,12 @@ public final class ClientEffects {
             case Hadron ->
                     level.addParticle(HbmParticles.HADRON.get(), true, x, y, z, 0D, 0D, 0D);
             case DeadLeaf -> spawnDeadLeaf(level, x, y, z);
+            case UfoCloud -> {
+                if (level instanceof ClientLevel client)
+                    Minecraft.getInstance()
+                            .particleEngine
+                            .add(new ParticleMukeCloud(client, x, y, z, 0D, 0D, 0D));
+            }
         }
     }
 
@@ -235,6 +242,43 @@ public final class ClientEffects {
                                 0D,
                                 0D);
         if (fx != null) fx.setParticleSpeed(motion.x, motion.y, motion.z);
+    }
+
+    /**
+     * Main's "bnuuy": a fuelled diesel suit puffs two small smoke trails out of its back every 3
+     * ticks. Main sends it from the server to everyone within 100 blocks; here each client runs it
+     * for the players it can see, which shows the same thing without a packet.
+     */
+    public static void dieselExhaust() {
+        Minecraft mc = Minecraft.getInstance();
+        ClientLevel level = mc.level;
+        if (level == null || mc.player == null || level.getGameTime() % 3 != 0) return;
+        if (mc.options.particles().get() == ParticleStatus.MINIMAL) return;
+        for (Player player : level.players()) {
+            if (player.distanceToSqr(mc.player) > 100D * 100D) continue;
+            if (!(player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).getItem()
+                            instanceof com.hbm.items.armor.ModArmorItem legs)
+                    || legs.suit() != com.hbm.items.armor.ModArmorItem.Suit.DIESEL
+                    || !com.hbm.items.armor.ArmorSuitEffects.hasFullSet(
+                            player, com.hbm.items.armor.ModArmorItem.Suit.DIESEL)) continue;
+            float angle = (float) -Math.toRadians(player.yBodyRot);
+            Vec3 back = new Vec3(0D, 0D, -0.6D).yRot(angle);
+            Vec3 offset = new Vec3(0.275D, 0D, 0D).yRot(angle);
+            double y = player.getEyeY() - 1D + 0.4D + (player.isCrouching() ? 0.25D : 0D);
+            Vec3 motion = back.normalize().scale(0.025D);
+            for (int side = -1; side <= 1; side += 2) {
+                Particle smoke =
+                        mc.particleEngine.createParticle(
+                                ParticleTypes.SMOKE,
+                                player.getX() + back.x + offset.x * side,
+                                y,
+                                player.getZ() + back.z + offset.z * side,
+                                motion.x,
+                                0D,
+                                motion.z);
+                if (smoke != null) smoke.scale(0.5F);
+            }
+        }
     }
 
     private static void spawnFueledJetpackPlume(Level level, Player player, boolean vectorized) {

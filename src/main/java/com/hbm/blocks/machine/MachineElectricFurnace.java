@@ -3,6 +3,9 @@
 
 package com.hbm.blocks.machine;
 
+import net.minecraft.world.level.Level;
+import net.minecraft.util.RandomSource;
+import net.minecraft.core.particles.ParticleTypes;
 import com.hbm.blockentity.machine.BlockEntityMachineElectricFurnace;
 import com.hbm.blocks.ModBlockEntities;
 import com.hbm.capability.ICapabilityBlock;
@@ -30,6 +33,21 @@ public class MachineElectricFurnace extends BlockMachineHorizontal implements IC
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, LIT);
+    }
+
+    // main's randomDisplayTick: smoke and a flame at the front while the furnace runs
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+        if (!state.getValue(LIT)) return;
+        Direction dir = state.getValue(FACING);
+        Direction rot = dir.getClockWise();
+        double off = 0.52D;
+        double var = random.nextFloat() * 0.6D - 0.3D;
+        double px = pos.getX() + 0.5D + dir.getStepX() * off + rot.getStepX() * var;
+        double py = pos.getY() + random.nextFloat() * 0.375D;
+        double pz = pos.getZ() + 0.5D + dir.getStepZ() * off + rot.getStepZ() * var;
+        level.addParticle(ParticleTypes.SMOKE, px, py, pz, 0, 0, 0);
+        level.addParticle(ParticleTypes.FLAME, px, py, pz, 0, 0, 0);
     }
 
     @Override

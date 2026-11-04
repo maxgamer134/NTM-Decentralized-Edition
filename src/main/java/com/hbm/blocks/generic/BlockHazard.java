@@ -49,8 +49,60 @@ public class BlockHazard extends BlockCompat {
         super.stepOn(level, pos, state, entity);
     }
 
+    private boolean hot;
+    private boolean townAura;
+
+    /** Main's BlockOre display tick for trinitite and nuclear waste: a town aura on top. */
+    public BlockHazard setTownAura(boolean townAura) {
+        this.townAura = townAura;
+        return this;
+    }
+
+    /** Main's BlockHotHazard: the block steams in the rain and wherever it touches water. */
+    public BlockHazard setHot(boolean hot) {
+        this.hot = hot;
+        return this;
+    }
+
+    private void hotSteam(Level level, BlockPos pos, RandomSource rand) {
+        if (level.isRainingAt(pos.above())) {
+            level.addParticle(
+                    ParticleTypes.CLOUD,
+                    pos.getX() + rand.nextFloat(),
+                    pos.getY() + 1,
+                    pos.getZ() + rand.nextFloat(),
+                    0D,
+                    0D,
+                    0D);
+        }
+        for (Direction dir : Direction.values()) {
+            if (dir == Direction.DOWN) continue;
+            if (!level.getFluidState(pos.relative(dir)).is(net.minecraft.tags.FluidTags.WATER))
+                continue;
+            int ox = dir.getStepX(), oy = dir.getStepY(), oz = dir.getStepZ();
+            double ix = pos.getX() + 0.5D + ox + rand.nextDouble() - 0.5D;
+            double iy = pos.getY() + 0.5D + oy + rand.nextDouble() - 0.5D;
+            double iz = pos.getZ() + 0.5D + oz + rand.nextDouble() - 0.5D;
+            if (ox != 0) ix = pos.getX() + 0.5D + ox * 0.5D + rand.nextDouble() * 0.125D * ox;
+            if (oy != 0) iy = pos.getY() + 0.5D + oy * 0.5D + rand.nextDouble() * 0.125D * oy;
+            if (oz != 0) iz = pos.getZ() + 0.5D + oz * 0.5D + rand.nextDouble() * 0.125D * oz;
+            level.addParticle(ParticleTypes.CLOUD, ix, iy, iz, 0D, 0D, 0D);
+        }
+    }
+
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+        if (hot) hotSteam(level, pos, rand);
+        if (townAura) {
+            level.addParticle(
+                    ParticleTypes.MYCELIUM,
+                    pos.getX() + rand.nextFloat(),
+                    pos.getY() + 1.0625D,
+                    pos.getZ() + rand.nextFloat(),
+                    0D,
+                    0D,
+                    0D);
+        }
         if (extEffect == null) return;
         for (Direction dir : Direction.VALUES) {
             if (!level.getBlockState(pos.relative(dir)).isAir()) continue;

@@ -3,6 +3,8 @@
 
 package com.hbm.items.tool;
 
+import com.hbm.packet.toclient.MarkerPayload;
+import com.hbm.packet.PacketWire;
 import com.hbm.blockentity.BlockEntityBedrockOre;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.ModItems;
@@ -58,7 +60,11 @@ public class ItemSurveyScanner extends ItemCompat {
         }
     }
 
-    public record Survey(Set<Deposit> deposits, ItemStack bedrockOre, List<Component> lines) {}
+    public record Survey(
+            Set<Deposit> deposits,
+            ItemStack bedrockOre,
+            List<Component> lines,
+            Map<BlockPos, Component> bedrockOil) {}
 
     private record Line(Component message, List<Supplier<? extends Block>> blocks) {}
 
@@ -94,6 +100,7 @@ public class ItemSurveyScanner extends ItemCompat {
         EnumSet<Deposit> deposits = EnumSet.noneOf(Deposit.class);
         BitSet lines = new BitSet();
         ItemStack bedrockOre = ItemStack.EMPTY;
+        Map<BlockPos, Component> bedrockOil = new LinkedHashMap<>();
         int floor = level.getMinBuildHeight();
 
         for (int a = -5; a <= 5; a++) {
@@ -110,6 +117,13 @@ public class ItemSurveyScanner extends ItemCompat {
                     if (hit != null) deposits.add(hit);
                     Integer line = Resolved.LINES.get(block);
                     if (line != null) lines.set(line);
+                    // main marks each bedrock oil column it finds and stops scanning that column
+                    if (hit == Deposit.BEDROCK_OIL) {
+                        bedrockOil.put(
+                                new BlockPos(origin.getX() + a * 5, y, origin.getZ() + b * 5),
+                                Component.literal("Bedrock Oil"));
+                        break;
+                    }
                 }
 
                 BlockPos node = new BlockPos(origin.getX() + a * 2, floor, origin.getZ() + b * 2);
@@ -125,7 +139,7 @@ public class ItemSurveyScanner extends ItemCompat {
         for (int line = lines.nextSetBit(0); line >= 0; line = lines.nextSetBit(line + 1)) {
             found.add(LINES.get(line).message());
         }
-        return new Survey(deposits, bedrockOre, found);
+        return new Survey(deposits, bedrockOre, found, bedrockOil);
     }
 
     @Override
@@ -142,6 +156,12 @@ public class ItemSurveyScanner extends ItemCompat {
                                         "chat.surveyScanner.foundBedrockOreFor",
                                         survey.bedrockOre().getHoverName())
                                 .withStyle(ChatFormatting.RED));
+            }
+            // main: a black "Bedrock Oil" marker on each hit, 15 s, visible from 300 blocks
+            if (!survey.bedrockOil().isEmpty()) {
+                PacketWire.sendTo(
+                        new MarkerPayload(0x000000, 15_000, 300D, survey.bedrockOil()),
+                        serverPlayer);
             }
         }
         return InteractionResult.SUCCESS;

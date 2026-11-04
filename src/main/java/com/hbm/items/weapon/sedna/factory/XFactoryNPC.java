@@ -5,11 +5,18 @@ package com.hbm.items.weapon.sedna.factory;
 
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
 import com.hbm.explosion.ExplosionNukeGeneric;
+import com.hbm.handler.threading.TargetPoint;
 import com.hbm.items.weapon.sedna.BulletConfig;
+import com.hbm.packet.PacketWire;
+import com.hbm.packet.toclient.PlasmaBlastPayload;
 import com.hbm.sound.ModSounds;
 import com.hbm.util.BobMathUtil;
 import com.hbm.util.DamageClass;
 import java.util.List;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -64,6 +71,22 @@ public final class XFactoryNPC {
                         .setRicochetCount(0)
                         .setOnRicochet(null)
                         .setupDamageClass(DamageClass.FIRE)
+                        .setOnUpdate(
+                                entity -> {
+                                    if (!entity.level().isClientSide()) return;
+                                    var rand = entity.getRandom();
+                                    for (int i = 0; i < 5; i++) {
+                                        entity.level()
+                                                .addParticle(
+                                                        ParticleTypes.FLAME,
+                                                        entity.getX() + rand.nextDouble() * 0.5 - 0.25,
+                                                        entity.getY() + rand.nextDouble() * 0.5 - 0.25,
+                                                        entity.getZ() + rand.nextDouble() * 0.5 - 0.25,
+                                                        0,
+                                                        0,
+                                                        0);
+                                    }
+                                })
                         .setOnImpact(
                                 (bullet, mop) -> {
                                     Lego.standardExplode(bullet, mop, 2.5F);
@@ -165,7 +188,10 @@ public final class XFactoryNPC {
                         .setupDamageClass(DamageClass.EXPLOSIVE)
                         .setOnUpdate(
                                 entity -> {
-                                    if (entity.level().isClientSide()) return;
+                                    if (entity.level().isClientSide()) {
+                                        redTrail(entity);
+                                        return;
+                                    }
                                     EntityBulletBaseMK4 bullet = (EntityBulletBaseMK4) entity;
                                     if (bullet.lockonTarget == null
                                             || !bullet.lockonTarget.isAlive()) {
@@ -191,8 +217,61 @@ public final class XFactoryNPC {
                                             bullet.getZ(),
                                             10,
                                             50F);
+                                    bullet.level()
+                                            .playSound(
+                                                    null,
+                                                    bullet.getX(),
+                                                    bullet.getY(),
+                                                    bullet.getZ(),
+                                                    SoundEvents.FIREWORK_ROCKET_BLAST,
+                                                    SoundSource.HOSTILE,
+                                                    5F,
+                                                    0.5F);
+                                    if (bullet.level() instanceof ServerLevel server) {
+                                        for (int i = 0; i < 3; i++) {
+                                            PacketWire.sendToAllAround(
+                                                    new PlasmaBlastPayload(
+                                                            bullet.getX(),
+                                                            bullet.getY(),
+                                                            bullet.getZ(),
+                                                            0F,
+                                                            0.75F,
+                                                            1F,
+                                                            -30F + 30F * i,
+                                                            bullet.getRandom().nextFloat() * 180F,
+                                                            5F),
+                                                    new TargetPoint(
+                                                            server,
+                                                            bullet.getX(),
+                                                            bullet.getY(),
+                                                            bullet.getZ(),
+                                                            100));
+                                        }
+                                    }
                                     bullet.discard();
                                 });
+    }
+
+    /** main's vPFX "reddust": a red dust speck every half block of travel */
+    private static void redTrail(Entity entity) {
+        Vec3 vec =
+                new Vec3(
+                        entity.getX() - entity.xo,
+                        entity.getY() - entity.yo,
+                        entity.getZ() - entity.zo);
+        double motion = Math.max(vec.length(), 0.1);
+        vec = vec.normalize();
+        for (double d = 0; d < motion; d += 0.5) {
+            entity.level()
+                    .addParticle(
+                            DustParticleOptions.REDSTONE,
+                            entity.getX() - vec.x * d,
+                            entity.getY() - vec.y * d,
+                            entity.getZ() - vec.z * d,
+                            0,
+                            0,
+                            0);
+        }
     }
 
     public static @Nullable EntityBulletBaseMK4 aimed(

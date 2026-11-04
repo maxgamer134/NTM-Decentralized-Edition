@@ -3,6 +3,7 @@
 
 package com.hbm.entity.item;
 
+import net.minecraft.core.particles.ParticleTypes;
 import com.hbm.items.ModItems;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -74,5 +75,31 @@ public class EntityBoatRubber extends BoatCompat {
         super.positionRider(passenger, moveFunction);
         if (passenger instanceof Player player)
             player.setYBodyRot(Mth.wrapDegrees(getYRot() + 90F));
+    }
+
+    // main's rubber boat kicks up splashes along both sides once it moves faster than 0.2625/tick
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level().isClientSide()) return;
+        double moX = xo - getX();
+        double moZ = zo - getZ();
+        double speed = Math.sqrt(moX * moX + moZ * moZ);
+        if (speed <= 0.2625D) return;
+        double cosYaw = Math.cos(getYRot() * Math.PI / 180.0D);
+        double sinYaw = Math.sin(getYRot() * Math.PI / 180.0D);
+        for (double j = 0; j < 1.0D + speed * 60.0D; ++j) {
+            double offset = random.nextFloat() * 2.0F - 1.0F;
+            double side = (random.nextInt(2) * 2 - 1) * 0.7D;
+            double magX, magZ;
+            if (random.nextBoolean()) {
+                magX = getX() - cosYaw * offset * 0.8D + sinYaw * side;
+                magZ = getZ() - sinYaw * offset * 0.8D - cosYaw * side;
+            } else {
+                magX = getX() + cosYaw + sinYaw * offset * 0.7D;
+                magZ = getZ() + sinYaw - cosYaw * offset * 0.7D;
+            }
+            level().addParticle(ParticleTypes.SPLASH, magX, getY() - 0.125D, magZ, moX, 0.1D, moZ);
+        }
     }
 }

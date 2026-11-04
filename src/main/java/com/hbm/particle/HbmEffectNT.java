@@ -14,5 +14,7 @@ public enum HbmEffectNT {
     Hadron,
     AnnihilatorFlame,
     GasFlameVent,
-    DeadLeaf
+    DeadLeaf,
+    // main's "ufo": one muke cloud where the UFO's beam hits the ground
+    UfoCloud
 }

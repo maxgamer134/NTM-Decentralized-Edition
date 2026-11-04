@@ -3,6 +3,10 @@
 
 package com.hbm.entity.mob;
 
+import com.hbm.handler.threading.TargetPoint;
+import com.hbm.particle.HbmEffectNT;
+import com.hbm.packet.toclient.EffectNTPayload;
+import com.hbm.packet.PacketWire;
 import com.hbm.advancement.BossKilledTrigger;
 import com.hbm.advancement.HbmCriteria;
 import com.hbm.api.environment.ISuffocationImmune;
@@ -237,6 +241,16 @@ public class EntityUFO extends MobCompat implements Enemy, ISuffocationImmune {
                 ContaminationUtil.contaminate(
                         living, HazardType.RADIATION, ContaminationType.CREATIVE, 5F);
             }
+        }
+
+        // main sends a "ufo" cloud where the beam hits, and one half a tick ahead of the UFO
+        Vec3 motion = getDeltaMovement();
+        double hitY = groundY + 0.5D;
+        for (double ahead : new double[] {0D, 0.5D}) {
+            double px = getX() + motion.x * ahead, pz = getZ() + motion.z * ahead;
+            PacketWire.sendToAllAround(
+                    new EffectNTPayload(HbmEffectNT.UfoCloud, px, hitY, pz),
+                    new TargetPoint(level, px, hitY, pz, 150));
         }
     }
 

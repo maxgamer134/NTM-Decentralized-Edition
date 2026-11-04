@@ -18,6 +18,7 @@ public class BlockNuclearWaste extends BlockHazard {
 
     public BlockNuclearWaste(BlockBehaviour.Properties props) {
         super(props);
+        setTownAura(true); // main: block_waste shows a town aura
         setDisplayEffect(ExtDisplayEffect.RADFOG);
     }
 

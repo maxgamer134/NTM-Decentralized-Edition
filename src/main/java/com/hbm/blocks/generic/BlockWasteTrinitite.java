@@ -3,6 +3,8 @@
 
 package com.hbm.blocks.generic;
 
+import net.minecraft.util.RandomSource;
+import net.minecraft.core.particles.ParticleTypes;
 import com.hbm.potion.HbmPotion;
 import com.mojang.serialization.MapCodec;
 import java.util.List;
@@ -52,5 +54,20 @@ public class BlockWasteTrinitite extends BlockCompat {
     @Override
     protected List<ItemStack> getDrops(BlockState state, LootParams.Builder params) {
         return List.of(new ItemStack(this));
+    }
+
+    // main's BlockOre display tick: trinitite ground gives off a town aura one tick in five
+    @Override
+    public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+        super.animateTick(state, level, pos, rand);
+        if (rand.nextInt(5) != 0) return;
+        level.addParticle(
+                ParticleTypes.MYCELIUM,
+                pos.getX() + rand.nextFloat(),
+                pos.getY() + 1.0625D,
+                pos.getZ() + rand.nextFloat(),
+                0D,
+                0D,
+                0D);
     }
 }

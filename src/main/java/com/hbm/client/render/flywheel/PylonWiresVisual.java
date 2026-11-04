@@ -59,6 +59,8 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     private boolean lastHang;
     private boolean lastSpans;
     private boolean built;
+    // backport-fix: BF-120 the spanning state this pylon's section was last meshed for
+    private boolean meshedSpans;
 
     public PylonWiresVisual(
             VisualizationContext context, BlockEntityPylonBase blockEntity, float partialTick) {
@@ -161,6 +163,24 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
                         || spans != lastSpans
                         || !Arrays.equals(connections, lastConnections);
         lastSpans = spans;
+        // backport-fix: BF-120 Flywheel settles whether the vanilla renderer may draw this pylon
+        // (skipVanillaRender) only when its chunk section is meshed, so a wire that starts or stops
+        // leaving its build afterwards was drawn by neither. Re-mesh the section (on the render
+        // thread; visuals tick off it) so RenderPylonWires takes the wire over, or hands it back.
+        if (spans != meshedSpans) {
+            meshedSpans = spans;
+            BlockPos at = pos;
+            net.minecraft.client.Minecraft.getInstance()
+                    .execute(
+                            () -> {
+                                BlockState now = level.getBlockState(at);
+                                level.sendBlockUpdated(
+                                        at,
+                                        now,
+                                        now,
+                                        net.minecraft.world.level.block.Block.UPDATE_IMMEDIATE);
+                            });
+        }
         if (changed) {
             lastConnections = connections.clone();
             lastColor = blockEntity.color;

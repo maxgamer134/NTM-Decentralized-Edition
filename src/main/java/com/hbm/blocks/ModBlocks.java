@@ -8546,14 +8546,10 @@ public final class ModBlocks {
         Reg.Handle<Block> block =
                 Reg.<Block>block(
                         name,
-                        // main's BlockHotHazard: polonium and Pu-238 steam in rain and water
                         props ->
                                 new BlockHazard(props)
                                         .setDisplayEffect(display)
-                                        .setTownAura(name.equals("block_trinitite"))
-                                        .setHot(
-                                                name.equals("block_polonium")
-                                                        || name.equals("block_pu238")),
+                                        .setTownAura(name.equals("block_trinitite")),
                         () ->
                                 BlockBehaviour.Properties.of()
                                         .mapColor(color)
@@ -8840,7 +8836,13 @@ public final class ModBlocks {
         Reg.Handle<Block> block =
                 Reg.<Block>block(
                         name,
-                        props -> new BlockHazard(props).setDisplayEffect(display),
+                        // main's BlockHotHazard: polonium and Pu-238 steam in rain and water
+                        props ->
+                                new BlockHazard(props)
+                                        .setDisplayEffect(display)
+                                        .setHot(
+                                                name.equals("block_polonium")
+                                                        || name.equals("block_pu238")),
                         () ->
                                 BlockBehaviour.Properties.of()
                                         .mapColor(color)

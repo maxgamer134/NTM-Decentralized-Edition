@@ -209,11 +209,14 @@ public final class SubLevelMoves {
         for (long peer : peers) BlockEntityPylonBase.refreshIfLoaded(origin, peer);
         // unverified: Sable keeps sub-level plots in the level they came from; a cross-level
         // move would need the matching graph of the other level and only removes the node
-        if (!sameLevel || graph.containsCell(to)) return;
+        if (!sameLevel) return;
+        // backport-fix: BF-114 its wires follow it once the whole build has moved (see relink)
+        // backport-fix: BF-122 also when its block entity already put a node at the new position
+        // on load (connectors and pylons do): the wire was dropped there and never came back
+        if (peers.length != 0) batch.relinks.add(new Relink(graph, to, peers));
+        if (graph.containsCell(to)) return;
         graph.addNode(to, data, mask);
         if (self) graph.setSelfEndpoint(to, true);
-        // backport-fix: BF-114 its wires follow it once the whole build has moved (see relink)
-        if (peers.length != 0) batch.relinks.add(new Relink(graph, to, peers));
     }
 
     /** Clockwise quarter turns about Y between the horizontal facing before and after the move. */

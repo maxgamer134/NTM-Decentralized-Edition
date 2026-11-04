@@ -89,6 +89,13 @@ public class ItemWiring extends ItemCompat {
             return;
         }
         BlockPos pos = BlockPos.of(stored);
+        // backport-fix: BF-119 a start on a physics build shows where it is in the world
+        Level level = context.level();
+        if (level != null && com.hbm.backport.SubLevelWires.inPlot(level, pos))
+            pos =
+                    BlockPos.containing(
+                            com.hbm.backport.SubLevelSpace.toWorld(
+                                    level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5));
         adder.accept(Component.translatable("desc.item.wiring.wireStartX", pos.getX()));
         adder.accept(Component.translatable("desc.item.wiring.wireStartY", pos.getY()));
         adder.accept(Component.translatable("desc.item.wiring.wireStartZ", pos.getZ()));

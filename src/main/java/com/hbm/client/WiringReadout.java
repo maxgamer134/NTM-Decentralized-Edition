@@ -3,6 +3,7 @@
 
 package com.hbm.client;
 
+import com.hbm.backport.SubLevelSpace;
 import com.hbm.items.ModDataComponents;
 import com.hbm.items.tool.ItemWiring;
 import com.hbm.items.tool.ItemWrench;
@@ -11,6 +12,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
 
 public final class WiringReadout {
@@ -43,9 +45,13 @@ public final class WiringReadout {
     private static void push(LocalPlayer player, ItemStack stack, @Nullable Long stored, int id) {
         if (stored == null) return;
         BlockPos start = BlockPos.of(stored);
-        double dx = player.getX() - start.getX();
-        double dy = player.getY() - start.getY();
-        double dz = player.getZ() - start.getZ();
+        // backport-fix: BF-119 a start on a physics build (Sable sub-level) is measured from where it
+        // is in the world, not from its far-away plot
+        Vec3 from =
+                SubLevelSpace.toWorld(player.level(), start.getX(), start.getY(), start.getZ());
+        double dx = player.getX() - from.x;
+        double dy = player.getY() - from.y;
+        double dz = player.getZ() - from.z;
         int metres = (int) Math.sqrt(dx * dx + dy * dy + dz * dz);
         InfoSystem.push(
                 new InfoSystem.InfoEntry(

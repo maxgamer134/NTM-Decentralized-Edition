@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:reinforced_stone"
+  },
+  "result": {
+    "count": 2,
+    "id": "hbm:reinforced_stone_slab"
+  }
+}

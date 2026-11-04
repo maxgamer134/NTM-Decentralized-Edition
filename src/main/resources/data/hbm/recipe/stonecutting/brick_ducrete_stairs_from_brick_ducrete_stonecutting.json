@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:brick_ducrete"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:brick_ducrete_stairs"
+  }
+}

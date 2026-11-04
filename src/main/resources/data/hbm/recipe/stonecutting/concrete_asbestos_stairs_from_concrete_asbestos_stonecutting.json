@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:concrete_asbestos"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:concrete_asbestos_stairs"
+  }
+}

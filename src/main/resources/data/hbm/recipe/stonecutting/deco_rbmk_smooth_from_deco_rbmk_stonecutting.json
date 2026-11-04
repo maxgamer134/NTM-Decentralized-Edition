@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:deco_rbmk"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:deco_rbmk_smooth"
+  }
+}

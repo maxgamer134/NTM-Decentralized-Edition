@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:lightstone_unrefined"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:lightstone_bricks_stairs"
+  }
+}

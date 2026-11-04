@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:gneiss_tile"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:gneiss_brick"
+  }
+}

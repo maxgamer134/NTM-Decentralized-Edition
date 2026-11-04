@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:brick_fire"
+  },
+  "result": {
+    "count": 2,
+    "id": "hbm:brick_fire_slab"
+  }
+}

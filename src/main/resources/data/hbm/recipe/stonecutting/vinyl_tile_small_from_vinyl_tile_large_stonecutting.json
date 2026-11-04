@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:vinyl_tile_large"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:vinyl_tile_small"
+  }
+}

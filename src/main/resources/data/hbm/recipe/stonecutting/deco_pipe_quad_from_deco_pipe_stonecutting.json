@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:deco_pipe"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:deco_pipe_quad"
+  }
+}

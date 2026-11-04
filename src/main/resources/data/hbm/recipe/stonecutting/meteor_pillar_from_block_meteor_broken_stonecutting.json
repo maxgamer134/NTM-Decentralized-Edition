@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:block_meteor_broken"
+  },
+  "result": {
+    "count": 1,
+    "id": "hbm:meteor_pillar"
+  }
+}

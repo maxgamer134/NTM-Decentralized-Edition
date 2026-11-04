@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "hbm:lightstone_bricks"
+  },
+  "result": {
+    "count": 2,
+    "id": "hbm:lightstone_bricks_slab"
+  }
+}

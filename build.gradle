@@ -75,6 +75,12 @@ neoForge {
             // own folder: run/mods holds client-only dev mods (Sodium, ImmediatelyFast) that crash a
             // dedicated server, and a client running at the same time keeps run/logs locked
             gameDirectory = project.file('runs/server')
+            // smoke-test server: a capped heap, the leanest collector and client-tier JIT only, so it
+            // fits next to a running game (an uncapped G1 heap grew to a quarter of the RAM)
+            jvmArgument '-Xms256M'
+            jvmArgument '-Xmx2G'
+            jvmArgument '-XX:+UseSerialGC'
+            jvmArgument '-XX:TieredStopAtLevel=1'
         }
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'
@@ -274,13 +280,15 @@ tasks.register('syncDevMods') {
                     && project.findProperty('dev_iris') == 'true'
                     && project.findProperty('dev_sodium') != 'false'],
     ] + commonDevMods()
+    // file collections, not configurations: the configuration cache can store those
+    sets = sets.collect { [files(it[0]), it[1]] }
     sets.each { inputs.files(it[0]) }
     doLast { syncModsInto(modsDir, sets) }
 }
 // the dedicated server (runs/server) gets the mods with a server side only
 tasks.register('syncServerDevMods') {
     def modsDir = file('runs/server/mods')
-    def sets = commonDevMods()
+    def sets = commonDevMods().collect { [files(it[0]), it[1]] }
     sets.each { inputs.files(it[0]) }
     doLast { syncModsInto(modsDir, sets) }
 }

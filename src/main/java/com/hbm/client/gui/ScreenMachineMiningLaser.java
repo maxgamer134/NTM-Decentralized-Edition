@@ -80,6 +80,13 @@ public class ScreenMachineMiningLaser extends ScreenInfoContainer<MenuMachineMin
                     256);
         }
 
+        // main's GUIMiningLaser: break progress bar, 8 wide, 34 tall
+        int j = (int) (be.clientBreakProgress * 34);
+        if (j > 0) {
+            graphics.blit(
+                    RenderPipelines.GUI_TEXTURED, TEXTURE, 66, 36, 192, 0, 8, j, 256, 256);
+        }
+
         drawFluidBar(graphics, TANK_X, TANK_Y, TANK_W, TANK_H, be.tank);
         drawInfoPanel(graphics, PANEL_X, PANEL_Y, PANEL_W, PANEL_H, 8);
 

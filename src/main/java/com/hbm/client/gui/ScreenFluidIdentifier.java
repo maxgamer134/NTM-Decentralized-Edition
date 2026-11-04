@@ -41,9 +41,9 @@ public class ScreenFluidIdentifier extends ScreenCompat {
     private static final ResourceLocation TEXTURE = Library.id("textures/gui/machine/gui_fluid.png");
 
     private final int xSize = 176;
-    private final int ySize = 54;
+    private final int ySize = 72;
     private final Player player;
-    private final Fluid[] searchArray = new Fluid[9];
+    private final Fluid[] searchArray = new Fluid[18];
     private int guiLeft;
     private int guiTop;
     private EditBox search;
@@ -114,7 +114,7 @@ public class ScreenFluidIdentifier extends ScreenCompat {
             if (matches(fluid, subs)) {
                 this.searchArray[next] = fluid;
                 next++;
-                if (next >= 9) return;
+                if (next >= this.searchArray.length) return;
             }
         }
         for (Fluid fluid : BuiltInRegistries.FLUID) {
@@ -124,7 +124,7 @@ public class ScreenFluidIdentifier extends ScreenCompat {
             if (matches(fluid, subs)) {
                 this.searchArray[next] = fluid;
                 next++;
-                if (next >= 9) return;
+                if (next >= this.searchArray.length) return;
             }
         }
     }
@@ -156,7 +156,7 @@ public class ScreenFluidIdentifier extends ScreenCompat {
                     guiLeft + 43,
                     guiTop + 7,
                     166.0F,
-                    54.0F,
+                    72.0F,
                     90,
                     18,
                     256,
@@ -172,10 +172,10 @@ public class ScreenFluidIdentifier extends ScreenCompat {
             graphics.blit(
                     RenderPipelines.GUI_TEXTURED,
                     TEXTURE,
-                    guiLeft + 12 + k * 18,
-                    guiTop + 31,
-                    (float) (12 + k * 18),
-                    56.0F,
+                    guiLeft + 12 + (k % 9) * 18,
+                    guiTop + 31 + (k / 9) * 18,
+                    (float) (12 + (k % 9) * 18),
+                    74.0F,
                     8,
                     14,
                     256,
@@ -186,8 +186,8 @@ public class ScreenFluidIdentifier extends ScreenCompat {
                 graphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         TEXTURE,
-                        guiLeft + 7 + k * 18,
-                        guiTop + 29,
+                        guiLeft + 7 + (k % 9) * 18,
+                        guiTop + 29 + (k / 9) * 18,
                         176.0F,
                         36.0F,
                         18,
@@ -198,8 +198,8 @@ public class ScreenFluidIdentifier extends ScreenCompat {
                 graphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         TEXTURE,
-                        guiLeft + 7 + k * 18,
-                        guiTop + 29,
+                        guiLeft + 7 + (k % 9) * 18,
+                        guiTop + 29 + (k / 9) * 18,
                         176.0F,
                         0.0F,
                         18,
@@ -210,8 +210,8 @@ public class ScreenFluidIdentifier extends ScreenCompat {
                 graphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         TEXTURE,
-                        guiLeft + 7 + k * 18,
-                        guiTop + 29,
+                        guiLeft + 7 + (k % 9) * 18,
+                        guiTop + 29 + (k / 9) * 18,
                         176.0F,
                         18.0F,
                         18,
@@ -277,7 +277,7 @@ public class ScreenFluidIdentifier extends ScreenCompat {
     }
 
     private boolean isOverSwatch(int mx, int my, int k) {
-        int x = guiLeft + 7 + k * 18, y = guiTop + 29;
+        int x = guiLeft + 7 + (k % 9) * 18, y = guiTop + 29 + (k / 9) * 18;
         return mx >= x && mx < x + 18 && my >= y && my < y + 18;
     }
 }

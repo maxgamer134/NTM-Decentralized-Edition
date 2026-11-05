@@ -2207,7 +2207,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_UEU =
             rbmkFuel(
                     "rbmk_fuel_ueu",
-                    "Un-Enriched Uranium",
+                    "Unenriched Uranium",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(15)
@@ -2219,7 +2219,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_MEU =
             rbmkFuel(
                     "rbmk_fuel_meu",
-                    "Medium-Enriched Uranium",
+                    "Medium Enriched Uranium-235",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(20)
@@ -2231,7 +2231,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEU233 =
             rbmkFuel(
                     "rbmk_fuel_heu233",
-                    "High-Enriched Uranium-233",
+                    "Highly Enriched Uranium-233",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(27.5D)
@@ -2242,7 +2242,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEU235 =
             rbmkFuel(
                     "rbmk_fuel_heu235",
-                    "High-Enriched Uranium-235",
+                    "Highly Enriched Uranium-235",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(50)
@@ -2252,7 +2252,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_UZH =
             rbmkFuel(
                     "rbmk_fuel_uzh",
-                    "Uranium-Zirconium Hydride",
+                    "Uranium Zirconium Hydride",
                     rod ->
                             rod.setYield(50_000_000D)
                                     .setStats(30)
@@ -2266,7 +2266,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_THMEU =
             rbmkFuel(
                     "rbmk_fuel_thmeu",
-                    "Medium-Enriched Thorium",
+                    "Thorium with MEU Driver Fuel",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(20)
@@ -2278,7 +2278,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEP =
             rbmkFuel(
                     "rbmk_fuel_hep",
-                    "High-Enriched Plutonium-239",
+                    "Highly Enriched Plutonium-239",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(30)
@@ -2289,7 +2289,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_LEP =
             rbmkFuel(
                     "rbmk_fuel_lep",
-                    "Low-Enriched Plutonium-239",
+                    "Low Enriched Plutonium-239",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(35)
@@ -2301,7 +2301,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_MEP =
             rbmkFuel(
                     "rbmk_fuel_mep",
-                    "Medium-Enriched Plutonium-239",
+                    "Medium Enriched Plutonium-239",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(35)
@@ -2311,7 +2311,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEP241 =
             rbmkFuel(
                     "rbmk_fuel_hep241",
-                    "High-Enriched Plutonium-241",
+                    "Highly Enriched Plutonium-241",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(40)
@@ -2322,7 +2322,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_LEA =
             rbmkFuel(
                     "rbmk_fuel_lea",
-                    "Low-Enriched Americium",
+                    "Low Enriched Americium-242",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(60, 10)
@@ -2334,7 +2334,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_MEA =
             rbmkFuel(
                     "rbmk_fuel_mea",
-                    "Medium-Enriched Americium",
+                    "Medium Enriched Americium-242",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(35D, 20)
@@ -2345,7 +2345,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEA241 =
             rbmkFuel(
                     "rbmk_fuel_hea241",
-                    "High-Enriched Americium-241",
+                    "Highly Enriched Americium-241",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(65, 15)
@@ -2357,7 +2357,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEA242 =
             rbmkFuel(
                     "rbmk_fuel_hea242",
-                    "High-Enriched Americium-242",
+                    "Highly Enriched Americium-242",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(45)
@@ -2368,7 +2368,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_MEN =
             rbmkFuel(
                     "rbmk_fuel_men",
-                    "Medium-Enriched Neptunium",
+                    "Medium Enriched Neptunium-237",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(30)
@@ -2381,7 +2381,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEN =
             rbmkFuel(
                     "rbmk_fuel_hen",
-                    "High-Enriched Neptunium",
+                    "Highly Enriched Neptunium-237",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(40)
@@ -2392,7 +2392,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_MOX =
             rbmkFuel(
                     "rbmk_fuel_mox",
-                    "Mixed Oxide Fuel",
+                    "Mixed MEU & LEP Oxide",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(40)
@@ -2403,7 +2403,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_LES =
             rbmkFuel(
                     "rbmk_fuel_les",
-                    "Low-Enriched Schrabidium",
+                    "Low Enriched Schrabidium-326",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(50)
@@ -2415,7 +2415,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_MES =
             rbmkFuel(
                     "rbmk_fuel_mes",
-                    "Medium-Enriched Schrabidium",
+                    "Medium Enriched Schrabidium-326",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(75D)
@@ -2426,7 +2426,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HES =
             rbmkFuel(
                     "rbmk_fuel_hes",
-                    "High-Enriched Schrabidium",
+                    "Highly Enriched Schrabidium-326",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(90)
@@ -2438,7 +2438,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_LEAUS =
             rbmkFuel(
                     "rbmk_fuel_leaus",
-                    "Low-Enriched Australium",
+                    "Low Enriched Australium (Tasmanite)",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(30)
@@ -2451,7 +2451,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_HEAUS =
             rbmkFuel(
                     "rbmk_fuel_heaus",
-                    "High-Enriched Australium",
+                    "Highly Enriched Australium (Ayerite)",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(35)
@@ -2463,7 +2463,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_PO210BE =
             rbmkFuel(
                     "rbmk_fuel_po210be",
-                    "Polonium-210 / Beryllium Source",
+                    "Polonium-210 & Beryllium Neutron Source",
                     rod ->
                             rod.setYield(25_000_000D)
                                     .setStats(0D, 50)
@@ -2478,7 +2478,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_RA226BE =
             rbmkFuel(
                     "rbmk_fuel_ra226be",
-                    "Radium-226 / Beryllium Source",
+                    "Radium-226 & Beryllium Neutron Source",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(0D, 20)
@@ -2493,7 +2493,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_PU238BE =
             rbmkFuel(
                     "rbmk_fuel_pu238be",
-                    "Plutonium-238 / Beryllium Source",
+                    "Plutonium-238 & Beryllium Neutron Source",
                     rod ->
                             rod.setYield(50_000_000D)
                                     .setStats(40, 40)
@@ -2506,7 +2506,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_BALEFIRE_GOLD =
             rbmkFuel(
                     "rbmk_fuel_balefire_gold",
-                    "Flashgold Balefire",
+                    "Antihydrogen in a Magnetized Gold-198 Lattice",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(50, 10)
@@ -2518,7 +2518,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_FLASHLEAD =
             rbmkFuel(
                     "rbmk_fuel_flashlead",
-                    "Flashlead",
+                    "Antihydrogen confined by a Magnetized Gold-198 and Lead-209 Lattice",
                     rod ->
                             rod.setYield(250_000_000D)
                                     .setStats(40, 50)
@@ -2530,7 +2530,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_BALEFIRE =
             rbmkFuel(
                     "rbmk_fuel_balefire",
-                    "Balefire",
+                    "Draconic Flames",
                     rod ->
                             rod.setYield(100_000_000D)
                                     .setStats(100, 35)
@@ -2542,7 +2542,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_ZFB_BISMUTH =
             rbmkFuel(
                     "rbmk_fuel_zfb_bismuth",
-                    "Zirconium Fast Breeder (Bismuth)",
+                    "Zirconium Fast Breeder - LEU/HEP-241#Bi",
                     rod ->
                             rod.setYield(50_000_000D)
                                     .setStats(20)
@@ -2553,7 +2553,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_ZFB_PU241 =
             rbmkFuel(
                     "rbmk_fuel_zfb_pu241",
-                    "Zirconium Fast Breeder (Pu-241)",
+                    "Zirconium Fast Breeder - HEU-235/HEP-240#Pu-241",
                     rod ->
                             rod.setYield(50_000_000D)
                                     .setStats(20)
@@ -2563,7 +2563,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_ZFB_AM_MIX =
             rbmkFuel(
                     "rbmk_fuel_zfb_am_mix",
-                    "Zirconium Fast Breeder (Fuel-Grade Americium)",
+                    "Zirconium Fast Breeder - HEP-241#MEA",
                     rod ->
                             rod.setYield(50_000_000D)
                                     .setStats(20)
@@ -2574,7 +2574,7 @@ public final class ModItems {
     public static final RegistryHandle<ItemRBMKRod> RBMK_FUEL_DRX =
             rbmkFuel(
                     "rbmk_fuel_drx",
-                    "Digamma Radiation Experiment",
+                    ChatFormatting.OBFUSCATED + "can't you hear, can't you hear the thunder?",
                     rod ->
                             rod.setYield(10_000_000D)
                                     .setStats(1000, 10)
@@ -10605,6 +10605,8 @@ public final class ModItems {
                 name, ItemWasteShort.WasteClass.class, ItemWasteShort::new, Item.Properties::new);
     }
 
+    // backport-fix: BF-126 each rod carries its pellet's name, like main, where the rod is built
+    // from the pellet (new ItemRBMKRod(pellet) takes pellet.fullName)
     private static Reg.Handle<ItemRBMKRod> rbmkFuel(
             String name, String fullName, Configurator cfg) {
         return rbmkFuel(Reg.in(NuclearTech.MOD_ID), name, fullName, cfg::apply);

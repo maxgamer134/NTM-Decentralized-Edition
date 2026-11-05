@@ -36,7 +36,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -48,8 +47,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.fml.ModList;
 import com.hbm.backport.transfer.Capabilities;
 import com.hbm.lib.neotransfer.access.ItemAccess;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.hbm.backport.Nbt;
 
 @SyncSlots(

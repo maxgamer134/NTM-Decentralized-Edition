@@ -20,7 +20,6 @@ import com.hbm.backport.client.blockmodel.ResolvableModel;
 import com.hbm.backport.client.blockmodel.BakedQuad;
 import net.minecraft.resources.ResourceLocation;
 import com.hbm.backport.ARGB;
-import net.minecraft.util.ExtraCodecs;
 import com.hbm.backport.client.itemmodel.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;

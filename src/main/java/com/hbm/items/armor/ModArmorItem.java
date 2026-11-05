@@ -19,11 +19,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import com.hbm.backport.TooltipDisplay;
-import com.hbm.backport.compat.ItemCompat;
 
 public class ModArmorItem extends com.hbm.backport.item.armor.ArmorItem26 implements IPAWeaponsProvider {
 

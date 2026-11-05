@@ -18,7 +18,6 @@ import net.minecraft.client.renderer.RenderType;
 import com.hbm.backport.client.rendertype.RenderTypes;
 import com.hbm.backport.client.core.CameraRenderState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;

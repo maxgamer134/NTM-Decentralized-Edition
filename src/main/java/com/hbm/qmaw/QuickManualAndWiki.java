@@ -20,7 +20,6 @@ import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.component.DataComponentPatch;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.Item;
 import com.hbm.backport.ItemStackTemplate;
 import net.minecraft.world.item.ItemStack;
 

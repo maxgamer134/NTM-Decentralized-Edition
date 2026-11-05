@@ -8,7 +8,6 @@ import com.hbm.sound.ModSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.hbm.backport.item.food.Consumable;
 import com.hbm.backport.item.food.Consumables;

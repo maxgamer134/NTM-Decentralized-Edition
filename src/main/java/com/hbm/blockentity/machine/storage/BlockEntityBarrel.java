@@ -68,7 +68,6 @@ import net.minecraft.world.level.material.Fluids;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import com.hbm.backport.Nbt;
 
 public class BlockEntityBarrel extends BlockEntityMachineBase

@@ -9,7 +9,6 @@ import com.hbm.handler.MissileStruct;
 import com.hbm.items.weapon.ItemCustomMissilePart;
 import net.minecraft.client.Minecraft;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import com.hbm.backport.client.core.EntityRenderState;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Quaternionf;

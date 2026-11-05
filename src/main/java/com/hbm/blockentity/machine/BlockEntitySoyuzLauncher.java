@@ -46,8 +46,6 @@ import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import org.jspecify.annotations.Nullable;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.hbm.backport.Nbt;
 
 @Deprecated

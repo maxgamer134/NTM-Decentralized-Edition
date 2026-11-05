@@ -17,7 +17,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import com.hbm.lib.crankshaft.ConcurrentRenderStateExtraction;
 import java.util.List;
-import net.minecraft.client.Minecraft;
 import com.hbm.backport.client.core.SubmitNodeCollector;
 import com.hbm.backport.client.core.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;

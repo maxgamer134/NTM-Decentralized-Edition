@@ -11,7 +11,6 @@ import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.saveddata.SavedData;
 import com.hbm.backport.SavedDataType;
 import org.jspecify.annotations.Nullable;
 import com.hbm.backport.SavedDataCompat;

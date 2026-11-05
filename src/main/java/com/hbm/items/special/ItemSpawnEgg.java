@@ -6,8 +6,6 @@ package com.hbm.items.special;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SpawnEggItem;
-import com.hbm.backport.compat.SpawnEggItemCompat;
 
 // backport: NeoForge 1.21.1's DeferredSpawnEggItem (type resolved late, colours given)
 public class ItemSpawnEgg extends net.neoforged.neoforge.common.DeferredSpawnEggItem {

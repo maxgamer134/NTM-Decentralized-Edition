@@ -4,7 +4,6 @@
 package com.hbm.items.block;
 
 import java.util.Map;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import com.hbm.backport.compat.BlockItemCompat;

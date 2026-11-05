@@ -4,7 +4,6 @@
 package com.hbm.items.machine;
 
 import com.hbm.saveddata.satellites.Satellite.DriveType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 import com.hbm.backport.compat.ItemCompat;

@@ -5,7 +5,6 @@ package com.hbm.blocks.network.pneumatic;
 
 import com.hbm.blockentity.network.pneumatic.BlockEntityPneumoStorageExporter;
 import com.hbm.blocks.ModBlockEntities;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import net.minecraft.core.BlockPos;

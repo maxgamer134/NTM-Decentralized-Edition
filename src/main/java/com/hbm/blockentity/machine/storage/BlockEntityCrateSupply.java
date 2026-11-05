@@ -12,8 +12,6 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.hbm.backport.storage.ValueOutput;
 
 public class BlockEntityCrateSupply extends BlockEntityMachineBase implements PersistentDrop {

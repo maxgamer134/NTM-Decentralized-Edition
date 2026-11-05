@@ -16,7 +16,6 @@ import com.hbm.sound.EntitySounds;
 import com.hbm.uninos.graph.LevelNodeGraph;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;

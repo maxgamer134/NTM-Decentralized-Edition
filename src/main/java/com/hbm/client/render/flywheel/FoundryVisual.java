@@ -16,7 +16,6 @@ import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import com.hbm.lib.crankshaft.AffineUvTransformedInstance;
 import dev.engine_room.flywheel.lib.material.SimpleMaterial;
 import java.util.function.Consumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;

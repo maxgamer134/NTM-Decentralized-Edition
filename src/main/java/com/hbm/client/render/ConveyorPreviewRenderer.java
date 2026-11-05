@@ -40,7 +40,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
-import com.hbm.backport.client.blockmodel.CardinalLighting;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;

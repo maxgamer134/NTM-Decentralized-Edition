@@ -38,8 +38,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class BlockEntityMachineCentrifuge extends BlockEntityMachineBase
         implements AudioLoop,

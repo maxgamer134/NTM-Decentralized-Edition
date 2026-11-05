@@ -4,7 +4,6 @@
 package com.hbm.blocks.generic;
 
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.compat.SnowLayerBlockCompat;
 

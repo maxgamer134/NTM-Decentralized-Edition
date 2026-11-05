@@ -10,7 +10,6 @@ import com.hbm.inventory.recipes.anvil.AnvilSmithingRecipes;
 import com.hbm.inventory.recipes.crafting.*;
 import com.hbm.inventory.recipes.loader.SerializableRecipe;
 import com.hbm.registration.NeoForgeRegistrar;
-import com.hbm.registration.NeoForgeRegistrar;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.item.crafting.RecipeSerializer;

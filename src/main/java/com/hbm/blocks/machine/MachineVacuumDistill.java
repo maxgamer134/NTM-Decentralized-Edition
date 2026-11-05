@@ -4,7 +4,6 @@
 package com.hbm.blocks.machine;
 
 import com.hbm.blockentity.machine.oil.BlockEntityMachineVacuumDistill;
-import com.hbm.blockentity.machine.oil.BlockEntityMachineVacuumDistill;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.ModBlockEntities;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;

@@ -3,7 +3,6 @@
 
 package com.hbm.items.weapon;
 
-import net.minecraft.world.item.Item;
 import com.hbm.backport.compat.ItemCompat;
 
 public class ItemGrenade extends ItemCompat {

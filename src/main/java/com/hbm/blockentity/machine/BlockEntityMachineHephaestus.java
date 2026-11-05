@@ -33,8 +33,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class BlockEntityMachineHephaestus extends BlockEntityMachineBase
         implements FluidTankAccess, AudioLoop, FluidTankEndpoint, IFluidCopiable, SyncUnitSchema {

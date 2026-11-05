@@ -35,7 +35,6 @@ import com.hbm.backport.client.itemmodel.SpecialModelRenderer;
 import com.hbm.backport.client.blockmodel.ResolvableModel;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.world.entity.HumanoidArm;
 import com.hbm.backport.client.itemmodel.ItemOwner;

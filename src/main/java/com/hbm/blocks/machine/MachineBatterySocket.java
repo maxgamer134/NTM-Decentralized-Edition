@@ -6,7 +6,6 @@ package com.hbm.blocks.machine;
 import com.hbm.blockentity.machine.storage.BlockEntityBatterySocket;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.ModBlockEntities;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.blocks.network.CableConductorBlockBase;
 import com.hbm.capability.ICapabilityBlock;

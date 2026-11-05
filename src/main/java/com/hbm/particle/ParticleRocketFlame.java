@@ -4,7 +4,6 @@
 package com.hbm.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import com.hbm.backport.client.particle.ParticleRenderType;
 import com.hbm.backport.client.particle.ParticleCompat;
 

@@ -4,7 +4,6 @@
 package com.hbm.blocks.machine;
 
 import com.hbm.blockentity.machine.BlockEntityWasteDrum;
-import com.hbm.blocks.RefreshesNeighborState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;

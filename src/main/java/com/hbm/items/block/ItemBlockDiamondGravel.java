@@ -5,7 +5,6 @@ package com.hbm.items.block;
 
 import java.util.function.Consumer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;

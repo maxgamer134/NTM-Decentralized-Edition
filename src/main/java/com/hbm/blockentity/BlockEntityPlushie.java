@@ -48,7 +48,6 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.hbm.backport.BlockEntityCompat;
 
 public class BlockEntityPlushie extends BlockEntityCompat implements Synced, SyncUnitSchema {

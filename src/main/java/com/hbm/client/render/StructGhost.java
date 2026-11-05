@@ -6,7 +6,6 @@ package com.hbm.client.render;
 import com.hbm.render.util.Vertices;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import com.hbm.backport.ARGB;
 import net.minecraft.world.level.block.Block;

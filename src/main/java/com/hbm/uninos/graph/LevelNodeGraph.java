@@ -34,7 +34,6 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.level.saveddata.SavedData;
 import com.hbm.backport.SavedDataType;
 import org.jspecify.annotations.Nullable;
 import com.hbm.backport.SavedDataCompat;

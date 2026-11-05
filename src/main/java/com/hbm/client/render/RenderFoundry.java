@@ -19,7 +19,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import com.hbm.lib.crankshaft.ConcurrentRenderStateExtraction;
-import net.minecraft.client.Minecraft;
 import com.hbm.backport.client.rendertype.BindGroupLayouts;
 import com.hbm.backport.client.rendertype.RenderPipelines;
 import com.hbm.backport.client.core.SubmitNodeCollector;

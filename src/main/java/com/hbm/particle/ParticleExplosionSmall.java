@@ -9,7 +9,6 @@ import dev.engine_room.flywheel.api.visual.EffectVisual;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import com.hbm.backport.client.particle.ParticleRenderType;
 import net.minecraft.util.Mth;
 import org.jspecify.annotations.Nullable;

@@ -5,7 +5,6 @@ package com.hbm.blocks.bomb;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.GameRules;
 
 public final class TntRule {
 

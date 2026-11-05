@@ -5,10 +5,8 @@ package com.hbm.entity.item;
 
 import com.hbm.api.block.IFuckingExplode;
 import com.hbm.blocks.bomb.TntRule;
-import com.hbm.backport.EntityReference;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;

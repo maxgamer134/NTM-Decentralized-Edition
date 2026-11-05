@@ -50,7 +50,6 @@ import net.minecraft.world.level.material.Fluid;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import net.minecraft.world.level.block.entity.BlockEntity;
 
 public abstract class BlockEntityOilDrillBase extends BlockEntityMachineBase
         implements FluidTankAccess,

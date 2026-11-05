@@ -27,7 +27,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.hbm.backport.ItemStackTemplate;
 import com.hbm.backport.recipe.PlacementInfo;
-import net.minecraft.world.item.crafting.Recipe;
 import com.hbm.backport.recipe.RecipeBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;

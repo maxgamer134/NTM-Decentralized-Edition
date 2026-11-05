@@ -5,7 +5,6 @@ package com.hbm.blocks.machine;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.compat.BlockCompat;

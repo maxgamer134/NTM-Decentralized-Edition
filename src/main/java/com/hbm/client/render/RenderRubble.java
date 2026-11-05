@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import com.hbm.backport.client.core.SubmitNodeCollector;
 import com.hbm.backport.client.blockmodel.BlockStateModelSet;

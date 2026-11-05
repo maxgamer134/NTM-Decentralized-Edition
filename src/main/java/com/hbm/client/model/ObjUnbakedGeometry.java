@@ -9,7 +9,6 @@ import com.hbm.backport.client.blockmodel.Transparency;
 import com.hbm.backport.client.blockmodel.Quadrant;
 import com.mojang.math.Transformation;
 import java.util.*;
-import net.minecraft.client.model.geom.builders.UVPair;
 import com.hbm.backport.client.blockmodel.ModelState;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import com.hbm.backport.client.blockmodel.ModelBaker;

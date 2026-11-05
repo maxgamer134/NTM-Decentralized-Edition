@@ -6,7 +6,6 @@ package com.hbm.blocks.machine.fusion;
 import com.hbm.blockentity.machine.fusion.BlockEntityFusionTorusStruct;
 import com.hbm.blocks.ITickingBlock;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;

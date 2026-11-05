@@ -7,7 +7,6 @@ import com.hbm.packet.synthetic.PingPayload;
 import com.hbm.packet.toclient.*;
 import com.hbm.packet.toserver.*;
 import com.hbm.platform.NeoForgeNetwork;
-import com.hbm.platform.NeoForgeNetwork;
 import com.hbm.platform.NeoForgeServerEvents;
 
 public final class PacketDispatcher {

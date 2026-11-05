@@ -8,7 +8,6 @@ import com.hbm.inventory.machine.CustomMachineDefinitions;
 import com.hbm.items.ModDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import org.jspecify.annotations.Nullable;

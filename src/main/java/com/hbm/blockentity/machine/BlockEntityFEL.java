@@ -49,8 +49,6 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class BlockEntityFEL extends BlockEntityMachineBase
         implements AudioLoop, IEnergyHandlerMK2, MenuProvider, IControlReceiver, SyncUnitSchema {

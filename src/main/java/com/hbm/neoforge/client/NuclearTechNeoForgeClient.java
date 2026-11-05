@@ -30,7 +30,6 @@ import com.hbm.hazard.HazardSystem;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.NTMFluids;
 import com.hbm.inventory.fluid.NTMTokenFluidBase;
-import com.hbm.inventory.fluid.trait.FluidTraitTooltip;
 import com.hbm.inventory.machine.CustomMachineDefinitions;
 import com.hbm.inventory.recipes.ModRecipes;
 import com.hbm.inventory.recipes.loader.GenericRecipes;

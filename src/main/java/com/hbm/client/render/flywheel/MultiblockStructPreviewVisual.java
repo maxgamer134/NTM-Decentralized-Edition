@@ -13,7 +13,6 @@ import com.hbm.backport.client.flywheel.InstanceTypes;
 import com.hbm.lib.crankshaft.UvTransformedInstance;
 import java.util.ArrayList;
 import java.util.function.Consumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;

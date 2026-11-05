@@ -11,7 +11,6 @@ import com.hbm.packet.SyncField;
 import com.hbm.packet.SyncUnitSchema;
 import com.hbm.platform.BlockLookupCache;
 import com.hbm.platform.NeoForgeCaps;
-import com.hbm.platform.NeoForgeCaps;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

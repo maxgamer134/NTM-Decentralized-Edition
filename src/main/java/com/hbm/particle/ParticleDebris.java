@@ -6,7 +6,6 @@ package com.hbm.particle;
 import com.hbm.client.ClientEffects;
 import java.util.Random;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import com.hbm.backport.client.particle.ParticleRenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;

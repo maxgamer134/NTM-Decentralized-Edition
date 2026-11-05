@@ -3,7 +3,6 @@
 
 package com.hbm.items.food;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import com.hbm.backport.compat.ItemCompat;

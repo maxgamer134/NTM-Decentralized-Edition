@@ -40,7 +40,6 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
-import org.jspecify.annotations.Nullable;
 
 public final class NTMSkybox {
     private static final ResourceLocation DIGAMMA_STAR = Library.id("textures/misc/star_digamma.png");

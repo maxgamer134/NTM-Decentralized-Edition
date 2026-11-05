@@ -5,7 +5,6 @@ package com.hbm.entity.item;
 
 import com.hbm.entity.ModEntities;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import com.hbm.backport.compat.ItemEntityCompat;

@@ -12,7 +12,6 @@ import com.hbm.packet.toserver.NbtControlPayload;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import com.hbm.backport.client.gui.ScreenCompat;

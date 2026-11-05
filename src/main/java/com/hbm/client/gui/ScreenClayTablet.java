@@ -11,7 +11,6 @@ import com.hbm.lib.Library;
 import java.util.List;
 import java.util.Random;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
 import com.hbm.backport.client.gui.input.KeyEvent;
 import com.hbm.backport.client.rendertype.RenderPipelines;
 import net.minecraft.network.chat.Component;

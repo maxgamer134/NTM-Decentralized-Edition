@@ -7,7 +7,6 @@ import com.hbm.blockentity.machine.BlockEntityTesla;
 import com.hbm.blocks.ISectionGeometry;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.ModBlockEntities;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import net.minecraft.core.BlockPos;

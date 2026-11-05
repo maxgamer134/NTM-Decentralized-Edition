@@ -30,7 +30,6 @@ import com.hbm.backport.client.rendertype.RenderTypes;
 import com.hbm.backport.client.itemmodel.SpecialModelRenderer;
 import com.hbm.backport.client.blockmodel.ResolvableModel;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import com.hbm.backport.client.itemmodel.ItemOwner;
 import net.minecraft.world.item.ItemDisplayContext;

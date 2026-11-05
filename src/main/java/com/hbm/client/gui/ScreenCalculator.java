@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Deque;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.Screen;
 import com.hbm.backport.client.gui.input.CharacterEvent;
 import com.hbm.backport.client.gui.input.KeyEvent;
 import net.minecraft.network.chat.Component;

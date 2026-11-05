@@ -8,7 +8,6 @@ import com.hbm.blockentity.bomb.BlockEntityBombMulti;
 import com.hbm.inventory.container.MenuBombMulti;
 import com.hbm.lib.Library;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import com.hbm.backport.client.rendertype.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

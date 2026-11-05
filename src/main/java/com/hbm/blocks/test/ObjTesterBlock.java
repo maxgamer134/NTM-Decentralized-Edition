@@ -6,7 +6,6 @@ package com.hbm.blocks.test;
 import com.hbm.blockentity.deco.BlockEntityObjTester;
 import com.hbm.blocks.ISectionGeometry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;

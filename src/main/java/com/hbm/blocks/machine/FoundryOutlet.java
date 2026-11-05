@@ -5,7 +5,6 @@ package com.hbm.blocks.machine;
 
 import com.hbm.blockentity.machine.BlockEntityFoundryOutlet;
 import com.hbm.blocks.ITickingBlock;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.interfaces.IToolable;
 import com.hbm.inventory.material.Mats.MaterialStack;

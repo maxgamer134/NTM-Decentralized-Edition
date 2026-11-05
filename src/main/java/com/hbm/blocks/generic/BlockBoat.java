@@ -5,7 +5,6 @@ package com.hbm.blocks.generic;
 
 import com.hbm.blocks.ISectionGeometry;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.world.level.block.Block;
 import com.hbm.backport.compat.BlockCompat;
 
 public class BlockBoat extends BlockCompat implements ISectionGeometry {

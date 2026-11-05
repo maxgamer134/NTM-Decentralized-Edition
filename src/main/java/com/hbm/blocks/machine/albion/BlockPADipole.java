@@ -4,7 +4,6 @@
 package com.hbm.blocks.machine.albion;
 
 import com.hbm.blockentity.machine.albion.BlockEntityPADipole;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import net.minecraft.core.BlockPos;

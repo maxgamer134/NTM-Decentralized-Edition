@@ -26,7 +26,6 @@ import dev.engine_room.flywheel.lib.material.StandardMaterialShaders;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 import com.hbm.backport.ARGB;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import org.joml.Matrix4f;

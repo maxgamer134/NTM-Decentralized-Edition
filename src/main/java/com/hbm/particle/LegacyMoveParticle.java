@@ -5,10 +5,8 @@ package com.hbm.particle;
 
 import java.util.List;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.particle.Particle;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import com.hbm.backport.client.particle.ParticleCompat;
 
 public abstract class LegacyMoveParticle extends ParticleCompat {

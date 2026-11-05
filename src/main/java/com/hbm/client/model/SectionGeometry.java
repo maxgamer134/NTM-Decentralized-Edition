@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.builders.UVPair;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.BlockAndTintGetter;
 import com.hbm.backport.client.blockmodel.BlockModelLighter;

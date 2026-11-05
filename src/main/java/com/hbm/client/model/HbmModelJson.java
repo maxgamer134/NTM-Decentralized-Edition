@@ -13,7 +13,6 @@ import com.hbm.backport.client.blockmodel.CuboidFace;
 import com.hbm.backport.client.blockmodel.UnbakedGeometry;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
 import org.joml.Matrix4fc;
 import org.joml.Vector3f;
 import org.jspecify.annotations.Nullable;

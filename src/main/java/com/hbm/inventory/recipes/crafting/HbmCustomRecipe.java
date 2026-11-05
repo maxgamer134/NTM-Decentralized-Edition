@@ -5,7 +5,6 @@ package com.hbm.inventory.recipes.crafting;
 
 import com.hbm.inventory.recipes.ingredient.RecipeInputState;
 import net.minecraft.world.item.crafting.CraftingInput;
-import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.level.Level;
 import com.hbm.backport.recipe.CustomRecipeCompat;
 

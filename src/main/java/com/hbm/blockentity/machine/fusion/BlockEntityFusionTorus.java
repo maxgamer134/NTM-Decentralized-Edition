@@ -49,7 +49,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 import org.jspecify.annotations.Nullable;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.hbm.api.environment.Environment;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.config.BalanceConfig;

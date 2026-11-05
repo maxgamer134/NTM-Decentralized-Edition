@@ -7,7 +7,6 @@ import com.hbm.api.fluidmk2.FluidCaps;
 import com.hbm.blockentity.network.BlockEntityFluidPump;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.ModBlockEntities;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;

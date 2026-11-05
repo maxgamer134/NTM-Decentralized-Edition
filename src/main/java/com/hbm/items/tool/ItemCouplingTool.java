@@ -3,7 +3,6 @@
 
 package com.hbm.items.tool;
 
-import net.minecraft.world.item.Item;
 import com.hbm.backport.compat.ItemCompat;
 
 public class ItemCouplingTool extends ItemCompat {

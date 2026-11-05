@@ -5,7 +5,6 @@
 package com.hbm.backport.client.core;
 
 import com.hbm.client.render.ManlyPlayerLayer;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
 import net.neoforged.bus.api.IEventBus;

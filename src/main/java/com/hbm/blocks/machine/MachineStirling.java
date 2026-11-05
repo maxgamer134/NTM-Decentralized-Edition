@@ -5,7 +5,6 @@ package com.hbm.blocks.machine;
 
 import com.hbm.blockentity.machine.BlockEntityStirling;
 import com.hbm.blocks.ITickingBlock;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;

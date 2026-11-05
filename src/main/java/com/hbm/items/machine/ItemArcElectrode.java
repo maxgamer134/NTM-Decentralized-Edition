@@ -5,7 +5,6 @@ package com.hbm.items.machine;
 
 import com.hbm.items.ModDataComponents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import com.hbm.backport.compat.ItemCompat;
 

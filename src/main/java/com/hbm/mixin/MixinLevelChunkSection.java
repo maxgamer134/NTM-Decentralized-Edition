@@ -7,7 +7,6 @@ import com.hbm.backport.ISectionGeneration;
 import com.hbm.blocks.ClimbBoxes;
 import com.hbm.interfaces.injected.IClimbBoxSection;
 import com.hbm.util.SectionGeneration;
-import com.hbm.util.SectionMetadata;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunkSection;
@@ -17,7 +16,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LevelChunkSection.class)
 public abstract class MixinLevelChunkSection implements IClimbBoxSection , ISectionGeneration {

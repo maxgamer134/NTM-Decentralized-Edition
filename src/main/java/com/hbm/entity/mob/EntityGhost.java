@@ -4,7 +4,6 @@
 package com.hbm.entity.mob;
 
 import com.hbm.util.MobUtil;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;

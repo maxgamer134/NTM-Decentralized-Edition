@@ -8,7 +8,6 @@ import com.hbm.blocks.generic.BlockSnowglobe.SnowglobeType;
 import com.hbm.client.I18nClient;
 import com.hbm.sound.ModSounds;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
 import com.hbm.backport.client.gui.input.KeyEvent;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;

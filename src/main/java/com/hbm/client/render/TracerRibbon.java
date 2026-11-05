@@ -5,7 +5,6 @@ package com.hbm.client.render;
 
 import com.hbm.backport.client.rendertype.GpuFormat;
 import com.hbm.backport.client.rendertype.RenderPipeline;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.hbm.backport.client.rendertype.ShaderDefines;
 

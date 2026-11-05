@@ -5,7 +5,6 @@ package com.hbm.items.special;
 
 import com.hbm.entity.item.EntityItemWaste;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import com.hbm.backport.compat.ItemCompat;

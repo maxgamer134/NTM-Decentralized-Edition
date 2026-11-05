@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.client.Minecraft;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.screens.Screen;
 import com.hbm.backport.client.gui.input.KeyEvent;
 import com.hbm.backport.client.gui.input.MouseButtonEvent;
 import com.hbm.backport.client.rendertype.RenderPipelines;

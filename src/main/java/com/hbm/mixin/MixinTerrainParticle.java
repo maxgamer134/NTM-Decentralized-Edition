@@ -4,7 +4,6 @@
 package com.hbm.mixin;
 
 import com.hbm.client.model.PaddedSpriteContents;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.TerrainParticle;
 import net.minecraft.core.BlockPos;

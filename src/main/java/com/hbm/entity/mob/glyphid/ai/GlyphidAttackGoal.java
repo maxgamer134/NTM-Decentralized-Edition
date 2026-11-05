@@ -6,7 +6,6 @@ package com.hbm.entity.mob.glyphid.ai;
 import com.hbm.entity.mob.glyphid.EntityGlyphid;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import com.hbm.backport.entity.Entities26;
 
 public class GlyphidAttackGoal extends MeleeAttackGoal {
 

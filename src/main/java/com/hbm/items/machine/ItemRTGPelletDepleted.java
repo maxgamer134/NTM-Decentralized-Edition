@@ -3,7 +3,6 @@
 
 package com.hbm.items.machine;
 
-import net.minecraft.world.item.Item;
 import org.jspecify.annotations.Nullable;
 import com.hbm.backport.compat.ItemCompat;
 

@@ -13,7 +13,6 @@ import dev.engine_room.flywheel.lib.util.RendererReloadCache;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;

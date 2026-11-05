@@ -7,7 +7,6 @@ import com.hbm.blocks.generic.BlockChain;
 import com.hbm.backport.client.blockmodel.Transparency;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.client.model.geom.builders.UVPair;
 import com.hbm.backport.client.blockmodel.BlockStateModel;
 import com.hbm.backport.client.blockmodel.ModelBaker;
 import com.hbm.backport.client.blockmodel.ResolvedModel;

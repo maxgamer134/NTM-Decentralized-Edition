@@ -7,7 +7,6 @@ import com.hbm.backport.client.rendertype.BlendFunction;
 import com.hbm.backport.client.rendertype.ColorTargetState;
 import com.hbm.backport.client.rendertype.RenderPipeline;
 import com.mojang.blaze3d.vertex.PoseStack;
-import java.util.HashMap;
 import java.util.Map;
 import net.minecraft.client.gui.Font;
 import com.hbm.backport.client.core.ImmediateSubmitNodeCollector;

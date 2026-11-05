@@ -8,7 +8,6 @@ import com.hbm.backport.client.gui.input.CharacterEvent;
 import com.hbm.backport.client.gui.input.KeyEvent;
 import com.hbm.backport.client.gui.input.MouseButtonEvent;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.world.entity.player.Inventory;

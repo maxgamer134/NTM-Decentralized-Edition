@@ -4,7 +4,6 @@
 package com.hbm.items.block;
 
 import com.hbm.items.PersistentInfoBlockItem;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import com.hbm.backport.compat.BlockItemCompat;
 

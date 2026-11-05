@@ -8,7 +8,6 @@ import com.hbm.blocks.machine.pile.BlockGraphiteDrilledBase;
 import com.hbm.blocks.machine.pile.BlockGraphiteNeutronDetector;
 import com.hbm.interfaces.IPileNeutronReceiver;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;

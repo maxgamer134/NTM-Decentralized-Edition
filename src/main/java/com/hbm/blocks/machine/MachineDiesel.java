@@ -5,7 +5,6 @@ package com.hbm.blocks.machine;
 
 import com.hbm.blockentity.machine.BlockEntityMachineDiesel;
 import com.hbm.blocks.ModBlockEntities;
-import com.hbm.blocks.RefreshesNeighborState;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import com.hbm.inventory.IGUIProvider;

@@ -5,7 +5,6 @@ package com.hbm.items.food;
 
 import com.hbm.explosion.ExplosionNukeSmall;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import com.hbm.backport.compat.ItemCompat;

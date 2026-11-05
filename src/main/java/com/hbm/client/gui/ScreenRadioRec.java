@@ -9,7 +9,6 @@ import com.hbm.packet.PacketWire;
 import com.hbm.packet.toserver.NbtControlPayload;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.screens.Screen;
 import com.hbm.backport.client.gui.input.MouseButtonEvent;
 import com.hbm.backport.client.rendertype.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;

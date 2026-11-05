@@ -48,6 +48,12 @@ public abstract class BlockmodelQuadLightMixin {
     private static final ThreadLocal<boolean[]> hbm$cellQuad = ThreadLocal.withInitial(() -> new boolean[1]);
 
     @Unique
+    private static float hbm$shade(BlockAndTintGetter level, int normal) {
+        return level.getShade(
+                (byte) normal / 127F, (byte) (normal >> 8) / 127F, (byte) (normal >> 16) / 127F, true);
+    }
+
+    @Unique
     private static int hbm$origin(BakedQuad quad) {
         return quad instanceof VanillaQuad own ? own.lightOrigin() : QuadLighting.VANILLA;
     }
@@ -78,6 +84,16 @@ public abstract class BlockmodelQuadLightMixin {
         if (hbm$origin(quad) == QuadLighting.OWN_BLOCK) {
             int own = LevelRenderer.getLightColor(level, state, pos);
             l0 = l1 = l2 = l3 = own;
+            // backport-fix: BF-125 flat-lit OBJ meshes are shaded per vertex from their vertex
+            // normals, like main's models lit per vertex by OpenGL (the flat path shades the
+            // whole quad from its direction, which showed a smooth mesh's facets)
+            if (quad.isShade() && b0 == b1 && b1 == b2 && b2 == b3) {
+                int[] v = quad.getVertices();
+                b0 = hbm$shade(level, v[7]);
+                b1 = hbm$shade(level, v[15]);
+                b2 = hbm$shade(level, v[23]);
+                b3 = hbm$shade(level, v[31]);
+            }
         }
         original.call(self, level, state, pos, consumer, pose, quad, b0, b1, b2, b3, l0, l1, l2, l3, overlay);
     }

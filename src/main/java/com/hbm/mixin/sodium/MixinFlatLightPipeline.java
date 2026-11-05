@@ -24,7 +24,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  *
  * <ul>
  *   <li>OWN_BLOCK quads (OBJ meshes) take the light of their own block position;
- *   <li>cell quads never count their block as a full cube for the parallel-face test.
+ *   <li>cell quads never count their block as a full cube for the parallel-face test;
+ *   <li>backport-fix: BF-125 OWN_BLOCK quads are shaded per vertex from their vertex normals, like
+ *       main's OBJ models lit per vertex by OpenGL. Sodium shades a flat-lit quad once from its
+ *       face normal, so a smooth-shaded mesh showed its facets as hard light and dark triangles
+ *       (the chemical plant's tank roof).
  * </ul>
  *
  * backport: the 26.x mixin (Sodium 0.9) cancelled calculate at HEAD for OWN_BLOCK quads and
@@ -72,6 +76,31 @@ public abstract class MixinFlatLightPipeline {
                                 && hbm$lightCache instanceof SodiumDucks.LightCache cache
                         ? LevelRenderer.getLightColor(cache.getLevel(), pos)
                         : -1;
+    }
+
+    // backport-fix: BF-125 the smooth shading of an OBJ mesh: each vertex its own normal's shade
+    @Inject(method = "calculate", at = @At("RETURN"))
+    private void hbm$vertexShade(
+            @Coerce Object quad,
+            BlockPos pos,
+            @Coerce Object out,
+            Direction cullFace,
+            Direction lightFace,
+            boolean shade,
+            boolean enhanced,
+            CallbackInfo ci) {
+        if (!shade
+                || hbm$ownLight < 0
+                || !(quad instanceof SodiumDucks.QuadNormals normals)
+                || !normals.hasAllVertexNormals()
+                || !(out instanceof SodiumDucks.QuadLightData data)
+                || !(hbm$lightCache instanceof SodiumDucks.LightCache cache)) return;
+        float[] br = data.hbm$brightness();
+        for (int i = 0; i < 4; i++)
+            br[i] =
+                    cache.getLevel()
+                            .getShade(
+                                    normals.normalX(i), normals.normalY(i), normals.normalZ(i), true);
     }
 
     @ModifyArg(

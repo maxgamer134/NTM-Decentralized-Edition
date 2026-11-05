@@ -18,4 +18,4 @@ import org.spongepowered.asm.mixin.Pseudo;
  */
 @Pseudo
 @Mixin(targets = "net.caffeinemc.mods.sodium.client.render.frapi.mesh.QuadViewImpl", remap = false)
-public abstract class QuadTagMixin implements SodiumDucks.QuadTag {}
+public abstract class QuadTagMixin implements SodiumDucks.QuadTag, SodiumDucks.QuadNormals {}

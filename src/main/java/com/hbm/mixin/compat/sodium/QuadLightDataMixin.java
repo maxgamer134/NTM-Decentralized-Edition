@@ -20,9 +20,15 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(targets = "net.caffeinemc.mods.sodium.client.model.light.data.QuadLightData", remap = false)
 public abstract class QuadLightDataMixin implements SodiumDucks.QuadLightData {
     @Shadow @Final public int[] lm;
+    @Shadow @Final public float[] br;
 
     @Override
     public int[] hbm$lightmaps() {
         return lm;
+    }
+
+    @Override
+    public float[] hbm$brightness() {
+        return br;
     }
 }

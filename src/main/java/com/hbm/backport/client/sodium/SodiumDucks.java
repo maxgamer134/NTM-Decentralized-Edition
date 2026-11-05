@@ -36,8 +36,25 @@ public final class SodiumDucks {
         BlockAndTintGetter getLevel();
     }
 
+    /**
+     * backport-fix: BF-125 the per-vertex normals of Sodium's {@code QuadViewImpl}: its own public
+     * hasAllVertexNormals() and normalX/Y/Z(int) implement this (duck interface, QuadTagMixin).
+     */
+    public interface QuadNormals {
+        boolean hasAllVertexNormals();
+
+        float normalX(int vertex);
+
+        float normalY(int vertex);
+
+        float normalZ(int vertex);
+    }
+
     /** Sodium's {@code model.light.data.QuadLightData} (QuadLightDataMixin): its lightmap array. */
     public interface QuadLightData {
         int[] hbm$lightmaps();
+
+        /** backport-fix: BF-125 its per-vertex brightness array. */
+        float[] hbm$brightness();
     }
 }

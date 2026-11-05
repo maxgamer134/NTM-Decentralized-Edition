@@ -3,6 +3,7 @@
 
 package com.hbm.items.machine;
 
+import com.hbm.integration.almostunified.AlmostUnifiedCompat;
 import com.hbm.inventory.material.MaterialShapes;
 import com.hbm.inventory.material.NTMMaterial;
 import com.hbm.lib.Library;
@@ -94,6 +95,10 @@ public class ItemMold extends ItemCompat {
         public @Nullable ItemStack getOutput(NTMMaterial mat) {
             var holders = BuiltInRegistries.ITEM.getTag(mat.tag(shape));
             if (holders.isEmpty() || holders.get().size() == 0) return null;
+            // backport-fix: BF-128 with AlmostUnified, the item it prefers for the tag (it hides
+            // the others, NTM's included), so the cast and its recipe page show a visible item
+            Item preferred = AlmostUnifiedCompat.tagTarget(mat.tag(shape));
+            if (preferred != null) return new ItemStack(preferred, amount);
 
             Item fallback = null;
             for (var holder : holders.get()) {

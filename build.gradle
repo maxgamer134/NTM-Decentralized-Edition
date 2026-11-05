@@ -98,7 +98,7 @@ neoForge {
     }
 }
 
-// backport: compile-only stand-ins for optional mods' API types (Sable), never packaged
+// backport: compile-only stand-ins for optional mods' API types (Sable, AlmostUnified), never packaged
 sourceSets {
     sableStubs
 }

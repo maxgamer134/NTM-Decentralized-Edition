@@ -96,6 +96,27 @@ public final class CraftingRows {
         return out;
     }
 
+    /**
+     * backport-fix: BF-127 every row at once, for viewers that never ask the lookup (EMI and TMRV
+     * skip JEI's recipe manager plugins, so the retyping recipes were nowhere to be found there): per
+     * duct and fluid one single and one bulk row taking a plain or any typed duct, and one untype row
+     * per duct.
+     */
+    public List<RecipeHolder<CraftingRecipe>> allRows() {
+        List<RecipeHolder<CraftingRecipe>> out = new ArrayList<>();
+        for (Variant variant : variants()) {
+            Variant any =
+                    new Variant(
+                            variant.duct(),
+                            variant.segment(),
+                            CompoundIngredient.of(variant.plain(), variant.typed()),
+                            variant.typed());
+            for (Fluid fluid : fluids()) retype(out, any, fluid, true, false);
+            out.add(untype(variant, variant.typed()));
+        }
+        return out;
+    }
+
     private Variant variant(ItemStack stack) {
         for (Variant variant : variants()) {
             if (stack.is(variant.duct())) return variant;

@@ -49,6 +49,7 @@ public class NTMJeiPlugin implements IModPlugin {
     private final Map<ResourceKey<CustomMachineDefinition>, CustomMachinePage> customMachines =
             new LinkedHashMap<>();
     private final Map<ResourceLocation, JeiLookupPlugin<?>> lookupPlugins = new HashMap<>();
+    private final CraftingRows craftingRows = new CraftingRows();
 
     // EMI (through JEMI) and TMRV never ask advanced recipe manager plugins for rows, so a page
     // whose rows only live in its JeiLookupPlugin (fuel pool, rod disassembly) shows up empty there
@@ -111,6 +112,9 @@ public class NTMJeiPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         for (RecipePage<?> page : pages()) addRows(registration, page);
+        // backport-fix: BF-127 EMI and TMRV skip the duct retyping lookup (registerAdvanced), so
+        // they get its rows as plain crafting recipes
+        if (!advancedLookups()) registration.addRecipes(RecipeTypes.CRAFTING, craftingRows.allRows());
     }
 
     private <T> void addRows(IRecipeRegistration registration, RecipePage<T> page) {
@@ -130,7 +134,7 @@ public class NTMJeiPlugin implements IModPlugin {
         // top of it (both would show the same recipe twice)
         registration.addTypedRecipeManagerPlugin(RecipeTypes.CRAFTING, new FluidIdentifierRecipes());
         registration.addTypedRecipeManagerPlugin(
-                RecipeTypes.CRAFTING, new CraftingRowsLookup(new CraftingRows()));
+                RecipeTypes.CRAFTING, new CraftingRowsLookup(craftingRows));
     }
 
     @Override

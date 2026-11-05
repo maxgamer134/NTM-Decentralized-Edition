@@ -12,9 +12,7 @@ import com.hbm.handler.BossSpawnHandler;
 import com.hbm.handler.radiation.RadiationSystemNT;
 import com.hbm.inventory.container.ContainerSync;
 import com.hbm.inventory.container.MenuReactorResearch;
-import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemPlateFuel;
-import com.hbm.items.tool.ItemSwordMeteorite;
 import com.hbm.packet.SyncField;
 import com.hbm.packet.SyncUnitSchema;
 import io.netty.buffer.ByteBuf;
@@ -162,12 +160,8 @@ public class BlockEntityReactorResearch extends BlockEntityMachineBase
                 continue;
             }
 
-            ItemSwordMeteorite.upgrade(
-                    inventory,
-                    i,
-                    ModItems.METEORITE_SWORD_BRED,
-                    ModItems.METEORITE_SWORD_IRRADIATED);
-            if (inventory.get(i) != stack) markChanged();
+            // backport-fix: BF-130 no longer irradiates the bred meteorite sword (main still does): the
+            // research reactor is deprecated and can't be built any more, so ZIRNOX alone takes that step
             slotFlux[i] = 0;
         }
     }

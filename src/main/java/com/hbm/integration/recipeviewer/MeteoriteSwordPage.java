@@ -18,10 +18,11 @@ import net.minecraft.world.level.ItemLike;
  * backport-fix: BF-129 the meteorite sword's upgrades that happen inside a machine (an addition:
  * main 1.7.10 does them in the tile entities only and has no NEI page, so the progression stopped
  * at the alloyed sword). The assembly machine and the chemical plant upgrade a sword in their
- * battery slot while they run a recipe, the research reactor and ZIRNOX one in a fuel slot while
- * running, and the fusion breeder breeds one from its input slot. Each row is that machine's own
- * GUI with the sword in the slot: a window onto the GUI where the slot sits on the page's input,
- * then the usual arrow and output, or the fusion breeder's GUI as it is (it has an output slot).
+ * battery slot while they run a recipe, ZIRNOX one in a fuel slot while running (BF-130: not the
+ * deprecated research reactor any more), and the fusion breeder breeds one from its input slot.
+ * Each row is that machine's own GUI with the sword in the slot: a window onto the GUI where the
+ * slot sits on the page's input, then the usual arrow and output, or the fusion breeder's GUI as
+ * it is (it has an output slot).
  */
 public final class MeteoriteSwordPage extends RecipePage<MeteoriteSwordPage.Recipe> {
 
@@ -33,8 +34,6 @@ public final class MeteoriteSwordPage extends RecipePage<MeteoriteSwordPage.Reci
             Library.id("textures/gui/processing/gui_assembler.png");
     private static final ResourceLocation CHEMPLANT =
             Library.id("textures/gui/processing/gui_chemplant.png");
-    private static final ResourceLocation RESEARCH_REACTOR =
-            Library.id("textures/gui/reactors/gui_research_reactor.png");
     private static final ResourceLocation ZIRNOX =
             Library.id("textures/gui/reactors/gui_zirnox.png");
     private static final ResourceLocation FUSION_BREEDER =
@@ -59,14 +58,13 @@ public final class MeteoriteSwordPage extends RecipePage<MeteoriteSwordPage.Reci
         return List.of(
                 new ItemStack(ModBlocks.MACHINE_ASSEMBLY_MACHINE.get()),
                 new ItemStack(ModBlocks.MACHINE_CHEMICAL_PLANT.get()),
-                new ItemStack(ModBlocks.REACTOR_RESEARCH.get()),
                 new ItemStack(ModBlocks.REACTOR_ZIRNOX.get()),
                 new ItemStack(ModBlocks.FUSION_BREEDER.get()));
     }
 
     @Override
     public List<Recipe> rows() {
-        // slot frames from the menus: battery 152,81, fuel 113,40 and 44,34, breeder input 48,45
+        // slot frames from the menus: battery 152,81, ZIRNOX fuel 44,34, breeder input 48,45
         return List.of(
                 row(
                         "assembly_machine",
@@ -89,17 +87,6 @@ public final class MeteoriteSwordPage extends RecipePage<MeteoriteSwordPage.Reci
                         80,
                         8,
                         33,
-                        false),
-                row(
-                        "research_reactor",
-                        ModItems.METEORITE_SWORD_BRED.get(),
-                        ModItems.METEORITE_SWORD_IRRADIATED.get(),
-                        ModBlocks.REACTOR_RESEARCH.get(),
-                        RESEARCH_REACTOR,
-                        112,
-                        39,
-                        26,
-                        51,
                         false),
                 row(
                         "zirnox",

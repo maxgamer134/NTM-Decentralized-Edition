@@ -50,6 +50,7 @@ public final class RecipePages {
     public static final AnvilSmithingPage ANVIL_SMITHING = new AnvilSmithingPage();
     public static final MagicPage MAGIC = new MagicPage();
     public static final PedestalPage PEDESTAL = new PedestalPage();
+    public static final MeteoriteSwordPage METEORITE_SWORD = new MeteoriteSwordPage();
     public static final RefineryPage REFINERY = new RefineryPage();
     public static final SilexPage SILEX = new SilexPage();
     public static final FuelPoolPage FUEL_POOL = new FuelPoolPage();
@@ -369,6 +370,7 @@ public final class RecipePages {
                     ANVIL_SMITHING,
                     MAGIC,
                     PEDESTAL,
+                    METEORITE_SWORD,
                     REFINERY,
                     SILEX,
                     FUEL_POOL,

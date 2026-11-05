@@ -102,12 +102,12 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
             parkedSegmentsByChunk = new Long2ObjectOpenHashMap<>();
     private final ConcurrentLinkedQueue<CompiledFold<D>> readySwaps = new ConcurrentLinkedQueue<>();
 
-    // backport-fix: BF-087 self-healing sweep (see sweep): snapshot of every cell, walked a slice per tick
-    private static final int SWEEP_PERIOD_TICKS = 200;
-    private static final int SWEEP_MIN_CELLS = 16;
-    private static final int SWEEP_MAX_CELLS = 512;
+    // backport-fix: BF-087 self-healing sweep (see sweep): snapshot of every cell, walked each tick
     private long[] sweepKeys = EMPTY_INTERIOR;
-    private int sweepCursor;
+    private int sweepCount; // backport-fix: BF-124 cells in sweepKeys (the array is reused)
+    // backport-fix: BF-124 set once a network of this graph probes its faces (power, fluids,
+    // pneumatic tubes); graphs that never probe (foundry channels, rebar) skip the sweep
+    private boolean probes;
     private final BlockPos.MutableBlockPos sweepPos = new BlockPos.MutableBlockPos();
 
     private int floodGeneration;
@@ -180,7 +180,9 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
 
     private void tick(ServerLevel level) {
         applyCompiledSwaps();
-        if (!networks.isEmpty()) provider.tick(level, this);
+        if (networks.isEmpty()) return;
+        if (probes) sweep(level); // backport-fix: BF-124 every network kind, every tick
+        provider.tick(level, this);
     }
 
     public static long chunkOf(long posKey) {
@@ -1215,33 +1217,27 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
      * backport-fix: BF-087 self-healing, the safety net 1.7.10 had by re-subscribing every machine every tick.
      * Probe verdicts are otherwise only revisited on events (neighbour change, chunk load, block entity load);
      * a missed event left a face "absent" or unprobed for good, silently (a battery or tank dropping out of its
-     * network, a reactor losing its water). Each tick a slice of all cells is checked, so every cell comes up
-     * about every {@value #SWEEP_PERIOD_TICKS} ticks (slower only past {@value #SWEEP_MAX_CELLS} cells per tick):
-     * faces probed "absent" that look at something able to be an endpoint (a block entity, a capability block, a
-     * multiblock surface) are probed again, and cells with unprobed faces that nobody queued are queued. Faces
-     * looking at air or plain blocks cost one block state read.
+     * network, a reactor losing its water). Faces probed "absent" that look at something able to be an
+     * endpoint (a block entity, a capability block, a multiblock surface) are probed again, and cells with
+     * unprobed faces that nobody queued are queued. Faces looking at air or plain blocks cost one block state
+     * read. backport-fix: BF-124 every cell every tick, for every graph that probes (power, every fluid kind,
+     * pneumatic tubes), like 1.7.10's networks, where every machine subscribed again each tick (it was a slice
+     * per tick, each cell about every 200 ticks). It walks the graph as it is, so networks loaded from an
+     * older save are checked the same way.
      */
-    public void sweep(ServerLevel level) {
-        if (sweepCursor >= sweepKeys.length) {
-            int total = nodesByPos.size() + interiorIndex.size();
-            if (total == 0) return;
-            long[] keys = new long[total];
-            int n = 0;
-            for (LongIterator it = nodesByPos.keySet().iterator(); it.hasNext() && n < total; )
-                keys[n++] = it.nextLong();
-            for (LongIterator it = interiorIndex.keySet().iterator(); it.hasNext() && n < total; )
-                keys[n++] = it.nextLong();
-            sweepKeys = n == total ? keys : Arrays.copyOf(keys, n);
-            sweepCursor = 0;
-        }
-        int budget =
-                Math.min(
-                        SWEEP_MAX_CELLS,
-                        Math.max(
-                                SWEEP_MIN_CELLS,
-                                (sweepKeys.length + SWEEP_PERIOD_TICKS - 1) / SWEEP_PERIOD_TICKS));
-        int end = Math.min(sweepKeys.length, sweepCursor + budget);
-        while (sweepCursor < end) sweepCell(level, sweepKeys[sweepCursor++]);
+    private void sweep(ServerLevel level) {
+        int total = nodesByPos.size() + interiorIndex.size();
+        if (total == 0) return;
+        // snapshot first: a re-probe can add or remove cells while the walk runs
+        long[] keys = sweepKeys.length >= total ? sweepKeys : new long[total];
+        int n = 0;
+        for (LongIterator it = nodesByPos.keySet().iterator(); it.hasNext() && n < total; )
+            keys[n++] = it.nextLong();
+        for (LongIterator it = interiorIndex.keySet().iterator(); it.hasNext() && n < total; )
+            keys[n++] = it.nextLong();
+        sweepKeys = keys;
+        sweepCount = n;
+        for (int i = 0; i < sweepCount; i++) sweepCell(level, sweepKeys[i]);
     }
 
     private void sweepCell(ServerLevel level, long posKey) {
@@ -1461,6 +1457,7 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
             set.add(node);
         }
         net.edgeFaces = set;
+        probes = true;
         return set;
     }
 

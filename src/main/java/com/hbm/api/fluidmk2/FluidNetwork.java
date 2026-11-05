@@ -48,7 +48,7 @@ public final class FluidNetwork {
     }
 
     static void tick(ServerLevel level, LevelNodeGraph<PipeData> graph) {
-        graph.sweep(level); // backport-fix: BF-087 self-healing probe sweep
+        // backport-fix: BF-087 the self-healing probe sweep runs in LevelNodeGraph.tick (BF-124)
         for (NodeNetwork<PipeData> net : graph.networks()) distribute(level, graph, net);
     }
 

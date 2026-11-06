@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:pipes/steel",
+    "B": "#c:storage_blocks/steel",
+    "I": "#c:ingots/polymer",
+    "C": "hbm:mechanism_rifle_2",
+    "M": "hbm:motor"
+  },
+  "pattern": [
+    "PIB",
+    "PCM",
+    "PIB"
+  ],
+  "result": {
+    "id": "hbm:gun_minigun_legacy"
+  }
+}

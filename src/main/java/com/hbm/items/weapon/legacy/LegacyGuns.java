@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun5mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun556mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
@@ -208,6 +209,15 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> ASSEMBLY_556;
     public static RegistryHandle<Item> MECHANISM_LAUNCHER_1;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_5MM;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_5MM_EXPLOSIVE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_5MM_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_5MM_STAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_5MM_CHLOROPHYTE;
+    public static RegistryHandle<ItemGunLacunae> GUN_MINIGUN_LEGACY;
+    public static RegistryHandle<ItemGunLacunae> GUN_LACUNAE;
+    public static RegistryHandle<Item> ASSEMBLY_LACUNAE;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -403,6 +413,16 @@ public final class LegacyGuns {
         GUN_VORTEX = gun("gun_vortex", p -> new ItemGunBase(Gun556mmFactory.getEuphieConfig(), p));
         ASSEMBLY_556 = part("assembly_556");
         MECHANISM_LAUNCHER_1 = part("mechanism_launcher_1");
+
+        // 5mm
+        AMMO_5MM = ammo("ammo_5mm");
+        AMMO_5MM_EXPLOSIVE = ammo("ammo_5mm_explosive", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_5MM_DU = ammo("ammo_5mm_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_5MM_STAR = ammo("ammo_5mm_star", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_STARMETAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_5MM_CHLOROPHYTE = ammo("ammo_5mm_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        GUN_MINIGUN_LEGACY = gun("gun_minigun_legacy", p -> new ItemGunLacunae(Gun5mmFactory.get53Config(), p));
+        GUN_LACUNAE = gun("gun_lacunae", p -> new ItemGunLacunae(Gun5mmFactory.getLacunaeConfig(), p));
+        ASSEMBLY_LACUNAE = part("assembly_lacunae");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

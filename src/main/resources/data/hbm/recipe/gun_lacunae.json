@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "hbm:syringe_taint",
+    "I": "#c:ingots/starmetal",
+    "L": "hbm:gun_minigun",
+    "P": "hbm:pellet_rtg",
+    "R": "hbm:machine_rtg_grey"
+  },
+  "pattern": [
+    "TIT",
+    "ILI",
+    "PRP"
+  ],
+  "result": {
+    "id": "hbm:gun_lacunae"
+  }
+}

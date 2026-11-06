@@ -9077,5 +9077,12 @@
   "item.hbm.ammo_556_flechette_sleek": "5.56mm Flechette Round (IF-R&D)",
   "item.hbm.ammo_556_k": "5.56mm K-Round",
   "item.hbm.gun_flechette": "Flechette Rifle",
-  "item.hbm.gun_mp": "Pacifist's Machine Gun"
+  "item.hbm.gun_mp": "Pacifist's Machine Gun",
+  "item.hbm.ammo_5mm": "5mm Round",
+  "item.hbm.ammo_5mm_explosive": "5mm Round (Explosive)",
+  "item.hbm.ammo_5mm_du": "5mm Round (DU)",
+  "item.hbm.ammo_5mm_star": "5mm Round (Starmetal)",
+  "item.hbm.ammo_5mm_chlorophyte": "5mm Round (Chlorophyte)",
+  "item.hbm.gun_minigun_legacy": "CZ53 Personal Minigun",
+  "item.hbm.gun_lacunae": "CZ33 Abaddon"
 }

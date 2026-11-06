@@ -120,4 +120,15 @@ public final class LegacyResources {
     public static final HFRWavefrontObject model_mp = Meshes.faceNormals(Library.id("models/weapons/legacy/mp.obj"));
     public static final HFRWavefrontObject vortex = Meshes.faceNormals(Library.id("models/weapons/vortex.obj"));
     public static final ResourceLocation vortex_tex = Library.id("textures/models/weapons/vortex.png");
+
+    public static final HFRWavefrontObject model_jack = Meshes.faceNormals(Library.id("models/weapons/legacy/jack.obj"));
+    public static final HFRWavefrontObject model_spark = Meshes.faceNormals(Library.id("models/weapons/legacy/spark.obj"));
+    public static final HFRWavefrontObject model_hp = Meshes.faceNormals(Library.id("models/weapons/legacy/hp.obj"));
+    public static final HFRWavefrontObject model_euthanasia = Meshes.faceNormals(Library.id("models/weapons/legacy/euthanasia.obj"));
+    public static final HFRWavefrontObject model_defabricator = Meshes.faceNormals(Library.id("models/weapons/legacy/defabricator.obj"));
+    public static final HFRWavefrontObject model_dash = Meshes.faceNormals(Library.id("models/weapons/legacy/dash.obj"));
+    public static final HFRWavefrontObject model_twigun = Meshes.faceNormals(Library.id("models/weapons/legacy/twigun.obj"));
+    public static final HFRWavefrontObject model_pip = Meshes.faceNormals(Library.id("models/weapons/legacy/pip.obj"));
+    public static final HFRWavefrontObject model_lacunae = Meshes.faceNormals(Library.id("models/weapons/legacy/lacunae.obj"));
+    public static final HFRWavefrontObject model_folly = Meshes.faceNormals(Library.id("models/weapons/legacy/folly.obj"));
 }

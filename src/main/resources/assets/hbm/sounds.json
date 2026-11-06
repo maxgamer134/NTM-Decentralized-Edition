@@ -3392,5 +3392,32 @@
         "stream": false
       }
     ]
+  },
+  "weapon.lacunaeshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/lacunaeshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.lacunaespinup": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/lacunaespinup",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.lacunaespindown": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/lacunaespindown",
+        "stream": false
+      }
+    ]
   }
 }

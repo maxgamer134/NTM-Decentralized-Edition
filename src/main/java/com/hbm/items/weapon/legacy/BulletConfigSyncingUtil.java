@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun5mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun556mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
@@ -420,6 +421,18 @@ public final class BulletConfigSyncingUtil {
         configSet.put(R556_K, Gun556mmFactory.get556KConfig());
         configSet.put(CHL_R556, Gun556mmFactory.get556Config().setToHoming(LegacyGuns.AMMO_556_CHLOROPHYTE));
         configSet.put(CHL_R556_FLECHETTE, Gun556mmFactory.get556FlechetteConfig().setToHoming(LegacyGuns.AMMO_556_FLECHETTE_CHLOROPHYTE));
+
+
+        configSet.put(R5_NORMAL, Gun5mmFactory.get5mmConfig());
+        configSet.put(R5_EXPLOSIVE, Gun5mmFactory.get5mmExplosiveConfig());
+        configSet.put(R5_DU, Gun5mmFactory.get5mmDUConfig());
+        configSet.put(R5_STAR, Gun5mmFactory.get5mmStarConfig());
+        configSet.put(R5_NORMAL_BOLT, Gun5mmFactory.get5mmConfig().setToBolt(BulletConfiguration.BOLT_LACUNAE));
+        configSet.put(R5_EXPLOSIVE_BOLT, Gun5mmFactory.get5mmExplosiveConfig().setToBolt(BulletConfiguration.BOLT_LACUNAE));
+        configSet.put(R5_DU_BOLT, Gun5mmFactory.get5mmDUConfig().setToBolt(BulletConfiguration.BOLT_LACUNAE));
+        configSet.put(R5_STAR_BOLT, Gun5mmFactory.get5mmStarConfig().setToBolt(BulletConfiguration.BOLT_LACUNAE));
+        configSet.put(CHL_R5, Gun5mmFactory.get5mmConfig().setToHoming(LegacyGuns.AMMO_5MM_CHLOROPHYTE));
+        configSet.put(CHL_R5_BOLT, Gun5mmFactory.get5mmConfig().setToBolt(BulletConfiguration.BOLT_LACUNAE).setToHoming(LegacyGuns.AMMO_5MM_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

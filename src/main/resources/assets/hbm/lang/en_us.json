@@ -9084,5 +9084,10 @@
   "item.hbm.ammo_5mm_star": "5mm Round (Starmetal)",
   "item.hbm.ammo_5mm_chlorophyte": "5mm Round (Chlorophyte)",
   "item.hbm.gun_minigun_legacy": "CZ53 Personal Minigun",
-  "item.hbm.gun_lacunae": "CZ33 Abaddon"
+  "item.hbm.gun_lacunae": "CZ33 Abaddon",
+  "item.hbm.ammo_75bolt": ".75 Bolt Magazine (30rnd)",
+  "item.hbm.ammo_75bolt_incendiary": ".75 Incendiary Bolt Magazine (30rnd)",
+  "item.hbm.ammo_75bolt_he": ".75 Bolt High-Explosive Magazine (30rnd)",
+  "item.hbm.gun_bolter_legacy": "Bolter",
+  "item.hbm.gun_bolter_digamma": "Digamma Gun"
 }

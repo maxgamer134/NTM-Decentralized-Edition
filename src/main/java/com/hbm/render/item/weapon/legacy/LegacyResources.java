@@ -131,4 +131,8 @@ public final class LegacyResources {
     public static final HFRWavefrontObject model_pip = Meshes.faceNormals(Library.id("models/weapons/legacy/pip.obj"));
     public static final HFRWavefrontObject model_lacunae = Meshes.faceNormals(Library.id("models/weapons/legacy/lacunae.obj"));
     public static final HFRWavefrontObject model_folly = Meshes.faceNormals(Library.id("models/weapons/legacy/folly.obj"));
+
+    public static final HFRWavefrontObject bolter = Meshes.load(Library.id("models/weapons/legacy/bolter.obj"));
+    public static final ResourceLocation bolter_digamma_tex = Library.id("textures/models/weapons/bolter_digamma.png");
+    public static final ResourceLocation bolter_tex = Library.id("textures/models/weapons/bolter.png");
 }

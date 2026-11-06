@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun75BoltFactory;
 import com.hbm.items.weapon.legacy.factory.Gun5mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun556mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
@@ -218,6 +219,12 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunLacunae> GUN_LACUNAE;
     public static RegistryHandle<Item> ASSEMBLY_LACUNAE;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_75BOLT;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_75BOLT_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_75BOLT_HE;
+    public static RegistryHandle<ItemGunBase> GUN_BOLTER_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_BOLTER_DIGAMMA;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -423,6 +430,13 @@ public final class LegacyGuns {
         GUN_MINIGUN_LEGACY = gun("gun_minigun_legacy", p -> new ItemGunLacunae(Gun5mmFactory.get53Config(), p));
         GUN_LACUNAE = gun("gun_lacunae", p -> new ItemGunLacunae(Gun5mmFactory.getLacunaeConfig(), p));
         ASSEMBLY_LACUNAE = part("assembly_lacunae");
+
+        // 75Bolt
+        AMMO_75BOLT = ammo("ammo_75bolt");
+        AMMO_75BOLT_INCENDIARY = ammo("ammo_75bolt_incendiary");
+        AMMO_75BOLT_HE = ammo("ammo_75bolt_he");
+        GUN_BOLTER_LEGACY = gun("gun_bolter_legacy", p -> new ItemGunBase(Gun75BoltFactory.getBolterConfig(), p));
+        GUN_BOLTER_DIGAMMA = gun("gun_bolter_digamma", p -> new ItemGunBase(Gun75BoltFactory.getBolterConfig(), p));
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

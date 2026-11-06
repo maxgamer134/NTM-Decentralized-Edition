@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
 import com.hbm.items.weapon.legacy.factory.GunGaussFactory;
 import com.hbm.items.weapon.legacy.factory.GunDartFactory;
 import com.hbm.items.weapon.legacy.factory.GunFatmanFactory;
@@ -531,6 +532,10 @@ public final class BulletConfigSyncingUtil {
 
         configSet.put(SPECIAL_GAUSS, GunGaussFactory.getGaussConfig());
         configSet.put(SPECIAL_GAUSS_CHARGED, GunGaussFactory.getAltConfig());
+
+
+        configSet.put(SPECIAL_OSIPR, GunOSIPRFactory.getPulseConfig());
+        configSet.put(SPECIAL_OSIPR_CHARGED, GunOSIPRFactory.getPulseChargedConfig());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

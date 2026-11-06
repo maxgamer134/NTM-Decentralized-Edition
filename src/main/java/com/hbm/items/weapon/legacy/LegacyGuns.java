@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
 import com.hbm.items.weapon.legacy.factory.GunGaussFactory;
 import com.hbm.items.weapon.legacy.factory.GunDartFactory;
 import com.hbm.items.weapon.legacy.factory.GunFatmanFactory;
@@ -313,6 +314,10 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunGauss> GUN_XVL1456;
     public static RegistryHandle<Item> GUN_XVL1456_AMMO;
 
+    public static RegistryHandle<ItemGunOSIPR> GUN_OSIPR;
+    public static RegistryHandle<Item> GUN_OSIPR_AMMO;
+    public static RegistryHandle<Item> GUN_OSIPR_AMMO2;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -613,6 +618,11 @@ public final class LegacyGuns {
         // Gauss
         GUN_XVL1456 = gun("gun_xvl1456", p -> new ItemGunGauss(GunGaussFactory.getXVLConfig(), GunGaussFactory.getChargedConfig(), p));
         GUN_XVL1456_AMMO = part("gun_xvl1456_ammo");
+
+        // OSIPR
+        GUN_OSIPR = gun("gun_osipr", p -> new ItemGunOSIPR(GunOSIPRFactory.getOSIPRConfig(), GunOSIPRFactory.getAltConfig(), p));
+        GUN_OSIPR_AMMO = part("gun_osipr_ammo");
+        GUN_OSIPR_AMMO2 = part("gun_osipr_ammo2");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

@@ -161,4 +161,6 @@ public final class LegacyResources {
 
     public static final HFRWavefrontObject tau = Meshes.load(Library.id("models/weapons/legacy/tau.obj"));
     public static final ResourceLocation tau_tex = Library.id("textures/models/weapons/tau.png");
+
+    public static final HFRWavefrontObject model_osipr = Meshes.faceNormals(Library.id("models/weapons/legacy/osipr.obj"));
 }

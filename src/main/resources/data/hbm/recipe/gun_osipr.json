@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "#c:plates/cmbsteel",
+    "T": "#c:ingots/tungsten",
+    "W": "#c:fine_wires/magnetized_tungsten",
+    "I": "hbm:mechanism_rifle_2",
+    "M": "hbm:coil_magnetized_tungsten"
+  },
+  "pattern": [
+    "CCT",
+    "WWI",
+    "MCC"
+  ],
+  "result": {
+    "id": "hbm:gun_osipr"
+  }
+}

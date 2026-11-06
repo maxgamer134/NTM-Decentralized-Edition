@@ -9160,5 +9160,8 @@
   "item.hbm.gun_mymy": "Nietes",
   "item.hbm.gun_darter": "Dart Gun",
   "item.hbm.gun_xvl1456": "XVL1456 Tau Cannon Prototype",
-  "item.hbm.gun_xvl1456_ammo": "Depleted Uranium-235 Box"
+  "item.hbm.gun_xvl1456_ammo": "Depleted Uranium-235 Box",
+  "item.hbm.gun_osipr": "Overwatch Standard Issue Pulse Rifle",
+  "item.hbm.gun_osipr_ammo": "Dark Energy Pulse Plug",
+  "item.hbm.gun_osipr_ammo2": "Combine Ball"
 }

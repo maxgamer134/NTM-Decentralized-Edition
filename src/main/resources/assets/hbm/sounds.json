@@ -3499,5 +3499,32 @@
         "stream": false
       }
     ]
+  },
+  "weapon.osiprreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/osiprreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.osiprshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/osiprshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.singflyby": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/singflyby",
+        "stream": false
+      }
+    ]
   }
 }

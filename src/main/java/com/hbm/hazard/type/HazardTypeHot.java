@@ -3,6 +3,7 @@
 
 package com.hbm.hazard.type;
 
+import com.hbm.config.BalanceConfig;
 import com.hbm.data.RadiationData;
 import com.hbm.hazard.helper.HazardHelper;
 import com.hbm.hazard.modifier.IHazardModifier;
@@ -18,7 +19,9 @@ public class HazardTypeHot implements IHazardType {
 
     @Override
     public void onUpdate(LivingEntity target, double level, ItemStack stack) {
-        boolean wetOrReacher = HazardHelper.isHoldingReacher(target) || target.isInWaterOrRain();
+        // backport-fix: BF-135 main's 528 mode takes the reacher's heat protection away
+        boolean reacher = !BalanceConfig.enable528 && HazardHelper.isHoldingReacher(target);
+        boolean wetOrReacher = reacher || target.isInWaterOrRain();
         if (RadiationData.DISABLE_HOT.get() || wetOrReacher || level <= 0) return;
         if (target.getRemainingFireTicks() > 0) return;
         target.igniteForSeconds((int) Math.ceil(level));

@@ -23,6 +23,8 @@ public final class RenderersSpecial {
         LegacyGunRenderer.register(LegacyGuns.GUN_TWIGUN, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_DEFABRICATOR, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_DASH, new Renderers5mm.ItemRenderOverkill());
+        LegacyGunRenderer.register(LegacyGuns.GUN_HP, new Renderers5mm.ItemRenderOverkill());
+        LegacyGunRenderer.register(LegacyGuns.GUN_SPARK, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_FOLLY_LEGACY, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_CHEMTHROWER_LEGACY, new Chemthrower());
         LegacyGunRenderer.register(LegacyGuns.GUN_LEVER_ACTION_SONATA, new Sonata());

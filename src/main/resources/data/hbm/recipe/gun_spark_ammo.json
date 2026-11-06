@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/lead",
+    "C": "hbm:coil_gold",
+    "D": "hbm:powder_power"
+  },
+  "pattern": [
+    "PCP",
+    "DDD",
+    "PCP"
+  ],
+  "result": {
+    "count": 4,
+    "id": "hbm:gun_spark_ammo"
+  }
+}

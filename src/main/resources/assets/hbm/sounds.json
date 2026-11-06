@@ -3652,5 +3652,58 @@
         "stream": false
       }
     ]
+  },
+  "weapon.flamethrowerignite": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/flamethrowerignite",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.immolatorignite": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/immolatorignite",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.immolatorshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/immolatorshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.cryolatorshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/cryolatorshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.sparkshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/sparkshoot1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sparkshoot2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sparkshoot3",
+        "stream": false
+      }
+    ]
   }
 }

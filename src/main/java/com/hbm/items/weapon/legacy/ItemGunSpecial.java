@@ -327,4 +327,90 @@ public abstract class ItemGunSpecial extends ItemCustomLore {
             net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, t -> t.putInt(key, v));
         }
     }
+
+    private static void spray(Level level, Player player, net.minecraft.world.level.material.Fluid fluid) {
+        if (level.isClientSide) return;
+        com.hbm.entity.projectile.EntityChemical chem = new com.hbm.entity.projectile.EntityChemical(ModEntities.CHEMICAL.get(), level, player, 0, 0, 0);
+        chem.setFluid(fluid);
+        level.addFreshEntity(chem);
+    }
+
+    /** main's EntityPlasmaBeam (25 - 45) is the repo's legacy EntityBullet here. */
+    private static EntityBullet plasma(Level level, Player player) {
+        EntityBullet b = new EntityBullet(ModEntities.BULLET.get(), level, player, 1F, 25, 45, false, false);
+        if (player.getAbilities().instabuild) b.canBePickedUp = 2;
+        return b;
+    }
+
+    /** gun_immolator: fire while held, plasma while sneaking. main's EntityFire is the repo's EntityChemical spraying diesel. */
+    public static class Immolator extends ItemGunSpecial {
+        public Immolator(Properties p) { super(p, 4.0D, is(LegacyGuns.GUN_IMMOLATOR_AMMO)); }
+
+        @Override
+        protected void usingTick(Level level, Player player, ItemStack stack, int count) {
+            if (!hasAmmo(player)) return;
+            boolean creative = player.getAbilities().instabuild;
+            if (!player.isShiftKeyDown()) {
+                if (!creative && count % 10 == 0) consumeAmmo(player);
+                if (count == getUseDuration(stack, player)) LegacySounds.play(player, "weapon.flamethrowerIgnite", 1.0F, 1F);
+                if (count % 5 == 0) LegacySounds.play(player, "weapon.flamethrowerShoot", 1.0F, 1F);
+                spray(level, player, com.hbm.inventory.fluid.NTMFluids.DIESEL);
+            } else {
+                EntityBullet b = plasma(level, player);
+                if (!creative && count % 4 == 0) consumeAmmo(player);
+                if (count == getUseDuration(stack, player)) LegacySounds.play(player, "weapon.immolatorIgnite", 1.0F, 1F);
+                if (count % 10 == 0) LegacySounds.play(player, "weapon.immolatorShoot", 1.0F, 1F);
+                if (!level.isClientSide) level.addFreshEntity(b);
+            }
+        }
+    }
+
+    /** gun_cryolator: main's EntityLN2 is the repo's EntityChemical spraying oxygen, like the cryo cannon. */
+    public static class Cryolator extends ItemGunSpecial {
+        public Cryolator(Properties p) { super(p, 4.0D, is(LegacyGuns.GUN_CRYOLATOR_AMMO)); }
+
+        @Override
+        protected void usingTick(Level level, Player player, ItemStack stack, int count) {
+            if (!hasAmmo(player)) return;
+            if (!player.getAbilities().instabuild && count % 10 == 0) consumeAmmo(player);
+            if (count % 5 == 0) LegacySounds.play(player, "weapon.cryolatorShoot", 1.0F, 1F);
+            spray(level, player, com.hbm.inventory.fluid.NTMFluids.OXYGEN);
+        }
+    }
+
+    /** gun_hp: five plasma bolts a tick, four of them scattered. */
+    public static class HP extends ItemGunSpecial {
+        public HP(Properties p) { super(p, 4.0D, is(LegacyGuns.GUN_HP_AMMO)); }
+
+        @Override
+        protected void usingTick(Level level, Player player, ItemStack stack, int count) {
+            if (!hasAmmo(player)) return;
+            if (!player.getAbilities().instabuild && count % 20 == 0) consumeAmmo(player);
+            if (count == getUseDuration(stack, player)) LegacySounds.play(player, "weapon.immolatorIgnite", 1.0F, 1F);
+            if (count % 10 == 0) LegacySounds.play(player, "weapon.immolatorShoot", 1.0F, 1F);
+            if (level.isClientSide) return;
+            for (int i = 0; i < 5; i++) {
+                EntityBullet b = plasma(level, player);
+                if (i > 0) {
+                    net.minecraft.world.phys.Vec3 m = b.getDeltaMovement();
+                    b.setDeltaMovement(m.x * (0.75 + level.random.nextDouble() * 0.5), m.y * (0.75 + level.random.nextDouble() * 0.5), m.z * (0.75 + level.random.nextDouble() * 0.5));
+                }
+                level.addFreshEntity(b);
+            }
+        }
+    }
+
+    /** gun_spark: one beam on release that explodes where it lands; main's EntitySparkBeam is the b92's beam here. */
+    public static class Spark extends ItemGunSpecial {
+        public Spark(Properties p) { super(p, 4.5D, is(LegacyGuns.GUN_SPARK_AMMO)); }
+
+        @Override
+        public boolean backport$releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+            if (!(entity instanceof Player player) || !hasAmmo(player) || charge(this, stack, entity, timeLeft) < 10) return false;
+            LegacySounds.play(player, "weapon.sparkShoot", 1.0F, 1.0F);
+            if (!player.getAbilities().instabuild) consumeAmmo(player);
+            if (!level.isClientSide) level.addFreshEntity(new com.hbm.entity.projectile.EntityB92Beam(ModEntities.BEAM_BOMB.get(), player, 3F));
+            return true;
+        }
+    }
 }

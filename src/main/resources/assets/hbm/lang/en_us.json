@@ -9217,5 +9217,17 @@
   "item.hbm.gun_dash_ammo": "Dash Ammo",
   "item.hbm.gun_dash.desc": "Ratatatatatatatata!!\n\nAmmo: SMG Round\nDamage: 2 - 8\n\n[LEGENDARY WEAPON]",
   "item.hbm.ammo_folly": "Silver Bullet (Original)",
-  "item.hbm.gun_folly_legacy": "Prototype Digamma \"Folly\""
+  "item.hbm.gun_folly_legacy": "Prototype Digamma \"Folly\"",
+  "item.hbm.gun_immolator_ammo": "Immolator Fuel",
+  "item.hbm.gun_immolator": "The Immolator",
+  "item.hbm.gun_cryolator": "The Cryolator",
+  "item.hbm.gun_hp_ammo": "Ink Cartridge",
+  "item.hbm.gun_hp": "HPP Lazerjet",
+  "item.hbm.gun_spark_ammo": "Electromagnetic Cartridge",
+  "item.hbm.gun_spark": "Spark Plug",
+  "item.hbm.gun_b93": "§cB93 Energy Mod§r",
+  "item.hbm.gun_immolator.desc": "Hold right mouse button\nto shoot fire,\nsneak to shoot\nplasma beams!\n\nAmmo: Immolator Fuel\nDamage: 5\nSecondary Damage: 25 - 45",
+  "item.hbm.gun_cryolator.desc": "Ice to meet you!\n\nAmmo: Cryolator Ammo\nDamage: 5",
+  "item.hbm.gun_hp.desc": "Rrrrt - rrrrt - rrrrt, weeee!\n\nAmmo: Ink Cartridge\nDamage: 25 - 45\n\n[LEGENDARY WEAPON]",
+  "item.hbm.gun_spark.desc": "'magic does not compute'\n'aeiou'\n\nAmmo: Electromagnetic Cartridge\nProjectiles explode on impact.\n\n[LEGENDARY WEAPON]"
 }

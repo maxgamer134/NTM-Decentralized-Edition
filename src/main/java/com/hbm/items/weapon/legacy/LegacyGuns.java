@@ -342,6 +342,21 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> GUN_EMP_AMMO;
     public static RegistryHandle<Item> GUN_CRYOLATOR_AMMO;
 
+    public static RegistryHandle<com.hbm.items.special.ItemCustomLore> GUN_SUPER_SHOTGUN;
+    public static RegistryHandle<com.hbm.items.special.ItemCustomLore> GUN_MOIST_NUGGET;
+    public static RegistryHandle<ItemGunSpecial.Suicide> GUN_REVOLVER_INVERTED;
+    public static RegistryHandle<Item> GUN_JACK_AMMO;
+    public static RegistryHandle<ItemGunSpecial.Jack> GUN_JACK;
+    public static RegistryHandle<Item> GUN_EUTHANASIA_AMMO;
+    public static RegistryHandle<ItemGunSpecial.Euthanasia> GUN_EUTHANASIA;
+    public static RegistryHandle<Item> GUN_TWIGUN_AMMO;
+    public static RegistryHandle<ItemGunSpecial.Euthanasia> GUN_TWIGUN;
+    public static RegistryHandle<Item> GUN_DEFABRICATOR_AMMO;
+    public static RegistryHandle<ItemGunSpecial.Defabricator> GUN_DEFABRICATOR;
+    public static RegistryHandle<ItemClipLegacy> CLIP_JACK;
+    public static RegistryHandle<ItemClipLegacy> CLIP_EUTHANASIA;
+    public static RegistryHandle<ItemClipLegacy> CLIP_DEFABRICATOR;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -671,6 +686,22 @@ public final class LegacyGuns {
         GUN_EMP = gun("gun_emp", p -> new ItemGunBase(GunEnergyFactory.getEMPConfig(), p));
         GUN_EMP_AMMO = part("gun_emp_ammo");
         GUN_CRYOLATOR_AMMO = part("gun_cryolator_ammo");
+
+        // one-off guns
+        GUN_SUPER_SHOTGUN = item("gun_super_shotgun", p -> new com.hbm.items.special.ItemCustomLore(p.stacksTo(1)));
+        GUN_MOIST_NUGGET = item("gun_moist_nugget", p -> new com.hbm.items.special.ItemCustomLore(p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
+        GUN_REVOLVER_INVERTED = item("gun_revolver_inverted", ItemGunSpecial.Suicide::new);
+        GUN_JACK_AMMO = part("gun_jack_ammo");
+        GUN_JACK = item("gun_jack", ItemGunSpecial.Jack::new);
+        GUN_EUTHANASIA_AMMO = part("gun_euthanasia_ammo");
+        GUN_EUTHANASIA = item("gun_euthanasia", ItemGunSpecial.Euthanasia::new);
+        GUN_TWIGUN_AMMO = part("gun_twigun_ammo");
+        GUN_TWIGUN = item("gun_twigun", ItemGunSpecial.Euthanasia::new);
+        GUN_DEFABRICATOR_AMMO = part("gun_defabricator_ammo");
+        GUN_DEFABRICATOR = item("gun_defabricator", ItemGunSpecial.Defabricator::new);
+        CLIP_JACK = clip("clip_jack", GUN_JACK_AMMO, 12);
+        CLIP_EUTHANASIA = clip("clip_euthanasia", GUN_EUTHANASIA_AMMO, 32);
+        CLIP_DEFABRICATOR = clip("clip_defabricator", GUN_DEFABRICATOR_AMMO, 50);
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {
@@ -686,6 +717,10 @@ public final class LegacyGuns {
 
     private static RegistryHandle<ItemAmmoLegacy> ammo(String name, AmmoItemTrait... traits) {
         return add(NeoForgeRegistrar.registerItem(name, p -> new ItemAmmoLegacy(p, traits), Item.Properties::new));
+    }
+
+    private static <T extends Item> RegistryHandle<T> item(String name, Function<Item.Properties, T> factory) {
+        return add(NeoForgeRegistrar.registerItem(name, factory, Item.Properties::new));
     }
 
     private static RegistryHandle<Item> part(String name) {

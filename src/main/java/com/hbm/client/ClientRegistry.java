@@ -1539,6 +1539,7 @@ public final class ClientRegistry {
         com.hbm.render.item.weapon.legacy.Renderers762.init();
         com.hbm.render.item.weapon.legacy.Renderers75Bolt.init();
         com.hbm.render.item.weapon.legacy.Renderers5mm.init();
+        com.hbm.render.item.weapon.legacy.RenderersSpecial.init();
         com.hbm.render.item.weapon.legacy.Renderers556.init();
         com.hbm.render.item.weapon.legacy.Renderers50BMG.init();
         com.hbm.render.item.weapon.legacy.Renderers50AE.init();

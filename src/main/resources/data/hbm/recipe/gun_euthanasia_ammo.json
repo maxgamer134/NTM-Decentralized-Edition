@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "hbm:powder_poison",
+    "N": "#c:dusts/saltpeter",
+    "S": "hbm:syringe_metal_empty"
+  },
+  "pattern": [
+    "P",
+    "S",
+    "N"
+  ],
+  "result": {
+    "count": 12,
+    "id": "hbm:gun_euthanasia_ammo"
+  }
+}

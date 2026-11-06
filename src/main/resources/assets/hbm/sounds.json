@@ -3454,5 +3454,23 @@
         "stream": false
       }
     ]
+  },
+  "weapon.glshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/glshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hkshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hkshoot",
+        "stream": false
+      }
+    ]
   }
 }

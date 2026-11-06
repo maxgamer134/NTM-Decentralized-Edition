@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "L": "hbm:pellet_buckshot",
+    "C": "#hbm:dusts/any_smokeless",
+    "H": "#c:shells/aluminum",
+    "M": "hbm:motor"
+  },
+  "pattern": [
+    "LCL",
+    "CHC",
+    "LML"
+  ],
+  "result": {
+    "id": "hbm:ammo_grenade_leadburster"
+  }
+}

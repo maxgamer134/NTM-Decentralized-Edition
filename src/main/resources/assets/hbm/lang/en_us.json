@@ -9122,5 +9122,19 @@
   "item.hbm.gun_rpg": "Carl Gustav Recoilless Rifle",
   "item.hbm.gun_karl": "Karl",
   "item.hbm.gun_panzerschreck_legacy": "Panzerschreck",
-  "item.hbm.gun_quadro_legacy": "Quattro Formaggi"
+  "item.hbm.gun_quadro_legacy": "Quattro Formaggi",
+  "item.hbm.ammo_grenade": "40mm Grenade",
+  "item.hbm.ammo_grenade_he": "40mm Grenade (HE)",
+  "item.hbm.ammo_grenade_incendiary": "40mm Grenade (Incendiary)",
+  "item.hbm.ammo_grenade_phosphorus": "40mm Grenade (WP)",
+  "item.hbm.ammo_grenade_toxic": "40mm Grenade (Chemical)",
+  "item.hbm.ammo_grenade_sleek": "40mm Grenade (IF-R&D)",
+  "item.hbm.ammo_grenade_concussion": "40mm Grenade (Concussion)",
+  "item.hbm.ammo_grenade_finned": "40mm Grenade (Finned)",
+  "item.hbm.ammo_grenade_nuclear": "40mm Grenade (Привет)",
+  "item.hbm.ammo_grenade_tracer": "40mm Training Grenade",
+  "item.hbm.ammo_grenade_kampf": "40mm Rocket",
+  "item.hbm.ammo_grenade_leadburster": "40mm Leadburster",
+  "item.hbm.gun_hk69": "Grenade Pistol",
+  "item.hbm.gun_congolake_legacy": "Congo Lake"
 }

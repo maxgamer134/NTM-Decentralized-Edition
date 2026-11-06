@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "hbm:ammo_grenade",
+    "I": "hbm:powder_poison"
+  },
+  "pattern": [
+    "GIG"
+  ],
+  "result": {
+    "count": 2,
+    "id": "hbm:ammo_grenade_toxic"
+  }
+}

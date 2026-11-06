@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "hbm:ammo_grenade",
+    "I": "#hbm:ingots/any_plasticexplosive"
+  },
+  "pattern": [
+    "GIG"
+  ],
+  "result": {
+    "count": 2,
+    "id": "hbm:ammo_grenade_he"
+  }
+}

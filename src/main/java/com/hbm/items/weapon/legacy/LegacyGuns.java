@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunGrenadeFactory;
 import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
 import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
@@ -267,6 +268,21 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_QUADRO_LEGACY;
     public static RegistryHandle<Item> MECHANISM_LAUNCHER_2;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_HE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_TOXIC;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_CONCUSSION;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_FINNED;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_NUCLEAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_TRACER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_KAMPF;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_GRENADE_LEADBURSTER;
+    public static RegistryHandle<ItemGunBase> GUN_HK69;
+    public static RegistryHandle<ItemGunBase> GUN_CONGOLAKE_LEGACY;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -521,6 +537,22 @@ public final class LegacyGuns {
         GUN_PANZERSCHRECK_LEGACY = gun("gun_panzerschreck_legacy", p -> new ItemGunBase(GunRocketFactory.getPanzConfig(), p));
         GUN_QUADRO_LEGACY = gun("gun_quadro_legacy", p -> new ItemGunBase(GunRocketFactory.getQuadroConfig(), p));
         MECHANISM_LAUNCHER_2 = part("mechanism_launcher_2");
+
+        // Grenade
+        AMMO_GRENADE = ammo("ammo_grenade");
+        AMMO_GRENADE_HE = ammo("ammo_grenade_he", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.CON_WEAR);
+        AMMO_GRENADE_INCENDIARY = ammo("ammo_grenade_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_GRENADE_PHOSPHORUS = ammo("ammo_grenade_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS_SPLASH, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR);
+        AMMO_GRENADE_TOXIC = ammo("ammo_grenade_toxic", AmmoItemTrait.PRO_CHLORINE, AmmoItemTrait.CON_NO_EXPLODE1);
+        AMMO_GRENADE_SLEEK = ammo("ammo_grenade_sleek", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.NEU_JOLT);
+        AMMO_GRENADE_CONCUSSION = ammo("ammo_grenade_concussion", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.CON_NO_EXPLODE2);
+        AMMO_GRENADE_FINNED = ammo("ammo_grenade_finned", AmmoItemTrait.PRO_GRAVITY, AmmoItemTrait.CON_RADIUS);
+        AMMO_GRENADE_NUCLEAR = ammo("ammo_grenade_nuclear", AmmoItemTrait.PRO_NUCLEAR, AmmoItemTrait.PRO_RANGE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_GRENADE_TRACER = ammo("ammo_grenade_tracer", AmmoItemTrait.NEU_BLANK);
+        AMMO_GRENADE_KAMPF = ammo("ammo_grenade_kampf", AmmoItemTrait.PRO_ROCKET_PROPELLED, AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.PRO_ACCURATE1, AmmoItemTrait.CON_WEAR);
+        AMMO_GRENADE_LEADBURSTER = ammo("ammo_grenade_leadburster", AmmoItemTrait.NEU_LEADBURSTER, AmmoItemTrait.CON_NO_EXPLODE1);
+        GUN_HK69 = gun("gun_hk69", p -> new ItemGunBase(GunGrenadeFactory.getHK69Config(), p));
+        GUN_CONGOLAKE_LEGACY = gun("gun_congolake_legacy", p -> new ItemGunBase(GunGrenadeFactory.getCongoConfig(), p));
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

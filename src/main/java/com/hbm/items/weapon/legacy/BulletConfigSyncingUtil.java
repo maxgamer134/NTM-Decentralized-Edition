@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunGrenadeFactory;
 import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
 import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
@@ -483,6 +484,20 @@ public final class BulletConfigSyncingUtil {
         configSet.put(ROCKET_NUKE_LASER, GunRocketFactory.getRocketNukeConfig().setToGuided());
         configSet.put(ROCKET_CHAINSAW_LASER, GunRocketFactory.getRocketRPCConfig().setToGuided());
         configSet.put(ROCKET_TOXIC_LASER, GunRocketFactory.getRocketChlorineConfig().setToGuided());
+
+
+        configSet.put(GRENADE_NORMAL, GunGrenadeFactory.getGrenadeConfig());
+        configSet.put(GRENADE_HE, GunGrenadeFactory.getGrenadeHEConfig());
+        configSet.put(GRENADE_INCENDIARY, GunGrenadeFactory.getGrenadeIncendirayConfig());
+        configSet.put(GRENADE_PHOSPHORUS, GunGrenadeFactory.getGrenadePhosphorusConfig());
+        configSet.put(GRENADE_CHEMICAL, GunGrenadeFactory.getGrenadeChlorineConfig());
+        configSet.put(GRENADE_SLEEK, GunGrenadeFactory.getGrenadeSleekConfig());
+        configSet.put(GRENADE_CONCUSSION, GunGrenadeFactory.getGrenadeConcussionConfig());
+        configSet.put(GRENADE_FINNED, GunGrenadeFactory.getGrenadeFinnedConfig());
+        configSet.put(GRENADE_NUCLEAR, GunGrenadeFactory.getGrenadeNuclearConfig());
+        configSet.put(GRENADE_TRACER, GunGrenadeFactory.getGrenadeTracerConfig());
+        configSet.put(GRENADE_KAMPF, GunGrenadeFactory.getGrenadeKampfConfig());
+        configSet.put(GRENADE_LEADBURSTER, GunGrenadeFactory.getGrenadeLeadbursterConfig());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

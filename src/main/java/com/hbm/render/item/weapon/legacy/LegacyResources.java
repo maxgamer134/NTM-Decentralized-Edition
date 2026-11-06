@@ -150,4 +150,8 @@ public final class LegacyResources {
     public static final HFRWavefrontObject model_gustav = Meshes.faceNormals(Library.id("models/weapons/legacy/gustav.obj"));
     public static final HFRWavefrontObject model_panzerschreck = Meshes.faceNormals(Library.id("models/weapons/legacy/panzerschreck.obj"));
     public static final ResourceLocation quadro_rocket_tex = Library.id("textures/models/weapons/quadro_rocket.png");
+
+    public static final HashMap<String, BusAnimation> congolake_anim = AnimationLoader.load(Library.id("models/weapons/animations/legacy/congolake.json"));
+    public static final HFRWavefrontObject congolake = Meshes.load(Library.id("models/weapons/legacy/congolake.obj"));
+    public static final ResourceLocation congolake_tex = Library.id("textures/models/weapons/legacy/congolake.png");
 }

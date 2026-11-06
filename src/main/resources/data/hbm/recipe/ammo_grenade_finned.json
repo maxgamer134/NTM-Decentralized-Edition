@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "minecraft:feather",
+    "R": "hbm:ammo_grenade"
+  },
+  "pattern": [
+    "G",
+    "R"
+  ],
+  "result": {
+    "id": "hbm:ammo_grenade_finned"
+  }
+}

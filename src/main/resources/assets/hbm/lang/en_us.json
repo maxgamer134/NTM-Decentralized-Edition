@@ -9229,5 +9229,8 @@
   "item.hbm.gun_immolator.desc": "Hold right mouse button\nto shoot fire,\nsneak to shoot\nplasma beams!\n\nAmmo: Immolator Fuel\nDamage: 5\nSecondary Damage: 25 - 45",
   "item.hbm.gun_cryolator.desc": "Ice to meet you!\n\nAmmo: Cryolator Ammo\nDamage: 5",
   "item.hbm.gun_hp.desc": "Rrrrt - rrrrt - rrrrt, weeee!\n\nAmmo: Ink Cartridge\nDamage: 25 - 45\n\n[LEGENDARY WEAPON]",
-  "item.hbm.gun_spark.desc": "'magic does not compute'\n'aeiou'\n\nAmmo: Electromagnetic Cartridge\nProjectiles explode on impact.\n\n[LEGENDARY WEAPON]"
+  "item.hbm.gun_spark.desc": "'magic does not compute'\n'aeiou'\n\nAmmo: Electromagnetic Cartridge\nProjectiles explode on impact.\n\n[LEGENDARY WEAPON]",
+  "item.hbm.ammo_cell": "Energy Cell",
+  "item.hbm.ammo_folly_du": "Silver Bullet (DU, Non-Explosive)",
+  "item.hbm.ammo_folly_nuclear": "Silver Bullet (Nuclear)"
 }

@@ -380,6 +380,30 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_STINGER_LEGACY;
     public static RegistryHandle<ItemGunBase> GUN_SKYSTINGER;
 
+    public static RegistryHandle<ItemClipLegacy> CLIP_REVOLVER_PIP;
+    public static RegistryHandle<ItemClipLegacy> CLIP_REVOLVER_NOPIP;
+    public static RegistryHandle<ItemClipLegacy> CLIP_RPG;
+    public static RegistryHandle<ItemClipLegacy> CLIP_STINGER;
+    public static RegistryHandle<ItemClipLegacy> CLIP_FATMAN;
+    public static RegistryHandle<ItemClipLegacy> CLIP_MIRV;
+    public static RegistryHandle<ItemClipLegacy> CLIP_BF;
+    public static RegistryHandle<ItemClipLegacy> CLIP_MP40;
+    public static RegistryHandle<ItemClipLegacy> CLIP_UZI;
+    public static RegistryHandle<ItemClipLegacy> CLIP_UBOINIK;
+    public static RegistryHandle<ItemClipLegacy> CLIP_LEVER_ACTION;
+    public static RegistryHandle<ItemClipLegacy> CLIP_BOLT_ACTION;
+    public static RegistryHandle<ItemClipLegacy> CLIP_OSIPR;
+    public static RegistryHandle<ItemClipLegacy> CLIP_IMMOLATOR;
+    public static RegistryHandle<ItemClipLegacy> CLIP_CRYOLATOR;
+    public static RegistryHandle<ItemClipLegacy> CLIP_MP;
+    public static RegistryHandle<ItemClipLegacy> CLIP_XVL1456;
+    public static RegistryHandle<ItemClipLegacy> CLIP_EMP;
+    public static RegistryHandle<ItemClipLegacy> CLIP_SPARK;
+    public static RegistryHandle<ItemClipLegacy> CLIP_HP;
+    public static RegistryHandle<com.hbm.items.special.ItemCustomLore> AMMO_CELL;
+    public static RegistryHandle<com.hbm.items.special.ItemCustomLore> AMMO_FOLLY_DU;
+    public static RegistryHandle<com.hbm.items.special.ItemCustomLore> AMMO_FOLLY_NUCLEAR;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -748,6 +772,31 @@ public final class LegacyGuns {
         AMMO_STINGER_ROCKET_BONES = ammo("ammo_stinger_rocket_bones");
         GUN_STINGER_LEGACY = gun("gun_stinger_legacy", p -> new ItemGunBase(GunRocketHomingFactory.getStingerConfig(), p));
         GUN_SKYSTINGER = gun("gun_skystinger", p -> new ItemGunBase(GunRocketHomingFactory.getSkyStingerConfig(), p));
+
+        // the remaining clips and lore ammo
+        CLIP_REVOLVER_PIP = clip("clip_revolver_pip", AMMO_44_PIP, 6);
+        CLIP_REVOLVER_NOPIP = clip("clip_revolver_nopip", AMMO_44, 6);
+        CLIP_RPG = clip("clip_rpg", AMMO_ROCKET, 4);
+        CLIP_STINGER = clip("clip_stinger", AMMO_STINGER_ROCKET, 4);
+        CLIP_FATMAN = clip("clip_fatman", AMMO_NUKE, 6);
+        CLIP_MIRV = clip("clip_mirv", AMMO_MIRV, 3);
+        CLIP_BF = clip("clip_bf", AMMO_NUKE_BALEFIRE, 2);
+        CLIP_MP40 = clip("clip_mp40", AMMO_9MM, 32);
+        CLIP_UZI = clip("clip_uzi", AMMO_22LR, 32);
+        CLIP_UBOINIK = clip("clip_uboinik", AMMO_12GAUGE, 12);
+        CLIP_LEVER_ACTION = clip("clip_lever_action", AMMO_20GAUGE, 12);
+        CLIP_BOLT_ACTION = clip("clip_bolt_action", AMMO_20GAUGE_SLUG, 12);
+        CLIP_OSIPR = clip("clip_osipr", GUN_OSIPR_AMMO, 3);
+        CLIP_IMMOLATOR = clip("clip_immolator", GUN_IMMOLATOR_AMMO, 60);
+        CLIP_CRYOLATOR = clip("clip_cryolator", GUN_CRYOLATOR_AMMO, 60);
+        CLIP_MP = clip("clip_mp", AMMO_556_GOLD, 2);
+        CLIP_XVL1456 = clip("clip_xvl1456", GUN_XVL1456_AMMO, 50);
+        CLIP_EMP = clip("clip_emp", GUN_EMP_AMMO, 12);
+        CLIP_SPARK = clip("clip_spark", GUN_SPARK_AMMO, 12);
+        CLIP_HP = clip("clip_hp", GUN_HP_AMMO, 24);
+        AMMO_CELL = item("ammo_cell", com.hbm.items.special.ItemCustomLore::new);
+        AMMO_FOLLY_DU = item("ammo_folly_du", com.hbm.items.special.ItemCustomLore::new);
+        AMMO_FOLLY_NUCLEAR = item("ammo_folly_nuclear", com.hbm.items.special.ItemCustomLore::new);
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

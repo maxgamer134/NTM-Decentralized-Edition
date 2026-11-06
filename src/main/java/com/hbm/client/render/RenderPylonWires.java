@@ -3,11 +3,7 @@
 
 package com.hbm.client.render;
 
-import com.hbm.backport.SubLevelWires;
 import com.hbm.blockentity.network.BlockEntityPylonBase;
-import dev.ryanhcode.sable.companion.ClientSubLevelAccess;
-import dev.ryanhcode.sable.companion.SableCompanion;
-import dev.ryanhcode.sable.companion.math.Pose3dc;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.config.RenderConfig;
 import com.hbm.interfaces.injected.IBufferBuilderExtension;
@@ -27,6 +23,7 @@ import com.hbm.backport.client.core.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -65,7 +62,6 @@ public class RenderPylonWires
         boolean hang = RenderConfig.cableHang;
         BlockPos self = be.getBlockPos();
         Vec3[] mine = be.mounts();
-        boolean spans = be.spansSubLevels();
 
         for (long key : be.connections) {
             BlockPos otherPos = BlockPos.of(key);
@@ -74,55 +70,18 @@ public class RenderPylonWires
             Vec3[] theirs = other.mounts();
             int lines = Math.min(mine.length, theirs.length);
             int shift = lines == 4 && crossed(be, other) ? 2 : 0;
-            // backport-fix: BF-114 the other end is on another build (or in the world)
-            Frames frames =
-                    spans && !SubLevelWires.sameSpace(level, self, otherPos)
-                            ? new Frames(self, otherPos, partialTicks)
-                            : null;
-            Vec3 up = frames == null ? UP : frames.up;
             for (int line = 0; line < lines; line++) {
                 Vec3 from = mine[line % mine.length];
+                // backport: Sable compat - the peer's mount where it is drawn, in this pylon's frame
                 Vec3 to =
-                        frames != null
-                                ? frames.toMine(
-                                        theirs[(line + shift) % theirs.length].add(
-                                                otherPos.getX(), otherPos.getY(), otherPos.getZ()))
-                                : theirs[(line + shift) % theirs.length].add(
-                                        otherPos.getX() - self.getX(),
-                                        otherPos.getY() - self.getY(),
-                                        otherPos.getZ() - self.getZ());
-                half(state, level, self, from, from.add(to.subtract(from).scale(0.5D)), hang, up);
+                        com.hbm.backport.SubLevelLinks.relative(
+                                level,
+                                self,
+                                otherPos,
+                                theirs[(line + shift) % theirs.length].add(
+                                        otherPos.getX(), otherPos.getY(), otherPos.getZ()));
+                half(state, level, self, from, from.add(to.subtract(from).scale(0.5D)), hang);
             }
-        }
-    }
-
-    private static final Vec3 UP = new Vec3(0D, 1D, 0D);
-
-    /**
-     * backport-fix: BF-114 this pylon's block frame and the other end's, when they differ (one on
-     * a Sable build): the far end is taken to the world at its build's render pose, then into this
-     * pylon's frame, so the wire meets it however both builds move.
-     */
-    private static final class Frames {
-        private final BlockPos self;
-        private final @Nullable Pose3dc mine, theirs;
-        final Vec3 up;
-
-        Frames(BlockPos self, BlockPos other, float partialTicks) {
-            this.self = self;
-            ClientSubLevelAccess a = SableCompanion.INSTANCE.getContainingClient(self);
-            ClientSubLevelAccess b = SableCompanion.INSTANCE.getContainingClient(other);
-            this.mine = a == null ? null : a.renderPose(partialTicks);
-            this.theirs = b == null ? null : b.renderPose(partialTicks);
-            Vec3 u = mine == null ? UP : mine.transformNormalInverse(UP);
-            this.up = u.lengthSqr() < 1.0e-6 ? UP : u.normalize();
-        }
-
-        /** {@code point} in the other end's block space, in this pylon's frame (relative). */
-        Vec3 toMine(Vec3 point) {
-            Vec3 world = theirs == null ? point : theirs.transformPosition(point);
-            Vec3 local = mine == null ? world : mine.transformPositionInverse(world);
-            return local.subtract(self.getX(), self.getY(), self.getZ());
         }
     }
 
@@ -140,8 +99,7 @@ public class RenderPylonWires
                 : null;
     }
 
-    private void half(
-            State state, Level level, BlockPos self, Vec3 from, Vec3 mid, boolean hang, Vec3 up) {
+    private void half(State state, Level level, BlockPos self, Vec3 from, Vec3 mid, boolean hang) {
         double dX = from.x - mid.x, dY = from.y - mid.y, dZ = from.z - mid.z;
         double yaw = Math.atan2(dX, dZ);
         double pitch = Math.atan2(dY, Mth.length(dX, dZ));
@@ -163,17 +121,10 @@ public class RenderPylonWires
         for (int j = 0; j < SEGMENTS; j++) {
             double sagJ = Math.sin((double) j / SEGMENTS * Math.PI * 0.5) * sag;
             double sagK = Math.sin((j + 1D) / SEGMENTS * Math.PI * 0.5) * sag;
-            // up is straight up unless this pylon stands on a tilted build: wires sag to the ground
-            Vec3 start =
-                    from.add(delta.scale((double) j / SEGMENTS))
-                            .subtract(up.x * sagJ, up.y * sagJ, up.z * sagJ);
-            Vec3 end =
-                    from.add(delta.scale((j + 1D) / SEGMENTS))
-                            .subtract(up.x * sagK, up.y * sagK, up.z * sagK);
-            double sagM = (sagJ + sagK) / 2D;
+            Vec3 start = from.add(delta.scale((double) j / SEGMENTS)).subtract(0, sagJ, 0);
+            Vec3 end = from.add(delta.scale((j + 1D) / SEGMENTS)).subtract(0, sagK, 0);
             Vec3 sampled =
-                    from.add(delta.scale((j + 0.5D) / SEGMENTS))
-                            .subtract(up.x * sagM, up.y * sagM, up.z * sagM);
+                    from.add(delta.scale((j + 0.5D) / SEGMENTS)).subtract(0, (sagJ + sagK) / 2D, 0);
             int light =
                     net.minecraft.client.renderer.LevelRenderer.getLightColor(
                             level,
@@ -225,14 +176,19 @@ public class RenderPylonWires
     @Override
     public AABB getRenderBoundingBox(BlockEntityPylonBase be) {
         AABB box = new AABB(be.getBlockPos());
-        boolean spans = be.spansSubLevels();
         Level level = be.getLevel();
+        BlockPos self = be.getBlockPos();
         for (long key : be.connections) {
-            BlockPos other = BlockPos.of(key);
-            // backport-fix: BF-114 a far end in another frame: this half reaches at most the wire
-            if (spans && level != null && !SubLevelWires.sameSpace(level, be.getBlockPos(), other))
-                box = box.minmax(new AABB(be.getBlockPos()).inflate(be.maxWireLength()));
-            else box = box.minmax(new AABB(other));
+            BlockPos peer = BlockPos.of(key);
+            // backport: Sable compat - the peer where it is drawn, in this pylon's frame
+            if (level != null && com.hbm.backport.SubLevelLinks.crosses(level, self, peer)) {
+                Vec3 at =
+                        com.hbm.backport.SubLevelLinks.relative(level, self, peer, Vec3.atCenterOf(peer))
+                                .add(self.getX(), self.getY(), self.getZ());
+                box = box.minmax(new AABB(at, at));
+            } else {
+                box = box.minmax(new AABB(peer));
+            }
         }
         return box.inflate(MAX_ARM + GIRTH, 1.0D, MAX_ARM + GIRTH)
                 .expandTowards(0.0D, be.familyLift(), 0.0D)

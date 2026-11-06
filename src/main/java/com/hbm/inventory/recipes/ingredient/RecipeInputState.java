@@ -128,6 +128,7 @@ public final class RecipeInputState {
                 ModDataComponents.RTTY_PAGER_CHANNEL,
                 ModDataComponents.CONVEYOR_RUN,
                 ModDataComponents.UNSTABLE_AT,
+                ModDataComponents.UNSTABLE_TIMER,
                 ModDataComponents.TANK_CONTENTS,
                 ModDataComponents.TOOL_PRESETS,
                 ModDataComponents.TOOLBOX_OPEN,

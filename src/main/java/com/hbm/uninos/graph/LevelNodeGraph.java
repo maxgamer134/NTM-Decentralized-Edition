@@ -4,6 +4,7 @@
 package com.hbm.uninos.graph;
 
 import com.hbm.api.fluidmk2.FlushIndex;
+import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.blocks.multiblock.MultiblockSurface;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.blockentity.GraphResident;
@@ -34,6 +35,7 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.saveddata.SavedData;
 import com.hbm.backport.SavedDataType;
 import org.jspecify.annotations.Nullable;
 import com.hbm.backport.SavedDataCompat;
@@ -1205,7 +1207,15 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
         long chunkKey = chunkOf(posKey);
         if (chunk == null || !chunk.getFullStatus().isOrAfter(FullChunkStatus.FULL)) return chunkKey;
         BlockPos pos = BlockPos.of(posKey);
-        if (chunk.getBlockState(pos).hasBlockEntity()) {
+        BlockState state = chunk.getBlockState(pos);
+        if (state.isAir()) return NO_BLOCKER;
+        // backport-fix: BF-131 a cell of a core block (the upper blocks of an RBMK column: same block,
+        // another state) reports hasBlockEntity() but never gets a block entity of its own; waiting for
+        // one parked the pipe face for good, so the column's steam / hot coolant never reached the pipe.
+        // Such a cell waits for its core's chunk instead.
+        if (state.getBlock() instanceof BlockMultiblockCore core && core.isCellState(state))
+            return MultiblockSurface.coreBlockingChunk(level, pos);
+        if (state.hasBlockEntity()) {
             BlockEntity be = chunk.getBlockEntity(pos, LevelChunk.EntityCreationType.CHECK);
             if (be == null || be.isRemoved()) return chunkKey;
         }
@@ -1591,6 +1601,29 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
         }
     }
 
+    /**
+     * backport: Sable compat - drops the one remote link between {@code a} and {@code b} (a wire or a
+     * pipe stretched too far between a physics build and the world), splitting the network if it
+     * held it together. Rebuilt the way {@link #replaceNode} rebuilds a node, minus that link.
+     */
+    public void cutRemoteLink(long a, long b) {
+        GraphNode<D> node = nodesByPos.get(a);
+        if (node == null || node.remoteLinks == null || !node.remoteLinks.contains(b)) {
+            forgetLink(b, a);
+            return;
+        }
+        try (var batch = PhysicalGraph.begin(ownerLevel)) {
+            long[] links = node.remoteLinks.toLongArray();
+            GraphNode<D> replacement = new GraphNode<>(a, node.data, node.openConnections);
+            replacement.device = node.device;
+            replacement.machineOwned = node.machineOwned;
+            replacement.selfEndpoint = node.selfEndpoint;
+            removeNode(a);
+            addNode(replacement);
+            for (long peer : links) if (peer != b) addRemoteLink(a, peer);
+        }
+    }
+
     public void addRemoteLink(long a, long b) {
         GraphNode<D> na = firstClass(a);
         GraphNode<D> nb = firstClass(b);
@@ -1608,24 +1641,6 @@ public class LevelNodeGraph<D> extends SavedDataCompat {
         setDirty();
         if (!remoteCompatible(na, nb)) return;
         if (na.net != null && nb.net != null && na.net != nb.net) unite(na.net, nb.net);
-    }
-
-    /**
-     * backport-fix: BF-114 drops the wire between {@code a} and {@code b} (both sides) and splits
-     * their network if that wire was the only path between them.
-     */
-    public void removeRemoteLink(long a, long b) {
-        GraphNode<D> na = nodesByPos.get(a);
-        GraphNode<D> nb = nodesByPos.get(b);
-        boolean changed = na != null && na.remoteLinks != null && na.remoteLinks.remove(b);
-        changed |= nb != null && nb.remoteLinks != null && nb.remoteLinks.remove(a);
-        if (!changed) return;
-        setDirty();
-        if (na == null || nb == null || na.net == null || na.net != nb.net) return;
-        List<Object> seeds = new ArrayList<>(2);
-        seeds.add(na);
-        seeds.add(nb);
-        splitNet(na.net, seeds);
     }
 
     public void compact() {

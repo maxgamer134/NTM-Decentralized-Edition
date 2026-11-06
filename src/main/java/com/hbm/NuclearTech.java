@@ -221,7 +221,6 @@ public final class NuclearTech {
         com.hbm.uninos.graph.PhysicalGraph.init(); // backport-fix: BF-097 redraws deferred out of chunk loading // backport-fix: BF-037 safety net behind ChunkPublication
         AssembledMembers.init();
         com.hbm.backport.SubLevelChunks.init(); // backport-fix: BF-075 contraption chunk hooks
-        com.hbm.backport.SubLevelWires.init(); // backport-fix: BF-114 wires to and from builds snap
         ResolvedCapCache.init();
         EndpointRegistry.init();
         ChunkDuctNodes.init();

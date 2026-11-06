@@ -12,6 +12,7 @@ import com.hbm.items.machine.ItemFluidTank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 import net.minecraft.core.Holder;
@@ -131,6 +132,11 @@ public final class FluidContainerRows {
 
     public static void addon(Row row) {
         ROWS.add(row);
+    }
+
+    // backport: each empty item that fills into a whole tank family (disperser canister, gland)
+    public static void forEachFamilyFill(BiConsumer<Item, ItemFluidTank> out) {
+        for (FamilyFill fill : FAMILY_FILLS) out.accept(fill.empty().get().asItem(), fill.family().get());
     }
 
     private static Row row(

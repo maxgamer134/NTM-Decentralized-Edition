@@ -22,8 +22,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.monster.CaveSpider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -122,7 +124,10 @@ public class BlockEntityTrappedBrick extends BlockEntityCompat {
         int dx = dir == null ? 0 : dir.getStepX();
         int dz = dir == null ? 0 : dir.getStepZ();
         net.minecraft.world.phys.Vec3 at = world(level, pos.getX() + 0.5 + dx, pos.getY() + 0.5, pos.getZ() + 0.5 + dz);
-        Arrow arrow = new Arrow(level, at.x, at.y, at.z, ItemStack.EMPTY, ItemStack.EMPTY);
+        // backport-fix: BF-116 1.21.1 throws "Invalid weapon firing an arrow" for an empty
+        // weapon stack; a trap has no weapon (null), and its arrow, as in 1.7.10, can't be picked up
+        Arrow arrow = new Arrow(level, at.x, at.y, at.z, new ItemStack(Items.ARROW), null);
+        arrow.pickup = AbstractArrow.Pickup.DISALLOWED;
         arrow.setDeltaMovement(
                 com.hbm.backport.SubLevelSpace.dirToWorld(com.hbm.backport.SubLevelSpace.frame(level, pos), new net.minecraft.world.phys.Vec3(dx, 0, dz)));
         if (flaming) arrow.igniteForSeconds(60);

@@ -57,10 +57,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     private @Nullable BlockState[] lastPeerStates = new BlockState[0];
     private int lastColor;
     private boolean lastHang;
-    private boolean lastSpans;
     private boolean built;
-    // backport-fix: BF-120 the spanning state this pylon's section was last meshed for
-    private boolean meshedSpans;
 
     public PylonWiresVisual(
             VisualizationContext context, BlockEntityPylonBase blockEntity, float partialTick) {
@@ -103,14 +100,6 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
         if (!inputsChanged() && built) return;
         built = true;
         path.clear();
-        // backport-fix: BF-114 a wire to or from a moving build is redrawn every frame by
-        // RenderPylonWires (skipVanillaRender is off for this pylon then): draw nothing here
-        if (lastSpans) {
-            clear();
-            used = 0;
-            publishSections();
-            return;
-        }
         Vec3[] mine = blockEntity.mounts();
         for (int c = 0; c < lastConnections.length; c++) {
             BlockEntityPylonBase other = lastPeers[c];
@@ -121,11 +110,15 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
             int shift = count == 4 && crossed(blockEntity, other) ? 2 : 0;
             for (int i = 0; i < count; i++) {
                 Vec3 from = mine[i % mine.length];
+                // backport: Sable compat - the peer's mount where it is drawn, in this pylon's frame
+                // (same space: the plain offset, as before)
                 Vec3 to =
-                        theirs[(i + shift) % theirs.length].add(
-                                peer.getX() - pos.getX(),
-                                peer.getY() - pos.getY(),
-                                peer.getZ() - pos.getZ());
+                        com.hbm.backport.SubLevelLinks.relative(
+                                level,
+                                pos,
+                                peer,
+                                theirs[(i + shift) % theirs.length].add(
+                                        peer.getX(), peer.getY(), peer.getZ()));
                 half(from, from.add(to.subtract(from).scale(.5D)), lastHang);
             }
         }
@@ -156,31 +149,10 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
 
     private boolean inputsChanged() {
         long[] connections = blockEntity.connections;
-        boolean spans = blockEntity.spansSubLevels();
         boolean changed =
                 blockEntity.color != lastColor
                         || RenderConfig.cableHang != lastHang
-                        || spans != lastSpans
                         || !Arrays.equals(connections, lastConnections);
-        lastSpans = spans;
-        // backport-fix: BF-120 Flywheel settles whether the vanilla renderer may draw this pylon
-        // (skipVanillaRender) only when its chunk section is meshed, so a wire that starts or stops
-        // leaving its build afterwards was drawn by neither. Re-mesh the section (on the render
-        // thread; visuals tick off it) so RenderPylonWires takes the wire over, or hands it back.
-        if (spans != meshedSpans) {
-            meshedSpans = spans;
-            BlockPos at = pos;
-            net.minecraft.client.Minecraft.getInstance()
-                    .execute(
-                            () -> {
-                                BlockState now = level.getBlockState(at);
-                                level.sendBlockUpdated(
-                                        at,
-                                        now,
-                                        now,
-                                        net.minecraft.world.level.block.Block.UPDATE_IMMEDIATE);
-                            });
-        }
         if (changed) {
             lastConnections = connections.clone();
             lastColor = blockEntity.color;
@@ -189,6 +161,9 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
             lastPeerStates = new BlockState[connections.length];
         }
         for (int i = 0; i < connections.length; i++) {
+            // backport: Sable compat - a wire to another space moves with the build: redraw every tick
+            if (com.hbm.backport.SubLevelLinks.crosses(level, pos, BlockPos.of(connections[i])))
+                changed = true;
             BlockEntityPylonBase peer =
                     ChunkUtil.blockEntityIfLoaded(level, BlockPos.of(connections[i]))
                                     instanceof BlockEntityPylonBase other

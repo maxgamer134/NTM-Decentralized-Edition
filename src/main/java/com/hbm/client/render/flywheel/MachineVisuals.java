@@ -453,27 +453,21 @@ public final class MachineVisuals {
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.PYLON_REDWIRE.get())
                 .factory(PylonWiresVisual::new)
-                .skipVanillaRender(be -> !be.spansSubLevels()) // backport-fix: BF-114
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.PYLON_MEDIUM.get())
                 .factory(PylonWiresVisual::new)
-                .skipVanillaRender(be -> !be.spansSubLevels()) // backport-fix: BF-114
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.CONNECTOR_REDWIRE.get())
                 .factory(PylonWiresVisual::new)
-                .skipVanillaRender(be -> !be.spansSubLevels()) // backport-fix: BF-114
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.CONNECTOR_REDWIRE_SUPER.get())
                 .factory(PylonWiresVisual::new)
-                .skipVanillaRender(be -> !be.spansSubLevels()) // backport-fix: BF-114
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.PYLON_LARGE.get())
                 .factory(PylonWiresVisual::new)
-                .skipVanillaRender(be -> !be.spansSubLevels()) // backport-fix: BF-114
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.SUBSTATION.get())
                 .factory(PylonWiresVisual::new)
-                .skipVanillaRender(be -> !be.spansSubLevels()) // backport-fix: BF-114
                 .apply();
         SimpleBlockEntityVisualizer.builder(ModBlockEntities.FOUNDRY_TANK.get())
                 .factory(FoundryTankVisual::new)

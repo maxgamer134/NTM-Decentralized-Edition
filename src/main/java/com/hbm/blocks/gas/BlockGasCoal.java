@@ -4,7 +4,7 @@
 package com.hbm.blocks.gas;
 
 import com.hbm.extprop.HbmLivingProps;
-import com.hbm.data.RadiationData;
+import com.hbm.config.RadiationConfig;
 import com.hbm.hazard.HazardClass;
 import com.hbm.particle.AshRevealParticleOptions;
 import com.hbm.util.ArmorRegistry;
@@ -44,7 +44,7 @@ public class BlockGasCoal extends BlockGasBase {
             InsideBlockEffectApplier applier,
             boolean isPrecise) {
         if (level.isClientSide() || !(entity instanceof LivingEntity living)) return;
-        if (RadiationData.coalDisabled()) return;
+        if (RadiationConfig.coalDustDisabled()) return;
         if (!ArmorRegistry.hasProtection(living, EquipmentSlot.HEAD, HazardClass.PARTICLE_COARSE)) {
             HbmLivingProps.incrementBlackLung(living, 10);
         }

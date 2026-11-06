@@ -98,6 +98,10 @@ public final class NuclearTechNeoForge {
         NeoForgeServerEvents.install();
         NeoForgeRegistrar.subscribe(modBus);
         NuclearTech.init();
+        // backport: Create electric motors (com.hbm.integration.create.motor); registered here, with
+        // NTM's own blocks, and only with Create installed
+        if (ModList.get().isLoaded("create"))
+            com.hbm.integration.create.motor.CreateMotors.register();
         NeoForge.EVENT_BUS.addListener(CapabilityInvalidation::onLevelTick);
         NeoForge.EVENT_BUS.addListener(ArmorModChestLootNeoForge::onLootTableLoad);
         modBus.addListener(
@@ -195,6 +199,16 @@ public final class NuclearTechNeoForge {
                         HbmPlayerProps.getData(player).grenadeDeployment = 0;
                 });
         NeoForgeHbmConfig.registerSpecs(container);
+        // backport: the datapack's gameplay groups as an ordinary config file (GameplayConfig)
+        container.registerConfig(
+                ModConfig.Type.COMMON,
+                com.hbm.data.GameplayConfig.SPEC,
+                com.hbm.data.GameplayConfig.FILE);
+        modBus.addListener(
+                (ModConfigEvent.Reloading event) -> {
+                    if (event.getConfig().getSpec() == com.hbm.data.GameplayConfig.SPEC)
+                        com.hbm.data.GameplayConfig.onReload();
+                });
 
         DeferredRegister<MapCodec<? extends ICondition>> conditionCodecs =
                 DeferredRegister.create(
@@ -226,8 +240,11 @@ public final class NuclearTechNeoForge {
                     if (ModList.get().isLoaded("simulated"))
                         com.hbm.backport.SimulatedCompat.register();
                     // backport: Create's Engineer's Goggles as a helmet mod (CreateGogglesCompat)
-                    if (ModList.get().isLoaded("create"))
+                    if (ModList.get().isLoaded("create")) {
                         com.hbm.integration.create.CreateGogglesCompat.register();
+                        // backport-fix: BF-127 hanging NTM blocks ride Create contraptions
+                        com.hbm.integration.create.CreateContraptionCompat.register();
+                    }
                     if (ModList.get().isLoaded("sophisticatedstorage")) {
                         HazardSystem.addTransformer(new HazardTransformerSophisticatedStorage());
                         com.hbm.neoforge.inventory.SophisticatedItemInteriors.registerStorage();

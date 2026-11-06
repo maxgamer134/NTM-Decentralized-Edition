@@ -188,12 +188,17 @@ public final class NuclearTechNeoForgeClient {
                         ConsumableTreatments.applyDataPack(event.getPlayer().registryAccess());
                         HazardSystem.applyDataPack(event.getPlayer().registryAccess());
                         CustomMachineDefinitions.applyDataPack(event.getPlayer().registryAccess());
+                        // backport: on a remote server the server's hbm-gameplay.toml counts
+                        com.hbm.data.GameplayConfig.joinedRemote();
                         DataGroups.applyAll(event.getPlayer().registryAccess());
                     }
                     CrateOpenHeldPayload.report();
                     FarView.joined();
                 });
         modBus.addListener((FMLClientSetupEvent event) -> NuclearTech.deriveClientConfigFacades());
+        // backport: Create electric motors (integration.create.motor): shaft renderer, tooltips
+        if (ModList.get().isLoaded("create"))
+            com.hbm.integration.create.motor.CreateMotorsClient.register(modBus);
         // backport: Ponder guides (com.hbm.integration.ponder), only when Ponder is present
         modBus.addListener(
                 (FMLClientSetupEvent event) -> {
@@ -214,6 +219,9 @@ public final class NuclearTechNeoForgeClient {
         NeoForge.EVENT_BUS.addListener(
                 (ClientPlayerNetworkEvent.LoggingOut event) ->
                         RadiationResistanceTooltip.disconnected());
+        // backport: back to the own hbm-gameplay.toml after leaving a remote server
+        NeoForge.EVENT_BUS.addListener(
+                (ClientPlayerNetworkEvent.LoggingOut event) -> com.hbm.data.GameplayConfig.left());
         NeoForge.EVENT_BUS.addListener(
                 (ClientPlayerNetworkEvent.LoggingOut event) -> {
                     if (!Minecraft.getInstance().hasSingleplayerServer()) {

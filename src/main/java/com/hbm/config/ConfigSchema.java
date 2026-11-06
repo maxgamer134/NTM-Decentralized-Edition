@@ -251,14 +251,6 @@ public final class ConfigSchema {
                     1,
                     Integer.MAX_VALUE,
                     "Ticks between radiation simulation steps. Consumed once at startup.");
-    public static final ConfigEntry<Boolean> DISABLE_COAL_DUST =
-            bool(
-                    Domain.RUNTIME,
-                    "radiation",
-                    "disable_coal_dust",
-                    false,
-                    "Turns off every coal dust hazard (coal gas from mined coal, black lung, coal items) in "
-                            + "all worlds. The per-world datapack value disable_coal still works too.");
     public static final ConfigEntry<Integer> HAZARD_RATE =
             integer(
                     Domain.RUNTIME,
@@ -268,6 +260,16 @@ public final class ConfigSchema {
                     1,
                     Integer.MAX_VALUE,
                     "Ticks between item/inventory hazard applications.");
+    // backport-fix: BF-126 (GitHub #34) 1.7.10's HAZ_01_disableCoaldust back as a config line; the
+    // hazards datapack value disable_coal keeps working, either one turns coal dust off
+    public static final ConfigEntry<Boolean> DISABLE_COAL_DUST =
+            bool(
+                    Domain.RUNTIME,
+                    "radiation",
+                    "disable_coal_dust",
+                    false,
+                    "When enabled, all coal dust hazards are disabled (the hazards datapack value "
+                            + "disable_coal does the same for one world)");
 
     public static final ConfigEntry<Integer> LIMIT_EXPLOSION_LIFESPAN =
             integer(
@@ -365,6 +367,67 @@ public final class ConfigSchema {
                             + " chunks, hive blocks already in the world stop spawning glyphids, scouts no longer spawn"
                             + " from soot or build new hives. Glyphids already in the world stay; spawn eggs and"
                             + " commands still work.");
+
+    // backport: on/off for the world objects NTM scatters over new chunks and for the nuclear
+    // creeper (Discord request after a crashed balefire bomb went off in someone's base). Not in
+    // ntm-next (datapack only); 1.7.10 had spawn rates (WorldConfig 4.xx_*Spawn) where 0 meant
+    // "default", so nothing could be turned off. The placed features ask through
+    // world/placement/ConfigSwitchPlacement ("hbm:config_switch"), when a chunk generates.
+    public static final ConfigEntry<Boolean> WORLD_DUDS =
+            worldObject("duds", "Crashed bombs (duds): balefire, nuclear, salted and conventional");
+    public static final ConfigEntry<Boolean> WORLD_METEORITES =
+            worldObject("meteorites", "Fallen meteorites (not the meteor strikes from the sky)");
+    public static final ConfigEntry<Boolean> WORLD_WASTE_BARRELS =
+            worldObject("waste_barrels", "Buried nuclear waste barrels");
+    public static final ConfigEntry<Boolean> WORLD_LANDING_CAPSULES =
+            worldObject("landing_capsules", "Landing capsules");
+    public static final ConfigEntry<Boolean> WORLD_LOCKED_SAFES =
+            worldObject("locked_safes", "Locked safes");
+    public static final ConfigEntry<Boolean> WORLD_LANTERN_BEHEMOTHS =
+            worldObject("lantern_behemoths", "Lantern behemoths");
+    public static final ConfigEntry<Boolean> WORLD_ARCTIC_VAULTS =
+            worldObject("arctic_vaults", "Arctic code vaults");
+    public static final ConfigEntry<Boolean> WORLD_LIBRARY_DUNGEONS =
+            worldObject("library_dungeons", "Library dungeons");
+    public static final ConfigEntry<Boolean> WORLD_GEYSERS =
+            worldObject("geysers", "Geysers in the Overworld");
+    public static final ConfigEntry<Boolean> WORLD_NETHER_GEYSERS =
+            worldObject("nether_geysers", "Geysers in the Nether");
+
+    /** The [world_objects] lines, looked up by key from the placed features. */
+    public static final List<ConfigEntry<Boolean>> WORLD_OBJECTS =
+            List.of(
+                    WORLD_DUDS,
+                    WORLD_METEORITES,
+                    WORLD_WASTE_BARRELS,
+                    WORLD_LANDING_CAPSULES,
+                    WORLD_LOCKED_SAFES,
+                    WORLD_LANTERN_BEHEMOTHS,
+                    WORLD_ARCTIC_VAULTS,
+                    WORLD_LIBRARY_DUNGEONS,
+                    WORLD_GEYSERS,
+                    WORLD_NETHER_GEYSERS);
+
+    public static final ConfigEntry<Boolean> NUCLEAR_CREEPERS =
+            bool(
+                    Domain.RUNTIME,
+                    "mobs",
+                    "nuclear_creepers",
+                    true,
+                    "Whether a creeper that has taken 200 RAD or more can turn into a nuclear creeper"
+                            + " (1 in 3; otherwise the radiation deals it 100 damage), as in 1.7.10. When"
+                            + " false, irradiated creepers stay ordinary creepers. Nuclear creepers already"
+                            + " in the world stay; spawn eggs and commands still work.");
+
+    private static ConfigEntry<Boolean> worldObject(String key, String what) {
+        return bool(
+                Domain.RUNTIME,
+                "world_objects",
+                key,
+                true,
+                what + " generate in new chunks. Already generated ones stay; takes effect without"
+                        + " a restart.");
+    }
 
     public static final ConfigEntry<Integer> TOOL_RECURSION_DEPTH =
             integer(
@@ -567,8 +630,8 @@ public final class ConfigSchema {
                     ENABLE_528_FORCE_REASIM_BOILERS,
                     ENABLE_528_BOSNIA_SIMULATOR,
                     RAD_TICK_RATE,
-                    DISABLE_COAL_DUST,
                     HAZARD_RATE,
+                    DISABLE_COAL_DUST,
                     LIMIT_EXPLOSION_LIFESPAN,
                     BLAST_SPEED,
                     MK5_BLAST_TIME,
@@ -579,6 +642,17 @@ public final class ConfigSchema {
                     FOREIGN_EXPORT_RESERVE,
                     WAYPOINT_DEBUG,
                     GLYPHIDS_ENABLED,
+                    WORLD_DUDS,
+                    WORLD_METEORITES,
+                    WORLD_WASTE_BARRELS,
+                    WORLD_LANDING_CAPSULES,
+                    WORLD_LOCKED_SAFES,
+                    WORLD_LANTERN_BEHEMOTHS,
+                    WORLD_ARCTIC_VAULTS,
+                    WORLD_LIBRARY_DUNGEONS,
+                    WORLD_GEYSERS,
+                    WORLD_NETHER_GEYSERS,
+                    NUCLEAR_CREEPERS,
                     TOOL_RECURSION_DEPTH,
                     DAMAGE_COMPATIBILITY_MODE,
                     ITEM_HAZARD_DROP_TICKRATE,

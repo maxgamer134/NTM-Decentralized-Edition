@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/aluminum",
+    "P": "hbm:mechanism_revolver_2",
+    "T": "#c:fine_wires/tungsten",
+    "I": "#minecraft:planks"
+  },
+  "pattern": [
+    "SSP",
+    " TI"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_silver"
+  }
+}

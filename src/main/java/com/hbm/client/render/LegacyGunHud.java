@@ -30,6 +30,8 @@ public final class LegacyGunHud {
         if (player == null || Minecraft.getInstance().isPaused()) return;
         ItemStack stack = player.getMainHandItem();
         if (stack.getItem() instanceof ItemGunBio) ItemGunBio.updateSmoke(player, stack, player.getRandom());
+        if (stack.getItem() instanceof com.hbm.items.weapon.legacy.ItemGunPip)
+            com.hbm.items.weapon.legacy.ItemGunPip.updateSmoke(player, stack, player.getRandom());
     }
 
     public static boolean renderCrosshair(GuiGraphicsExtractor graphics, Player player, ItemStack stack) {

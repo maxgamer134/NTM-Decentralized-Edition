@@ -3335,5 +3335,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.44shoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/44shoot",
+        "stream": false
+      }
+    ]
   }
 }

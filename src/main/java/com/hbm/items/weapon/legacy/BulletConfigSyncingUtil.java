@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
 import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
 import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
 import com.hbm.items.weapon.legacy.factory.Gun20GaugeFactory;
@@ -356,6 +357,18 @@ public final class BulletConfigSyncingUtil {
         configSet.put(LR22_AP_FIRE, Gun22LRFactory.get22LRAPConfig().setToFire(3));
         configSet.put(CHL_LR22, Gun22LRFactory.get22LRConfig().setToHoming(LegacyGuns.AMMO_22LR_CHLOROPHYTE));
         configSet.put(CHL_LR22_FIRE, Gun22LRFactory.get22LRConfig().setToFire(3).setToHoming(LegacyGuns.AMMO_22LR_CHLOROPHYTE));
+
+
+        configSet.put(M44_NORMAL, Gun44MagnumFactory.getNoPipConfig());
+        configSet.put(M44_AP, Gun44MagnumFactory.getNoPipAPConfig());
+        configSet.put(M44_DU, Gun44MagnumFactory.getNoPipDUConfig());
+        configSet.put(M44_PHOSPHORUS, Gun44MagnumFactory.getPhosphorusConfig());
+        configSet.put(M44_STAR, Gun44MagnumFactory.getNoPipStarConfig());
+        configSet.put(M44_PIP, Gun44MagnumFactory.getPipConfig());
+        configSet.put(M44_BJ, Gun44MagnumFactory.getBJConfig());
+        configSet.put(M44_SILVER, Gun44MagnumFactory.getSilverStormConfig());
+        configSet.put(M44_ROCKET, Gun44MagnumFactory.getRocketConfig());
+        configSet.put(CHL_M44, Gun44MagnumFactory.getNoPipConfig().setToHoming(LegacyGuns.AMMO_44_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

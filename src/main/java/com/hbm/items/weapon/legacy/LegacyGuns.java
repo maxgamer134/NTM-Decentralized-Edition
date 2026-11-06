@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
 import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
 import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
 import com.hbm.items.weapon.legacy.factory.Gun20GaugeFactory;
@@ -127,6 +128,25 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> CASING_9;
     public static RegistryHandle<Item> PELLET_CHLOROPHYTE;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_STAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_CHLOROPHYTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_PIP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_BJ;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_SILVER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_ROCKET;
+    public static RegistryHandle<ItemGunPip> GUN_REVOLVER_PIP;
+    public static RegistryHandle<ItemGunBase> GUN_REVOLVER_NOPIP;
+    public static RegistryHandle<ItemGunBase> GUN_REVOLVER_BLACKJACK;
+    public static RegistryHandle<ItemGunBase> GUN_REVOLVER_SILVER;
+    public static RegistryHandle<ItemGunBase> GUN_REVOLVER_RED;
+    public static RegistryHandle<Item> ASSEMBLY_NOPIP;
+
+    public static RegistryHandle<Item> CASING_44;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -240,6 +260,27 @@ public final class LegacyGuns {
         ASSEMBLY_UZI = part("assembly_uzi");
         CASING_9 = part("casing_9");
         PELLET_CHLOROPHYTE = part("pellet_chlorophyte");
+
+        // 44
+        AMMO_44 = ammo("ammo_44");
+        AMMO_44_AP = ammo("ammo_44_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_44_DU = ammo("ammo_44_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_44_PHOSPHORUS = ammo("ammo_44_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
+        AMMO_44_STAR = ammo("ammo_44_star", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_STARMETAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_44_CHLOROPHYTE = ammo("ammo_44_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        AMMO_44_PIP = ammo("ammo_44_pip", AmmoItemTrait.NEU_BOXCAR, AmmoItemTrait.CON_DAMAGE);
+        AMMO_44_BJ = ammo("ammo_44_bj", AmmoItemTrait.NEU_BOAT, AmmoItemTrait.CON_DAMAGE);
+        AMMO_44_SILVER = ammo("ammo_44_silver", AmmoItemTrait.NEU_BUILDING, AmmoItemTrait.CON_DAMAGE);
+        AMMO_44_ROCKET = ammo("ammo_44_rocket", AmmoItemTrait.PRO_ROCKET, AmmoItemTrait.NEU_UHH);
+        GUN_REVOLVER_PIP = gun("gun_revolver_pip", p -> new ItemGunPip(Gun44MagnumFactory.getMacintoshConfig(), p));
+        GUN_REVOLVER_NOPIP = gun("gun_revolver_nopip", p -> new ItemGunBase(Gun44MagnumFactory.getNovacConfig(), p));
+        GUN_REVOLVER_BLACKJACK = gun("gun_revolver_blackjack", p -> new ItemGunBase(Gun44MagnumFactory.getBlackjackConfig(), p));
+        GUN_REVOLVER_SILVER = gun("gun_revolver_silver", p -> new ItemGunBase(Gun44MagnumFactory.getSilverConfig(), p));
+        GUN_REVOLVER_RED = gun("gun_revolver_red", p -> new ItemGunBase(Gun44MagnumFactory.getRedConfig(), p));
+        ASSEMBLY_NOPIP = part("assembly_nopip");
+
+        // 44 casing
+        CASING_44 = part("casing_44");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

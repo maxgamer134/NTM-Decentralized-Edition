@@ -73,4 +73,16 @@ public final class LegacyResources {
     public static final HFRWavefrontObject model_uzi = Meshes.faceNormals(Library.id("models/weapons/legacy/uzi.obj"));
     public static final HFRWavefrontObject model_uzibarrel = Meshes.faceNormals(Library.id("models/weapons/legacy/uzibarrel.obj"));
     public static final HFRWavefrontObject model_uzisilencer = Meshes.faceNormals(Library.id("models/weapons/legacy/uzisilencer.obj"));
+
+    public static final HashMap<String, BusAnimation> novac_anim = AnimationLoader.load(Library.id("models/weapons/animations/novac.json"));
+    public static final HFRWavefrontObject lilmac = Meshes.load(Library.id("models/weapons/legacy/lilmac.obj"));
+    public static final ResourceLocation lilmac_scope_tex = Library.id("textures/models/weapons/lilmac_scope.png");
+    public static final ResourceLocation lilmac_tex = Library.id("textures/models/weapons/lilmac.png");
+    public static final ResourceLocation blackjack_tex = Library.id("textures/models/weapons/blackjack.png");
+    public static final ResourceLocation lent_gun_tex = Library.id("textures/models/weapons/lent_gun.png");
+    public static final ResourceLocation lil_pip_tex = Library.id("textures/models/weapons/lil_pip.png");
+    public static final HFRWavefrontObject novac = Meshes.load(Library.id("models/weapons/novac.obj"));
+    public static final ResourceLocation novac_scope_tex = Library.id("textures/models/weapons/novac_scope.png");
+    public static final ResourceLocation novac_tex = Library.id("textures/models/weapons/novac.png");
+    public static final ResourceLocation red_key_tex = Library.id("textures/models/weapons/red_key.png");
 }

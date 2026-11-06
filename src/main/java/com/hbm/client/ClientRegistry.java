@@ -1527,6 +1527,7 @@ public final class ClientRegistry {
     public static void setupGunClient() {
         GunFactoryClient.init();
         com.hbm.render.item.weapon.legacy.Renderers357.init();
+        com.hbm.render.item.weapon.legacy.Renderers44.init();
         com.hbm.render.item.weapon.legacy.Renderers22LR.init();
         com.hbm.render.item.weapon.legacy.RenderersGauge.init();
     }

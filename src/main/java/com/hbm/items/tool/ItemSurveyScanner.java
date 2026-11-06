@@ -62,7 +62,8 @@ public class ItemSurveyScanner extends ItemCompat {
             Set<Deposit> deposits,
             ItemStack bedrockOre,
             List<Component> lines,
-            Map<BlockPos, Component> bedrockOil) {}
+            Map<BlockPos, Component> bedrockOil,
+            Map<BlockPos, Component> bedrockOres) {}
 
     private record Line(Component message, List<Supplier<? extends Block>> blocks) {}
 
@@ -123,21 +124,29 @@ public class ItemSurveyScanner extends ItemCompat {
                         break;
                     }
                 }
+            }
+        }
 
-                BlockPos node = new BlockPos(origin.getX() + a * 2, floor, origin.getZ() + b * 2);
-                if (level.getBlockState(node).is(ModBlocks.ORE_BEDROCK.get())) {
-                    bedrockOre =
-                            level.getBlockEntity(node) instanceof BlockEntityBedrockOre ore
-                                    ? ore.resource
-                                    : ItemStack.EMPTY;
-                }
+        // backport-fix: BF-142 main looks for bedrock ore in the player's own chunk, on the floor,
+        // and puts a red "Bedrock Ore" marker on each one; ours sampled a 2-block grid around the
+        // player and marked nothing. main only checks the chunk centre +-2 because that is where
+        // its worldgen puts the ore; ours places it anywhere in the chunk, so the whole chunk is read
+        Map<BlockPos, Component> bedrockOres = new LinkedHashMap<>();
+        net.minecraft.world.level.ChunkPos chunk = new net.minecraft.world.level.ChunkPos(origin);
+        for (int x = chunk.getMinBlockX(); x <= chunk.getMaxBlockX(); x++) {
+            for (int z = chunk.getMinBlockZ(); z <= chunk.getMaxBlockZ(); z++) {
+                BlockPos node = new BlockPos(x, floor, z);
+                if (!level.getBlockState(node).is(ModBlocks.ORE_BEDROCK.get())) continue;
+                bedrockOres.put(node, Component.literal("Bedrock Ore"));
+                if (level.getBlockEntity(node) instanceof BlockEntityBedrockOre ore
+                        && !ore.resource.isEmpty()) bedrockOre = ore.resource;
             }
         }
         List<Component> found = new ArrayList<>();
         for (int line = lines.nextSetBit(0); line >= 0; line = lines.nextSetBit(line + 1)) {
             found.add(LINES.get(line).message());
         }
-        return new Survey(deposits, bedrockOre, found, bedrockOil);
+        return new Survey(deposits, bedrockOre, found, bedrockOil, bedrockOres);
     }
 
     @Override
@@ -154,6 +163,11 @@ public class ItemSurveyScanner extends ItemCompat {
                                         "chat.surveyScanner.foundBedrockOreFor",
                                         survey.bedrockOre().getHoverName())
                                 .withStyle(ChatFormatting.RED));
+            }
+            if (!survey.bedrockOres().isEmpty()) {
+                PacketWire.sendTo(
+                        new MarkerPayload(0xff0000, 15_000, 300D, survey.bedrockOres()),
+                        serverPlayer);
             }
             // main: a black "Bedrock Oil" marker on each hit, 15 s, visible from 300 blocks
             if (!survey.bedrockOil().isEmpty()) {

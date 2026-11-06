@@ -6,11 +6,17 @@ package com.hbm.handler;
 import com.hbm.entity.grenade.EntityGrenadeUniversal;
 import com.hbm.items.ModItems;
 import com.hbm.items.tool.ItemFertilizer;
+import com.hbm.items.tool.ItemModMinecart;
 import com.hbm.items.weapon.grenade.ItemGrenadeShell.EnumGrenadeShell;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.LevelEvent;
 
@@ -72,6 +78,45 @@ public final class DispenserBehaviorHandler {
                                         0);
                     }
                 });
+
+        // backport-fix: BF-143 main's carts come out of a dispenser onto the rail in front of it
+        // (or the rail one below an empty block), like vanilla carts; ours were dropped as items
+        DefaultDispenseItemBehavior cartBehavior =
+                new DefaultDispenseItemBehavior() {
+                    private final DefaultDispenseItemBehavior drop =
+                            new DefaultDispenseItemBehavior();
+
+                    @Override
+                    protected ItemStack execute(BlockSource source, ItemStack stack) {
+                        Direction facing = source.state().getValue(DispenserBlock.FACING);
+                        Level level = source.level();
+                        double x = source.center().x + facing.getStepX() * 1.125D;
+                        double y = source.center().y + facing.getStepY() * 1.125D;
+                        double z = source.center().z + facing.getStepZ() * 1.125D;
+                        BlockPos front = source.pos().relative(facing);
+                        double yOffset;
+                        if (level.getBlockState(front).is(BlockTags.RAILS)) {
+                            yOffset = 0.0D;
+                        } else {
+                            if (!level.getBlockState(front).isAir()
+                                    || !level.getBlockState(front.below()).is(BlockTags.RAILS)) {
+                                return drop.dispense(source, stack);
+                            }
+                            yOffset = -1.0D;
+                        }
+                        Entity cart =
+                                ItemModMinecart.createMinecart(level, x, y + yOffset, z, stack);
+                        if (stack.has(DataComponents.CUSTOM_NAME)) {
+                            cart.setCustomName(stack.get(DataComponents.CUSTOM_NAME));
+                        }
+                        level.addFreshEntity(cart);
+                        stack.shrink(1);
+                        return stack;
+                    }
+                };
+        for (ItemModMinecart.EnumMinecart cart : ItemModMinecart.EnumMinecart.VALUES) {
+            DispenserBlock.registerBehavior(ModItems.CART.get(cart), cartBehavior);
+        }
 
         DispenserBlock.registerProjectileBehavior(ModItems.STICK_DYNAMITE.get());
         DispenserBlock.registerProjectileBehavior(ModItems.STICK_DYNAMITE_FISHING.get());

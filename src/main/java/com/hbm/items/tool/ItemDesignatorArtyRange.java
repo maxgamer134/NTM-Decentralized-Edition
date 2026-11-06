@@ -22,8 +22,6 @@ import com.hbm.backport.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import com.hbm.backport.compat.ItemCompat;
 
 public class ItemDesignatorArtyRange extends ItemCompat {
@@ -91,9 +89,8 @@ public class ItemDesignatorArtyRange extends ItemCompat {
         if (packed == null) return InteractionResult.PASS;
         if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-        HitResult hit = player.pick(REACH, 1.0F, false);
-        if (hit.getType() != HitResult.Type.BLOCK) return InteractionResult.PASS;
-        BlockPos aim = ((BlockHitResult) hit).getBlockPos();
+        // backport-fix: BF-140 main's trace, which still names a spot when aimed at the sky
+        BlockPos aim = com.hbm.lib.Library.rayTrace(player, REACH).getBlockPos();
 
         BlockEntity be = level.getBlockEntity(BlockPos.of(packed));
         if (be instanceof BlockEntityTurretBaseArtillery arty) {

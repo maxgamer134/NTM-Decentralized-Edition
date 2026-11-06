@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "ingredient": "hbm:powder_chlorophyte"
+    },
+    {
+      "count": 12,
+      "ingredient": "#c:nuggets/lead"
+    }
+  ],
+  "order": 99120,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:pellet_chlorophyte"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 1
+}

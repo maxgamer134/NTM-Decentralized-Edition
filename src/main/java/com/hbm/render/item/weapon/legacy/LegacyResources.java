@@ -69,4 +69,8 @@ public final class LegacyResources {
     public static final ResourceLocation ff_wood_red = Library.id("textures/models/weapons/ff/wood_red.png");
     public static final HFRWavefrontObject uboinik = Meshes.faceNormals(Library.id("models/weapons/legacy/uboinik.obj"));
     public static final ResourceLocation uboinik_tex = Library.id("textures/models/ModelUboinik.png");
+
+    public static final HFRWavefrontObject model_uzi = Meshes.faceNormals(Library.id("models/weapons/legacy/uzi.obj"));
+    public static final HFRWavefrontObject model_uzibarrel = Meshes.faceNormals(Library.id("models/weapons/legacy/uzibarrel.obj"));
+    public static final HFRWavefrontObject model_uzisilencer = Meshes.faceNormals(Library.id("models/weapons/legacy/uzisilencer.obj"));
 }

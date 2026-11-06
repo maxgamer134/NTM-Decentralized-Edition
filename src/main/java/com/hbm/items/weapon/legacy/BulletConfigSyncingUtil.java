@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
 import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
 import com.hbm.items.weapon.legacy.factory.Gun20GaugeFactory;
 import com.hbm.items.weapon.legacy.factory.Gun12GaugeFactory;
@@ -347,6 +348,14 @@ public final class BulletConfigSyncingUtil {
         configSet.put(G20_CAUSTIC_FIRE, Gun20GaugeFactory.get20GaugeCausticConfig().setToFire(3));
         configSet.put(G20_SHOCK_FIRE, Gun20GaugeFactory.get20GaugeShockConfig().setToFire(3));
         configSet.put(G20_WITHER_FIRE, Gun20GaugeFactory.get20GaugeWitherConfig().setToFire(3));
+
+
+        configSet.put(LR22_NORMAL, Gun22LRFactory.get22LRConfig());
+        configSet.put(LR22_AP, Gun22LRFactory.get22LRAPConfig());
+        configSet.put(LR22_NORMAL_FIRE, Gun22LRFactory.get22LRConfig().setToFire(3));
+        configSet.put(LR22_AP_FIRE, Gun22LRFactory.get22LRAPConfig().setToFire(3));
+        configSet.put(CHL_LR22, Gun22LRFactory.get22LRConfig().setToHoming(LegacyGuns.AMMO_22LR_CHLOROPHYTE));
+        configSet.put(CHL_LR22_FIRE, Gun22LRFactory.get22LRConfig().setToFire(3).setToHoming(LegacyGuns.AMMO_22LR_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

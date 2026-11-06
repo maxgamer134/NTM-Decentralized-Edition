@@ -192,6 +192,33 @@ public class BulletConfiguration implements Cloneable {
         return this;
     }
 
+    public BulletConfiguration setToHoming(Supplier<? extends net.minecraft.world.item.Item> ammo) {
+        this.ammo = ammo;
+        return getChlorophyte();
+    }
+
+    public BulletConfiguration getChlorophyte() {
+        this.bntUpdate = com.hbm.items.weapon.legacy.factory.BulletConfigFactory.getHomingBehavior(30, 180);
+        this.bntHurt = com.hbm.items.weapon.legacy.factory.BulletConfigFactory.getPenHomingBehavior();
+        this.dmgMin *= 2F;
+        this.dmgMax *= 2F;
+        this.wear *= 0.5;
+        this.velocity *= 0.3;
+        this.doesRicochet = false;
+        this.doesPenetrate = true;
+        this.vPFX = "greendust";
+        if (this.spentCasing != null) {
+            int[] colors = this.spentCasing.getColors();
+            this.spentCasing = this.spentCasing.clone();
+            if (colors != null && colors.length > 0) {
+                int[] colorClone = colors.clone();
+                colorClone[colorClone.length - 1] = 0x659750; // standard chlorophyte colouring in last place
+                this.spentCasing.setColor(colorClone).register(this.spentCasing.getName() + "Cl");
+            }
+        }
+        return this;
+    }
+
     public DamageSource getDamage(EntityBulletBaseNT bullet, LivingEntity shooter) {
         var type =
                 bullet.level()

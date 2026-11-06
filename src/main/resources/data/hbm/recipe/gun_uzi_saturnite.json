@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:ingots/saturnite",
+    "M": "hbm:mechanism_rifle_2",
+    "P": "#c:plates/saturnite",
+    "B": "#c:bolts/tungsten"
+  },
+  "pattern": [
+    "SMS",
+    " PB",
+    " P "
+  ],
+  "result": {
+    "id": "hbm:gun_uzi_saturnite"
+  }
+}

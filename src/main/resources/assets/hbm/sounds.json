@@ -3326,5 +3326,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.uzishoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/uzishoot",
+        "stream": false
+      }
+    ]
   }
 }

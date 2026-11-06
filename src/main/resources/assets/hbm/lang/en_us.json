@@ -9009,5 +9009,12 @@
   "item.hbm.gun_ks23": "Samuel the Big Shotgun",
   "item.hbm.gun_sauer": "Stan Sauer's Shotgun",
   "item.hbm.gun_lever_action": "Mare's Leg (Original)",
-  "item.hbm.gun_lever_action_dark": "Mare's Leg (Dark)"
+  "item.hbm.gun_lever_action_dark": "Mare's Leg (Dark)",
+  "item.hbm.ammo_22lr": ".22 LR Round",
+  "item.hbm.ammo_22lr_ap": ".22 LR Round (Armor Piercing)",
+  "item.hbm.ammo_22lr_chlorophyte": ".22 LR Round (Chlorophyte)",
+  "item.hbm.gun_uzi_legacy": "IMI Uzi",
+  "item.hbm.gun_uzi_silencer": "IMI Uzi with Silencer",
+  "item.hbm.gun_uzi_saturnite": "Saturnite Uzi",
+  "item.hbm.gun_uzi_saturnite_silencer": "Saturnite Uzi with Silencer"
 }

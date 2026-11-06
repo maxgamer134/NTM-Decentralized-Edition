@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
 import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
 import com.hbm.items.weapon.legacy.factory.Gun20GaugeFactory;
 import com.hbm.items.weapon.legacy.factory.Gun12GaugeFactory;
@@ -115,6 +116,17 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> PELLET_CLAWS;
     public static RegistryHandle<Item> TOOTHPICKS;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_22LR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_22LR_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_22LR_CHLOROPHYTE;
+    public static RegistryHandle<ItemGunBase> GUN_UZI_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_UZI_SILENCER;
+    public static RegistryHandle<ItemGunBase> GUN_UZI_SATURNITE;
+    public static RegistryHandle<ItemGunBase> GUN_UZI_SATURNITE_SILENCER;
+    public static RegistryHandle<Item> ASSEMBLY_UZI;
+    public static RegistryHandle<Item> CASING_9;
+    public static RegistryHandle<Item> PELLET_CHLOROPHYTE;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -216,6 +228,18 @@ public final class LegacyGuns {
         PELLET_CANISTER = part("pellet_canister");
         PELLET_CLAWS = part("pellet_claws");
         TOOTHPICKS = part("toothpicks");
+
+        // 22LR
+        AMMO_22LR = ammo("ammo_22lr");
+        AMMO_22LR_AP = ammo("ammo_22lr_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_22LR_CHLOROPHYTE = ammo("ammo_22lr_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        GUN_UZI_LEGACY = gun("gun_uzi_legacy", p -> new ItemGunBase(Gun22LRFactory.getUziConfig(), p));
+        GUN_UZI_SILENCER = gun("gun_uzi_silencer", p -> new ItemGunBase(Gun22LRFactory.getUziConfig().silenced(), p));
+        GUN_UZI_SATURNITE = gun("gun_uzi_saturnite", p -> new ItemGunBase(Gun22LRFactory.getSaturniteConfig(), p));
+        GUN_UZI_SATURNITE_SILENCER = gun("gun_uzi_saturnite_silencer", p -> new ItemGunBase(Gun22LRFactory.getSaturniteConfig().silenced(), p));
+        ASSEMBLY_UZI = part("assembly_uzi");
+        CASING_9 = part("casing_9");
+        PELLET_CHLOROPHYTE = part("pellet_chlorophyte");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

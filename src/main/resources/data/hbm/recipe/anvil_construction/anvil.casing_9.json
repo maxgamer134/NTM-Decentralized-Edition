@@ -1,0 +1,14 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "ingredient": "#c:plates/copper"
+    }
+  ],
+  "order": 99111,
+  "output_items": [
+    "hbm:casing_9"
+  ],
+  "overlay": "construction",
+  "tier": 1
+}

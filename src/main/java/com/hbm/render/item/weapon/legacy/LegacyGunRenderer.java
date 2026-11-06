@@ -65,6 +65,12 @@ public abstract class LegacyGunRenderer {
         collector.submitCustomGeometry(pose, type(tex), (p, buffer) -> model.renderPart(p, buffer, light, argb, part));
     }
 
+    /** an item check by registry id, for main renderers shared with guns of families ported later */
+    protected static boolean is(ItemStack stack, String id) {
+        var key = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return key.getNamespace().equals("hbm") && key.getPath().equals(id);
+    }
+
     /** main's WeaponConfig.linearAnimations client switch (default off) */
     public static boolean linearAnimations = false;
 

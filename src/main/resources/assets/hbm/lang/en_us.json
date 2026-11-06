@@ -9036,5 +9036,11 @@
   "item.hbm.ammo_45_ap": ".45 ACP Bullet (AP)",
   "item.hbm.ammo_45_du": ".45 ACP Bullet (DU)",
   "item.hbm.gun_thompson": "Thompson Submachine Gun",
-  "item.hbm.gun_uac_pistol": "UAC .45 Pistol"
+  "item.hbm.gun_uac_pistol": "UAC .45 Pistol",
+  "item.hbm.ammo_50ae": ".50 AE Round",
+  "item.hbm.ammo_50ae_ap": ".50 AE Round (Armor Piercing)",
+  "item.hbm.ammo_50ae_du": ".50 AE Round (DU)",
+  "item.hbm.ammo_50ae_star": ".50 AE Round (Starmetal)",
+  "item.hbm.ammo_50ae_chlorophyte": ".50 AE Round (Chlorophyte)",
+  "item.hbm.gun_deagle": "Big Iron"
 }

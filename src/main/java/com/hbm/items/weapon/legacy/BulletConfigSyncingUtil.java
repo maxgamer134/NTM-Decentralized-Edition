@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
 import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
 import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
 import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
@@ -375,6 +376,13 @@ public final class BulletConfigSyncingUtil {
         configSet.put(ACP_45, Gun45ACPFactory.get45AutoConfig());
         configSet.put(ACP_45_AP, Gun45ACPFactory.get45AutoAPConfig());
         configSet.put(ACP_45_DU, Gun45ACPFactory.get45AutoDUConfig());
+
+
+        configSet.put(AE50_NORMAL, Gun50AEFactory.get50AEConfig());
+        configSet.put(AE50_AP, Gun50AEFactory.get50APConfig());
+        configSet.put(AE50_DU, Gun50AEFactory.get50DUConfig());
+        configSet.put(AE50_STAR, Gun50AEFactory.get50StarConfig());
+        configSet.put(CHL_AE50, Gun50AEFactory.get50AEConfig().setToHoming(LegacyGuns.AMMO_50AE_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

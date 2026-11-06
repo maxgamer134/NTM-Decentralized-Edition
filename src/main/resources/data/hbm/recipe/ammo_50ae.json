@@ -1,0 +1,11 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:nitra",
+    "hbm:nitra"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:ammo_50ae"
+  }
+}

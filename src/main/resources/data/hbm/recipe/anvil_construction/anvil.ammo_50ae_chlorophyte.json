@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 32,
+      "ingredient": "hbm:ammo_50ae"
+    },
+    {
+      "ingredient": "hbm:pellet_chlorophyte"
+    }
+  ],
+  "order": 99548,
+  "output_items": [
+    {
+      "count": 32,
+      "id": "hbm:ammo_50ae_chlorophyte"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 3
+}

@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
 import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
 import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
 import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
@@ -155,6 +156,14 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_UAC_PISTOL;
     public static RegistryHandle<Item> ASSEMBLY_45;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50AE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50AE_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50AE_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50AE_STAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50AE_CHLOROPHYTE;
+    public static RegistryHandle<ItemGunBase> GUN_DEAGLE;
+    public static RegistryHandle<Item> ASSEMBLY_ACTIONEXPRESS;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -297,6 +306,15 @@ public final class LegacyGuns {
         GUN_THOMPSON = gun("gun_thompson", p -> new ItemGunBase(Gun45ACPFactory.getThompsonConfig(), p));
         GUN_UAC_PISTOL = gun("gun_uac_pistol", p -> new ItemGunBase(Gun45ACPFactory.getUACPistolConfig(), Gun45ACPFactory.getUACPistolBurstConfig(), p));
         ASSEMBLY_45 = part("assembly_45");
+
+        // 50AE
+        AMMO_50AE = ammo("ammo_50ae");
+        AMMO_50AE_AP = ammo("ammo_50ae_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_50AE_DU = ammo("ammo_50ae_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_50AE_STAR = ammo("ammo_50ae_star", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_STARMETAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_50AE_CHLOROPHYTE = ammo("ammo_50ae_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        GUN_DEAGLE = gun("gun_deagle", p -> new ItemGunBase(Gun50AEFactory.getDeagleConfig(), p));
+        ASSEMBLY_ACTIONEXPRESS = part("assembly_actionexpress");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

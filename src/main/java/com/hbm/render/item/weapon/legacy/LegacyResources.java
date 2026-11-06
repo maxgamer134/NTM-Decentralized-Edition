@@ -90,4 +90,25 @@ public final class LegacyResources {
     public static final ResourceLocation thompson_tex = Library.id("textures/models/weapons/thompson.png");
     public static final HFRWavefrontObject uac_pistol = Meshes.load(Library.id("models/weapons/UAC pistol.obj"));
     public static final ResourceLocation uac_pistol_tex = Library.id("textures/models/weapons/pistol_texture.png");
+
+    public static final HFRWavefrontObject deagle = Meshes.load(Library.id("models/weapons/deagle.obj"));
+    public static final HFRWavefrontObject flamer = Meshes.load(Library.id("models/weapons/flamer.obj"));
+    public static final ResourceLocation flamer_tex = Library.id("textures/models/weapons/flamer.png");
+    public static final HFRWavefrontObject flechette = Meshes.load(Library.id("models/weapons/flechette.obj"));
+    public static final ResourceLocation flechette_barrel = Library.id("textures/models/weapons/flechette_barrel.png");
+    public static final ResourceLocation flechette_base = Library.id("textures/models/weapons/flechette_base.png");
+    public static final ResourceLocation flechette_body = Library.id("textures/models/weapons/flechette_body.png");
+    public static final ResourceLocation flechette_chamber = Library.id("textures/models/weapons/flechette_chamber.png");
+    public static final ResourceLocation flechette_drum = Library.id("textures/models/weapons/flechette_drum.png");
+    public static final ResourceLocation flechette_gren_tube = Library.id("textures/models/weapons/flechette_gren_tube.png");
+    public static final ResourceLocation flechette_grenades = Library.id("textures/models/weapons/flechette_grenades.png");
+    public static final ResourceLocation flechette_pivot = Library.id("textures/models/weapons/flechette_pivot.png");
+    public static final ResourceLocation flechette_stock = Library.id("textures/models/weapons/flechette_stock.png");
+    public static final ResourceLocation flechette_top = Library.id("textures/models/weapons/flechette_top.png");
+    public static final ResourceLocation flechette_trigger = Library.id("textures/models/weapons/flechette_trigger.png");
+    public static final HFRWavefrontObject hk69 = Meshes.load(Library.id("models/weapons/hk69.obj"));
+    public static final ResourceLocation hk69_tex = Library.id("textures/models/weapons/hk69.png");
+    public static final HFRWavefrontObject quadro = Meshes.load(Library.id("models/weapons/legacy/quadro.obj"));
+    public static final ResourceLocation quadro_tex = Library.id("textures/models/weapons/quadro.png");
+    public static final ResourceLocation universal_bright = Library.id("textures/models/turbofan_blades.png");
 }

@@ -144,4 +144,6 @@ public final class LegacyResources {
     public static final ResourceLocation rem700poly_tex = Library.id("textures/models/weapons/ff/rem700poly.png");
     public static final HFRWavefrontObject rem700sat = Meshes.load(Library.id("models/weapons/rem700sat.obj"));
     public static final ResourceLocation rem700sat_tex = Library.id("textures/models/weapons/ff/rem700sat.png");
+
+    public static final HFRWavefrontObject model_mp40 = Meshes.faceNormals(Library.id("models/weapons/legacy/mp40.obj"));
 }

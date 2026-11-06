@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun75BoltFactory;
 import com.hbm.items.weapon.legacy.factory.Gun5mmFactory;
@@ -238,6 +239,14 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_BOLT_ACTION_SATURNITE;
     public static RegistryHandle<Item> ASSEMBLY_762;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_9MM;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_9MM_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_9MM_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_9MM_CHLOROPHYTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_9MM_ROCKET;
+    public static RegistryHandle<ItemGunBase> GUN_MP40;
+    public static RegistryHandle<Item> ASSEMBLY_SMG;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -463,6 +472,15 @@ public final class LegacyGuns {
         GUN_BOLT_ACTION_GREEN = gun("gun_bolt_action_green", p -> new ItemGunBase(Gun762mmFactory.getBoltGreenConfig(), p));
         GUN_BOLT_ACTION_SATURNITE = gun("gun_bolt_action_saturnite", p -> new ItemGunBase(Gun762mmFactory.getBoltSaturniteConfig(), p));
         ASSEMBLY_762 = part("assembly_762");
+
+        // 9mm
+        AMMO_9MM = ammo("ammo_9mm");
+        AMMO_9MM_AP = ammo("ammo_9mm_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_9MM_DU = ammo("ammo_9mm_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_9MM_CHLOROPHYTE = ammo("ammo_9mm_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        AMMO_9MM_ROCKET = ammo("ammo_9mm_rocket", AmmoItemTrait.PRO_ROCKET, AmmoItemTrait.NEU_UHH);
+        GUN_MP40 = gun("gun_mp40", p -> new ItemGunBase(Gun9mmFactory.getMP40Config(), p));
+        ASSEMBLY_SMG = part("assembly_smg");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

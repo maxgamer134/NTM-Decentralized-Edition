@@ -9099,5 +9099,11 @@
   "item.hbm.gun_calamity": "Buzzsaw",
   "item.hbm.gun_bolt_action": "Dream Bolt-Action Rifle (Original)",
   "item.hbm.gun_bolt_action_green": "Dream Bolt-Action Rifle (Green)",
-  "item.hbm.gun_bolt_action_saturnite": "Saturnite Rifle"
+  "item.hbm.gun_bolt_action_saturnite": "Saturnite Rifle",
+  "item.hbm.ammo_9mm": "9mm Round",
+  "item.hbm.ammo_9mm_ap": "9mm Round (Armor Piercing)",
+  "item.hbm.ammo_9mm_du": "9mm Round (DU)",
+  "item.hbm.ammo_9mm_chlorophyte": "9mm Round (Chlorophyte)",
+  "item.hbm.ammo_9mm_rocket": "9mm Rocket",
+  "item.hbm.gun_mp40": "Submachine Gun"
 }

@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun75BoltFactory;
 import com.hbm.items.weapon.legacy.factory.Gun5mmFactory;
@@ -448,6 +449,13 @@ public final class BulletConfigSyncingUtil {
         configSet.put(R762_DU, Gun762mmFactory.get762DUConfig());
         configSet.put(R762_TRACER, Gun762mmFactory.get762TracerConfig());
         configSet.put(R762_K, Gun762mmFactory.get762BlankConfig());
+
+
+        configSet.put(P9_NORMAL, Gun9mmFactory.get9mmConfig());
+        configSet.put(P9_AP, Gun9mmFactory.get9mmAPConfig());
+        configSet.put(P9_DU, Gun9mmFactory.get9mmDUConfig());
+        configSet.put(P9_ROCKET, Gun9mmFactory.get9mmRocketConfig());
+        configSet.put(CHL_P9, Gun9mmFactory.get9mmConfig().setToHoming(LegacyGuns.AMMO_9MM_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

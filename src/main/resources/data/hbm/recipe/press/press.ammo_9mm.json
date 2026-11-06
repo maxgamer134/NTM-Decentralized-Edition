@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_smg"
+    }
+  ],
+  "order": 99231,
+  "output_items": [
+    {
+      "count": 32,
+      "id": "hbm:ammo_9mm"
+    }
+  ],
+  "stamp": "c9"
+}

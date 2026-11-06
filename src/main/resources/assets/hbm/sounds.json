@@ -3526,5 +3526,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.zomgshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/zomgshoot",
+        "stream": false
+      }
+    ]
   }
 }

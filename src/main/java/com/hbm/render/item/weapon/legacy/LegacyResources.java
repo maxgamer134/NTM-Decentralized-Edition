@@ -163,4 +163,7 @@ public final class LegacyResources {
     public static final ResourceLocation tau_tex = Library.id("textures/models/weapons/tau.png");
 
     public static final HFRWavefrontObject model_osipr = Meshes.faceNormals(Library.id("models/weapons/legacy/osipr.obj"));
+
+    public static final HFRWavefrontObject glass_cannon = Meshes.load(Library.id("models/weapons/glass_cannon.obj"));
+    public static final ResourceLocation glass_cannon_panel_tex = Library.id("textures/models/weapons/glass_cannon_panel.png");
 }

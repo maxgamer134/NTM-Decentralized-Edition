@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunPoweredFactory;
 import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
 import com.hbm.items.weapon.legacy.factory.GunGaussFactory;
 import com.hbm.items.weapon.legacy.factory.GunDartFactory;
@@ -318,6 +319,8 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> GUN_OSIPR_AMMO;
     public static RegistryHandle<Item> GUN_OSIPR_AMMO2;
 
+    public static RegistryHandle<ItemEnergyGunBase> GUN_GLASS_CANNON;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -623,6 +626,9 @@ public final class LegacyGuns {
         GUN_OSIPR = gun("gun_osipr", p -> new ItemGunOSIPR(GunOSIPRFactory.getOSIPRConfig(), GunOSIPRFactory.getAltConfig(), p));
         GUN_OSIPR_AMMO = part("gun_osipr_ammo");
         GUN_OSIPR_AMMO2 = part("gun_osipr_ammo2");
+
+        // Powered
+        GUN_GLASS_CANNON = gun("gun_glass_cannon", p -> new ItemEnergyGunBase(GunPoweredFactory.getGlassCannonConfig(), p));
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

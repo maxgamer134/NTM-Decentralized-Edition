@@ -89,6 +89,8 @@ public final class HbmAnimationPayload extends ThreadedPayload {
                         GunAnimation.values()[payload.type],
                         payload.receiverIndex,
                         payload.itemIndex);
+            } else if (stack.getItem() instanceof com.hbm.items.weapon.legacy.ItemGunBase gun) {
+                handleLegacy(slot, stack, gun, payload.type);
             } else if (stack.getItem() instanceof IAnimatedItem item) {
                 handleAnimatedItem(
                         slot,
@@ -98,6 +100,28 @@ public final class HbmAnimationPayload extends ThreadedPayload {
             }
         } catch (Exception x) {
         }
+    }
+
+    /** backport-fix: BF-161 main 1.0.27_X5000's GunAnimationPacket for the pre-rework guns */
+    private static void handleLegacy(
+            int slot, ItemStack stack, com.hbm.items.weapon.legacy.ItemGunBase gun, int ordinal) {
+        var type = com.hbm.items.weapon.legacy.AnimType.VALUES[ordinal];
+        BusAnimation animation = gun.getAnimation(stack, type);
+        if (animation == null
+                && (type == com.hbm.items.weapon.legacy.AnimType.RELOAD_EMPTY))
+            animation = gun.getAnimation(stack, com.hbm.items.weapon.legacy.AnimType.RELOAD);
+        if (animation == null
+                && (type == com.hbm.items.weapon.legacy.AnimType.ALT_CYCLE
+                        || type == com.hbm.items.weapon.legacy.AnimType.CYCLE_EMPTY))
+            animation = gun.getAnimation(stack, com.hbm.items.weapon.legacy.AnimType.CYCLE);
+        if (animation == null) return;
+        boolean holdLastFrame =
+                (type == com.hbm.items.weapon.legacy.AnimType.RELOAD
+                                || type == com.hbm.items.weapon.legacy.AnimType.RELOAD_CYCLE
+                                || type == com.hbm.items.weapon.legacy.AnimType.RELOAD_EMPTY)
+                        && gun.mainConfig.reloadAnimationsSequential;
+        HbmAnimations.hotbar[slot][0] =
+                new Animation(stack.getItem().getDescriptionId(), GameTime.millis(), animation, holdLastFrame);
     }
 
     private static void handleAnimatedItem(

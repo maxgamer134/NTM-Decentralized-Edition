@@ -8952,5 +8952,22 @@
   "block.hbm.create_motor_desh.tooltip.condition1": "When Powered by Redstone",
   "block.hbm.create_motor_desh.tooltip.behaviour1": "_Switches off_. It starts again as soon as the signal is gone.",
   "block.hbm.create_motor_desh.tooltip.condition2": "When the Supply Fails",
-  "block.hbm.create_motor_desh.tooltip.behaviour2": "An _undervoltage relay_ stops the motor. It _restarts_ on its own shortly after power returns."
+  "block.hbm.create_motor_desh.tooltip.behaviour2": "An _undervoltage relay_ stops the motor. It _restarts_ on its own shortly after power returns.",
+  "item.hbm.ammo_357_desh": ".357 Magnum Desh Bullet",
+  "item.hbm.ammo_357_gold": "Golden Bullet",
+  "item.hbm.ammo_357_iron": "Bullet",
+  "item.hbm.ammo_357_lead": "Lead Bullet",
+  "item.hbm.ammo_357_nightmare1": "Nightmare Bullet",
+  "item.hbm.ammo_357_nightmare2": "Laser Buckshot",
+  "item.hbm.ammo_357_nuclear": "Glass Covered Nuclear Bullet",
+  "item.hbm.ammo_357_schrabidium": "Schrabidium Bullet",
+  "item.hbm.ammo_357_steel": "Steel Bullet",
+  "item.hbm.gun_bio_revolver": "Atlas",
+  "item.hbm.gun_revolver": "Enhanced Revolver",
+  "item.hbm.gun_revolver_cursed": "Cursed Revolver",
+  "item.hbm.gun_revolver_gold": "Golden Revolver",
+  "item.hbm.gun_revolver_nightmare": "Nightmare Revolver (Original)",
+  "item.hbm.gun_revolver_nightmare2": "Nightmare Revolver (Dark)",
+  "item.hbm.gun_revolver_saturnite": "Saturnite Shooter",
+  "item.hbm.gun_revolver_schrabidium": "Schrabidium Revolver"
 }

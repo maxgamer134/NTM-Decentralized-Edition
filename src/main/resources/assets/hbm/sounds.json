@@ -3113,5 +3113,156 @@
       "hbm:alarm/singer3",
       "hbm:alarm/singer4"
     ]
+  },
+  "weapon.deagleshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/deagleshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.fatmanreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/fatmanreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.gbounce": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/gbounce1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/gbounce2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/gbounce3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.glreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/glreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.heavyshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/heavyshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hkreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hkreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.magreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/magreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.magreloadbolt": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/magreloadbolt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.mukeexplosion": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/mukeexplosion",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.revolverreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/revolverreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.revolvershoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/revolvershoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.rpgreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/rpgreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.schrabidiumshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/schrabidiumshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunreload1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/shotgunreload2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/shotgunreload3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.silencershoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/silencershoot",
+        "stream": false
+      }
+    ]
   }
 }

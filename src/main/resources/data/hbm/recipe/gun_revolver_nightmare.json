@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "W": "#minecraft:planks",
+    "R": "#c:fine_wires/aluminum",
+    "E": "hbm:powder_power",
+    "M": "hbm:mechanism_revolver_2"
+  },
+  "pattern": [
+    "SEM",
+    " RW"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_nightmare"
+  }
+}

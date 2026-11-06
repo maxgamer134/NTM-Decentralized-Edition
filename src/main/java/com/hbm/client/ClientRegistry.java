@@ -350,6 +350,7 @@ public final class ClientRegistry {
         ItemGunBaseNT.clientHeldTick();
         ItemGrenadeUniversal.clientHeldTick();
         ItemBoltgun.clientHeldTick();
+        com.hbm.client.render.LegacyGunHud.clientTick();
         ItemGunBaseNT.clientRecoilTick();
         RadFogVisuals.tick();
         RocketFlameVisuals.tick();
@@ -519,6 +520,7 @@ public final class ClientRegistry {
         reg.register("mesh", MeshItemRenderer.Unbaked.MAP_CODEC);
         reg.register("grenade", GrenadeItemRenderer.Unbaked.MAP_CODEC);
         reg.register("boltgun", BoltgunItemRenderer.Unbaked.MAP_CODEC);
+        reg.register("legacy_gun", com.hbm.client.render.LegacyGunItemRenderer.Unbaked.MAP_CODEC);
         reg.register("chainsaw", ChainsawItemRenderer.Unbaked.MAP_CODEC);
         reg.register("crucible", CrucibleItemRenderer.Unbaked.MAP_CODEC);
         reg.register("gun_b92", GunB92ItemRenderer.Unbaked.MAP_CODEC);
@@ -871,6 +873,7 @@ public final class ClientRegistry {
         reg.accept(ModEntities.WASTE_ITEM.get(), ItemEntityRenderer::new);
         reg.accept(ModEntities.SHRAPNEL.get(), ctx -> new RenderShrapnel<>(ctx));
         reg.accept(ModEntities.BULLET_MK4.get(), RenderBulletMK4::new);
+        reg.accept(ModEntities.BULLET_NT.get(), RenderBulletLegacy::new);
         reg.accept(ModEntities.BULLET_BEAM.get(), RenderBeam::new);
         reg.accept(ModEntities.BULLET.get(), RenderBullet::new);
         reg.accept(ModEntities.COIN.get(), RenderCoin::new);
@@ -1464,6 +1467,7 @@ public final class ClientRegistry {
         var player = Minecraft.getInstance().player;
         if (player == null) return;
         var stack = player.getMainHandItem();
+        if (com.hbm.client.render.LegacyGunHud.renderAmmo(graphics, player, stack)) return;
         if (!(stack.getItem() instanceof ItemGunBaseNT gun)) return;
 
         for (int i = 0; i < gun.getConfigCount(); i++) {
@@ -1499,12 +1503,15 @@ public final class ClientRegistry {
 
         if (net.minecraft.client.Minecraft.getInstance().options.hideGui) return false;
         var player = Minecraft.getInstance().player;
-        return player != null && player.getMainHandItem().getItem() instanceof ItemGunBaseNT;
+        return player != null
+                && (player.getMainHandItem().getItem() instanceof ItemGunBaseNT
+                        || player.getMainHandItem().getItem() instanceof com.hbm.items.weapon.legacy.ItemGunBase);
     }
 
     public static void renderGunCrosshair(GuiGraphicsExtractor graphics) {
         var player = Minecraft.getInstance().player;
         var stack = player.getMainHandItem();
+        if (com.hbm.client.render.LegacyGunHud.renderCrosshair(graphics, player, stack)) return;
         var gun = (ItemGunBaseNT) stack.getItem();
         var config = gun.getConfig(stack, 0);
         if (gun instanceof ItemGunStinger) {
@@ -1519,6 +1526,7 @@ public final class ClientRegistry {
 
     public static void setupGunClient() {
         GunFactoryClient.init();
+        com.hbm.render.item.weapon.legacy.Renderers357.init();
     }
 
     public static void renderToolAbilityHud(GuiGraphicsExtractor graphics) {

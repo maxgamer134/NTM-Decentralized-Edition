@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "I": "#c:ingots/steel",
+    "R": "#c:fine_wires/mingrade",
+    "T": "#c:plates/titanium",
+    "M": "hbm:mechanism_revolver_2"
+  },
+  "pattern": [
+    "TTM",
+    "SRI"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_cursed"
+  }
+}

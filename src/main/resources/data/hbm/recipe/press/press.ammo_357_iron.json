@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_iron"
+    }
+  ],
+  "order": 99001,
+  "output_items": [
+    {
+      "count": 24,
+      "id": "hbm:ammo_357_iron"
+    }
+  ],
+  "stamp": "c357"
+}

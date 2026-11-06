@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "#c:ingots/uranium_235",
+    "G": "hbm:cordite",
+    "C": "#c:glass_blocks/colorless"
+  },
+  "pattern": [
+    " I",
+    "GC"
+  ],
+  "result": {
+    "id": "hbm:assembly_lead"
+  }
+}

@@ -273,7 +273,9 @@ public final class Keybinds {
 
     public static boolean isGunHeld() {
         Player player = Minecraft.getInstance().player;
-        return player != null && player.getMainHandItem().getItem() instanceof ItemGunBaseNT;
+        return player != null
+                && (player.getMainHandItem().getItem() instanceof ItemGunBaseNT
+                        || player.getMainHandItem().getItem() instanceof com.hbm.items.weapon.legacy.ItemGunBase);
     }
 
     private static void abilityChanged(int index, boolean pressed) {

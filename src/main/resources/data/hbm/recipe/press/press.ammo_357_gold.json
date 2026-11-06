@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_gold"
+    }
+  ],
+  "order": 99004,
+  "output_items": [
+    {
+      "count": 24,
+      "id": "hbm:ammo_357_gold"
+    }
+  ],
+  "stamp": "c357"
+}

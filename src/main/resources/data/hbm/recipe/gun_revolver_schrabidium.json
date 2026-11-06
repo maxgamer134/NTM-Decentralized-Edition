@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:storage_blocks/schrabidium",
+    "W": "#c:ingots/tungsten",
+    "R": "#c:fine_wires/schrabidium",
+    "M": "hbm:mechanism_special"
+  },
+  "pattern": [
+    "SSM",
+    " RW"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_schrabidium"
+  }
+}

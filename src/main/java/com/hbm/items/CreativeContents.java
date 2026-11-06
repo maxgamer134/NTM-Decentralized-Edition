@@ -3557,6 +3557,7 @@ public final class CreativeContents {
         items(out, "glyphid_gland_empty");
         acceptDisperser(out, ModItems.GLYPHID_GLAND.get());
         items(out, "ullapool_caber", "weaponized_starblaster_cell");
+        com.hbm.items.weapon.legacy.LegacyGuns.acceptTab(out);
     }
 
     private static void acceptConsumables(Consumer<ItemStack> out) {

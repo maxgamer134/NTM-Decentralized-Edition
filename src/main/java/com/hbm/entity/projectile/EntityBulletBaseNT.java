@@ -74,6 +74,8 @@ public class EntityBulletBaseNT extends EntityThrowableInterp {
 
     private BulletConfiguration config;
     public float overrideDamage;
+    /** main kept this in getEntityData() for the homing bullets */
+    public int homingTarget;
 
     public EntityBulletBaseNT(EntityType<? extends EntityBulletBaseNT> type, Level level) {
         super(type, level);

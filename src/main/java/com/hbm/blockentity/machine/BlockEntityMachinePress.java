@@ -13,7 +13,6 @@ import com.hbm.inventory.recipes.PressRecipes;
 import com.hbm.inventory.recipes.loader.Outputs;
 import com.hbm.inventory.recipes.StampTypes;
 import com.hbm.packet.SyncField;
-import com.hbm.util.TickPhase;
 import com.hbm.packet.SyncSlots;
 import com.hbm.packet.SyncUnitSchema;
 import com.hbm.sound.ModSounds;
@@ -110,14 +109,14 @@ public class BlockEntityMachinePress extends BlockEntityMachineBase
         int prevProgress = progress;
         int prevSpeed = speed;
 
-        // backport-fix: BF-065 the preheater was only noticed when a block next to the press
-        // changed, so a press built onto a preheater that was already there stayed cold. 1.7.10
-        // looks every tick; once a second is enough
-        if (TickPhase.every(this, 20)) refreshPreheater();
-
         boolean canProcess = canProcess();
 
         if ((canProcess || isRetracting) && burnTime >= FUEL_PER_OP) {
+            // backport-fix: BF-065 the preheater was only noticed when a block next to the press
+            // changed, so a press built onto a preheater that was already there stayed cold.
+            // backport-fix: BF-145 1.7.10 looks every tick, not once a second; the answer only
+            // matters while the press speeds up, so it looks every tick it does that
+            refreshPreheater();
             speed = Math.min(MAX_SPEED, speed + (preheated ? 4 : 1));
         } else {
             speed = Math.max(0, speed - 1);

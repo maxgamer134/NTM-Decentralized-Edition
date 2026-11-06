@@ -7,7 +7,7 @@ import com.hbm.data.RadiationData;
 
 public final class RadiationConfig {
 
-    public static int hazardRate = 5;
+    public static int hazardRate = 1;
 
     public static int radTickRate = 1;
 

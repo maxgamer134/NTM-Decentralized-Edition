@@ -1,0 +1,12 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:ammo_4gauge",
+    "hbm:nugget_bismuth",
+    "hbm:nugget_tantalium",
+    "hbm:ball_dynamite"
+  ],
+  "result": {
+    "id": "hbm:ammo_4gauge_titan"
+  }
+}

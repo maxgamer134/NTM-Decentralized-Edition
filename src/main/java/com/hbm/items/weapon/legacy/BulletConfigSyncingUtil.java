@@ -5,6 +5,9 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
+import com.hbm.items.weapon.legacy.factory.Gun20GaugeFactory;
+import com.hbm.items.weapon.legacy.factory.Gun12GaugeFactory;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntOpenHashMap;
 
@@ -296,6 +299,54 @@ public final class BulletConfigSyncingUtil {
         configSet.put(GOLD_HS, Gun357MagnumFactory.getRevGoldConfig().setHeadshot(3F));
         configSet.put(LEAD_HS, Gun357MagnumFactory.getRevLeadConfig().setHeadshot(3F));
         configSet.put(DESH_HS, Gun357MagnumFactory.getRevDeshConfig().setHeadshot(3F));
+
+
+        configSet.put(G20_NORMAL, Gun20GaugeFactory.get20GaugeConfig());
+        configSet.put(G20_SLUG, Gun20GaugeFactory.get20GaugeSlugConfig());
+        configSet.put(G20_FLECHETTE, Gun20GaugeFactory.get20GaugeFlechetteConfig());
+        configSet.put(G20_FIRE, Gun20GaugeFactory.get20GaugeFireConfig());
+        configSet.put(G20_SHRAPNEL, Gun20GaugeFactory.get20GaugeShrapnelConfig());
+        configSet.put(G20_EXPLOSIVE, Gun20GaugeFactory.get20GaugeExplosiveConfig());
+        configSet.put(G20_CAUSTIC, Gun20GaugeFactory.get20GaugeCausticConfig());
+        configSet.put(G20_SHOCK, Gun20GaugeFactory.get20GaugeShockConfig());
+        configSet.put(G20_WITHER, Gun20GaugeFactory.get20GaugeWitherConfig());
+        configSet.put(G20_SLEEK, Gun20GaugeFactory.get20GaugeSleekConfig());
+        configSet.put(G12_NORMAL, Gun12GaugeFactory.get12GaugeConfig());
+        configSet.put(G12_INCENDIARY, Gun12GaugeFactory.get12GaugeFireConfig());
+        configSet.put(G12_SHRAPNEL, Gun12GaugeFactory.get12GaugeShrapnelConfig());
+        configSet.put(G12_DU, Gun12GaugeFactory.get12GaugeDUConfig());
+        configSet.put(G12_AM, Gun12GaugeFactory.get12GaugeAMConfig());
+        configSet.put(G12_SLEEK, Gun12GaugeFactory.get12GaugeSleekConfig());
+        configSet.put(G12_PERCUSSION, Gun12GaugeFactory.get12GaugePercussionConfig());
+        configSet.put(G12HS_NORMAL, Gun12GaugeFactory.get12GaugeConfig().setHeadshot(2F));
+        configSet.put(G12HS_INCENDIARY, Gun12GaugeFactory.get12GaugeFireConfig().setHeadshot(2F));
+        configSet.put(G12HS_SHRAPNEL, Gun12GaugeFactory.get12GaugeShrapnelConfig().setHeadshot(2F));
+        configSet.put(G12HS_DU, Gun12GaugeFactory.get12GaugeDUConfig().setHeadshot(2F));
+        configSet.put(G12HS_AM, Gun12GaugeFactory.get12GaugeAMConfig().setHeadshot(2F));
+        configSet.put(G12HS_SLEEK, Gun12GaugeFactory.get12GaugeSleekConfig().setHeadshot(2F));
+        configSet.put(G12HS_PERCUSSION, Gun12GaugeFactory.get12GaugePercussionConfig().setHeadshot(2F));
+        configSet.put(G4_NORMAL, Gun4GaugeFactory.get4GaugeConfig());
+        configSet.put(G4_SLUG, Gun4GaugeFactory.get4GaugeSlugConfig());
+        configSet.put(G4_FLECHETTE, Gun4GaugeFactory.get4GaugeFlechetteConfig());
+        configSet.put(G4_FLECHETTE_PHOSPHORUS, Gun4GaugeFactory.get4GaugeFlechettePhosphorusConfig());
+        configSet.put(G4_EXPLOSIVE, Gun4GaugeFactory.get4GaugeExplosiveConfig());
+        configSet.put(G4_SEMTEX, Gun4GaugeFactory.get4GaugeMiningConfig());
+        configSet.put(G4_BALEFIRE, Gun4GaugeFactory.get4GaugeBalefireConfig());
+        configSet.put(G4_KAMPF, Gun4GaugeFactory.getGrenadeKampfConfig());
+        configSet.put(G4_CANISTER, Gun4GaugeFactory.getGrenadeCanisterConfig());
+        configSet.put(G4_CLAW, Gun4GaugeFactory.get4GaugeClawConfig());
+        configSet.put(G4_VAMPIRE, Gun4GaugeFactory.get4GaugeVampireConfig());
+        configSet.put(G4_VOID, Gun4GaugeFactory.get4GaugeVoidConfig());
+        configSet.put(G4_TITAN, Gun4GaugeFactory.get4GaugeQuackConfig());
+        configSet.put(G4_SLEEK, Gun4GaugeFactory.get4GaugeSleekConfig());
+        configSet.put(G20_NORMAL_FIRE, Gun20GaugeFactory.get20GaugeConfig().setToFire(3));
+        configSet.put(G20_SHRAPNEL_FIRE, Gun20GaugeFactory.get20GaugeShrapnelConfig().setToFire(3));
+        configSet.put(G20_SLUG_FIRE, Gun20GaugeFactory.get20GaugeSlugConfig().setToFire(3));
+        configSet.put(G20_FLECHETTE_FIRE, Gun20GaugeFactory.get20GaugeFlechetteConfig().setToFire(3));
+        configSet.put(G20_EXPLOSIVE_FIRE, Gun20GaugeFactory.get20GaugeExplosiveConfig().setToFire(3));
+        configSet.put(G20_CAUSTIC_FIRE, Gun20GaugeFactory.get20GaugeCausticConfig().setToFire(3));
+        configSet.put(G20_SHOCK_FIRE, Gun20GaugeFactory.get20GaugeShockConfig().setToFire(3));
+        configSet.put(G20_WITHER_FIRE, Gun20GaugeFactory.get20GaugeWitherConfig().setToFire(3));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

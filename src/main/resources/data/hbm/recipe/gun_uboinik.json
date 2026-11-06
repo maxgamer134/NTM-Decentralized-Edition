@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "I": "#c:ingots/steel",
+    "W": "#minecraft:planks",
+    "S": "#c:rods/wooden",
+    "M": "hbm:mechanism_revolver_2"
+  },
+  "pattern": [
+    "IIM",
+    "SPW"
+  ],
+  "result": {
+    "id": "hbm:gun_uboinik"
+  }
+}

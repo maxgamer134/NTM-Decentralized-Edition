@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "#c:ingots/lead",
+    "G": "#hbm:dusts/any_smokeless",
+    "C": "hbm:casing_buckshot",
+    "L": "#c:plates/copper"
+  },
+  "pattern": [
+    " I ",
+    "GCL"
+  ],
+  "result": {
+    "count": 12,
+    "id": "hbm:ammo_20gauge_slug"
+  }
+}

@@ -159,5 +159,16 @@ public class GunConfiguration implements Cloneable {
             this.delay = delay;
             return this;
         }
+
+        /** main's CasingEjector.clone() */
+        public Ejector copy() {
+            Ejector e = new Ejector().setOffset(offsetX, offsetY, offsetZ).setMotion(motionX, motionY, motionZ);
+            e.yawFactor = yawFactor;
+            e.pitchFactor = pitchFactor;
+            e.afterReload = afterReload;
+            e.amount = amount;
+            e.delay = delay;
+            return e;
+        }
     }
 }

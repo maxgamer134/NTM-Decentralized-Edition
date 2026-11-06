@@ -3264,5 +3264,67 @@
         "stream": false
       }
     ]
+  },
+  "weapon.revolvershootalt": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/revolvershootalt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.sauergun": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/sauergun1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sauergun2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sauergun3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunpump": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunshootpump",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunpumpalt": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunshootpumpalt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shottyshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shottyshoot",
+        "stream": false
+      }
+    ]
   }
 }

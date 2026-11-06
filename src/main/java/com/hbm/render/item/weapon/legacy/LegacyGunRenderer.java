@@ -58,6 +58,16 @@ public abstract class LegacyGunRenderer {
         collector.submitCustomGeometry(pose, type(tex), (p, buffer) -> model.renderPart(p, buffer, light, -1, part));
     }
 
+    /** a part drawn under main's GL11.glColor3ub (the shell colours) */
+    protected void partColor(
+            SubmitNodeCollector collector, PoseStack pose, HFRWavefrontObject model, ResourceLocation tex, int part, int light, int rgb) {
+        int argb = 0xFF000000 | rgb;
+        collector.submitCustomGeometry(pose, type(tex), (p, buffer) -> model.renderPart(p, buffer, light, argb, part));
+    }
+
+    /** main's WeaponConfig.linearAnimations client switch (default off) */
+    public static boolean linearAnimations = false;
+
     protected void all(SubmitNodeCollector collector, PoseStack pose, HFRWavefrontObject model, ResourceLocation tex, int light) {
         collector.submitCustomGeometry(pose, type(tex), (p, buffer) -> model.render(p, buffer, light, -1));
     }

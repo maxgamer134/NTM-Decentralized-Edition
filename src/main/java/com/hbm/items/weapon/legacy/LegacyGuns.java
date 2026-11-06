@@ -6,6 +6,9 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
+import com.hbm.items.weapon.legacy.factory.Gun20GaugeFactory;
+import com.hbm.items.weapon.legacy.factory.Gun12GaugeFactory;
 import com.hbm.registration.NeoForgeRegistrar;
 import com.hbm.registration.RegistryHandle;
 import java.util.ArrayList;
@@ -63,6 +66,51 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> ASSEMBLY_NIGHTMARE;
     public static RegistryHandle<Item> ASSEMBLY_DESH;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_SHRAPNEL;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_MARAUDER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_PERCUSSION;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_SLUG;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_FLECHETTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_SHRAPNEL;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_EXPLOSIVE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_CAUSTIC;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_SHOCK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_WITHER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_SLUG;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_FLECHETTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_FLECHETTE_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_EXPLOSIVE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_SEMTEX;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_BALEFIRE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_KAMPF;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_CANISTER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_CLAW;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_VAMPIRE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_VOID;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_TITAN;
+    public static RegistryHandle<ItemGunBase> GUN_UBOINIK;
+    public static RegistryHandle<ItemGunBase> GUN_REMINGTON;
+    public static RegistryHandle<ItemGunBase> GUN_SPAS12_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_BENELLI;
+    public static RegistryHandle<ItemGunBase> GUN_SUPERSHOTGUN;
+    public static RegistryHandle<ItemGunBase> GUN_KS23;
+    public static RegistryHandle<ItemGunBase> GUN_SAUER;
+    public static RegistryHandle<ItemGunBase> GUN_LEVER_ACTION;
+    public static RegistryHandle<ItemGunBase> GUN_LEVER_ACTION_DARK;
+    public static RegistryHandle<Item> MECHANISM_RIFLE_1;
+    public static RegistryHandle<Item> MECHANISM_RIFLE_2;
+    public static RegistryHandle<Item> CASING_50;
+    public static RegistryHandle<Item> PELLET_FLECHETTE;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -113,6 +161,52 @@ public final class LegacyGuns {
         CLIP_REVOLVER_CURSED = clip("clip_revolver_cursed", AMMO_357_STEEL, 17);
         CLIP_REVOLVER_NIGHTMARE = clip("clip_revolver_nightmare", AMMO_357_NIGHTMARE1, 6);
         CLIP_REVOLVER_NIGHTMARE2 = clip("clip_revolver_nightmare2", AMMO_357_NIGHTMARE2, 6);
+
+        // Gauge
+        AMMO_12GAUGE = ammo("ammo_12gauge");
+        AMMO_12GAUGE_INCENDIARY = ammo("ammo_12gauge_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_12GAUGE_SHRAPNEL = ammo("ammo_12gauge_shrapnel", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_MORE_BOUNCY, AmmoItemTrait.CON_WEAR);
+        AMMO_12GAUGE_DU = ammo("ammo_12gauge_du", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_12GAUGE_MARAUDER = ammo("ammo_12gauge_marauder", AmmoItemTrait.PRO_MARAUDER, AmmoItemTrait.NEU_NO_CON);
+        AMMO_12GAUGE_SLEEK = ammo("ammo_12gauge_sleek", AmmoItemTrait.NEU_MASKMAN_FLECHETTE);
+        AMMO_12GAUGE_PERCUSSION = ammo("ammo_12gauge_percussion", AmmoItemTrait.PRO_PERCUSSION, AmmoItemTrait.CON_NO_PROJECTILE);
+        AMMO_20GAUGE = ammo("ammo_20gauge");
+        AMMO_20GAUGE_SLUG = ammo("ammo_20gauge_slug", AmmoItemTrait.PRO_ACCURATE2, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.CON_SING_PROJECTILE);
+        AMMO_20GAUGE_FLECHETTE = ammo("ammo_20gauge_flechette", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_WEAR);
+        AMMO_20GAUGE_INCENDIARY = ammo("ammo_20gauge_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_20GAUGE_SHRAPNEL = ammo("ammo_20gauge_shrapnel", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_MORE_BOUNCY, AmmoItemTrait.CON_WEAR);
+        AMMO_20GAUGE_EXPLOSIVE = ammo("ammo_20gauge_explosive", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_20GAUGE_CAUSTIC = ammo("ammo_20gauge_caustic", AmmoItemTrait.PRO_TOXIC, AmmoItemTrait.PRO_CAUSTIC, AmmoItemTrait.NEU_NO_BOUNCE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_20GAUGE_SHOCK = ammo("ammo_20gauge_shock", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_STUNNING, AmmoItemTrait.PRO_EMP, AmmoItemTrait.NEU_NO_BOUNCE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_20GAUGE_WITHER = ammo("ammo_20gauge_wither", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WITHERING);
+        AMMO_20GAUGE_SLEEK = ammo("ammo_20gauge_sleek", AmmoItemTrait.NEU_MASKMAN_FLECHETTE);
+        AMMO_4GAUGE = ammo("ammo_4gauge");
+        AMMO_4GAUGE_SLUG = ammo("ammo_4gauge_slug", AmmoItemTrait.PRO_ACCURATE2, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.CON_SING_PROJECTILE);
+        AMMO_4GAUGE_FLECHETTE = ammo("ammo_4gauge_flechette", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_WEAR);
+        AMMO_4GAUGE_FLECHETTE_PHOSPHORUS = ammo("ammo_4gauge_flechette_phosphorus", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME2, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_WEAR);
+        AMMO_4GAUGE_EXPLOSIVE = ammo("ammo_4gauge_explosive", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_40MM, AmmoItemTrait.CON_HEAVY_WEAR, AmmoItemTrait.CON_SING_PROJECTILE);
+        AMMO_4GAUGE_SEMTEX = ammo("ammo_4gauge_semtex", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_MINING, AmmoItemTrait.CON_NO_EXPLODE3, AmmoItemTrait.CON_HEAVY_WEAR, AmmoItemTrait.CON_SING_PROJECTILE);
+        AMMO_4GAUGE_BALEFIRE = ammo("ammo_4gauge_balefire", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_BALEFIRE, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_HEAVY_WEAR, AmmoItemTrait.CON_SING_PROJECTILE);
+        AMMO_4GAUGE_KAMPF = ammo("ammo_4gauge_kampf", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_ROCKET_PROPELLED, AmmoItemTrait.PRO_ACCURATE1, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_SING_PROJECTILE);
+        AMMO_4GAUGE_CANISTER = ammo("ammo_4gauge_canister");
+        AMMO_4GAUGE_SLEEK = ammo("ammo_4gauge_sleek", AmmoItemTrait.NEU_MASKMAN_FLECHETTE);
+        AMMO_4GAUGE_CLAW = ammo("ammo_4gauge_claw");
+        AMMO_4GAUGE_VAMPIRE = ammo("ammo_4gauge_vampire");
+        AMMO_4GAUGE_VOID = ammo("ammo_4gauge_void");
+        AMMO_4GAUGE_TITAN = ammo("ammo_4gauge_titan", AmmoItemTrait.PRO_MARAUDER, AmmoItemTrait.NEU_NO_CON);
+        GUN_UBOINIK = gun("gun_uboinik", p -> new ItemGunBase(Gun12GaugeFactory.getUboinikConfig(), p));
+        GUN_REMINGTON = gun("gun_remington", p -> new ItemGunBase(Gun12GaugeFactory.getRemington870Config(), p));
+        GUN_SPAS12_LEGACY = gun("gun_spas12_legacy", p -> new ItemGunBase(Gun12GaugeFactory.getSpas12Config(), Gun12GaugeFactory.getSpas12AltConfig(), p));
+        GUN_BENELLI = gun("gun_benelli", p -> new ItemGunBase(Gun12GaugeFactory.getBenelliModConfig(), p));
+        GUN_SUPERSHOTGUN = gun("gun_supershotgun", p -> new ItemGunBase(Gun12GaugeFactory.getShottyConfig(), p));
+        GUN_KS23 = gun("gun_ks23", p -> new ItemGunBase(Gun4GaugeFactory.getKS23Config(), p));
+        GUN_SAUER = gun("gun_sauer", p -> new ItemGunBase(Gun4GaugeFactory.getSauerConfig(), p));
+        GUN_LEVER_ACTION = gun("gun_lever_action", p -> new ItemGunBase(Gun20GaugeFactory.getMareConfig(), p));
+        GUN_LEVER_ACTION_DARK = gun("gun_lever_action_dark", p -> new ItemGunBase(Gun20GaugeFactory.getMareDarkConfig(), p));
+        MECHANISM_RIFLE_1 = part("mechanism_rifle_1");
+        MECHANISM_RIFLE_2 = part("mechanism_rifle_2");
+        CASING_50 = part("casing_50");
+        PELLET_FLECHETTE = part("pellet_flechette");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

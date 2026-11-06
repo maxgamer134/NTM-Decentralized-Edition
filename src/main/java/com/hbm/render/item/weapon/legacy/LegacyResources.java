@@ -46,4 +46,27 @@ public final class LegacyResources {
             AnimationLoader.load(Library.id("models/weapons/animations/python.json"));
     public static final HashMap<String, BusAnimation> cursed_anim =
             AnimationLoader.load(Library.id("models/weapons/animations/cursed.json"));
+
+    public static final HashMap<String, BusAnimation> benelli_anim = AnimationLoader.load(Library.id("models/weapons/animations/benelli.json"));
+    public static final HashMap<String, BusAnimation> ks23_anim = AnimationLoader.load(Library.id("models/weapons/animations/ks23.json"));
+    public static final HashMap<String, BusAnimation> spas_12_anim = AnimationLoader.load(Library.id("models/weapons/animations/legacy/spas12.json"));
+    public static final HashMap<String, BusAnimation> supershotty_anim = AnimationLoader.load(Library.id("models/weapons/animations/supershotty.json"));
+    public static final HFRWavefrontObject remington = Meshes.load(Library.id("models/weapons/remington.obj"));
+    public static final ResourceLocation remington_tex = Library.id("textures/models/weapons/remington.png");
+    public static final ResourceLocation casings_tex = Library.id("textures/particle/casings.png");
+    public static final HFRWavefrontObject spas_12 = Meshes.load(Library.id("models/weapons/legacy/spas-12.obj"));
+    public static final ResourceLocation spas_12_tex = Library.id("textures/models/weapons/spas-12.png");
+    public static final HFRWavefrontObject benelli = Meshes.load(Library.id("models/weapons/benelli_new.obj"));
+    public static final ResourceLocation benelli_tex = Library.id("textures/models/weapons/benelli_tex.png");
+    public static final HFRWavefrontObject shotty = Meshes.load(Library.id("models/weapons/supershotty.obj"));
+    public static final ResourceLocation shotty_tex = Library.id("textures/models/weapons/shotty.png");
+    public static final HFRWavefrontObject ks23 = Meshes.load(Library.id("models/weapons/ks23.obj"));
+    public static final ResourceLocation ks23_tex = Library.id("textures/models/weapons/ks23.png");
+    public static final HFRWavefrontObject sauergun = Meshes.load(Library.id("models/weapons/sauergun.obj"));
+    public static final ResourceLocation sauergun_tex = Library.id("textures/models/weapons/sauergun.png");
+    public static final HFRWavefrontObject ff_maresleg = Meshes.faceNormals(Library.id("models/weapons/legacy/maresleg.obj"));
+    public static final ResourceLocation ff_gun_normal = Library.id("textures/models/weapons/ff/gun_normal.png");
+    public static final ResourceLocation ff_wood_red = Library.id("textures/models/weapons/ff/wood_red.png");
+    public static final HFRWavefrontObject uboinik = Meshes.faceNormals(Library.id("models/weapons/legacy/uboinik.obj"));
+    public static final ResourceLocation uboinik_tex = Library.id("textures/models/ModelUboinik.png");
 }

@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "hbm:pellet_flechette",
+    "G": "hbm:cordite",
+    "C": "hbm:casing_50",
+    "L": "#hbm:ingots/any_rubber"
+  },
+  "pattern": [
+    " I ",
+    "GCL"
+  ],
+  "result": {
+    "count": 12,
+    "id": "hbm:ammo_4gauge_flechette"
+  }
+}

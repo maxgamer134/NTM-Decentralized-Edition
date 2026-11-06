@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "B": "#c:pipes/steel",
+    "M": "hbm:mechanism_rifle_2",
+    "A": "hbm:plate_dalekanium",
+    "W": "#c:fine_wires/gold",
+    "L": "#minecraft:logs"
+  },
+  "pattern": [
+    "BBM",
+    "BBM",
+    "AWL"
+  ],
+  "result": {
+    "id": "hbm:gun_supershotgun"
+  }
+}

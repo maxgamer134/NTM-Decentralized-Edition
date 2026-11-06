@@ -22,6 +22,7 @@ public final class RenderersSpecial {
         LegacyGunRenderer.register(LegacyGuns.GUN_EUTHANASIA, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_TWIGUN, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_DEFABRICATOR, new Renderers5mm.ItemRenderOverkill());
+        LegacyGunRenderer.register(LegacyGuns.GUN_CHEMTHROWER_LEGACY, new Chemthrower());
     }
 
     /** main's ItemRenderRevolverInverted: the python, flipped round on the shooter while drawn. */
@@ -65,6 +66,48 @@ public final class RenderersSpecial {
             part(c, pose, M, ff_gun_bright, CYLINDER, light);
             part(c, pose, M, ff_wood, GRIP, light);
             part(c, pose, M, ff_iron, HAMMER, light);
+        }
+    }
+
+    /** main's ItemRenderWeaponChemthrower: the gauge needle follows the fill. */
+    public static final class Chemthrower extends LegacyGunRenderer {
+        private static final HFRWavefrontObject M = com.hbm.main.ResourceManager.chemthrower;
+        private static final net.minecraft.resources.ResourceLocation T = com.hbm.main.ResourceManager.chemthrower_tex;
+        private static final int GUN = M.partId("Gun"), HOSE = M.partId("Hose"), NOZZLE = M.partId("Nozzle"), GAUGE = M.partId("Gauge");
+
+        @Override
+        public void render(Ctx ctx, ItemStack stack, PoseStack pose, SubmitNodeCollector c, int light) {
+            switch (ctx) {
+                case FIRST_PERSON -> {
+                    rot(pose, 25, 0, 0, 1);
+                    pose.translate(1.0, 0.0, 0.0);
+                    rot(pose, 170, 0, 1, 0);
+                    pose.scale(0.25F, 0.25F, 0.25F);
+                }
+                case EQUIPPED -> {
+                    pose.scale(0.25F, 0.25F, 0.25F);
+                    rot(pose, 100, 0, 1, 0);
+                    rot(pose, -10, 1, 0, 0);
+                    rot(pose, 10, 0, 0, 1);
+                    pose.translate(-0.25F, -2.5F, 1.75F);
+                }
+                case ENTITY -> pose.scale(0.25F, 0.25F, 0.25F);
+                case INVENTORY -> {
+                    pose.translate(9, 9, 0);
+                    rot(pose, 180, 1, 0, 0);
+                    rot(pose, 45, 0, 0, -1);
+                    pose.scale(1.5F, 1.5F, -1.5F);
+                }
+            }
+            part(c, pose, M, T, GUN, light);
+            part(c, pose, M, T, HOSE, light);
+            part(c, pose, M, T, NOZZLE, light);
+            var gun = (com.hbm.items.weapon.legacy.ItemGunBase) stack.getItem();
+            double d = (double) com.hbm.items.weapon.legacy.ItemGunBase.getMag(stack) / gun.mainConfig.ammoCap;
+            pose.translate(0, 0.875, 1.75);
+            rot(pose, 135 - d * 270, 1, 0, 0);
+            pose.translate(0, -0.875, -1.75);
+            part(c, pose, M, T, GAUGE, light);
         }
     }
 }

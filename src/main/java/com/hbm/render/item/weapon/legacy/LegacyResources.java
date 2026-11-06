@@ -116,4 +116,8 @@ public final class LegacyResources {
     public static final ResourceLocation ar15_tex = Library.id("textures/models/weapons/carbine.png");
     public static final HFRWavefrontObject lunatic_sniper = Meshes.load(Library.id("models/weapons/lunatic_sniper.obj"));
     public static final ResourceLocation lunatic_sniper_tex = Library.id("textures/models/weapons/lunatic_sniper.png");
+
+    public static final HFRWavefrontObject model_mp = Meshes.faceNormals(Library.id("models/weapons/legacy/mp.obj"));
+    public static final HFRWavefrontObject vortex = Meshes.faceNormals(Library.id("models/weapons/vortex.obj"));
+    public static final ResourceLocation vortex_tex = Library.id("textures/models/weapons/vortex.png");
 }

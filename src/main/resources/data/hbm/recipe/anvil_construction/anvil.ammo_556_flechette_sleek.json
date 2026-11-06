@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 100,
+      "ingredient": "hbm:ammo_556_flechette"
+    },
+    {
+      "ingredient": "hbm:coin_maskman"
+    }
+  ],
+  "order": 99560,
+  "output_items": [
+    {
+      "count": 128,
+      "id": "hbm:ammo_556_flechette_sleek"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 4
+}

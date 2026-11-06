@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "#c:plates/titanium",
+    "S": "#c:ingots/steel",
+    "B": "#c:bolts/tungsten",
+    "I": "#c:ingots/mingrade"
+  },
+  "pattern": [
+    "TTT",
+    "SSS",
+    "BBI"
+  ],
+  "result": {
+    "id": "hbm:mechanism_launcher_1"
+  }
+}

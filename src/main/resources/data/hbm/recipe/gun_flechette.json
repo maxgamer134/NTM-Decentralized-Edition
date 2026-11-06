@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "M": "hbm:mechanism_rifle_2",
+    "T": "#c:shells/steel",
+    "I": "#c:ingots/steel",
+    "S": "#c:ingots/polymer",
+    "G": "hbm:mechanism_launcher_1"
+  },
+  "pattern": [
+    "PPM",
+    "TIS",
+    "G  "
+  ],
+  "result": {
+    "id": "hbm:gun_flechette"
+  }
+}

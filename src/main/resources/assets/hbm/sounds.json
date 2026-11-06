@@ -3362,5 +3362,35 @@
         "stream": false
       }
     ]
+  },
+  "weapon.glauncher": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/glauncher1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/glauncher2",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hksshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hksshoot1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/hksshoot2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/hksshoot3",
+        "stream": false
+      }
+    ]
   }
 }

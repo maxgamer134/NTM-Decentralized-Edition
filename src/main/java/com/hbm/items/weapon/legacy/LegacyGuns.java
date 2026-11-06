@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun556mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
 import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
@@ -185,6 +186,28 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> ASSEMBLY_CALAMITY;
     public static RegistryHandle<Item> ASSEMBLY_LUNA;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_GOLD;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_STAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_CHLOROPHYTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_TRACER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_FLECHETTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_FLECHETTE_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_FLECHETTE_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_FLECHETTE_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_FLECHETTE_CHLOROPHYTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_FLECHETTE_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_556_K;
+    public static RegistryHandle<ItemGunBase> GUN_FLECHETTE;
+    public static RegistryHandle<ItemGunBase> GUN_MP;
+    public static RegistryHandle<ItemGunBase> GUN_VORTEX;
+    public static RegistryHandle<Item> ASSEMBLY_556;
+    public static RegistryHandle<Item> MECHANISM_LAUNCHER_1;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -357,6 +380,29 @@ public final class LegacyGuns {
         GUN_LUNATIC_MARKSMAN = gun("gun_lunatic_marksman", p -> new ItemGunBase(Gun50BMGFactory.getLunaticMarksman(), p));
         ASSEMBLY_CALAMITY = part("assembly_calamity");
         ASSEMBLY_LUNA = part("assembly_luna");
+
+        // 556
+        AMMO_556 = ammo("ammo_556");
+        AMMO_556_GOLD = ammo("ammo_556_gold");
+        AMMO_556_PHOSPHORUS = ammo("ammo_556_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
+        AMMO_556_AP = ammo("ammo_556_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_556_DU = ammo("ammo_556_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_556_STAR = ammo("ammo_556_star", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_STARMETAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_556_CHLOROPHYTE = ammo("ammo_556_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        AMMO_556_SLEEK = ammo("ammo_556_sleek", AmmoItemTrait.NEU_MASKMAN_METEORITE);
+        AMMO_556_TRACER = ammo("ammo_556_tracer", AmmoItemTrait.NEU_TRACER);
+        AMMO_556_FLECHETTE = ammo("ammo_556_flechette", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_WEAR);
+        AMMO_556_FLECHETTE_INCENDIARY = ammo("ammo_556_flechette_incendiary", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
+        AMMO_556_FLECHETTE_PHOSPHORUS = ammo("ammo_556_flechette_phosphorus", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME2, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
+        AMMO_556_FLECHETTE_DU = ammo("ammo_556_flechette_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.NEU_LESS_BOUNCY, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_556_FLECHETTE_CHLOROPHYTE = ammo("ammo_556_flechette_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        AMMO_556_FLECHETTE_SLEEK = ammo("ammo_556_flechette_sleek", AmmoItemTrait.NEU_MASKMAN_METEORITE);
+        AMMO_556_K = ammo("ammo_556_k", AmmoItemTrait.NEU_BLANK);
+        GUN_FLECHETTE = gun("gun_flechette", p -> new ItemGunBase(Gun556mmFactory.getSPIWConfig(), Gun556mmFactory.getGLauncherConfig(), p));
+        GUN_MP = gun("gun_mp", p -> new ItemGunBase(Gun556mmFactory.getEuphieConfig(), p));
+        GUN_VORTEX = gun("gun_vortex", p -> new ItemGunBase(Gun556mmFactory.getEuphieConfig(), p));
+        ASSEMBLY_556 = part("assembly_556");
+        MECHANISM_LAUNCHER_1 = part("mechanism_launcher_1");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

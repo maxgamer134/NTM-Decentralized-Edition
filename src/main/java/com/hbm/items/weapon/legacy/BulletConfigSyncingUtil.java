@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun556mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
 import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
@@ -401,6 +402,24 @@ public final class BulletConfigSyncingUtil {
         configSet.put(ROUND_LUNA_SNIPER_INCENDIARY, Gun50BMGFactory.getLunaticIncendiaryRound());
         configSet.put(ROUND_LUNA_SNIPER_EXPLOSIVE, Gun50BMGFactory.getLunaticExplosiveRound());
         configSet.put(CHL_BMG50, Gun50BMGFactory.get50BMGConfig().setToHoming(LegacyGuns.AMMO_50BMG_CHLOROPHYTE));
+
+
+        configSet.put(R556_NORMAL, Gun556mmFactory.get556Config());
+        configSet.put(R556_GOLD, Gun556mmFactory.get556GoldConfig());
+        configSet.put(R556_PHOSPHORUS, Gun556mmFactory.get556PhosphorusConfig());
+        configSet.put(R556_AP, Gun556mmFactory.get556APConfig());
+        configSet.put(R556_DU, Gun556mmFactory.get556DUConfig());
+        configSet.put(R556_STAR, Gun556mmFactory.get556StarConfig());
+        configSet.put(R556_SLEEK, Gun556mmFactory.get556SleekConfig());
+        configSet.put(R556_TRACER, Gun556mmFactory.get556TracerConfig());
+        configSet.put(R556_FLECHETTE, Gun556mmFactory.get556FlechetteConfig());
+        configSet.put(R556_FLECHETTE_INCENDIARY, Gun556mmFactory.get556FlechetteIncendiaryConfig());
+        configSet.put(R556_FLECHETTE_PHOSPHORUS, Gun556mmFactory.get556FlechettePhosphorusConfig());
+        configSet.put(R556_FLECHETTE_DU, Gun556mmFactory.get556FlechetteDUConfig());
+        configSet.put(R556_FLECHETTE_SLEEK, Gun556mmFactory.get556FlechetteSleekConfig());
+        configSet.put(R556_K, Gun556mmFactory.get556KConfig());
+        configSet.put(CHL_R556, Gun556mmFactory.get556Config().setToHoming(LegacyGuns.AMMO_556_CHLOROPHYTE));
+        configSet.put(CHL_R556_FLECHETTE, Gun556mmFactory.get556FlechetteConfig().setToHoming(LegacyGuns.AMMO_556_FLECHETTE_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

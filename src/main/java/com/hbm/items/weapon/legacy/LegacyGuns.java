@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunRocketHomingFactory;
 import com.hbm.items.weapon.legacy.factory.GunEnergyFactory;
 import com.hbm.items.weapon.legacy.factory.GunPoweredFactory;
 import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
@@ -357,6 +358,14 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemClipLegacy> CLIP_EUTHANASIA;
     public static RegistryHandle<ItemClipLegacy> CLIP_DEFABRICATOR;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_STINGER_ROCKET;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_STINGER_ROCKET_HE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_STINGER_ROCKET_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_STINGER_ROCKET_NUCLEAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_STINGER_ROCKET_BONES;
+    public static RegistryHandle<ItemGunBase> GUN_STINGER_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_SKYSTINGER;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -702,6 +711,15 @@ public final class LegacyGuns {
         CLIP_JACK = clip("clip_jack", GUN_JACK_AMMO, 12);
         CLIP_EUTHANASIA = clip("clip_euthanasia", GUN_EUTHANASIA_AMMO, 32);
         CLIP_DEFABRICATOR = clip("clip_defabricator", GUN_DEFABRICATOR_AMMO, 50);
+
+        // RocketHoming
+        AMMO_STINGER_ROCKET = ammo("ammo_stinger_rocket");
+        AMMO_STINGER_ROCKET_HE = ammo("ammo_stinger_rocket_he", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.CON_WEAR);
+        AMMO_STINGER_ROCKET_INCENDIARY = ammo("ammo_stinger_rocket_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_STINGER_ROCKET_NUCLEAR = ammo("ammo_stinger_rocket_nuclear", AmmoItemTrait.PRO_NUCLEAR, AmmoItemTrait.CON_SUPER_WEAR);
+        AMMO_STINGER_ROCKET_BONES = ammo("ammo_stinger_rocket_bones");
+        GUN_STINGER_LEGACY = gun("gun_stinger_legacy", p -> new ItemGunBase(GunRocketHomingFactory.getStingerConfig(), p));
+        GUN_SKYSTINGER = gun("gun_skystinger", p -> new ItemGunBase(GunRocketHomingFactory.getSkyStingerConfig(), p));
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

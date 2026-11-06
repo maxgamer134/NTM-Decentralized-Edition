@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunRocketHomingFactory;
 import com.hbm.items.weapon.legacy.factory.GunEnergyFactory;
 import com.hbm.items.weapon.legacy.factory.GunPoweredFactory;
 import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
@@ -568,6 +569,13 @@ public final class BulletConfigSyncingUtil {
         //configSet.put(HLR_ALT, GunEnergyFactory.getHLRScatterConfig());
         configSet.put(ZOMG_BOLT, GunEnergyFactory.getZOMGBoltConfig());
         configSet.put(TURBINE, GunEnergyFactory.getTurbineConfig());
+
+
+        configSet.put(ROCKET_STINGER, GunRocketHomingFactory.getRocketStingerConfig());
+        configSet.put(ROCKET_STINGER_HE, GunRocketHomingFactory.getRocketStingerHEConfig());
+        configSet.put(ROCKET_STINGER_INCENDIARY, GunRocketHomingFactory.getRocketStingerIncendiaryConfig());
+        configSet.put(ROCKET_STINGER_NUCLEAR, GunRocketHomingFactory.getRocketStingerNuclearConfig());
+        configSet.put(ROCKET_STINGER_BONES, GunRocketHomingFactory.getRocketStingerBonesConfig());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

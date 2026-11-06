@@ -177,4 +177,8 @@ public final class LegacyResources {
     public static final ResourceLocation fireext_tex = Library.id("textures/models/weapons/fireext_normal.png");
     public static final HFRWavefrontObject model_zomg = Meshes.faceNormals(Library.id("models/weapons/legacy/zomg.obj"));
     public static final HFRWavefrontObject model_empray = Meshes.faceNormals(Library.id("models/weapons/legacy/empray.obj"));
+
+    public static final ResourceLocation sky_stinger_tex = Library.id("textures/models/weapons/sky_stinger.png");
+    public static final HFRWavefrontObject stinger = Meshes.faceNormals(Library.id("models/weapons/legacy/stinger.obj"));
+    public static final ResourceLocation stinger_tex = Library.id("textures/models/weapons/stinger.png");
 }

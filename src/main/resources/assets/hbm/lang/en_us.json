@@ -9200,5 +9200,12 @@
   "item.hbm.gun_defabricator.desc": "BAD WOLF\n\nAmmo: Defabricator Energy Cell\nDamage: 40 - 120\n\n[LEGENDARY WEAPON]",
   "item.hbm.gun_defabricator.desc.P11": "Did you set your alarm for volcano day?\n\nAmmo: Defabricator Energy Cell\nDamage: 40 - 120\n\n[LEGENDARY WEAPON]",
   "item.hbm.gun_twigun.desc": "Say hello to my little syringe gun!\n\nAmmo: Syringe\nDamage: 1 - 4\nSyringes have a 20% chance to instakill the enemy.\n\n[LEGENDARY WEAPON]",
-  "item.hbm.gun_twigun_ammo": "Twigun Ammo"
+  "item.hbm.gun_twigun_ammo": "Twigun Ammo",
+  "item.hbm.ammo_stinger_rocket": "Stinger Rocket",
+  "item.hbm.ammo_stinger_rocket_he": "Stinger Rocket (HE)",
+  "item.hbm.ammo_stinger_rocket_incendiary": "Stinger Rocket (Incendiary)",
+  "item.hbm.ammo_stinger_rocket_nuclear": "Stinger Rocket (Привет)",
+  "item.hbm.ammo_stinger_rocket_bones": "Stinger Rocket (Bone-Seeking)",
+  "item.hbm.gun_stinger_legacy": "FIM-92 Stinger",
+  "item.hbm.gun_skystinger": "The One Sky Stinger"
 }

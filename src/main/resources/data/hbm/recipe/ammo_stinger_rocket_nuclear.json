@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "R": "hbm:neutron_reflector",
+    "P": "#c:nuggets/plutonium_239",
+    "S": "hbm:ammo_stinger_rocket_he"
+  },
+  "pattern": [
+    "RPR",
+    "PSP",
+    "RPR"
+  ],
+  "result": {
+    "id": "hbm:ammo_stinger_rocket_nuclear"
+  }
+}

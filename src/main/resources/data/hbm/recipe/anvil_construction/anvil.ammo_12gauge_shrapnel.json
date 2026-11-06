@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_12gauge"
+    },
+    {
+      "ingredient": "hbm:gravel_obsidian"
+    }
+  ],
+  "order": 99501,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ammo_12gauge_shrapnel"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

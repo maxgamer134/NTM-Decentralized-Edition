@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 120,
+      "ingredient": "hbm:ammo_20gauge"
+    },
+    {
+      "ingredient": "hbm:coin_maskman"
+    }
+  ],
+  "order": 99509,
+  "output_items": [
+    {
+      "count": 120,
+      "id": "hbm:ammo_20gauge_sleek"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 4
+}

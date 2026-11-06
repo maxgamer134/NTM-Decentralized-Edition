@@ -111,6 +111,10 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> CASING_50;
     public static RegistryHandle<Item> PELLET_FLECHETTE;
 
+    public static RegistryHandle<Item> PELLET_CANISTER;
+    public static RegistryHandle<Item> PELLET_CLAWS;
+    public static RegistryHandle<Item> TOOTHPICKS;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -207,6 +211,11 @@ public final class LegacyGuns {
         MECHANISM_RIFLE_2 = part("mechanism_rifle_2");
         CASING_50 = part("casing_50");
         PELLET_FLECHETTE = part("pellet_flechette");
+
+        // gauge pellets
+        PELLET_CANISTER = part("pellet_canister");
+        PELLET_CLAWS = part("pellet_claws");
+        TOOTHPICKS = part("toothpicks");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

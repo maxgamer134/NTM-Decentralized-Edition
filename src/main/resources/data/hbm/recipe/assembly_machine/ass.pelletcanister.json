@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 50,
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "#c:ingots/iron"
+    }
+  ],
+  "order": 99600,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:pellet_canister"
+    }
+  ],
+  "power": 100
+}

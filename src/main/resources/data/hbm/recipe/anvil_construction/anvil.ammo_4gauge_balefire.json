@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_4gauge_explosive"
+    },
+    {
+      "ingredient": "hbm:egg_balefire_shard"
+    }
+  ],
+  "order": 99511,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ammo_4gauge_balefire"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 4
+}

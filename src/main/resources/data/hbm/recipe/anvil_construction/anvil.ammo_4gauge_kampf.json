@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:ammo_4gauge_explosive"
+    },
+    {
+      "ingredient": "hbm:ammo_rocket"
+    }
+  ],
+  "order": 99512,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_4gauge_kampf"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "hbm:ball_dynamite",
+    "G": "hbm:rocket_fuel",
+    "C": "#c:shells/steel"
+  },
+  "pattern": [
+    "T",
+    "C",
+    "G"
+  ],
+  "result": {
+    "id": "hbm:ammo_rocket"
+  }
+}

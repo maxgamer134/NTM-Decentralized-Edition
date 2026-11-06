@@ -192,6 +192,13 @@ public class BulletConfiguration implements Cloneable {
         return this;
     }
 
+    /** main's laser-guided rockets: they steer to where the shooter looks */
+    public BulletConfiguration setToGuided() {
+        this.bntUpdate = com.hbm.items.weapon.legacy.factory.BulletConfigFactory.getLaserSteering();
+        this.doesRicochet = false;
+        return this;
+    }
+
     public BulletConfiguration setToHoming(Supplier<? extends net.minecraft.world.item.Item> ammo) {
         this.ammo = ammo;
         return getChlorophyte();

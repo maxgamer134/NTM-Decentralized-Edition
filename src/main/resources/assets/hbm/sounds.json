@@ -3436,5 +3436,23 @@
         "stream": false
       }
     ]
+  },
+  "weapon.quadroreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/quadroreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.rpgshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/rpgshoot",
+        "stream": false
+      }
+    ]
   }
 }

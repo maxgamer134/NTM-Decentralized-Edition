@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
 import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun75BoltFactory;
@@ -247,6 +248,25 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_MP40;
     public static RegistryHandle<Item> ASSEMBLY_SMG;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_HE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_EMP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_SHRAPNEL;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_GLARE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_NUCLEAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_TOXIC;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_RPC;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_CANISTER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_ROCKET_DIGAMMA;
+    public static RegistryHandle<ItemGunBase> GUN_RPG;
+    public static RegistryHandle<ItemGunBase> GUN_KARL;
+    public static RegistryHandle<ItemGunBase> GUN_PANZERSCHRECK_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_QUADRO_LEGACY;
+    public static RegistryHandle<Item> MECHANISM_LAUNCHER_2;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -481,6 +501,26 @@ public final class LegacyGuns {
         AMMO_9MM_ROCKET = ammo("ammo_9mm_rocket", AmmoItemTrait.PRO_ROCKET, AmmoItemTrait.NEU_UHH);
         GUN_MP40 = gun("gun_mp40", p -> new ItemGunBase(Gun9mmFactory.getMP40Config(), p));
         ASSEMBLY_SMG = part("assembly_smg");
+
+        // Rocket
+        AMMO_ROCKET = ammo("ammo_rocket");
+        AMMO_ROCKET_HE = ammo("ammo_rocket_he", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.CON_WEAR);
+        AMMO_ROCKET_INCENDIARY = ammo("ammo_rocket_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_ROCKET_EMP = ammo("ammo_rocket_emp", AmmoItemTrait.PRO_EMP, AmmoItemTrait.CON_RADIUS);
+        AMMO_ROCKET_SLEEK = ammo("ammo_rocket_sleek", AmmoItemTrait.PRO_RADIUS_HIGH, AmmoItemTrait.PRO_NO_GRAVITY, AmmoItemTrait.CON_SPEED);
+        AMMO_ROCKET_SHRAPNEL = ammo("ammo_rocket_shrapnel", AmmoItemTrait.PRO_SHRAPNEL);
+        AMMO_ROCKET_GLARE = ammo("ammo_rocket_glare", AmmoItemTrait.PRO_SPEED, AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_ROCKET_NUCLEAR = ammo("ammo_rocket_nuclear", AmmoItemTrait.PRO_NUCLEAR, AmmoItemTrait.CON_SUPER_WEAR, AmmoItemTrait.CON_SPEED);
+        AMMO_ROCKET_TOXIC = ammo("ammo_rocket_toxic", AmmoItemTrait.PRO_CHLORINE, AmmoItemTrait.CON_NO_EXPLODE1, AmmoItemTrait.CON_SPEED);
+        AMMO_ROCKET_RPC = ammo("ammo_rocket_rpc", AmmoItemTrait.PRO_CHAINSAW, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.PRO_NO_GRAVITY, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_NO_EXPLODE1, AmmoItemTrait.NEU_UHH);
+        AMMO_ROCKET_PHOSPHORUS = ammo("ammo_rocket_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS_SPLASH, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR);
+        AMMO_ROCKET_CANISTER = ammo("ammo_rocket_canister");
+        AMMO_ROCKET_DIGAMMA = ammo("ammo_rocket_digamma");
+        GUN_RPG = gun("gun_rpg", p -> new ItemGunBase(GunRocketFactory.getGustavConfig(), p));
+        GUN_KARL = gun("gun_karl", p -> new ItemGunBase(GunRocketFactory.getKarlConfig(), p));
+        GUN_PANZERSCHRECK_LEGACY = gun("gun_panzerschreck_legacy", p -> new ItemGunBase(GunRocketFactory.getPanzConfig(), p));
+        GUN_QUADRO_LEGACY = gun("gun_quadro_legacy", p -> new ItemGunBase(GunRocketFactory.getQuadroConfig(), p));
+        MECHANISM_LAUNCHER_2 = part("mechanism_launcher_2");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

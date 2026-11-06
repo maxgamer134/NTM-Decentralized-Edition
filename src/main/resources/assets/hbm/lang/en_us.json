@@ -9105,5 +9105,22 @@
   "item.hbm.ammo_9mm_du": "9mm Round (DU)",
   "item.hbm.ammo_9mm_chlorophyte": "9mm Round (Chlorophyte)",
   "item.hbm.ammo_9mm_rocket": "9mm Rocket",
-  "item.hbm.gun_mp40": "Submachine Gun"
+  "item.hbm.gun_mp40": "Submachine Gun",
+  "item.hbm.ammo_rocket": "84mm Rocket",
+  "item.hbm.ammo_rocket_he": "84mm Rocket (HE)",
+  "item.hbm.ammo_rocket_incendiary": "84mm Rocket (Incendiary)",
+  "item.hbm.ammo_rocket_emp": "84mm Rocket (Pulse)",
+  "item.hbm.ammo_rocket_sleek": "84mm Rocket (IF-R&D)",
+  "item.hbm.ammo_rocket_shrapnel": "84mm Rocket (Shrapnel)",
+  "item.hbm.ammo_rocket_glare": "84mm Rocket (Red Glare)",
+  "item.hbm.ammo_rocket_nuclear": "84mm Rocket (Привет)",
+  "item.hbm.ammo_rocket_toxic": "84mm Rocket (Chemical)",
+  "item.hbm.ammo_rocket_rpc": "84mm Rocket Propelled Chainsaw",
+  "item.hbm.ammo_rocket_phosphorus": "84mm Rocket (WP)",
+  "item.hbm.ammo_rocket_canister": "84mm Rocket (Canister Shot)",
+  "item.hbm.ammo_rocket_digamma": "null",
+  "item.hbm.gun_rpg": "Carl Gustav Recoilless Rifle",
+  "item.hbm.gun_karl": "Karl",
+  "item.hbm.gun_panzerschreck_legacy": "Panzerschreck",
+  "item.hbm.gun_quadro_legacy": "Quattro Formaggi"
 }

@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
 import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun75BoltFactory;
@@ -456,6 +457,32 @@ public final class BulletConfigSyncingUtil {
         configSet.put(P9_DU, Gun9mmFactory.get9mmDUConfig());
         configSet.put(P9_ROCKET, Gun9mmFactory.get9mmRocketConfig());
         configSet.put(CHL_P9, Gun9mmFactory.get9mmConfig().setToHoming(LegacyGuns.AMMO_9MM_CHLOROPHYTE));
+
+
+        configSet.put(ROCKET_NORMAL, GunRocketFactory.getRocketConfig());
+        configSet.put(ROCKET_HE, GunRocketFactory.getRocketHEConfig());
+        configSet.put(ROCKET_INCENDIARY, GunRocketFactory.getRocketIncendiaryConfig());
+        configSet.put(ROCKET_PHOSPHORUS, GunRocketFactory.getRocketPhosphorusConfig());
+        configSet.put(ROCKET_SHRAPNEL, GunRocketFactory.getRocketShrapnelConfig());
+        configSet.put(ROCKET_EMP, GunRocketFactory.getRocketEMPConfig());
+        configSet.put(ROCKET_GLARE, GunRocketFactory.getRocketGlareConfig());
+        configSet.put(ROCKET_SLEEK, GunRocketFactory.getRocketSleekConfig());
+        configSet.put(ROCKET_NUKE, GunRocketFactory.getRocketNukeConfig());
+        configSet.put(ROCKET_CHAINSAW, GunRocketFactory.getRocketRPCConfig());
+        configSet.put(ROCKET_TOXIC, GunRocketFactory.getRocketChlorineConfig());
+        configSet.put(ROCKET_CANISTER, GunRocketFactory.getRocketCanisterConfig());
+        configSet.put(ROCKET_ERROR, GunRocketFactory.getRocketErrorConfig());
+        configSet.put(ROCKET_NORMAL_LASER, GunRocketFactory.getRocketConfig().setToGuided());
+        configSet.put(ROCKET_HE_LASER, GunRocketFactory.getRocketHEConfig().setToGuided());
+        configSet.put(ROCKET_INCENDIARY_LASER, GunRocketFactory.getRocketIncendiaryConfig().setToGuided());
+        configSet.put(ROCKET_PHOSPHORUS_LASER, GunRocketFactory.getRocketPhosphorusConfig().setToGuided());
+        configSet.put(ROCKET_SHRAPNEL_LASER, GunRocketFactory.getRocketShrapnelConfig().setToGuided());
+        configSet.put(ROCKET_EMP_LASER, GunRocketFactory.getRocketEMPConfig().setToGuided());
+        configSet.put(ROCKET_GLARE_LASER, GunRocketFactory.getRocketGlareConfig().setToGuided());
+        configSet.put(ROCKET_SLEEK_LASER, GunRocketFactory.getRocketSleekConfig().setToGuided());
+        configSet.put(ROCKET_NUKE_LASER, GunRocketFactory.getRocketNukeConfig().setToGuided());
+        configSet.put(ROCKET_CHAINSAW_LASER, GunRocketFactory.getRocketRPCConfig().setToGuided());
+        configSet.put(ROCKET_TOXIC_LASER, GunRocketFactory.getRocketChlorineConfig().setToGuided());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

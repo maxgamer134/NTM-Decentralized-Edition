@@ -146,4 +146,8 @@ public final class LegacyResources {
     public static final ResourceLocation rem700sat_tex = Library.id("textures/models/weapons/ff/rem700sat.png");
 
     public static final HFRWavefrontObject model_mp40 = Meshes.faceNormals(Library.id("models/weapons/legacy/mp40.obj"));
+
+    public static final HFRWavefrontObject model_gustav = Meshes.faceNormals(Library.id("models/weapons/legacy/gustav.obj"));
+    public static final HFRWavefrontObject model_panzerschreck = Meshes.faceNormals(Library.id("models/weapons/legacy/panzerschreck.obj"));
+    public static final ResourceLocation quadro_rocket_tex = Library.id("textures/models/weapons/quadro_rocket.png");
 }

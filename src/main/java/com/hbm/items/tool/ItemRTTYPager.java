@@ -85,15 +85,10 @@ public class ItemRTTYPager extends ItemCompat {
         }
 
         int alive = player.tickCount % 1_000;
-        String message =
-                ChatFormatting.GOLD
-                        + "[ "
-                        + channel
-                        + " ("
-                        + alive
-                        + ") ] "
-                        + ChatFormatting.YELLOW
-                        + receiver.signal;
+        Component message =
+                Component.literal("[ " + channel + " (" + alive + ") ] ")
+                        .withStyle(ChatFormatting.GOLD)
+                        .append(Component.literal(String.valueOf(receiver.signal)).withStyle(ChatFormatting.YELLOW));
         PacketWire.sendTo(new PlayerInformPayload(message, ID_PAGER_DYN + slot, 5_000), player);
     }
 

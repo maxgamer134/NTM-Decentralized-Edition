@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunDartFactory;
 import com.hbm.items.weapon.legacy.factory.GunFatmanFactory;
 import com.hbm.items.weapon.legacy.factory.GunGrenadeFactory;
 import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
@@ -302,6 +303,12 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_MIRV;
     public static RegistryHandle<ItemGunBase> GUN_BF;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_DART;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_DART_NUCLEAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_DART_NERF;
+    public static RegistryHandle<ItemGunBase> GUN_MYMY;
+    public static RegistryHandle<ItemGunDart> GUN_DARTER;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -591,6 +598,13 @@ public final class LegacyGuns {
         GUN_PROTO = gun("gun_proto", p -> new ItemGunBase(GunFatmanFactory.getProtoConfig(), p));
         GUN_MIRV = gun("gun_mirv", p -> new ItemGunBase(GunFatmanFactory.getMIRVConfig(), p));
         GUN_BF = gun("gun_bf", p -> new ItemGunBase(GunFatmanFactory.getBELConfig(), p));
+
+        // Dart
+        AMMO_DART = ammo("ammo_dart");
+        AMMO_DART_NUCLEAR = ammo("ammo_dart_nuclear");
+        AMMO_DART_NERF = ammo("ammo_dart_nerf");
+        GUN_MYMY = gun("gun_mymy", p -> new ItemGunBase(GunDartFactory.getMymyConfig(), p));
+        GUN_DARTER = gun("gun_darter", p -> new ItemGunDart(GunDartFactory.getDarterConfig(), p));
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

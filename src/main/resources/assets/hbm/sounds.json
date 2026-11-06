@@ -3481,5 +3481,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.dartshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/dartshoot",
+        "stream": false
+      }
+    ]
   }
 }

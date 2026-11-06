@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunDartFactory;
 import com.hbm.items.weapon.legacy.factory.GunFatmanFactory;
 import com.hbm.items.weapon.legacy.factory.GunGrenadeFactory;
 import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
@@ -520,6 +521,11 @@ public final class BulletConfigSyncingUtil {
         configSet.put(NUKE_MIRV_SAFE, GunFatmanFactory.getMirvSafeConfig());
         configSet.put(NUKE_MIRV_SPECIAL, GunFatmanFactory.getMirvSpecialConfig());
         configSet.put(NUKE_AMAT, GunFatmanFactory.getBalefireConfig());
+
+
+        configSet.put(NEEDLE_GPS, GunDartFactory.getGPSConfig());
+        configSet.put(NEEDLE_NUKE, GunDartFactory.getNukeConfig());
+        configSet.put(DART_NORMAL, GunDartFactory.getNERFConfig());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

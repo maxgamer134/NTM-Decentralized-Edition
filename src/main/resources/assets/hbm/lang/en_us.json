@@ -9153,5 +9153,10 @@
   "item.hbm.gun_fatman_legacy": "M42 Nuclear Catapult \"Fat Man\"",
   "item.hbm.gun_proto": "M42 Nuclear Catapult \"Proto MIRV\"",
   "item.hbm.gun_mirv": "M42 Nuclear Catapult \"Experimental MIRV\"",
-  "item.hbm.gun_bf": "BEL"
+  "item.hbm.gun_bf": "BEL",
+  "item.hbm.ammo_dart": "Plastic Dart (Withering)",
+  "item.hbm.ammo_dart_nuclear": "Plastic Dart (Timed Explosive)",
+  "item.hbm.ammo_dart_nerf": "NERF Dart",
+  "item.hbm.gun_mymy": "Nietes",
+  "item.hbm.gun_darter": "Dart Gun"
 }

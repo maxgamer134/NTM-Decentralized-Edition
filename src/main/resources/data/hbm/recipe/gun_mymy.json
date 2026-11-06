@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#hbm:ingots/any_rubber",
+    "W": "#c:fine_wires/steel"
+  },
+  "pattern": [
+    "PP ",
+    " WP"
+  ],
+  "result": {
+    "id": "hbm:gun_mymy"
+  }
+}

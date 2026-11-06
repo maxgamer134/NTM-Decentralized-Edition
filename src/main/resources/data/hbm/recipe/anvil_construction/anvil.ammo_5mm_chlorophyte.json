@@ -12,7 +12,11 @@
   "order": 99528,
   "output_items": [
     {
-      "count": 128,
+      "count": 64,
+      "id": "hbm:ammo_5mm_chlorophyte"
+    },
+    {
+      "count": 64,
       "id": "hbm:ammo_5mm_chlorophyte"
     }
   ],

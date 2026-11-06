@@ -12,7 +12,11 @@
   "order": 99526,
   "output_items": [
     {
-      "count": 128,
+      "count": 64,
+      "id": "hbm:ammo_5mm_du"
+    },
+    {
+      "count": 64,
       "id": "hbm:ammo_5mm_du"
     }
   ],

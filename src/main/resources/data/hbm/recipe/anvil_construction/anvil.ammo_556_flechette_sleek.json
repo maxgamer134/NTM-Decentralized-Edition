@@ -12,7 +12,11 @@
   "order": 99560,
   "output_items": [
     {
-      "count": 128,
+      "count": 64,
+      "id": "hbm:ammo_556_flechette_sleek"
+    },
+    {
+      "count": 64,
       "id": "hbm:ammo_556_flechette_sleek"
     }
   ],

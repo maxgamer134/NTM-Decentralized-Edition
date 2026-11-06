@@ -12,7 +12,11 @@
   "order": 99541,
   "output_items": [
     {
-      "count": 128,
+      "count": 64,
+      "id": "hbm:ammo_50bmg_sleek"
+    },
+    {
+      "count": 64,
       "id": "hbm:ammo_50bmg_sleek"
     }
   ],

@@ -12,7 +12,11 @@
   "order": 99517,
   "output_items": [
     {
-      "count": 120,
+      "count": 64,
+      "id": "hbm:ammo_4gauge_sleek"
+    },
+    {
+      "count": 56,
       "id": "hbm:ammo_4gauge_sleek"
     }
   ],

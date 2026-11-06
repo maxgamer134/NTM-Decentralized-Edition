@@ -12,7 +12,11 @@
   "order": 99525,
   "output_items": [
     {
-      "count": 128,
+      "count": 64,
+      "id": "hbm:ammo_5mm_explosive"
+    },
+    {
+      "count": 64,
       "id": "hbm:ammo_5mm_explosive"
     }
   ],

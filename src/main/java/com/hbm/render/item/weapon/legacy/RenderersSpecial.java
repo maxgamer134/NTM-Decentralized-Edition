@@ -23,6 +23,7 @@ public final class RenderersSpecial {
         LegacyGunRenderer.register(LegacyGuns.GUN_TWIGUN, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_DEFABRICATOR, new Renderers5mm.ItemRenderOverkill());
         LegacyGunRenderer.register(LegacyGuns.GUN_CHEMTHROWER_LEGACY, new Chemthrower());
+        LegacyGunRenderer.register(LegacyGuns.GUN_LEVER_ACTION_SONATA, new Sonata());
     }
 
     /** main's ItemRenderRevolverInverted: the python, flipped round on the shooter while drawn. */
@@ -66,6 +67,53 @@ public final class RenderersSpecial {
             part(c, pose, M, ff_gun_bright, CYLINDER, light);
             part(c, pose, M, ff_wood, GRIP, light);
             part(c, pose, M, ff_iron, HAMMER, light);
+        }
+    }
+
+    /** main's ItemRenderGunAnim for the sonata: the flipped ModelLeverAction, the lever swinging on its pin. */
+    public static final class Sonata extends LegacyGunRenderer {
+        private static final HFRWavefrontObject M = com.hbm.client.model.Meshes.faceNormals(com.hbm.lib.Library.id("models/weapons/legacy/lever_action_sonata.obj"));
+        private static final net.minecraft.resources.ResourceLocation T = com.hbm.lib.Library.id("textures/models/ModelLeverAction.png");
+        private static final String[] BODY = {"Barrel1","Barrel2","Barrel3","Barrel4","Grip","Front1","Front2","BodyFront","BodyTop","BodyMain","BodyPlate","HandleMain","HandleBottom","HandleBack","Trigger"};
+        private static final java.util.Set<String> LEVER = java.util.Set.of("LeverFront", "LeverBottom", "LeverMid", "LeverFrontPlate", "LeverBackBottom", "LeverBackTop", "LeverBack");
+
+        @Override
+        public void render(Ctx ctx, ItemStack stack, PoseStack pose, SubmitNodeCollector c, int light) {
+            float anim = com.hbm.items.weapon.legacy.ItemGunSpecial.Sonata.getRotationFromAnim(stack);
+            float off = com.hbm.items.weapon.legacy.ItemGunSpecial.Sonata.getOffsetFromAnim(stack);
+            if (ctx == Ctx.FIRST_PERSON) {
+                rot(pose, -135.0F, 0, 0, 1);
+                pose.translate(-0.5F, 0.0F, -0.2F);
+                pose.scale(0.25F, 0.25F, 0.25F);
+                pose.translate(-0.2F, -0.1F, -0.1F);
+                rot(pose, 180F, 0, 1, 0);
+                rot(pose, 15F, 0, 0, 1);
+                pose.translate(2.3F, 0.2F, 0.8F);
+                if (anim > 0) {
+                    rot(pose, anim * -25, 0, 0, 1);
+                    pose.translate(off * 1.5F, off * -1.5F, 0.0F);
+                }
+            } else if (ctx != Ctx.INVENTORY) {
+                rot(pose, -200.0F, 0, 0, 1);
+                rot(pose, 75.0F, 0, 1, 0);
+                rot(pose, -30.0F, 1, 0, 0);
+                pose.translate(0.0F, -0.2F, -0.5F);
+                rot(pose, -5.0F, 0, 0, 1);
+                pose.scale(0.5F, 0.5F, 0.5F);
+                pose.translate(-0.3F, -0.4F, 0.15F);
+                rot(pose, 180F, 0, 1, 0);
+                rot(pose, 25F, 0, 0, 1);
+                pose.translate(2.3F, 0.2F, 0.8F);
+            }
+            for (String g : BODY) {
+                part(c, pose, M, T, M.partId(g), light);
+            }
+            pose.pushPose();
+            pose.translate(7 / 16F, 9 / 16F, -1 / 16F);
+            pose.mulPose(com.mojang.math.Axis.ZP.rotation(anim));
+            pose.translate(-7 / 16F, -9 / 16F, 1 / 16F);
+            for (String g : LEVER) part(c, pose, M, T, M.partId(g), light);
+            pose.popPose();
         }
     }
 

@@ -346,6 +346,7 @@ public final class LegacyGuns {
     public static RegistryHandle<com.hbm.items.special.ItemCustomLore> GUN_SUPER_SHOTGUN;
     public static RegistryHandle<com.hbm.items.special.ItemCustomLore> GUN_MOIST_NUGGET;
     public static RegistryHandle<ItemGunChemthrowerLegacy> GUN_CHEMTHROWER_LEGACY;
+    public static RegistryHandle<ItemGunSpecial.Sonata> GUN_LEVER_ACTION_SONATA;
     public static RegistryHandle<ItemGunSpecial.Suicide> GUN_REVOLVER_INVERTED;
     public static RegistryHandle<Item> GUN_JACK_AMMO;
     public static RegistryHandle<ItemGunSpecial.Jack> GUN_JACK;
@@ -701,6 +702,7 @@ public final class LegacyGuns {
         GUN_SUPER_SHOTGUN = item("gun_super_shotgun", p -> new com.hbm.items.special.ItemCustomLore(p.stacksTo(1)));
         GUN_MOIST_NUGGET = item("gun_moist_nugget", p -> new com.hbm.items.special.ItemCustomLore(p.food(new net.minecraft.world.food.FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
         GUN_CHEMTHROWER_LEGACY = gun("gun_chemthrower_legacy", ItemGunChemthrowerLegacy::new);
+        GUN_LEVER_ACTION_SONATA = item("gun_lever_action_sonata", ItemGunSpecial.Sonata::new);
         GUN_REVOLVER_INVERTED = item("gun_revolver_inverted", ItemGunSpecial.Suicide::new);
         GUN_JACK_AMMO = part("gun_jack_ammo");
         GUN_JACK = item("gun_jack", ItemGunSpecial.Jack::new);

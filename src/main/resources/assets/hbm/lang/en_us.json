@@ -9208,5 +9208,9 @@
   "item.hbm.ammo_stinger_rocket_bones": "Stinger Rocket (Bone-Seeking)",
   "item.hbm.gun_stinger_legacy": "FIM-92 Stinger",
   "item.hbm.gun_skystinger": "The One Sky Stinger",
-  "item.hbm.gun_chemthrower_legacy": "Chemthrower"
+  "item.hbm.gun_chemthrower_legacy": "Chemthrower",
+  "item.hbm.gun_lever_action_sonata": "Flipped Mare's Leg",
+  "item.hbm.gun_lever_action_sonata_2": "§cSonata's Microphone§r",
+  "item.hbm.gun_lever_action_sonata.desc": "I hate your guts, Vee.\n\nAmmo: 12x74 Buckshot\nDamage: Infinite\n\n[LEGENDARY WEAPON]",
+  "item.hbm.gun_lever_action_sonata.desc.P11": "Vee guilt-tripped me into this.\n\nAmmo: 12x74 Buckshot\nDamage: Infinite\n\n[LEGENDARY WEAPON]"
 }

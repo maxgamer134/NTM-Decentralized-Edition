@@ -161,4 +161,74 @@ public abstract class ItemGunSpecial extends ItemCustomLore {
             if (!level.isClientSide) level.addFreshEntity(bullet);
         }
     }
+
+    /** gun_lever_action_sonata: the mare's leg, flipped; one 20 gauge shell, a kick backwards and the shooter dies. */
+    public static class Sonata extends ItemGunSpecial {
+        public int dmgMin = 8;
+        public int dmgMax = 16;
+
+        public Sonata(Properties p) {
+            // main took any ModItems.ammo_20gauge meta
+            super(p.durability(500), 3.5D, s -> s.getItem() instanceof ItemAmmoLegacy && net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(s.getItem()).getPath().startsWith("ammo_20gauge"));
+        }
+
+        @Override
+        public com.hbm.backport.InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
+            if (getAnim(player.getItemInHand(hand)) == 0) player.startUsingItem(hand);
+            return com.hbm.backport.InteractionResult.CONSUME;
+        }
+
+        @Override
+        public boolean backport$releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeLeft) {
+            if (!(entity instanceof Player player) || !hasAmmo(player) || charge(this, stack, entity, timeLeft) < 10) return false;
+            net.minecraft.world.phys.Vec3 vec = player.getLookAngle().scale(-1).normalize();
+            player.push(vec.x * 0.75, vec.y * 0.75, vec.z * 0.75);
+            consumeAmmo(player);
+            stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+            if (level instanceof ServerLevel) {
+                player.hurt(level.damageSources().source(ModDamageTypes.SUICIDE), 10000);
+                if (!player.getAbilities().instabuild) player.setHealth(0.0F);
+            }
+            LegacySounds.play(player, "weapon.revolverShootAlt", 5.0F, 0.75F);
+            setAnim(stack, 1);
+            return true;
+        }
+
+        @Override
+        public void inventoryTick(ItemStack stack, ServerLevel level, net.minecraft.world.entity.Entity entity, @org.jspecify.annotations.Nullable EquipmentSlot slot) {
+            int j = getAnim(stack);
+            if (j > 0) {
+                setAnim(stack, j < 30 ? j + 1 : 0);
+                if (j == 15) LegacySounds.play(entity, "weapon.leverActionReload", 2F, 0.85F);
+            }
+        }
+
+        @Override
+        public net.minecraft.network.chat.Component getName(ItemStack stack) {
+            return net.minecraft.network.chat.Component.translatable(getDescriptionId() + (com.hbm.main.Polaroid.isBalefireDay() ? "_2" : ""));
+        }
+
+        public static int getAnim(ItemStack stack) {
+            return com.hbm.backport.Nbt.getIntOr(stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.EMPTY).copyTag(), "animation", 0);
+        }
+
+        private static void setAnim(ItemStack stack, int i) {
+            net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, t -> t.putInt("animation", i));
+        }
+
+        public static float getRotationFromAnim(ItemStack stack) {
+            float rad = 0.0174533F * 7.5F;
+            int i = getAnim(stack);
+            if (i < 10) return 0;
+            i -= 10;
+            return i < 10 ? rad * i : (rad * 10) - (rad * (i - 10));
+        }
+
+        public static float getOffsetFromAnim(ItemStack stack) {
+            float i = getAnim(stack);
+            if (i < 10) return 0;
+            i -= 10;
+            return i < 10 ? i / 10 : 2 - (i / 10);
+        }
+    }
 }

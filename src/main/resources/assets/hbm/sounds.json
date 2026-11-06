@@ -3589,5 +3589,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.leveractionreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/leveractionreload",
+        "stream": false
+      }
+    ]
   }
 }

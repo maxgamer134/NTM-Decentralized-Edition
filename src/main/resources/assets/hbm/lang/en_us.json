@@ -9212,5 +9212,10 @@
   "item.hbm.gun_lever_action_sonata": "Flipped Mare's Leg",
   "item.hbm.gun_lever_action_sonata_2": "§cSonata's Microphone§r",
   "item.hbm.gun_lever_action_sonata.desc": "I hate your guts, Vee.\n\nAmmo: 12x74 Buckshot\nDamage: Infinite\n\n[LEGENDARY WEAPON]",
-  "item.hbm.gun_lever_action_sonata.desc.P11": "Vee guilt-tripped me into this.\n\nAmmo: 12x74 Buckshot\nDamage: Infinite\n\n[LEGENDARY WEAPON]"
+  "item.hbm.gun_lever_action_sonata.desc.P11": "Vee guilt-tripped me into this.\n\nAmmo: 12x74 Buckshot\nDamage: Infinite\n\n[LEGENDARY WEAPON]",
+  "item.hbm.gun_dash": "Dash",
+  "item.hbm.gun_dash_ammo": "Dash Ammo",
+  "item.hbm.gun_dash.desc": "Ratatatatatatatata!!\n\nAmmo: SMG Round\nDamage: 2 - 8\n\n[LEGENDARY WEAPON]",
+  "item.hbm.ammo_folly": "Silver Bullet (Original)",
+  "item.hbm.gun_folly_legacy": "Prototype Digamma \"Folly\""
 }

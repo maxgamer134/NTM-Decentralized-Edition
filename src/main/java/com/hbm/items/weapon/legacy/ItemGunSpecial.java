@@ -231,4 +231,100 @@ public abstract class ItemGunSpecial extends ItemCustomLore {
             return i < 10 ? i / 10 : 2 - (i / 10);
         }
     }
+
+    /**
+     * gun_dash: while held, a laser every other tick. main spawned an EntityLaser that lived two ticks and
+     * hurt everything within a block of where the shooter looked; the gun does that itself here.
+     */
+    public static class Dash extends ItemGunSpecial {
+        public Dash(Properties p) { super(p, 3.0D, is(LegacyGuns.GUN_DASH_AMMO)); }
+
+        @Override
+        protected void usingTick(Level level, Player player, ItemStack stack, int count) {
+            if (!hasAmmo(player)) return;
+            if (count % 2 == 0) {
+                LegacySounds.play(player, "weapon.rifleShoot", 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
+                if (!player.getAbilities().instabuild) consumeAmmo(player);
+            }
+            if (!(level instanceof ServerLevel server)) return;
+            net.minecraft.world.phys.Vec3 hit = player.pick(100, 1.0F, false).getLocation();
+            server.sendParticles(net.minecraft.core.particles.ParticleTypes.CLOUD, hit.x, hit.y, hit.z, 1, 0, 0, 0, 0);
+            level.playSound(null, hit.x, hit.y, hit.z, net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH, net.minecraft.sounds.SoundSource.PLAYERS, 1, 1);
+            for (net.minecraft.world.entity.Entity e : level.getEntities((net.minecraft.world.entity.Entity) null, new net.minecraft.world.phys.AABB(hit.x - 1, hit.y - 1, hit.z - 1, hit.x + 1, hit.y + 1, hit.z + 1)))
+                e.hurt(level.damageSources().source(ModDamageTypes.RADIATION), 5);
+        }
+    }
+
+    /**
+     * gun_folly_legacy: main's GunFolly. right click opens it, loads a silver bullet, closes it and starts
+     * a 100 tick lock while held; once locked a click fires main's test bullet and throws the shooter back.
+     * main's EntitySSmokeFX puffs are the repo's large smoke particles here.
+     */
+    public static class Folly extends ItemCustomLore {
+        public Folly(Properties p) { super(p.stacksTo(1)); }
+
+        @Override
+        public com.hbm.backport.InteractionResult backport$use(Level world, Player player, InteractionHand hand) {
+            ItemStack stack = player.getItemInHand(hand);
+            int state = get(stack, "state");
+            if (state == 0) {
+                LegacySounds.play(player, "weapon.follyOpen", 1.0F, 1.0F);
+                set(stack, "state", 1);
+            } else if (state == 1) {
+                Predicate<ItemStack> ammo = is(LegacyGuns.AMMO_FOLLY);
+                ItemStack found = ItemStack.EMPTY;
+                Inventory inv = player.getInventory();
+                for (int i = 0; i < inv.getContainerSize() && found.isEmpty(); i++) if (ammo.test(inv.getItem(i))) found = inv.getItem(i);
+                if (!found.isEmpty()) {
+                    LegacySounds.play(player, "weapon.follyReload", 1.0F, 1.0F);
+                    found.shrink(1);
+                    set(stack, "state", 2);
+                } else {
+                    LegacySounds.play(player, "weapon.follyClose", 1.0F, 1.0F);
+                    set(stack, "state", 0);
+                }
+            } else if (state == 2) {
+                LegacySounds.play(player, "weapon.follyClose", 1.0F, 1.0F);
+                set(stack, "state", 3);
+                set(stack, "timer", 100);
+            } else if (state == 3 && get(stack, "timer") == 0) {
+                set(stack, "state", 0);
+                LegacySounds.play(player, "weapon.follyFire", 1.0F, 1.0F);
+                net.minecraft.world.phys.Vec3 look = player.getLookAngle();
+                player.push(-look.x * 1.75D, -look.y * 1.75D, -look.z * 1.75D);
+                if (world instanceof ServerLevel server) {
+                    world.addFreshEntity(new com.hbm.entity.projectile.EntityBulletBaseNT(world, BulletConfigSyncingUtil.TEST_CONFIG, player));
+                    for (int i = 0; i < 25; i++)
+                        server.sendParticles(net.minecraft.core.particles.ParticleTypes.LARGE_SMOKE,
+                                player.getX() + look.x + world.random.nextGaussian() * 0.35, player.getEyeY() + look.y + world.random.nextGaussian() * 0.35,
+                                player.getZ() + look.z + world.random.nextGaussian() * 0.35, 0, look.x, look.y, look.z, 1);
+                }
+            }
+            return com.hbm.backport.InteractionResult.SUCCESS;
+        }
+
+        @Override
+        public void inventoryTick(ItemStack stack, ServerLevel world, net.minecraft.world.entity.Entity entity, @org.jspecify.annotations.Nullable EquipmentSlot slot) {
+            if (get(stack, "state") != 3) return;
+            if (slot == EquipmentSlot.MAINHAND) {
+                int timer = get(stack, "timer");
+                if (timer > 0) {
+                    timer--;
+                    if (timer % 20 == 0 && timer != 0) LegacySounds.play(entity, "weapon.follyBuzzer", 1.0F, 1.0F);
+                    if (timer == 0) LegacySounds.play(entity, "weapon.follyAquired", 1.0F, 1.0F);
+                    set(stack, "timer", timer);
+                }
+            } else {
+                set(stack, "timer", 100);
+            }
+        }
+
+        public static int get(ItemStack stack, String key) {
+            return com.hbm.backport.Nbt.getIntOr(stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.EMPTY).copyTag(), key, 0);
+        }
+
+        private static void set(ItemStack stack, String key, int v) {
+            net.minecraft.world.item.component.CustomData.update(net.minecraft.core.component.DataComponents.CUSTOM_DATA, stack, t -> t.putInt(key, v));
+        }
+    }
 }

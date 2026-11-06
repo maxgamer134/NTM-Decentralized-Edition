@@ -3598,5 +3598,59 @@
         "stream": false
       }
     ]
+  },
+  "weapon.follyopen": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyopen",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyclose": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyclose",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyfire": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyfire",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follybuzzer": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follybuzzer",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyaquired": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyaquiredalt",
+        "stream": false
+      }
+    ]
   }
 }

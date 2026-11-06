@@ -20,6 +20,7 @@ public final class FlywheelResources {
 
     public static void reload() {
         assert Minecraft.getInstance().isSameThread();
+        FlywheelShaderIndices.prime(Minecraft.getInstance().getResourceManager()); // backport-fix: BF-134
         VisualTextures.reload();
         FallingBlockNTVisual.clearCache();
         FluidTankVisual.reloadTextures();

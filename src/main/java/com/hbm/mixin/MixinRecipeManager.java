@@ -37,6 +37,13 @@ public abstract class MixinRecipeManager {
             ResourceManager manager,
             ProfilerFiller profiler,
             CallbackInfo ci) {
-        DatapackRecipeLoad.apply(((RecipeManager) (Object) this).getRecipes(), registries);
+        RecipeManager self = (RecipeManager) (Object) this;
+        // backport: the gun content switches drop every recipe that names a switched-off item
+        java.util.Set<ResourceLocation> drop = com.hbm.items.weapon.GunContent.recipesToDrop(json);
+        if (!drop.isEmpty()) {
+            self.replaceRecipes(
+                    self.getRecipes().stream().filter(r -> !drop.contains(r.id())).toList());
+        }
+        DatapackRecipeLoad.apply(self.getRecipes(), registries);
     }
 }

@@ -74,6 +74,16 @@ public class NTMJeiPlugin implements IModPlugin {
         return Library.id("jei");
     }
 
+    // backport: JEI lists every registered item, so the gun content switches hide theirs here
+    @Override
+    public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime) {
+        java.util.List<ItemStack> hidden = new java.util.ArrayList<>();
+        for (net.minecraft.world.item.Item item : com.hbm.items.weapon.GunContent.disabled())
+            hidden.add(new ItemStack(item));
+        if (!hidden.isEmpty())
+            runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, hidden);
+    }
+
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         var helpers = registration.getJeiHelpers();

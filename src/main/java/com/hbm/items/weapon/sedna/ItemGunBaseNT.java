@@ -552,7 +552,7 @@ public class ItemGunBaseNT extends ItemCompat implements IKeybindReceiver, IEqui
             ItemStack stack,
             EnumKeybind keybind,
             boolean newState) {
-        if (!ItemData.ENABLE_GUNS.get()) return;
+        if (!ItemData.ENABLE_GUNS.get() || com.hbm.items.weapon.GunContent.isDisabled(this)) return;
 
         int configs = this.configs_DNA.length;
 

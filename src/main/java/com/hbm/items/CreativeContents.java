@@ -3,6 +3,8 @@
 
 package com.hbm.items;
 
+import com.hbm.items.weapon.GunContent;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.BlockVolcano;
 import com.hbm.blocks.generic.BlockPlatemetal;
@@ -95,6 +97,14 @@ public final class CreativeContents {
     }
 
     public static void accept(Tab tab, Consumer<ItemStack> out) {
+        // backport: items switched off by the gun content switches stay out of every tab
+        if (GunContent.disabled().isEmpty()) acceptListed(tab, out);
+        else acceptListed(tab, stack -> {
+            if (!GunContent.isDisabled(stack)) out.accept(stack);
+        });
+    }
+
+    private static void acceptListed(Tab tab, Consumer<ItemStack> out) {
         Map<ResourceLocation, List<Supplier<ItemStack>>> inserted = INSERTED.getOrDefault(tab, Map.of());
         Map<ResourceLocation, List<Supplier<ItemStack>>> before =
                 INSERTED_BEFORE.getOrDefault(tab, Map.of());
@@ -146,7 +156,7 @@ public final class CreativeContents {
         for (Tab tab : Tab.values()) accept(tab, stack -> listed.add(stack.getItem()));
         acceptLegacyVanillaTabs((tab, entry) -> listed.add(entry.get().getItem()));
         for (Item item : BuiltInRegistries.ITEM) {
-            if (listed.contains(item)) continue;
+            if (listed.contains(item) || GunContent.isDisabled(item)) continue;
             if (BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(NuclearTech.MOD_ID))
                 out.accept(new ItemStack(item));
         }

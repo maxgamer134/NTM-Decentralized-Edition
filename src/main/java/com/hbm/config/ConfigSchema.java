@@ -96,6 +96,32 @@ public final class ConfigSchema {
                     true,
                     "Uses Less Bullshit Mode's simple tool recipe forms.");
 
+    // backport: gun content switches (main only has 1.20_enableGuns, which stops guns firing)
+    public static final ConfigEntry<Boolean> DISABLE_ALL_GUNS =
+            bool(
+                    Domain.CONTENT,
+                    "guns",
+                    "disable_all_guns",
+                    false,
+                    "Master switch: hides every gun, gun part, casing, ammo and the ammo press from creative and "
+                            + "recipe viewers, drops their recipes and stops guns firing.");
+
+    public static final ConfigEntry<Boolean> DISABLE_POST_REWORK_GUNS =
+            bool(
+                    Domain.CONTENT,
+                    "guns",
+                    "disable_post_rework_guns",
+                    false,
+                    "Does the same as disable_all_guns for main's current guns, their parts, ammo and the ammo press.");
+
+    public static final ConfigEntry<Boolean> DISABLE_PRE_REWORK_GUNS =
+            bool(
+                    Domain.CONTENT,
+                    "guns",
+                    "disable_pre_rework_guns",
+                    true,
+                    "Does the same as disable_all_guns for the guns main had before its gun rework.");
+
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =
             bool(
                     Domain.CONTENT,
@@ -610,6 +636,9 @@ public final class ConfigSchema {
                     ENABLE_LBSM_SIMPLE_ARMOR_RECIPES,
                     ENABLE_LBSM_SIMPLE_TOOL_RECIPES,
                     ENABLE_LBSM_SIMPLE_CRAFTING,
+                    DISABLE_ALL_GUNS,
+                    DISABLE_POST_REWORK_GUNS,
+                    DISABLE_PRE_REWORK_GUNS,
                     ENABLE_LBSM_SIMPLE_CHEMISTRY,
                     ENABLE_LBSM_SIMPLE_CENTRIFUGE,
                     ENABLE_LBSM_UNLOCK_ANVIL,

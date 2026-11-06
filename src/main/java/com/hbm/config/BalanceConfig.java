@@ -6,6 +6,9 @@ package com.hbm.config;
 public final class BalanceConfig {
 
     public static boolean enable528 = false;
+    public static boolean disableAllGuns = false;
+    public static boolean disablePostReworkGuns = false;
+    public static boolean disablePreReworkGuns = true;
     public static boolean enable528ReasimBoilers = false;
     public static boolean enable528PressurizedRecipes = false;
     public static boolean enable528MachineGravity = false;
@@ -42,6 +45,10 @@ public final class BalanceConfig {
         enableLBSMSimpleArmorRecipes = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_ARMOR_RECIPES);
         enableLBSMSimpleToolRecipes = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_TOOL_RECIPES);
         enableLBSMSimpleCrafting = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_CRAFTING);
+        disableAllGuns = c.get(ConfigSchema.DISABLE_ALL_GUNS);
+        disablePostReworkGuns = c.get(ConfigSchema.DISABLE_POST_REWORK_GUNS);
+        disablePreReworkGuns = c.get(ConfigSchema.DISABLE_PRE_REWORK_GUNS);
+        com.hbm.items.weapon.GunContent.invalidate();
         enableLBSMSimpleChemistry = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_CHEMISTRY);
         enableLBSMSimpleCentrifuge = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_CENTRIFUGE);
         enableLBSMUnlockAnvil = c.get(ConfigSchema.ENABLE_LBSM_UNLOCK_ANVIL);

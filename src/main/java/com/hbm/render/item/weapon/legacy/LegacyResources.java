@@ -158,4 +158,7 @@ public final class LegacyResources {
     public static final HFRWavefrontObject model_fatman = Meshes.faceNormals(Library.id("models/weapons/legacy/fatman.obj"));
     public static final HFRWavefrontObject model_mirvlauncher = Meshes.faceNormals(Library.id("models/weapons/legacy/mirvlauncher.obj"));
     public static final HFRWavefrontObject model_bflauncher = Meshes.faceNormals(Library.id("models/weapons/legacy/bflauncher.obj"));
+
+    public static final HFRWavefrontObject tau = Meshes.load(Library.id("models/weapons/legacy/tau.obj"));
+    public static final ResourceLocation tau_tex = Library.id("textures/models/weapons/tau.png");
 }

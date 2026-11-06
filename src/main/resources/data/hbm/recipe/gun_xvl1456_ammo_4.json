@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "R": "hbm:waste_u235"
+  },
+  "pattern": [
+    "SRS"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_xvl1456_ammo"
+  }
+}

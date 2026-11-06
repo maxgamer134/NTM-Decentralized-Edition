@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "R": "#c:ingots/uranium_238"
+  },
+  "pattern": [
+    "SRS"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_xvl1456_ammo"
+  }
+}

@@ -9158,5 +9158,7 @@
   "item.hbm.ammo_dart_nuclear": "Plastic Dart (Timed Explosive)",
   "item.hbm.ammo_dart_nerf": "NERF Dart",
   "item.hbm.gun_mymy": "Nietes",
-  "item.hbm.gun_darter": "Dart Gun"
+  "item.hbm.gun_darter": "Dart Gun",
+  "item.hbm.gun_xvl1456": "XVL1456 Tau Cannon Prototype",
+  "item.hbm.gun_xvl1456_ammo": "Depleted Uranium-235 Box"
 }

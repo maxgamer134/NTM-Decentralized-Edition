@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/iron",
+    "B": "#c:pipes/steel",
+    "M": "hbm:mechanism_rifle_1",
+    "I": "#c:ingots/steel"
+  },
+  "pattern": [
+    " PI",
+    "BBM",
+    " PI"
+  ],
+  "result": {
+    "id": "hbm:gun_calamity"
+  }
+}

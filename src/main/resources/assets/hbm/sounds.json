@@ -3419,5 +3419,22 @@
         "stream": false
       }
     ]
+  },
+  "weapon.calshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/cal1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/cal2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/cal3",
+        "stream": false
+      }
+    ]
   }
 }

@@ -9089,5 +9089,15 @@
   "item.hbm.ammo_75bolt_incendiary": ".75 Incendiary Bolt Magazine (30rnd)",
   "item.hbm.ammo_75bolt_he": ".75 Bolt High-Explosive Magazine (30rnd)",
   "item.hbm.gun_bolter_legacy": "Bolter",
-  "item.hbm.gun_bolter_digamma": "Digamma Gun"
+  "item.hbm.gun_bolter_digamma": "Digamma Gun",
+  "item.hbm.ammo_762": "7.62mm Round",
+  "item.hbm.ammo_762_ap": "7.62mm Round (AP)",
+  "item.hbm.ammo_762_du": "7.62mm Round (DU)",
+  "item.hbm.ammo_762_tracer": "7.62mm Round (Tracer)",
+  "item.hbm.ammo_762_phosphorus": "7.62mm Round (WP)",
+  "item.hbm.ammo_762_k": "7.62mm K-Round",
+  "item.hbm.gun_calamity": "Buzzsaw",
+  "item.hbm.gun_bolt_action": "Dream Bolt-Action Rifle (Original)",
+  "item.hbm.gun_bolt_action_green": "Dream Bolt-Action Rifle (Green)",
+  "item.hbm.gun_bolt_action_saturnite": "Saturnite Rifle"
 }

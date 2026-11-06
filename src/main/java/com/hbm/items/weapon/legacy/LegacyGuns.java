@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun762mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun75BoltFactory;
 import com.hbm.items.weapon.legacy.factory.Gun5mmFactory;
 import com.hbm.items.weapon.legacy.factory.Gun556mmFactory;
@@ -225,6 +226,18 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_BOLTER_LEGACY;
     public static RegistryHandle<ItemGunBase> GUN_BOLTER_DIGAMMA;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_762;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_762_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_762_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_762_TRACER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_762_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_762_K;
+    public static RegistryHandle<ItemGunBase> GUN_CALAMITY;
+    public static RegistryHandle<ItemGunBase> GUN_BOLT_ACTION;
+    public static RegistryHandle<ItemGunBase> GUN_BOLT_ACTION_GREEN;
+    public static RegistryHandle<ItemGunBase> GUN_BOLT_ACTION_SATURNITE;
+    public static RegistryHandle<Item> ASSEMBLY_762;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -437,6 +450,19 @@ public final class LegacyGuns {
         AMMO_75BOLT_HE = ammo("ammo_75bolt_he");
         GUN_BOLTER_LEGACY = gun("gun_bolter_legacy", p -> new ItemGunBase(Gun75BoltFactory.getBolterConfig(), p));
         GUN_BOLTER_DIGAMMA = gun("gun_bolter_digamma", p -> new ItemGunBase(Gun75BoltFactory.getBolterConfig(), p));
+
+        // 762
+        AMMO_762 = ammo("ammo_762");
+        AMMO_762_AP = ammo("ammo_762_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_762_DU = ammo("ammo_762_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_762_TRACER = ammo("ammo_762_tracer", AmmoItemTrait.NEU_TRACER);
+        AMMO_762_PHOSPHORUS = ammo("ammo_762_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
+        AMMO_762_K = ammo("ammo_762_k", AmmoItemTrait.NEU_BLANK);
+        GUN_CALAMITY = gun("gun_calamity", p -> new ItemGunBase(Gun762mmFactory.getCalamityConfig(), p));
+        GUN_BOLT_ACTION = gun("gun_bolt_action", p -> new ItemGunBase(Gun762mmFactory.getBoltConfig(), p));
+        GUN_BOLT_ACTION_GREEN = gun("gun_bolt_action_green", p -> new ItemGunBase(Gun762mmFactory.getBoltGreenConfig(), p));
+        GUN_BOLT_ACTION_SATURNITE = gun("gun_bolt_action_saturnite", p -> new ItemGunBase(Gun762mmFactory.getBoltSaturniteConfig(), p));
+        ASSEMBLY_762 = part("assembly_762");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

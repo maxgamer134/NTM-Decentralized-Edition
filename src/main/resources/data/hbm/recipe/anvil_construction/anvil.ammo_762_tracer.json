@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 32,
+      "ingredient": "hbm:ammo_762"
+    },
+    {
+      "ingredient": "minecraft:redstone"
+    }
+  ],
+  "order": 99562,
+  "output_items": [
+    {
+      "count": 32,
+      "id": "hbm:ammo_762_tracer"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

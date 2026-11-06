@@ -135,4 +135,13 @@ public final class LegacyResources {
     public static final HFRWavefrontObject bolter = Meshes.load(Library.id("models/weapons/legacy/bolter.obj"));
     public static final ResourceLocation bolter_digamma_tex = Library.id("textures/models/weapons/bolter_digamma.png");
     public static final ResourceLocation bolter_tex = Library.id("textures/models/weapons/bolter.png");
+
+    public static final HFRWavefrontObject mg42 = Meshes.load(Library.id("models/weapons/mg42.obj"));
+    public static final ResourceLocation mg42_tex = Library.id("textures/models/weapons/ff/mg42.png");
+    public static final HFRWavefrontObject rem700 = Meshes.load(Library.id("models/weapons/rem700.obj"));
+    public static final ResourceLocation rem700_tex = Library.id("textures/models/weapons/ff/rem700.png");
+    public static final HFRWavefrontObject rem700poly = Meshes.load(Library.id("models/weapons/rem700poly.obj"));
+    public static final ResourceLocation rem700poly_tex = Library.id("textures/models/weapons/ff/rem700poly.png");
+    public static final HFRWavefrontObject rem700sat = Meshes.load(Library.id("models/weapons/rem700sat.obj"));
+    public static final ResourceLocation rem700sat_tex = Library.id("textures/models/weapons/ff/rem700sat.png");
 }

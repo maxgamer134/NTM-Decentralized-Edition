@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.machine;
 
+import net.minecraft.ChatFormatting;
 import com.hbm.blockentity.machine.BlockEntityCondenserPowered;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
@@ -26,17 +27,17 @@ public class MachineCondenserPowered extends BlockMultiblockCore
         super(props);
     }
 
-    private static void line(
-            ILookOverlay.LookInfo info, String prefix, FluidTankNTM tank, int color) {
+    // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
+    private static void line(ILookOverlay.LookInfo info, boolean input, FluidTankNTM tank) {
         info.line(
-                prefix
+                (input ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ")
+                        + ChatFormatting.RESET
                         + NTMFluidProperties.clientName(tank.getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", tank.getFill())
-                        + " / "
+                        + "/"
                         + String.format(Locale.US, "%,d", tank.getMaxFill())
-                        + " mB",
-                color);
+                        + "mB");
     }
 
     @Override
@@ -59,8 +60,8 @@ public class MachineCondenserPowered extends BlockMultiblockCore
                         + BobMathUtil.getShortNumber(be.getMaxPower())
                         + "HE",
                 0xFFFF00);
-        line(info, "-> ", be.input, 0x00FF00);
-        line(info, "<- ", be.output, 0xFF0000);
+        line(info, true, be.input);
+        line(info, false, be.output);
     }
 
     @Override

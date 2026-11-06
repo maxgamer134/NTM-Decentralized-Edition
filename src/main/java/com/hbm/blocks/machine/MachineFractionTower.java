@@ -84,17 +84,17 @@ public class MachineFractionTower extends BlockMultiblockCore
         for (int i = 0; i < frac.tanks.length; i++) {
             FluidTankNTM tank = frac.tanks[i];
             if (tank.getTankType() == null) continue;
-            String arrow = i == 0 ? "-> " : "<- ";
-            int color = i == 0 ? 0x55FF55 : 0xFF5555;
+            // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
+            String arrow = i == 0 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ";
             info.line(
                     arrow
+                            + ChatFormatting.RESET
                             + NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
-                            + " / "
+                            + "/"
                             + tank.getMaxFill()
-                            + " mB",
-                    color);
+                            + "mB");
         }
     }
 

@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.machine;
 
+import net.minecraft.ChatFormatting;
 import com.hbm.api.environment.Environment;
 import com.hbm.blockentity.machine.BlockEntityCondenser;
 import com.hbm.blocks.ITickingBlock;
@@ -28,17 +29,19 @@ public class MachineCondenser extends BlockCompat
         super(props);
     }
 
-    private static void line(
-            ILookOverlay.LookInfo info, String prefix, FluidTankNTM tank, int color) {
+    // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
+    private static void line(ILookOverlay.LookInfo info, boolean input, FluidTankNTM tank) {
         info.line(
-                Component.literal(prefix)
+                Component.empty()
+                        .append(
+                                Component.literal(input ? "-> " : "<- ")
+                                        .withStyle(input ? ChatFormatting.GREEN : ChatFormatting.RED))
                         .append(NTMFluidProperties.getDisplayName(tank.getFluid()))
                         .append(": ")
                         .append(
                                 Component.translatable(
                                         "unit.millibuckets",
-                                        tank.getFill() + "/" + tank.getMaxFill())),
-                color);
+                                        tank.getFill() + "/" + tank.getMaxFill())));
     }
 
     @Override
@@ -60,8 +63,8 @@ public class MachineCondenser extends BlockCompat
         if (!(level.getBlockEntity(pos) instanceof BlockEntityCondenser be)) return;
         info.title(getName(), 0xFFFF00, 0x404000);
         vacuumWarning(level, info);
-        line(info, "-> ", be.input, 0x00FF00);
-        line(info, "<- ", be.output, 0xFF0000);
+        line(info, true, be.input);
+        line(info, false, be.output);
     }
 
     @Override

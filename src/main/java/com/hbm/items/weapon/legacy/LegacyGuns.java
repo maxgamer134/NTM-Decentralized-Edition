@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunFatmanFactory;
 import com.hbm.items.weapon.legacy.factory.GunGrenadeFactory;
 import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
 import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
@@ -283,6 +284,24 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_HK69;
     public static RegistryHandle<ItemGunBase> GUN_CONGOLAKE_LEGACY;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_LOW;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_HIGH;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_TOTS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_SAFE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_PUMPKIN;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_MIRV;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_MIRV_LOW;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_MIRV_HIGH;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_MIRV_SAFE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_MIRV_SPECIAL;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_BALEFIRE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_NUKE_BARREL;
+    public static RegistryHandle<ItemGunBase> GUN_FATMAN_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_PROTO;
+    public static RegistryHandle<ItemGunBase> GUN_MIRV;
+    public static RegistryHandle<ItemGunBase> GUN_BF;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -553,6 +572,25 @@ public final class LegacyGuns {
         AMMO_GRENADE_LEADBURSTER = ammo("ammo_grenade_leadburster", AmmoItemTrait.NEU_LEADBURSTER, AmmoItemTrait.CON_NO_EXPLODE1);
         GUN_HK69 = gun("gun_hk69", p -> new ItemGunBase(GunGrenadeFactory.getHK69Config(), p));
         GUN_CONGOLAKE_LEGACY = gun("gun_congolake_legacy", p -> new ItemGunBase(GunGrenadeFactory.getCongoConfig(), p));
+
+        // Fatman
+        AMMO_NUKE = ammo("ammo_nuke");
+        AMMO_NUKE_LOW = ammo("ammo_nuke_low", AmmoItemTrait.CON_RADIUS);
+        AMMO_NUKE_HIGH = ammo("ammo_nuke_high", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.PRO_FALLOUT);
+        AMMO_NUKE_TOTS = ammo("ammo_nuke_tots", AmmoItemTrait.PRO_BOMB_COUNT, AmmoItemTrait.NEU_FUN, AmmoItemTrait.CON_ACCURACY2, AmmoItemTrait.CON_RADIUS, AmmoItemTrait.CON_NO_MIRV);
+        AMMO_NUKE_SAFE = ammo("ammo_nuke_safe", AmmoItemTrait.CON_RADIUS, AmmoItemTrait.CON_NO_EXPLODE2);
+        AMMO_NUKE_PUMPKIN = ammo("ammo_nuke_pumpkin", AmmoItemTrait.CON_NN);
+        AMMO_MIRV = ammo("ammo_mirv");
+        AMMO_MIRV_LOW = ammo("ammo_mirv_low", AmmoItemTrait.CON_RADIUS);
+        AMMO_MIRV_HIGH = ammo("ammo_mirv_high", AmmoItemTrait.PRO_RADIUS, AmmoItemTrait.PRO_FALLOUT);
+        AMMO_MIRV_SAFE = ammo("ammo_mirv_safe", AmmoItemTrait.CON_RADIUS, AmmoItemTrait.CON_NO_EXPLODE2);
+        AMMO_MIRV_SPECIAL = ammo("ammo_mirv_special");
+        AMMO_NUKE_BALEFIRE = ammo("ammo_nuke_balefire");
+        AMMO_NUKE_BARREL = ammo("ammo_nuke_barrel");
+        GUN_FATMAN_LEGACY = gun("gun_fatman_legacy", p -> new ItemGunBase(GunFatmanFactory.getFatmanConfig(), p));
+        GUN_PROTO = gun("gun_proto", p -> new ItemGunBase(GunFatmanFactory.getProtoConfig(), p));
+        GUN_MIRV = gun("gun_mirv", p -> new ItemGunBase(GunFatmanFactory.getMIRVConfig(), p));
+        GUN_BF = gun("gun_bf", p -> new ItemGunBase(GunFatmanFactory.getBELConfig(), p));
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:nuggets/plutonium_239",
+    "S": "hbm:assembly_nuke"
+  },
+  "pattern": [
+    "PPP",
+    "PSP",
+    "PPP"
+  ],
+  "result": {
+    "id": "hbm:ammo_nuke_high"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:shells/steel",
+    "E": "hbm:powder_power",
+    "B": "hbm:egg_balefire_shard"
+  },
+  "pattern": [
+    " S ",
+    "EBE",
+    " S "
+  ],
+  "result": {
+    "id": "hbm:ammo_nuke_balefire"
+  }
+}

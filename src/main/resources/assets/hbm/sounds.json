@@ -3472,5 +3472,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.fatmanshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/fatmanshoot",
+        "stream": false
+      }
+    ]
   }
 }

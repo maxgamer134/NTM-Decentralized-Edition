@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunFatmanFactory;
 import com.hbm.items.weapon.legacy.factory.GunGrenadeFactory;
 import com.hbm.items.weapon.legacy.factory.GunRocketFactory;
 import com.hbm.items.weapon.legacy.factory.Gun9mmFactory;
@@ -498,6 +499,27 @@ public final class BulletConfigSyncingUtil {
         configSet.put(GRENADE_TRACER, GunGrenadeFactory.getGrenadeTracerConfig());
         configSet.put(GRENADE_KAMPF, GunGrenadeFactory.getGrenadeKampfConfig());
         configSet.put(GRENADE_LEADBURSTER, GunGrenadeFactory.getGrenadeLeadbursterConfig());
+
+
+        configSet.put(NUKE_NORMAL, GunFatmanFactory.getNukeConfig());
+        configSet.put(NUKE_LOW, GunFatmanFactory.getNukeLowConfig());
+        configSet.put(NUKE_HIGH, GunFatmanFactory.getNukeHighConfig());
+        configSet.put(NUKE_TOTS, GunFatmanFactory.getNukeTotsConfig());
+        configSet.put(NUKE_SAFE, GunFatmanFactory.getNukeSafeConfig());
+        configSet.put(NUKE_PUMPKIN, GunFatmanFactory.getNukePumpkinConfig());
+        configSet.put(NUKE_BARREL, GunFatmanFactory.getNukeBarrelConfig());
+        configSet.put(NUKE_PROTO_NORMAL, GunFatmanFactory.getNukeConfig().accuracyMod(20F));
+        configSet.put(NUKE_PROTO_LOW, GunFatmanFactory.getNukeLowConfig().accuracyMod(20F));
+        configSet.put(NUKE_PROTO_HIGH, GunFatmanFactory.getNukeHighConfig().accuracyMod(20F));
+        configSet.put(NUKE_PROTO_TOTS, GunFatmanFactory.getNukeTotsConfig().accuracyMod(20F));
+        configSet.put(NUKE_PROTO_SAFE, GunFatmanFactory.getNukeSafeConfig().accuracyMod(20F));
+        configSet.put(NUKE_PROTO_PUMPKIN, GunFatmanFactory.getNukePumpkinConfig().accuracyMod(20F));
+        configSet.put(NUKE_MIRV_NORMAL, GunFatmanFactory.getMirvConfig());
+        configSet.put(NUKE_MIRV_LOW, GunFatmanFactory.getMirvLowConfig());
+        configSet.put(NUKE_MIRV_HIGH, GunFatmanFactory.getMirvHighConfig());
+        configSet.put(NUKE_MIRV_SAFE, GunFatmanFactory.getMirvSafeConfig());
+        configSet.put(NUKE_MIRV_SPECIAL, GunFatmanFactory.getMirvSpecialConfig());
+        configSet.put(NUKE_AMAT, GunFatmanFactory.getBalefireConfig());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

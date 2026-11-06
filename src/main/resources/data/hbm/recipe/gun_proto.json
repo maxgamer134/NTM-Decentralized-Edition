@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#hbm:ingots/any_rubber",
+    "L": "hbm:plate_desh",
+    "W": "#c:fine_wires/tungsten",
+    "F": "hbm:gun_fatman"
+  },
+  "pattern": [
+    "LLL",
+    "WFW",
+    "SSS"
+  ],
+  "result": {
+    "id": "hbm:gun_proto"
+  }
+}

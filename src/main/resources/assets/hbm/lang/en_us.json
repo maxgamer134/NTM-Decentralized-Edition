@@ -9136,5 +9136,22 @@
   "item.hbm.ammo_grenade_kampf": "40mm Rocket",
   "item.hbm.ammo_grenade_leadburster": "40mm Leadburster",
   "item.hbm.gun_hk69": "Grenade Pistol",
-  "item.hbm.gun_congolake_legacy": "Congo Lake"
+  "item.hbm.gun_congolake_legacy": "Congo Lake",
+  "item.hbm.ammo_nuke": "Mini Nuke",
+  "item.hbm.ammo_nuke_low": "Mini Nuke (Low Yield)",
+  "item.hbm.ammo_nuke_high": "Mini Nuke (High Yield)",
+  "item.hbm.ammo_nuke_tots": "Mini Nuke (Tiny Tots)",
+  "item.hbm.ammo_nuke_safe": "Mini Nuke (Safe)",
+  "item.hbm.ammo_nuke_pumpkin": "Pumpkin Bomb",
+  "item.hbm.ammo_mirv": "Mini MIRV",
+  "item.hbm.ammo_mirv_low": "Mini MIRV (Low Yield)",
+  "item.hbm.ammo_mirv_high": "Mini MIRV (High Yield)",
+  "item.hbm.ammo_mirv_safe": "Mini MIRV (Safe)",
+  "item.hbm.ammo_mirv_special": "Mini MILV",
+  "item.hbm.ammo_nuke_balefire": "Balefire Shell",
+  "item.hbm.ammo_nuke_barrel": "Mini Nuclear Waste Barrel",
+  "item.hbm.gun_fatman_legacy": "M42 Nuclear Catapult \"Fat Man\"",
+  "item.hbm.gun_proto": "M42 Nuclear Catapult \"Proto MIRV\"",
+  "item.hbm.gun_mirv": "M42 Nuclear Catapult \"Experimental MIRV\"",
+  "item.hbm.gun_bf": "BEL"
 }

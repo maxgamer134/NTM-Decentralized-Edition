@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "hbm:pellet_cluster",
+    "I": "#c:ingots/plutonium_239"
+  },
+  "pattern": [
+    "PPP",
+    "PIP",
+    "PPP"
+  ],
+  "result": {
+    "id": "hbm:ammo_nuke_tots"
+  }
+}

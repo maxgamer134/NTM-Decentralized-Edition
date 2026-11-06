@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "I": "#c:ingots/steel",
+    "W": "#c:fine_wires/aluminum",
+    "H": "#c:shells/steel",
+    "P": "minecraft:piston",
+    "M": "hbm:mechanism_launcher_2"
+  },
+  "pattern": [
+    "SSI",
+    "IIM",
+    "WPH"
+  ],
+  "result": {
+    "id": "hbm:gun_fatman_legacy"
+  }
+}

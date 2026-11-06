@@ -154,4 +154,8 @@ public final class LegacyResources {
     public static final HashMap<String, BusAnimation> congolake_anim = AnimationLoader.load(Library.id("models/weapons/animations/legacy/congolake.json"));
     public static final HFRWavefrontObject congolake = Meshes.load(Library.id("models/weapons/legacy/congolake.obj"));
     public static final ResourceLocation congolake_tex = Library.id("textures/models/weapons/legacy/congolake.png");
+
+    public static final HFRWavefrontObject model_fatman = Meshes.faceNormals(Library.id("models/weapons/legacy/fatman.obj"));
+    public static final HFRWavefrontObject model_mirvlauncher = Meshes.faceNormals(Library.id("models/weapons/legacy/mirvlauncher.obj"));
+    public static final HFRWavefrontObject model_bflauncher = Meshes.faceNormals(Library.id("models/weapons/legacy/bflauncher.obj"));
 }

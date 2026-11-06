@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:ammo_mirv"
+  ],
+  "result": {
+    "count": 6,
+    "id": "hbm:ammo_nuke"
+  }
+}

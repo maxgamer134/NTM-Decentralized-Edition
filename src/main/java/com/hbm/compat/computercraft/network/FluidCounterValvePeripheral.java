@@ -4,8 +4,8 @@
 package com.hbm.compat.computercraft.network;
 
 import com.hbm.blockentity.network.BlockEntityFluidCounterValve;
+import com.hbm.compat.computercraft.ComputerError;
 import com.hbm.compat.computercraft.SnapshotPeripheral;
-import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 
 public final class FluidCounterValvePeripheral
@@ -48,8 +48,8 @@ public final class FluidCounterValvePeripheral
     }
 
     @LuaFunction(mainThread = true)
-    public final Object[] setState(int state) throws LuaException {
-        if (state != 0 && state != 1) throw new LuaException("bad argument");
+    public final Object[] setState(int state) {
+        if (state != 0 && state != 1) throw ComputerError.of("bad argument");
         machine().setState(state);
         return new Object[] {};
     }

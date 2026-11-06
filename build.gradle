@@ -180,6 +180,12 @@ dependencies {
     implementation "curse.maven:jade-324717:8591319"
     // CC: Tweaked for 1.21.1 NeoForge: machine peripherals (com.hbm.compat.computercraft, loaded only with CC present)
     implementation "maven.modrinth:gu7yAYhd:1ewzHZYg"
+    // OpenComputers: Rebooted 1.9.4-5 for 1.21.1 NeoForge: the same machine methods as OC components
+    // (com.hbm.compat.computercraft.OcBridge, loaded only with OC present). Dev runs: -Pdev_oc=true
+    compileOnly "curse.maven:opencomputers-rebooted-1634364:8858759"
+    if (project.findProperty('dev_oc') == 'true') {
+        runtimeOnly "curse.maven:opencomputers-rebooted-1634364:8858759"
+    }
     // CIDE (in-game Lua IDE for CC), dev runs only
     runtimeOnly "maven.modrinth:xwfHmqSv:xdnAXaAa"
     // The One Probe 1.21_neo-12.0.x: energy/fluid probe info, multiblock cells show their core (com.hbm.integration.top, IMC)

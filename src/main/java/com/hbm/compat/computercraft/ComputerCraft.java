@@ -11,21 +11,25 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.fml.ModList;
 
-// The CC gate: this class has no CC imports; Peripherals (and through it every peripheral class,
-// all of which import dan200.computercraft.*) is only linked when a LOADED branch executes.
+// The computer gate: this class has no CC or OC imports. Peripherals and the peripheral classes are
+// CC-free at runtime (their @LuaFunction marks are only read, by CC or by OcBridge's scan), so they
+// run for either mod; CcBridge (CC) and OcBridge (OpenComputers) are only linked when theirs is here.
 public final class ComputerCraft {
 
     public static final String MOD_ID = "computercraft";
     public static final boolean LOADED = ModList.get().isLoaded(MOD_ID);
 
+    /** Either computer mod is here, so the peripheral roster and its snapshots are needed. */
+    static final boolean ANY = LOADED || OpenComputers.LOADED;
+
     private ComputerCraft() {}
 
     public static void init() {
-        if (LOADED) Peripherals.init();
+        if (ANY) Peripherals.init();
     }
 
     public static void declare(List<RegistryHandle<? extends Block>> roster) {
-        if (LOADED) Peripherals.declare(roster);
+        if (LOADED) CcBridge.declare();
     }
 
     @SafeVarargs
@@ -35,13 +39,13 @@ public final class ComputerCraft {
             boolean proxied,
             RegistryHandle<? extends Block>... blocks) {
         NeoForgeRegistrar.assertOpen("ComputerCraft.addon");
-        if (LOADED) Peripherals.addon(type, factory, proxied, List.of(blocks));
+        if (ANY) Peripherals.addon(type, factory, proxied, List.of(blocks));
     }
 
     @SafeVarargs
     public static void extend(
             Class<? extends BlockEntity> type, RegistryHandle<? extends Block>... blocks) {
         NeoForgeRegistrar.assertOpen("ComputerCraft.extend");
-        if (LOADED) Peripherals.extend(type, List.of(blocks));
+        if (ANY) Peripherals.extend(type, List.of(blocks));
     }
 }

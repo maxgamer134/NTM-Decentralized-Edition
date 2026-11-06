@@ -3,13 +3,12 @@
 
 package com.hbm.compat.computercraft;
 
-import dan200.computercraft.api.peripheral.IPeripheral;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import org.jspecify.annotations.Nullable;
 
-public abstract class SnapshotPeripheral<BE extends BlockEntity> implements IPeripheral {
+public abstract class SnapshotPeripheral<BE extends BlockEntity> {
 
     private static final VarHandle SEQ;
     private static final VarHandle LONGS = MethodHandles.arrayElementVarHandle(long[].class);
@@ -29,6 +28,9 @@ public abstract class SnapshotPeripheral<BE extends BlockEntity> implements IPer
     private final long[] longs;
     private final Object[] refs;
     private int seq;
+
+    /** The CC peripheral wrapping this snapshot, made once so CC sees one stable object. */
+    @Nullable Object ccAdapter;
 
     protected SnapshotPeripheral(BE machine, String type, int longs, int refs) {
         this.machine = machine;
@@ -119,20 +121,16 @@ public abstract class SnapshotPeripheral<BE extends BlockEntity> implements IPer
         return machine;
     }
 
-    @Override
     public final String getType() {
         return type;
     }
 
-    @Override
     public final Object getTarget() {
         return machine;
     }
 
-    @Override
-    public final boolean equals(@Nullable IPeripheral other) {
-        return other instanceof SnapshotPeripheral<?> peripheral
-                && peripheral.machine == machine
-                && peripheral.getClass() == getClass();
+    /** The same machine seen through the same peripheral class. */
+    final boolean sameAs(SnapshotPeripheral<?> other) {
+        return other.machine == machine && other.getClass() == getClass();
     }
 }

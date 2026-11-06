@@ -5,8 +5,8 @@ package com.hbm.compat.computercraft.rbmk;
 
 import com.hbm.blockentity.machine.rbmk.BlockEntityRBMKNumitron.DisplayUnit;
 import com.hbm.blockentity.machine.rbmk.BlockEntityRBMKNumitron;
+import com.hbm.compat.computercraft.ComputerError;
 import com.hbm.compat.computercraft.SnapshotPeripheral;
-import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -106,11 +106,11 @@ public final class RBMKNumitronPeripheral extends SnapshotPeripheral<BlockEntity
     }
 
     @LuaFunction(mainThread = true)
-    public final Object[] setDisplayActiveDigits(int index, int digits) throws LuaException {
+    public final Object[] setDisplayActiveDigits(int index, int digits) {
         int idx = index - 1;
         if (idx < 0 || idx >= N) return new Object[] {false, INVALID};
         long val = digits;
-        if (val < 0 || val >= 128) throw new LuaException("Invalid value (0-127)");
+        if (val < 0 || val >= 128) throw ComputerError.of("Invalid value (0-127)");
         return set(index, d -> d.activeDigits = val);
     }
 

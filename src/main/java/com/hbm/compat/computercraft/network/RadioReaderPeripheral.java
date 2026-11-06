@@ -4,9 +4,10 @@
 package com.hbm.compat.computercraft.network;
 
 import com.hbm.blockentity.network.BlockEntityRadioTorchReader;
+import com.hbm.compat.computercraft.CcBridge;
+import com.hbm.compat.computercraft.ComputerArgs;
 import com.hbm.compat.computercraft.SnapshotPeripheral;
 import dan200.computercraft.api.lua.IArguments;
-import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 
 public final class RadioReaderPeripheral extends SnapshotPeripheral<BlockEntityRadioTorchReader> {
@@ -29,7 +30,12 @@ public final class RadioReaderPeripheral extends SnapshotPeripheral<BlockEntityR
     }
 
     @LuaFunction(mainThread = true)
-    public final Object[] setChannel(IArguments args) throws LuaException {
+    public final Object[] setChannel(IArguments args) {
+        return setChannel(CcBridge.args(args));
+    }
+
+    /** setChannel for either computer mod (main's OC version read the raw Arguments too). */
+    public final Object[] setChannel(ComputerArgs args) {
         int index = args.getInt(0);
         if (index >= 0 && index < 8) machine().setChannel(index, args.getString(1));
         return new Object[] {};
@@ -43,7 +49,12 @@ public final class RadioReaderPeripheral extends SnapshotPeripheral<BlockEntityR
     }
 
     @LuaFunction(mainThread = true)
-    public final Object[] setName(IArguments args) throws LuaException {
+    public final Object[] setName(IArguments args) {
+        return setName(CcBridge.args(args));
+    }
+
+    /** setName for either computer mod. */
+    public final Object[] setName(ComputerArgs args) {
         int index = args.getInt(0);
         if (index >= 0 && index < 8) machine().setName(index, args.getString(1));
         return new Object[] {};

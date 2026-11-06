@@ -236,6 +236,8 @@ public final class NuclearTechNeoForge {
         modBus.addListener(
                 (FMLCommonSetupEvent event) -> {
                     NuclearTech.commonSetup();
+                    // backport: OpenComputers: Rebooted drivers (OC's driver list is not thread-safe)
+                    event.enqueueWork(com.hbm.compat.computercraft.OpenComputers::init);
                     // backport: Create: Aeronautics assembles NTM multiblocks whole (SimulatedCompat)
                     if (ModList.get().isLoaded("simulated"))
                         com.hbm.backport.SimulatedCompat.register();

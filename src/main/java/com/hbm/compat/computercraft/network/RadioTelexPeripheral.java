@@ -4,9 +4,11 @@
 package com.hbm.compat.computercraft.network;
 
 import com.hbm.blockentity.network.BlockEntityRadioTelex;
+import com.hbm.compat.computercraft.CcBridge;
+import com.hbm.compat.computercraft.ComputerArgs;
+import com.hbm.compat.computercraft.ComputerError;
 import com.hbm.compat.computercraft.SnapshotPeripheral;
 import dan200.computercraft.api.lua.IArguments;
-import dan200.computercraft.api.lua.LuaException;
 import dan200.computercraft.api.lua.LuaFunction;
 
 public final class RadioTelexPeripheral extends SnapshotPeripheral<BlockEntityRadioTelex> {
@@ -73,11 +75,16 @@ public final class RadioTelexPeripheral extends SnapshotPeripheral<BlockEntityRa
     }
 
     @LuaFunction(mainThread = true)
-    public final Object[] setSendingText(IArguments args) throws LuaException {
+    public final Object[] setSendingText(IArguments args) {
+        return setSendingText(CcBridge.args(args));
+    }
+
+    /** setSendingText for either computer mod (main's OC version read the raw Arguments too). */
+    public final Object[] setSendingText(ComputerArgs args) {
         BlockEntityRadioTelex machine = machine();
         for (int i = 0; i < LINES; i++) {
             if (args.count() <= i)
-                throw new LuaException(
+                throw ComputerError.of(
                         "bad arguments #" + (i + 1) + " (value expected, got no value)");
             if (args.get(i) == null || args.getString(i).isEmpty()) {
                 machine.txBuffer[i] = "";

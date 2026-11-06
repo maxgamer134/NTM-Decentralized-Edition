@@ -171,12 +171,13 @@ import com.hbm.compat.computercraft.turret.TurretPeripheral;
 import com.hbm.platform.NeoForgeCaps;
 import com.hbm.platform.NeoForgeServerEvents;
 import com.hbm.registration.RegistryHandle;
-import dan200.computercraft.api.peripheral.IPeripheral;
-import dan200.computercraft.api.peripheral.PeripheralCapability;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -191,8 +192,6 @@ import net.neoforged.neoforge.capabilities.BlockCapability;
 import org.jspecify.annotations.Nullable;
 
 final class Peripherals {
-
-    private static final BlockCapability<IPeripheral, Direction> TOKEN = PeripheralCapability.get();
 
     private static final Map<BlockEntity, SnapshotPeripheral<?>> BY_MACHINE =
             new IdentityHashMap<>();
@@ -682,41 +681,79 @@ final class Peripherals {
                 });
     }
 
-    static void declare(List<RegistryHandle<? extends Block>> roster) {
-        Map<Class<?>, Row<?>> byType = new IdentityHashMap<>();
+    /** Rows by machine class and by block, plus the folded cells; built once the roster is final. */
+    private record Index(
+            Map<Class<?>, Row<?>> byType, Map<Block, Row<?>> byBlock, Set<Block> cells) {}
+
+    private static volatile @Nullable Index index;
+
+    private static Index index() {
+        Index known = index;
+        if (known != null) return known;
+        Map<Class<?>, Row<?>> byType = new LinkedHashMap<>(); // roster order, like the old loop
+        Map<Block, Row<?>> byBlock = new IdentityHashMap<>();
         for (Row<?> row : rows()) {
             if (byType.put(row.type, row) != null) {
                 throw new IllegalStateException(row.type.getName() + " has two peripheral rows");
             }
-            for (RegistryHandle<? extends Block> block : row.blocks) {
-                NeoForgeCaps.pendingBlocks.add(
-                        new NeoForgeCaps.BlockRegistration<>(
-                                TOKEN,
-                                (Supplier<? extends Block>) block,
-                                (level, pos, state, be, side) ->
-                                        atBlock(row, level, pos, state, be, side)));
-            }
+            for (RegistryHandle<? extends Block> block : row.blocks) byBlock.putIfAbsent(block.get(), row);
         }
         for (Class<?> type : EXTENDED.keySet()) {
             if (!byType.containsKey(type)) {
                 throw new IllegalStateException(type.getName() + " extends no peripheral row");
             }
         }
+        Set<Block> cells = Collections.newSetFromMap(new IdentityHashMap<>());
+        for (RegistryHandle<? extends Block> cell : ModBlocks.cellHandles()) cells.add(cell.get());
+        return index = new Index(byType, byBlock, cells);
+    }
+
+    /** Registers {@code token} on every peripheral block and cell, {@code wrap} turning a snapshot into it. */
+    static <T> void declare(
+            BlockCapability<T, Direction> token, Function<SnapshotPeripheral<?>, @Nullable T> wrap) {
+        Index index = index();
+        for (Row<?> row : index.byType.values()) {
+            for (RegistryHandle<? extends Block> block : row.blocks) {
+                NeoForgeCaps.pendingBlocks.add(
+                        new NeoForgeCaps.BlockRegistration<>(
+                                token,
+                                (Supplier<? extends Block>) block,
+                                (level, pos, state, be, side) ->
+                                        wrapped(wrap, atBlock(row, level, pos, state, be, side))));
+            }
+        }
         for (RegistryHandle<? extends Block> cell : ModBlocks.cellHandles()) {
             NeoForgeCaps.pendingBlocks.add(
                     new NeoForgeCaps.BlockRegistration<>(
-                            TOKEN,
+                            token,
                             (Supplier<? extends Block>) cell,
                             (level, pos, state, be, side) ->
-                                    atCell(byType, level, pos, state, side)));
+                                    wrapped(wrap, atCell(index.byType, level, pos, state, side))));
         }
+    }
+
+    private static <T> @Nullable T wrapped(
+            Function<SnapshotPeripheral<?>, @Nullable T> wrap, @Nullable SnapshotPeripheral<?> made) {
+        return made == null ? null : wrap.apply(made);
+    }
+
+    /** The snapshot a computer sees at {@code pos} from {@code side}, as a capability query would. */
+    static @Nullable SnapshotPeripheral<?> find(Level level, BlockPos pos, @Nullable Direction side) {
+        Index index = index();
+        BlockState state = level.getBlockState(pos);
+        Row<?> row = index.byBlock.get(state.getBlock());
+        SnapshotPeripheral<?> made =
+                row == null ? null : atBlock(row, level, pos, state, level.getBlockEntity(pos), side);
+        return made == null && index.cells.contains(state.getBlock())
+                ? atCell(index.byType, level, pos, state, side)
+                : made;
     }
 
     private static boolean opens(Row<?> row, @Nullable Direction side) {
         return row.faces == null || side == null || row.faces.test(side);
     }
 
-    private static @Nullable IPeripheral atBlock(
+    private static @Nullable SnapshotPeripheral<?> atBlock(
             Row<?> row,
             Level level,
             BlockPos pos,
@@ -728,7 +765,7 @@ final class Peripherals {
         return row.type.isInstance(be) ? of(row, be) : null;
     }
 
-    private static @Nullable IPeripheral atCell(
+    private static @Nullable SnapshotPeripheral<?> atCell(
             Map<Class<?>, Row<?>> byType,
             Level level,
             BlockPos pos,
@@ -741,7 +778,7 @@ final class Peripherals {
         return row == null || !opens(row, side) ? null : proxy(row, level, pos, state);
     }
 
-    private static @Nullable IPeripheral proxy(
+    private static @Nullable SnapshotPeripheral<?> proxy(
             Row<?> row, Level level, BlockPos pos, BlockState state) {
         if (row.proxies == null) return null;
         BlockPos core = row.proxies.ownerOf(level, pos, state);

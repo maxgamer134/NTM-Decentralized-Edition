@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "S": "#c:pipes/steel",
+    "S": "#hbm:pipes/steel",
     "C": "hbm:circuit_basic",
     "M": "hbm:mechanism_launcher_2"
   },

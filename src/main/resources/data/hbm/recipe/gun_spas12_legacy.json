@@ -4,7 +4,7 @@
     "T": "#c:bolts/steel",
     "P": "#c:plates/steel",
     "S": "#c:ingots/steel",
-    "H": "#c:pipes/steel",
+    "H": "#hbm:pipes/steel",
     "R": "hbm:mechanism_rifle_1",
     "L": "#c:ingots/polymer"
   },

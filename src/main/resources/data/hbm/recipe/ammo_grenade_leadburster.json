@@ -3,7 +3,7 @@
   "key": {
     "L": "hbm:pellet_buckshot",
     "C": "#hbm:dusts/any_smokeless",
-    "H": "#c:shells/aluminum",
+    "H": "#hbm:shells/aluminum",
     "M": "hbm:motor"
   },
   "pattern": [

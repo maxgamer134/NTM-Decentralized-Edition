@@ -2,7 +2,7 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "P": "#c:plates/iron",
-    "B": "#c:pipes/steel",
+    "B": "#hbm:pipes/steel",
     "M": "hbm:mechanism_rifle_1",
     "I": "#c:ingots/steel"
   },

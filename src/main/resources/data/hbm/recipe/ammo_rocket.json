@@ -3,7 +3,7 @@
   "key": {
     "T": "hbm:ball_dynamite",
     "G": "hbm:rocket_fuel",
-    "C": "#c:shells/steel"
+    "C": "#hbm:shells/steel"
   },
   "pattern": [
     "T",

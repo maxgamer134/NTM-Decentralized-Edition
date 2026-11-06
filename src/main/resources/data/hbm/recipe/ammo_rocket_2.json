@@ -3,7 +3,7 @@
   "key": {
     "T": "#hbm:ingots/any_plasticexplosive",
     "G": "hbm:rocket_fuel",
-    "C": "#c:shells/steel"
+    "C": "#hbm:shells/steel"
   },
   "pattern": [
     "T",

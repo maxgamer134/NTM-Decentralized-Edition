@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "H": "#c:shells/aluminum",
+    "H": "#hbm:shells/aluminum",
     "R": "hbm:mechanism_rifle_1",
     "W": "#minecraft:logs",
     "L": "hbm:mechanism_launcher_1"

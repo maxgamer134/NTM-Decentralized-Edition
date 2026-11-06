@@ -4,7 +4,7 @@
     "N": "hbm:ammo_nuke_low",
     "C": "#c:plates/aluminum",
     "D": "hbm:det_cord",
-    "S": "#c:shells/steel"
+    "S": "#hbm:shells/steel"
   },
   "pattern": [
     "NNN",

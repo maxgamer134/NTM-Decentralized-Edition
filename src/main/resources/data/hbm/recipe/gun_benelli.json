@@ -2,8 +2,8 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "H": "hbm:ingot_dura_steel",
-    "S": "#c:pipes/steel",
-    "A": "#c:pipes/aluminum",
+    "S": "#hbm:pipes/steel",
+    "A": "#hbm:pipes/aluminum",
     "P": "#c:ingots/polymer",
     "M": "hbm:mechanism_rifle_2"
   },

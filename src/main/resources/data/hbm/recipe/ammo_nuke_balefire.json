@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "S": "#c:shells/steel",
+    "S": "#hbm:shells/steel",
     "E": "hbm:powder_power",
     "B": "hbm:egg_balefire_shard"
   },

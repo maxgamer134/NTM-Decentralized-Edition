@@ -4,7 +4,7 @@
     "S": "#c:plates/steel",
     "I": "#c:ingots/steel",
     "W": "#c:fine_wires/aluminum",
-    "H": "#c:shells/steel",
+    "H": "#hbm:shells/steel",
     "P": "minecraft:piston",
     "M": "hbm:mechanism_launcher_2"
   },

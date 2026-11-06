@@ -3344,5 +3344,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.rifleshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/rifleshoot",
+        "stream": false
+      }
+    ]
   }
 }

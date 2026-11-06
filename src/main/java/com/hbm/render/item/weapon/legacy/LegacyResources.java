@@ -85,4 +85,9 @@ public final class LegacyResources {
     public static final ResourceLocation novac_scope_tex = Library.id("textures/models/weapons/novac_scope.png");
     public static final ResourceLocation novac_tex = Library.id("textures/models/weapons/novac.png");
     public static final ResourceLocation red_key_tex = Library.id("textures/models/weapons/red_key.png");
+
+    public static final HFRWavefrontObject thompson = Meshes.faceNormals(Library.id("models/weapons/thompson.obj"));
+    public static final ResourceLocation thompson_tex = Library.id("textures/models/weapons/thompson.png");
+    public static final HFRWavefrontObject uac_pistol = Meshes.load(Library.id("models/weapons/UAC pistol.obj"));
+    public static final ResourceLocation uac_pistol_tex = Library.id("textures/models/weapons/pistol_texture.png");
 }

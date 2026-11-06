@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 32,
+      "ingredient": "hbm:ammo_45"
+    },
+    {
+      "ingredient": "#c:ingots/uranium_238"
+    }
+  ],
+  "order": 99524,
+  "output_items": [
+    {
+      "count": 32,
+      "id": "hbm:ammo_45_du"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 3
+}

@@ -9031,5 +9031,10 @@
   "item.hbm.gun_revolver_nopip": "Heavy Revolver",
   "item.hbm.gun_revolver_blackjack": "Blackjack Five-Shooter",
   "item.hbm.gun_revolver_silver": "Lent Gun",
-  "item.hbm.gun_revolver_red": "Red Key Revolver"
+  "item.hbm.gun_revolver_red": "Red Key Revolver",
+  "item.hbm.ammo_45": ".45 ACP Bullet",
+  "item.hbm.ammo_45_ap": ".45 ACP Bullet (AP)",
+  "item.hbm.ammo_45_du": ".45 ACP Bullet (DU)",
+  "item.hbm.gun_thompson": "Thompson Submachine Gun",
+  "item.hbm.gun_uac_pistol": "UAC .45 Pistol"
 }

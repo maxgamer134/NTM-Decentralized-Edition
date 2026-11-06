@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
 import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
 import com.hbm.items.weapon.legacy.factory.Gun22LRFactory;
 import com.hbm.items.weapon.legacy.factory.Gun4GaugeFactory;
@@ -147,6 +148,13 @@ public final class LegacyGuns {
 
     public static RegistryHandle<Item> CASING_44;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_45;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_45_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_45_DU;
+    public static RegistryHandle<ItemGunBase> GUN_THOMPSON;
+    public static RegistryHandle<ItemGunBase> GUN_UAC_PISTOL;
+    public static RegistryHandle<Item> ASSEMBLY_45;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -281,6 +289,14 @@ public final class LegacyGuns {
 
         // 44 casing
         CASING_44 = part("casing_44");
+
+        // 45ACP
+        AMMO_45 = ammo("ammo_45");
+        AMMO_45_AP = ammo("ammo_45_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_45_DU = ammo("ammo_45_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        GUN_THOMPSON = gun("gun_thompson", p -> new ItemGunBase(Gun45ACPFactory.getThompsonConfig(), p));
+        GUN_UAC_PISTOL = gun("gun_uac_pistol", p -> new ItemGunBase(Gun45ACPFactory.getUACPistolConfig(), Gun45ACPFactory.getUACPistolBurstConfig(), p));
+        ASSEMBLY_45 = part("assembly_45");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 128,
+      "ingredient": "hbm:ammo_50bmg"
+    },
+    {
+      "ingredient": "hbm:coin_maskman"
+    }
+  ],
+  "order": 99541,
+  "output_items": [
+    {
+      "count": 128,
+      "id": "hbm:ammo_50bmg_sleek"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 4
+}

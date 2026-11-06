@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
 import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
 import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
@@ -164,6 +165,26 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemGunBase> GUN_DEAGLE;
     public static RegistryHandle<Item> ASSEMBLY_ACTIONEXPRESS;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_EXPLOSIVE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_AP;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_STAR;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_CHLOROPHYTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_SLEEK;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_FLECHETTE;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_FLECHETTE_AM;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_50BMG_FLECHETTE_PO;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_LUNA;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_LUNA_INCENDIARY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_LUNA_EXPLOSIVE;
+    public static RegistryHandle<ItemGunBase> GUN_AR15;
+    public static RegistryHandle<ItemGunBase> GUN_LUNATIC_MARKSMAN;
+    public static RegistryHandle<Item> ASSEMBLY_CALAMITY;
+    public static RegistryHandle<Item> ASSEMBLY_LUNA;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -315,6 +336,27 @@ public final class LegacyGuns {
         AMMO_50AE_CHLOROPHYTE = ammo("ammo_50ae_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
         GUN_DEAGLE = gun("gun_deagle", p -> new ItemGunBase(Gun50AEFactory.getDeagleConfig(), p));
         ASSEMBLY_ACTIONEXPRESS = part("assembly_actionexpress");
+
+        // 50BMG
+        AMMO_50BMG = ammo("ammo_50bmg");
+        AMMO_50BMG_INCENDIARY = ammo("ammo_50bmg_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
+        AMMO_50BMG_PHOSPHORUS = ammo("ammo_50bmg_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
+        AMMO_50BMG_EXPLOSIVE = ammo("ammo_50bmg_explosive", AmmoItemTrait.PRO_EXPLOSIVE, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_50BMG_AP = ammo("ammo_50bmg_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
+        AMMO_50BMG_DU = ammo("ammo_50bmg_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_50BMG_STAR = ammo("ammo_50bmg_star", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_STARMETAL, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_50BMG_CHLOROPHYTE = ammo("ammo_50bmg_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
+        AMMO_50BMG_SLEEK = ammo("ammo_50bmg_sleek", AmmoItemTrait.NEU_MASKMAN_METEORITE);
+        AMMO_50BMG_FLECHETTE = ammo("ammo_50bmg_flechette", AmmoItemTrait.PRO_DAMAGE);
+        AMMO_50BMG_FLECHETTE_AM = ammo("ammo_50bmg_flechette_am", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_UHH);
+        AMMO_50BMG_FLECHETTE_PO = ammo("ammo_50bmg_flechette_po", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_UHH);
+        AMMO_LUNA = ammo("ammo_luna");
+        AMMO_LUNA_INCENDIARY = ammo("ammo_luna_incendiary");
+        AMMO_LUNA_EXPLOSIVE = ammo("ammo_luna_explosive");
+        GUN_AR15 = gun("gun_ar15", p -> new ItemGunBase(Gun50BMGFactory.getAR15Config(), Gun50BMGFactory.getAR15BurstConfig(), p));
+        GUN_LUNATIC_MARKSMAN = gun("gun_lunatic_marksman", p -> new ItemGunBase(Gun50BMGFactory.getLunaticMarksman(), p));
+        ASSEMBLY_CALAMITY = part("assembly_calamity");
+        ASSEMBLY_LUNA = part("assembly_luna");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

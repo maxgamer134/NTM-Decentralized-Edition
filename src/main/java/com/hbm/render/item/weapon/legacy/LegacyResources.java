@@ -111,4 +111,9 @@ public final class LegacyResources {
     public static final HFRWavefrontObject quadro = Meshes.load(Library.id("models/weapons/legacy/quadro.obj"));
     public static final ResourceLocation quadro_tex = Library.id("textures/models/weapons/quadro.png");
     public static final ResourceLocation universal_bright = Library.id("textures/models/turbofan_blades.png");
+
+    public static final HFRWavefrontObject ar15 = Meshes.load(Library.id("models/weapons/ar15.obj"));
+    public static final ResourceLocation ar15_tex = Library.id("textures/models/weapons/carbine.png");
+    public static final HFRWavefrontObject lunatic_sniper = Meshes.load(Library.id("models/weapons/lunatic_sniper.obj"));
+    public static final ResourceLocation lunatic_sniper_tex = Library.id("textures/models/weapons/lunatic_sniper.png");
 }

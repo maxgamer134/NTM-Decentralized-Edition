@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "B": "#c:ingots/ferrouranium",
+    "G": "hbm:powder_nitan_mix",
+    "C": "hbm:casing_50",
+    "P": "hbm:powder_power"
+  },
+  "pattern": [
+    " B ",
+    "GCG",
+    "GPG"
+  ],
+  "result": {
+    "id": "hbm:assembly_luna"
+  }
+}

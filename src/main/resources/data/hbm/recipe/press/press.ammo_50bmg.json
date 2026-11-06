@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_calamity"
+    }
+  ],
+  "order": 99241,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ammo_50bmg"
+    }
+  ],
+  "stamp": "c50"
+}

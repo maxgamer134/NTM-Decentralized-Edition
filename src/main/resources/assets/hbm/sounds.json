@@ -3353,5 +3353,14 @@
         "stream": false
       }
     ]
+  },
+  "weapon.hicalshot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hicalshot",
+        "stream": false
+      }
+    ]
   }
 }

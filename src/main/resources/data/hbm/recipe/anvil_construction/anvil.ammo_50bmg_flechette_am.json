@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 16,
+      "ingredient": "hbm:ammo_50bmg_flechette"
+    },
+    {
+      "ingredient": "hbm:nugget_am_mix"
+    }
+  ],
+  "order": 99543,
+  "output_items": [
+    {
+      "count": 16,
+      "id": "hbm:ammo_50bmg_flechette_am"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 3
+}

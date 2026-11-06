@@ -65,6 +65,22 @@ public abstract class LegacyGunRenderer {
         collector.submitCustomGeometry(pose, type(tex), (p, buffer) -> model.renderPart(p, buffer, light, argb, part));
     }
 
+    /** main's renderPart on a model picked at run time */
+    protected void part(
+            SubmitNodeCollector collector, PoseStack pose, HFRWavefrontObject model, ResourceLocation tex, String name, int light) {
+        part(collector, pose, model, tex, model.partId(name), light);
+    }
+
+    /** main's renderAllExcept */
+    protected void allExcept(
+            SubmitNodeCollector collector, PoseStack pose, HFRWavefrontObject model, ResourceLocation tex, int light, String... except) {
+        outer:
+        for (int i = 0; i < model.groups.length; i++) {
+            for (String e : except) if (model.groups[i].name.equalsIgnoreCase(e)) continue outer;
+            part(collector, pose, model, tex, i, light);
+        }
+    }
+
     /** an item check by registry id, for main renderers shared with guns of families ported later */
     protected static boolean is(ItemStack stack, String id) {
         var key = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem());

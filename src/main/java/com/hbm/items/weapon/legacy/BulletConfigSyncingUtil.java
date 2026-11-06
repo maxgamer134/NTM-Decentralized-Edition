@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.Gun50BMGFactory;
 import com.hbm.items.weapon.legacy.factory.Gun50AEFactory;
 import com.hbm.items.weapon.legacy.factory.Gun45ACPFactory;
 import com.hbm.items.weapon.legacy.factory.Gun44MagnumFactory;
@@ -383,6 +384,23 @@ public final class BulletConfigSyncingUtil {
         configSet.put(AE50_DU, Gun50AEFactory.get50DUConfig());
         configSet.put(AE50_STAR, Gun50AEFactory.get50StarConfig());
         configSet.put(CHL_AE50, Gun50AEFactory.get50AEConfig().setToHoming(LegacyGuns.AMMO_50AE_CHLOROPHYTE));
+
+
+        configSet.put(BMG50_NORMAL, Gun50BMGFactory.get50BMGConfig());
+        configSet.put(BMG50_INCENDIARY, Gun50BMGFactory.get50BMGFireConfig());
+        configSet.put(BMG50_PHOSPHORUS, Gun50BMGFactory.get50BMGPhosphorusConfig());
+        configSet.put(BMG50_EXPLOSIVE, Gun50BMGFactory.get50BMGExplosiveConfig());
+        configSet.put(BMG50_AP, Gun50BMGFactory.get50BMGAPConfig());
+        configSet.put(BMG50_DU, Gun50BMGFactory.get50BMGDUConfig());
+        configSet.put(BMG50_STAR, Gun50BMGFactory.get50BMGStarConfig());
+        configSet.put(BMG50_SLEEK, Gun50BMGFactory.get50BMGSleekConfig());
+        configSet.put(BMG50_FLECHETTE_NORMAL, Gun50BMGFactory.get50BMGFlechetteConfig());
+        configSet.put(BMG50_FLECHETTE_AM, Gun50BMGFactory.get50BMGFlechetteAMConfig());
+        configSet.put(BMG50_FLECHETTE_PO, Gun50BMGFactory.get50BMGFlechettePOConfig());
+        configSet.put(ROUND_LUNA_SNIPER_SABOT, Gun50BMGFactory.getLunaticSabotRound());
+        configSet.put(ROUND_LUNA_SNIPER_INCENDIARY, Gun50BMGFactory.getLunaticIncendiaryRound());
+        configSet.put(ROUND_LUNA_SNIPER_EXPLOSIVE, Gun50BMGFactory.getLunaticExplosiveRound());
+        configSet.put(CHL_BMG50, Gun50BMGFactory.get50BMGConfig().setToHoming(LegacyGuns.AMMO_50BMG_CHLOROPHYTE));
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

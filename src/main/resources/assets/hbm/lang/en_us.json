@@ -9042,5 +9042,22 @@
   "item.hbm.ammo_50ae_du": ".50 AE Round (DU)",
   "item.hbm.ammo_50ae_star": ".50 AE Round (Starmetal)",
   "item.hbm.ammo_50ae_chlorophyte": ".50 AE Round (Chlorophyte)",
-  "item.hbm.gun_deagle": "Big Iron"
+  "item.hbm.gun_deagle": "Big Iron",
+  "item.hbm.ammo_50bmg": ".50 BMG Round",
+  "item.hbm.ammo_50bmg_incendiary": ".50 BMG Round (Incendiary)",
+  "item.hbm.ammo_50bmg_phosphorus": ".50 BMG Round (WP)",
+  "item.hbm.ammo_50bmg_explosive": ".50 BMG Round (Explosive)",
+  "item.hbm.ammo_50bmg_ap": ".50 BMG Round (Armor Piercing)",
+  "item.hbm.ammo_50bmg_du": ".50 BMG Round (DU)",
+  "item.hbm.ammo_50bmg_star": ".50 BMG Round (Starmetal)",
+  "item.hbm.ammo_50bmg_chlorophyte": ".50 BMG Round (Chlorophyte)",
+  "item.hbm.ammo_50bmg_sleek": ".50 BMG Round (IF-R&D)",
+  "item.hbm.ammo_50bmg_flechette": ".50 BMG Flechette Round",
+  "item.hbm.ammo_50bmg_flechette_am": ".50 BMG Flechette Round (Americium)",
+  "item.hbm.ammo_50bmg_flechette_po": ".50 BMG Flechette Round (Polonium)",
+  "item.hbm.ammo_luna": "Lunatic Sniper Sabot Round",
+  "item.hbm.ammo_luna_incendiary": "Lunatic Sniper Incendiary Round",
+  "item.hbm.ammo_luna_explosive": "Lunatic Sniper Explosive Round",
+  "item.hbm.gun_ar15": "Josh",
+  "item.hbm.gun_lunatic_marksman": "Lunatic Sniper Rifle"
 }

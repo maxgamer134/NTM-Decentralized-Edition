@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "hbm:ammo_50bmg_du"
+    },
+    {
+      "ingredient": "#c:ingots/starmetal"
+    }
+  ],
+  "order": 99539,
+  "output_items": [
+    {
+      "count": 8,
+      "id": "hbm:ammo_50bmg_star"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 3
+}

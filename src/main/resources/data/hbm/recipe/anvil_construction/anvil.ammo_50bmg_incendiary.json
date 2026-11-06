@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 16,
+      "ingredient": "hbm:ammo_50bmg"
+    },
+    {
+      "ingredient": "#c:dusts/red_phosphorus"
+    }
+  ],
+  "order": 99534,
+  "output_items": [
+    {
+      "count": 16,
+      "id": "hbm:ammo_50bmg_incendiary"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

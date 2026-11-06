@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 16,
+      "ingredient": "hbm:ammo_50bmg"
+    },
+    {
+      "ingredient": "#c:ingots/dura_steel"
+    }
+  ],
+  "order": 99537,
+  "output_items": [
+    {
+      "count": 16,
+      "id": "hbm:ammo_50bmg_ap"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#c:glass_panes",
+    "N": "hbm:powder_nitan_mix",
+    "S": "#c:plates/saturnite",
+    "M": "hbm:mechanism_special",
+    "A": "#hbm:plates_cast/any_resistant_alloy"
+  },
+  "pattern": [
+    " GN",
+    "SSM",
+    "  A"
+  ],
+  "result": {
+    "id": "hbm:gun_lunatic_marksman"
+  }
+}

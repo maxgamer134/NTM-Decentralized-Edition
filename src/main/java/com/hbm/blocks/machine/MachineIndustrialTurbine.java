@@ -95,38 +95,34 @@ public class MachineIndustrialTurbine extends BlockMultiblockCore
                 Component.empty().append(Component.translatable(getDescriptionId())),
                 0xFFFF00,
                 0x404000);
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(in.getFluid())
+        info.input(
+                NTMFluidProperties.clientName(in.getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", in.getFill())
                         + "/"
                         + String.format(Locale.US, "%,d", in.getMaxFill())
                         + "mB");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(outType)
+        info.output(
+                NTMFluidProperties.clientName(outType)
                         + ": "
                         + String.format(Locale.US, "%,d", out.getFill())
                         + "/"
                         + String.format(Locale.US, "%,d", out.getMaxFill())
                         + "mB");
+        // red arrow, white power, the spinner and spin in the line's colour, like main
         info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.WHITE
-                        + BobMathUtil.getShortNumber(turbine.powerBuffer)
-                        + "HE ("
-                        + ChatFormatting.RESET
-                        + SPINNER[turbine.powerBuffer <= 0 ? 0 : frame]
-                        + Math.round(turbine.spin * 100)
-                        + "%"
-                        + ChatFormatting.WHITE
-                        + ")",
+                Component.empty()
+                        .append(Component.literal("<- ").withStyle(ChatFormatting.RED))
+                        .append(
+                                Component.literal(
+                                                BobMathUtil.getShortNumber(turbine.powerBuffer)
+                                                        + "HE (")
+                                        .withStyle(ChatFormatting.WHITE))
+                        .append(
+                                SPINNER[turbine.powerBuffer <= 0 ? 0 : frame]
+                                        + Math.round(turbine.spin * 100)
+                                        + "%")
+                        .append(Component.literal(")").withStyle(ChatFormatting.WHITE)),
                 color);
     }
 

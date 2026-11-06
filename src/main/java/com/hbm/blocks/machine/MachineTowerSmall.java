@@ -12,7 +12,6 @@ import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -34,21 +33,15 @@ public class MachineTowerSmall extends BlockMultiblockCore
             FluidTankNTM out) {
         info.title(block.getName().getString(), 0xFFFF00, 0x404000);
         MachineCondenser.vacuumWarning(level, info);
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(in.getFluid())
+        info.input(
+                NTMFluidProperties.clientName(in.getFluid())
                         + ": "
                         + in.getFill()
                         + "/"
                         + in.getMaxFill()
                         + "mB");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(out.getFluid())
+        info.output(
+                NTMFluidProperties.clientName(out.getFluid())
                         + ": "
                         + out.getFill()
                         + "/"

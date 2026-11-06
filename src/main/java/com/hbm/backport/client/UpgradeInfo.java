@@ -70,7 +70,7 @@ public final class UpgradeInfo {
     /** 1.7.10 IUpgradeInfoProvider.getStandardLabel. */
     private static void label(Consumer<Component> info, String block) {
         String name = I18n.get(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath("hbm", block)).getDescriptionId());
-        info.accept(Component.literal(ChatFormatting.YELLOW + ">>> " + name + " <<<"));
+        info.accept(Component.literal(">>> " + name + " <<<").withStyle(ChatFormatting.YELLOW));
     }
 
     private static boolean provide(BlockEntity be, UpgradeType type, int level, Consumer<Component> info) {
@@ -79,15 +79,15 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_electrolyser");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (25) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -96,7 +96,7 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED)) return false;
             label(info, "furnace_iron");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 50 / 3) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 50 / 3) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -105,8 +105,8 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED)) return false;
             label(info, "machine_arc_furnace");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (100 - 100 / (level * 2 + 1)) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + ((int) Math.pow(5, level) * 100 - 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (100 - 100 / (level * 2 + 1)) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + ((int) Math.pow(5, level) * 100 - 100) + "%").withStyle(ChatFormatting.RED));
             }
             return true;
         }
@@ -115,15 +115,15 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_arc_welder");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 100 / 6) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 100 / 6) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 100 / 6) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 100 / 3) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 100 / 6) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -132,14 +132,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_assembly_factory");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_SPEED, "+" + (level * 100 / 3) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_SPEED, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -148,14 +148,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_assembly_machine");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_SPEED, "+" + (level * 100 / 3) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_SPEED, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -164,14 +164,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_centrifuge");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -180,14 +180,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_chemical_factory");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_SPEED, "+" + (level * 100 / 3) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_SPEED, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -196,14 +196,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_chemical_plant");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_SPEED, "+" + (level * 100 / 3) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_SPEED, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -212,14 +212,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_compressor");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + "Generic compression: "+ I18n.get(KEY_DELAY, "-" + (level == 3 ? 90 : level == 2 ? 80 : level == 1 ? 40 : 0) + "%")));
-                info.accept(Component.literal(ChatFormatting.GREEN + "Recipe: "+ I18n.get(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.literal("Generic compression: " + I18n.get(KEY_DELAY, "-" + (level == 3 ? 90 : level == 2 ? 80 : level == 1 ? 40 : 0) + "%")).withStyle(ChatFormatting.GREEN));
+                info.accept(Component.literal("Recipe: " + I18n.get(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%")).withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -228,15 +228,15 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.EFFECT || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_crystallizer");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.EFFECT) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_EFFICIENCY, "x" + level)));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 200) + "%")));
+                info.accept(Component.translatable(KEY_EFFICIENCY, "x" + level).withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 200) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -245,14 +245,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.EFFECT)) return false;
             label(info, "machine_cyclotron");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_COOLANT_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_COOLANT_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 10) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 10) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.EFFECT) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_COOLANT_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_COOLANT_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -261,7 +261,7 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED)) return false;
             label(info, "machine_epress");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (50 * level / 3) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (50 * level / 3) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -270,12 +270,12 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER)) return false;
             label(info, "machine_electric_furnace");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 30) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 10) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 30) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 10) + "%").withStyle(ChatFormatting.RED));
             }
             return true;
         }
@@ -284,11 +284,11 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER)) return false;
             label(info, "machine_excavator");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (100 - 200 / (level + 2)) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (100 - 200 / (level + 2)) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -297,15 +297,15 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_exposure_chamber");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -314,20 +314,20 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE || type == UpgradeType.EFFECT || type == UpgradeType.FORTUNE)) return false;
             label(info, "machine_mining_laser");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (100 * level / 16) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (100 * level / 16) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 * level / 16) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 * level / 16) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.EFFECT) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_RANGE, "+" + (2 * level) + "m")));
+                info.accept(Component.translatable(KEY_RANGE, "+" + (2 * level) + "m").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.FORTUNE) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_FORTUNE, "+" + level)));
+                info.accept(Component.translatable(KEY_FORTUNE, "+" + level).withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -336,14 +336,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_mixer");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 300) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 300) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -352,12 +352,12 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.EFFECT)) return false;
             label(info, "machine_ore_slopper");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.EFFECT) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_EFFICIENCY, "+" + (level * 10) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_EFFICIENCY, "+" + (level * 10) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             return true;
         }
@@ -366,14 +366,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_purex");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_SPEED, "+" + (level * 100 / 3) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_SPEED, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -382,14 +382,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_precass");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_SPEED, "+" + (level * 100 / 3) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 50) + "%")));
+                info.accept(Component.translatable(KEY_SPEED, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 50) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -398,15 +398,15 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "machine_soldering_station");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 100 / 6) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 100 / 6) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 100 / 6) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 100 / 3) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 100 / 6) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -415,8 +415,8 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.AFTERBURN)) return false;
             label(info, "machine_turbofan");
             if (type == UpgradeType.AFTERBURN) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_EFFICIENCY, "+" + (int)(level * 100 * (1 + Math.min(level / 3D, 4D))) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_EFFICIENCY, "+" + (int)(level * 100 * (1 + Math.min(level / 3D, 4D))) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             return true;
         }
@@ -425,18 +425,18 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE || type == UpgradeType.AFTERBURN)) return false;
             label(info, "machine_fracking_tower");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 25) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 10) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 10) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.AFTERBURN) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_BURN, level * 10, level * 50)));
+                info.accept(Component.translatable(KEY_BURN, level * 10, level * 50).withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -445,10 +445,10 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.EFFECT)) return false;
             label(info, "machine_flare");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.EFFECT) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_EFFICIENCY, "+" + (100 * level / 3) + "%")));
+                info.accept(Component.translatable(KEY_EFFICIENCY, "+" + (100 * level / 3) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -457,11 +457,11 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER)) return false;
             label(info, "machine_liquefactor");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -470,18 +470,18 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE || type == UpgradeType.AFTERBURN)) return false;
             label(info, "machine_well");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 25) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 10) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 10) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.AFTERBURN) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_BURN, level * 10, level * 50)));
+                info.accept(Component.translatable(KEY_BURN, level * 10, level * 50).withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -490,18 +490,18 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER || type == UpgradeType.OVERDRIVE || type == UpgradeType.AFTERBURN)) return false;
             label(info, "machine_pumpjack");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 25) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 25) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_DELAY, "+" + (level * 10) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 10) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.AFTERBURN) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_BURN, level * 10, level * 50)));
+                info.accept(Component.translatable(KEY_BURN, level * 10, level * 50).withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -510,14 +510,14 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER)) return false;
             label(info, "machine_pyrooven");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (Math.pow(level + 1, 2) * 100 - 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (Math.pow(level + 1, 2) * 100 - 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }
@@ -526,11 +526,11 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER)) return false;
             label(info, "machine_solidifier");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_DELAY, "-" + (level * 25) + "%")));
-                info.accept(Component.literal(ChatFormatting.RED + I18n.get(KEY_CONSUMPTION, "+" + (level * 100) + "%")));
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 25) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (100 - 100 / (level + 1)) + "%").withStyle(ChatFormatting.GREEN));
             }
             return true;
         }
@@ -539,19 +539,19 @@ public final class UpgradeInfo {
             if (!(type == UpgradeType.SPEED || type == UpgradeType.EFFECT || type == UpgradeType.POWER || type == UpgradeType.AFTERBURN || type == UpgradeType.OVERDRIVE)) return false;
             label(info, "turret_maxwell");
             if (type == UpgradeType.SPEED) {
-                info.accept(Component.literal(ChatFormatting.GREEN + "Damage +0." + (level * 25) + "/t"));
+                info.accept(Component.literal("Damage +0." + (level * 25) + "/t").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.POWER) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_CONSUMPTION, "-" + (level * 3) + "%")));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 3) + "%").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.EFFECT) {
-                info.accept(Component.literal(ChatFormatting.GREEN + I18n.get(KEY_RANGE, "+" + (level * 3) + "m")));
+                info.accept(Component.translatable(KEY_RANGE, "+" + (level * 3) + "m").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.AFTERBURN) {
-                info.accept(Component.literal(ChatFormatting.GREEN + "Afterburn +3s"));
+                info.accept(Component.literal("Afterburn +3s").withStyle(ChatFormatting.GREEN));
             }
             if (type == UpgradeType.OVERDRIVE) {
-                info.accept(Component.literal((BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY) + "YES"));
+                info.accept(Component.literal("YES").withStyle(BobMathUtil.getBlink() ? ChatFormatting.RED : ChatFormatting.DARK_GRAY));
             }
             return true;
         }

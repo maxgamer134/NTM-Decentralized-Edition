@@ -39,29 +39,17 @@ public class MachineRotaryFurnace extends BlockMultiblockCore
         BlockPos back = pos.relative(dir.getOpposite());
 
         if (hit.equals(back.relative(rot, -1)) || hit.equals(back.relative(rot, -2))) {
-            info.line(
-                    ChatFormatting.GREEN
-                            + "-> "
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(furnace.tanks[1].getTankType()));
-            info.line(
-                    ChatFormatting.RED
-                            + "<- "
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(furnace.tanks[2].getTankType()));
+            info.input(NTMFluidProperties.clientName(furnace.tanks[1].getTankType()));
+            info.output(NTMFluidProperties.clientName(furnace.tanks[2].getTankType()));
         }
 
         if (hit.equals(front.relative(rot, 2)) || hit.equals(back.relative(rot, 2))) {
             Fluid recipe = furnace.tanks[0].getTankType();
-            info.line(
-                    ChatFormatting.GREEN
-                            + "-> "
-                            + ChatFormatting.RESET
-                            + (recipe == null ? "None" : NTMFluidProperties.clientName(recipe)));
+            info.input(recipe == null ? "None" : NTMFluidProperties.clientName(recipe));
         }
 
         if (hit.equals(front.relative(rot))) {
-            info.line(ChatFormatting.YELLOW + "-> " + ChatFormatting.RESET + "Fuel");
+            info.arrow(ChatFormatting.YELLOW, "-> ", "Fuel");
         }
 
         if (!info.isEmpty()) {

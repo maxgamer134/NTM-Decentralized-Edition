@@ -3,6 +3,7 @@
 
 package com.hbm.client.gui;
 
+import com.hbm.util.ArrowText;
 import com.hbm.blockentity.machine.fusion.BlockEntityFusionTorus;
 import com.hbm.inventory.container.MenuFusionTorus;
 import com.hbm.inventory.fluid.FluidStackNTM;
@@ -139,7 +140,7 @@ public class ScreenFusionTorus extends ScreenInfoContainer<MenuFusionTorus> {
 
         graphics.text(
                 font,
-                Component.literal(ChatFormatting.AQUA + "/" + HEAT_LIMIT + "K"),
+                Component.literal("/" + HEAT_LIMIT + "K").withStyle(ChatFormatting.AQUA),
                 190,
                 32,
                 0xFF404040,
@@ -186,11 +187,7 @@ public class ScreenFusionTorus extends ScreenInfoContainer<MenuFusionTorus> {
                     STAT_W,
                     STAT_H,
                     List.of(
-                            Component.literal(
-                                    ChatFormatting.GREEN
-                                            + "-> "
-                                            + ChatFormatting.RESET
-                                            + BobMathUtil.getShortNumber(be.klystronEnergy)
+                            ArrowText.in( BobMathUtil.getShortNumber(be.klystronEnergy)
                                             + "KyU / "
                                             + BobMathUtil.getShortNumber(recipe.ignitionTemp)
                                             + "KyU")));
@@ -203,11 +200,7 @@ public class ScreenFusionTorus extends ScreenInfoContainer<MenuFusionTorus> {
                     STAT_W,
                     STAT_H,
                     List.of(
-                            Component.literal(
-                                    ChatFormatting.RED
-                                            + "<- "
-                                            + ChatFormatting.RESET
-                                            + BobMathUtil.getShortNumber(be.plasmaEnergy)
+                            ArrowText.out( BobMathUtil.getShortNumber(be.plasmaEnergy)
                                             + "TU / "
                                             + BobMathUtil.getShortNumber(recipe.outputTemp)
                                             + "TU")));
@@ -216,12 +209,7 @@ public class ScreenFusionTorus extends ScreenInfoContainer<MenuFusionTorus> {
             for (FluidStackNTM stack : recipe.inputFluid) {
                 int consumption = (int) Math.ceil(stack.amount() * be.fuelConsumption);
                 fuel.add(
-                        Component.literal(
-                                ChatFormatting.GREEN
-                                        + "-> "
-                                        + ChatFormatting.RESET
-                                        + consumption
-                                        + "mB/t "
+                        ArrowText.in( consumption + "mB/t "
                                         + NTMFluidProperties.clientName(stack.type())));
             }
             drawCustomInfoStat(graphics, mouseX, mouseY, FUEL_STAT_X, STAT_Y, STAT_W, STAT_H, fuel);

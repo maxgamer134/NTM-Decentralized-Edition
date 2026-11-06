@@ -185,7 +185,7 @@ public class BlockEntityRadioTelex extends BlockEntityCompat
         List<Component> text = new ArrayList<>();
         for (String line : rxBuffer) {
             if (!line.isEmpty())
-                text.add(Component.literal(ChatFormatting.RESET + "" + ChatFormatting.GRAY + line));
+                text.add(Component.literal(line).withStyle(ChatFormatting.GRAY));
         }
 
         ItemStack stack = new ItemStack(Items.PAPER);

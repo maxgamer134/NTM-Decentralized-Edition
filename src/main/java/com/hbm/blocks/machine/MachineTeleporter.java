@@ -11,6 +11,7 @@ import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.level.Level;
@@ -38,16 +39,10 @@ public class MachineTeleporter extends BlockCompat
         info.title(getName().getString(), 0xFFFF00, 0x404000);
         GlobalPos target = tele.target;
         if (target == null) {
-            info.line(ChatFormatting.RED + "No destination set!");
+            info.line(Component.literal("No destination set!").withStyle(ChatFormatting.RED));
             return;
         }
-        info.line(
-                (tele.power >= BlockEntityMachineTeleporter.CONSUMPTION
-                                ? ChatFormatting.GREEN
-                                : ChatFormatting.RED)
-                        + String.format(Locale.US, "%,d", tele.power)
-                        + " / "
-                        + String.format(Locale.US, "%,d", BlockEntityMachineTeleporter.MAX_POWER));
+        info.line(Component.literal(String.format(Locale.US, "%,d", tele.power) + " / " + String.format(Locale.US, "%,d", BlockEntityMachineTeleporter.MAX_POWER)).withStyle(tele.power >= BlockEntityMachineTeleporter.CONSUMPTION ? ChatFormatting.GREEN : ChatFormatting.RED));
         info.line(
                 "Destination: "
                         + target.pos().getX()

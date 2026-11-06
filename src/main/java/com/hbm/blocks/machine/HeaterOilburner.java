@@ -13,7 +13,6 @@ import com.hbm.interfaces.IToolable;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.trait.FT_Flammable;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -58,22 +57,14 @@ public class HeaterOilburner extends BlockMultiblockCore
         if (!(level.getBlockEntity(pos) instanceof BlockEntityHeaterOilburner burner)) return;
 
         info.title(getName().getString(), 0xFFFF00, 0x404000)
-                .line(
-                        ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + burner.setting
-                                + " mB/t");
+                .input(burner.setting + " mB/t");
 
         Fluid type = burner.tank.getTankType();
         FT_Flammable trait = NTMFluidProperties.getTrait(type, FT_Flammable.class);
         if (trait != null) {
             int heat = (int) (trait.getHeatEnergy() * burner.setting / 1000L);
-            info.line(
-                    ChatFormatting.RED
-                            + "<- "
-                            + ChatFormatting.RESET
-                            + String.format(Locale.US, "%,d", heat)
+            info.output(
+                    String.format(Locale.US, "%,d", heat)
                             + " TU/t");
         }
     }

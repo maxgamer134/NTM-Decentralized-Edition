@@ -3,9 +3,11 @@
 
 package com.hbm.interfaces;
 
+import com.hbm.util.ArrowText;
 import com.hbm.util.BobMathUtil;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
@@ -106,6 +108,42 @@ public interface ILookOverlay {
             lines.add(text);
             colors.add(rgb);
             return this;
+        }
+
+        /** A line led by a coloured arrow; the text after it keeps the line's own white. */
+        public LookInfo arrow(ChatFormatting colour, String arrow, Component text) {
+            return line(ArrowText.arrow(colour, arrow, text));
+        }
+
+        public LookInfo arrow(ChatFormatting colour, String arrow, String text) {
+            return arrow(colour, arrow, Component.literal(text));
+        }
+
+        /** main's "-> " input line: a green arrow. */
+        public LookInfo input(Component text) {
+            return arrow(ChatFormatting.GREEN, "-> ", text);
+        }
+
+        public LookInfo input(String text) {
+            return input(Component.literal(text));
+        }
+
+        /** main's "<- " output line: a red arrow. */
+        public LookInfo output(Component text) {
+            return arrow(ChatFormatting.RED, "<- ", text);
+        }
+
+        public LookInfo output(String text) {
+            return output(Component.literal(text));
+        }
+
+        /** An input line when {@code in}, else an output line. */
+        public LookInfo flow(boolean in, Component text) {
+            return in ? input(text) : output(text);
+        }
+
+        public LookInfo flow(boolean in, String text) {
+            return flow(in, Component.literal(text));
         }
 
         public LookInfo charge(long power, long maxPower) {

@@ -16,7 +16,6 @@ import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.util.BobMathUtil;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,42 +37,30 @@ public class MachinePump extends BlockMultiblockCore
         info.title(getName().getString(), 0xFFFF00, 0x404000);
 
         if (pump instanceof BlockEntityMachinePumpSteam steamPump) {
-            info.line(
-                    ChatFormatting.GREEN
-                            + "-> "
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(steamPump.steam.getFluid())
+            info.input(
+                    NTMFluidProperties.clientName(steamPump.steam.getFluid())
                             + ": "
                             + String.format(Locale.US, "%,d", steamPump.steam.getFill())
                             + " / "
                             + String.format(Locale.US, "%,d", steamPump.steam.getMaxFill())
                             + "mB");
-            info.line(
-                    ChatFormatting.RED
-                            + "<- "
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(steamPump.lps.getFluid())
+            info.output(
+                    NTMFluidProperties.clientName(steamPump.lps.getFluid())
                             + ": "
                             + String.format(Locale.US, "%,d", steamPump.lps.getFill())
                             + " / "
                             + String.format(Locale.US, "%,d", steamPump.lps.getMaxFill())
                             + "mB");
         } else if (pump instanceof BlockEntityMachinePumpElectric electricPump) {
-            info.line(
-                    ChatFormatting.GREEN
-                            + "-> "
-                            + ChatFormatting.RESET
-                            + String.format(Locale.US, "%,d", electricPump.getPower())
+            info.input(
+                    String.format(Locale.US, "%,d", electricPump.getPower())
                             + " / "
                             + String.format(Locale.US, "%,d", electricPump.getMaxPower())
                             + "HE");
         }
 
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(pump.water.getFluid())
+        info.output(
+                NTMFluidProperties.clientName(pump.water.getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", pump.water.getFill())
                         + " / "

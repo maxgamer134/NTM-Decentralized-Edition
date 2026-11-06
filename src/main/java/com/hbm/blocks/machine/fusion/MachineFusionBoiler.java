@@ -12,7 +12,6 @@ import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import java.util.List;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -30,18 +29,13 @@ public class MachineFusionBoiler extends BlockFusionMachine
     public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
         if (!(level.getBlockEntity(pos) instanceof BlockEntityFusionBoiler boiler)) return;
         info.title(getName().getString(), 0xFFFF00, 0x404000);
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + String.format(Locale.US, "%,d", boiler.plasmaEnergy)
+        info.input(
+                String.format(Locale.US, "%,d", boiler.plasmaEnergy)
                         + " TU");
         for (int i = 0; i < boiler.tanks.length; i++) {
             FluidTankNTM tank = boiler.tanks[i];
-            info.line(
-                    (i == 0 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ")
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(tank.getFluid())
+            info.flow(
+                    i == 0, NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
                             + "/"

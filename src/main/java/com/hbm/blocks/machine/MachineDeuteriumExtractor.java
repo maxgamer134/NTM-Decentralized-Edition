@@ -12,7 +12,6 @@ import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.util.BobMathUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
@@ -40,11 +39,8 @@ public class MachineDeuteriumExtractor extends BlockCompat
                 starved ? 0xFF5555 : 0x55FF55);
         for (int i = 0; i < be.tanks.length; i++) {
             FluidTankNTM tank = be.tanks[i];
-            String arrow = i < 1 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ";
-            info.line(
-                    arrow
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(tank.getFluid())
+            info.flow(
+                    i < 1, NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
                             + "/"

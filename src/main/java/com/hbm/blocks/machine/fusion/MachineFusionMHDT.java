@@ -15,6 +15,7 @@ import com.hbm.util.BobMathUtil;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -38,27 +39,22 @@ public class MachineFusionMHDT extends BlockFusionMachine
         if (!hasPlasma) power /= 2;
 
         info.title(getName().getString(), 0xFFFF00, 0x404000);
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + (hasPlasma ? ChatFormatting.RESET : ChatFormatting.GOLD)
-                        + BobMathUtil.getShortNumber(turbine.plasmaEnergy)
-                        + "TU/t / "
-                        + BobMathUtil.getShortNumber(MachineData.MHD_TURBINE_MINIMUM_PLASMA.get())
-                        + "TU/t");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + BobMathUtil.getShortNumber(isCool ? power : 0)
+        info.input(
+                Component.literal(
+                                BobMathUtil.getShortNumber(turbine.plasmaEnergy)
+                                        + "TU/t / "
+                                        + BobMathUtil.getShortNumber(
+                                                MachineData.MHD_TURBINE_MINIMUM_PLASMA.get())
+                                        + "TU/t")
+                        .withStyle(hasPlasma ? ChatFormatting.RESET : ChatFormatting.GOLD));
+        info.output(
+                BobMathUtil.getShortNumber(isCool ? power : 0)
                         + "HE/t");
 
         for (int i = 0; i < turbine.tanks.length; i++) {
             FluidTankNTM tank = turbine.tanks[i];
-            info.line(
-                    (i == 0 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ")
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(tank.getFluid())
+            info.flow(
+                    i == 0, NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
                             + "/"

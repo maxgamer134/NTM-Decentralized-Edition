@@ -12,7 +12,6 @@ import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.NTMFluids;
 import com.hbm.util.BobMathUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -42,11 +41,8 @@ public class MachineIntake extends BlockMultiblockCore
         info.line(
                 "Power: " + BobMathUtil.getShortNumber(intake.power) + "HE",
                 intake.power < tickCost ? 0xFF5555 : 0x55FF55);
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(intake.compair.getFluid())
+        info.output(
+                NTMFluidProperties.clientName(intake.compair.getFluid())
                         + ": "
                         + intake.compair.getFill()
                         + "/"

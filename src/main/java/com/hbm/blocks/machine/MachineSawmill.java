@@ -3,7 +3,6 @@
 
 package com.hbm.blocks.machine;
 
-import net.minecraft.ChatFormatting;
 import com.hbm.blockentity.machine.BlockEntitySawmill;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.ModBlockEntities;
@@ -129,10 +128,8 @@ public class MachineSawmill extends BlockMultiblockCore
             ItemStack s = saw.getItem(i);
             // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
             if (!s.isEmpty())
-                info.line(
-                        (i == 0 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ")
-                                + ChatFormatting.RESET
-                                + s.getHoverName().getString()
+                info.flow(
+                        i == 0, s.getHoverName().getString()
                                 + (s.getCount() > 1 ? " x" + s.getCount() : ""));
         }
         if (saw.heat > 300) info.line("! ! ! OVERSPEED ! ! !", 0xFF0000);

@@ -14,6 +14,7 @@ import com.hbm.interfaces.ILookOverlay;
 import com.hbm.util.BobMathUtil;
 import java.util.function.Consumer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -60,28 +61,14 @@ public class BlockNetworkSeparator extends BlockMultiblockCore
     public void buildLookOverlay(Level level, BlockPos pos, ILookOverlay.LookInfo info) {
         if (!(level.getBlockEntity(pos) instanceof BlockEntityNetworkSeparator separator)) return;
         info.title(getName().getString(), 0xffff00, 0x404000)
-                .line(
-                        ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + BobMathUtil.getShortNumber(separator.deltaTick[19])
-                                + "HE/t"
-                                + ChatFormatting.RED
-                                + " ->")
-                .line(
-                        ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + BobMathUtil.getShortNumber(separator.deltaSecond)
-                                + "HE/s"
-                                + ChatFormatting.RED
-                                + " ->")
+                .input(Component.literal(BobMathUtil.getShortNumber(separator.deltaTick[19]) + "HE/t").append(Component.literal(" ->").withStyle(ChatFormatting.RED)))
+                .input(Component.literal(BobMathUtil.getShortNumber(separator.deltaSecond) + "HE/s").append(Component.literal(" ->").withStyle(ChatFormatting.RED)))
                 .line(
                         "Configured: "
                                 + BobMathUtil.getShortNumber(separator.configuredLimit)
                                 + "HE/t")
-                .line("Priority: " + ChatFormatting.YELLOW + separator.priority.name());
-        if (separator.redstone) info.line(ChatFormatting.RED + "Disabled by redstone");
+                .line(Component.literal("Priority: ").append(Component.literal(separator.priority.name()).withStyle(ChatFormatting.YELLOW)));
+        if (separator.redstone) info.line(Component.literal("Disabled by redstone").withStyle(ChatFormatting.RED));
     }
 
     @Override

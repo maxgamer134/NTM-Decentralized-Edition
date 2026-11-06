@@ -8,7 +8,6 @@ import com.hbm.inventory.container.MenuMachineWoodBurner;
 import com.hbm.lib.Library;
 import com.hbm.packet.PacketWire;
 import com.hbm.packet.toserver.NbtControlPayload;
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.SharedConstants;
@@ -163,9 +162,7 @@ public class ScreenMachineWoodBurner extends ScreenInfoContainer<MenuMachineWood
         if (menu.getCarried().isEmpty()
                 && be.getItem(BlockEntityMachineWoodBurner.SLOT_FUEL).isEmpty()
                 && isHovering(26, 18, 16, 16, mouseX, mouseY)) {
-            List<Component> desc = new ArrayList<>();
-            for (String line : BlockEntityMachineWoodBurner.BURN_MODULE.getDesc())
-                desc.add(Component.literal(line));
+            List<Component> desc = BlockEntityMachineWoodBurner.BURN_MODULE.getDesc();
             if (!desc.isEmpty())
                 graphics.setComponentTooltipForNextFrame(this.font, desc, mouseX, mouseY);
         }

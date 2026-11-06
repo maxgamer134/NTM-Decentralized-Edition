@@ -133,19 +133,8 @@ public class FluidPumpBlock extends BlockCompat implements ITickingBlock, ILookO
                         ? Component.translatable("hbmfluid.none").getString()
                         : NTMFluidProperties.clientName(pump.type);
         info.title(getName().getString(), 0xffff00, 0x404000)
-                .line(
-                        ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + typeName
-                                + " ("
-                                + pump.pressure
-                                + " PU): "
-                                + String.format(Locale.US, "%,d", pump.rate)
-                                + "mB/t"
-                                + ChatFormatting.RED
-                                + " ->")
-                .line("Priority: " + ChatFormatting.YELLOW + pump.priority.name());
+                .input(Component.literal(typeName + " (" + pump.pressure + " PU): " + String.format(Locale.US, "%,d", pump.rate) + "mB/t").append(Component.literal(" ->").withStyle(ChatFormatting.RED)))
+                .line(Component.literal("Priority: ").append(Component.literal(pump.priority.name()).withStyle(ChatFormatting.YELLOW)));
     }
 
     @Override

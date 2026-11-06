@@ -3,6 +3,7 @@
 
 package com.hbm.modules;
 
+import net.minecraft.network.chat.Component;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.handler.FuelHandler;
 import com.hbm.items.ModItems;
@@ -43,14 +44,20 @@ public class ModuleBurnTime {
         }
     }
 
-    private static void addIf(List<String> list, String name, double mod) {
-        if (mod != 1.0D) list.add(ChatFormatting.YELLOW + "- " + name + ": " + percent(mod));
+    private static void addIf(List<Component> list, String name, double mod) {
+        if (mod != 1.0D)
+            list.add(
+                    Component.literal("- " + name + ": ")
+                            .withStyle(ChatFormatting.YELLOW)
+                            .append(percent(mod)));
     }
 
-    private static String percent(double mod) {
+    private static Component percent(double mod) {
         mod -= 1D;
         String num = ((int) (mod * 100)) + "%";
-        return mod < 0 ? ChatFormatting.RED + num : ChatFormatting.GREEN + "+" + num;
+        return mod < 0
+                ? Component.literal(num).withStyle(ChatFormatting.RED)
+                : Component.literal("+" + num).withStyle(ChatFormatting.GREEN);
     }
 
     public int getBurnTime(Level level, ItemStack stack) {
@@ -108,14 +115,14 @@ public class ModuleBurnTime {
         return def;
     }
 
-    public List<String> getDesc() {
-        List<String> list = new ArrayList<>();
-        list.add(ChatFormatting.GOLD + "Burn time bonuses:");
+    public List<Component> getDesc() {
+        List<Component> list = new ArrayList<>();
+        list.add(Component.literal("Burn time bonuses:").withStyle(ChatFormatting.GOLD));
         for (int i = 0; i < COUNT; i++) addIf(list, NAMES[i], modTime[i]);
         if (list.size() == 1) list.clear();
 
-        List<String> heat = new ArrayList<>();
-        heat.add(ChatFormatting.RED + "Burn heat bonuses:");
+        List<Component> heat = new ArrayList<>();
+        heat.add(Component.literal("Burn heat bonuses:").withStyle(ChatFormatting.RED));
         for (int i = 0; i < COUNT; i++) addIf(heat, NAMES[i], modHeat[i]);
         if (heat.size() > 1) list.addAll(heat);
         return list;

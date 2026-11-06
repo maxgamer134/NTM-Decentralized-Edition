@@ -44,24 +44,10 @@ public class MachineAssemblyFactory extends BlockMultiblockCore
         if (port < 0) return;
         info.title(getName().getString(), 0xFFFF00, 0x404000);
         if (port == 0) {
-            info.line(
-                    ChatFormatting.GREEN
-                            + "-> "
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(be.water().getFluid()));
-            info.line(
-                    ChatFormatting.RED
-                            + "<- "
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(be.lps().getFluid()));
+            info.input(NTMFluidProperties.clientName(be.water().getFluid()));
+            info.output(NTMFluidProperties.clientName(be.lps().getFluid()));
         } else {
-            info.line(
-                    ChatFormatting.YELLOW
-                            + "-> "
-                            + ChatFormatting.RESET
-                            + "Recipe field ["
-                            + port
-                            + "]");
+            info.arrow(ChatFormatting.YELLOW, "-> ", "Recipe field [" + port + "]");
         }
     }
 

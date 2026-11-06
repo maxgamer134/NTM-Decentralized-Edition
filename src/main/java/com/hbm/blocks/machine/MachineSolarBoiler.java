@@ -12,7 +12,6 @@ import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.util.BobMathUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
@@ -39,11 +38,8 @@ public class MachineSolarBoiler extends BlockMultiblockCore
         FluidTankNTM[] tanks = {boiler.water, boiler.steam};
         for (int i = 0; i < tanks.length; i++) {
             FluidTankNTM tank = tanks[i];
-            String arrow = i == 0 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ";
-            info.line(
-                    arrow
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(tank.getFluid())
+            info.flow(
+                    i == 0, NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
                             + "/"

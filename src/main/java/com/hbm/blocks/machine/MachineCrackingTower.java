@@ -14,7 +14,6 @@ import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.items.ModDataComponents;
 import com.hbm.items.machine.FluidIdentifierData;
 import com.hbm.items.machine.FluidIdentifierItem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -81,10 +80,8 @@ public class MachineCrackingTower extends BlockMultiblockCore
         info.title(getName().getString(), 0xFFFF00, 0x404000);
         for (int i = 0; i < BlockEntityMachineCrackingTower.TANK_COUNT; i++) {
             FluidTankNTM tank = be.tanks[i];
-            info.line(
-                    (i < 2 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ")
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(tank.getFluid())
+            info.flow(
+                    i < 2, NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
                             + "/"

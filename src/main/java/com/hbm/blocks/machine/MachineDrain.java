@@ -80,11 +80,8 @@ public class MachineDrain extends BlockMultiblockCore
         if (drain.tank.getTankType() == null) return;
 
         info.title(getName().getString(), 0xFFFF00, 0x404000);
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(drain.tank.getFluid())
+        info.input(
+                NTMFluidProperties.clientName(drain.tank.getFluid())
                         + ": "
                         + drain.tank.getFill()
                         + "/"

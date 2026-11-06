@@ -15,7 +15,6 @@ import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.inventory.fluid.trait.FT_Coolable;
 import com.hbm.util.BobMathUtil;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -79,31 +78,22 @@ public class MachineChungus extends BlockMultiblockCore
                 Component.empty().append(Component.translatable(getDescriptionId())),
                 0xFFFF00,
                 0x404000);
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(in.getFluid())
+        info.input(
+                NTMFluidProperties.clientName(in.getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", in.getFill())
                         + "/"
                         + String.format(Locale.US, "%,d", in.getMaxFill())
                         + "mB");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(outType)
+        info.output(
+                NTMFluidProperties.clientName(outType)
                         + ": "
                         + String.format(Locale.US, "%,d", out.getFill())
                         + "/"
                         + String.format(Locale.US, "%,d", out.getMaxFill())
                         + "mB");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + BobMathUtil.getShortNumber(chungus.powerBuffer)
+        info.output(
+                BobMathUtil.getShortNumber(chungus.powerBuffer)
                         + "HE");
     }
 

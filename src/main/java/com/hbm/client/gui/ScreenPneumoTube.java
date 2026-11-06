@@ -120,12 +120,12 @@ public class ScreenPneumoTube extends ScreenInfoContainer<MenuPneumoTube> {
                     18,
                     18,
                     List.of(
-                            Component.literal(
-                                    (tube.redstone
-                                                    ? ChatFormatting.GREEN + "ON "
-                                                    : ChatFormatting.RED + "OFF ")
-                                            + ChatFormatting.RESET
-                                            + "with Redstone")));
+                            Component.empty()
+                                    .append(
+                                            tube.redstone
+                                                    ? Component.literal("ON ").withStyle(ChatFormatting.GREEN)
+                                                    : Component.literal("OFF ").withStyle(ChatFormatting.RED))
+                                    .append("with Redstone")));
             drawCustomInfoStat(
                     graphics,
                     mouseX,
@@ -150,7 +150,7 @@ public class ScreenPneumoTube extends ScreenInfoContainer<MenuPneumoTube> {
                     18,
                     18,
                     List.of(
-                            Component.literal(ChatFormatting.YELLOW + "Receiver order:"),
+                            Component.literal("Receiver order:").withStyle(ChatFormatting.YELLOW),
                             Component.literal(
                                     tube.receiveOrder == PneumaticNetwork.RECEIVE_ROBIN
                                             ? "Round robin"
@@ -164,7 +164,7 @@ public class ScreenPneumoTube extends ScreenInfoContainer<MenuPneumoTube> {
                     18,
                     18,
                     List.of(
-                            Component.literal(ChatFormatting.YELLOW + "Provider slot order:"),
+                            Component.literal("Provider slot order:").withStyle(ChatFormatting.YELLOW),
                             Component.literal(
                                     tube.sendOrder == PneumaticNetwork.SEND_FIRST
                                             ? "First to last"

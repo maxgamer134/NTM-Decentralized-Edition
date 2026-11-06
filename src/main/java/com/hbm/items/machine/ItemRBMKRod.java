@@ -333,7 +333,7 @@ public class ItemRBMKRod extends ItemCompat {
             adder.accept(
                     Component.translatable(
                                     "trait.rbmx.fluxFunc",
-                                    ChatFormatting.WHITE + getFuncDescription(stack))
+                                    Component.literal(getFuncDescription(stack)).withStyle(ChatFormatting.WHITE))
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable(
@@ -341,11 +341,11 @@ public class ItemRBMKRod extends ItemCompat {
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable(
-                                    "trait.rbmx.xenonGen", ChatFormatting.WHITE + "x * " + xGen)
+                                    "trait.rbmx.xenonGen", Component.literal("x * " + xGen).withStyle(ChatFormatting.WHITE))
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable(
-                                    "trait.rbmx.xenonBurn", ChatFormatting.WHITE + "x² / " + xBurn)
+                                    "trait.rbmx.xenonBurn", Component.literal("x² / " + xBurn).withStyle(ChatFormatting.WHITE))
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable("trait.rbmx.heat", heat + "°C")
@@ -401,7 +401,7 @@ public class ItemRBMKRod extends ItemCompat {
             adder.accept(
                     Component.translatable(
                                     "trait.rbmk.fluxFunc",
-                                    ChatFormatting.WHITE + getFuncDescription(stack))
+                                    Component.literal(getFuncDescription(stack)).withStyle(ChatFormatting.WHITE))
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable(
@@ -409,11 +409,11 @@ public class ItemRBMKRod extends ItemCompat {
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable(
-                                    "trait.rbmk.xenonGen", ChatFormatting.WHITE + "x * " + xGen)
+                                    "trait.rbmk.xenonGen", Component.literal("x * " + xGen).withStyle(ChatFormatting.WHITE))
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable(
-                                    "trait.rbmk.xenonBurn", ChatFormatting.WHITE + "x² / " + xBurn)
+                                    "trait.rbmk.xenonBurn", Component.literal("x² / " + xBurn).withStyle(ChatFormatting.WHITE))
                             .withStyle(ChatFormatting.YELLOW));
             adder.accept(
                     Component.translatable("trait.rbmk.heat", heat + "°C")

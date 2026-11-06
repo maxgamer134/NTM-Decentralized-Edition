@@ -62,7 +62,7 @@ public class BlockEntityHeaterFirebox extends BlockEntityFireboxBase implements 
         return MachineData.FIREBOX_MAX_HEAT_ENERGY.get();
     }
 
-    public List<String> getFuelBonuses() {
+    public List<Component> getFuelBonuses() {
         return BURN_MODULE.getDesc();
     }
 

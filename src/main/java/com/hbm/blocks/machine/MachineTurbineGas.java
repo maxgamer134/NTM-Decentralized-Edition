@@ -12,7 +12,6 @@ import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -50,20 +49,20 @@ public class MachineTurbineGas extends BlockMultiblockCore
         BlockPos back = pos.relative(dir.getOpposite());
 
         if (hit.equals(back.relative(rot)) || hit.equals(front.relative(rot))) {
-            info.line(ChatFormatting.GREEN + "-> " + ChatFormatting.RESET + tankName(be.tanks[0]));
-            info.line(ChatFormatting.GREEN + "-> " + ChatFormatting.RESET + tankName(be.tanks[1]));
+            info.input(tankName(be.tanks[0]));
+            info.input(tankName(be.tanks[1]));
         }
 
         if (hit.equals(back.relative(rot, -4)) || hit.equals(front.relative(rot, -4))) {
-            info.line(ChatFormatting.GREEN + "-> " + ChatFormatting.RESET + tankName(be.tanks[2]));
+            info.input(tankName(be.tanks[2]));
         }
 
         if (hit.equals(pos.relative(rot, -5).above())) {
-            info.line(ChatFormatting.RED + "<- " + ChatFormatting.RESET + tankName(be.tanks[3]));
+            info.output(tankName(be.tanks[3]));
         }
 
         if (hit.equals(pos.relative(rot, 4).above())) {
-            info.line(ChatFormatting.RED + "<- " + ChatFormatting.RESET + "Power");
+            info.output("Power");
         }
 
         if (!info.isEmpty()) {

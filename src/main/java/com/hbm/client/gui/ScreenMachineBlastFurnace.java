@@ -6,7 +6,6 @@ package com.hbm.client.gui;
 import com.hbm.blockentity.machine.BlockEntityMachineBlastFurnace;
 import com.hbm.inventory.container.MenuMachineBlastFurnace;
 import com.hbm.lib.Library;
-import java.util.ArrayList;
 import java.util.List;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import com.hbm.backport.client.rendertype.RenderPipelines;
@@ -112,12 +111,9 @@ public class ScreenMachineBlastFurnace extends ScreenInfoContainer<MenuMachineBl
                 && this.hoveredSlot != null
                 && this.hoveredSlot == this.menu.slots.get(BlockEntityMachineBlastFurnace.SLOT_FUEL)
                 && !this.hoveredSlot.hasItem()) {
-            List<String> bonuses = be.getFuelBonuses();
-            if (!bonuses.isEmpty()) {
-                List<Component> lines = new ArrayList<>(bonuses.size());
-                for (String s : bonuses) lines.add(Component.literal(s));
-                graphics.setComponentTooltipForNextFrame(this.font, lines, mouseX, mouseY);
-            }
+            List<Component> bonuses = be.getFuelBonuses();
+            if (!bonuses.isEmpty())
+                graphics.setComponentTooltipForNextFrame(this.font, bonuses, mouseX, mouseY);
         }
 
         super.extractLabels(graphics, mouseX, mouseY);

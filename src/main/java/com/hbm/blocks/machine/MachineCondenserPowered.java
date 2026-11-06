@@ -3,7 +3,6 @@
 
 package com.hbm.blocks.machine;
 
-import net.minecraft.ChatFormatting;
 import com.hbm.blockentity.machine.BlockEntityCondenserPowered;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
@@ -29,10 +28,8 @@ public class MachineCondenserPowered extends BlockMultiblockCore
 
     // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
     private static void line(ILookOverlay.LookInfo info, boolean input, FluidTankNTM tank) {
-        info.line(
-                (input ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ")
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(tank.getFluid())
+        info.flow(
+                input, NTMFluidProperties.clientName(tank.getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", tank.getFill())
                         + "/"

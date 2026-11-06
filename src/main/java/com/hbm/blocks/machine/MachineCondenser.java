@@ -3,7 +3,6 @@
 
 package com.hbm.blocks.machine;
 
-import net.minecraft.ChatFormatting;
 import com.hbm.api.environment.Environment;
 import com.hbm.blockentity.machine.BlockEntityCondenser;
 import com.hbm.blocks.ITickingBlock;
@@ -31,12 +30,10 @@ public class MachineCondenser extends BlockCompat
 
     // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
     private static void line(ILookOverlay.LookInfo info, boolean input, FluidTankNTM tank) {
-        info.line(
-                Component.empty()
-                        .append(
-                                Component.literal(input ? "-> " : "<- ")
-                                        .withStyle(input ? ChatFormatting.GREEN : ChatFormatting.RED))
-                        .append(NTMFluidProperties.getDisplayName(tank.getFluid()))
+        info.flow(
+                input,
+                NTMFluidProperties.getDisplayName(tank.getFluid())
+                        .copy()
                         .append(": ")
                         .append(
                                 Component.translatable(

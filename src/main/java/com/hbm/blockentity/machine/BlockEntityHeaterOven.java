@@ -92,7 +92,7 @@ public class BlockEntityHeaterOven extends BlockEntityFireboxBase implements Men
         return MachineData.HEATER_OVEN_MAX_HEAT_ENERGY.get();
     }
 
-    public List<String> getFuelBonuses() {
+    public List<Component> getFuelBonuses() {
         return BURN_MODULE.getDesc();
     }
 

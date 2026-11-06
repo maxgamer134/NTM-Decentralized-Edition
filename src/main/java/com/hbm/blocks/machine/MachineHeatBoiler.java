@@ -19,7 +19,6 @@ import com.hbm.items.machine.FluidIdentifierData;
 import com.hbm.items.machine.FluidIdentifierItem;
 import java.util.List;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -105,21 +104,15 @@ public class MachineHeatBoiler extends BlockMultiblockCore
                 0xFFFF00,
                 0x404000);
         info.line(String.format(Locale.US, "%,d", be.heat) + "TU");
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(be.tanks[0].getFluid())
+        info.input(
+                NTMFluidProperties.clientName(be.tanks[0].getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", be.tanks[0].getFill())
                         + " / "
                         + String.format(Locale.US, "%,d", be.tanks[0].getMaxFill())
                         + "mB");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(be.tanks[1].getFluid())
+        info.output(
+                NTMFluidProperties.clientName(be.tanks[1].getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", be.tanks[1].getFill())
                         + " / "

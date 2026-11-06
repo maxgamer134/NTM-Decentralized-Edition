@@ -3,6 +3,7 @@
 
 package com.hbm.client.gui;
 
+import com.hbm.util.ArrowText;
 import com.hbm.blockentity.machine.fusion.BlockEntityFusionKlystron;
 import com.hbm.blockentity.machine.fusion.BlockEntityFusionTorus;
 import com.hbm.inventory.container.MenuFusionKlystron;
@@ -11,7 +12,6 @@ import com.hbm.packet.PacketWire;
 import com.hbm.packet.toserver.NbtControlPayload;
 import com.hbm.util.BobMathUtil;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.EditBox;
 import com.hbm.backport.client.gui.input.CharacterEvent;
@@ -154,12 +154,7 @@ public class ScreenFusionKlystron extends ScreenInfoContainer<MenuFusionKlystron
                 STAT_W,
                 STAT_H,
                 List.of(
-                        Component.literal(
-                                ChatFormatting.RED
-                                        + "<- "
-                                        + ChatFormatting.RESET
-                                        + BobMathUtil.getShortNumber(be.output)
-                                        + "KyU / "
+                        ArrowText.out( BobMathUtil.getShortNumber(be.output) + "KyU / "
                                         + BobMathUtil.getShortNumber(be.outputTarget)
                                         + "KyU")));
         drawFluidGaugeInfo(graphics, mouseX, mouseY, AIR_X, STAT_Y, STAT_W, STAT_H, be.compair);
@@ -172,12 +167,7 @@ public class ScreenFusionKlystron extends ScreenInfoContainer<MenuFusionKlystron
                 STAT_W,
                 STAT_H,
                 List.of(
-                        Component.literal(
-                                ChatFormatting.GREEN
-                                        + "-> "
-                                        + ChatFormatting.RESET
-                                        + BobMathUtil.getShortNumber(be.output)
-                                        + "HE / "
+                        ArrowText.in( BobMathUtil.getShortNumber(be.output) + "HE / "
                                         + BobMathUtil.getShortNumber(be.outputTarget)
                                         + "HE")));
         super.extractLabels(graphics, mouseX, mouseY);

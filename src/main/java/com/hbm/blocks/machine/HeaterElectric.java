@@ -11,7 +11,6 @@ import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.interfaces.IToolable;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -52,18 +51,8 @@ public class HeaterElectric extends BlockMultiblockCore
 
         info.title(getName().getString(), 0xFFFF00, 0x404000)
                 .line(String.format(Locale.US, "%,d TU", heater.heatEnergy))
-                .line(
-                        ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + heater.getConsumption()
-                                + " HE/t")
-                .line(
-                        ChatFormatting.RED
-                                + "<- "
-                                + ChatFormatting.RESET
-                                + heater.getHeatGen()
-                                + " TU/t");
+                .input(heater.getConsumption() + " HE/t")
+                .output(heater.getHeatGen() + " TU/t");
     }
 
     @Override

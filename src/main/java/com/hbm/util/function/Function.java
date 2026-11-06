@@ -7,6 +7,7 @@ package com.hbm.util.function;
 import com.hbm.util.BobMathUtil;
 import java.util.Locale;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 
 public abstract class Function {
 
@@ -17,7 +18,7 @@ public abstract class Function {
 
     public abstract String getLabelForFuel();
 
-    public abstract String getDangerFromFuel();
+    public abstract Component getDangerFromFuel();
 
     public Function withDiv(double div) {
         this.div = div;
@@ -74,8 +75,8 @@ public abstract class Function {
         }
 
         @Override
-        public String getDangerFromFuel() {
-            return ChatFormatting.YELLOW + "MEDIUM / LOGARITHMIC";
+        public Component getDangerFromFuel() {
+            return Component.literal("MEDIUM / LOGARITHMIC").withStyle(ChatFormatting.YELLOW);
         }
     }
 
@@ -95,8 +96,8 @@ public abstract class Function {
         }
 
         @Override
-        public String getDangerFromFuel() {
-            return ChatFormatting.DARK_GREEN + "SAFE / PASSIVE";
+        public Component getDangerFromFuel() {
+            return Component.literal("SAFE / PASSIVE").withStyle(ChatFormatting.DARK_GREEN);
         }
     }
 
@@ -116,8 +117,8 @@ public abstract class Function {
         }
 
         @Override
-        public String getDangerFromFuel() {
-            return ChatFormatting.YELLOW + "MEDIUM / SQUARE ROOT";
+        public Component getDangerFromFuel() {
+            return Component.literal("MEDIUM / SQUARE ROOT").withStyle(ChatFormatting.YELLOW);
         }
     }
 
@@ -144,8 +145,8 @@ public abstract class Function {
         }
 
         @Override
-        public String getDangerFromFuel() {
-            return ChatFormatting.RED + "DANGEROUS / LINEAR";
+        public Component getDangerFromFuel() {
+            return Component.literal("DANGEROUS / LINEAR").withStyle(ChatFormatting.RED);
         }
     }
 
@@ -172,8 +173,8 @@ public abstract class Function {
         }
 
         @Override
-        public String getDangerFromFuel() {
-            return ChatFormatting.RED + "DANGEROUS / QUADRATIC";
+        public Component getDangerFromFuel() {
+            return Component.literal("DANGEROUS / QUADRATIC").withStyle(ChatFormatting.RED);
         }
     }
 }

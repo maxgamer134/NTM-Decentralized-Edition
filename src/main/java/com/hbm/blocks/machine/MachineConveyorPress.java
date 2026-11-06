@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.machine;
 
+import net.minecraft.network.chat.Component;
 import com.hbm.api.conveyor.IConveyorBelt;
 import com.hbm.blockentity.machine.BlockEntityConveyorPress;
 import com.hbm.blocks.ITickingBlock;
@@ -175,9 +176,10 @@ public class MachineConveyorPress extends BlockMultiblockCore
         ItemStack stamp = press.syncStack;
         // backport-fix: BF-137 main reddens only the NONE, not the whole line
         info.line(
-                "Installed stamp: "
-                        + (stamp.isEmpty()
-                                ? ChatFormatting.RED + "NONE"
-                                : stamp.getHoverName().getString()));
+                Component.literal("Installed stamp: ")
+                        .append(
+                                stamp.isEmpty()
+                                        ? Component.literal("NONE").withStyle(ChatFormatting.RED)
+                                        : Component.literal(stamp.getHoverName().getString())));
     }
 }

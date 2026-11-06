@@ -3,12 +3,12 @@
 
 package com.hbm.client.gui;
 
+import com.hbm.util.ArrowText;
 import com.hbm.blockentity.machine.fusion.BlockEntityFusionBreeder;
 import com.hbm.inventory.container.MenuFusionBreeder;
 import com.hbm.lib.Library;
 import com.hbm.util.BobMathUtil;
 import java.util.List;
-import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
 import com.hbm.backport.client.rendertype.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -72,12 +72,7 @@ public class ScreenFusionBreeder extends ScreenInfoContainer<MenuFusionBreeder> 
                 FLUX_W,
                 FLUX_H,
                 List.of(
-                        Component.literal(
-                                ChatFormatting.GREEN
-                                        + "-> "
-                                        + ChatFormatting.RESET
-                                        + (int) Math.ceil(be.neutronEnergy)
-                                        + " flux/t")));
+                        ArrowText.in((int) Math.ceil(be.neutronEnergy) + " flux/t")));
         drawCustomInfoStat(
                 graphics,
                 mouseX,

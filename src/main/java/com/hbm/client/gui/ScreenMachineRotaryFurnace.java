@@ -9,7 +9,6 @@ import com.hbm.client.render.HbmRenderPipelines;
 import com.hbm.inventory.container.MenuMachineRotaryFurnace;
 import com.hbm.inventory.material.Mats;
 import com.hbm.lib.Library;
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
@@ -144,9 +143,7 @@ public class ScreenMachineRotaryFurnace extends ScreenInfoContainer<MenuMachineR
         if (menu.getCarried().isEmpty()
                 && be.getItem(4).isEmpty()
                 && isHovering(44, 54, 16, 16, mouseX, mouseY)) {
-            List<Component> desc = new ArrayList<>();
-            for (String line : BlockEntityMachineRotaryFurnace.BURN_MODULE.getDesc())
-                desc.add(Component.literal(line));
+            List<Component> desc = BlockEntityMachineRotaryFurnace.BURN_MODULE.getDesc();
             if (!desc.isEmpty())
                 graphics.setComponentTooltipForNextFrame(font, desc, mouseX, mouseY);
         }

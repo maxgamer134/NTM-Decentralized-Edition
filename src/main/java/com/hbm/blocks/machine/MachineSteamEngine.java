@@ -11,7 +11,6 @@ import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
@@ -40,21 +39,15 @@ public class MachineSteamEngine extends BlockMultiblockCore
     public void buildLookOverlay(Level level, BlockPos pos, ILookOverlay.LookInfo info) {
         if (!(level.getBlockEntity(pos) instanceof BlockEntitySteamEngine engine)) return;
 
-        info.line(
-                ChatFormatting.GREEN
-                        + "-> "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(engine.tanks[0].getFluid())
+        info.input(
+                NTMFluidProperties.clientName(engine.tanks[0].getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", engine.tanks[0].getFill())
                         + " / "
                         + String.format(Locale.US, "%,d", engine.tanks[0].getMaxFill())
                         + "mB");
-        info.line(
-                ChatFormatting.RED
-                        + "<- "
-                        + ChatFormatting.RESET
-                        + NTMFluidProperties.clientName(engine.tanks[1].getFluid())
+        info.output(
+                NTMFluidProperties.clientName(engine.tanks[1].getFluid())
                         + ": "
                         + String.format(Locale.US, "%,d", engine.tanks[1].getFill())
                         + " / "

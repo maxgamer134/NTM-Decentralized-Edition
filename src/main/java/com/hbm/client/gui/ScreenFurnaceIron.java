@@ -6,7 +6,6 @@ package com.hbm.client.gui;
 import com.hbm.blockentity.machine.BlockEntityFurnaceIron;
 import com.hbm.inventory.container.MenuFurnaceIron;
 import com.hbm.lib.Library;
-import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.SharedConstants;
 import com.hbm.backport.client.gui.GuiGraphicsExtractor;
@@ -53,12 +52,9 @@ public class ScreenFurnaceIron extends ScreenInfoContainer<MenuFurnaceIron> {
         if (menu.getCarried().isEmpty()) {
             if (isHovering(53, 53, 16, 16, mouseX, mouseY)
                     || isHovering(71, 53, 16, 16, mouseX, mouseY)) {
-                List<String> desc = be.burnModule.getDesc();
-                if (!desc.isEmpty()) {
-                    List<Component> lines = new ArrayList<>();
-                    for (String s : desc) lines.add(Component.literal(s));
-                    graphics.setComponentTooltipForNextFrame(this.font, lines, mouseX, mouseY);
-                }
+                List<Component> desc = be.burnModule.getDesc();
+                if (!desc.isEmpty())
+                    graphics.setComponentTooltipForNextFrame(this.font, desc, mouseX, mouseY);
             }
         }
 

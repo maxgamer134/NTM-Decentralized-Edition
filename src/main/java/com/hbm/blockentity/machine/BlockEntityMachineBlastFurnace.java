@@ -223,7 +223,7 @@ public class BlockEntityMachineBlastFurnace extends BlockEntityMachineBase
         return burnModule.getBurnHeat(burnModule.getBurnTime(level, stack, 0.0D), stack);
     }
 
-    public List<String> getFuelBonuses() {
+    public List<Component> getFuelBonuses() {
         return burnModule.getDesc();
     }
 

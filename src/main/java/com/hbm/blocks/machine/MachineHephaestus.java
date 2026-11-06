@@ -15,7 +15,6 @@ import com.hbm.items.ModDataComponents;
 import com.hbm.items.machine.FluidIdentifierData;
 import com.hbm.items.machine.FluidIdentifierItem;
 import java.util.Locale;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
@@ -84,11 +83,8 @@ public class MachineHephaestus extends BlockMultiblockCore
         FluidTankNTM[] tanks = {be.input, be.output};
         for (int i = 0; i < tanks.length; i++) {
             FluidTankNTM tank = tanks[i];
-            String arrow = i == 0 ? ChatFormatting.GREEN + "-> " : ChatFormatting.RED + "<- ";
-            info.line(
-                    arrow
-                            + ChatFormatting.RESET
-                            + NTMFluidProperties.clientName(tank.getFluid())
+            info.flow(
+                    i == 0, NTMFluidProperties.clientName(tank.getFluid())
                             + ": "
                             + tank.getFill()
                             + "/"

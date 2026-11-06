@@ -3,6 +3,7 @@
 
 package com.hbm.client.gui;
 
+import com.hbm.util.ArrowText;
 import com.hbm.blockentity.machine.fusion.BlockEntityFusionPlasmaForge;
 import com.hbm.inventory.container.MenuMachinePlasmaForge;
 import com.hbm.inventory.recipes.PlasmaForgeRecipe;
@@ -152,16 +153,14 @@ public class ScreenMachinePlasmaForge extends ScreenInfoContainer<MenuMachinePla
                 be.maxPower);
         drawFluidGaugeInfo(graphics, mouseX, mouseY, TANK_X, TANK_Y, TANK_W, TANK_H, be.inputTank);
 
-        String plasma =
+        Component plasma =
                 recipe != null
-                        ? ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + BobMathUtil.getShortNumber(be.plasmaEnergySync)
-                                + "TU / "
-                                + BobMathUtil.getShortNumber(recipe.ignitionTemp)
-                                + "TU"
-                        : "0TU / 0TU";
+                        ? ArrowText.in(
+                                BobMathUtil.getShortNumber(be.plasmaEnergySync)
+                                        + "TU / "
+                                        + BobMathUtil.getShortNumber(recipe.ignitionTemp)
+                                        + "TU")
+                        : Component.literal("0TU / 0TU");
         drawCustomInfoStat(
                 graphics,
                 mouseX,
@@ -170,7 +169,7 @@ public class ScreenMachinePlasmaForge extends ScreenInfoContainer<MenuMachinePla
                 PLASMA_STAT_Y,
                 STAT_W,
                 STAT_H,
-                List.of(Component.literal(plasma)));
+                List.of(plasma));
 
         super.extractLabels(graphics, mouseX, mouseY);
     }

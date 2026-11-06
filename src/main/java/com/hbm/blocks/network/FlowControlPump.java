@@ -103,20 +103,9 @@ public class FlowControlPump extends BlockMultiblockCore
                         ? Component.translatable("hbmfluid.none").getString()
                         : NTMFluidProperties.clientName(type);
         info.title(getName().getString(), 0xffff00, 0x404000)
-                .line(
-                        ChatFormatting.GREEN
-                                + "-> "
-                                + ChatFormatting.RESET
-                                + typeName
-                                + " ("
-                                + pump.tank.getPressure()
-                                + " PU): "
-                                + String.format(Locale.US, "%,d", pump.rate)
-                                + "mB/t"
-                                + ChatFormatting.RED
-                                + " ->")
-                .line("Priority: " + ChatFormatting.YELLOW + pump.priority.name());
-        if (pump.redstone) info.line(ChatFormatting.RED + "Disabled by redstone");
+                .input(Component.literal(typeName + " (" + pump.tank.getPressure() + " PU): " + String.format(Locale.US, "%,d", pump.rate) + "mB/t").append(Component.literal(" ->").withStyle(ChatFormatting.RED)))
+                .line(Component.literal("Priority: ").append(Component.literal(pump.priority.name()).withStyle(ChatFormatting.YELLOW)));
+        if (pump.redstone) info.line(Component.literal("Disabled by redstone").withStyle(ChatFormatting.RED));
         if (pump.tank.getFill() > 0)
             info.line(String.format(Locale.US, "%,d", pump.tank.getFill()) + "mB buffered");
     }

@@ -166,4 +166,15 @@ public final class LegacyResources {
 
     public static final HFRWavefrontObject glass_cannon = Meshes.load(Library.id("models/weapons/glass_cannon.obj"));
     public static final ResourceLocation glass_cannon_panel_tex = Library.id("textures/models/weapons/glass_cannon_panel.png");
+
+    public static final HFRWavefrontObject coilgun = Meshes.load(Library.id("models/weapons/legacy/coilgun.obj"));
+    public static final ResourceLocation coilgun_tex = Library.id("textures/models/weapons/coilgun.png");
+    public static final HFRWavefrontObject cryocannon = Meshes.load(Library.id("models/weapons/cryo_cannon.obj"));
+    public static final ResourceLocation cryocannon_tex = Library.id("textures/models/weapons/cryo_cannon.png");
+    public static final HFRWavefrontObject fireext = Meshes.load(Library.id("models/weapons/legacy/fireext.obj"));
+    public static final ResourceLocation fireext_foam_tex = Library.id("textures/models/weapons/fireext_foam.png");
+    public static final ResourceLocation fireext_sand_tex = Library.id("textures/models/weapons/fireext_sand.png");
+    public static final ResourceLocation fireext_tex = Library.id("textures/models/weapons/fireext_normal.png");
+    public static final HFRWavefrontObject model_zomg = Meshes.faceNormals(Library.id("models/weapons/legacy/zomg.obj"));
+    public static final HFRWavefrontObject model_empray = Meshes.faceNormals(Library.id("models/weapons/legacy/empray.obj"));
 }

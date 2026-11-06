@@ -6,6 +6,7 @@ package com.hbm.items.weapon.legacy;
 import com.hbm.items.weapon.GunContent;
 import com.hbm.items.weapon.legacy.ItemAmmoLegacy.AmmoItemTrait;
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunEnergyFactory;
 import com.hbm.items.weapon.legacy.factory.GunPoweredFactory;
 import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
 import com.hbm.items.weapon.legacy.factory.GunGaussFactory;
@@ -321,6 +322,26 @@ public final class LegacyGuns {
 
     public static RegistryHandle<ItemEnergyGunBase> GUN_GLASS_CANNON;
 
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_COILGUN;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_COILGUN_DU;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_COILGUN_RUBBER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FIREEXT_LEGACY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FIREEXT_FOAM_LEGACY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FIREEXT_SAND_LEGACY;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FUEL;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FUEL_NAPALM;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FUEL_PHOSPHORUS;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FUEL_VAPORIZER;
+    public static RegistryHandle<ItemAmmoLegacy> AMMO_FUEL_GAS;
+    public static RegistryHandle<ItemCoilgun> GUN_COILGUN_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_FLAMER_LEGACY;
+    public static RegistryHandle<ItemCryoCannon> GUN_CRYOCANNON;
+    public static RegistryHandle<ItemGunBase> GUN_FIREEXT_LEGACY;
+    public static RegistryHandle<ItemGunBase> GUN_ZOMG;
+    public static RegistryHandle<ItemGunBase> GUN_EMP;
+    public static RegistryHandle<Item> GUN_EMP_AMMO;
+    public static RegistryHandle<Item> GUN_CRYOLATOR_AMMO;
+
     private LegacyGuns() {}
 
     /** Called from ModItems' registration, after the post-rework guns. */
@@ -629,6 +650,27 @@ public final class LegacyGuns {
 
         // Powered
         GUN_GLASS_CANNON = gun("gun_glass_cannon", p -> new ItemEnergyGunBase(GunPoweredFactory.getGlassCannonConfig(), p));
+
+        // Energy
+        AMMO_COILGUN = ammo("ammo_coilgun");
+        AMMO_COILGUN_DU = ammo("ammo_coilgun_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_COILGUN_RUBBER = ammo("ammo_coilgun_rubber", AmmoItemTrait.NEU_MORE_BOUNCY, AmmoItemTrait.CON_DAMAGE);
+        AMMO_FIREEXT_LEGACY = ammo("ammo_fireext_legacy");
+        AMMO_FIREEXT_FOAM_LEGACY = ammo("ammo_fireext_foam_legacy");
+        AMMO_FIREEXT_SAND_LEGACY = ammo("ammo_fireext_sand_legacy");
+        AMMO_FUEL = ammo("ammo_fuel");
+        AMMO_FUEL_NAPALM = ammo("ammo_fuel_napalm", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_RANGE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_FUEL_PHOSPHORUS = ammo("ammo_fuel_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS_SPLASH, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_RANGE, AmmoItemTrait.PRO_RANGE, AmmoItemTrait.PRO_ACCURATE1, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_SING_PROJECTILE, AmmoItemTrait.CON_HEAVY_WEAR);
+        AMMO_FUEL_VAPORIZER = ammo("ammo_fuel_vaporizer", AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.PRO_FLAMES, AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_ERASER, AmmoItemTrait.CON_ACCURACY2, AmmoItemTrait.CON_RANGE2, AmmoItemTrait.CON_HEAVY_WEAR, AmmoItemTrait.CON_LING_FIRE);
+        AMMO_FUEL_GAS = ammo("ammo_fuel_gas", AmmoItemTrait.PRO_NO_GRAVITY, AmmoItemTrait.PRO_POISON_GAS, AmmoItemTrait.CON_NO_DAMAGE, AmmoItemTrait.CON_NO_FIRE);
+        GUN_COILGUN_LEGACY = gun("gun_coilgun_legacy", p -> new ItemCoilgun(GunEnergyFactory.getCoilgunConfig(), p));
+        GUN_FLAMER_LEGACY = gun("gun_flamer_legacy", p -> new ItemGunBase(GunEnergyFactory.getFlamerConfig(), p));
+        GUN_CRYOCANNON = gun("gun_cryocannon", p -> new ItemCryoCannon(GunEnergyFactory.getCryoCannonConfig(), p));
+        GUN_FIREEXT_LEGACY = gun("gun_fireext_legacy", p -> new ItemGunBase(GunEnergyFactory.getExtConfig(), p));
+        GUN_ZOMG = gun("gun_zomg", p -> new ItemGunBase(GunEnergyFactory.getZOMGConfig(), p));
+        GUN_EMP = gun("gun_emp", p -> new ItemGunBase(GunEnergyFactory.getEMPConfig(), p));
+        GUN_EMP_AMMO = part("gun_emp_ammo");
+        GUN_CRYOLATOR_AMMO = part("gun_cryolator_ammo");
     }
 
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {

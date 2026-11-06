@@ -9164,5 +9164,22 @@
   "item.hbm.gun_osipr": "Overwatch Standard Issue Pulse Rifle",
   "item.hbm.gun_osipr_ammo": "Dark Energy Pulse Plug",
   "item.hbm.gun_osipr_ammo2": "Combine Ball",
-  "item.hbm.gun_glass_cannon": "The Glass Cannon"
+  "item.hbm.gun_glass_cannon": "The Glass Cannon",
+  "item.hbm.ammo_coilgun": "Coilgun Tungsten Ball",
+  "item.hbm.ammo_coilgun_du": "Coilgun Ferrouranium Ball",
+  "item.hbm.ammo_coilgun_rubber": "Coilgun Rubber Ball",
+  "item.hbm.ammo_fireext_legacy": "Fire Extinguisher Water Tank",
+  "item.hbm.ammo_fireext_foam_legacy": "Fire Extinguisher Foam Tank",
+  "item.hbm.ammo_fireext_sand_legacy": "Fire Extinguisher Sand Tank",
+  "item.hbm.ammo_fuel": "Diesel Tank",
+  "item.hbm.ammo_fuel_napalm": "Napalm Tank",
+  "item.hbm.ammo_fuel_phosphorus": "WP Tank",
+  "item.hbm.ammo_fuel_vaporizer": "Vaporizer Tank",
+  "item.hbm.ammo_fuel_gas": "Gas Tank",
+  "item.hbm.gun_coilgun_legacy": "Coilgun",
+  "item.hbm.gun_flamer_legacy": "Mister Topaz",
+  "item.hbm.gun_fireext_legacy": "Fire Extinguisher",
+  "item.hbm.gun_zomg": "ZOMG Cannon",
+  "item.hbm.gun_emp": "EMP Gun",
+  "item.hbm.gun_emp_ammo": "Energy Cell"
 }

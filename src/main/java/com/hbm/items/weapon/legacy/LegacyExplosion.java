@@ -50,4 +50,17 @@ public final class LegacyExplosion {
         if (!a.contains(ExAttrib.NOPARTICLE) || !a.contains(ExAttrib.NOSOUND)) vnt.setSFX(new ExplosionEffectStandard());
         vnt.explode();
     }
+
+    /** main's ExplosionChaos.explodeZOMG: a sphere of air, sparing the bedrock floor */
+    public static void zomg(Level level, int x, int y, int z, int r) {
+        int r22 = r * r / 2;
+        for (int xx = -r; xx < r; xx++)
+            for (int yy = -r; yy < r; yy++)
+                for (int zz = -r; zz < r; zz++) {
+                    if (xx * xx + yy * yy + zz * zz >= r22) continue;
+                    net.minecraft.core.BlockPos p = new net.minecraft.core.BlockPos(x + xx, y + yy, z + zz);
+                    if (!(level.getBlockState(p).is(net.minecraft.world.level.block.Blocks.BEDROCK) && p.getY() <= level.getMinBuildHeight()))
+                        level.setBlock(p, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
+                }
+    }
 }

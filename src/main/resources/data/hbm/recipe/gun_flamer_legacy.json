@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "W": "#c:fine_wires/gold",
+    "S": "#hbm:pipes/steel",
+    "C": "hbm:coil_tungsten",
+    "T": "hbm:tank_steel",
+    "M": "hbm:mechanism_launcher_1",
+    "I": "#c:ingots/steel"
+  },
+  "pattern": [
+    "WSS",
+    "SCT",
+    "WMI"
+  ],
+  "result": {
+    "id": "hbm:gun_flamer_legacy"
+  }
+}

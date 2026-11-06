@@ -1,0 +1,26 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "B": "#c:bolts/steel",
+    "D": {
+      "type": "neoforge:components",
+      "components": {
+        "hbm:fluid_content": {
+          "type": "hbm:diesel",
+          "amount": 1000,
+          "pressure": 0
+        }
+      },
+      "items": "hbm:fluid_tank"
+    }
+  },
+  "pattern": [
+    " P ",
+    "BDB",
+    " P "
+  ],
+  "result": {
+    "id": "hbm:ammo_fuel"
+  }
+}

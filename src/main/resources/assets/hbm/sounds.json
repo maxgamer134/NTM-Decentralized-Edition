@@ -3535,5 +3535,59 @@
         "stream": false
       }
     ]
+  },
+  "weapon.b92reload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/b92reload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.coilgunreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/coilgunreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.coilgunshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/coilgunshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.flamerreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/flamerreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.flamethrowershoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/flamethrowershoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.teslashoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/teslashoot",
+        "stream": false
+      }
+    ]
   }
 }

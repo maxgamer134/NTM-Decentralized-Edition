@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "C": "#c:dusts/saltpeter",
+    "P": "minecraft:snowball"
+  },
+  "pattern": [
+    "SPS",
+    "PCP",
+    "SPS"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_cryolator_ammo"
+  }
+}

@@ -5,6 +5,7 @@
 package com.hbm.items.weapon.legacy;
 
 import com.hbm.items.weapon.legacy.factory.Gun357MagnumFactory;
+import com.hbm.items.weapon.legacy.factory.GunEnergyFactory;
 import com.hbm.items.weapon.legacy.factory.GunPoweredFactory;
 import com.hbm.items.weapon.legacy.factory.GunOSIPRFactory;
 import com.hbm.items.weapon.legacy.factory.GunGaussFactory;
@@ -546,6 +547,27 @@ public final class BulletConfigSyncingUtil {
         configSet.put(GLASS_EMUV, GunPoweredFactory.getEMUVConfig());
         configSet.put(GLASS_EMXRAY, GunPoweredFactory.getEMXrayConfig());
         configSet.put(GLASS_EMGAMMA, GunPoweredFactory.getEMGammaConfig());
+
+
+        configSet.put(SPECIAL_EMP, GunEnergyFactory.getOrbusConfig());
+        configSet.put(COIL_NORMAL, GunEnergyFactory.getCoilConfig());
+        configSet.put(COIL_DU, GunEnergyFactory.getCoilDUConfig());
+        configSet.put(COIL_RUBBER, GunEnergyFactory.getCoilRubberConfig());
+        configSet.put(FLAMER_NORMAL, GunEnergyFactory.getFlameConfig());
+        configSet.put(FLAMER_NAPALM, GunEnergyFactory.getNapalmConfig());
+        configSet.put(FLAMER_WP, GunEnergyFactory.getPhosphorusConfig());
+        configSet.put(FLAMER_VAPORIZER, GunEnergyFactory.getVaporizerConfig());
+        configSet.put(FLAMER_GAS, GunEnergyFactory.getGasConfig());
+        configSet.put(CRYO_NORMAL, GunEnergyFactory.getCryoConfig());
+        configSet.put(FEXT_NORMAL, GunEnergyFactory.getFextConfig());
+        configSet.put(FEXT_FOAM, GunEnergyFactory.getFextFoamConfig());
+        configSet.put(FEXT_SAND, GunEnergyFactory.getFextSandConfig());
+        configSet.put(FLA_NORMAL, GunEnergyFactory.getTurretConfig());
+        //configSet.put(TWR_RAY, GunEnergyFactory.getSingConfig());
+        //configSet.put(HLR_NORMAL, GunEnergyFactory.getHLRPrecisionConfig());
+        //configSet.put(HLR_ALT, GunEnergyFactory.getHLRScatterConfig());
+        configSet.put(ZOMG_BOLT, GunEnergyFactory.getZOMGBoltConfig());
+        configSet.put(TURBINE, GunEnergyFactory.getTurbineConfig());
 
         configSet.int2ObjectEntrySet().forEach(e -> keys.put(e.getValue(), e.getIntKey()));
         loaded = true;

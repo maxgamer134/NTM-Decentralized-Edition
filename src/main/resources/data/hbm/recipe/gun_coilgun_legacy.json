@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "hbm:capacitor_copper",
+    "S": "#c:plates/saturnite",
+    "M": "hbm:mechanism_special",
+    "P": "#c:ingots/polymer"
+  },
+  "pattern": [
+    "CCC",
+    "SSM",
+    "  P"
+  ],
+  "result": {
+    "id": "hbm:gun_coilgun_legacy"
+  }
+}

@@ -353,6 +353,13 @@ public class BlockEntityMachineAssemblyFactory extends BlockEntityMachineBase
         return isCoolantCell(local) ? coolantPort : null;
     }
 
+    /** The port a looked-at cell is: 0 the coolant port, 1-4 a module's item port, -1 none. */
+    public int lookPort(BlockPos cell) {
+        int local = localCell(cell);
+        if (isCoolantCell(local)) return 0;
+        return isIoCell(local) ? ioModule(local) + 1 : -1;
+    }
+
     @Override
     public @Nullable ItemPort itemAccess(BlockPos cell, Direction side) {
         int local = localCell(cell);

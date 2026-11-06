@@ -58,8 +58,7 @@ public class MachineCondenserPowered extends BlockMultiblockCore
                 BobMathUtil.getShortNumber(be.power)
                         + "HE / "
                         + BobMathUtil.getShortNumber(be.getMaxPower())
-                        + "HE",
-                0xFFFF00);
+                        + "HE"); // backport-fix: BF-137 white like main's
         line(info, true, be.input);
         line(info, false, be.output);
     }

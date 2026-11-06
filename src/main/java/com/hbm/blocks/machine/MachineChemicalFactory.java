@@ -9,8 +9,8 @@ import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
-import com.hbm.inventory.recipes.loader.GenericRecipe;
-import com.hbm.util.BobMathUtil;
+import com.hbm.inventory.fluid.NTMFluidProperties;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
@@ -24,10 +24,6 @@ public class MachineChemicalFactory extends BlockMultiblockCore
         super(props);
     }
 
-    private static int gradient(double frac) {
-        frac = Math.clamp(frac, 0D, 1D);
-        return ((int) (0xFF - 0xFF * frac) << 16) | ((int) (0xFF * frac) << 8);
-    }
 
     @Override
     protected RenderShape getRenderShape(BlockState state) {
@@ -39,40 +35,34 @@ public class MachineChemicalFactory extends BlockMultiblockCore
         return new BlockEntityMachineChemicalFactory(pos, state);
     }
 
+    // backport-fix: BF-137 like main, the readout only shows on a port: the coolant port names
+    // its water and spent steam, an item port its recipe field; only the arrow is coloured
     @Override
     public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
         if (!(level.getBlockEntity(pos) instanceof BlockEntityMachineChemicalFactory be)) return;
+        int port = be.lookPort(info.getHitPos() != null ? info.getHitPos() : pos);
+        if (port < 0) return;
         info.title(getName().getString(), 0xFFFF00, 0x404000);
-        double frac = be.getMaxPower() <= 0 ? 0 : (double) be.getPower() / be.getMaxPower();
-        info.line(
-                BobMathUtil.getShortNumber(be.getPower())
-                        + " / "
-                        + BobMathUtil.getShortNumber(be.getMaxPower())
-                        + " HE",
-                gradient(frac));
-
-        for (int i = 0; i < BlockEntityMachineChemicalFactory.MODULES; i++) {
-            if (be.module[i].getRecipeName().isEmpty()) continue;
-            GenericRecipe rec = be.module[i].getRecipe();
-            String name =
-                    rec != null ? rec.getLocalizedName().getString() : be.module[i].getRecipeName();
+        if (port == 0) {
             info.line(
-                    "Module "
-                            + (i + 1)
-                            + ": "
-                            + name
-                            + " ("
-                            + (int) Math.round(be.module[i].progress * 100)
-                            + "%)",
-                    0xFFFF00);
+                    ChatFormatting.GREEN
+                            + "-> "
+                            + ChatFormatting.RESET
+                            + NTMFluidProperties.clientName(be.water().getFluid()));
+            info.line(
+                    ChatFormatting.RED
+                            + "<- "
+                            + ChatFormatting.RESET
+                            + NTMFluidProperties.clientName(be.lps().getFluid()));
+        } else {
+            info.line(
+                    ChatFormatting.YELLOW
+                            + "-> "
+                            + ChatFormatting.RESET
+                            + "Recipe field ["
+                            + port
+                            + "]");
         }
-
-        info.line(
-                "Water: " + be.water().getFill() + " / " + be.water().getMaxFill() + " mB",
-                0x5555FF);
-        info.line(
-                "Spent Steam: " + be.lps().getFill() + " / " + be.lps().getMaxFill() + " mB",
-                0xAAAAAA);
     }
 
     @Override

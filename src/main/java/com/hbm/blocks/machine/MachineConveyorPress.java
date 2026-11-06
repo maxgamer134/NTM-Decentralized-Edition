@@ -16,6 +16,7 @@ import com.hbm.inventory.recipes.StampTypes;
 import com.hbm.sound.ModSounds;
 import com.hbm.util.BobMathUtil;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
@@ -36,8 +37,6 @@ public class MachineConveyorPress extends BlockMultiblockCore
 
     public static final MapCodec<MachineConveyorPress> CODEC =
             simpleCodec(MachineConveyorPress::new);
-
-    private static final int RED = 0xFF5555;
 
     public MachineConveyorPress(Properties props) {
         super(props);
@@ -174,8 +173,11 @@ public class MachineConveyorPress extends BlockMultiblockCore
                         + "HE");
 
         ItemStack stamp = press.syncStack;
+        // backport-fix: BF-137 main reddens only the NONE, not the whole line
         info.line(
-                "Installed stamp: " + (stamp.isEmpty() ? "NONE" : stamp.getHoverName().getString()),
-                stamp.isEmpty() ? RED : 0xFFFFFF);
+                "Installed stamp: "
+                        + (stamp.isEmpty()
+                                ? ChatFormatting.RED + "NONE"
+                                : stamp.getHoverName().getString()));
     }
 }

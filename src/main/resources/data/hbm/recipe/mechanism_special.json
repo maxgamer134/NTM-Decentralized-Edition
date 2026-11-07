@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "hbm:plate_desh",
+    "C": "hbm:coil_advanced_alloy",
+    "I": "#c:ingots/starmetal",
+    "S": "hbm:circuit_advanced"
+  },
+  "pattern": [
+    "PCI",
+    "ISS",
+    "PCI"
+  ],
+  "result": {
+    "id": "hbm:mechanism_special"
+  }
+}

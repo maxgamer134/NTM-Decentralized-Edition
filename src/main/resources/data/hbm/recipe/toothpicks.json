@@ -1,0 +1,12 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "#c:rods/wooden",
+    "#c:rods/wooden",
+    "#c:rods/wooden"
+  ],
+  "result": {
+    "count": 3,
+    "id": "hbm:toothpicks"
+  }
+}

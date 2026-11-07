@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "A": "#c:plates/advanced_alloy",
+    "T": "#c:ingots/tungsten",
+    "D": "#c:ingots/dura_steel"
+  },
+  "pattern": [
+    "ATA",
+    "TDT",
+    "ATA"
+  ],
+  "result": {
+    "id": "hbm:mechanism_revolver_2"
+  }
+}

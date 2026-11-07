@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "#c:plates/advanced_alloy",
+    "S": "#hbm:ingots/any_plastic",
+    "B": "#c:bolts/tungsten",
+    "I": "hbm:ingot_desh"
+  },
+  "pattern": [
+    "TTT",
+    "SSS",
+    "BBI"
+  ],
+  "result": {
+    "id": "hbm:mechanism_launcher_2"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "#c:plates/iron",
+    "C": "#c:ingots/copper",
+    "A": "#c:ingots/aluminum"
+  },
+  "pattern": [
+    "ICI",
+    "CAC",
+    "ICI"
+  ],
+  "result": {
+    "id": "hbm:mechanism_revolver_1"
+  }
+}

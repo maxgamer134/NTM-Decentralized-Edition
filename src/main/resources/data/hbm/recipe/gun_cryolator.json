@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "I": "#c:plates/iron",
+    "L": "minecraft:leather",
+    "M": "hbm:mechanism_launcher_1",
+    "W": "#c:fine_wires/aluminum"
+  },
+  "pattern": [
+    "SSS",
+    "IWL",
+    "LMI"
+  ],
+  "result": {
+    "id": "hbm:gun_cryolator"
+  }
+}

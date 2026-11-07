@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_4gauge_kampf"
+    },
+    {
+      "ingredient": "hbm:pellet_canister"
+    }
+  ],
+  "order": 99513,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ammo_4gauge_canister"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 3
+}

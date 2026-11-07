@@ -119,6 +119,7 @@ import com.hbm.entity.projectile.EntityBoxcar;
 import com.hbm.entity.projectile.EntityBuilding;
 import com.hbm.entity.projectile.EntityBullet;
 import com.hbm.entity.projectile.EntityBulletBaseMK4;
+import com.hbm.entity.projectile.EntityBulletBaseNT;
 import com.hbm.entity.projectile.EntityBulletBeamBase;
 import com.hbm.entity.projectile.EntityBurningFOEQ;
 import com.hbm.entity.projectile.EntityChemical;
@@ -235,6 +236,8 @@ public final class ModEntities {
 
     public static RegistryHandle<EntityType<EntityShrapnel>> SHRAPNEL;
     public static RegistryHandle<EntityType<EntityBulletBaseMK4>> BULLET_MK4;
+    // backport-fix: BF-161 main's pre-rework bullet
+    public static RegistryHandle<EntityType<EntityBulletBaseNT>> BULLET_NT;
     public static RegistryHandle<EntityType<EntityBulletBeamBase>> BULLET_BEAM;
     public static RegistryHandle<EntityType<EntityFireLingering>> FIRE_LINGERING;
     public static RegistryHandle<EntityType<EntityCoin>> COIN;
@@ -915,6 +918,20 @@ public final class ModEntities {
                                         .build((ResourceKey.create(
                                                         Registries.ENTITY_TYPE,
                                                         Library.id("bullet_mk4"))).location().toString()));
+        BULLET_NT =
+                Reg.entity(
+                        "bullet_nt",
+                        () ->
+                                EntityType.Builder.<EntityBulletBaseNT>of(
+                                                EntityBulletBaseNT::new, MobCategory.MISC)
+                                        .noSave()
+                                        .fireImmune()
+                                        .sized(0.5F, 0.5F)
+                                        .clientTrackingRange(16)
+                                        .updateInterval(1)
+                                        .build((ResourceKey.create(
+                                                        Registries.ENTITY_TYPE,
+                                                        Library.id("bullet_nt"))).location().toString()));
         BULLET_BEAM =
                 Reg.entity(
                         "bullet_beam",

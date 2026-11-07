@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#hbm:ingots/any_plasticexplosive",
+    "R": "hbm:ammo_stinger_rocket"
+  },
+  "pattern": [
+    "S",
+    "R"
+  ],
+  "result": {
+    "id": "hbm:ammo_stinger_rocket_he"
+  }
+}

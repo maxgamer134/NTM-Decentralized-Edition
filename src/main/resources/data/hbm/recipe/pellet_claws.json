@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "X": "#c:plates/steel"
+  },
+  "pattern": [
+    " X ",
+    "X X",
+    " XX"
+  ],
+  "result": {
+    "id": "hbm:pellet_claws"
+  }
+}

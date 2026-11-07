@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "#c:dusts/coal",
+    "P": "hbm:ingot_phosphorus",
+    "D": "hbm:ammo_fuel"
+  },
+  "pattern": [
+    "CPC",
+    "CDC",
+    "CPC"
+  ],
+  "result": {
+    "id": "hbm:ammo_fuel_phosphorus"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#c:plates/gold",
+    "I": "#c:plates/iron",
+    "P": "hbm:powder_power"
+  },
+  "pattern": [
+    "IGI",
+    "IPI",
+    "IPI"
+  ],
+  "result": {
+    "count": 8,
+    "id": "hbm:gun_emp_ammo"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:ingots/polymer",
+    "U": "hbm:gun_uzi_saturnite"
+  },
+  "pattern": [
+    "P  ",
+    " P ",
+    "  U"
+  ],
+  "result": {
+    "id": "hbm:gun_uzi_saturnite_silencer"
+  }
+}

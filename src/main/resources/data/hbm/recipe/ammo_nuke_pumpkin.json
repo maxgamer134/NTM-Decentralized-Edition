@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "hbm:tnt",
+    "S": "hbm:assembly_nuke"
+  },
+  "pattern": [
+    " T ",
+    "TST",
+    " T "
+  ],
+  "result": {
+    "id": "hbm:ammo_nuke_pumpkin"
+  }
+}

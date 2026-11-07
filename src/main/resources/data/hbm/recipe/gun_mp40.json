@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "I": "#c:ingots/steel",
+    "W": "#minecraft:planks",
+    "M": "hbm:mechanism_rifle_1"
+  },
+  "pattern": [
+    "IIM",
+    " SW",
+    " S "
+  ],
+  "result": {
+    "id": "hbm:gun_mp40"
+  }
+}

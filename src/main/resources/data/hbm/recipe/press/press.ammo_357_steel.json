@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/steel"
+    }
+  ],
+  "order": 99008,
+  "output_items": [
+    {
+      "count": 24,
+      "id": "hbm:ammo_357_steel"
+    }
+  ],
+  "stamp": "c357"
+}

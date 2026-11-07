@@ -1,0 +1,25 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 128,
+      "ingredient": "hbm:ammo_5mm"
+    },
+    {
+      "ingredient": "hbm:ingot_semtex"
+    }
+  ],
+  "order": 99525,
+  "output_items": [
+    {
+      "count": 64,
+      "id": "hbm:ammo_5mm_explosive"
+    },
+    {
+      "count": 64,
+      "id": "hbm:ammo_5mm_explosive"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

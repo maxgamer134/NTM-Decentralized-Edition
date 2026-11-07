@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "E": "#c:ingots/euphemium",
+    "S": "#c:plates/steel",
+    "I": "#c:ingots/steel",
+    "M": "hbm:mechanism_rifle_2"
+  },
+  "pattern": [
+    "EEE",
+    "SSM",
+    "III"
+  ],
+  "result": {
+    "id": "hbm:gun_mp"
+  }
+}

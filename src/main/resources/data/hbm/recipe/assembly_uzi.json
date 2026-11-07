@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "#c:ingots/iron",
+    "G": "#hbm:dusts/any_smokeless",
+    "C": "hbm:casing_9"
+  },
+  "pattern": [
+    " I",
+    "GC"
+  ],
+  "result": {
+    "id": "hbm:assembly_uzi"
+  }
+}

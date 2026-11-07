@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#c:glass_panes",
+    "S": "#c:plates/steel",
+    "P": "hbm:mechanism_revolver_2",
+    "T": "#c:fine_wires/tungsten",
+    "I": "#c:ingots/polymer"
+  },
+  "pattern": [
+    " G ",
+    "SSP",
+    " TI"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_pip"
+  }
+}

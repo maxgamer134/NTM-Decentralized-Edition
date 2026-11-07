@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "C": "#c:dusts/coal",
+    "P": "#c:dusts/red_phosphorus"
+  },
+  "pattern": [
+    "SPS",
+    "PCP",
+    "SPS"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_immolator_ammo"
+  }
+}

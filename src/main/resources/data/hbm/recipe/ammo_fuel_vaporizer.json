@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "hbm:ingot_phosphorus",
+    "S": "hbm:crystal_sulfur",
+    "N": "hbm:ammo_fuel_napalm"
+  },
+  "pattern": [
+    "PSP",
+    "SNS",
+    "PSP"
+  ],
+  "result": {
+    "id": "hbm:ammo_fuel_vaporizer"
+  }
+}

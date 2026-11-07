@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "hbm:ingot_desh",
+    "G": "hbm:cordite",
+    "C": "hbm:casing_357"
+  },
+  "pattern": [
+    " I",
+    "GC"
+  ],
+  "result": {
+    "id": "hbm:assembly_desh"
+  }
+}

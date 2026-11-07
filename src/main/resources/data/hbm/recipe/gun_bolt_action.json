@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "I": "hbm:mechanism_rifle_1",
+    "S": "#c:rods/wooden",
+    "D": "#minecraft:planks",
+    "W": "#c:fine_wires/copper"
+  },
+  "pattern": [
+    "PPI",
+    "SWD"
+  ],
+  "result": {
+    "id": "hbm:gun_bolt_action"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:dusts/red_phosphorus",
+    "R": "hbm:ammo_stinger_rocket"
+  },
+  "pattern": [
+    "S",
+    "R"
+  ],
+  "result": {
+    "id": "hbm:ammo_stinger_rocket_incendiary"
+  }
+}

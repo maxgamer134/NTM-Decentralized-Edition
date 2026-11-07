@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/saturnite",
+    "I": "#c:ingots/saturnite",
+    "M": "hbm:mechanism_special",
+    "P": "#c:ingots/polymer"
+  },
+  "pattern": [
+    "SSM",
+    "PIP",
+    " I "
+  ],
+  "result": {
+    "id": "hbm:gun_bolter_legacy"
+  }
+}

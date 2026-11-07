@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#c:gunpowders",
+    "C": "hbm:casing_9"
+  },
+  "pattern": [
+    "G",
+    "C"
+  ],
+  "result": {
+    "count": 30,
+    "id": "hbm:ammo_556_k"
+  }
+}

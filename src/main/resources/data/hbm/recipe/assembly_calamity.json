@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "#c:ingots/lead",
+    "G": "hbm:cordite",
+    "C": "hbm:casing_50"
+  },
+  "pattern": [
+    " I ",
+    "GCG"
+  ],
+  "result": {
+    "id": "hbm:assembly_calamity"
+  }
+}

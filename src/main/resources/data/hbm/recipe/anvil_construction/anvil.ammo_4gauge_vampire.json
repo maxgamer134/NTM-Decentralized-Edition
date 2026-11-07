@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:ammo_4gauge"
+    },
+    {
+      "ingredient": "hbm:toothpicks"
+    }
+  ],
+  "order": 99515,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_4gauge_vampire"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 5
+}

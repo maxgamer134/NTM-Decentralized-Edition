@@ -1,0 +1,22 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 50,
+  "input_items": [
+    {
+      "count": 1,
+      "ingredient": "hbm:powder_chlorophyte"
+    },
+    {
+      "count": 12,
+      "ingredient": "#c:nuggets/lead"
+    }
+  ],
+  "order": 99601,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:pellet_chlorophyte"
+    }
+  ],
+  "power": 100
+}

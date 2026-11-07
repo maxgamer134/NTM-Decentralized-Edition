@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 16,
+      "ingredient": "hbm:ammo_50bmg"
+    },
+    {
+      "ingredient": "hbm:pellet_flechette"
+    }
+  ],
+  "order": 99542,
+  "output_items": [
+    {
+      "count": 16,
+      "id": "hbm:ammo_50bmg_flechette"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

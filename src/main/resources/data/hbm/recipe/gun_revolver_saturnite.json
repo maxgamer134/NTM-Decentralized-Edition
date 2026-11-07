@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/saturnite",
+    "W": "#minecraft:planks",
+    "R": "#c:fine_wires/tungsten",
+    "M": "hbm:mechanism_revolver_2"
+  },
+  "pattern": [
+    "SSM",
+    " RW"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_saturnite"
+  }
+}

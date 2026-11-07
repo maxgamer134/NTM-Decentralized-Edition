@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "M": "hbm:mechanism_revolver_2",
+    "B": "#c:ingots/beryllium",
+    "T": "#c:bolts/tungsten",
+    "W": "#minecraft:logs"
+  },
+  "pattern": [
+    "SSM",
+    "BTW"
+  ],
+  "result": {
+    "id": "hbm:gun_bio_revolver"
+  }
+}

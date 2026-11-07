@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "#hbm:ingots/any_rubber"
+  },
+  "pattern": [
+    "I",
+    "I"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:ammo_dart_nerf"
+  }
+}

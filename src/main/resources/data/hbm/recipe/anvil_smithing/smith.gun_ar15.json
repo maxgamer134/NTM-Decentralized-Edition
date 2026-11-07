@@ -1,0 +1,15 @@
+{
+  "type": "hbm:anvil_smithing",
+  "input_items": [
+    {
+      "ingredient": "hbm:gun_thompson"
+    },
+    {
+      "ingredient": "hbm:pipe_lead"
+    }
+  ],
+  "order": 99700,
+  "output_items": [
+    "hbm:gun_ar15"
+  ]
+}

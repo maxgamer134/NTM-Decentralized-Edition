@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_actionexpress"
+    }
+  ],
+  "order": 99231,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ammo_50ae"
+    }
+  ],
+  "stamp": "c50"
+}

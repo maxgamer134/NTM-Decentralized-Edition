@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_45"
+    }
+  ],
+  "order": 99241,
+  "output_items": [
+    {
+      "count": 32,
+      "id": "hbm:ammo_45"
+    }
+  ],
+  "stamp": "c44"
+}

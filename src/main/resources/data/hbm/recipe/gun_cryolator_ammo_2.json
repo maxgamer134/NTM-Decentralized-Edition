@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "F": "hbm:powder_ice"
+  },
+  "pattern": [
+    " F ",
+    "SFS",
+    " F "
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_cryolator_ammo"
+  }
+}

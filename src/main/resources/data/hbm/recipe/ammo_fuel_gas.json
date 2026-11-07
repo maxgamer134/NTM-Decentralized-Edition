@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "B": "#c:bolts/steel",
+    "D": "hbm:pellet_gas"
+  },
+  "pattern": [
+    "PDP",
+    "BDB",
+    "PDP"
+  ],
+  "result": {
+    "id": "hbm:ammo_fuel_gas"
+  }
+}

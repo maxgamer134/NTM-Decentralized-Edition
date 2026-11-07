@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "B": "#c:bolts/steel",
+    "I": "#c:ingots/polymer",
+    "M": "hbm:mechanism_rifle_1"
+  },
+  "pattern": [
+    "PPM",
+    " BI"
+  ],
+  "result": {
+    "id": "hbm:gun_deagle"
+  }
+}

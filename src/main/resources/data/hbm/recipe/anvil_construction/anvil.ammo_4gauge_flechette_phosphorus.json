@@ -1,0 +1,21 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_4gauge_flechette"
+    },
+    {
+      "ingredient": "hbm:ingot_phosphorus"
+    }
+  ],
+  "order": 99510,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ammo_4gauge_flechette_phosphorus"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

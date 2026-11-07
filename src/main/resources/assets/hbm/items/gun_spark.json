@@ -1,0 +1,21 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/gun_spark"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "hbm:legacy_gun",
+      "base": "hbm:item/legacy_gun_base"
+    }
+  }
+}

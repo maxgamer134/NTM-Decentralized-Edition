@@ -1,0 +1,13 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "minecraft:wheat",
+    "minecraft:cooked_chicken",
+    "minecraft:egg"
+  ],
+  "result": {
+    "count": 12,
+    "id": "hbm:gun_moist_nugget"
+  }
+}

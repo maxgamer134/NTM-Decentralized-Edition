@@ -313,7 +313,8 @@ public final class NuclearTechNeoForgeClient {
                     event.registerItem(
                             GunClientExtensions.INSTANCE,
                             BuiltInRegistries.ITEM.stream()
-                                    .filter(ItemGunBaseNT.class::isInstance)
+                                    .filter(item -> item instanceof ItemGunBaseNT
+                                            || item instanceof com.hbm.items.weapon.legacy.ItemGunBase)
                                     .toArray(Item[]::new));
                     event.registerItem(
                             GunClientExtensions.INSTANCE, ModItems.LASER_DETONATOR.get());

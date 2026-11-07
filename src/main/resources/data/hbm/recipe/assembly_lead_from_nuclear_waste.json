@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "hbm:nuclear_waste_tiny",
+    "G": "hbm:cordite",
+    "C": "#c:glass_blocks/colorless"
+  },
+  "pattern": [
+    " I",
+    "GC"
+  ],
+  "result": {
+    "id": "hbm:assembly_lead"
+  }
+}

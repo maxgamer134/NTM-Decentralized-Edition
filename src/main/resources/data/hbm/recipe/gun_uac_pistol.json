@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "B": "#c:bolts/dura_steel",
+    "I": "#c:ingots/polymer",
+    "M": "hbm:mechanism_rifle_1"
+  },
+  "pattern": [
+    "IIM",
+    " BI"
+  ],
+  "result": {
+    "id": "hbm:gun_uac_pistol"
+  }
+}

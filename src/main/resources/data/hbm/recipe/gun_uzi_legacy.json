@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:ingots/steel",
+    "M": "hbm:mechanism_rifle_2",
+    "P": "#c:plates/steel",
+    "B": "#c:bolts/dura_steel"
+  },
+  "pattern": [
+    "SMS",
+    " PB",
+    " P "
+  ],
+  "result": {
+    "id": "hbm:gun_uzi_legacy"
+  }
+}

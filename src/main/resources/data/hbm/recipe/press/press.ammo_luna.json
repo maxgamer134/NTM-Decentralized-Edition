@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_luna"
+    }
+  ],
+  "order": 99242,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_luna"
+    }
+  ],
+  "stamp": "c50"
+}

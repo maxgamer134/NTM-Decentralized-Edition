@@ -1,0 +1,26 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 50,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "#c:plates/steel"
+    },
+    {
+      "count": 1,
+      "ingredient": "#c:dusts/redstone"
+    },
+    {
+      "count": 1,
+      "ingredient": "minecraft:glowstone_dust"
+    }
+  ],
+  "order": 99610,
+  "output_items": [
+    {
+      "count": 24,
+      "id": "hbm:gun_osipr_ammo"
+    }
+  ],
+  "power": 100
+}

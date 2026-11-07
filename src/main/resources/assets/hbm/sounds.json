@@ -3113,5 +3113,597 @@
       "hbm:alarm/singer3",
       "hbm:alarm/singer4"
     ]
+  },
+  "weapon.deagleshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/deagleshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.fatmanreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/fatmanreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.gbounce": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/gbounce1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/gbounce2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/gbounce3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.glreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/glreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.heavyshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/heavyshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hkreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hkreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.magreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/magreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.magreloadbolt": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/magreloadbolt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.mukeexplosion": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/mukeexplosion",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.revolverreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/revolverreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.revolvershoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/revolvershoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.rpgreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/rpgreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.schrabidiumshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/schrabidiumshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunreload1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/shotgunreload2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/shotgunreload3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.silencershoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/silencershoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.revolvershootalt": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/revolvershootalt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.sauergun": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/sauergun1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sauergun2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sauergun3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunpump": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunshootpump",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunpumpalt": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunshootpumpalt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shotgunshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shotgunshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.shottyshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/shottyshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.uzishoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/uzishoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.44shoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/44shoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.rifleshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/rifleshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hicalshot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hicalshot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.glauncher": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/glauncher1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/glauncher2",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hksshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hksshoot1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/hksshoot2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/hksshoot3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.lacunaeshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/lacunaeshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.lacunaespinup": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/lacunaespinup",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.lacunaespindown": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/lacunaespindown",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.calshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/cal1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/cal2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/cal3",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.quadroreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/quadroreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.rpgshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/rpgshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.glshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/glshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.hkshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/hkshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.fatmanshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/fatmanshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.dartshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/dartshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.taushoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/taushoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.osiprreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/osiprreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.osiprshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/osiprshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.singflyby": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/singflyby",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.zomgshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/zomgshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.b92reload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/b92reload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.coilgunreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/coilgunreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.coilgunshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/coilgunshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.flamerreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/flamerreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.flamethrowershoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/flamethrowershoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.teslashoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/teslashoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.leveractionreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/leveractionreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyopen": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyopen",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyreload": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyreload",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyclose": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyclose",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyfire": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyfire",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follybuzzer": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follybuzzer",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.follyaquired": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/follyaquiredalt",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.flamethrowerignite": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/flamethrowerignite",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.immolatorignite": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/immolatorignite",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.immolatorshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/immolatorshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.cryolatorshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/cryolatorshoot",
+        "stream": false
+      }
+    ]
+  },
+  "weapon.sparkshoot": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:weapon/sparkshoot1",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sparkshoot2",
+        "stream": false
+      },
+      {
+        "name": "hbm:weapon/sparkshoot3",
+        "stream": false
+      }
+    ]
   }
 }

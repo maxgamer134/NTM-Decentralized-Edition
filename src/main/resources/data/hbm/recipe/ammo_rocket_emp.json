@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#c:dusts/diamond",
+    "R": "hbm:ammo_rocket"
+  },
+  "pattern": [
+    "G",
+    "R"
+  ],
+  "result": {
+    "id": "hbm:ammo_rocket_emp"
+  }
+}

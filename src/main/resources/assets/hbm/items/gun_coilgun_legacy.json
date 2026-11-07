@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "hbm:legacy_gun",
+    "base": "hbm:item/legacy_gun_base"
+  }
+}

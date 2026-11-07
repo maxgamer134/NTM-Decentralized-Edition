@@ -9213,6 +9213,7 @@ public final class ModItems {
 
     static {
         GunFactory.init();
+        com.hbm.items.weapon.legacy.LegacyGuns.init();
     }
 
     static {

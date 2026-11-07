@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "hbm:coil_copper",
+    "P": "#c:plates/lead",
+    "G": "hbm:circuit_advanced",
+    "M": "hbm:magnetron",
+    "I": "#c:ingots/tungsten",
+    "F": "hbm:mechanism_special"
+  },
+  "pattern": [
+    "CPG",
+    "CMF",
+    "CPI"
+  ],
+  "result": {
+    "id": "hbm:gun_emp"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "N": "hbm:ammo_nuke_safe",
+    "C": "#c:plates/aluminum",
+    "D": "hbm:det_cord",
+    "S": "#hbm:shells/steel"
+  },
+  "pattern": [
+    "NNN",
+    "CDS",
+    "NNN"
+  ],
+  "result": {
+    "id": "hbm:ammo_mirv_safe"
+  }
+}

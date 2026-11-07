@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "C": "hbm:coil_copper",
+    "D": "#c:dusts/lithium"
+  },
+  "pattern": [
+    "PCP",
+    "DDD",
+    "PCP"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_defabricator_ammo"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "R": "hbm:key_red",
+    "B": "hbm:gun_revolver_blackjack"
+  },
+  "pattern": [
+    "R ",
+    " B"
+  ],
+  "result": {
+    "id": "hbm:gun_revolver_red"
+  }
+}

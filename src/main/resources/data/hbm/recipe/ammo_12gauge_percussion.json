@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#hbm:dusts/any_smokeless",
+    "C": "hbm:casing_buckshot"
+  },
+  "pattern": [
+    "G",
+    "C"
+  ],
+  "result": {
+    "count": 12,
+    "id": "hbm:ammo_12gauge_percussion"
+  }
+}

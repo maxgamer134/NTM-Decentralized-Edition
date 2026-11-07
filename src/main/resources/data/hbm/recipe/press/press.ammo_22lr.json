@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_uzi"
+    }
+  ],
+  "order": 99261,
+  "output_items": [
+    {
+      "count": 32,
+      "id": "hbm:ammo_22lr"
+    }
+  ],
+  "stamp": "c9"
+}

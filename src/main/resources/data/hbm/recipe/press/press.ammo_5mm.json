@@ -1,0 +1,16 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "hbm:assembly_lacunae"
+    }
+  ],
+  "order": 99241,
+  "output_items": [
+    {
+      "count": 64,
+      "id": "hbm:ammo_5mm"
+    }
+  ],
+  "stamp": "c9"
+}

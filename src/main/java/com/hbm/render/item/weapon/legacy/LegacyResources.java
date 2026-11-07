@@ -68,7 +68,7 @@ public final class LegacyResources {
     public static final ResourceLocation ff_gun_normal = Library.id("textures/models/weapons/ff/gun_normal.png");
     public static final ResourceLocation ff_wood_red = Library.id("textures/models/weapons/ff/wood_red.png");
     public static final HFRWavefrontObject uboinik = Meshes.faceNormals(Library.id("models/weapons/legacy/uboinik.obj"));
-    public static final ResourceLocation uboinik_tex = Library.id("textures/models/ModelUboinik.png");
+    public static final ResourceLocation uboinik_tex = Library.id("textures/models/model_uboinik.png");
 
     public static final HFRWavefrontObject model_uzi = Meshes.faceNormals(Library.id("models/weapons/legacy/uzi.obj"));
     public static final HFRWavefrontObject model_uzibarrel = Meshes.faceNormals(Library.id("models/weapons/legacy/uzibarrel.obj"));
@@ -88,7 +88,7 @@ public final class LegacyResources {
 
     public static final HFRWavefrontObject thompson = Meshes.faceNormals(Library.id("models/weapons/thompson.obj"));
     public static final ResourceLocation thompson_tex = Library.id("textures/models/weapons/thompson.png");
-    public static final HFRWavefrontObject uac_pistol = Meshes.load(Library.id("models/weapons/UAC pistol.obj"));
+    public static final HFRWavefrontObject uac_pistol = Meshes.load(Library.id("models/weapons/uac_pistol.obj"));
     public static final ResourceLocation uac_pistol_tex = Library.id("textures/models/weapons/pistol_texture.png");
 
     public static final HFRWavefrontObject deagle = Meshes.load(Library.id("models/weapons/deagle.obj"));

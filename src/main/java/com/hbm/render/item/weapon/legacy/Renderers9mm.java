@@ -40,7 +40,7 @@ public final class Renderers9mm {
 		case FIRST_PERSON:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelMP40.png");
+				tex = Library.id("textures/models/model_mp40.png");
 				rot(pose, -135.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.5F, 0.0F, -0.2F);
 				//pose.scale(2.0F, 2.0F, 2.0F);
@@ -58,7 +58,7 @@ public final class Renderers9mm {
 		case ENTITY:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelMP40.png");
+				tex = Library.id("textures/models/model_mp40.png");
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
 				rot(pose, -30.0F, 1.0F, 0.0F, 0.0F);

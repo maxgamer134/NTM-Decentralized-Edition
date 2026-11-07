@@ -44,7 +44,7 @@ public final class RenderersFatman {
 		case FIRST_PERSON:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/FatmanLauncher.png");
+				tex = Library.id("textures/models/fatman_launcher.png");
 				rot(pose, -150.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.8F, -0.1F, -0.2F);
 				all(c, pose, LegacyResources.model_fatman, tex, light);
@@ -54,7 +54,7 @@ public final class RenderersFatman {
 		case ENTITY:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/FatmanLauncher.png");
+				tex = Library.id("textures/models/fatman_launcher.png");
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
 				rot(pose, -30.0F, 1.0F, 0.0F, 0.0F);
@@ -82,7 +82,7 @@ public final class RenderersFatman {
 		case FIRST_PERSON:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/MIRVLauncher.png");
+				tex = Library.id("textures/models/mirv_launcher.png");
 				rot(pose, -150.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.8F, -0.1F, -0.2F);
 				all(c, pose, LegacyResources.model_mirvlauncher, tex, light);
@@ -92,7 +92,7 @@ public final class RenderersFatman {
 		case ENTITY:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/MIRVLauncher.png");
+				tex = Library.id("textures/models/mirv_launcher.png");
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
 				rot(pose, -30.0F, 1.0F, 0.0F, 0.0F);
@@ -120,7 +120,7 @@ public final class RenderersFatman {
 		case FIRST_PERSON:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/BFLauncher.png");
+				tex = Library.id("textures/models/bf_launcher.png");
 				rot(pose, -150.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.8F, -0.1F, -0.2F);
 				all(c, pose, LegacyResources.model_bflauncher, tex, light);
@@ -130,7 +130,7 @@ public final class RenderersFatman {
 		case ENTITY:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/BFLauncher.png");
+				tex = Library.id("textures/models/bf_launcher.png");
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
 				rot(pose, -30.0F, 1.0F, 0.0F, 0.0F);

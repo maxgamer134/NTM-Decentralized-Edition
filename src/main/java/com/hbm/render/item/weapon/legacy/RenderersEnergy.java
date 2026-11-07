@@ -281,7 +281,7 @@ public final class RenderersEnergy {
 		case FIRST_PERSON:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelZOMG.png");
+				tex = Library.id("textures/models/model_zomg.png");
 				rot(pose, -150.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.5F, 0.0F, -0.2F);
 				pose.scale(0.75F, 0.75F, 0.75F);
@@ -293,7 +293,7 @@ public final class RenderersEnergy {
 		case EQUIPPED:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelZOMG.png");
+				tex = Library.id("textures/models/model_zomg.png");
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
 				rot(pose, -30.0F, 1.0F, 0.0F, 0.0F);
@@ -309,7 +309,7 @@ public final class RenderersEnergy {
 		case ENTITY:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelZOMG.png");
+				tex = Library.id("textures/models/model_zomg.png");
 				rot(pose, 180.0F, 0.0F, 0.0F, 1.0F);
 				pose.scale(1.5F, 1.5F, 1.5F);
 				pose.translate(0F, -0.5F, 0F);
@@ -336,7 +336,7 @@ public final class RenderersEnergy {
 		case FIRST_PERSON:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelEMPRay.png");
+				tex = Library.id("textures/models/model_emp_ray.png");
 				rot(pose, -135.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.5F, 0.0F, -0.2F);
 				pose.scale(0.5F, 0.5F, 0.5F);
@@ -350,7 +350,7 @@ public final class RenderersEnergy {
 		case ENTITY:
 			pose.pushPose();
 
-				tex = Library.id("textures/models/ModelEMPRay.png");
+				tex = Library.id("textures/models/model_emp_ray.png");
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
 				rot(pose, -30.0F, 1.0F, 0.0F, 0.0F);

@@ -40,7 +40,7 @@ public final class Renderers556 {
 
 
 		pose.pushPose();
-		tex = Library.id("textures/models/ModelMP.png");
+		tex = Library.id("textures/models/model_mp.png");
 		
 		switch (ctx) {
 		case FIRST_PERSON:

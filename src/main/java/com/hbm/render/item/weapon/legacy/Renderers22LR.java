@@ -49,19 +49,19 @@ public final class Renderers22LR {
 				rot(pose, -15.0F, 0.0F, 0.0F, 1.0F);
 
 				if(stack.getItem() == LegacyGuns.GUN_UZI_LEGACY.get() || stack.getItem() == LegacyGuns.GUN_UZI_SILENCER.get())
-					tex = Library.id("textures/models/ModelUzi.png");
+					tex = Library.id("textures/models/model_uzi.png");
 				if(stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE_SILENCER.get())
-					tex = Library.id("textures/models/ModelUziSaturnite.png");
+					tex = Library.id("textures/models/model_uzi_saturnite.png");
 				
 				all(c, pose, LegacyResources.model_uzi, tex, light);
 				
 				if(stack.getItem() == LegacyGuns.GUN_UZI_LEGACY.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE.get()) {
-					tex = Library.id("textures/models/ModelUziBarrel.png");
+					tex = Library.id("textures/models/model_uzi_barrel.png");
 					all(c, pose, LegacyResources.model_uzibarrel, tex, light);
 				}
 				
 				if(stack.getItem() == LegacyGuns.GUN_UZI_SILENCER.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE_SILENCER.get()) {
-					tex = Library.id("textures/models/ModelUziSilencer.png");
+					tex = Library.id("textures/models/model_uzi_silencer.png");
 					all(c, pose, LegacyResources.model_uzisilencer, tex, light);
 				}
 				
@@ -80,18 +80,18 @@ public final class Renderers22LR {
 			pose.translate(0.2F, -0.8F, -1.0F);
 
 			if(stack.getItem() == LegacyGuns.GUN_UZI_LEGACY.get() || stack.getItem() == LegacyGuns.GUN_UZI_SILENCER.get())
-				tex = Library.id("textures/models/ModelUzi.png");
+				tex = Library.id("textures/models/model_uzi.png");
 			if(stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE_SILENCER.get())
-				tex = Library.id("textures/models/ModelUziSaturnite.png");
+				tex = Library.id("textures/models/model_uzi_saturnite.png");
 			all(c, pose, LegacyResources.model_uzi, tex, light);
 			
 			if(stack.getItem() == LegacyGuns.GUN_UZI_LEGACY.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE.get()) {
-				tex = Library.id("textures/models/ModelUziBarrel.png");
+				tex = Library.id("textures/models/model_uzi_barrel.png");
 				all(c, pose, LegacyResources.model_uzibarrel, tex, light);
 			}
 			
 			if(stack.getItem() == LegacyGuns.GUN_UZI_SILENCER.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE_SILENCER.get()) {
-				tex = Library.id("textures/models/ModelUziSilencer.png");
+				tex = Library.id("textures/models/model_uzi_silencer.png");
 				all(c, pose, LegacyResources.model_uzisilencer, tex, light);
 			}
 			
@@ -107,18 +107,18 @@ public final class Renderers22LR {
 				pose.translate(0.0F, -1.0F, 0.0F);
 
 				if(stack.getItem() == LegacyGuns.GUN_UZI_LEGACY.get() || stack.getItem() == LegacyGuns.GUN_UZI_SILENCER.get())
-					tex = Library.id("textures/models/ModelUzi.png");
+					tex = Library.id("textures/models/model_uzi.png");
 				if(stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE_SILENCER.get())
-					tex = Library.id("textures/models/ModelUziSaturnite.png");
+					tex = Library.id("textures/models/model_uzi_saturnite.png");
 				all(c, pose, LegacyResources.model_uzi, tex, light);
 				
 				if(stack.getItem() == LegacyGuns.GUN_UZI_LEGACY.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE.get()) {
-					tex = Library.id("textures/models/ModelUziBarrel.png");
+					tex = Library.id("textures/models/model_uzi_barrel.png");
 					all(c, pose, LegacyResources.model_uzibarrel, tex, light);
 				}
 				
 				if(stack.getItem() == LegacyGuns.GUN_UZI_SILENCER.get() || stack.getItem() == LegacyGuns.GUN_UZI_SATURNITE_SILENCER.get()) {
-					tex = Library.id("textures/models/ModelUziSilencer.png");
+					tex = Library.id("textures/models/model_uzi_silencer.png");
 					all(c, pose, LegacyResources.model_uzisilencer, tex, light);
 				}
 				

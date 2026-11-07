@@ -49,35 +49,35 @@ public final class Renderers5mm {
 			pose.pushPose();
 
 				if(is(stack, "gun_jack"))
-					tex = Library.id("textures/models/ModelJack.png");
+					tex = Library.id("textures/models/model_jack.png");
 				if(is(stack, "gun_spark"))
-					tex = Library.id("textures/models/ModelSpark.png");
+					tex = Library.id("textures/models/model_spark.png");
 				if(is(stack, "gun_hp"))
-					tex = Library.id("textures/models/ModelHP.png");
+					tex = Library.id("textures/models/model_hp.png");
 				if(is(stack, "gun_euthanasia"))
-					tex = Library.id("textures/models/ModelEuthanasia.png");
+					tex = Library.id("textures/models/model_euthanasia.png");
 				if(is(stack, "gun_defabricator"))
-					tex = Library.id("textures/models/ModelDefabricator.png");
+					tex = Library.id("textures/models/model_defabricator.png");
 				if(is(stack, "gun_dash"))
-					tex = Library.id("textures/models/ModelDash.png");
+					tex = Library.id("textures/models/model_dash.png");
 				if(is(stack, "gun_twigun"))
-					tex = Library.id("textures/models/ModelTwiGun.png");
+					tex = Library.id("textures/models/model_twi_gun.png");
 				if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get())
-					tex = Library.id("textures/models/ModelPip.png");
+					tex = Library.id("textures/models/model_pip.png");
 				if(stack.getItem() == LegacyGuns.GUN_REVOLVER_NOPIP.get())
-					tex = Library.id("textures/models/ModelPipNoScope.png");
+					tex = Library.id("textures/models/model_pip_no_scope.png");
 				if(stack.getItem() == LegacyGuns.GUN_REVOLVER_BLACKJACK.get())
-					tex = Library.id("textures/models/ModelPipGrey.png");
+					tex = Library.id("textures/models/model_pip_grey.png");
 				if(stack.getItem() == LegacyGuns.GUN_REVOLVER_SILVER.get())
-					tex = Library.id("textures/models/ModelPipSilver.png");
+					tex = Library.id("textures/models/model_pip_silver.png");
 				if(stack.getItem() == LegacyGuns.GUN_REVOLVER_RED.get())
-					tex = Library.id("textures/models/ModelPipRed.png");
+					tex = Library.id("textures/models/model_pip_red.png");
 				if(stack.getItem() == LegacyGuns.GUN_MINIGUN_LEGACY.get())
-					tex = Library.id("textures/models/ModelLacunae.png");
+					tex = Library.id("textures/models/model_lacunae.png");
 				if(stack.getItem() == LegacyGuns.GUN_LACUNAE.get())
-					tex = Library.id("textures/models/ModelLacunaeReal.png");
+					tex = Library.id("textures/models/model_lacunae_real.png");
 				if(is(stack, "gun_folly_legacy"))
-					tex = Library.id("textures/models/ModelFolly.png");
+					tex = Library.id("textures/models/model_folly.png");
 
 				rot(pose, -135.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.5F, 0.0F, -0.2F);
@@ -151,35 +151,35 @@ public final class Renderers5mm {
 			pose.pushPose();
 
 			if(is(stack, "gun_jack"))
-				tex = Library.id("textures/models/ModelJack.png");
+				tex = Library.id("textures/models/model_jack.png");
 			if(is(stack, "gun_spark"))
-				tex = Library.id("textures/models/ModelSpark.png");
+				tex = Library.id("textures/models/model_spark.png");
 			if(is(stack, "gun_hp"))
-				tex = Library.id("textures/models/ModelHP.png");
+				tex = Library.id("textures/models/model_hp.png");
 			if(is(stack, "gun_euthanasia"))
-				tex = Library.id("textures/models/ModelEuthanasia.png");
+				tex = Library.id("textures/models/model_euthanasia.png");
 			if(is(stack, "gun_defabricator"))
-				tex = Library.id("textures/models/ModelDefabricator.png");
+				tex = Library.id("textures/models/model_defabricator.png");
 			if(is(stack, "gun_dash"))
-				tex = Library.id("textures/models/ModelDash.png");
+				tex = Library.id("textures/models/model_dash.png");
 			if(is(stack, "gun_twigun"))
-				tex = Library.id("textures/models/ModelTwiGun.png");
+				tex = Library.id("textures/models/model_twi_gun.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get())
-				tex = Library.id("textures/models/ModelPip.png");
+				tex = Library.id("textures/models/model_pip.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_NOPIP.get())
-				tex = Library.id("textures/models/ModelPipNoScope.png");
+				tex = Library.id("textures/models/model_pip_no_scope.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_BLACKJACK.get())
-				tex = Library.id("textures/models/ModelPipGrey.png");
+				tex = Library.id("textures/models/model_pip_grey.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_SILVER.get())
-				tex = Library.id("textures/models/ModelPipSilver.png");
+				tex = Library.id("textures/models/model_pip_silver.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_RED.get())
-				tex = Library.id("textures/models/ModelPipRed.png");
+				tex = Library.id("textures/models/model_pip_red.png");
 			if(stack.getItem() == LegacyGuns.GUN_MINIGUN_LEGACY.get())
-				tex = Library.id("textures/models/ModelLacunae.png");
+				tex = Library.id("textures/models/model_lacunae.png");
 			if(stack.getItem() == LegacyGuns.GUN_LACUNAE.get())
-				tex = Library.id("textures/models/ModelLacunaeReal.png");
+				tex = Library.id("textures/models/model_lacunae_real.png");
 			if(is(stack, "gun_folly_legacy"))
-				tex = Library.id("textures/models/ModelFolly.png");
+				tex = Library.id("textures/models/model_folly.png");
 			
 			rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 			rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);
@@ -252,35 +252,35 @@ public final class Renderers5mm {
 			pose.pushPose();
 
 			if(is(stack, "gun_jack"))
-				tex = Library.id("textures/models/ModelJack.png");
+				tex = Library.id("textures/models/model_jack.png");
 			if(is(stack, "gun_spark"))
-				tex = Library.id("textures/models/ModelSpark.png");
+				tex = Library.id("textures/models/model_spark.png");
 			if(is(stack, "gun_hp"))
-				tex = Library.id("textures/models/ModelHP.png");
+				tex = Library.id("textures/models/model_hp.png");
 			if(is(stack, "gun_euthanasia"))
-				tex = Library.id("textures/models/ModelEuthanasia.png");
+				tex = Library.id("textures/models/model_euthanasia.png");
 			if(is(stack, "gun_defabricator"))
-				tex = Library.id("textures/models/ModelDefabricator.png");
+				tex = Library.id("textures/models/model_defabricator.png");
 			if(is(stack, "gun_dash"))
-				tex = Library.id("textures/models/ModelDash.png");
+				tex = Library.id("textures/models/model_dash.png");
 			if(is(stack, "gun_twigun"))
-				tex = Library.id("textures/models/ModelTwiGun.png");
+				tex = Library.id("textures/models/model_twi_gun.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get())
-				tex = Library.id("textures/models/ModelPip.png");
+				tex = Library.id("textures/models/model_pip.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_NOPIP.get())
-				tex = Library.id("textures/models/ModelPipNoScope.png");
+				tex = Library.id("textures/models/model_pip_no_scope.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_BLACKJACK.get())
-				tex = Library.id("textures/models/ModelPipGrey.png");
+				tex = Library.id("textures/models/model_pip_grey.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_SILVER.get())
-				tex = Library.id("textures/models/ModelPipSilver.png");
+				tex = Library.id("textures/models/model_pip_silver.png");
 			if(stack.getItem() == LegacyGuns.GUN_REVOLVER_RED.get())
-				tex = Library.id("textures/models/ModelPipRed.png");
+				tex = Library.id("textures/models/model_pip_red.png");
 			if(stack.getItem() == LegacyGuns.GUN_MINIGUN_LEGACY.get())
-				tex = Library.id("textures/models/ModelLacunae.png");
+				tex = Library.id("textures/models/model_lacunae.png");
 			if(stack.getItem() == LegacyGuns.GUN_LACUNAE.get())
-				tex = Library.id("textures/models/ModelLacunaeReal.png");
+				tex = Library.id("textures/models/model_lacunae_real.png");
 			if(is(stack, "gun_folly_legacy"))
-				tex = Library.id("textures/models/ModelFolly.png");
+				tex = Library.id("textures/models/model_folly.png");
 
 			
 			rot(pose, 180.0F, 1.0F, 0.0F, 0.0F);

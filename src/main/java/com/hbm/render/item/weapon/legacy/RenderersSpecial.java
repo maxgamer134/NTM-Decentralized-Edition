@@ -77,7 +77,7 @@ public final class RenderersSpecial {
     /** main's ItemRenderGunAnim for the sonata: the flipped ModelLeverAction, the lever swinging on its pin. */
     public static final class Sonata extends LegacyGunRenderer {
         private static final HFRWavefrontObject M = com.hbm.client.model.Meshes.faceNormals(com.hbm.lib.Library.id("models/weapons/legacy/lever_action_sonata.obj"));
-        private static final net.minecraft.resources.ResourceLocation T = com.hbm.lib.Library.id("textures/models/ModelLeverAction.png");
+        private static final net.minecraft.resources.ResourceLocation T = com.hbm.lib.Library.id("textures/models/model_lever_action.png");
         private static final String[] BODY = {"Barrel1","Barrel2","Barrel3","Barrel4","Grip","Front1","Front2","BodyFront","BodyTop","BodyMain","BodyPlate","HandleMain","HandleBottom","HandleBack","Trigger"};
         private static final java.util.Set<String> LEVER = java.util.Set.of("LeverFront", "LeverBottom", "LeverMid", "LeverFrontPlate", "LeverBackBottom", "LeverBackTop", "LeverBack");
 

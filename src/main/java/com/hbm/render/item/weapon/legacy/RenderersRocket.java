@@ -43,11 +43,11 @@ public final class RenderersRocket {
 		case FIRST_PERSON:
 			pose.pushPose();
 				if(stack.getItem() == LegacyGuns.GUN_RPG.get())
-					tex = Library.id("textures/models/ModelGustav.png");
+					tex = Library.id("textures/models/model_gustav.png");
 				if(stack.getItem() == LegacyGuns.GUN_KARL.get())
-					tex = Library.id("textures/models/ModelGustavYellow.png");
+					tex = Library.id("textures/models/model_gustav_yellow.png");
 				if(stack.getItem() == LegacyGuns.GUN_PANZERSCHRECK_LEGACY.get())
-					tex = Library.id("textures/models/ModelPanzerschreck.png");
+					tex = Library.id("textures/models/model_panzerschreck.png");
 				
 				rot(pose, -135.0F, 0.0F, 0.0F, 1.0F);
 				pose.scale(0.5F, 0.5F, 0.5F);
@@ -80,11 +80,11 @@ public final class RenderersRocket {
 		case ENTITY:
 			pose.pushPose();
 				if(stack.getItem() == LegacyGuns.GUN_RPG.get())
-					tex = Library.id("textures/models/ModelGustav.png");
+					tex = Library.id("textures/models/model_gustav.png");
 				if(stack.getItem() == LegacyGuns.GUN_KARL.get())
-					tex = Library.id("textures/models/ModelGustavYellow.png");
+					tex = Library.id("textures/models/model_gustav_yellow.png");
 				if(stack.getItem() == LegacyGuns.GUN_PANZERSCHRECK_LEGACY.get())
-					tex = Library.id("textures/models/ModelPanzerschreck.png");
+					tex = Library.id("textures/models/model_panzerschreck.png");
 				
 				rot(pose, -200.0F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 75.0F, 0.0F, 1.0F, 0.0F);

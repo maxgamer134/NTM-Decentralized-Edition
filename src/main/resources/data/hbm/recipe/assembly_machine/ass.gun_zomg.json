@@ -1,0 +1,42 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 200,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:crystal_xen"
+    },
+    {
+      "ingredient": "hbm:singularity_counter_resonant"
+    },
+    {
+      "count": 3,
+      "ingredient": "hbm:mechanism_special"
+    },
+    {
+      "count": 12,
+      "ingredient": "hbm:plate_paa"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:neutron_reflector"
+    },
+    {
+      "count": 5,
+      "ingredient": "hbm:coil_magnetized_tungsten"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:powder_magic"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:ingots/asbestos"
+    }
+  ],
+  "order": 900002,
+  "output_items": [
+    "hbm:gun_zomg"
+  ],
+  "power": 100
+}

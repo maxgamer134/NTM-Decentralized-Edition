@@ -1,0 +1,27 @@
+{
+  "type": "hbm:pedestal",
+  "key": {
+    "B": {
+      "ingredient": "hbm:egg_balefire_shard"
+    },
+    "D": {
+      "ingredient": "hbm:powder_magic"
+    },
+    "E": {
+      "ingredient": "hbm:gun_fatman"
+    },
+    "F": {
+      "ingredient": "hbm:powder_magic"
+    }
+  },
+  "order": 900003,
+  "output_items": [
+    "hbm:gun_bf"
+  ],
+  "pattern": [
+    " B ",
+    "DEF",
+    "   "
+  ],
+  "recipe_set": 0
+}

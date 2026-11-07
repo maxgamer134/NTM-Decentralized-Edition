@@ -1,0 +1,34 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 200,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "#c:ingots/steel"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    {
+      "count": 5,
+      "ingredient": "#c:plates/iron"
+    },
+    {
+      "count": 3,
+      "ingredient": "hbm:mechanism_special"
+    },
+    {
+      "ingredient": "minecraft:diamond"
+    },
+    {
+      "count": 3,
+      "ingredient": "hbm:plate_dalekanium"
+    }
+  ],
+  "order": 900001,
+  "output_items": [
+    "hbm:gun_defabricator"
+  ],
+  "power": 100
+}

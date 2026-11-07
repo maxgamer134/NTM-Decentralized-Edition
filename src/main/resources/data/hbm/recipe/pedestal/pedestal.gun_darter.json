@@ -1,0 +1,27 @@
+{
+  "type": "hbm:pedestal",
+  "key": {
+    "B": {
+      "ingredient": "#c:plates/gold"
+    },
+    "D": {
+      "ingredient": "#c:plates/steel"
+    },
+    "E": {
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    "F": {
+      "ingredient": "#c:plates/steel"
+    }
+  },
+  "order": 900004,
+  "output_items": [
+    "hbm:gun_darter"
+  ],
+  "pattern": [
+    " B ",
+    "DEF",
+    "   "
+  ],
+  "recipe_set": 0
+}

@@ -10,6 +10,9 @@ public final class BalanceConfig {
     public static boolean disablePostReworkGuns = false;
     public static boolean disablePreReworkGuns = true;
     public static boolean disableWarExplosives = false;
+    public static boolean disableHeavyTurrets = false;
+    public static boolean disableTurretHenry = false;
+    public static boolean disableTurretGreg = false;
     public static boolean preReworkGunsUseNewAmmo = true;
     public static boolean enable528ReasimBoilers = false;
     public static boolean enable528PressurizedRecipes = false;
@@ -51,6 +54,9 @@ public final class BalanceConfig {
         disablePostReworkGuns = c.get(ConfigSchema.DISABLE_POST_REWORK_GUNS);
         disablePreReworkGuns = c.get(ConfigSchema.DISABLE_PRE_REWORK_GUNS);
         disableWarExplosives = c.get(ConfigSchema.DISABLE_WAR_EXPLOSIVES);
+        disableHeavyTurrets = c.get(ConfigSchema.DISABLE_HEAVY_TURRETS);
+        disableTurretHenry = c.get(ConfigSchema.DISABLE_TURRET_HENRY);
+        disableTurretGreg = c.get(ConfigSchema.DISABLE_TURRET_GREG);
         preReworkGunsUseNewAmmo = c.get(ConfigSchema.PRE_REWORK_GUNS_USE_NEW_AMMO);
         com.hbm.items.weapon.GunContent.invalidate();
         enableLBSMSimpleChemistry = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_CHEMISTRY);

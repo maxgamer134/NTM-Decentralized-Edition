@@ -112,13 +112,15 @@ public final class GunContent {
         for (Map.Entry<net.minecraft.resources.ResourceKey<Item>, Item> e :
                 BuiltInRegistries.ITEM.entrySet()) {
             ResourceLocation id = e.getKey().location();
+            if (id.getNamespace().equals(NuclearTech.MOD_ID) && id.getPath().startsWith("turret_")) {
+                if (turretOff(id.getPath(), post)) out.add(e.getValue());
+                continue;
+            }
             if (pre && PRE_REWORK.contains(id)) out.add(e.getValue());
             else if (post
                     && (e.getValue() instanceof ItemGunBaseNT
                             || (id.getNamespace().equals(NuclearTech.MOD_ID)
-                                    && (POST_REWORK.matcher(id.getPath()).matches()
-                                            // the turrets fire post-rework rounds: they go with the guns
-                                            || id.getPath().startsWith("turret_")))))
+                                    && POST_REWORK.matcher(id.getPath()).matches())))
                 out.add(e.getValue());
             else if (war && war(id, e.getValue())) out.add(e.getValue());
             else if (!post && id.getNamespace().equals(NuclearTech.MOD_ID) && DUPLICATES.contains(id.getPath())) {
@@ -136,6 +138,21 @@ public final class GunContent {
     }
 
     /** Missiles, bombs, nukes, launch pads, grenades, landmines and combat charges; not mining ones. */
+    /**
+     * The gun switches take the turrets that need pressed ammo. The five heavy turrets (Jeremy, Maxwell, Fritz, Greg,
+     * Henry) have their own switch, and Henry and Greg one each. The chip goes once every turret is off.
+     */
+    private static boolean turretOff(String path, boolean guns) {
+        boolean heavy = BalanceConfig.disableHeavyTurrets;
+        return switch (path) {
+            case "turret_himars" -> heavy || BalanceConfig.disableTurretHenry;
+            case "turret_arty" -> heavy || BalanceConfig.disableTurretGreg;
+            case "turret_jeremy", "turret_maxwell", "turret_fritz" -> heavy;
+            case "turret_chip" -> guns && heavy;
+            default -> guns;
+        };
+    }
+
     private static boolean war(ResourceLocation id, Item item) {
         if (!id.getNamespace().equals(NuclearTech.MOD_ID) || SPACE.matcher(id.getPath()).matches()) {
             return false;

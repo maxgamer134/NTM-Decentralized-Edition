@@ -133,6 +133,19 @@ public final class ConfigSchema {
                             + " flamer fuel, mini nukes). The old twin leaves the creative tabs, recipe viewers"
                             + " and recipes; stacks of it still load. Rounds with no twin stay.");
 
+    public static final ConfigEntry<Boolean> DISABLE_HEAVY_TURRETS =
+            bool(
+                    Domain.CONTENT,
+                    "guns",
+                    "disable_heavy_turrets",
+                    false,
+                    "Switches off the five turrets that need no ammo press: Jeremy (240mm), Maxwell (MASER), Fritz"
+                            + " (liquids), Greg (16 inch shells) and Henry (HIMARS). The gun switches leave these on.");
+    public static final ConfigEntry<Boolean> DISABLE_TURRET_HENRY =
+            bool(Domain.CONTENT, "guns", "disable_turret_henry", false, "Switches off only the Henry HIMARS turret.");
+    public static final ConfigEntry<Boolean> DISABLE_TURRET_GREG =
+            bool(Domain.CONTENT, "guns", "disable_turret_greg", false, "Switches off only the Greg artillery turret.");
+
     public static final ConfigEntry<Boolean> DISABLE_WAR_EXPLOSIVES =
             bool(
                     Domain.CONTENT,
@@ -672,6 +685,9 @@ public final class ConfigSchema {
                     DISABLE_POST_REWORK_GUNS,
                     DISABLE_PRE_REWORK_GUNS,
                     DISABLE_WAR_EXPLOSIVES,
+                    DISABLE_HEAVY_TURRETS,
+                    DISABLE_TURRET_HENRY,
+                    DISABLE_TURRET_GREG,
                     PRE_REWORK_GUNS_USE_NEW_AMMO,
                     ENABLE_LBSM_SIMPLE_CHEMISTRY,
                     ENABLE_LBSM_SIMPLE_CENTRIFUGE,

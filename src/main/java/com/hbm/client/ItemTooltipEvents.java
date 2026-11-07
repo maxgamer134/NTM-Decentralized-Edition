@@ -48,7 +48,7 @@ public final class ItemTooltipEvents {
         HazardSystem.addHazardInfo(stack, player, tooltip, flag);
 
         CustomNukeEntries.Entry nuke =
-                HudConfig.tooltipCustomNuke ? CustomNukeEntries.of(stack) : null;
+                HudConfig.tooltipCustomNuke && !com.hbm.config.BalanceConfig.disableWarExplosives ? CustomNukeEntries.of(stack) : null;
         if (nuke != null) {
             tooltip.add(Component.empty());
             tooltip.add(

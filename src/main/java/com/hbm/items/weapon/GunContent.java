@@ -39,11 +39,16 @@ public final class GunContent {
                     "gun_b92(_ammo)?|ammo_(standard|secret)_.+|ammo_bag(_infinite)?|casing_.+|"
                             + "weapon_mod_.+|part_(barrel|receiver|mechanism|stock|grip)_.+|machine_ammo_press");
 
-    /** War explosives the block/item classes below don't catch: kits, grenade parts, launch codes. */
+    /** War explosives the block/item classes below don't catch: kits, bomb and grenade parts, custom nuke charges, launch codes. */
     private static final Pattern WAR =
             Pattern.compile(
                     "nuke_.+_kit|tsar_(kit|core)|missile_(kit|assembly)|machine_missile_assembly|"
-                            + "grenade_(filling|fuze|shell|extra)|bomb_caller|launch_(code|code_piece|key)");
+                            + "grenade_(filling|fuze|shell|extra)|bomb_caller|launch_(code|code_piece|key)|"
+                            + "gadget_(core|explosive|wireing)|boy_(bullet|igniter|propellant|shielding|target)|"
+                            + "man_(core|explosive|igniter)|mike_(cooling_unit|core|deut)|"
+                            + "(fleija|solinium)_(core|igniter|propellant)|n2_charge|"
+                            + "(boy|custom|fleija|gadget|man|mike|multi|prototype|solinium)_kit|"
+                            + "custom_(amat|dirty|fall|hydro|nuke|schrab|tnt)");
 
     /** Rockets for space, not war. */
     private static final Pattern SPACE = Pattern.compile("missile_(soyuz.*|shuttle)");

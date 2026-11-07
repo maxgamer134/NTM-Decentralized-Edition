@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "A": "#c:ingots/australium",
+    "T": "hbm:toothpicks",
+    "S": "hbm:gun_mp40",
+    "D": "hbm:ducttape"
+  },
+  "pattern": [
+    "TDT",
+    "AAS",
+    " T "
+  ],
+  "result": {
+    "id": "hbm:gun_euthanasia"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "W": "#c:fine_wires/gold",
+    "C": "#c:plates/copper",
+    "P": "#c:plates/advanced_alloy",
+    "M": "hbm:mechanism_launcher_1",
+    "T": "hbm:tank_steel",
+    "A": "#c:plates/steel"
+  },
+  "pattern": [
+    "WCC",
+    "PMT",
+    "WAA"
+  ],
+  "result": {
+    "id": "hbm:gun_immolator"
+  }
+}

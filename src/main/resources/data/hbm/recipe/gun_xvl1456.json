@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "R": "hbm:redcoil_capacitor",
+    "A": "hbm:coil_advanced_alloy",
+    "B": "hbm:battery_generic",
+    "C": "hbm:coil_advanced_torus",
+    "Y": "hbm:mechanism_special"
+  },
+  "pattern": [
+    "PBB",
+    "ACC",
+    "PRY"
+  ],
+  "result": {
+    "id": "hbm:gun_xvl1456"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "hbm:plate_dineutronium",
+    "C": "hbm:weaponized_starblaster_cell",
+    "E": "hbm:component_emitter",
+    "B": "hbm:gun_b92",
+    "S": "hbm:singularity_spark"
+  },
+  "pattern": [
+    "PCE",
+    "SEB",
+    "PCE"
+  ],
+  "result": {
+    "id": "hbm:gun_b93"
+  }
+}

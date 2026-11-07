@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityCrashedBomb;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.data.ExplosionData;
@@ -120,6 +121,7 @@ public class BlockCrashedBomb extends BlockCompat implements ITickingBlock, IToo
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.DETONATED;
         ServerLevel server = (ServerLevel) level;
         server.removeBlock(pos, false);

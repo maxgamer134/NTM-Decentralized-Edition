@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityLandmine;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.interfaces.IBomb;
@@ -106,6 +107,7 @@ public abstract class BlockLandmine extends BlockCompat implements ITickingBlock
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.UNDEFINED;
         safely(() -> level.destroyBlock(pos, false));
         explodeVariant(level, pos);

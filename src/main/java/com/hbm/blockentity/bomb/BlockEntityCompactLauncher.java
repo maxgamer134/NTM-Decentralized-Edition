@@ -3,6 +3,7 @@
 
 package com.hbm.blockentity.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.api.block.IRadarCommandReceiver;
 import com.hbm.api.energymk2.IEnergyHandlerMK2;
 import com.hbm.api.energymk2.ItemEnergyTransfer;
@@ -270,7 +271,8 @@ public class BlockEntityCompactLauncher extends BlockEntityMachineBase
     }
 
     public boolean canLaunch() {
-        return power >= MAX_POWER * 0.75 && isMissileValid() && hasDesignator() && hasFuel();
+        return !GunContent.isDisabled(getBlockState().getBlock().asItem())
+                && power >= MAX_POWER * 0.75 && isMissileValid() && hasDesignator() && hasFuel();
     }
 
     @Override

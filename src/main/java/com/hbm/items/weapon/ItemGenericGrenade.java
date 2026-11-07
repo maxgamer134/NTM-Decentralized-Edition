@@ -3,6 +3,7 @@
 
 package com.hbm.items.weapon;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.entity.grenade.EntityGrenadeBouncyGeneric;
 import com.hbm.sound.EntitySounds;
 import net.minecraft.core.Direction;
@@ -29,6 +30,7 @@ public class ItemGenericGrenade extends ItemGrenade implements ProjectileItem {
 
     @Override
     public InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
+        if (GunContent.isDisabled(this)) return InteractionResult.PASS; // disable_war_explosives
         ItemStack stack = player.getItemInHand(hand);
 
         if (!level.isClientSide()) {

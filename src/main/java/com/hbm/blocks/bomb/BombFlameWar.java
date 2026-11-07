@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.standard.BlockAllocatorStandard;
 import com.hbm.explosion.vanillant.standard.BlockProcessorStandard;
@@ -39,6 +40,7 @@ public class BombFlameWar extends BlockCompat implements IBomb {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.DETONATED;
 
         level.destroyBlock(pos, false);

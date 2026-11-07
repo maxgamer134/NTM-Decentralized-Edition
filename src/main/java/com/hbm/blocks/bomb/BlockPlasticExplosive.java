@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.api.block.IFuckingExplode;
 import com.hbm.blocks.BlockDirectionalBase;
 import com.hbm.entity.item.EntityTntNtm;
@@ -78,6 +79,7 @@ public class BlockPlasticExplosive extends BlockDirectionalBase implements IBomb
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (!level.isClientSide()) {
             if (!TntRule.explodes(level)) return BombReturnCode.ERROR_TNT_DISABLED;
             new ExplosionVNT(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 20F)

@@ -122,6 +122,18 @@ public final class ConfigSchema {
                     true,
                     "Does the same as disable_all_guns for the guns main had before its gun rework.");
 
+    public static final ConfigEntry<Boolean> DISABLE_WAR_EXPLOSIVES =
+            bool(
+                    Domain.CONTENT,
+                    "guns",
+                    "disable_war_explosives",
+                    false,
+                    "Switches off the explosives made for war: missiles and launch pads, bombs and nukes,"
+                            + " grenades, landmines and C4/semtex charges. They leave the creative tabs and"
+                            + " recipe viewers, their recipes are dropped, and they can't be launched, thrown"
+                            + " or set off. Mining explosives (dynamite, mining charges) stay. The items stay"
+                            + " registered, so old worlds still load.");
+
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =
             bool(
                     Domain.CONTENT,
@@ -641,6 +653,7 @@ public final class ConfigSchema {
                     DISABLE_ALL_GUNS,
                     DISABLE_POST_REWORK_GUNS,
                     DISABLE_PRE_REWORK_GUNS,
+                    DISABLE_WAR_EXPLOSIVES,
                     ENABLE_LBSM_SIMPLE_CHEMISTRY,
                     ENABLE_LBSM_SIMPLE_CENTRIFUGE,
                     ENABLE_LBSM_UNLOCK_ANVIL,

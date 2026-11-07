@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityNukeBalefire;
 import com.hbm.blocks.machine.BlockMachineHorizontal;
 import com.hbm.interfaces.IBomb;
@@ -41,6 +42,7 @@ public class NukeBalefire extends BlockMachineHorizontal implements IBomb {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.UNDEFINED;
         if (!(level.getBlockEntity(pos) instanceof BlockEntityNukeBalefire bomb)) {
             return BombReturnCode.UNDEFINED;

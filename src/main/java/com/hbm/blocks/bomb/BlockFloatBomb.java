@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.explosion.ExplosionChaos;
 import com.hbm.interfaces.IBomb;
 import com.hbm.sound.ModSounds;
@@ -40,6 +41,7 @@ public class BlockFloatBomb extends BlockCompat implements IBomb {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
 
         level.playSound(
                 null,

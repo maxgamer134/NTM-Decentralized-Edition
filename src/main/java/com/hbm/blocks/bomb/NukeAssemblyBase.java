@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityNukeAssembly;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
@@ -19,6 +20,7 @@ public abstract class NukeAssemblyBase extends BombRotatableBlock {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.UNDEFINED;
         if (!(level.getBlockEntity(pos) instanceof BlockEntityNukeAssembly assembly)) {
             return BombReturnCode.UNDEFINED;

@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityNukeCustom;
 import com.hbm.entity.projectile.EntityFallingNuke;
 import com.hbm.explosion.ExplosionNukeCustom;
@@ -27,6 +28,7 @@ public class NukeCustom extends BombRotatableBlock {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (!(level instanceof ServerLevel server)) return BombReturnCode.UNDEFINED;
         if (!(server.getBlockEntity(pos) instanceof BlockEntityNukeCustom bomb)) {
             return BombReturnCode.UNDEFINED;

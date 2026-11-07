@@ -3,6 +3,7 @@
 
 package com.hbm.blockentity.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.NuclearTech;
 import com.hbm.api.block.IRadarCommandReceiver;
 import com.hbm.api.energymk2.IEnergyHandlerMK2;
@@ -241,7 +242,8 @@ public abstract class BlockEntityLaunchPadBase extends BlockEntityMachineBase
     }
 
     public boolean canLaunch() {
-        return isMissileValid(getItem(SLOT_MISSILE)) && hasFuel() && isReadyForLaunch();
+        return !GunContent.isDisabled(getBlockState().getBlock().asItem())
+                && isMissileValid(getItem(SLOT_MISSILE)) && hasFuel() && isReadyForLaunch();
     }
 
     public IBomb.BombReturnCode launchFromDesignator() {

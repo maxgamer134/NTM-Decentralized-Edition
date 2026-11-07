@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.entity.ModEntities;
 import com.hbm.entity.effect.EntityEMPBlast;
 import com.hbm.explosion.ExplosionNukeGeneric;
@@ -40,6 +41,7 @@ public class BlockEMPBomb extends BlockCompat implements IBomb {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
 
         level.playSound(
                 null,

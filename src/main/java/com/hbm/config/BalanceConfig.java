@@ -9,6 +9,7 @@ public final class BalanceConfig {
     public static boolean disableAllGuns = false;
     public static boolean disablePostReworkGuns = false;
     public static boolean disablePreReworkGuns = true;
+    public static boolean disableWarExplosives = false;
     public static boolean enable528ReasimBoilers = false;
     public static boolean enable528PressurizedRecipes = false;
     public static boolean enable528MachineGravity = false;
@@ -48,6 +49,7 @@ public final class BalanceConfig {
         disableAllGuns = c.get(ConfigSchema.DISABLE_ALL_GUNS);
         disablePostReworkGuns = c.get(ConfigSchema.DISABLE_POST_REWORK_GUNS);
         disablePreReworkGuns = c.get(ConfigSchema.DISABLE_PRE_REWORK_GUNS);
+        disableWarExplosives = c.get(ConfigSchema.DISABLE_WAR_EXPLOSIVES);
         com.hbm.items.weapon.GunContent.invalidate();
         enableLBSMSimpleChemistry = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_CHEMISTRY);
         enableLBSMSimpleCentrifuge = c.get(ConfigSchema.ENABLE_LBSM_SIMPLE_CENTRIFUGE);

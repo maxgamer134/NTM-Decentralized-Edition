@@ -3,6 +3,7 @@
 
 package com.hbm.items.weapon.grenade;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.client.ClientPlayerAccess;
 import com.hbm.entity.grenade.EntityGrenadeUniversal;
 import com.hbm.extprop.HbmPlayerProps;
@@ -125,6 +126,7 @@ public class ItemGrenadeUniversal extends ItemCompat {
 
     @Override
     public InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
+        if (GunContent.isDisabled(this)) return InteractionResult.PASS; // disable_war_explosives
         ItemStack stack = player.getItemInHand(hand);
         if (deployment(player) < getData(stack).shell().getDrawDuration())
             return InteractionResult.PASS;

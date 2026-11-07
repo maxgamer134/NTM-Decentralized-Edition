@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityCompactLauncher;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.ModBlockEntities;
@@ -38,6 +39,7 @@ public class CompactLauncher extends BlockMultiblockCore
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.UNDEFINED;
         FoldedOwner owner = ownerOf(level, pos);
         BlockPos core = owner != null ? owner.pos() : pos;

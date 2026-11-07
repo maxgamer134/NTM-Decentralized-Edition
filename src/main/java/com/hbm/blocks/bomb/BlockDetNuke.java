@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.data.ExplosionData;
 import com.hbm.entity.effect.EntityNukeTorex;
 import com.hbm.entity.logic.EntityNukeExplosionMK5;
@@ -19,6 +20,7 @@ public class BlockDetNuke extends BlockExplosiveCharge {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.DETONATED;
         if (!TntRule.explodes(level)) return BombReturnCode.ERROR_TNT_DISABLED;
         level.removeBlock(pos, false);

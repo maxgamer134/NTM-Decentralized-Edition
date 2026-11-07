@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityLaunchPadRusted;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
@@ -28,6 +29,7 @@ public class LaunchPadRusted extends BlockMultiblockCore implements ITickingBloc
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (level.isClientSide()) return BombReturnCode.UNDEFINED;
         BlockPos core = MultiblockSurface.coreOfAny(level, pos);
         if (core != null && level.getBlockEntity(core) instanceof BlockEntityLaunchPadRusted pad)

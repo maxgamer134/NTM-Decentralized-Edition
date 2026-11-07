@@ -3,6 +3,7 @@
 
 package com.hbm.blocks.bomb;
 
+import com.hbm.items.weapon.GunContent;
 import com.hbm.blockentity.bomb.BlockEntityBombMulti;
 import com.hbm.blocks.machine.BlockMachineHorizontal;
 import com.hbm.entity.effect.EntityMist;
@@ -66,6 +67,7 @@ public class BombMulti extends BlockMachineHorizontal implements IBomb {
 
     @Override
     public BombReturnCode explode(Level level, BlockPos pos, @Nullable Entity detonator) {
+        if (GunContent.isDisabled(asItem())) return BombReturnCode.UNDEFINED; // disable_war_explosives
         if (!(level instanceof ServerLevel server)) return BombReturnCode.UNDEFINED;
         if (!(server.getBlockEntity(pos) instanceof BlockEntityBombMulti bomb)
                 || !bomb.isLoaded()) {

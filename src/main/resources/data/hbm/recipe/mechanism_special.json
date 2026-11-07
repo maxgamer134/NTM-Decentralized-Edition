@@ -2,7 +2,7 @@
   "type": "hbm:crafting_shaped",
   "key": {
     "P": "hbm:plate_desh",
-    "C": "hbm:coil_advanced_alloy",
+    "C": "hbm:coil_magnetized_tungsten",
     "I": "#c:ingots/starmetal",
     "S": "hbm:circuit_advanced"
   },

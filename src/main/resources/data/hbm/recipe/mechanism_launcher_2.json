@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "T": "#c:plates/advanced_alloy",
+    "T": "#c:plates/dura_steel",
     "S": "#hbm:ingots/any_plastic",
     "B": "#c:bolts/tungsten",
     "I": "hbm:ingot_desh"

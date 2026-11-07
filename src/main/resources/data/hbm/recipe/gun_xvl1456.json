@@ -3,9 +3,9 @@
   "key": {
     "P": "#c:plates/steel",
     "R": "hbm:redcoil_capacitor",
-    "A": "hbm:coil_advanced_alloy",
+    "A": "hbm:coil_magnetized_tungsten",
     "B": "hbm:battery_generic",
-    "C": "hbm:coil_advanced_torus",
+    "C": "hbm:coil_magnetized_tungsten",
     "Y": "hbm:mechanism_special"
   },
   "pattern": [

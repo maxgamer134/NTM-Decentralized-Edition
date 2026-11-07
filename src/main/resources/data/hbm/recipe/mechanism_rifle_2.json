@@ -1,7 +1,7 @@
 {
   "type": "hbm:crafting_shaped",
   "key": {
-    "A": "#c:plates/advanced_alloy",
+    "A": "#c:plates/dura_steel",
     "T": "#c:ingots/tungsten",
     "D": "#c:ingots/dura_steel",
     "M": "hbm:mechanism_revolver_2"

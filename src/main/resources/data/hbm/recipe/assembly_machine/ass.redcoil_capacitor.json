@@ -11,11 +11,11 @@
     },
     {
       "count": 4,
-      "ingredient": "hbm:wire_advanced_alloy"
+      "ingredient": "#c:fine_wires/magnetized_tungsten"
     },
     {
       "count": 6,
-      "ingredient": "hbm:coil_advanced_alloy"
+      "ingredient": "hbm:coil_magnetized_tungsten"
     },
     {
       "count": 2,

@@ -3,7 +3,7 @@
   "key": {
     "W": "#c:fine_wires/gold",
     "C": "#c:plates/copper",
-    "P": "#c:plates/advanced_alloy",
+    "P": "#c:plates/dura_steel",
     "M": "hbm:mechanism_launcher_1",
     "T": "hbm:tank_steel",
     "A": "#c:plates/steel"

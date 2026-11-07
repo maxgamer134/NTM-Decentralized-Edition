@@ -65,9 +65,32 @@ public final class GunContent {
         disabled = null;
     }
 
+    /** switched off: hidden, and guns, launchers and bombs refuse to work. A duplicate is only hidden. */
     public static boolean isDisabled(Item item) {
+        return disabled().contains(item) && !hiddenOnly.contains(item);
+    }
+
+    /** gone from the creative tabs, the recipe viewers and recipes */
+    public static boolean isHidden(Item item) {
         return disabled().contains(item);
     }
+
+    public static boolean isHidden(ItemStack stack) {
+        return !stack.isEmpty() && isHidden(stack.getItem());
+    }
+
+    /**
+     * Pre-rework guns with a post-rework twin of the same gun. While the post-rework guns are on, the old copy is hidden
+     * (copies people own still work).
+     */
+    private static final Set<String> DUPLICATES = Set.of(
+            "gun_bio_revolver", "gun_revolver_nopip", "gun_spas12_legacy", "gun_uzi_legacy", "gun_minigun_legacy",
+            "gun_bolter_legacy", "gun_panzerschreck_legacy", "gun_quadro_legacy", "gun_congolake_legacy",
+            "gun_fatman_legacy", "gun_coilgun_legacy", "gun_flamer_legacy", "gun_chemthrower_legacy",
+            "gun_stinger_legacy", "gun_fireext_legacy", "gun_xvl1456");
+
+    /** the duplicates hidden by the last compute(), which still work */
+    private static Set<Item> hiddenOnly = Set.of();
 
     public static boolean isDisabled(ItemStack stack) {
         return !stack.isEmpty() && isDisabled(stack.getItem());
@@ -84,8 +107,8 @@ public final class GunContent {
         boolean pre = BalanceConfig.disableAllGuns || BalanceConfig.disablePreReworkGuns;
         boolean war = BalanceConfig.disableWarExplosives;
         boolean conv = BalanceConfig.preReworkGunsUseNewAmmo;
-        if (!post && !war && !conv && (!pre || PRE_REWORK.isEmpty())) return Set.of();
         Set<Item> out = Collections.newSetFromMap(new IdentityHashMap<>());
+        Set<Item> dup = Collections.newSetFromMap(new IdentityHashMap<>());
         for (Map.Entry<net.minecraft.resources.ResourceKey<Item>, Item> e :
                 BuiltInRegistries.ITEM.entrySet()) {
             ResourceLocation id = e.getKey().location();
@@ -96,12 +119,17 @@ public final class GunContent {
                                     && POST_REWORK.matcher(id.getPath()).matches())))
                 out.add(e.getValue());
             else if (war && war(id, e.getValue())) out.add(e.getValue());
+            else if (!post && id.getNamespace().equals(NuclearTech.MOD_ID) && DUPLICATES.contains(id.getPath())) {
+                out.add(e.getValue());
+                dup.add(e.getValue());
+            }
             // pre_rework_guns_use_new_ammo: an old round with a post-rework twin gives way to it
             else if (conv
                     && id.getNamespace().equals(NuclearTech.MOD_ID)
                     && com.hbm.items.weapon.legacy.LegacyAmmo.isConverted(id.getPath()))
                 out.add(e.getValue());
         }
+        hiddenOnly = dup;
         return Collections.unmodifiableSet(out);
     }
 

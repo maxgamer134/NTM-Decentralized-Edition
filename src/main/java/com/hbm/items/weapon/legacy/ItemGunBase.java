@@ -472,6 +472,15 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
 
     /** searches the player's inv for the next fitting ammo type and changes the gun's mag */
     protected void resetAmmoType(ItemStack stack, Level world, Player player) {
+        // a config's own round first: since any config also takes post-rework rounds of its calibre, the standard
+        // config would otherwise always win and the special rounds never load
+        for (int i = 0; i < mainConfig.config.size(); i++) {
+            BulletConfiguration cfg = BulletConfigSyncingUtil.pullConfig(mainConfig.config.get(i));
+            if (cfg != null && cfg.ammo != null && hasOwnRound(player, cfg)) {
+                setMagType(stack, i);
+                return;
+            }
+        }
         for (int i = 0; i < mainConfig.config.size(); i++) {
             BulletConfiguration cfg = BulletConfigSyncingUtil.pullConfig(mainConfig.config.get(i));
             if (cfg != null && hasAmmoItem(player, cfg)) {
@@ -479,6 +488,11 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
                 break;
             }
         }
+    }
+
+    private static boolean hasOwnRound(Player player, BulletConfiguration cfg) {
+        for (ItemStack s : player.getInventory().items) if (!s.isEmpty() && s.is(cfg.ammo.get())) return true;
+        return false;
     }
 
     // ---- tooltip ----

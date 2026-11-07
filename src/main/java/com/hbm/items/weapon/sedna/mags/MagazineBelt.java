@@ -21,6 +21,10 @@ public class MagazineBelt implements IMagazine<BulletConfig> {
     public static final String KEY_MAG_TYPE = "magtype";
     public List<BulletConfig> acceptedBullets = new ArrayList<>();
 
+    {
+        com.hbm.items.weapon.legacy.LegacyAmmo.MAG_LISTS.add(acceptedBullets);
+    }
+
     public static int getMagType(ItemStack stack) {
         return ItemGunBaseNT.getValueInt(stack, KEY_MAG_TYPE);
     }

@@ -10,7 +10,7 @@ public final class BalanceConfig {
     public static boolean disablePostReworkGuns = false;
     public static boolean disablePreReworkGuns = true;
     public static boolean disableWarExplosives = false;
-    public static boolean preReworkGunsUseNewAmmo = false;
+    public static boolean preReworkGunsUseNewAmmo = true;
     public static boolean enable528ReasimBoilers = false;
     public static boolean enable528PressurizedRecipes = false;
     public static boolean enable528MachineGravity = false;

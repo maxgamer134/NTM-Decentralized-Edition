@@ -325,27 +325,6 @@ public final class Gun12GaugeFactory {
 		return bullet;
 	}
 	
-	public static BulletConfiguration get12GaugeAMConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardBuckshotConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_12GAUGE_MARAUDER;
-		bullet.wear = 20;
-		bullet.dmgMin = 100;
-		bullet.dmgMax = 500;
-		bullet.leadChance = 50;
-		
-		bullet.bntHurt = (bulletnt, hit) -> {
-				
-			if(hit instanceof LivingEntity)
-				((LivingEntity)hit).addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(HbmPotion.bang.get()), 20, 0));
-			
-		};
-		
-		bullet.spentCasing = CASING12GAUGE.clone().register("old12GaAM").setColor(0x416645, SpentCasing.COLOR_CASE_12GA);
-		
-		return bullet;
-	}
 	
 	public static BulletConfiguration get12GaugeSleekConfig() {
 		

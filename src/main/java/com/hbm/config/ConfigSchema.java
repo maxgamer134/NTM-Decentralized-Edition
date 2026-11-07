@@ -127,10 +127,11 @@ public final class ConfigSchema {
                     Domain.CONTENT,
                     "guns",
                     "pre_rework_guns_use_new_ammo",
-                    false,
-                    "Lets the pre-rework guns also load the post-rework ammo of the same calibre (.357, .44,"
-                            + " .45, .22, 9mm, 5.56, 7.62, .50 BMG, .75 bolts, 12 gauge, 40mm grenades,"
-                            + " rockets, flamer fuel and mini nukes). Their old ammo still works.");
+                    true,
+                    "Converts the pre-rework guns to post-rework ammo where a round has a post-rework twin"
+                            + " (standard, AP and DU rifle and pistol rounds, buckshot, .75 bolts, 40mm, rockets,"
+                            + " flamer fuel, mini nukes). The old twin leaves the creative tabs, recipe viewers"
+                            + " and recipes; stacks of it still load. Rounds with no twin stay.");
 
     public static final ConfigEntry<Boolean> DISABLE_WAR_EXPLOSIVES =
             bool(

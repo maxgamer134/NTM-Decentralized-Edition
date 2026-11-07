@@ -26,6 +26,10 @@ public abstract class MagazineSingleTypeBase implements IMagazine<BulletConfig> 
 
     public List<BulletConfig> acceptedBullets = new ArrayList<>();
 
+    {
+        com.hbm.items.weapon.legacy.LegacyAmmo.MAG_LISTS.add(acceptedBullets);
+    }
+
     public int index;
     public int capacity;
 

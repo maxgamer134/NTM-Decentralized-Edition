@@ -89,7 +89,6 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_INCENDIARY;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_SHRAPNEL;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_DU;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_MARAUDER;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_SLEEK;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_12GAUGE_PERCUSSION;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_20GAUGE;
@@ -113,9 +112,6 @@ public final class LegacyGuns {
     public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_CANISTER;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_SLEEK;
     public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_CLAW;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_VAMPIRE;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_VOID;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_4GAUGE_TITAN;
     public static RegistryHandle<ItemGunBase> GUN_UBOINIK;
     public static RegistryHandle<ItemGunBase> GUN_REMINGTON;
     public static RegistryHandle<ItemGunBase> GUN_SPAS12_LEGACY;
@@ -145,16 +141,6 @@ public final class LegacyGuns {
     public static RegistryHandle<Item> CASING_9;
     public static RegistryHandle<Item> PELLET_CHLOROPHYTE;
 
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_AP;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_DU;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_PHOSPHORUS;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_STAR;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_CHLOROPHYTE;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_PIP;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_BJ;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_SILVER;
-    public static RegistryHandle<ItemAmmoLegacy> AMMO_44_ROCKET;
     public static RegistryHandle<ItemGunPip> GUN_REVOLVER_PIP;
     public static RegistryHandle<ItemGunBase> GUN_REVOLVER_NOPIP;
     public static RegistryHandle<ItemGunBase> GUN_REVOLVER_BLACKJACK;
@@ -460,7 +446,6 @@ public final class LegacyGuns {
         AMMO_12GAUGE_INCENDIARY = ammo("ammo_12gauge_incendiary", AmmoItemTrait.PRO_INCENDIARY, AmmoItemTrait.CON_WEAR);
         AMMO_12GAUGE_SHRAPNEL = ammo("ammo_12gauge_shrapnel", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.NEU_MORE_BOUNCY, AmmoItemTrait.CON_WEAR);
         AMMO_12GAUGE_DU = ammo("ammo_12gauge_du", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
-        AMMO_12GAUGE_MARAUDER = ammo("ammo_12gauge_marauder", AmmoItemTrait.PRO_MARAUDER, AmmoItemTrait.NEU_NO_CON);
         AMMO_12GAUGE_SLEEK = ammo("ammo_12gauge_sleek", AmmoItemTrait.NEU_MASKMAN_FLECHETTE);
         AMMO_12GAUGE_PERCUSSION = ammo("ammo_12gauge_percussion", AmmoItemTrait.PRO_PERCUSSION, AmmoItemTrait.CON_NO_PROJECTILE);
         AMMO_20GAUGE = ammo("ammo_20gauge");
@@ -484,9 +469,6 @@ public final class LegacyGuns {
         AMMO_4GAUGE_CANISTER = ammo("ammo_4gauge_canister");
         AMMO_4GAUGE_SLEEK = ammo("ammo_4gauge_sleek", AmmoItemTrait.NEU_MASKMAN_FLECHETTE);
         AMMO_4GAUGE_CLAW = ammo("ammo_4gauge_claw");
-        AMMO_4GAUGE_VAMPIRE = ammo("ammo_4gauge_vampire");
-        AMMO_4GAUGE_VOID = ammo("ammo_4gauge_void");
-        AMMO_4GAUGE_TITAN = ammo("ammo_4gauge_titan", AmmoItemTrait.PRO_MARAUDER, AmmoItemTrait.NEU_NO_CON);
         GUN_UBOINIK = gun("gun_uboinik", p -> new ItemGunBase(Gun12GaugeFactory.getUboinikConfig(), p));
         GUN_REMINGTON = gun("gun_remington", p -> new ItemGunBase(Gun12GaugeFactory.getRemington870Config(), p));
         GUN_SPAS12_LEGACY = gun("gun_spas12_legacy", p -> new ItemGunBase(Gun12GaugeFactory.getSpas12Config(), Gun12GaugeFactory.getSpas12AltConfig(), p));
@@ -519,16 +501,6 @@ public final class LegacyGuns {
         PELLET_CHLOROPHYTE = part("pellet_chlorophyte");
 
         // 44
-        AMMO_44 = ammo("ammo_44");
-        AMMO_44_AP = ammo("ammo_44_ap", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.CON_WEAR);
-        AMMO_44_DU = ammo("ammo_44_du", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_HEAVY_METAL, AmmoItemTrait.CON_HEAVY_WEAR);
-        AMMO_44_PHOSPHORUS = ammo("ammo_44_phosphorus", AmmoItemTrait.PRO_PHOSPHORUS, AmmoItemTrait.NEU_WARCRIME1, AmmoItemTrait.CON_WEAR, AmmoItemTrait.CON_PENETRATION);
-        AMMO_44_STAR = ammo("ammo_44_star", AmmoItemTrait.PRO_HEAVY_DAMAGE, AmmoItemTrait.NEU_STARMETAL, AmmoItemTrait.CON_HEAVY_WEAR);
-        AMMO_44_CHLOROPHYTE = ammo("ammo_44_chlorophyte", AmmoItemTrait.PRO_DAMAGE, AmmoItemTrait.PRO_WEAR, AmmoItemTrait.PRO_PENETRATION, AmmoItemTrait.NEU_CHLOROPHYTE, AmmoItemTrait.NEU_HOMING, AmmoItemTrait.CON_SPEED);
-        AMMO_44_PIP = ammo("ammo_44_pip", AmmoItemTrait.NEU_BOXCAR, AmmoItemTrait.CON_DAMAGE);
-        AMMO_44_BJ = ammo("ammo_44_bj", AmmoItemTrait.NEU_BOAT, AmmoItemTrait.CON_DAMAGE);
-        AMMO_44_SILVER = ammo("ammo_44_silver", AmmoItemTrait.NEU_BUILDING, AmmoItemTrait.CON_DAMAGE);
-        AMMO_44_ROCKET = ammo("ammo_44_rocket", AmmoItemTrait.PRO_ROCKET, AmmoItemTrait.NEU_UHH);
         GUN_REVOLVER_PIP = gun("gun_revolver_pip", p -> new ItemGunPip(Gun44MagnumFactory.getMacintoshConfig(), p));
         GUN_REVOLVER_NOPIP = gun("gun_revolver_nopip", p -> new ItemGunBase(Gun44MagnumFactory.getNovacConfig(), p));
         GUN_REVOLVER_BLACKJACK = gun("gun_revolver_blackjack", p -> new ItemGunBase(Gun44MagnumFactory.getBlackjackConfig(), p));
@@ -774,8 +746,8 @@ public final class LegacyGuns {
         GUN_SKYSTINGER = gun("gun_skystinger", p -> new ItemGunBase(GunRocketHomingFactory.getSkyStingerConfig(), p));
 
         // the remaining clips and lore ammo
-        CLIP_REVOLVER_PIP = clip("clip_revolver_pip", AMMO_44_PIP, 6);
-        CLIP_REVOLVER_NOPIP = clip("clip_revolver_nopip", AMMO_44, 6);
+        CLIP_REVOLVER_PIP = clip("clip_revolver_pip", M44_FMJ, 6);
+        CLIP_REVOLVER_NOPIP = clip("clip_revolver_nopip", M44_FMJ, 6);
         CLIP_RPG = clip("clip_rpg", AMMO_ROCKET, 4);
         CLIP_STINGER = clip("clip_stinger", AMMO_STINGER_ROCKET, 4);
         CLIP_FATMAN = clip("clip_fatman", AMMO_NUKE, 6);
@@ -820,6 +792,14 @@ public final class LegacyGuns {
 
     private static RegistryHandle<Item> part(String name) {
         return add(NeoForgeRegistrar.registerItem(name, Item::new, Item.Properties::new));
+    }
+
+    private static final java.util.function.Supplier<Item> M44_FMJ =
+            () -> com.hbm.items.ModItems.AMMO_STANDARD.get(com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo.M44_FMJ);
+
+    /** a clip of post-rework rounds (the old .44 ones are gone) */
+    private static RegistryHandle<ItemClipLegacy> clip(String name, java.util.function.Supplier<? extends Item> ammo, int count) {
+        return add(NeoForgeRegistrar.registerItem(name, p -> new ItemClipLegacy(p, ammo, count), Item.Properties::new));
     }
 
     private static RegistryHandle<ItemClipLegacy> clip(String name, RegistryHandle<? extends Item> ammo, int count) {

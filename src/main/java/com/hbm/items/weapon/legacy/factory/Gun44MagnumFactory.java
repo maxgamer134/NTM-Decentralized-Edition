@@ -4,6 +4,9 @@
 
 package com.hbm.items.weapon.legacy.factory;
 
+import com.hbm.items.ModItems;
+import com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo;
+
 import static com.hbm.items.weapon.legacy.BulletConfigSyncingUtil.*;
 
 import com.hbm.entity.ModEntities;
@@ -110,7 +113,6 @@ public final class Gun44MagnumFactory {
 		config.scopeTexture = scope_lilmac;
 		
 		config.config = new ArrayList<Integer>();
-		config.config.add(M44_PIP);
 		config.config.addAll(LegacyCollection.m44Normal);
 		
 		return config;
@@ -129,7 +131,6 @@ public final class Gun44MagnumFactory {
 		config.comment.add("Alcoholism is cool!");
 		
 		config.config = new ArrayList<Integer>();
-		config.config.add(M44_BJ);
 		config.config.addAll(LegacyCollection.m44Normal);
 		
 		config.ejector = EJECTOR_PIP.copy().setAmount(5);
@@ -151,7 +152,6 @@ public final class Gun44MagnumFactory {
 		config.comment.add("and mutual hate. It's not that complicated.");
 		
 		config.config = new ArrayList<Integer>();
-		config.config.add(M44_SILVER);
 		config.config.addAll(LegacyCollection.m44Normal);
 		
 		return config;
@@ -182,7 +182,9 @@ public final class Gun44MagnumFactory {
 		
 		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
 		
-		bullet.ammo = LegacyGuns.AMMO_44;
+		// the old .44 rounds are gone: post-rework .44 feeds it
+		bullet.ammo = () -> ModItems.AMMO_STANDARD.get(EnumAmmo.M44_FMJ);
+		bullet.alsoAccepts = new EnumAmmo[] {EnumAmmo.M44_FMJ, EnumAmmo.M44_SP, EnumAmmo.M44_BP, EnumAmmo.M44_JHP, EnumAmmo.M44_EXPRESS};
 		bullet.dmgMin = 18;
 		bullet.dmgMax = 26;
 		
@@ -195,7 +197,8 @@ public final class Gun44MagnumFactory {
 		
 		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
 		
-		bullet.ammo = LegacyGuns.AMMO_44_AP;
+		bullet.ammo = () -> ModItems.AMMO_STANDARD.get(EnumAmmo.M44_AP);
+		bullet.alsoAccepts = new EnumAmmo[] {EnumAmmo.M44_AP};
 		bullet.dmgMin = 25;
 		bullet.dmgMax = 32;
 		bullet.wear = 15;
@@ -206,166 +209,11 @@ public final class Gun44MagnumFactory {
 		return bullet;
 	}
 	
-	public static BulletConfiguration getNoPipDUConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_DU;
-		bullet.dmgMin = 28;
-		bullet.dmgMax = 40;
-		bullet.wear = 25;
-		bullet.leadChance = 50;
-		
-		bullet.spentCasing = CASING44.clone().register("old44DU");
-		
-		return bullet;
-	}
 	
-	public static BulletConfiguration getPhosphorusConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_PHOSPHORUS;
-		bullet.dmgMin = 18;
-		bullet.dmgMax = 26;
-		bullet.wear = 15;
-		bullet.incendiary = 5;
-		bullet.doesPenetrate = false;
-		
-		// main cleared the curative items (milk does not wash it off); a plain effect here
-		MobEffectInstance eff = new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(HbmPotion.phosphorus.get()), 20 * 20, 0, true, true);
-		bullet.effects = new ArrayList<>();
-		bullet.effects.add(new MobEffectInstance(eff));
-		
-		bullet.bntImpact = (bulletnt, pos, side) -> {
- int x = pos == null ? -1 : pos.getX(), y = pos == null ? -1 : pos.getY(), z = pos == null ? -1 : pos.getZ();
- int sideHit = side == null ? -1 : side.get3DDataValue();
-			
-			LegacyFx.vanillaBurst(bulletnt.level(), bulletnt.getX(), bulletnt.getY(), bulletnt.getZ(), ParticleTypes.FLAME, 15, 0.05D);
-		};
-		
-		bullet.spentCasing = CASING44.clone().register("old44Phos");
-		
-		return bullet;
-	}
 	
-	public static BulletConfiguration getNoPipStarConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_STAR;
-		bullet.dmgMin = 42;
-		bullet.dmgMax = 50;
-		bullet.wear = 25;
-		bullet.leadChance = 100;
-		
-		bullet.spentCasing = CASING44.clone().register("old44Star");
-		
-		return bullet;
-	}
 	
-	public static BulletConfiguration getPipConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_PIP;
-		bullet.dmgMin = 30;
-		bullet.dmgMax = 36;
-		bullet.wear = 25;
-		bullet.doesPenetrate = false;
-		
-		bullet.bntHit = (bulletnt, hit) -> {
-				
-			if(!bulletnt.level().isClientSide()) {
-				EntityBoxcar pippo = new EntityBoxcar(ModEntities.BOXCAR.get(), bulletnt.level());
-				pippo.setPos(hit.getX(), hit.getY() + 50, hit.getZ());
-				
-				for(int j = 0; j < 50; j++) {
-					LegacyFx.vanillaBurst(bulletnt.level(), pippo.getX() + (bulletnt.level().random.nextDouble() - 0.5) * 4, pippo.getY() + (bulletnt.level().random.nextDouble() - 0.5) * 12, pippo.getZ() + (bulletnt.level().random.nextDouble() - 0.5) * 4, ParticleTypes.LARGE_SMOKE, 1, 0);
-				}
-				bulletnt.level().addFreshEntity(pippo);
-				
-				LegacySounds.play(bulletnt.level(), pippo.getX(), pippo.getY() + 50, pippo.getZ(), "hbm:alarm.train_horn", 100F, 1F);
-			}
-		};
-		
-		bullet.spentCasing = CASING44.clone().register("old44Pip").setColor(0x532C64);
-		
-		return bullet;
-	}
 	
-	public static BulletConfiguration getBJConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_BJ;
-		bullet.dmgMin = 30;
-		bullet.dmgMax = 36;
-		bullet.wear = 25;
-		bullet.doesPenetrate = false;
-		
-		bullet.bntHit = (bulletnt, hit) -> {
-				
-			if(!bulletnt.level().isClientSide()) {
-				EntityDuchessGambit pippo = new EntityDuchessGambit(ModEntities.DUCHESS_GAMBIT.get(), bulletnt.level());
-				pippo.setPos(hit.getX(), hit.getY() + 50, hit.getZ());
-				
-				for(int j = 0; j < 150; j++) {
-					LegacyFx.vanillaBurst(bulletnt.level(), pippo.getX() + (bulletnt.level().random.nextDouble() - 0.5) * 7, pippo.getY() + (bulletnt.level().random.nextDouble() - 0.5) * 8, pippo.getZ() + (bulletnt.level().random.nextDouble() - 0.5) * 18, ParticleTypes.LARGE_SMOKE, 1, 0);
-				}
-				bulletnt.level().addFreshEntity(pippo);
-				
-				LegacySounds.play(bulletnt.level(), pippo.getX(), pippo.getY() + 50, pippo.getZ(), "hbm:weapon.boat", 100F, 1F);
-			}
-		};
-		
-		bullet.spentCasing = CASING44.clone().register("old44BJ").setColor(0x632B2C);
-		
-		return bullet;
-	}
 	
-	public static BulletConfiguration getSilverStormConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardPistolConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_SILVER;
-		bullet.dmgMin = 30;
-		bullet.dmgMax = 36;
-		bullet.wear = 25;
-		bullet.doesPenetrate = false;
-		
-		bullet.bntHit = (bulletnt, hit) -> {
-				
-			if(!bulletnt.level().isClientSide()) {
-				EntityBuilding pippo = new EntityBuilding(ModEntities.FALLING_BUILDING.get(), bulletnt.level());
-				pippo.setPos(hit.getX(), hit.getY() + 50, hit.getZ());
-				
-				for(int j = 0; j < 150; j++) {
-					LegacyFx.vanillaBurst(bulletnt.level(), pippo.getX() + (bulletnt.level().random.nextDouble() - 0.5) * 15, pippo.getY() + (bulletnt.level().random.nextDouble() - 0.5) * 15, pippo.getZ() + (bulletnt.level().random.nextDouble() - 0.5) * 15, ParticleTypes.LARGE_SMOKE, 1, 0);
-				}
-				bulletnt.level().addFreshEntity(pippo);
-				
-				LegacySounds.play(bulletnt.level(), pippo.getX(), pippo.getY() + 50, pippo.getZ(), "hbm:block.debris", 100F, 1F);
-			}
-		};
-		
-		bullet.spentCasing = CASING44.clone().register("old44Silver").setColor(0x2B5963);
-		
-		return bullet;
-	}
 	
-	public static BulletConfiguration getRocketConfig() {
-		
-		BulletConfiguration bullet = BulletConfigFactory.standardRocketConfig();
-		
-		bullet.ammo = LegacyGuns.AMMO_44_ROCKET;
-		bullet.velocity = 5;
-		bullet.explosive = 15F;
-		bullet.trail = 1;
-		
-		bullet.spentCasing = CASING44.clone().register("old44Rocket");
-		
-		return bullet;
-	}
 
 }

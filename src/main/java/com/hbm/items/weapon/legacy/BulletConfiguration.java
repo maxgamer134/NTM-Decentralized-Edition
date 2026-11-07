@@ -10,7 +10,11 @@ import com.hbm.entity.projectile.EntityBulletBaseNT.IBulletHurtBehaviorNT;
 import com.hbm.entity.projectile.EntityBulletBaseNT.IBulletImpactBehaviorNT;
 import com.hbm.entity.projectile.EntityBulletBaseNT.IBulletRicochetBehaviorNT;
 import com.hbm.entity.projectile.EntityBulletBaseNT.IBulletUpdateBehaviorNT;
+import com.hbm.config.BalanceConfig;
+import com.hbm.items.ModItems;
+import com.hbm.items.weapon.sedna.factory.GunFactory.EnumAmmo;
 import com.hbm.lib.ModDamageTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import com.hbm.particle.SpentCasing;
 import java.util.List;
 import java.util.function.Supplier;
@@ -166,33 +170,36 @@ public class BulletConfiguration implements Cloneable {
     public boolean isAmmo(ItemStack stack) {
         if (ammo == null || stack.isEmpty()) return false;
         if (stack.is(ammo.get())) return true;
-        if (!com.hbm.config.BalanceConfig.preReworkGunsUseNewAmmo) return false;
-        String prefix = newAmmoPrefix();
-        if (prefix.isEmpty()) return false;
-        var type = com.hbm.items.ModItems.AMMO_STANDARD.typeOf(stack);
-        return type != null && type.name().startsWith(prefix);
+        EnumAmmo[] twins = twins();
+        if (twins.length == 0) return false;
+        EnumAmmo type = ModItems.AMMO_STANDARD.typeOf(stack);
+        if (type == null) return false;
+        for (EnumAmmo t : twins) if (t == type) return true;
+        return false;
     }
 
-    // pre_rework_guns_use_new_ammo: old ammo id prefix -> post-rework EnumAmmo name prefix, same calibre only
-    private static final String[][] NEW_AMMO = {
-        {"ammo_357", "M357_"}, {"ammo_44", "M44_"}, {"ammo_45", "P45_"}, {"ammo_22lr", "P22_"},
-        {"ammo_9mm", "P9_"}, {"ammo_556", "R556_"}, {"ammo_762", "R762_"}, {"ammo_50bmg", "BMG50_"},
-        {"ammo_75bolt", "B75"}, {"ammo_12gauge", "G12"}, {"ammo_grenade", "G40_"},
-        {"ammo_rocket", "ROCKET_"}, {"ammo_fuel", "FLAME_"}, {"ammo_nuke", "NUKE_"}
-    };
-    private String newAmmoPrefix;
+    /**
+     * The post-rework rounds this config also loads: its old round's twins while pre_rework_guns_use_new_ammo is on,
+     * and always {@link #alsoAccepts} for a config whose own round is already post-rework.
+     */
+    public EnumAmmo[] alsoAccepts;
 
-    private String newAmmoPrefix() {
-        if (newAmmoPrefix == null) {
-            String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(ammo.get()).getPath();
-            newAmmoPrefix = "";
-            for (String[] m : NEW_AMMO) if (id.startsWith(m[0])) { newAmmoPrefix = m[1]; break; }
-        }
-        return newAmmoPrefix;
+    private EnumAmmo[] twins() {
+        if (alsoAccepts != null) return alsoAccepts;
+        if (!BalanceConfig.preReworkGunsUseNewAmmo) return NO_TWINS;
+        return LegacyAmmo.twins(BuiltInRegistries.ITEM.getKey(ammo.get()).getPath());
     }
 
+    private static final EnumAmmo[] NO_TWINS = {};
+
+    /** the round shown for this config: the first twin once the old round is converted */
     public ItemStack ammoStack() {
-        return ammo == null ? ItemStack.EMPTY : new ItemStack(ammo.get());
+        if (ammo == null) return ItemStack.EMPTY;
+        if (alsoAccepts == null && BalanceConfig.preReworkGunsUseNewAmmo) {
+            EnumAmmo[] twins = LegacyAmmo.twins(BuiltInRegistries.ITEM.getKey(ammo.get()).getPath());
+            if (twins.length > 0) return ModItems.AMMO_STANDARD.stack(twins[0]);
+        }
+        return new ItemStack(ammo.get());
     }
 
     public BulletConfiguration setToBolt(int trail) {

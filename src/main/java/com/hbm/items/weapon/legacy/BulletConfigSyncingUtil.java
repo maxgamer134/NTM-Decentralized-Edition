@@ -100,14 +100,12 @@ public final class BulletConfigSyncingUtil {
     public static final int G12_INCENDIARY = i++;
     public static final int G12_SHRAPNEL = i++;
     public static final int G12_DU = i++;
-    public static final int G12_AM = i++;
     public static final int G12_SLEEK = i++;
     public static final int G12_PERCUSSION = i++;
     public static final int G12HS_NORMAL = i++;
     public static final int G12HS_INCENDIARY = i++;
     public static final int G12HS_SHRAPNEL = i++;
     public static final int G12HS_DU = i++;
-    public static final int G12HS_AM = i++;
     public static final int G12HS_SLEEK = i++;
     public static final int G12HS_PERCUSSION = i++;
     public static final int LR22_NORMAL = i++;
@@ -116,13 +114,6 @@ public final class BulletConfigSyncingUtil {
     public static final int LR22_AP_FIRE = i++;
     public static final int M44_NORMAL = i++;
     public static final int M44_AP = i++;
-    public static final int M44_DU = i++;
-    public static final int M44_STAR = i++;
-    public static final int M44_PIP = i++;
-    public static final int M44_BJ = i++;
-    public static final int M44_SILVER = i++;
-    public static final int M44_ROCKET = i++;
-    public static final int M44_PHOSPHORUS = i++;
     public static final int P9_NORMAL = i++;
     public static final int P9_AP = i++;
     public static final int P9_DU = i++;
@@ -166,9 +157,6 @@ public final class BulletConfigSyncingUtil {
     public static final int G4_KAMPF = i++;
     public static final int G4_CANISTER = i++;
     public static final int G4_CLAW = i++;
-    public static final int G4_VAMPIRE = i++;
-    public static final int G4_VOID = i++;
-    public static final int G4_TITAN = i++;
     public static final int G4_SLEEK = i++;
     public static final int SPECIAL_OSIPR = i++;
     public static final int SPECIAL_OSIPR_CHARGED = i++;
@@ -278,7 +266,6 @@ public final class BulletConfigSyncingUtil {
     public static final int GLASS_EMGAMMA = i++;
     public static final int CHL_LR22 = i++;
     public static final int CHL_LR22_FIRE = i++;
-    public static final int CHL_M44 = i++;
     public static final int CHL_P9 = i++;
     public static final int CHL_BMG50 = i++;
     public static final int CHL_R5 = i++;
@@ -334,14 +321,12 @@ public final class BulletConfigSyncingUtil {
         configSet.put(G12_INCENDIARY, Gun12GaugeFactory.get12GaugeFireConfig());
         configSet.put(G12_SHRAPNEL, Gun12GaugeFactory.get12GaugeShrapnelConfig());
         configSet.put(G12_DU, Gun12GaugeFactory.get12GaugeDUConfig());
-        configSet.put(G12_AM, Gun12GaugeFactory.get12GaugeAMConfig());
         configSet.put(G12_SLEEK, Gun12GaugeFactory.get12GaugeSleekConfig());
         configSet.put(G12_PERCUSSION, Gun12GaugeFactory.get12GaugePercussionConfig());
         configSet.put(G12HS_NORMAL, Gun12GaugeFactory.get12GaugeConfig().setHeadshot(2F));
         configSet.put(G12HS_INCENDIARY, Gun12GaugeFactory.get12GaugeFireConfig().setHeadshot(2F));
         configSet.put(G12HS_SHRAPNEL, Gun12GaugeFactory.get12GaugeShrapnelConfig().setHeadshot(2F));
         configSet.put(G12HS_DU, Gun12GaugeFactory.get12GaugeDUConfig().setHeadshot(2F));
-        configSet.put(G12HS_AM, Gun12GaugeFactory.get12GaugeAMConfig().setHeadshot(2F));
         configSet.put(G12HS_SLEEK, Gun12GaugeFactory.get12GaugeSleekConfig().setHeadshot(2F));
         configSet.put(G12HS_PERCUSSION, Gun12GaugeFactory.get12GaugePercussionConfig().setHeadshot(2F));
         configSet.put(G4_NORMAL, Gun4GaugeFactory.get4GaugeConfig());
@@ -354,9 +339,6 @@ public final class BulletConfigSyncingUtil {
         configSet.put(G4_KAMPF, Gun4GaugeFactory.getGrenadeKampfConfig());
         configSet.put(G4_CANISTER, Gun4GaugeFactory.getGrenadeCanisterConfig());
         configSet.put(G4_CLAW, Gun4GaugeFactory.get4GaugeClawConfig());
-        configSet.put(G4_VAMPIRE, Gun4GaugeFactory.get4GaugeVampireConfig());
-        configSet.put(G4_VOID, Gun4GaugeFactory.get4GaugeVoidConfig());
-        configSet.put(G4_TITAN, Gun4GaugeFactory.get4GaugeQuackConfig());
         configSet.put(G4_SLEEK, Gun4GaugeFactory.get4GaugeSleekConfig());
         configSet.put(G20_NORMAL_FIRE, Gun20GaugeFactory.get20GaugeConfig().setToFire(3));
         configSet.put(G20_SHRAPNEL_FIRE, Gun20GaugeFactory.get20GaugeShrapnelConfig().setToFire(3));
@@ -378,14 +360,6 @@ public final class BulletConfigSyncingUtil {
 
         configSet.put(M44_NORMAL, Gun44MagnumFactory.getNoPipConfig());
         configSet.put(M44_AP, Gun44MagnumFactory.getNoPipAPConfig());
-        configSet.put(M44_DU, Gun44MagnumFactory.getNoPipDUConfig());
-        configSet.put(M44_PHOSPHORUS, Gun44MagnumFactory.getPhosphorusConfig());
-        configSet.put(M44_STAR, Gun44MagnumFactory.getNoPipStarConfig());
-        configSet.put(M44_PIP, Gun44MagnumFactory.getPipConfig());
-        configSet.put(M44_BJ, Gun44MagnumFactory.getBJConfig());
-        configSet.put(M44_SILVER, Gun44MagnumFactory.getSilverStormConfig());
-        configSet.put(M44_ROCKET, Gun44MagnumFactory.getRocketConfig());
-        configSet.put(CHL_M44, Gun44MagnumFactory.getNoPipConfig().setToHoming(LegacyGuns.AMMO_44_CHLOROPHYTE));
 
 
         configSet.put(ACP_45, Gun45ACPFactory.get45AutoConfig());

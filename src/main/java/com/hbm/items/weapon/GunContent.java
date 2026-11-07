@@ -83,7 +83,8 @@ public final class GunContent {
         boolean post = BalanceConfig.disableAllGuns || BalanceConfig.disablePostReworkGuns;
         boolean pre = BalanceConfig.disableAllGuns || BalanceConfig.disablePreReworkGuns;
         boolean war = BalanceConfig.disableWarExplosives;
-        if (!post && !war && (!pre || PRE_REWORK.isEmpty())) return Set.of();
+        boolean conv = BalanceConfig.preReworkGunsUseNewAmmo;
+        if (!post && !war && !conv && (!pre || PRE_REWORK.isEmpty())) return Set.of();
         Set<Item> out = Collections.newSetFromMap(new IdentityHashMap<>());
         for (Map.Entry<net.minecraft.resources.ResourceKey<Item>, Item> e :
                 BuiltInRegistries.ITEM.entrySet()) {
@@ -95,6 +96,11 @@ public final class GunContent {
                                     && POST_REWORK.matcher(id.getPath()).matches())))
                 out.add(e.getValue());
             else if (war && war(id, e.getValue())) out.add(e.getValue());
+            // pre_rework_guns_use_new_ammo: an old round with a post-rework twin gives way to it
+            else if (conv
+                    && id.getNamespace().equals(NuclearTech.MOD_ID)
+                    && com.hbm.items.weapon.legacy.LegacyAmmo.isConverted(id.getPath()))
+                out.add(e.getValue());
         }
         return Collections.unmodifiableSet(out);
     }

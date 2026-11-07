@@ -116,7 +116,9 @@ public final class GunContent {
             else if (post
                     && (e.getValue() instanceof ItemGunBaseNT
                             || (id.getNamespace().equals(NuclearTech.MOD_ID)
-                                    && POST_REWORK.matcher(id.getPath()).matches())))
+                                    && (POST_REWORK.matcher(id.getPath()).matches()
+                                            // the turrets fire post-rework rounds: they go with the guns
+                                            || id.getPath().startsWith("turret_")))))
                 out.add(e.getValue());
             else if (war && war(id, e.getValue())) out.add(e.getValue());
             else if (!post && id.getNamespace().equals(NuclearTech.MOD_ID) && DUPLICATES.contains(id.getPath())) {

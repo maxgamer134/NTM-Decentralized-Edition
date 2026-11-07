@@ -859,7 +859,8 @@ public abstract class BlockEntityTurretBaseNT extends BlockEntityMachineBase
     }
 
     public boolean isOn() {
-        return isOn;
+        // disable_all_guns / disable_post_rework_guns switch the turrets off too
+        return isOn && !com.hbm.items.weapon.GunContent.isDisabled(getBlockState().getBlock().asItem());
     }
 
     public long getConsumption() {

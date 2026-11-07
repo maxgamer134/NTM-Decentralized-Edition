@@ -164,7 +164,31 @@ public class BulletConfiguration implements Cloneable {
     public SpentCasing spentCasing;
 
     public boolean isAmmo(ItemStack stack) {
-        return ammo != null && !stack.isEmpty() && stack.is(ammo.get());
+        if (ammo == null || stack.isEmpty()) return false;
+        if (stack.is(ammo.get())) return true;
+        if (!com.hbm.config.BalanceConfig.preReworkGunsUseNewAmmo) return false;
+        String prefix = newAmmoPrefix();
+        if (prefix.isEmpty()) return false;
+        var type = com.hbm.items.ModItems.AMMO_STANDARD.typeOf(stack);
+        return type != null && type.name().startsWith(prefix);
+    }
+
+    // pre_rework_guns_use_new_ammo: old ammo id prefix -> post-rework EnumAmmo name prefix, same calibre only
+    private static final String[][] NEW_AMMO = {
+        {"ammo_357", "M357_"}, {"ammo_44", "M44_"}, {"ammo_45", "P45_"}, {"ammo_22lr", "P22_"},
+        {"ammo_9mm", "P9_"}, {"ammo_556", "R556_"}, {"ammo_762", "R762_"}, {"ammo_50bmg", "BMG50_"},
+        {"ammo_75bolt", "B75"}, {"ammo_12gauge", "G12"}, {"ammo_grenade", "G40_"},
+        {"ammo_rocket", "ROCKET_"}, {"ammo_fuel", "FLAME_"}, {"ammo_nuke", "NUKE_"}
+    };
+    private String newAmmoPrefix;
+
+    private String newAmmoPrefix() {
+        if (newAmmoPrefix == null) {
+            String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(ammo.get()).getPath();
+            newAmmoPrefix = "";
+            for (String[] m : NEW_AMMO) if (id.startsWith(m[0])) { newAmmoPrefix = m[1]; break; }
+        }
+        return newAmmoPrefix;
     }
 
     public ItemStack ammoStack() {

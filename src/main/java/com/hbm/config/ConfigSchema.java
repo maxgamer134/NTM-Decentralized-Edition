@@ -122,6 +122,16 @@ public final class ConfigSchema {
                     true,
                     "Does the same as disable_all_guns for the guns main had before its gun rework.");
 
+    public static final ConfigEntry<Boolean> PRE_REWORK_GUNS_USE_NEW_AMMO =
+            bool(
+                    Domain.CONTENT,
+                    "guns",
+                    "pre_rework_guns_use_new_ammo",
+                    false,
+                    "Lets the pre-rework guns also load the post-rework ammo of the same calibre (.357, .44,"
+                            + " .45, .22, 9mm, 5.56, 7.62, .50 BMG, .75 bolts, 12 gauge, 40mm grenades,"
+                            + " rockets, flamer fuel and mini nukes). Their old ammo still works.");
+
     public static final ConfigEntry<Boolean> DISABLE_WAR_EXPLOSIVES =
             bool(
                     Domain.CONTENT,
@@ -654,6 +664,7 @@ public final class ConfigSchema {
                     DISABLE_POST_REWORK_GUNS,
                     DISABLE_PRE_REWORK_GUNS,
                     DISABLE_WAR_EXPLOSIVES,
+                    PRE_REWORK_GUNS_USE_NEW_AMMO,
                     ENABLE_LBSM_SIMPLE_CHEMISTRY,
                     ENABLE_LBSM_SIMPLE_CENTRIFUGE,
                     ENABLE_LBSM_UNLOCK_ANVIL,

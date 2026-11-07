@@ -85,6 +85,12 @@ public abstract class ItemRenderWeaponBase {
 
         if (player == null || minecraft.getCameraEntity() != player) return computed;
         ItemStack stack = player.getMainHandItem();
+        // main's setupFOV for the pre-rework guns: sneaking zooms to zoomFOV
+        if (stack.getItem() instanceof com.hbm.items.weapon.legacy.ItemGunBase legacy) {
+            var cfg = legacy.mainConfig;
+            if (cfg == null || cfg.zoomFOV == 0F || !player.isShiftKeyDown()) return computed;
+            return cfg.absoluteFOV ? cfg.zoomFOV : computed + cfg.zoomFOV;
+        }
         ItemRenderWeaponBase renderer = get(stack);
         if (renderer == null) return computed;
         return renderer.getViewFOV(stack, computed);

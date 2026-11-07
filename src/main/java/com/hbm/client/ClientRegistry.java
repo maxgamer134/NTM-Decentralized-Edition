@@ -1450,6 +1450,19 @@ public final class ClientRegistry {
     }
 
     public static void renderGunScope(GuiGraphicsExtractor graphics) {
+        var holder = Minecraft.getInstance().player;
+        // main's scope overlay for the pre-rework guns: drawn while sneaking
+        if (hudVisible()
+                && holder != null
+                && holder.isShiftKeyDown()
+                && holder.getMainHandItem().getItem()
+                        instanceof com.hbm.items.weapon.legacy.ItemGunBase legacy
+                && legacy.mainConfig != null
+                && legacy.mainConfig.scopeTexture != null) {
+            ResourceLocation tex = legacy.mainConfig.scopeTexture;
+            NukeHud.shaken(graphics, () -> RenderScreenOverlay.renderScope(graphics, tex));
+            return;
+        }
         if (!hudVisible()
                 || ItemGunBaseNT.aimingProgress != 1F
                 || ItemGunBaseNT.prevAimingProgress != 1F) return;

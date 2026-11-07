@@ -93,7 +93,9 @@ public final class RenderersPowered {
 
 
 
-		part(c, pose, LegacyResources.glass_cannon, tex, GLASS_CANNON_GUN, light);
+		// main drew the glass body untextured, blended, glColor4f(0.9, 1, 1, 0.5) with no depth write
+		c.submitCustomGeometry(pose, com.hbm.backport.client.rendertype.RenderTypes.entityTranslucent(com.hbm.client.render.RenderTextures.WHITE),
+				(p, buf) -> LegacyResources.glass_cannon.renderPart(p, buf, light, 0x80E6FFFF, GLASS_CANNON_GUN));
 
 
 

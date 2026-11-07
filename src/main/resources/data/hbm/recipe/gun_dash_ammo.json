@@ -1,0 +1,12 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "#c:plates/steel",
+    "minecraft:gunpowder",
+    "minecraft:gunpowder"
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:gun_dash_ammo"
+  }
+}

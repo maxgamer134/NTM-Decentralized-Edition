@@ -737,7 +737,12 @@ public final class RenderersGauge {
                     return;
                 }
             }
-            all(c, pose, LegacyResources.uboinik, LegacyResources.uboinik_tex, light);
+            // main drew one shell per round: Shell6 from 1, Shell1 from 2 ... Shell5 from 6
+            int mag = com.hbm.items.weapon.legacy.ItemGunBase.getMag(stack);
+            java.util.List<String> empty = new java.util.ArrayList<>();
+            String[] order = {"Shell6", "Shell1", "Shell2", "Shell3", "Shell4", "Shell5"};
+            for (int i = mag; i < order.length; i++) if (i >= 0) empty.add(order[i]);
+            allExcept(c, pose, LegacyResources.uboinik, LegacyResources.uboinik_tex, light, empty.toArray(new String[0]));
         }
     }
 }

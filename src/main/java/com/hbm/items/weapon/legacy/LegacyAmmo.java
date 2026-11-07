@@ -153,6 +153,15 @@ public final class LegacyAmmo {
         accepted.addAll(add);
     }
 
+    private static final Map<BulletConfig, Integer> LEGACY_ID = new IdentityHashMap<>();
+
+    /** the old bullet config a copy fires, so the old round keeps its own effects; -1 for a post-rework round */
+    public static int legacyConfigFor(BulletConfig cfg) {
+        String old = COPY_OF.get(cfg);
+        if (old == null) return -1;
+        return LEGACY_ID.computeIfAbsent(cfg, k -> BulletConfigSyncingUtil.idForAmmo(item(old).get()));
+    }
+
     private static boolean isOfCalibre(BulletConfig c, String prefix) {
         return c.ammoType != null && !COPY_OF.containsKey(c) && c.ammoType.name().startsWith(prefix);
     }

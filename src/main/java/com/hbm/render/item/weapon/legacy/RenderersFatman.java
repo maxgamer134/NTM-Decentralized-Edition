@@ -47,7 +47,9 @@ public final class RenderersFatman {
 				tex = Library.id("textures/models/fatman_launcher.png");
 				rot(pose, -150.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(-0.8F, -0.1F, -0.2F);
-				all(c, pose, LegacyResources.model_fatman, tex, light);
+				// main drew the loaded nuke (Shape19-26) only with a round in the gun
+				if (com.hbm.items.weapon.legacy.ItemGunBase.getMag(stack) > 0) all(c, pose, LegacyResources.model_fatman, tex, light);
+				else allExcept(c, pose, LegacyResources.model_fatman, tex, light, "Shape19", "Shape20", "Shape21", "Shape22", "Shape23", "Shape24", "Shape25", "Shape26");
 			pose.popPose();
 			break;
 		case EQUIPPED:
@@ -62,7 +64,9 @@ public final class RenderersFatman {
 				rot(pose, -5.0F, 0.0F, 0.0F, 1.0F);
 				pose.translate(0.5F, -0.2F, 0.0F);
 				pose.scale(1.5F, 1.5F, 1.5F);
-				all(c, pose, LegacyResources.model_fatman, tex, light);
+				// main drew the loaded nuke (Shape19-26) only with a round in the gun
+				if (com.hbm.items.weapon.legacy.ItemGunBase.getMag(stack) > 0) all(c, pose, LegacyResources.model_fatman, tex, light);
+				else allExcept(c, pose, LegacyResources.model_fatman, tex, light, "Shape19", "Shape20", "Shape21", "Shape22", "Shape23", "Shape24", "Shape25", "Shape26");
 			pose.popPose();
 		default: break;
 		}

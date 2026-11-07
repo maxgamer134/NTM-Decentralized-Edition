@@ -555,6 +555,17 @@ public final class BulletConfigSyncingUtil {
         loaded = true;
     }
 
+    /** the first (lowest) old bullet config that fires this ammo item, or -1 */
+    public static int idForAmmo(net.minecraft.world.item.Item item) {
+        if (!loaded) loadConfigsForSync();
+        int best = -1;
+        for (var e : configSet.int2ObjectEntrySet()) {
+            BulletConfiguration cfg = e.getValue();
+            if (cfg.ammo != null && cfg.ammo.get() == item && (best < 0 || e.getIntKey() < best)) best = e.getIntKey();
+        }
+        return best;
+    }
+
     public static BulletConfiguration pullConfig(int key) {
         if (!loaded) loadConfigsForSync();
         return configSet.get(key);

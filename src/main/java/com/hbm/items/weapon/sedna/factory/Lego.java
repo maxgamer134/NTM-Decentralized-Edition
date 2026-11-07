@@ -406,6 +406,21 @@ public class Lego {
                     entity.getRandom().nextInt(config.projectilesMax - config.projectilesMin + 1);
         projectiles = (int) (projectiles * primary.getSplitProjectiles(stack));
 
+        // a pre-rework round fires its own old bullet, effects and all, as many as it always did
+        int legacy = com.hbm.items.weapon.legacy.LegacyAmmo.legacyConfigFor(config);
+        if (legacy >= 0) {
+            var old = com.hbm.items.weapon.legacy.BulletConfigSyncingUtil.pullConfig(legacy);
+            int count = old.bulletsMin
+                    + (old.bulletsMax > old.bulletsMin
+                            ? entity.getRandom().nextInt(old.bulletsMax - old.bulletsMin + 1)
+                            : 0);
+            if (!entity.level().isClientSide())
+                for (int i = 0; i < Math.max(1, count); i++)
+                    entity.level().addFreshEntity(
+                            new com.hbm.entity.projectile.EntityBulletBaseNT(entity.level(), legacy, entity));
+            projectiles = 0;
+        }
+
         for (int i = 0; i < projectiles; i++) {
             float damage = calcDamage(ctx, stack, primary, calcWear, index);
             float spread = calcSpread(ctx, stack, primary, config, calcWear, index, aim);

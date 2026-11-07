@@ -282,10 +282,12 @@ public final class ConfigSchema {
                     Domain.RUNTIME,
                     "radiation",
                     "hazard_rate",
-                    5,
+                    // backport-fix: BF-144 main applies inventory and equipment hazards every
+                    // tick; 1 is main's cadence, higher values trade smoothness for server time
+                    1,
                     1,
                     Integer.MAX_VALUE,
-                    "Ticks between item/inventory hazard applications.");
+                    "Ticks between item/inventory hazard applications (1 = every tick, like 1.7.10).");
     // backport-fix: BF-126 (GitHub #34) 1.7.10's HAZ_01_disableCoaldust back as a config line; the
     // hazards datapack value disable_coal keeps working, either one turns coal dust off
     public static final ConfigEntry<Boolean> DISABLE_COAL_DUST =

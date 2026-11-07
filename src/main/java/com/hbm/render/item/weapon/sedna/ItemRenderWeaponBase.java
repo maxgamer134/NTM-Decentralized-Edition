@@ -88,7 +88,7 @@ public abstract class ItemRenderWeaponBase {
         // main's setupFOV for the pre-rework guns: sneaking zooms to zoomFOV
         if (stack.getItem() instanceof com.hbm.items.weapon.legacy.ItemGunBase legacy) {
             var cfg = legacy.mainConfig;
-            if (cfg == null || cfg.zoomFOV == 0F || !player.isShiftKeyDown()) return computed;
+            if (cfg == null || cfg.zoomFOV == 0F || !com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) return computed;
             return cfg.absoluteFOV ? cfg.zoomFOV : computed + cfg.zoomFOV;
         }
         ItemRenderWeaponBase renderer = get(stack);

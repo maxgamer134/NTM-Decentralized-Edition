@@ -238,7 +238,7 @@ public final class RenderersGauge {
 		switch (ctx) {
 		case FIRST_PERSON:// In hand from POV
 			rot(pose, -90.0F, 0.0F, 1.0F, 0.0F);
-			if (player.isShiftKeyDown()) {
+			if (com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 				rot(pose, 25.0F, 1.0F, 0.0F, 0.0F);
 				rot(pose, -5F, 0.0F, 1.0F, 0.0F);
 				pose.translate(-1.007F, 0F, -2.5F);
@@ -419,7 +419,7 @@ public final class RenderersGauge {
             rot(pose, -100, 0.0F, 1.0F, 0.0F);
             pose.scale((float) (0.75), (float) (0.75), (float) (0.75));
             
-            if(player.isShiftKeyDown()) {
+            if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
                 rot(pose, 4.5F, 0.0F, 1.0F, 0.0F);
                 rot(pose, -2F, 0.0F, 0.0F, 1.0F);
                 pose.translate(-0.9F, 0.2F, 0.325F);
@@ -537,7 +537,7 @@ public final class RenderersGauge {
 			if(recoil != null)
 				pose.translate(0, 0, recoil[0]);
 
-			if(player.isShiftKeyDown()) {
+			if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 				rot(pose, -3F, 0.0F, 0.0F, 1.0F);
 				rot(pose, 2F, 0.0F, 1.0F, 0.0F);
 				rot(pose, 3F, 1.0F, 0.0F, 0.0F);
@@ -639,7 +639,7 @@ public final class RenderersGauge {
 			pose.translate(0.75, 0.5, 0);
 			pose.scale((float) (s0), (float) (s0), (float) (s0));
 			
-			if(!player.isShiftKeyDown()) {
+			if(!com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 				rot(pose, 100, (float) (0), (float) (-1), (float) (0));
 				rot(pose, -5, (float) (0), (float) (1), (float) (0));
 				rot(pose, 20, (float) (1), (float) (0), (float) (0));

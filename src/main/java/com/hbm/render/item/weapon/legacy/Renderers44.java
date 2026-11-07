@@ -52,7 +52,7 @@ public final class Renderers44 {
 
 		
 		//prevent rendering when using scope
-		if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get() && ctx == Ctx.FIRST_PERSON && (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isShiftKeyDown())) return;
+		if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get() && ctx == Ctx.FIRST_PERSON && (Minecraft.getInstance().player != null && com.hbm.items.weapon.legacy.ItemGunBase.isAiming(Minecraft.getInstance().player))) return;
 		
 		pose.pushPose();
 		
@@ -228,7 +228,7 @@ public final class Renderers44 {
 
 		
 		//prevent rendering when using scope
-		if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get() && ctx == Ctx.FIRST_PERSON && (Minecraft.getInstance().player != null && Minecraft.getInstance().player.isShiftKeyDown())) return;
+		if(stack.getItem() == LegacyGuns.GUN_REVOLVER_PIP.get() && ctx == Ctx.FIRST_PERSON && (Minecraft.getInstance().player != null && com.hbm.items.weapon.legacy.ItemGunBase.isAiming(Minecraft.getInstance().player))) return;
 		
 		pose.pushPose();
 

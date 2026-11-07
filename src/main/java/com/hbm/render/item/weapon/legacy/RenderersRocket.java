@@ -56,7 +56,7 @@ public final class RenderersRocket {
 				if(stack.getItem() == LegacyGuns.GUN_PANZERSCHRECK_LEGACY.get()) {
 					pose.scale(1.5F, 1.5F, 1.5F);
 					
-					if(Minecraft.getInstance().player.isShiftKeyDown())
+					if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(Minecraft.getInstance().player))
 						pose.translate(-0.2F, -0.3F, -0.5F);
 					else
 						pose.translate(-0.1F, 0.0F, 0.0F);
@@ -136,7 +136,7 @@ public final class RenderersRocket {
 				rot(pose, -10F, 0.0F, 1.0F, 0.0F);
 				pose.scale((float) (0.5), (float) (0.5), (float) (0.5));
 				
-				if(player.isShiftKeyDown()) {
+				if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 					rot(pose, 5F, 0.0F, 1.0F, 0.0F);
 					pose.translate(1.0F, 0.5F, 0.3F);
 				}

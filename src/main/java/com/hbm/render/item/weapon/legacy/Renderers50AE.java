@@ -74,7 +74,7 @@ public final class Renderers50AE {
 				rot(pose, -10F, 0.0F, 1.0F, 0.0F);
 				pose.scale((float) (0.75), (float) (0.75), (float) (0.75));
 				
-				if(player.isShiftKeyDown()) {
+				if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 					pose.translate(1.16F, 0.35F, -0.8F);
 					rot(pose, 5.5F, 0.0F, 1.0F, 0.0F);
 					rot(pose, 4F, 1.0F, 0.0F, 0.0F);
@@ -87,7 +87,7 @@ public final class Renderers50AE {
 				pose.translate(0.2F, 0.2F, 0.8F);
 				pose.scale((float) (0.2), (float) (0.2), (float) (0.2));
 				
-				if(player.isShiftKeyDown()) {
+				if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 					pose.translate(3.7F, 1.7F, 0F);
 					rot(pose, -5F, 0.0F, 1.0F, 0.0F);
 				}
@@ -100,7 +100,7 @@ public final class Renderers50AE {
 				rot(pose, -10F, 0.0F, 1.0F, 0.0F);
 				pose.scale((float) (0.5), (float) (0.5), (float) (0.5));
 				
-				if(player.isShiftKeyDown()) {
+				if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 					pose.translate(0.75F, 0.2F, 0.3F);
 				}
 			}
@@ -112,7 +112,7 @@ public final class Renderers50AE {
 				rot(pose, 170F, 0.0F, 1.0F, 0.0F);
 				pose.scale((float) (0.25), (float) (0.25), (float) (0.25));
 				
-				if(player.isShiftKeyDown()) {
+				if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 					rot(pose, 5F, 0.0F, 1.0F, 0.0F);
 					rot(pose, -2F, 0.0F, 0.0F, 1.0F);
 					pose.translate(-2.0F, 1.2F, 3.7F);
@@ -129,7 +129,7 @@ public final class Renderers50AE {
 				rot(pose, -10F, 0.0F, 1.0F, 0.0F);
 				pose.scale((float) (0.5), (float) (0.5), (float) (0.5));
 				
-				if(player.isShiftKeyDown()) {
+				if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 					rot(pose, 5F, 0.0F, 1.0F, 0.0F);
 					pose.translate(1.0F, 0.5F, 0.3F);
 				}

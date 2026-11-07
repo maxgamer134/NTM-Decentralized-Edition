@@ -147,7 +147,7 @@ public final class Renderers50BMG {
 		switch (ctx) {
 		case FIRST_PERSON:// In hand from POV
 			
-			if(Minecraft.getInstance().player.isShiftKeyDown()) {
+			if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(Minecraft.getInstance().player)) {
 				pose.popPose();
 				return;
 			}

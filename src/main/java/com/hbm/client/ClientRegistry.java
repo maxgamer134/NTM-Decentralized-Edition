@@ -1454,7 +1454,7 @@ public final class ClientRegistry {
         // main's scope overlay for the pre-rework guns: drawn while sneaking
         if (hudVisible()
                 && holder != null
-                && holder.isShiftKeyDown()
+                && com.hbm.items.weapon.legacy.ItemGunBase.isAiming(holder)
                 && holder.getMainHandItem().getItem()
                         instanceof com.hbm.items.weapon.legacy.ItemGunBase legacy
                 && legacy.mainConfig != null

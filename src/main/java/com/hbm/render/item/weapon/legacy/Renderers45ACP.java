@@ -141,7 +141,7 @@ public final class Renderers45ACP {
 		case FIRST_PERSON:// In hand from POV
 			pose.scale((float) (scale3), (float) (scale3), (float) (scale3));
 			rot(pose, 90F, 0F, 1F, 0F);
-			if(player.isShiftKeyDown()) {
+			if(com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) {
 				rot(pose, -25F, 1F, 0F, 0F);
 				rot(pose, -5F, 0F, 1F, 0F);
 				pose.translate(20.15F, 3.5F, 18F);

@@ -137,7 +137,7 @@ public final class Renderers762 {
 		
 		case FIRST_PERSON:
 			
-			if(stack.getItem() == LegacyGuns.GUN_BOLT_ACTION_SATURNITE.get() && Minecraft.getInstance().player.isShiftKeyDown()) {
+			if(stack.getItem() == LegacyGuns.GUN_BOLT_ACTION_SATURNITE.get() && com.hbm.items.weapon.legacy.ItemGunBase.isAiming(Minecraft.getInstance().player)) {
 				pose.popPose();
 				return;
 			}

@@ -36,7 +36,7 @@ public final class LegacyGunHud {
 
     public static boolean renderCrosshair(GuiGraphicsExtractor graphics, Player player, ItemStack stack) {
         if (!(stack.getItem() instanceof ItemGunBase gun)) return false;
-        if (!(gun.mainConfig.hasSights && player.isShiftKeyDown()) && gun.mainConfig.crosshair != null)
+        if (!(gun.mainConfig.hasSights && com.hbm.items.weapon.legacy.ItemGunBase.isAiming(player)) && gun.mainConfig.crosshair != null)
             RenderScreenOverlay.renderCustomCrosshairs(graphics, gun.mainConfig.crosshair);
         return true;
     }

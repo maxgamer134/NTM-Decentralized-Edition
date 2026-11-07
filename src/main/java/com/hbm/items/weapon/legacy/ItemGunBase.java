@@ -67,7 +67,15 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
     public boolean canHandleKeybind(Player player, ItemStack stack, EnumKeybind keybind) {
         return keybind == EnumKeybind.GUN_PRIMARY
                 || keybind == EnumKeybind.GUN_SECONDARY
+                || keybind == EnumKeybind.GUN_TERTIARY
                 || keybind == EnumKeybind.RELOAD;
+    }
+
+    /** aiming, toggled by the post-rework aim key (main aimed these by sneaking) */
+    public static boolean isAiming(net.minecraft.world.entity.@Nullable LivingEntity entity) {
+        if (entity == null) return false;
+        ItemStack held = entity.getMainHandItem();
+        return held.getItem() instanceof ItemGunBase && com.hbm.items.weapon.sedna.ItemGunBaseNT.getIsAiming(held);
     }
 
     @Override
@@ -81,6 +89,11 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
                 setIsMouseDown(stack, state);
                 if (state) startAction(stack, world, player, true);
                 else endAction(stack, world, player, true);
+            }
+            case GUN_TERTIARY -> {
+                if (state)
+                    com.hbm.items.weapon.sedna.ItemGunBaseNT.setIsAiming(
+                            stack, !com.hbm.items.weapon.sedna.ItemGunBaseNT.getIsAiming(stack));
             }
             case GUN_SECONDARY -> {
                 if (state && getIsMouseDown(stack)) return;
@@ -655,6 +668,7 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
 
     @Override
     public void onEquip(Player player, ItemStack stack) {
+        com.hbm.items.weapon.sedna.ItemGunBaseNT.setIsAiming(stack, false);
         if (!mainConfig.equipSound.isEmpty()) LegacySounds.play(player, mainConfig.equipSound, 1, 1);
         playAnimation(player, stack, AnimType.EQUIP);
     }

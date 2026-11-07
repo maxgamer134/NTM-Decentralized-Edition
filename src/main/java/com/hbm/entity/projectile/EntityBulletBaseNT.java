@@ -123,7 +123,7 @@ public class EntityBulletBaseNT extends EntityThrowableInterp {
             GunConfiguration cfg = base.mainConfig;
 
             if (cfg != null) {
-                if (cfg.hasSights && entity.isShiftKeyDown()) {
+                if (cfg.hasSights && com.hbm.items.weapon.legacy.ItemGunBase.isAiming(entity)) {
                     offsetShot = false;
                     accuracyBoost = true;
                 }

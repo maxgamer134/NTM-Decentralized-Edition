@@ -505,6 +505,13 @@ public final class ConfigSchema {
 
     public static final ConfigEntry<Boolean> DAMAGE_COMPATIBILITY_MODE =
             bool(Domain.RUNTIME, "damage", "compatibility_mode", false, "");
+    public static final ConfigEntry<Boolean> SAFE_SC_BATTERY_SOCKET =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "safe_sc_battery_socket",
+                    false,
+                    "Self-charging batteries in a battery socket fire discharge beams, as in main. On: they sit there safely.");
     public static final ConfigEntry<Boolean> SPIKES_INSTAKILL =
             bool(
                     Domain.RUNTIME,
@@ -735,6 +742,7 @@ public final class ConfigSchema {
                     TOOL_RECURSION_DEPTH,
                     DAMAGE_COMPATIBILITY_MODE,
                     SPIKES_INSTAKILL,
+                    SAFE_SC_BATTERY_SOCKET,
                     ITEM_HAZARD_DROP_TICKRATE,
                     UNSTABLE_RECOVERY_SWEEP,
                     TOOL_HUD_INDICATOR_X,

@@ -284,7 +284,8 @@ public class BlockEntityBatterySocket extends BlockEntityMachineBase
     }
 
     private boolean hasSCLoaded() {
-        return battery().getItem() instanceof ItemBatterySC sc && sc.tier != EnumBatterySC.EMPTY;
+        return !com.hbm.config.NeoForgeHbmConfig.runtime().safeScBatterySocket()
+                && battery().getItem() instanceof ItemBatterySC sc && sc.tier != EnumBatterySC.EMPTY;
     }
 
     private void pickNewSCTarget() {

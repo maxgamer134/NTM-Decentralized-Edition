@@ -55,8 +55,36 @@
       "weight": 2
     },
     {
-      "structure": "hbm:features",
-      "weight": 50
+      "structure": "hbm:silo",
+      "weight": 5
+    },
+    {
+      "structure": "hbm:desert_house_1",
+      "weight": 23
+    },
+    {
+      "structure": "hbm:desert_house_2",
+      "weight": 22
+    },
+    {
+      "structure": "hbm:lab_1",
+      "weight": 8
+    },
+    {
+      "structure": "hbm:lab_2",
+      "weight": 8
+    },
+    {
+      "structure": "hbm:large_office",
+      "weight": 8
+    },
+    {
+      "structure": "hbm:large_office_corner",
+      "weight": 8
+    },
+    {
+      "structure": "hbm:rural_house",
+      "weight": 13
     },
     {
       "structure": "hbm:bunker",

@@ -21,13 +21,24 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 public class NtmFeaturesStructure extends Structure implements ColumnBiome.SelfTested {
 
     public static final MapCodec<NtmFeaturesStructure> CODEC =
-            simpleCodec(NtmFeaturesStructure::new);
+            com.mojang.serialization.codecs.RecordCodecBuilder.mapCodec(
+                    i ->
+                            i.group(
+                                            settingsCodec(i),
+                                            com.mojang.serialization.Codec.STRING
+                                                    .optionalFieldOf("piece", "")
+                                                    .forGetter(s -> s.piece))
+                                    .apply(i, NtmFeaturesStructure::new));
 
     private static final int FLATNESS_SAMPLE_RADIUS = 21;
     private static final int FLATNESS_TOLERANCE_BLOCKS = 4;
 
-    public NtmFeaturesStructure(Structure.StructureSettings settings) {
+    /** the one piece this structure places (silo, desert_house_1, ...); empty picks one at random as before */
+    private final String piece;
+
+    public NtmFeaturesStructure(Structure.StructureSettings settings, String piece) {
         super(settings);
+        this.piece = piece;
     }
 
     @Override
@@ -72,29 +83,42 @@ public class NtmFeaturesStructure extends Structure implements ColumnBiome.SelfT
 
         BlockPos origin = new BlockPos(x, centerHeight, z);
 
-        if (flat && random.nextInt(10) == 0) {
+        String want = piece;
+        if (want.isEmpty()) {
+            if (flat && random.nextInt(10) == 0) want = "silo";
+            else if (hotDryNonMesa) want = random.nextBoolean() ? "desert_house_1" : "desert_house_2";
+            else
+                want =
+                        switch (random.nextInt(6)) {
+                            case 0 -> "lab_2";
+                            case 1 -> "lab_1";
+                            case 2 -> "large_office";
+                            case 3 -> "large_office_corner";
+                            default -> "rural_house";
+                        };
+        } else if (want.equals("silo") ? !flat : want.startsWith("desert_house") != hotDryNonMesa) {
+            // each split structure keeps the ground and biome its piece needed inside hbm:features
+            return Optional.empty();
+        }
+
+        if (want.equals("silo")) {
             return Optional.of(
                     new Structure.GenerationStub(
                             origin,
                             builder ->
                                     builder.addPiece(SiloComponentPiece.create(context, origin))));
         }
-        if (hotDryNonMesa) {
-            NtmComponentPiece piece =
-                    random.nextBoolean()
-                            ? new NTMHouse1Piece(origin, random)
-                            : new NTMHouse2Piece(origin, random);
-            return grounded(context, origin, piece);
-        }
-        NtmComponentPiece piece =
-                switch (random.nextInt(6)) {
-                    case 0 -> new NTMLab2Piece(origin, random);
-                    case 1 -> new NTMLab1Piece(origin, random);
-                    case 2 -> new LargeOfficePiece(origin, random);
-                    case 3 -> new LargeOfficeCornerPiece(origin, random);
+        NtmComponentPiece part =
+                switch (want) {
+                    case "desert_house_1" -> new NTMHouse1Piece(origin, random);
+                    case "desert_house_2" -> new NTMHouse2Piece(origin, random);
+                    case "lab_1" -> new NTMLab1Piece(origin, random);
+                    case "lab_2" -> new NTMLab2Piece(origin, random);
+                    case "large_office" -> new LargeOfficePiece(origin, random);
+                    case "large_office_corner" -> new LargeOfficeCornerPiece(origin, random);
                     default -> new RuralHouse1Piece(origin, random);
                 };
-        return grounded(context, origin, piece);
+        return grounded(context, origin, part);
     }
 
     private static Optional<GenerationStub> grounded(

@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "hbm:plate_schrabidium",
+    "X": "hbm:crystal_xen",
+    "M": "hbm:mechanism_special"
+  },
+  "pattern": [
+    "SXS",
+    " M "
+  ],
+  "result": {
+    "id": "hbm:gun_vortex"
+  }
+}

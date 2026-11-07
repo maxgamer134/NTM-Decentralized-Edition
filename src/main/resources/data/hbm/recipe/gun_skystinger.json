@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "A": "hbm:ingot_australium",
+    "T": "hbm:toothpicks",
+    "S": "hbm:gun_stinger",
+    "D": "hbm:ducttape"
+  },
+  "pattern": [
+    "TTT",
+    "AAS",
+    " D "
+  ],
+  "result": {
+    "id": "hbm:gun_skystinger"
+  }
+}

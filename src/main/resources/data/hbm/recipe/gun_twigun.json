@@ -1,0 +1,13 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "B": "hbm:gun_b92",
+    "X": "hbm:crystal_xen"
+  },
+  "pattern": [
+    "BXB"
+  ],
+  "result": {
+    "id": "hbm:gun_twigun"
+  }
+}

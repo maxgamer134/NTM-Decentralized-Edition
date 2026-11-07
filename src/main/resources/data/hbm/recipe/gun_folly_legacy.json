@@ -1,0 +1,12 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "hbm:gun_folly"
+  },
+  "pattern": [
+    "G"
+  ],
+  "result": {
+    "id": "hbm:gun_folly_legacy"
+  }
+}

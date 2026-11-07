@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "hbm:toothpicks",
+    "S": "hbm:gun_lever_action",
+    "D": "hbm:ducttape"
+  },
+  "pattern": [
+    "TDT",
+    " S ",
+    " T "
+  ],
+  "result": {
+    "id": "hbm:gun_lever_action_sonata"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "hbm:gun_uboinik",
+    "M": "hbm:mechanism_special"
+  },
+  "pattern": [
+    "SMS"
+  ],
+  "result": {
+    "id": "hbm:gun_super_shotgun"
+  }
+}

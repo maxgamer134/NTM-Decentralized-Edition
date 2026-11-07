@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "W": "hbm:ingot_starmetal",
+    "T": "hbm:toothpicks",
+    "S": "hbm:gun_uboinik",
+    "D": "hbm:ducttape"
+  },
+  "pattern": [
+    "WW ",
+    "TSD",
+    " TT"
+  ],
+  "result": {
+    "id": "hbm:gun_jack"
+  }
+}

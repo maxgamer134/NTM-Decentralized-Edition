@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "A": "hbm:ingot_schrabidium",
+    "T": "hbm:toothpicks",
+    "S": "hbm:gun_xvl1456",
+    "D": "hbm:ducttape"
+  },
+  "pattern": [
+    "TDT",
+    "ASA",
+    " T "
+  ],
+  "result": {
+    "id": "hbm:gun_hp"
+  }
+}

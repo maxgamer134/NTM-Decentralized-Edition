@@ -32,6 +32,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -401,7 +402,10 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
             if (mainConfig.ejector != null && mainConfig.ejector.afterReload)
                 queueCasing(player, mainConfig.ejector, prevCfg, stack);
 
-            consumeAmmo(player, cfg, toConsume);
+            Item used = consumeAmmo(player, cfg, toConsume);
+            if (used != null)
+                com.hbm.items.weapon.sedna.ItemGunBaseNT.setValueInt(
+                        stack, KEY_LOADED, net.minecraft.core.registries.BuiltInRegistries.ITEM.getId(used));
 
         } else {
             setReloadCycle(stack, getReloadCycle(stack) - 1);
@@ -498,7 +502,7 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
                                         "desc.item.gun.ammoMag", getMag(stack), mainConfig.ammoCap)
                                 : Component.translatable("desc.item.gun.ammoBelt")));
 
-        list.accept(Component.translatable("desc.item.gun.ammoType", cfg.ammoStack().getHoverName()));
+        list.accept(Component.translatable("desc.item.gun.ammoType", loadedRound(stack, cfg).getHoverName()));
         if (altConfig != null && altConfig.ammoCap == 0) {
             BulletConfiguration alt = BulletConfigSyncingUtil.pullConfig(altConfig.config.get(0));
             if (alt != null && alt.ammo != null && cfg.ammo != null && alt.ammo.get() != cfg.ammo.get())
@@ -557,14 +561,30 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
         return count;
     }
 
-    private static void consumeAmmo(Player player, BulletConfiguration cfg, int amount) {
+    /** takes the rounds and answers the item of the last one taken, or null */
+    private static @Nullable Item consumeAmmo(Player player, BulletConfiguration cfg, int amount) {
+        Item last = null;
         for (ItemStack s : player.getInventory().items) {
-            if (amount <= 0) return;
+            if (amount <= 0) break;
             if (!cfg.isAmmo(s)) continue;
             int take = Math.min(amount, s.getCount());
+            last = s.getItem();
             s.shrink(take);
             amount -= take;
         }
+        return last;
+    }
+
+    private static final String KEY_LOADED = "legacyloaded";
+
+    /** the round shown for a gun: the item it last loaded while that still fits the config, else the config round */
+    public static ItemStack loadedRound(ItemStack gun, BulletConfiguration cfg) {
+        int id = com.hbm.items.weapon.sedna.ItemGunBaseNT.getValueInt(gun, KEY_LOADED);
+        if (id > 0) {
+            ItemStack round = new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.byId(id));
+            if (cfg.isAmmo(round)) return round;
+        }
+        return cfg.ammoStack();
     }
 
     /** the ammo a belt-fed gun draws next: the first config whose ammo the player carries */

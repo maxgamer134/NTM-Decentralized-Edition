@@ -71,7 +71,7 @@ public final class LegacyGunHud {
         String cap = max == -1 ? "∞" : String.valueOf(max);
         if (gcfg.showAmmo)
             graphics.text(Minecraft.getInstance().font, count + " / " + cap, pX + 16, pZ + 6, 0xFFFFFFFF, true);
-        graphics.item(bcfg.ammoStack(), pX, pZ);
+        graphics.item(com.hbm.items.weapon.legacy.ItemGunBase.loadedRound(stack, bcfg), pX, pZ);
         return true;
     }
 }

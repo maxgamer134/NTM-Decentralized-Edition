@@ -166,10 +166,30 @@ public final class LegacyAmmo {
     private static BulletConfig pick(List<BulletConfig> accepted, String prefix, String old) {
         for (EnumAmmo twin : twins(old))
             for (BulletConfig c : accepted) if (isOfCalibre(c, prefix) && c.ammoType == twin) return c;
+        // the post-rework round with the nearest effect, so the old round keeps its fire, blast or penetration
+        for (String effect : effects(old))
+            for (BulletConfig c : accepted)
+                if (isOfCalibre(c, prefix)
+                        && java.util.Arrays.asList(c.ammoType.name().substring(prefix.length()).split("_"))
+                                .contains(effect)) return c;
         EnumAmmo standard = STANDARD.get(prefix);
         for (BulletConfig c : accepted) if (isOfCalibre(c, prefix) && c.ammoType == standard) return c;
         for (BulletConfig c : accepted) if (isOfCalibre(c, prefix)) return c;
         throw new IllegalStateException("no " + prefix + " round to copy for " + old);
+    }
+
+    /** an old round's effect as post-rework round name parts, nearest first */
+    private static String[] effects(String old) {
+        if (old.contains("phosphorus")) return new String[] {"PHOSPHORUS", "INC"};
+        if (old.contains("incendiary")) return new String[] {"INC", "PHOSPHORUS"};
+        if (old.contains("explosive") || old.endsWith("_he") || old.endsWith("_rocket") || old.endsWith("_kampf")
+                || old.endsWith("_semtex")) return new String[] {"HE", "EXPLOSIVE", "EXP", "DEMO"};
+        if (old.contains("flechette")) return new String[] {"FLECHETTE", "AP"};
+        if (old.endsWith("_du")) return new String[] {"DU", "AP"};
+        if (old.endsWith("_ap") || old.endsWith("_star") || old.endsWith("_chlorophyte") || old.endsWith("_desh")
+                || old.endsWith("_schrabidium") || old.endsWith("_sleek")) return new String[] {"AP", "DU"};
+        if (old.endsWith("_slug")) return new String[] {"SLUG"};
+        return new String[0];
     }
 
     private static Supplier<Item> item(String path) {

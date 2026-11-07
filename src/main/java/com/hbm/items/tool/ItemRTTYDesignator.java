@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 
 /**
  * Redstone-over-Radio designator: sneak-use sets the channel (same screen as the pager), use
@@ -43,9 +42,8 @@ public class ItemRTTYDesignator extends ItemCompat {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
         if (!stack.has(ModDataComponents.RTTY_PAGER_CHANNEL.get())) return InteractionResult.SUCCESS;
 
-        HitResult hit = player.pick(300.0D, 1.0F, false);
-        if (!(hit instanceof BlockHitResult bhr) || bhr.getType() != HitResult.Type.BLOCK)
-            return InteractionResult.SUCCESS;
+        // backport-fix: BF-140 main's trace, which still names a spot when aimed at the sky
+        BlockHitResult bhr = com.hbm.lib.Library.rayTrace(player, 300.0D);
         BlockPos pos = bhr.getBlockPos().relative(bhr.getDirection());
         String coords =
                 pos.getX()

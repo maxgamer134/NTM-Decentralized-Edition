@@ -16,7 +16,6 @@ import com.hbm.backport.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 
 public class ItemDesignatorRange extends ItemDesignator {
 
@@ -26,10 +25,9 @@ public class ItemDesignatorRange extends ItemDesignator {
 
     @Override
     public InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
-        HitResult hit = player.pick(300.0D, 1.0F, false);
-        if (hit instanceof BlockHitResult bhr
-                && bhr.getType() == HitResult.Type.BLOCK
-                && !(level.getBlockState(bhr.getBlockPos()).getBlock() instanceof LaunchPad)) {
+        // backport-fix: BF-140 main's trace, which still names a spot when aimed at the sky
+        BlockHitResult bhr = com.hbm.lib.Library.rayTrace(player, 300.0D);
+        if (!(level.getBlockState(bhr.getBlockPos()).getBlock() instanceof LaunchPad)) {
             if (!level.isClientSide()) {
                 // Sable compat: a block on an airship is marked where the ship is now
                 BlockPos pos = com.hbm.backport.SubLevelTargets.designated(level, bhr.getBlockPos());

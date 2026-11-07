@@ -3,7 +3,15 @@
 
 package com.hbm.items.tool;
 
+import com.hbm.client.ModifierKeys;
 import com.hbm.entity.item.EntityDeliveryDrone;
+import com.hbm.util.TooltipStyle;
+import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import com.hbm.backport.TooltipDisplay;
 import java.util.Locale;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,6 +51,27 @@ public class ItemDrone extends ItemCompat {
         context.getItemInHand().shrink(1);
 
         return InteractionResult.SUCCESS;
+    }
+
+    // backport-fix: BF-136 main's drones show their yellow .desc lines while shift is held
+    // and the "Hold <LSHIFT>" hint otherwise; ours had no tooltip at all
+    @Override
+    public void appendHoverText(
+            ItemStack stack,
+            TooltipContext context,
+            TooltipDisplay display,
+            Consumer<Component> adder,
+            TooltipFlag flag) {
+        if (!ModifierKeys.detailsHeld()) {
+            adder.accept(TooltipStyle.holdDetails());
+            return;
+        }
+        for (Component line :
+                TooltipStyle.lines(
+                        Component.translatableWithFallback(
+                                "item.hbm.drone." + type.id + ".desc", ""))) {
+            adder.accept(line.copy().withStyle(ChatFormatting.YELLOW));
+        }
     }
 
     public enum EnumDroneType {

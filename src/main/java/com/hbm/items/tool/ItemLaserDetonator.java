@@ -25,7 +25,6 @@ import net.minecraft.world.item.TooltipFlag;
 import com.hbm.backport.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import com.hbm.backport.compat.ItemCompat;
 
@@ -37,10 +36,11 @@ public class ItemLaserDetonator extends ItemCompat {
 
     @Override
     public InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
-        HitResult hit = player.pick(500.0D, 1.0F, false);
+        // backport-fix: BF-140 main's trace, which still names a spot when aimed at the sky
+        BlockHitResult hit = com.hbm.lib.Library.rayTrace(player, 500.0D);
         if (level.isClientSide()) {
             Vec3 eye = player.getEyePosition();
-            Vec3 aim = Vec3.atCenterOf(((BlockHitResult) hit).getBlockPos()).subtract(eye);
+            Vec3 aim = Vec3.atCenterOf(hit.getBlockPos()).subtract(eye);
             double len = Math.min(aim.length(), 15D);
             aim = aim.normalize();
             for (int i = 0; i < len; i++) {
@@ -55,10 +55,7 @@ public class ItemLaserDetonator extends ItemCompat {
                         0);
             }
         }
-        BlockPos aimed =
-                hit instanceof BlockHitResult b && b.getType() == HitResult.Type.BLOCK
-                        ? ItemDetonator.bombTarget(level, b.getBlockPos())
-                        : null;
+        BlockPos aimed = ItemDetonator.bombTarget(level, hit.getBlockPos());
         IBomb bomb = aimed == null ? null : NtmContracts.BOMB.at(level, aimed);
         if (bomb != null) {
             if (!level.isClientSide()) {
@@ -80,7 +77,8 @@ public class ItemLaserDetonator extends ItemCompat {
                             aimed.getZ(),
                             player.getDisplayName().getString());
                 }
-                player.sendSystemMessage(
+                inform(
+                        player,
                         Component.translatable(ret.getUnlocalizedMessage())
                                 .withStyle(
                                         ret.wasSuccessful()
@@ -99,11 +97,24 @@ public class ItemLaserDetonator extends ItemCompat {
                     SoundSource.PLAYERS,
                     1.0F,
                     1.0F);
-            player.sendSystemMessage(
+            inform(
+                    player,
                     Component.translatable(BombReturnCode.ERROR_NO_BOMB.getUnlocalizedMessage())
                             .withStyle(ChatFormatting.RED));
         }
         return InteractionResult.FAIL;
+    }
+
+    // backport-fix: BF-141 main shows the result as the on-screen detonator notice, not in chat
+    private static void inform(Player player, Component message) {
+        if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            com.hbm.packet.PacketWire.sendTo(
+                    new com.hbm.packet.toclient.PlayerInformPayload(
+                            message,
+                            com.hbm.packet.toclient.PlayerInformPayload.ID_DETONATOR,
+                            com.hbm.packet.toclient.PlayerInformPayload.DEFAULT_MILLIS),
+                    serverPlayer);
+        }
     }
 
     @Override

@@ -69,6 +69,12 @@ public class ItemPowerNetTool extends ItemCompat {
             report(player, "desc.powerNetTool.links", census.links());
             report(player, "desc.powerNetTool.providers", census.providers());
             report(player, "desc.powerNetTool.receivers", census.receivers());
+            // backport-fix: BF-139 main also prints how much the net moved last tick
+            player.sendSystemMessage(
+                    Component.translatable(
+                                    "desc.powerNetTool.lastFlow",
+                                    com.hbm.util.BobMathUtil.format(census.transfer()))
+                            .withStyle(ChatFormatting.YELLOW));
             player.sendSystemMessage(
                     Component.translatable("desc.powerNetTool.end", id)
                             .withStyle(ChatFormatting.GOLD));

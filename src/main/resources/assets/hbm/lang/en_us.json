@@ -4001,6 +4001,7 @@
   "desc.misc.posSet": "Position set!",
   "desc.powerNetTool.end": "End of diagnostic for network %s",
   "desc.powerNetTool.info": "Right-click cable to analyze the power net.\nLinks (cables, poles, etc.) are YELLOW\nSubscribers (any receiver) are BLUE\nLinks with mismatching network info (BUGGED!) are RED\nDisplays stats such as link and subscriber count\nProxies are connection points for multiblock links (e.g. 4 for substations)\nParticles only spawn in a %s block radius!",
+  "desc.powerNetTool.lastFlow": "Last flow: %s HE/t",
   "desc.powerNetTool.links": "Links: %s",
   "desc.powerNetTool.noNetwork": "Error: No network found!",
   "desc.powerNetTool.providers": "Providers: %s",

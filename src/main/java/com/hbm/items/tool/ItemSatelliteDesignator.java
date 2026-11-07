@@ -12,10 +12,8 @@ import net.minecraft.world.InteractionHand;
 import com.hbm.backport.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
 
 public class ItemSatelliteDesignator extends ItemSatelliteChip {
 
@@ -39,16 +37,8 @@ public class ItemSatelliteDesignator extends ItemSatelliteChip {
     }
 
     private static BlockPos trace(ServerLevel level, Player player) {
-        Vec3 from = player.getEyePosition(1.0F);
-        Vec3 to = from.add(player.getLookAngle().scale(RANGE));
-        BlockHitResult hit =
-                level.clip(
-                        new ClipContext(
-                                from,
-                                to,
-                                ClipContext.Block.OUTLINE,
-                                ClipContext.Fluid.NONE,
-                                player));
+        // backport-fix: BF-140 main's trace: at most 200 voxels out, the last one when nothing is hit
+        BlockHitResult hit = com.hbm.lib.Library.rayTrace(player, RANGE);
         // Sable compat: a block on an airship is aimed at where the ship is now (SubLevelTargets)
         return com.hbm.backport.SubLevelTargets.designated(
                 level, hit.getBlockPos().relative(hit.getDirection()));

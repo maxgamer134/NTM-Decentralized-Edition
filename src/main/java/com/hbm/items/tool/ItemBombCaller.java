@@ -18,7 +18,6 @@ import net.minecraft.world.item.TooltipFlag;
 import com.hbm.backport.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import com.hbm.backport.compat.ItemCompat;
 
 public class ItemBombCaller extends ItemCompat {
@@ -33,8 +32,8 @@ public class ItemBombCaller extends ItemCompat {
     @Override
     public InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        HitResult hit = player.pick(500D, 1F, false);
-        if (!(hit instanceof BlockHitResult blockHit)) return InteractionResult.PASS;
+        // backport-fix: BF-140 main's trace: at most 200 voxels out, still a spot when aimed at the sky
+        BlockHitResult blockHit = com.hbm.lib.Library.rayTrace(player, 500D);
         if (!level.isClientSide()) {
             double x = blockHit.getBlockPos().getX();
             double y = blockHit.getBlockPos().getY();

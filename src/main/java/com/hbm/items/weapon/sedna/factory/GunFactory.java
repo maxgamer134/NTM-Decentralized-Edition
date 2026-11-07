@@ -217,8 +217,6 @@ public class GunFactory {
         XFactoryTool.init();
         XFactoryDrill.init();
         XFactoryPA.init();
-        // unique pre-rework rounds load in post-rework guns of their calibre
-        com.hbm.items.weapon.legacy.LegacyAmmo.bridgeToNewGuns();
     }
 
     public enum EnumAmmo {

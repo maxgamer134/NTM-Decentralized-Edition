@@ -26,10 +26,6 @@ public abstract class MagazineSingleTypeBase implements IMagazine<BulletConfig> 
 
     public List<BulletConfig> acceptedBullets = new ArrayList<>();
 
-    {
-        com.hbm.items.weapon.legacy.LegacyAmmo.MAG_LISTS.add(acceptedBullets);
-    }
-
     public int index;
     public int capacity;
 
@@ -56,6 +52,8 @@ public abstract class MagazineSingleTypeBase implements IMagazine<BulletConfig> 
 
     public MagazineSingleTypeBase addConfigs(BulletConfig... cfgs) {
         Collections.addAll(acceptedBullets, cfgs);
+        // the pre-rework rounds of the same calibre load too
+        com.hbm.items.weapon.legacy.LegacyAmmo.extend(acceptedBullets);
         return this;
     }
 

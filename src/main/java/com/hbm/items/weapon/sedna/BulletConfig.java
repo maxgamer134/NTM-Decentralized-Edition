@@ -297,13 +297,19 @@ public class BulletConfig implements Cloneable {
         return this;
     }
 
+    /** the post-rework round this config fires when set from one, for the calibre matching in LegacyAmmo */
+    public GunFactory.EnumAmmo ammoType;
+
     public BulletConfig setItem(Supplier<? extends Item> ammo) {
         this.ammoItem = ammo;
+        this.ammoType = null;
         return this;
     }
 
     public BulletConfig setItem(GunFactory.EnumAmmo ammo) {
-        return setItem(() -> ModItems.AMMO_STANDARD.get(ammo));
+        setItem(() -> ModItems.AMMO_STANDARD.get(ammo));
+        this.ammoType = ammo;
+        return this;
     }
 
     public BulletConfig setItem(GunFactory.EnumAmmoSecret ammo) {

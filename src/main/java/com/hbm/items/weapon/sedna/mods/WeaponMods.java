@@ -492,6 +492,8 @@ final class WeaponModCaliber extends WeaponModBase {
         super(id, "CALIBER");
         setPriority(PRIORITY_SET);
         Collections.addAll(this.cfg, cfg);
+        // the pre-rework rounds of the same calibre load too
+        com.hbm.items.weapon.legacy.LegacyAmmo.extend(this.cfg);
         this.count = count;
         this.baseDamage = baseDamage;
     }

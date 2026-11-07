@@ -170,27 +170,22 @@ public class BulletConfiguration implements Cloneable {
     public boolean isAmmo(ItemStack stack) {
         if (ammo == null || stack.isEmpty()) return false;
         if (stack.is(ammo.get())) return true;
-        EnumAmmo[] twins = twins();
-        if (twins.length == 0) return false;
         EnumAmmo type = ModItems.AMMO_STANDARD.typeOf(stack);
         if (type == null) return false;
-        for (EnumAmmo t : twins) if (t == type) return true;
-        return false;
+        if (alsoAccepts != null) {
+            for (EnumAmmo t : alsoAccepts) if (t == type) return true;
+            return false;
+        }
+        // pre_rework_guns_use_new_ammo: any post-rework round of the same calibre
+        return BalanceConfig.preReworkGunsUseNewAmmo
+                && LegacyAmmo.sameCalibre(BuiltInRegistries.ITEM.getKey(ammo.get()).getPath(), type);
     }
 
     /**
-     * The post-rework rounds this config also loads: its old round's twins while pre_rework_guns_use_new_ammo is on,
-     * and always {@link #alsoAccepts} for a config whose own round is already post-rework.
+     * The post-rework rounds a config whose own round is already post-rework loads (the old .44 shots), in place of
+     * the calibre rule.
      */
     public EnumAmmo[] alsoAccepts;
-
-    private EnumAmmo[] twins() {
-        if (alsoAccepts != null) return alsoAccepts;
-        if (!BalanceConfig.preReworkGunsUseNewAmmo) return NO_TWINS;
-        return LegacyAmmo.twins(BuiltInRegistries.ITEM.getKey(ammo.get()).getPath());
-    }
-
-    private static final EnumAmmo[] NO_TWINS = {};
 
     /** the round shown for this config: the first twin once the old round is converted */
     public ItemStack ammoStack() {

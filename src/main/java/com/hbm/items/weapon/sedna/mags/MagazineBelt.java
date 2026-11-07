@@ -21,10 +21,6 @@ public class MagazineBelt implements IMagazine<BulletConfig> {
     public static final String KEY_MAG_TYPE = "magtype";
     public List<BulletConfig> acceptedBullets = new ArrayList<>();
 
-    {
-        com.hbm.items.weapon.legacy.LegacyAmmo.MAG_LISTS.add(acceptedBullets);
-    }
-
     public static int getMagType(ItemStack stack) {
         return ItemGunBaseNT.getValueInt(stack, KEY_MAG_TYPE);
     }
@@ -35,6 +31,8 @@ public class MagazineBelt implements IMagazine<BulletConfig> {
 
     public MagazineBelt addConfigs(BulletConfig... cfgs) {
         Collections.addAll(acceptedBullets, cfgs);
+        // the pre-rework rounds of the same calibre load too
+        com.hbm.items.weapon.legacy.LegacyAmmo.extend(acceptedBullets);
         return this;
     }
 

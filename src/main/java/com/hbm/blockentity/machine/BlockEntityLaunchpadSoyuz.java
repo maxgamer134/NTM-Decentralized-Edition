@@ -55,6 +55,7 @@ import com.hbm.backport.Nbt;
 
 public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
         implements FluidTankAccess,
+                com.hbm.blockentity.Audible,
                 IEnergyHandlerMK2,
                 IFluidHandlerMK2,
                 IGUIProvider,
@@ -240,6 +241,80 @@ public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
                     z,
                     50,
                     level.getRandom().nextGaussian() * 3D + 6D);
+        }
+
+        // the carriage and tilt bringing the rocket in, the rotor, and the old launcher's countdown alarm
+        handleSound(
+                0,
+                (!finishedMoving(INDEX_CARRIAGE) && wasMoving(INDEX_CARRIAGE))
+                        || (!finishedMoving(INDEX_TILT) && wasMoving(INDEX_TILT)),
+                ModSounds.DOOR_WGH_START.get(),
+                2F,
+                1F);
+        handleSound(
+                1,
+                !finishedMoving(INDEX_ROTOR) && wasMoving(INDEX_ROTOR),
+                ModSounds.DOOR_WGH_BIG_START.get(),
+                2F,
+                0.75F);
+        handleSound(2, countdown > 0, ModSounds.SOYUZ_READY.get(), 2F, 1F);
+    }
+
+    private final com.hbm.sound.AudioWrapper[] audios = new com.hbm.sound.AudioWrapper[3];
+
+    private void handleSound(
+            int index, boolean isRunning, net.minecraft.sounds.SoundEvent sound, float volume, float pitch) {
+        com.hbm.sound.AudioWrapper audio = audios[index];
+        if (isRunning) {
+            if (audio == null || !audio.isPlaying()) {
+                if (audio != null) audio.stopSound();
+                audio =
+                        com.hbm.sound.AudioSystem.getLoopedSound(
+                                sound,
+                                SoundSource.BLOCKS,
+                                worldPosition.getX() + 0.5F,
+                                worldPosition.getY() + 3F,
+                                worldPosition.getZ() + 0.5F,
+                                volume,
+                                index == 2 ? 100F : 35F,
+                                pitch,
+                                index == 2 ? 20 : 10);
+                if (audio == null) return;
+                audio.startSound(getBlockPos());
+                audios[index] = audio;
+            }
+            audio.updateVolume(getVolume(volume));
+            audio.keepAlive();
+            return;
+        }
+        if (audio == null) return;
+        audio.stopSound();
+        audios[index] = null;
+        if (index == 0) playStop(ModSounds.DOOR_WGH_STOP.get(), 1F);
+        if (index == 1) playStop(ModSounds.DOOR_WGH_BIG_STOP.get(), 0.75F);
+    }
+
+    private void playStop(net.minecraft.sounds.SoundEvent sound, float pitch) {
+        com.hbm.sound.AudioSystem.playMachineSound(
+                level,
+                worldPosition,
+                worldPosition.getX() + 0.5D,
+                worldPosition.getY() + 3D,
+                worldPosition.getZ() + 0.5D,
+                sound,
+                SoundSource.BLOCKS,
+                getVolume(25F),
+                pitch);
+    }
+
+    @Override
+    public void setRemoved() {
+        super.setRemoved();
+        for (int i = 0; i < audios.length; i++) {
+            if (audios[i] != null) {
+                audios[i].stopSound();
+                audios[i] = null;
+            }
         }
     }
 

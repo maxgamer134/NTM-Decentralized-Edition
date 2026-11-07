@@ -1,0 +1,30 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 200,
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "#c:plates/gold"
+    },
+    {
+      "ingredient": "hbm:fuse"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:wire_advanced_alloy"
+    },
+    {
+      "count": 6,
+      "ingredient": "hbm:coil_advanced_alloy"
+    },
+    {
+      "count": 2,
+      "ingredient": "minecraft:redstone_block"
+    }
+  ],
+  "order": 900005,
+  "output_items": [
+    "hbm:redcoil_capacitor"
+  ],
+  "power": 100
+}

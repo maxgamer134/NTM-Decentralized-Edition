@@ -1,0 +1,54 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 2500,
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "#hbm:shells/steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:shells/aluminum"
+    },
+    {
+      "count": 32,
+      "ingredient": "#c:plates/steel"
+    },
+    {
+      "count": 24,
+      "ingredient": "#c:plates/lead"
+    },
+    {
+      "count": 24,
+      "ingredient": "hbm:plate_desh"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:pipes_steel"
+    },
+    {
+      "count": 16,
+      "ingredient": "hbm:circuit_advanced"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:circuit_bismoid"
+    },
+    {
+      "count": 26,
+      "ingredient": "#c:ingots/starmetal"
+    },
+    {
+      "count": 48,
+      "ingredient": "hbm:powder_magic"
+    },
+    {
+      "ingredient": "hbm:crystal_xen"
+    }
+  ],
+  "order": 900006,
+  "output_items": [
+    "hbm:component_emitter"
+  ],
+  "power": 100
+}

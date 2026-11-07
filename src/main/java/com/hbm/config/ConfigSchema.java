@@ -492,6 +492,13 @@ public final class ConfigSchema {
 
     public static final ConfigEntry<Boolean> DAMAGE_COMPATIBILITY_MODE =
             bool(Domain.RUNTIME, "damage", "compatibility_mode", false, "");
+    public static final ConfigEntry<Boolean> SPIKES_INSTAKILL =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "spikes_instakill",
+                    true,
+                    "Spikes deal 100 damage, as in main. Off: they deal 20 (10 hearts) instead.");
     public static final ConfigEntry<Integer> ITEM_HAZARD_DROP_TICKRATE =
             integer(
                     Domain.RUNTIME,
@@ -711,6 +718,7 @@ public final class ConfigSchema {
                     NUCLEAR_CREEPERS,
                     TOOL_RECURSION_DEPTH,
                     DAMAGE_COMPATIBILITY_MODE,
+                    SPIKES_INSTAKILL,
                     ITEM_HAZARD_DROP_TICKRATE,
                     UNSTABLE_RECOVERY_SWEEP,
                     TOOL_HUD_INDICATOR_X,

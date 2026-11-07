@@ -84,7 +84,9 @@ public class Spikes extends BlockCompat implements SimpleWaterloggedBlock {
         if (!(level instanceof ServerLevel serverLevel)) return;
         if (!(entity instanceof LivingEntity living)) return;
         if (entity.getDeltaMovement().y >= -0.1) return;
-        if (living.hurt(level.damageSources().source(ModDamageTypes.SPIKES), 100.0F)) {
+        // spikes_instakill off: 10 hearts instead of main's 100 damage
+        float damage = com.hbm.config.NeoForgeHbmConfig.runtime().spikesInstakill() ? 100.0F : 20.0F;
+        if (living.hurt(level.damageSources().source(ModDamageTypes.SPIKES), damage)) {
             level.playSound(null, pos, ModSounds.SLICER.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
     }

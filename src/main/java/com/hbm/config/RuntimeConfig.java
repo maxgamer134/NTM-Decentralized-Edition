@@ -27,6 +27,10 @@ public interface RuntimeConfig {
         return store().get(ConfigSchema.DAMAGE_COMPATIBILITY_MODE);
     }
 
+    default boolean spikesInstakill() {
+        return store().get(ConfigSchema.SPIKES_INSTAKILL);
+    }
+
     default int itemHazardDropTickrate() {
         return store().get(ConfigSchema.ITEM_HAZARD_DROP_TICKRATE);
     }

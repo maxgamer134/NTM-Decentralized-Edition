@@ -184,9 +184,46 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
         return lines;
     }
 
+    /** biome lists over this long are grouped into "All Overworld except ..." and so on */
+    private static final int GROUP_OVER = 20;
+
+    private static final String[][] GROUPS = {
+        {"overworld", "All Overworld"}, {"nether", "All Nether"}, {"end", "All End"}
+    };
+
     private static Component biomeNames(OreGenerationProfile row) {
+        List<ResourceLocation> rest = new ArrayList<>(row.biomes());
         MutableComponent names = Component.empty();
-        for (ResourceLocation biome : row.biomes()) {
+        var level = Minecraft.getInstance().level;
+        if (rest.size() > GROUP_OVER && level != null) {
+            var reg = level.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.BIOME);
+            var tags = List.of(
+                    net.minecraft.tags.BiomeTags.IS_OVERWORLD,
+                    net.minecraft.tags.BiomeTags.IS_NETHER,
+                    net.minecraft.tags.BiomeTags.IS_END);
+            for (int g = 0; g < tags.size(); g++) {
+                List<ResourceLocation> members = new ArrayList<>();
+                reg.get(tags.get(g)).ifPresent(set -> set.forEach(
+                        holder -> holder.unwrapKey().ifPresent(k -> members.add(k.location()))));
+                if (members.isEmpty()) continue;
+                List<ResourceLocation> missing = new ArrayList<>(members);
+                missing.removeAll(rest);
+                // group when the row covers most of the dimension, so the exceptions stay short
+                if (missing.size() * 2 > members.size()) continue;
+                rest.removeAll(members);
+                if (!names.getSiblings().isEmpty()) names.append(", ");
+                names.append(Component.translatableWithFallback(
+                        "hbm.ore_generation.all_" + GROUPS[g][0], GROUPS[g][1]));
+                if (!missing.isEmpty()) {
+                    names.append(Component.translatableWithFallback("hbm.ore_generation.except", " except "));
+                    for (int i = 0; i < missing.size(); i++) {
+                        if (i > 0) names.append(", ");
+                        names.append(name("biome", missing.get(i)));
+                    }
+                }
+            }
+        }
+        for (ResourceLocation biome : rest) {
             if (!names.getSiblings().isEmpty()) names.append(", ");
             names.append(name("biome", biome));
         }

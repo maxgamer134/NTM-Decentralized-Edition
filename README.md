@@ -162,6 +162,8 @@ More in [How the backport works](docs/how-it-works.md). Every deliberate deviati
 - **SecretAgent12** — the 1.21.1 backport, Create: Aeronautics support, integrations
 - Raw ore textures: **MrNorwood** (thorium, cobalt, lithium, schrabidium); **Mr. Morgan** and **NuclearGrandFather**
   (aluminium, beryllium, lead, plutonium, titanium, tungsten, uranium)
+- Ore textures (deepslate, gneiss, meteor, nether uranium, niter, lignite, sulfur, rare earth variants, PR #52):
+  **NuclearGrandFather**
 
 The mod is licensed under the **[GNU LGPL-3.0](LICENSE.LESSER)**, like NTM: NEXT and the original mod. Some parts come
 from other projects and keep their own licenses:

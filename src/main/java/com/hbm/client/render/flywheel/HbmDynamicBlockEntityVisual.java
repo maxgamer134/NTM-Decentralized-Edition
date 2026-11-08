@@ -20,8 +20,18 @@ public abstract class HbmDynamicBlockEntityVisual<T extends BlockEntity>
         trackExtent();
         // backport: embedded (Sable sub-level) visuals skip the culling tests, see HbmBlockEntityVisual
         if (!embedded && (doDistanceLimitThisFrame(context) || !isVisible(context.frustum()))) return;
+        // backport: machines past MACHINE_CULL_DISTANCE blocks stop their per-frame work; pylon
+        // wires are not dynamic visuals, so they are never skipped
+        if (!embedded
+                && context.camera().getPosition().distanceToSqr(
+                                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)
+                        > MACHINE_CULL_DISTANCE * MACHINE_CULL_DISTANCE) {
+            return;
+        }
         frame(context);
     }
+
+    private static final double MACHINE_CULL_DISTANCE = 64.0;
 
     protected void trackExtent() {}
 

@@ -93,6 +93,15 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
 
     @Override
     public void tick(Context context) {
+        double limit = com.hbm.config.RenderConfig.pylonCullDistance;
+        if (limit > 0 && built) {
+            var camera = net.minecraft.client.Minecraft.getInstance().gameRenderer.getMainCamera();
+            if (camera.getPosition().distanceToSqr(
+                            pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)
+                    > limit * limit) {
+                return;
+            }
+        }
         updateMovingParts(0);
     }
 

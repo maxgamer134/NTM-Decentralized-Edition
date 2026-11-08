@@ -10,6 +10,7 @@ public final class RenderConfig {
     public static volatile boolean cableHang = true;
     public static volatile boolean simpleRebar = false;
     public static volatile double machineCullDistance = 64D;
+    public static volatile double machineInstanceCullDistance = 128D;
 
     private RenderConfig() {}
 
@@ -19,5 +20,6 @@ public final class RenderConfig {
         cableHang = c.get(ConfigSchema.RENDER_CABLE_HANG);
         simpleRebar = c.get(ConfigSchema.RENDER_REBAR_SIMPLE);
         machineCullDistance = c.get(ConfigSchema.MACHINE_CULL_DISTANCE);
+        machineInstanceCullDistance = c.get(ConfigSchema.MACHINE_INSTANCE_CULL_DISTANCE);
     }
 }

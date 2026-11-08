@@ -96,6 +96,11 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
         updateMovingParts(0);
     }
 
+    @Override
+    protected boolean cullable() {
+        return false;
+    }
+
     public void updateMovingParts(float partialTick) {
         if (!inputsChanged() && built) return;
         built = true;

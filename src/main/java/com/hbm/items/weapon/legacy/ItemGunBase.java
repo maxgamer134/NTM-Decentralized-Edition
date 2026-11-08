@@ -57,9 +57,15 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
 
     public ItemGunBase(
             GunConfiguration config, @Nullable GunConfiguration alt, Properties properties) {
-        super(properties);
+        super(config.durability > 0 ? properties.durability(config.durability) : properties);
         mainConfig = config;
         altConfig = alt;
+    }
+
+    // backport: wear is vanilla item damage now; the vanilla bar stays hidden on guns
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return false;
     }
 
     // ---- input (main's GunButtonPacket) ----
@@ -765,11 +771,11 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
     }
 
     public static void setItemWear(ItemStack stack, int i) {
-        writeNBT(stack, "wear", i);
+        if (stack.getMaxDamage() > 0) stack.setDamageValue(i);
     }
 
     public static int getItemWear(ItemStack stack) {
-        return readNBT(stack, "wear");
+        return stack.getDamageValue();
     }
 
     public static void setReloadCycle(ItemStack stack, int i) {

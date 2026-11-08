@@ -81,6 +81,11 @@ public class NTMKubeJSPlugin implements KubeJSPlugin {
     private static final IntBounds ANY_SIZE = new IntBounds(0, Integer.MAX_VALUE);
 
     @Override
+    public void registerBindings(dev.latvian.mods.kubejs.script.BindingRegistry bindings) {
+        bindings.add("HbmTrades", BottlecapTrades.class);
+    }
+
+    @Override
     public void registerRecipeComponents(RecipeComponentTypeRegistry registry) {
         registry.register(COUNT_INGREDIENT);
         registry.register(OUTPUT);

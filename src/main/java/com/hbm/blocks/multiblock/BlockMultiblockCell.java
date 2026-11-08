@@ -308,6 +308,13 @@ public class BlockMultiblockCell extends BlockCompat
             @Nullable Orientation orientation,
             boolean movedByPiston) {
         super.neighborChanged(state, level, pos, block, orientation, movedByPiston);
+        if (level instanceof ServerLevel stale
+                && !BlockMultiblockCore.isBusy()
+                && !stale.getBlockTicks().hasScheduledTick(pos, this)) {
+            // backport: foreign mods (Simply Tents packing) can remove a core without running
+            // demolish, leaving cells behind; recheck shortly and drop cells with no core
+            stale.scheduleTick(pos, this, 4);
+        }
         if (!forwardsNeighbors || !(level instanceof ServerLevel server)) return;
         BlockPos core = MultiblockSurface.indexedCore(server, pos);
         if (core == null) return;
@@ -315,6 +322,18 @@ public class BlockMultiblockCell extends BlockCompat
         if (owner != null && owner.wantsNeighborUpdates()) {
             owner.cellNeighborChanged(server, core, pos.immutable());
         }
+    }
+
+    @Override
+    protected void tick(
+            BlockState state,
+            ServerLevel level,
+            BlockPos pos,
+            net.minecraft.util.RandomSource random) {
+        if (BlockMultiblockCore.isBusy()) return;
+        if (BlockMultiblockCore.readableChunk(level, pos.getX(), pos.getZ()) == null) return;
+        if (BlockMultiblockCore.ownerOf(level, pos) != null) return;
+        level.removeBlock(pos, false);
     }
 
     public boolean forwardsNeighbors() {

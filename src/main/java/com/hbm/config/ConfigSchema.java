@@ -582,15 +582,6 @@ public final class ConfigSchema {
                     0D,
                     4096D,
                     "Machines farther than this many blocks from the camera stop their per-frame render updates. 0 turns it off.");
-    public static final ConfigEntry<Double> PYLON_CULL_DISTANCE =
-            real(
-                    Domain.CLIENT,
-                    "render",
-                    "pylon_cull_distance",
-                    0D,
-                    0D,
-                    4096D,
-                    "Power pole wires farther than this many blocks from the camera stop updating. 0 (the default) never culls them.");
     public static final ConfigEntry<Boolean> GUN_MODEL_FOV =
             bool(
                     Domain.CLIENT,
@@ -769,7 +760,6 @@ public final class ConfigSchema {
                     ORIGINAL_STEREO_EXPLOSIONS,
                     COOLING_TOWER_PARTICLES,
                     MACHINE_CULL_DISTANCE,
-                    PYLON_CULL_DISTANCE,
                     GUN_MODEL_FOV,
                     GUN_VISUAL_RECOIL,
                     GUN_ANIMATION_SPEED,

@@ -3,8 +3,6 @@
 
 package com.hbm.items.machine;
 
-import com.hbm.items.ModDataComponents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import com.hbm.backport.compat.ItemCompat;
 
@@ -13,41 +11,21 @@ public class ItemArcElectrode extends ItemCompat {
     public final EnumElectrodeType type;
 
     public ItemArcElectrode(Properties props, EnumElectrodeType type) {
-        super(props);
+        super(props.durability(type.durability));
         this.type = type;
     }
 
     public static int getDurability(ItemStack stack) {
-        return stack.getOrDefault(ModDataComponents.ARC_ELECTRODE_DURABILITY.get(), 0);
+        return stack.getDamageValue();
     }
 
     public static boolean damage(ItemStack stack) {
-        int durability = getDurability(stack) + 1;
-        stack.set(ModDataComponents.ARC_ELECTRODE_DURABILITY.get(), durability);
-        return durability >= getMaxDurability(stack);
+        stack.setDamageValue(stack.getDamageValue() + 1);
+        return stack.getDamageValue() >= stack.getMaxDamage();
     }
 
     public static int getMaxDurability(ItemStack stack) {
-        return ((ItemArcElectrode) stack.getItem()).type.durability;
-    }
-
-    @Override
-    public boolean isBarVisible(ItemStack stack) {
-        return getDurability(stack) > 0;
-    }
-
-    @Override
-    public int getBarWidth(ItemStack stack) {
-        double frac =
-                Math.min(1D, (double) getDurability(stack) / (double) getMaxDurability(stack));
-        return (int) Math.round(13.0D * (1.0D - frac));
-    }
-
-    @Override
-    public int getBarColor(ItemStack stack) {
-        double frac =
-                Math.min(1D, (double) getDurability(stack) / (double) getMaxDurability(stack));
-        return Mth.hsvToRgb((float) ((1.0D - frac) / 3.0D), 1.0F, 1.0F);
+        return stack.getMaxDamage();
     }
 
     public enum EnumElectrodeType {

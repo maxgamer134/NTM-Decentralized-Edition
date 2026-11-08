@@ -40,11 +40,16 @@ public class MachineBatterySocket extends BlockMultiblockCore
 
     public static BlockPos[] ports(BlockPos core, Direction facing) {
         Direction rot = facing.getClockWise();
+        BlockPos top = core.above(2);
         return new BlockPos[] {
             core,
             core.relative(facing.getOpposite()),
             core.relative(rot),
-            core.relative(facing.getOpposite()).relative(rot)
+            core.relative(facing.getOpposite()).relative(rot),
+            top,
+            top.relative(facing.getOpposite()),
+            top.relative(rot),
+            top.relative(facing.getOpposite()).relative(rot)
         };
     }
 

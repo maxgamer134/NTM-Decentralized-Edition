@@ -109,7 +109,6 @@ public final class RecipeInputState {
                 ModDataComponents.ARMOR_MODS,
                 ModDataComponents.ARMOR_MOD_NV_ACTIVE,
                 ModDataComponents.GUN_STATE,
-                ModDataComponents.ARC_ELECTRODE_DURABILITY,
                 ModDataComponents.PIPETTE_CAPACITY,
                 ModDataComponents.TARGET_DESIGNATOR,
                 ModDataComponents.DETONATOR_POS,

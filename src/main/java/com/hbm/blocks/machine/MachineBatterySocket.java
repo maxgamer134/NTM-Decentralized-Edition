@@ -40,7 +40,7 @@ public class MachineBatterySocket extends BlockMultiblockCore
 
     public static BlockPos[] ports(BlockPos core, Direction facing) {
         Direction rot = facing.getClockWise();
-        BlockPos top = core.above(2);
+        BlockPos top = core.above();
         return new BlockPos[] {
             core,
             core.relative(facing.getOpposite()),
@@ -64,7 +64,8 @@ public class MachineBatterySocket extends BlockMultiblockCore
         for (BlockPos port : ports(core, facing)) {
             // a port outside the footprint would mint a graph node on plain air
             if (!port.equals(core) && !block.claimsCell(level, core, port, facing)) continue;
-            CableConductorBlockBase.mintNode(level, port, state, NODE_MASK);
+            int mask = port.getY() > core.getY() ? (1 << Direction.UP.ordinal()) : NODE_MASK;
+            CableConductorBlockBase.mintNode(level, port, state, mask);
         }
     }
 

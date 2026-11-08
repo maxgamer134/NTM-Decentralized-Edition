@@ -29,7 +29,10 @@ final class MultiblockPortRoles {
                     Library.id("machine_assembly_factory"),
                     MultiblockPortRoles::factory,
                     Library.id("machine_chemical_factory"),
-                    MultiblockPortRoles::factory);
+                    MultiblockPortRoles::factory,
+                    // battery socket: the top face cells are power only, the side cells keep all
+                    Library.id("machine_battery_socket"),
+                    (x, y, z) -> y == 1 ? POWER : ~0);
 
     private MultiblockPortRoles() {}
 

@@ -59,7 +59,11 @@ public class MachineBatterySocket extends BlockMultiblockCore
     }
 
     public static void mintNodes(ServerLevel level, BlockPos core, BlockState state) {
-        for (BlockPos port : ports(core, coreFacing(state))) {
+        Direction facing = coreFacing(state);
+        MachineBatterySocket block = (MachineBatterySocket) state.getBlock();
+        for (BlockPos port : ports(core, facing)) {
+            // a port outside the footprint would mint a graph node on plain air
+            if (!port.equals(core) && !block.claimsCell(level, core, port, facing)) continue;
             CableConductorBlockBase.mintNode(level, port, state, NODE_MASK);
         }
     }

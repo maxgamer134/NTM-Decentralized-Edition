@@ -61,6 +61,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     private boolean lastHang;
     private boolean built;
     private boolean spansBuilds;
+    private long lastPoseKey;
     private float renderPartial = 1F;
 
     public PylonWiresVisual(
@@ -106,7 +107,15 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     @Override
     public void beginFrame(dev.engine_room.flywheel.api.visual.DynamicVisual.Context context) {
         if (!spansBuilds) return;
-        renderPartial = context.partialTick();
+        float partial = context.partialTick();
+        // builds standing still draw the same wire as last frame
+        long key = com.hbm.backport.SubLevelLinks.poseKey(level, pos, partial);
+        for (long connection : lastConnections) {
+            key = key * 31 + com.hbm.backport.SubLevelLinks.poseKey(level, BlockPos.of(connection), partial);
+        }
+        if (key == lastPoseKey) return;
+        lastPoseKey = key;
+        renderPartial = partial;
         updateMovingParts(0);
     }
 
@@ -204,6 +213,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     }
 
     private void strip(Vec3 from, Vec3 to, double ox, double oy, double oz, int wrap, int color) {
+        if (used >= 4096) return;
         double ax = to.x - from.x, ay = to.y - from.y, az = to.z - from.z;
         double bx = -2 * ox, by = -2 * oy, bz = -2 * oz;
         double nx = ay * bz - az * by, ny = az * bx - ax * bz, nz = ax * by - ay * bx;

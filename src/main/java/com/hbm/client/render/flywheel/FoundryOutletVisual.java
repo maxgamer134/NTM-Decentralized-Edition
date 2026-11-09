@@ -131,6 +131,7 @@ public final class FoundryOutletVisual extends HbmDynamicBlockEntityVisual<Block
         for (PourStream stream : blockEntity.streams) {
             float age = (now - stream.birth()) + partialTick;
             if (age >= MAX_AGE) continue;
+            if (used >= MAX_POURS) break;
             if (used == pours.size()) pours.add(new PourVisual(visualizationContext, level, pos));
             pours.get(used++)
                     .update(

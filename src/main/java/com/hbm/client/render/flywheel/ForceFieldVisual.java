@@ -239,6 +239,7 @@ public final class ForceFieldVisual extends HbmDynamicBlockEntityVisual<BlockEnt
 
     private void segment(
             double x0, double y0, double z0, double x1, double y1, double z1, int color) {
+        if (usedLines >= 8192) return;
         while (lines.size() <= usedLines)
             lines.add(
                     instancerProvider()

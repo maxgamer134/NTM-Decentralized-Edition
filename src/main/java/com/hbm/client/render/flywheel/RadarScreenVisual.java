@@ -184,7 +184,7 @@ public final class RadarScreenVisual
             }
         }
 
-        int count = blockEntity.entries.size();
+        int count = Math.min(blockEntity.entries.size(), 512);
         while (blips.size() < count)
             blips.add(
                     instancerProvider()

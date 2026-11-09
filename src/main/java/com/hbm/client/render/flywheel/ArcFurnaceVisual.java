@@ -223,6 +223,7 @@ public final class ArcFurnaceVisual
         long now = level.getGameTime();
         int slot = 0;
         for (PourStream stream : blockEntity.streams) {
+            if (slot >= MAX_POURS) break;
             while (pours.size() <= slot)
                 pours.add(new PourVisual(visualizationContext, level, pos));
             float age = (float) (now - stream.birth()) + partialTick;

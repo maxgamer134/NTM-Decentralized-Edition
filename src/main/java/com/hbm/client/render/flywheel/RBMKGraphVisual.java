@@ -267,7 +267,7 @@ public final class RBMKGraphVisual extends HbmDynamicBlockEntityVisual<BlockEnti
         long lowest = lowest(graph);
         long highest = highest(graph);
         long range = highest - lowest;
-        int needed = Math.max(graph.values.length - 1, 0);
+        int needed = Math.min(Math.max(graph.values.length - 1, 0), 1024);
         while (plotLines[graphIndex].size() < needed)
             plotLines[graphIndex].add(
                     instancerProvider()

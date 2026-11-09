@@ -124,6 +124,7 @@ public final class PipeAnchorVisual extends HbmBlockEntityVisual<BlockEntityPipe
         if (!inputsChanged() && built) return;
         built = true;
         collectRuns();
+        runCount = Math.min(runCount, 128);
         ensureCapacity(runCount);
         LightBounds.resetBounds(bounds, bodyBounds);
         for (int i = 0; i < runCount; i++) {

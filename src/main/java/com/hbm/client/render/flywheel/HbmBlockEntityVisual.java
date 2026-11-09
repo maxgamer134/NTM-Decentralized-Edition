@@ -50,6 +50,9 @@ public abstract class HbmBlockEntityVisual<T extends BlockEntity>
 
     private static final int MAX_TRACKED = 4096;
 
+    /** The most molten-metal pour streams a machine draws at once. */
+    protected static final int MAX_POURS = 16;
+
     private void track(dev.engine_room.flywheel.api.instance.Instance instance) {
         // a visual that keeps replacing its instances would otherwise grow this list for good;
         // the oldest ones are the likeliest to be deleted already
@@ -63,11 +66,14 @@ public abstract class HbmBlockEntityVisual<T extends BlockEntity>
 
     final void setCulled(boolean cull) {
         if (cull) {
-            for (var instance : tracked) {
+            for (int i = 0, n = tracked.size(); i < n; i++) {
+                var instance = tracked.get(i);
                 try {
-                    if (!culled) wasVisible.put(instance, instance.handle().isVisible());
-                    else wasVisible.putIfAbsent(instance, instance.handle().isVisible());
-                    instance.setVisible(false);
+                    boolean shown = instance.handle().isVisible();
+                    // once culled, only touch what the visual showed again or created since
+                    if (!culled || shown || !wasVisible.containsKey(instance))
+                        wasVisible.put(instance, shown);
+                    if (shown) instance.setVisible(false);
                 } catch (RuntimeException ignored) {
                     // a deleted instance
                 }

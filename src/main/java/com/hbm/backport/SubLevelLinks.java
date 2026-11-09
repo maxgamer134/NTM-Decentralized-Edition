@@ -60,6 +60,25 @@ public final class SubLevelLinks {
     }
 
     /**
+     * A number that changes whenever the build holding {@code pos} is drawn somewhere else, and is 0
+     * for the world. Lets a renderer skip rebuilding what hangs between builds that are standing still.
+     */
+    public static long poseKey(Level level, BlockPos pos, float partialTick) {
+        SubLevelAccess frame = frameOf(level, pos);
+        if (frame == null) return 0L;
+        var p = renderPose(frame, partialTick);
+        var o = p.orientation();
+        long h = Double.doubleToLongBits(p.position().x());
+        h = h * 31 + Double.doubleToLongBits(p.position().y());
+        h = h * 31 + Double.doubleToLongBits(p.position().z());
+        h = h * 31 + Double.doubleToLongBits(o.x());
+        h = h * 31 + Double.doubleToLongBits(o.y());
+        h = h * 31 + Double.doubleToLongBits(o.z());
+        h = h * 31 + Double.doubleToLongBits(o.w());
+        return h | 1L;
+    }
+
+    /**
      * Like {@link #relative(Level, BlockPos, BlockPos, Vec3)}, but with both builds at the pose they
      * are drawn at this frame. Two renderers that each draw half of something between two builds
      * get the same world point from this, so the halves meet.

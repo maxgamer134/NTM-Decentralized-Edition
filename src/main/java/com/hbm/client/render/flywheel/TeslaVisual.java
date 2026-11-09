@@ -36,7 +36,7 @@ public final class TeslaVisual extends HbmDynamicBlockEntityVisual<BlockEntityTe
     }
 
     public void updateMovingParts(float partialTick) {
-        int count = blockEntity.targets.size();
+        int count = Math.min(blockEntity.targets.size(), 32);
         if (count == 0 && lastCount == 0) return;
         int phase = (int) (level.getGameTime() % 1000L) + 1;
         boolean targetsChanged = count != lastCount || targetVectors.length != count;

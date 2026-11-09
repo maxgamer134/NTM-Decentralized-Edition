@@ -47,6 +47,7 @@ public final class ElectrolyserVisual
         int previousActive = activePours;
         int slot = 0;
         for (PourStream stream : blockEntity.streams) {
+            if (slot >= MAX_POURS) break;
             Direction direction = stream.left() ? facing.getOpposite() : facing;
             while (pours.size() <= slot)
                 pours.add(new PourVisual(visualizationContext, level, pos));

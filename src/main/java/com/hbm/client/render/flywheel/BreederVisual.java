@@ -184,6 +184,7 @@ public final class BreederVisual
                 int color,
                 boolean wide,
                 int index) {
+            if (index >= 2048) return;
             ArrayList<TransformedInstance> target = wide ? core : edge;
             Model model = wide ? SPARK_CORE_MODEL : SPARK_EDGE_MODEL;
             while (target.size() <= index) {

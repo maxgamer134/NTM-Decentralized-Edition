@@ -175,7 +175,7 @@ public final class TorexVisual extends HbmDynamicEntityVisual<EntityNukeTorex> {
 
     private void writeFrame(float partialTick) {
         List<Cloudlet> cloudlets = entity.cloudlets;
-        int n = cloudlets.size();
+        int n = Math.min(cloudlets.size(), 8192);
         ensureCapacity(n);
 
         Vec3i origin = renderOrigin();

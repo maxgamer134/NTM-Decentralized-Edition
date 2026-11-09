@@ -83,6 +83,7 @@ public final class CrucibleVisual extends HbmDynamicBlockEntityVisual<BlockEntit
         for (var stream : blockEntity.streams) {
             float age = now - stream.birth() + partialTick;
             if (age >= 20F) continue;
+            if (used >= MAX_POURS) break;
             if (used == pours.size()) pours.add(new PourVisual(visualizationContext, level, pos));
             Direction direction = stream.waste() ? facing.getOpposite() : facing;
             pours.get(used++)

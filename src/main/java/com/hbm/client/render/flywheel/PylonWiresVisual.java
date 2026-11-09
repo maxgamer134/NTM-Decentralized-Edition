@@ -33,7 +33,9 @@ import org.joml.Matrix4f;
 import org.jspecify.annotations.Nullable;
 
 public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylonBase>
-        implements SimpleTickableVisual, ShaderLightVisual {
+        implements SimpleTickableVisual,
+                dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual,
+                ShaderLightVisual {
     private static final double GIRTH = .03125D, MAX_SAG = 2.5D;
     private static final int SEGMENTS = 10;
     private static final PackedQuadMesh WIRE_MESH =
@@ -58,6 +60,8 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     private int lastColor;
     private boolean lastHang;
     private boolean built;
+    private boolean spansBuilds;
+    private float renderPartial = 1F;
 
     public PylonWiresVisual(
             VisualizationContext context, BlockEntityPylonBase blockEntity, float partialTick) {
@@ -92,7 +96,17 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     }
 
     @Override
-    public void tick(Context context) {
+    public void tick(dev.engine_room.flywheel.api.visual.TickableVisual.Context context) {
+        renderPartial = 1F;
+        updateMovingParts(0);
+    }
+
+    // backport: Sable compat - a wire to another build is rebuilt every frame at the poses the builds
+    // are drawn at, so the two ends of the wire (each drawn by its own pylon) agree on the midpoint
+    @Override
+    public void beginFrame(dev.engine_room.flywheel.api.visual.DynamicVisual.Context context) {
+        if (!spansBuilds) return;
+        renderPartial = context.partialTick();
         updateMovingParts(0);
     }
 
@@ -123,7 +137,8 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
                                 pos,
                                 peer,
                                 theirs[(i + shift) % theirs.length].add(
-                                        peer.getX(), peer.getY(), peer.getZ()));
+                                        peer.getX(), peer.getY(), peer.getZ()),
+                                renderPartial);
                 half(from, from.add(to.subtract(from).scale(.5D)), lastHang);
             }
         }
@@ -165,10 +180,13 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
             lastPeers = new BlockEntityPylonBase[connections.length];
             lastPeerStates = new BlockState[connections.length];
         }
+        boolean spans = false;
         for (int i = 0; i < connections.length; i++) {
             // backport: Sable compat - a wire to another space moves with the build: redraw every tick
-            if (com.hbm.backport.SubLevelLinks.crosses(level, pos, BlockPos.of(connections[i])))
+            if (com.hbm.backport.SubLevelLinks.crosses(level, pos, BlockPos.of(connections[i]))) {
                 changed = true;
+                spans = true;
+            }
             BlockEntityPylonBase peer =
                     ChunkUtil.blockEntityIfLoaded(level, BlockPos.of(connections[i]))
                                     instanceof BlockEntityPylonBase other
@@ -181,6 +199,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
                 changed = true;
             }
         }
+        spansBuilds = spans;
         return changed;
     }
 

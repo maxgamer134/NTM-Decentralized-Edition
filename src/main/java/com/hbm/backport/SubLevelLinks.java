@@ -50,6 +50,34 @@ public final class SubLevelLinks {
         return Math.sqrt(toWorld(level, a).distanceToSqr(toWorld(level, b)));
     }
 
+    /** The pose a build is drawn at {@code partialTick} of the way from its last tick to this one. */
+    private static dev.ryanhcode.sable.companion.math.Pose3dc renderPose(
+            SubLevelAccess frame, float partialTick) {
+        var last = frame.lastPose();
+        var now = frame.logicalPose();
+        if (last == null || partialTick >= 1F) return now;
+        return last.lerp(now, partialTick, new dev.ryanhcode.sable.companion.math.Pose3d());
+    }
+
+    /**
+     * Like {@link #relative(Level, BlockPos, BlockPos, Vec3)}, but with both builds at the pose they
+     * are drawn at this frame. Two renderers that each draw half of something between two builds
+     * get the same world point from this, so the halves meet.
+     */
+    public static Vec3 relative(
+            Level level, BlockPos self, BlockPos peer, Vec3 peerPoint, float partialTick) {
+        if (!crosses(level, self, peer))
+            return peerPoint.subtract(self.getX(), self.getY(), self.getZ());
+        SubLevelAccess theirs = SableCompanion.INSTANCE.getContaining(level, peerPoint);
+        Vec3 world = theirs == null ? peerPoint : renderPose(theirs, partialTick).transformPosition(peerPoint);
+        SubLevelAccess mine = frameOf(level, self);
+        Vec3 local =
+                mine == null
+                        ? world
+                        : renderPose(mine, partialTick).transformPositionInverse(world);
+        return local.subtract(self.getX(), self.getY(), self.getZ());
+    }
+
     /**
      * The point {@code peerPoint} (in the space of block {@code peer}) relative to block {@code self},
      * in the frame {@code self} is drawn in: what a renderer at {@code self} needs to reach it.

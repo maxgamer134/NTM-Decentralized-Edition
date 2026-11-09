@@ -99,12 +99,12 @@ public class RenderLaunchpadLambda
             state.lightCoords =
                     LevelRenderer.getLightColor(be.getLevel(), be.getBlockPos().above(3));
         state.yaw = Facing.yaw(BlockMultiblockCore.coreFacing(be.getBlockState()), 90);
-        state.doors = be.getSmoothPos(BlockEntityLaunchpadLambda.INDEX_DOORS, partialTicks);
+        state.doors = be.getInterpPos(BlockEntityLaunchpadLambda.INDEX_DOORS, partialTicks);
         state.erector =
-                be.getSmoothPos(BlockEntityLaunchpadLambda.INDEX_ERECTOR, partialTicks) - 25F;
-        state.rotor = be.getSmoothPos(BlockEntityLaunchpadLambda.INDEX_ROTOR, partialTicks);
-        state.clamps = be.getSmoothPos(BlockEntityLaunchpadLambda.INDEX_CLAMPS, partialTicks);
-        state.pistons = be.getSmoothPos(BlockEntityLaunchpadLambda.INDEX_PISTONS, partialTicks);
+                be.getInterpPos(BlockEntityLaunchpadLambda.INDEX_ERECTOR, partialTicks) - 25F;
+        state.rotor = be.getInterpPos(BlockEntityLaunchpadLambda.INDEX_ROTOR, partialTicks);
+        state.clamps = be.getInterpPos(BlockEntityLaunchpadLambda.INDEX_CLAMPS, partialTicks);
+        state.pistons = be.getInterpPos(BlockEntityLaunchpadLambda.INDEX_PISTONS, partialTicks);
         state.renderRocket = be.erecting || be.erected;
         state.rocketFixed = be.erected;
     }

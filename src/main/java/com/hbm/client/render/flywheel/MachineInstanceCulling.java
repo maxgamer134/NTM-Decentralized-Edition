@@ -53,12 +53,16 @@ public final class MachineInstanceCulling {
             }
             if (!visual.isCullable()) continue;
             var pos = visual.cullPos();
-            boolean far =
-                    limit > 0
-                            && camera.distanceToSqr(
-                                            pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)
-                                    > limit * limit;
-            visual.setCulled(far);
+            double x = pos.getX() + 0.5, y = pos.getY() + 0.5, z = pos.getZ() + 0.5;
+            if (visual.isEmbedded()) {
+                // a machine on a Sable sub-level has a plot position, so measure from where the
+                // build actually is
+                Vec3 world = com.hbm.backport.SubLevelSpace.toWorld(mc.level, x, y, z);
+                x = world.x;
+                y = world.y;
+                z = world.z;
+            }
+            visual.setCulled(limit > 0 && camera.distanceToSqr(x, y, z) > limit * limit);
         }
     }
 }

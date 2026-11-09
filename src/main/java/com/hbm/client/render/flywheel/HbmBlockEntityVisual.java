@@ -32,7 +32,12 @@ public abstract class HbmBlockEntityVisual<T extends BlockEntity>
     }
 
     final boolean isCullable() {
-        return cullable() && !embedded && !deleted;
+        return cullable() && !deleted;
+    }
+
+    /** Whether this visual lives on a Sable sub-level, so its position is a plot position. */
+    final boolean isEmbedded() {
+        return embedded;
     }
 
     final boolean isDeletedVisual() {
@@ -41,6 +46,19 @@ public abstract class HbmBlockEntityVisual<T extends BlockEntity>
 
     final net.minecraft.core.BlockPos cullPos() {
         return pos;
+    }
+
+    private static final int MAX_TRACKED = 4096;
+
+    private void track(dev.engine_room.flywheel.api.instance.Instance instance) {
+        // a visual that keeps replacing its instances would otherwise grow this list for good;
+        // the oldest ones are the likeliest to be deleted already
+        if (tracked.size() >= MAX_TRACKED) {
+            int drop = MAX_TRACKED / 2;
+            for (int i = 0; i < drop; i++) wasVisible.remove(tracked.get(i));
+            tracked.subList(0, drop).clear();
+        }
+        tracked.add(instance);
     }
 
     final void setCulled(boolean cull) {
@@ -85,20 +103,20 @@ public abstract class HbmBlockEntityVisual<T extends BlockEntity>
                                 @Override
                                 public I createInstance() {
                                     I instance = inner.createInstance();
-                                    tracked.add(instance);
+                                    track(instance);
                                     return instance;
                                 }
 
                                 @Override
                                 public void createInstances(I[] instances) {
                                     inner.createInstances(instances);
-                                    for (I instance : instances) tracked.add(instance);
+                                    for (I instance : instances) track(instance);
                                 }
 
                                 @Override
                                 public void stealInstance(I instance) {
                                     inner.stealInstance(instance);
-                                    tracked.add(instance);
+                                    track(instance);
                                 }
                             };
                         }

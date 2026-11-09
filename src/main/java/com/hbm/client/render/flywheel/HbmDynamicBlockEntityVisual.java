@@ -23,12 +23,15 @@ public abstract class HbmDynamicBlockEntityVisual<T extends BlockEntity>
         // backport: machines past MACHINE_CULL_DISTANCE blocks stop their per-frame work; pylon
         // wires are not dynamic visuals, so they are never skipped
         double limit = com.hbm.config.RenderConfig.machineCullDistance;
-        if (!embedded
-                && limit > 0
-                && context.camera().getPosition().distanceToSqr(
-                                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5)
-                        > limit * limit) {
-            return;
+        if (limit > 0) {
+            double x = pos.getX() + 0.5, y = pos.getY() + 0.5, z = pos.getZ() + 0.5;
+            if (embedded) {
+                var world = com.hbm.backport.SubLevelSpace.toWorld(level, x, y, z);
+                x = world.x;
+                y = world.y;
+                z = world.z;
+            }
+            if (context.camera().getPosition().distanceToSqr(x, y, z) > limit * limit) return;
         }
         frame(context);
     }

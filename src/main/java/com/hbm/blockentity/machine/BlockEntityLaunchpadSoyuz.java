@@ -103,6 +103,15 @@ public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
     private final float[] syncPositions = new float[8];
     private int turnProgress;
 
+    // backport: what is drawn follows the positions through two low-pass stages, so every move
+    // eases in and out instead of starting and stopping at full speed. The logic keeps using
+    // positions; only the drawing reads these.
+    private static final float SMOOTH_K = 0.2F;
+    private final float[] smooth1 = new float[8];
+    private final float[] smooth2 = new float[8];
+    private final float[] prevSmooth = new float[8];
+    private boolean smoothInit;
+
     @SyncField(units = 1L << 3)
     public SoyuzStatus soyuzStatus = SoyuzStatus.ABSENT;
 
@@ -198,6 +207,21 @@ public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
             else positions[i] = syncPositions[i];
         }
         if (turnProgress > 0) turnProgress--;
+        if (!smoothInit) {
+            for (int i = 0; i < positions.length; i++)
+                smooth1[i] = smooth2[i] = prevSmooth[i] = positions[i];
+            smoothInit = true;
+        } else {
+            for (int i = 0; i < positions.length; i++) {
+                prevSmooth[i] = smooth2[i];
+                smooth1[i] += (positions[i] - smooth1[i]) * SMOOTH_K;
+                smooth2[i] += (smooth1[i] - smooth2[i]) * SMOOTH_K;
+                if (Math.abs(smooth1[i] - positions[i]) < 0.0005F
+                        && Math.abs(smooth2[i] - positions[i]) < 0.0005F) {
+                    smooth1[i] = smooth2[i] = positions[i];
+                }
+            }
+        }
 
         Direction dir = getBlockState().getValue(BlockMultiblockCore.FACING);
         Direction rot = dir.getClockWise();
@@ -442,6 +466,11 @@ public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
         }
     }
 
+    /** The position as drawn: eased, and interpolated between ticks. */
+    public float getSmoothPos(int index, float partialTick) {
+        return prevSmooth[index] + (smooth2[index] - prevSmooth[index]) * partialTick;
+    }
+
     public float getInterpPos(int index, float partialTick) {
         return prevPositions[index] + (positions[index] - prevPositions[index]) * partialTick;
     }
@@ -453,7 +482,7 @@ public class BlockEntityLaunchpadSoyuz extends BlockEntityMachineBase
 
     @Override
     public float renderPosition(int index, float partialTick) {
-        return getInterpPos(index, partialTick);
+        return getSmoothPos(index, partialTick);
     }
 
     @Override

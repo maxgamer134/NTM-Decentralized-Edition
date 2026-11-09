@@ -46,7 +46,7 @@ public class RenderLambdaRocket extends EntityRenderer<EntityRocketLambda, Rende
         super.extractRenderState(entity, state, partialTicks);
         state.age = entity.tickCount + partialTicks;
         state.flicker = 0.8F + entity.getRandom().nextFloat() * 0.4F;
-        state.dir = entity.flightDirection();
+        state.dir = entity.flightDirection(partialTicks);
     }
 
     @Override

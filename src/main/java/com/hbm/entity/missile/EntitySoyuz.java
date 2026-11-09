@@ -48,6 +48,23 @@ public class EntitySoyuz extends EntityCompat implements StoredItems {
             SynchedEntityData.defineId(EntitySoyuz.class, EntityDataSerializers.VECTOR3);
 
     double acceleration = 0.00D;
+    // backport: the heading is kept for the last two ticks, so the model turns smoothly between them
+    private int steerTicks;
+    private Vec3 nosePrev, noseLast;
+
+    /** The nose, blended between the last two ticks for drawing. */
+    public Vec3 flightDirection(float partialTick) {
+        Vec3 now = flightDirection();
+        if (nosePrev == null || noseLast == null) return now;
+        Vec3 d = nosePrev.lerp(noseLast, partialTick);
+        return d.lengthSqr() < 1.0e-8D ? now : d.normalize();
+    }
+
+    private void trackNose() {
+        nosePrev = noseLast == null ? flightDirection() : noseLast;
+        noseLast = flightDirection();
+    }
+
     public int mode;
     public int targetX;
     public int targetZ;
@@ -107,7 +124,7 @@ public class EntitySoyuz extends EntityCompat implements StoredItems {
                 acceleration += LaunchAxis.ROCKET_ACCEL_STEP;
                 speed += acceleration;
             }
-            motion = LaunchAxis.steer(axis, LaunchAxis.rocketSteer(acceleration)).scale(speed);
+            motion = LaunchAxis.steer(axis, LaunchAxis.rocketSteerEased(steerTicks++)).scale(speed);
             setDeltaMovement(motion);
         }
         Vec3 nose = flightDirection();
@@ -116,6 +133,7 @@ public class EntitySoyuz extends EntityCompat implements StoredItems {
         this.yo = this.yOld = getY();
         this.zo = this.zOld = getZ();
         setPos(getX() + motion.x, getY() + motion.y, getZ() + motion.z);
+        trackNose();
 
         if (level() instanceof ServerLevel server) {
 
@@ -280,6 +298,7 @@ public class EntitySoyuz extends EntityCompat implements StoredItems {
         targetX = input.getIntOr("targetX", targetX);
         targetZ = input.getIntOr("targetZ", targetZ);
         mode = input.getIntOr("mode", mode);
+        steerTicks = input.getIntOr("steerTicks", 0);
 
         List<ItemStack> list =
                 input.read("items", ItemStack.OPTIONAL_CODEC.listOf()).orElse(List.of());
@@ -298,6 +317,7 @@ public class EntitySoyuz extends EntityCompat implements StoredItems {
         output.putInt("targetX", targetX);
         output.putInt("targetZ", targetZ);
         output.putInt("mode", mode);
+        output.putInt("steerTicks", steerTicks);
 
         output.store("items", ItemStack.OPTIONAL_CODEC.listOf(), List.of(payload));
     }

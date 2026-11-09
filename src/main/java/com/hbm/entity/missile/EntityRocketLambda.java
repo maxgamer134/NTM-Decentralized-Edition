@@ -32,6 +32,23 @@ public class EntityRocketLambda extends EntityCompat implements StoredItems {
             SynchedEntityData.defineId(EntityRocketLambda.class, EntityDataSerializers.VECTOR3);
 
     private double acceleration;
+    // backport: the heading is kept for the last two ticks, so the model turns smoothly between them
+    private int steerTicks;
+    private Vec3 nosePrev, noseLast;
+
+    /** The nose, blended between the last two ticks for drawing. */
+    public Vec3 flightDirection(float partialTick) {
+        Vec3 now = flightDirection();
+        if (nosePrev == null || noseLast == null) return now;
+        Vec3 d = nosePrev.lerp(noseLast, partialTick);
+        return d.lengthSqr() < 1.0e-8D ? now : d.normalize();
+    }
+
+    private void trackNose() {
+        nosePrev = noseLast == null ? flightDirection() : noseLast;
+        noseLast = flightDirection();
+    }
+
     private ItemStack payload = ItemStack.EMPTY;
 
     public EntityRocketLambda(EntityType<? extends EntityRocketLambda> type, Level level) {
@@ -82,7 +99,7 @@ public class EntityRocketLambda extends EntityCompat implements StoredItems {
                 acceleration += LaunchAxis.ROCKET_ACCEL_STEP;
                 speed += acceleration;
             }
-            motion = LaunchAxis.steer(axis, LaunchAxis.rocketSteer(acceleration)).scale(speed);
+            motion = LaunchAxis.steer(axis, LaunchAxis.rocketSteerEased(steerTicks++)).scale(speed);
             setDeltaMovement(motion);
         }
 
@@ -90,6 +107,7 @@ public class EntityRocketLambda extends EntityCompat implements StoredItems {
         this.yo = this.yOld = getY();
         this.zo = this.zOld = getZ();
         setPos(getX() + motion.x, getY() + motion.y, getZ() + motion.z);
+        trackNose();
 
         if (level().isClientSide()) {
             Vec3 d = flightDirection();
@@ -165,6 +183,7 @@ public class EntityRocketLambda extends EntityCompat implements StoredItems {
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         acceleration = input.getDoubleOr("acceleration", 0D);
+        steerTicks = input.getIntOr("steerTicks", 0);
         setLaunchAxis(
                 new Vec3(
                         input.getDoubleOr("axisX", 0D),
@@ -178,6 +197,7 @@ public class EntityRocketLambda extends EntityCompat implements StoredItems {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         output.putDouble("acceleration", acceleration);
+        output.putInt("steerTicks", steerTicks);
         Vec3 axis = launchAxis();
         output.putDouble("axisX", axis.x);
         output.putDouble("axisY", axis.y);

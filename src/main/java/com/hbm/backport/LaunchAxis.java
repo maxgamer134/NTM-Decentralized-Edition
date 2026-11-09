@@ -31,6 +31,12 @@ public final class LaunchAxis {
     /** Ticks of thrust over which a rocket turns from the pad axis to straight up. */
     public static final int ROCKET_STEER_TICKS = 100;
 
+    /**
+     * Ticks a rocket takes to turn from the pad axis to straight up. Counted from liftoff, not from the
+     * thrust ramp (which stops growing at full speed), so the turn can be as long as it likes.
+     */
+    public static final int ROCKET_TURN_TICKS = 240;
+
     /** Rocket thrust ramps by this much per tick (main's lambda and soyuz). */
     public static final double ROCKET_ACCEL_STEP = 0.00025D;
 
@@ -69,6 +75,15 @@ public final class LaunchAxis {
         if (a.y < -0.999D) a = new Vec3(0.05D, a.y, 0D).normalize();
         Vec3 d = a.scale(1D - k).add(0D, k, 0D);
         return d.lengthSqr() < 1.0e-8 ? UP : d.normalize();
+    }
+
+    /**
+     * Steering progress {@code ticks} after liftoff, eased: the turn starts and ends gently (zero
+     * turning rate at both ends) instead of at a constant rate that stops dead at vertical.
+     */
+    public static double rocketSteerEased(int ticks) {
+        double t = Math.min(1D, Math.max(0D, (double) ticks / ROCKET_TURN_TICKS));
+        return t * t * t * (t * (t * 6D - 15D) + 10D);
     }
 
     /** Steering progress of a rocket whose thrust ramp has reached {@code acceleration}. */

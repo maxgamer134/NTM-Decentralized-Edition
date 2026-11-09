@@ -41,7 +41,7 @@ public class RenderSoyuz extends EntityRenderer<EntitySoyuz, RenderSoyuz.State>
     public void extractRenderState(EntitySoyuz entity, State state, float partialTicks) {
         super.extractRenderState(entity, state, partialTicks);
         state.skin = SoyuzMesh.wrapSkin(entity.getSkin());
-        state.dir = entity.flightDirection();
+        state.dir = entity.flightDirection(partialTicks);
     }
 
     @Override

@@ -60,6 +60,17 @@ public final class SubLevelLinks {
     }
 
     /**
+     * World up ((0, 1, 0)) in the frame {@code self} is drawn in, with the build at its pose
+     * {@code partialTick} of the way through the tick. Lets two renderers on differently tilted
+     * builds hang a wire the same way in the world.
+     */
+    public static Vec3 worldUp(Level level, BlockPos self, float partialTick) {
+        SubLevelAccess frame = frameOf(level, self);
+        Vec3 up = new Vec3(0, 1, 0);
+        return frame == null ? up : renderPose(frame, partialTick).transformNormalInverse(up);
+    }
+
+    /**
      * A number that changes whenever the build holding {@code pos} is drawn somewhere else, and is 0
      * for the world. Lets a renderer skip rebuilding what hangs between builds that are standing still.
      */

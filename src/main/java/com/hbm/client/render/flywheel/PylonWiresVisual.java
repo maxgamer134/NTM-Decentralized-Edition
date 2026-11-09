@@ -62,6 +62,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     private boolean built;
     private boolean spansBuilds;
     private long lastPoseKey;
+    private Vec3 up = new Vec3(0, 1, 0);
     private float renderPartial = 1F;
 
     public PylonWiresVisual(
@@ -127,6 +128,7 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
     public void updateMovingParts(float partialTick) {
         if (!inputsChanged() && built) return;
         built = true;
+        up = com.hbm.backport.SubLevelLinks.worldUp(level, pos, renderPartial);
         path.clear();
         Vec3[] mine = blockEntity.mounts();
         for (int c = 0; c < lastConnections.length; c++) {
@@ -318,8 +320,8 @@ public final class PylonWiresVisual extends HbmBlockEntityVisual<BlockEntityPylo
         for (int j = 0; j < SEGMENTS; j++) {
             double sagJ = Math.sin((double) j / SEGMENTS * Math.PI * 0.5) * sag;
             double sagK = Math.sin((j + 1D) / SEGMENTS * Math.PI * 0.5) * sag;
-            Vec3 start = from.add(delta.scale((double) j / SEGMENTS)).subtract(0, sagJ, 0);
-            Vec3 end = from.add(delta.scale((j + 1D) / SEGMENTS)).subtract(0, sagK, 0);
+            Vec3 start = from.add(delta.scale((double) j / SEGMENTS)).subtract(up.scale(sagJ));
+            Vec3 end = from.add(delta.scale((j + 1D) / SEGMENTS)).subtract(up.scale(sagK));
             path.add(new Segment(start, end, iX, iY, iZ, jX, jZ));
         }
     }

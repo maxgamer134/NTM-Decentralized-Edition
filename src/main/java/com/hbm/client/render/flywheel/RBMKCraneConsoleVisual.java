@@ -66,7 +66,7 @@ public final class RBMKCraneConsoleVisual
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .backfaceCulling(false)
                     .build();
     private static final Material CRANE_MATERIAL =
@@ -76,7 +76,7 @@ public final class RBMKCraneConsoleVisual
                     .cutout(CutoutShaders.ONE_TENTH)
                     .useLight(false)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .backfaceCulling(false)
                     .build();
     private static final MeshPart[] CONSOLE_PARTS = buildConsoleParts();

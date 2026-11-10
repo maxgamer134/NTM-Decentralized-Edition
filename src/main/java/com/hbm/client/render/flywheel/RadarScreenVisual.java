@@ -97,7 +97,7 @@ public final class RadarScreenVisual
                         .mipmap(false)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .transparency(Transparency.ORDER_INDEPENDENT)
                         .writeMask(WriteMask.COLOR)
                         .backfaceCulling(false)
@@ -126,7 +126,7 @@ public final class RadarScreenVisual
                 .cutout(CutoutShaders.ONE_TENTH)
                 .light(LightShaders.SMOOTH)
                 .ambientOcclusion(false)
-                .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                 .writeMask(WriteMask.COLOR)
                 .backfaceCulling(false)
                 .build();

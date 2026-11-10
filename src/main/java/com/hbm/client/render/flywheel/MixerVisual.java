@@ -42,7 +42,7 @@ public final class MixerVisual extends HbmDynamicBlockEntityVisual<BlockEntityMa
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .build();
     private static final Material FLUID_MATERIAL =
             SimpleMaterial.builderOf(Materials.TRANSLUCENT_NO_DEPTH_WRITE_NO_CULL)
@@ -55,7 +55,7 @@ public final class MixerVisual extends HbmDynamicBlockEntityVisual<BlockEntityMa
                     .light(LightShaders.SMOOTH)
                     .useLight(true)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .backfaceCulling(false)
                     .build();
     private static final MeshPart MIXER_PART =

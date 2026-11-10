@@ -35,7 +35,7 @@ public final class CompressorVisual
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .backfaceCulling(false)
                     .build();
     private static final HFRWavefrontObject MODEL = ResourceManager.compressor;

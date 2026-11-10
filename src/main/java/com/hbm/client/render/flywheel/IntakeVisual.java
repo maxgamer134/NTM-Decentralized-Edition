@@ -35,7 +35,7 @@ public final class IntakeVisual extends HbmDynamicBlockEntityVisual<BlockEntityM
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .build();
     private static final MeshPart FAN_PART =
             MeshPart.obj(MODEL.groups[MODEL.partId("Fan")], MODEL.smoothing(), MATERIAL);

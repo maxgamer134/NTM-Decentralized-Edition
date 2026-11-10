@@ -86,7 +86,7 @@ public final class ItemMaterials {
     private static Material itemMaterial(Material block) {
         var builder = SimpleMaterial.builderOf(block);
         if (block.light() == LightShaders.SMOOTH) builder.light(LightShaders.SMOOTH_WHEN_EMBEDDED);
-        if (block.cardinalLightingMode() == CardinalLightingMode.CHUNK) {
+        if (block.cardinalLightingMode() == com.hbm.client.render.flywheel.MeshPart.machineLighting()) {
             builder.cardinalLightingMode(CardinalLightingMode.ENTITY);
         }
         return builder.build();

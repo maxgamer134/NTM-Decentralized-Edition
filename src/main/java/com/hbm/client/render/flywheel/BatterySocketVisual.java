@@ -61,7 +61,7 @@ public final class BatterySocketVisual extends HbmDynamicBlockEntityVisual<Block
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .build();
     private static final MeshPart SUPPORTS_PART =
             MeshPart.obj(

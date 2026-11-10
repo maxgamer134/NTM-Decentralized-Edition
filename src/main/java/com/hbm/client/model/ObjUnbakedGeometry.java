@@ -702,6 +702,17 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
                 BakedNormals.of(
                         BakedNormals.pack(normals[0]), BakedNormals.pack(normals[1]),
                         BakedNormals.pack(normals[2]), BakedNormals.pack(normals[3]));
+        BakedColors colors = BakedColors.of(color);
+        // backport: smooth_model_shading draws OBJ block models like the original mod. The block
+        // renderer only knows the per-axis block shade, so the soft two-light shade is worked out
+        // here per corner, baked into the colour, and the quad is marked unshaded.
+        if (com.hbm.config.RenderConfig.smoothModels && info.shade()) {
+            colors =
+                    BakedColors.of(
+                            diffuse(color, normals[0]), diffuse(color, normals[1]),
+                            diffuse(color, normals[2]), diffuse(color, normals[3]));
+            info = unshaded(info);
+        }
         return new BakedQuad(
                 new Vector3f(pos[0]),
                 new Vector3f(pos[1]),
@@ -714,7 +725,39 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
                 direction,
                 info,
                 bakedNormals,
-                BakedColors.of(color));
+                colors);
+    }
+
+    private static final java.util.Map<BakedQuad.MaterialInfo, BakedQuad.MaterialInfo> UNSHADED =
+            new java.util.concurrent.ConcurrentHashMap<>();
+
+    private static BakedQuad.MaterialInfo unshaded(BakedQuad.MaterialInfo info) {
+        return UNSHADED.computeIfAbsent(
+                info,
+                i -> {
+                    var result =
+                            new BakedQuad.MaterialInfo(
+                                    i.sprite(),
+                                    i.layer(),
+                                    i.itemRenderType(),
+                                    i.tintIndex(),
+                                    false,
+                                    i.lightEmission(),
+                                    i.ambientOcclusion());
+                    result.hbm$setLightOrigin(i.hbm$lightOrigin());
+                    return result;
+                });
+    }
+
+    /** The entity shade (two fixed lights plus ambient) of a corner with this normal. */
+    private static int diffuse(int color, Vector3f n) {
+        float l0 = Math.max(0F, n.x() * 0.16169F + n.y() * 0.80845F - n.z() * 0.56592F);
+        float l1 = Math.max(0F, -n.x() * 0.16169F + n.y() * 0.80845F + n.z() * 0.56592F);
+        float f = Math.min(1F, (l0 + l1) * 0.6F + 0.4F);
+        int r = (int) (((color >> 16) & 0xFF) * f);
+        int g = (int) (((color >> 8) & 0xFF) * f);
+        int b = (int) ((color & 0xFF) * f);
+        return (color & 0xFF000000) | (r << 16) | (g << 8) | b;
     }
 
     @Override

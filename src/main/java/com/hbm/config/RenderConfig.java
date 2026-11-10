@@ -9,7 +9,7 @@ public final class RenderConfig {
     public static volatile boolean coolingTowerParticles = true;
     public static volatile boolean cableHang = true;
     public static volatile boolean simpleRebar = false;
-    public static volatile boolean smoothModels = false;
+    public static volatile boolean smoothModels = true;
 
     private RenderConfig() {}
 

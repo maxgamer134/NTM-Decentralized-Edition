@@ -47,7 +47,7 @@ public final class ExposureChamberVisual
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .build();
     private static final Material CORE_MATERIAL =
             SimpleMaterial.builderOf(Materials.CUTOUT_NO_CULL)

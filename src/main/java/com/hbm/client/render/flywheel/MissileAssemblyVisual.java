@@ -45,7 +45,7 @@ public final class MissileAssemblyVisual
                             .cutout(CutoutShaders.ONE_TENTH)
                             .light(LightShaders.SMOOTH)
                             .ambientOcclusion(false)
-                            .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                            .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                             .build());
     private final AABB bodyBounds;
     private final Matrix4f rootPose = new Matrix4f();

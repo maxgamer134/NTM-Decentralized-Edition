@@ -34,7 +34,7 @@ public final class FurnaceSteelVisual extends HbmDynamicBlockEntityVisual<BlockE
                     .mipmap(false)
                     .light(LightShaders.NONE)
                     .useOverlay(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .transparency(Transparency.LIGHTNING)
                     .writeMask(WriteMask.COLOR)
                     .build();

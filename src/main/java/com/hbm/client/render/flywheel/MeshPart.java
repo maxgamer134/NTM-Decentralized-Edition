@@ -32,6 +32,16 @@ public final class MeshPart {
         return new MeshPart(new SingleMeshModel(mesh, material));
     }
 
+    /**
+     * backport: how machine meshes are shaded. smooth_model_shading on (the default) is the original
+     * mod's look, the soft two-light shading entities get; off is the block-style shade per axis.
+     */
+    public static CardinalLightingMode machineLighting() {
+        return com.hbm.config.RenderConfig.smoothModels
+                ? CardinalLightingMode.ENTITY
+                : CardinalLightingMode.CHUNK;
+    }
+
     public static Material litCutout(ResourceLocation texture) {
         return SimpleMaterial.builderOf(Materials.CUTOUT)
                 .texture(texture)
@@ -39,7 +49,7 @@ public final class MeshPart {
                 .cutout(CutoutShaders.ONE_TENTH)
                 .light(LightShaders.SMOOTH)
                 .ambientOcclusion(false)
-                .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                 .build();
     }
 

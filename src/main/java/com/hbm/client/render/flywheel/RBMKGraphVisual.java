@@ -122,7 +122,7 @@ public final class RBMKGraphVisual extends HbmDynamicBlockEntityVisual<BlockEnti
                         .cutout(CutoutShaders.ONE_TENTH)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .backfaceCulling(true)
                         .build();
         return MeshPart.obj(model.groups[0], model.smoothing(), material);

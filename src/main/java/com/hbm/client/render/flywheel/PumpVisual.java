@@ -75,7 +75,7 @@ public final class PumpVisual extends HbmDynamicBlockEntityVisual<BlockEntityMac
                         .cutout(CutoutShaders.ONE_TENTH)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .backfaceCulling(false)
                         .build();
         return new MeshPart[] {

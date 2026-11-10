@@ -67,7 +67,7 @@ public final class CrankShaftMaterials {
             .cutout(HALF)
             // CHUNK mode matches 1.12.2 ambient-only GL_LIGHTING for entity renders (no
             // directional contribution), whereas ENTITY mode would be too dark on the sides.
-            .cardinalLightingMode(CardinalLightingMode.CHUNK)
+            .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
             .build();
     public static final Material CUTOUT_NO_CULL = SimpleMaterial.builderOf(CUTOUT)
             .backfaceCulling(false)

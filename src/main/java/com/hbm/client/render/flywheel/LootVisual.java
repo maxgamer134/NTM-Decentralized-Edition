@@ -148,7 +148,7 @@ public final class LootVisual extends HbmDynamicBlockEntityVisual<BlockLoot.Bloc
                         .depthTest(DepthTest.LEQUAL)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .backfaceCulling(true)
                         .build();
         Material glow =

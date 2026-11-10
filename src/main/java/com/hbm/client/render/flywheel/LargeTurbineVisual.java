@@ -33,7 +33,7 @@ public final class LargeTurbineVisual
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .build();
     private static final MeshPart BLADES_PART =
             MeshPart.obj(

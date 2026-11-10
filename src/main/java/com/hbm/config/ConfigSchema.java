@@ -585,8 +585,8 @@ public final class ConfigSchema {
                     Domain.CLIENT,
                     "render",
                     "smooth_model_shading",
-                    false,
-                    "Off: 3D models are shaded per face, like blocks. On: models use the smooth per-vertex normals from their files (as before), which can show gradients and pinwheel patterns on flat surfaces. Needs a restart or a resource reload.");
+                    true,
+                    "On: 3D models are drawn like the original mod, with the smooth normals from the model files and soft two-light shading. Off: models are shaded per face with block-style shading. Needs a restart.");
     public static final ConfigEntry<Boolean> GUN_MODEL_FOV =
             bool(
                     Domain.CLIENT,

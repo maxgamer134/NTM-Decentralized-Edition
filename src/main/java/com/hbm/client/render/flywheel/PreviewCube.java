@@ -27,7 +27,7 @@ final class PreviewCube {
                     .light(LightShaders.SMOOTH)
                     .useOverlay(false)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .transparency(Transparency.ORDER_INDEPENDENT)
                     .writeMask(WriteMask.COLOR)
                     .backfaceCulling(true)

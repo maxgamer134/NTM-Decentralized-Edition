@@ -23,7 +23,7 @@ final class RBMKPanelModels {
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.NONE)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .transparency(Transparency.OPAQUE)
                     .writeMask(WriteMask.COLOR_DEPTH)
                     .build();

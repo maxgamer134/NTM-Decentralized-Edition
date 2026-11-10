@@ -45,7 +45,7 @@ public final class ForceFieldVisual extends HbmDynamicBlockEntityVisual<BlockEnt
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .build();
     private static final MeshPart[] TOP_PARTS =
             MeshPart.objParts(ResourceManager.forcefield_top, TOP_MATERIAL);

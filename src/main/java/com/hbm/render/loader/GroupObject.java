@@ -169,6 +169,39 @@ public final class GroupObject {
         float[] d = quads.clone();
         for (int f = 0; f * QUAD < d.length; f++) {
             float nx = faceNormals[f * 3], ny = faceNormals[f * 3 + 1], nz = faceNormals[f * 3 + 2];
+            // backport: a sliver face whose first three corners are nearly in a line has no usable
+            // stored normal (it draws black); take it from corners 0, 2, 3, or keep the file's
+            if (nx * nx + ny * ny + nz * nz < 0.25F) {
+                int b = f * QUAD;
+                float ax = d[b + 2 * STRIDE] - d[b],
+                        ay = d[b + 2 * STRIDE + 1] - d[b + 1],
+                        az = d[b + 2 * STRIDE + 2] - d[b + 2];
+                float bx = d[b + 3 * STRIDE] - d[b],
+                        by = d[b + 3 * STRIDE + 1] - d[b + 1],
+                        bz = d[b + 3 * STRIDE + 2] - d[b + 2];
+                nx = ay * bz - az * by;
+                ny = az * bx - ax * bz;
+                nz = ax * by - ay * bx;
+                float len = (float) Math.sqrt(nx * nx + ny * ny + nz * nz);
+                if (len < 1.0e-9F) continue;
+                nx /= len;
+                ny /= len;
+                nz /= len;
+            }
+            // a normal worked out from the corner order points inwards where the model's winding is
+            // the other way round; the file's own vertex normals say which side is out
+            float sx = 0F, sy = 0F, sz = 0F;
+            for (int c = 0; c < 4; c++) {
+                int v = f * QUAD + c * STRIDE;
+                sx += quads[v + 5];
+                sy += quads[v + 6];
+                sz += quads[v + 7];
+            }
+            if (nx * sx + ny * sy + nz * sz < 0F) {
+                nx = -nx;
+                ny = -ny;
+                nz = -nz;
+            }
             for (int c = 0; c < 4; c++) {
                 int v = f * QUAD + c * STRIDE;
                 d[v + 5] = nx;

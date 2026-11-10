@@ -206,7 +206,7 @@ public final class DoorVisual extends HbmDynamicBlockEntityVisual<BlockEntityDoo
                         .backfaceCulling(cull)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .transparency(
                                 blended ? Transparency.ORDER_INDEPENDENT : Transparency.OPAQUE)
                         .writeMask(blended ? WriteMask.COLOR : WriteMask.COLOR_DEPTH);

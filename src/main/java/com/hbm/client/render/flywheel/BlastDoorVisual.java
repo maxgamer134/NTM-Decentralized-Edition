@@ -36,7 +36,7 @@ public final class BlastDoorVisual extends HbmDynamicBlockEntityVisual<BlockEnti
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .backfaceCulling(false)
                     .build();
     private static final Material SLIDER_MATERIAL =
@@ -46,7 +46,7 @@ public final class BlastDoorVisual extends HbmDynamicBlockEntityVisual<BlockEnti
                     .cutout(CutoutShaders.ONE_TENTH)
                     .light(LightShaders.SMOOTH)
                     .ambientOcclusion(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .backfaceCulling(false)
                     .build();
     private static final HFRWavefrontObject tooth = ResourceManager.blast_door_tooth;

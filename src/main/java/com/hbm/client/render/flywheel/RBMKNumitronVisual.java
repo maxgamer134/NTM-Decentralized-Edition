@@ -55,7 +55,7 @@ public final class RBMKNumitronVisual extends HbmDynamicBlockEntityVisual<BlockE
                             .light(LightShaders.FLAT)
                             .useLight(false)
                             .useOverlay(false)
-                            .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                            .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                             .ambientOcclusion(false)
                             .backfaceCulling(false)
                             .build());

@@ -44,7 +44,7 @@ public final class RBMKGaugeVisual extends HbmDynamicBlockEntityVisual<BlockEnti
                     .cutout(CutoutShaders.ONE_TENTH)
                     .useLight(false)
                     .useOverlay(false)
-                    .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                    .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                     .ambientOcclusion(false)
                     .backfaceCulling(false)
                     .build();

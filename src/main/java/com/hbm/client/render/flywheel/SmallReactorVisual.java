@@ -98,7 +98,7 @@ public final class SmallReactorVisual
                         .cutout(CutoutShaders.ONE_TENTH)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .build();
         return MeshPart.objParts(ResourceManager.reactor_small_rods, rodMaterial);
     }

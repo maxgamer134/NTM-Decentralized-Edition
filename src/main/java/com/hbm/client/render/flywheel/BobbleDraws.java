@@ -54,7 +54,7 @@ final class BobbleDraws {
                     fixed(
                             ResourceManager.bobble_mellow_glow_tex,
                             Transparency.ORDER_INDEPENDENT,
-                            CardinalLightingMode.CHUNK,
+                            com.hbm.client.render.flywheel.MeshPart.machineLighting(),
                             false),
                     RenderBobble.LAYERED);
     private static final SkinMeshes ABEL_MESHES =
@@ -62,7 +62,7 @@ final class BobbleDraws {
                     fixed(
                             ResourceManager.bobble_abel_glow_tex,
                             Transparency.ORDER_INDEPENDENT,
-                            CardinalLightingMode.CHUNK,
+                            com.hbm.client.render.flywheel.MeshPart.machineLighting(),
                             false),
                     RenderBobble.LAYERED);
     private static final MeshPart PEEP_TAIL_PART =
@@ -128,7 +128,7 @@ final class BobbleDraws {
                     fixed(
                             ResourceManager.fluorescent_lamp_tex,
                             Transparency.LIGHTNING,
-                            CardinalLightingMode.CHUNK,
+                            com.hbm.client.render.flywheel.MeshPart.machineLighting(),
                             true));
     private static final MeshPart GLOW_PART =
             mesh(
@@ -137,7 +137,7 @@ final class BobbleDraws {
                     fixed(
                             ResourceManager.bobble_glow_tex,
                             Transparency.LIGHTNING,
-                            CardinalLightingMode.CHUNK,
+                            com.hbm.client.render.flywheel.MeshPart.machineLighting(),
                             true));
 
     final List<Draw> draws = new ArrayList<>();
@@ -231,7 +231,7 @@ final class BobbleDraws {
                 .cutout(CutoutShaders.ONE_TENTH)
                 .light(LightShaders.SMOOTH)
                 .ambientOcclusion(false)
-                .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                 .backfaceCulling(cull)
                 .build();
     }

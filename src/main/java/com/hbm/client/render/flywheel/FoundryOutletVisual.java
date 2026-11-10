@@ -107,7 +107,7 @@ public final class FoundryOutletVisual extends HbmDynamicBlockEntityVisual<Block
                         .cutout(CutoutShaders.ONE_TENTH)
                         .light(LightShaders.SMOOTH)
                         .ambientOcclusion(false)
-                        .cardinalLightingMode(CardinalLightingMode.CHUNK)
+                        .cardinalLightingMode(com.hbm.client.render.flywheel.MeshPart.machineLighting())
                         .build();
         return MeshPart.create(mesh, material);
     }

@@ -98,7 +98,8 @@ public class HFRWavefrontObject {
     }
 
     public boolean smoothing() {
-        return smoothing;
+        // backport: smooth_model_shading off shades every model per face
+        return smoothing && com.hbm.config.RenderConfig.smoothModels;
     }
 
     public int partId(String name) {
@@ -136,12 +137,12 @@ public class HFRWavefrontObject {
     }
 
     public void render(PoseStack.Pose pose, VertexConsumer buffer, int light, int color) {
-        for (GroupObject group : groups) group.emit(pose, buffer, light, color, smoothing);
+        for (GroupObject group : groups) group.emit(pose, buffer, light, color, smoothing());
     }
 
     public void render(
             PoseStack.Pose pose, VertexConsumer buffer, int light, int color, int overlay) {
-        for (GroupObject group : groups) group.emit(pose, buffer, light, color, overlay, smoothing);
+        for (GroupObject group : groups) group.emit(pose, buffer, light, color, overlay, smoothing());
     }
 
     public void render(
@@ -154,13 +155,13 @@ public class HFRWavefrontObject {
             float uOff,
             float vOff) {
         for (GroupObject group : groups) {
-            group.emit(pose, buffer, light, color, uScale, vScale, uOff, vOff, smoothing);
+            group.emit(pose, buffer, light, color, uScale, vScale, uOff, vOff, smoothing());
         }
     }
 
     public void renderPart(
             PoseStack.Pose pose, VertexConsumer buffer, int light, int color, int part) {
-        groups[part].emit(pose, buffer, light, color, smoothing);
+        groups[part].emit(pose, buffer, light, color, smoothing());
     }
 
     public void renderPart(
@@ -170,7 +171,7 @@ public class HFRWavefrontObject {
             int color,
             int overlay,
             int part) {
-        groups[part].emit(pose, buffer, light, color, overlay, smoothing);
+        groups[part].emit(pose, buffer, light, color, overlay, smoothing());
     }
 
     public void renderPart(
@@ -183,7 +184,7 @@ public class HFRWavefrontObject {
             float vScale,
             float uOff,
             float vOff) {
-        groups[part].emit(pose, buffer, light, color, uScale, vScale, uOff, vOff, smoothing);
+        groups[part].emit(pose, buffer, light, color, uScale, vScale, uOff, vOff, smoothing());
     }
 
     public void renderPartClipped(
@@ -196,7 +197,7 @@ public class HFRWavefrontObject {
             float ny,
             float nz,
             float d) {
-        groups[part].emitClipped(pose, buffer, light, color, nx, ny, nz, d, smoothing);
+        groups[part].emitClipped(pose, buffer, light, color, nx, ny, nz, d, smoothing());
     }
 
     public void renderPartClipped(

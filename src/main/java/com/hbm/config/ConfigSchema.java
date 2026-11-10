@@ -580,6 +580,13 @@ public final class ConfigSchema {
                             + "Mono recordings remain positional. Applies to newly played sounds.");
     public static final ConfigEntry<Boolean> COOLING_TOWER_PARTICLES =
             bool(Domain.CLIENT, "render", "cooling_tower_particles", true, "");
+    public static final ConfigEntry<Boolean> SMOOTH_MODEL_SHADING =
+            bool(
+                    Domain.CLIENT,
+                    "render",
+                    "smooth_model_shading",
+                    false,
+                    "Off: 3D models are shaded per face, like blocks. On: models use the smooth per-vertex normals from their files (as before), which can show gradients and pinwheel patterns on flat surfaces. Needs a restart or a resource reload.");
     public static final ConfigEntry<Boolean> GUN_MODEL_FOV =
             bool(
                     Domain.CLIENT,
@@ -758,6 +765,7 @@ public final class ConfigSchema {
                     CRATE_OPEN_HELD,
                     ORIGINAL_STEREO_EXPLOSIONS,
                     COOLING_TOWER_PARTICLES,
+                    SMOOTH_MODEL_SHADING,
                     GUN_MODEL_FOV,
                     GUN_VISUAL_RECOIL,
                     GUN_ANIMATION_SPEED,

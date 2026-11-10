@@ -272,7 +272,10 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
                         overrides.isEmissive(group.name) ? fullBright(lit) : lit;
                 boolean tiled = overrides.isTiled(group.name);
                 boolean twoSided = overrides.isDoubleSided(group.name);
-                float[] q = g.smooth() ? group.quads(true) : group.flatShadedQuads();
+                float[] q =
+                        g.smooth() && com.hbm.config.RenderConfig.smoothModels
+                                ? group.quads(true)
+                                : group.flatShadedQuads();
                 for (int base = 0; base < q.length; base += GroupObject.QUAD) {
                     float[][] cut = tiled ? tileFace(q, base) : null;
                     int faces = cut == null ? 1 : cut.length;
@@ -438,7 +441,10 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
             int groupColor = blackout ? BLACK : WHITE;
             boolean tiled = overrides.isTiled(group.name);
             boolean twoSided = overrides.isDoubleSided(group.name);
-            float[] q = smoothing ? group.quads(true) : group.flatShadedQuads();
+            float[] q =
+                    smoothing && com.hbm.config.RenderConfig.smoothModels
+                            ? group.quads(true)
+                            : group.flatShadedQuads();
             for (int base = 0; base < q.length; base += GroupObject.QUAD) {
                 float[][] cut = tiled ? tileFace(q, base) : null;
                 int faces = cut == null ? 1 : cut.length;

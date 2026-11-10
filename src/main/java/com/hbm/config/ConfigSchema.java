@@ -573,24 +573,6 @@ public final class ConfigSchema {
                             + "Mono recordings remain positional. Applies to newly played sounds.");
     public static final ConfigEntry<Boolean> COOLING_TOWER_PARTICLES =
             bool(Domain.CLIENT, "render", "cooling_tower_particles", true, "");
-    public static final ConfigEntry<Double> MACHINE_INSTANCE_CULL_DISTANCE =
-            real(
-                    Domain.CLIENT,
-                    "render",
-                    "machine_instance_cull_distance",
-                    128D,
-                    0D,
-                    4096D,
-                    "Machines farther than this many blocks from the camera are not drawn. They keep running. Power poles are never hidden. 0 turns it off.");
-    public static final ConfigEntry<Double> MACHINE_CULL_DISTANCE =
-            real(
-                    Domain.CLIENT,
-                    "render",
-                    "machine_cull_distance",
-                    64D,
-                    0D,
-                    4096D,
-                    "Machines farther than this many blocks from the camera stop their per-frame render updates. 0 turns it off.");
     public static final ConfigEntry<Boolean> GUN_MODEL_FOV =
             bool(
                     Domain.CLIENT,
@@ -768,8 +750,6 @@ public final class ConfigSchema {
                     CRATE_OPEN_HELD,
                     ORIGINAL_STEREO_EXPLOSIONS,
                     COOLING_TOWER_PARTICLES,
-                    MACHINE_CULL_DISTANCE,
-                    MACHINE_INSTANCE_CULL_DISTANCE,
                     GUN_MODEL_FOV,
                     GUN_VISUAL_RECOIL,
                     GUN_ANIMATION_SPEED,

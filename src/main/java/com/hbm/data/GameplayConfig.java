@@ -57,6 +57,7 @@ public final class GameplayConfig {
     private static final Map<DataGroups.Param<?>, Object> DATAPACK = new IdentityHashMap<>();
     private static final Set<String> REPORTED = new HashSet<>();
     private static ModConfigSpec.DoubleValue netherAmbientRad;
+    private static ModConfigSpec.BooleanValue disableNetherRadiation;
     /** On a remote server: the server's changed lines (path -> JSON); null everywhere else. */
     private static volatile Map<String, String> remote;
 
@@ -122,6 +123,13 @@ public final class GameplayConfig {
                                                 + " running server a change takes effect after a"
                                                 + " restart.")
                                 .defineInRange("nether_ambient_rad", NETHER_AMBIENT_RAD, 0D, 1.0E6D);
+                disableNetherRadiation =
+                        b.comment(
+                                        "true: the Nether has no background radiation, whatever"
+                                                + " nether_ambient_rad says.",
+                                        "Read when the Nether loads: on a running server a change"
+                                                + " takes effect after a restart.")
+                                .define("disable_nether_radiation", false);
             }
             b.pop();
         }
@@ -259,7 +267,7 @@ public final class GameplayConfig {
 
     /** radiation_settings for the Nether with this file's nether_ambient_rad, if it was changed. */
     public static RadiationSettings netherAmbient(RadiationSettings settings) {
-        double rad = netherAmbientRad.get();
+        double rad = disableNetherRadiation.get() ? 0D : netherAmbientRad.get();
         if (rad == NETHER_AMBIENT_RAD) return settings;
         return new RadiationSettings(
                 settings.diffusivity(),

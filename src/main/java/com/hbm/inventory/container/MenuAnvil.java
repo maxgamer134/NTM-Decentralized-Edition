@@ -82,16 +82,32 @@ public class MenuAnvil extends NtmContainerMenu {
         }
 
         long gameTime = player.level().getGameTime();
+        // backport: a mold shape can have a single and a multi-item recipe (1 ingot, 9 ingots) that
+        // both match a big enough stack; the one asking for the most items wins, whatever the order
+        AnvilSmithingRecipe best = null;
+        int bestMatch = -1;
         for (AnvilSmithingRecipe rec : AnvilSmithingRecipes.INSTANCE.recipes()) {
             if (rec.tier > tier) continue;
             int match = rec.matchesInt(left, right, gameTime);
-            if (match != -1) {
-                matchedRecipe = rec;
-                mirrored = match == 1;
-                validUntil = rec.expiresAt(left, right);
-                output.setItem(0, rec.getOutput(left, right, gameTime));
-                return;
+            if (match == -1) continue;
+            if (rec.kind != AnvilSmithingRecipe.Kind.MOLD) {
+                if (best == null) {
+                    best = rec;
+                    bestMatch = match;
+                }
+                break;
             }
+            if (best == null || rec.left().count() > best.left().count()) {
+                best = rec;
+                bestMatch = match;
+            }
+        }
+        if (best != null) {
+            matchedRecipe = best;
+            mirrored = bestMatch == 1;
+            validUntil = best.expiresAt(left, right);
+            output.setItem(0, best.getOutput(left, right, gameTime));
+            return;
         }
 
         output.setItem(0, ItemStack.EMPTY);

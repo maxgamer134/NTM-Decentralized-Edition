@@ -272,9 +272,11 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
                         overrides.isEmissive(group.name) ? fullBright(lit) : lit;
                 boolean tiled = overrides.isTiled(group.name);
                 boolean twoSided = overrides.isDoubleSided(group.name);
+                // backport: a smooth model with smooth_model_shading off takes the real face normals;
+                // flatShadedQuads (last corner's normal) is only right for models authored flat
                 float[] q =
-                        g.smooth() && com.hbm.config.RenderConfig.smoothModels
-                                ? group.quads(true)
+                        g.smooth()
+                                ? group.quads(com.hbm.config.RenderConfig.smoothModels)
                                 : group.flatShadedQuads();
                 for (int base = 0; base < q.length; base += GroupObject.QUAD) {
                     float[][] cut = tiled ? tileFace(q, base) : null;
@@ -442,8 +444,8 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
             boolean tiled = overrides.isTiled(group.name);
             boolean twoSided = overrides.isDoubleSided(group.name);
             float[] q =
-                    smoothing && com.hbm.config.RenderConfig.smoothModels
-                            ? group.quads(true)
+                    smoothing
+                            ? group.quads(com.hbm.config.RenderConfig.smoothModels)
                             : group.flatShadedQuads();
             for (int base = 0; base < q.length; base += GroupObject.QUAD) {
                 float[][] cut = tiled ? tileFace(q, base) : null;

@@ -57,12 +57,12 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
 
     public ItemGunBase(
             GunConfiguration config, @Nullable GunConfiguration alt, Properties properties) {
-        super(config.durability > 0 ? properties.durability(config.durability) : properties);
+        super(properties);
         mainConfig = config;
         altConfig = alt;
     }
 
-    // backport: wear is vanilla item damage now; the vanilla bar stays hidden on guns
+    // backport: with guns_vanilla_durability the wear is vanilla item damage; its bar stays hidden
     @Override
     public boolean isBarVisible(ItemStack stack) {
         return false;
@@ -771,11 +771,25 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
     }
 
     public static void setItemWear(ItemStack stack, int i) {
-        if (stack.getMaxDamage() > 0) stack.setDamageValue(i);
+        writeNBT(stack, "wear", i);
+        if (!com.hbm.config.NeoForgeHbmConfig.runtime().gunsVanillaDurability()) return;
+        // guns_vanilla_durability: the same wear as vanilla item damage, out of the gun's durability
+        if (stack.getItem() instanceof ItemGunBase gun && gun.mainConfig.durability > 0) {
+            if (!stack.has(net.minecraft.core.component.DataComponents.MAX_DAMAGE)) {
+                stack.set(
+                        net.minecraft.core.component.DataComponents.MAX_DAMAGE,
+                        gun.mainConfig.durability);
+            }
+            stack.setDamageValue(i);
+        }
     }
 
     public static int getItemWear(ItemStack stack) {
-        return stack.getDamageValue();
+        if (com.hbm.config.NeoForgeHbmConfig.runtime().gunsVanillaDurability()
+                && stack.has(net.minecraft.core.component.DataComponents.MAX_DAMAGE)) {
+            return stack.getDamageValue();
+        }
+        return readNBT(stack, "wear");
     }
 
     public static void setReloadCycle(ItemStack stack, int i) {

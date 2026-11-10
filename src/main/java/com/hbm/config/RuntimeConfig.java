@@ -26,6 +26,9 @@ public interface RuntimeConfig {
     default boolean damageCompatibilityMode() {
         return store().get(ConfigSchema.DAMAGE_COMPATIBILITY_MODE);
     }
+    default boolean gunsVanillaDurability() {
+        return store().get(ConfigSchema.GUNS_VANILLA_DURABILITY);
+    }
     default boolean safeScBatterySocket() {
         return store().get(ConfigSchema.SAFE_SC_BATTERY_SOCKET);
     }

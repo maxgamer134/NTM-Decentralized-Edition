@@ -242,11 +242,35 @@ public class ItemGunBaseNT extends ItemCompat implements IKeybindReceiver, IEqui
     }
 
     public static float getWear(ItemStack stack, int index) {
-        return getValueFloat(stack, KEY_WEAR + index);
+        float wear = getValueFloat(stack, KEY_WEAR + index);
+        // guns_vanilla_durability: the first gun's wear is also vanilla item damage; if something
+        // vanilla changed it (repair, mending), that is the wear
+        if (index == 0
+                && stack.has(net.minecraft.core.component.DataComponents.MAX_DAMAGE)
+                && com.hbm.config.NeoForgeHbmConfig.runtime().gunsVanillaDurability()) {
+            int damage = stack.getDamageValue();
+            if (Math.round(wear) != damage) return damage;
+        }
+        return wear;
     }
 
     public static void setWear(ItemStack stack, int index, float value) {
         setValueFloat(stack, KEY_WEAR + index, value);
+        if (index != 0 || !com.hbm.config.NeoForgeHbmConfig.runtime().gunsVanillaDurability())
+            return;
+        if (!(stack.getItem() instanceof ItemGunBaseNT gun)) return;
+        int max = Math.round(gun.getConfig(stack, 0).getDurability(stack));
+        if (max <= 0) return;
+        Integer has = stack.get(net.minecraft.core.component.DataComponents.MAX_DAMAGE);
+        if (has == null || has != max)
+            stack.set(net.minecraft.core.component.DataComponents.MAX_DAMAGE, max);
+        stack.setDamageValue(Math.round(value));
+    }
+
+    // backport: guns_vanilla_durability keeps the vanilla durability bar off guns
+    @Override
+    public boolean isBarVisible(ItemStack stack) {
+        return false;
     }
 
     public static int getLockonTarget(ItemStack stack) {

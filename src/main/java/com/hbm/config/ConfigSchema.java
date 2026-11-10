@@ -512,6 +512,13 @@ public final class ConfigSchema {
                     "safe_sc_battery_socket",
                     false,
                     "Self-charging batteries in a battery socket fire discharge beams, as in main. On: they sit there safely.");
+    public static final ConfigEntry<Boolean> GUNS_VANILLA_DURABILITY =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "guns_vanilla_durability",
+                    false,
+                    "On: gun wear is kept as vanilla item damage (pre-rework and post-rework guns), with the vanilla durability bar hidden. Off: guns keep their own wear value, as in main.");
     public static final ConfigEntry<Boolean> SPIKES_INSTAKILL =
             bool(
                     Domain.RUNTIME,
@@ -743,6 +750,7 @@ public final class ConfigSchema {
                     DAMAGE_COMPATIBILITY_MODE,
                     SPIKES_INSTAKILL,
                     SAFE_SC_BATTERY_SOCKET,
+                    GUNS_VANILLA_DURABILITY,
                     ITEM_HAZARD_DROP_TICKRATE,
                     UNSTABLE_RECOVERY_SWEEP,
                     TOOL_HUD_INDICATOR_X,

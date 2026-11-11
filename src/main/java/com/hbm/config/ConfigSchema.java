@@ -512,6 +512,29 @@ public final class ConfigSchema {
                     "safe_sc_battery_socket",
                     false,
                     "Self-charging batteries in a battery socket fire discharge beams, as in main. On: they sit there safely.");
+    public static final ConfigEntry<Boolean> TRADES_BOTTLECAPS =
+            bool(
+                    Domain.RUNTIME,
+                    "trades",
+                    "bottlecap_trades",
+                    false,
+                    "Every villager and wandering trader trade, vanilla or modded, uses bottle caps where it used emeralds, both prices and payouts. Applies at once: villagers that already have emerald trades switch the next time a player opens trading with them.");
+    public static final ConfigEntry<String> TRADES_BOTTLECAP_ITEM =
+            text(
+                    Domain.RUNTIME,
+                    "trades",
+                    "bottlecap_item",
+                    "hbm:cap_nuka",
+                    "The cap that replaces emeralds (hbm:cap_nuka, cap_quantum, cap_sparkle, cap_rad, cap_korl or cap_fritz, or any item id).");
+    public static final ConfigEntry<Integer> TRADES_CAPS_PER_EMERALD =
+            integer(
+                    Domain.RUNTIME,
+                    "trades",
+                    "caps_per_emerald",
+                    1,
+                    1,
+                    64,
+                    "How many caps one emerald becomes. A count past the cap's stack size is cut to it.");
     public static final ConfigEntry<Boolean> ENABLE_SPACE =
             bool(
                     Domain.CONTENT,
@@ -773,6 +796,9 @@ public final class ConfigSchema {
                     SPIKES_INSTAKILL,
                     SAFE_SC_BATTERY_SOCKET,
                     GUNS_VANILLA_DURABILITY,
+                    TRADES_BOTTLECAPS,
+                    TRADES_BOTTLECAP_ITEM,
+                    TRADES_CAPS_PER_EMERALD,
                     ENABLE_SPACE,
                     SPACE_CHANGES,
                     ITEM_HAZARD_DROP_TICKRATE,

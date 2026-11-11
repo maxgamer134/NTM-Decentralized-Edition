@@ -79,4 +79,16 @@ public interface RuntimeConfig {
     default int toolRecursionDepth() {
         return store().get(ConfigSchema.TOOL_RECURSION_DEPTH);
     }
+
+    default boolean bottlecapTrades() {
+        return store().get(ConfigSchema.TRADES_BOTTLECAPS);
+    }
+
+    default String bottlecapItem() {
+        return store().get(ConfigSchema.TRADES_BOTTLECAP_ITEM);
+    }
+
+    default int capsPerEmerald() {
+        return store().get(ConfigSchema.TRADES_CAPS_PER_EMERALD);
+    }
 }

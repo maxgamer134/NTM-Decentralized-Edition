@@ -126,11 +126,84 @@ public final class BottlecapTrades {
         return BuiltInRegistries.ITEM.get(id);
     }
 
-    private static ItemCost swap(ItemCost cost, Swap swap) {
+    /**
+     * The swap for a profession: one a script or data pack set for it, else the config's swap
+     * for every profession while {@code [trades] bottlecap_trades} is on, else none. Read when
+     * an offer is made, so the config applies without a restart.
+     */
+    private static @org.jetbrains.annotations.Nullable Swap swapFor(@org.jetbrains.annotations.Nullable ResourceLocation profession) {
+        if (profession != null) {
+            Swap explicit = SWAPS.getOrDefault(profession, JSON_SWAPS.get(profession));
+            if (explicit != null) return explicit;
+        }
+        var config = com.hbm.config.NeoForgeHbmConfig.runtime();
+        return config.bottlecapTrades() ? new Swap(config.bottlecapItem(), config.capsPerEmerald()) : null;
+    }
+
+    private static ItemCost swap(ItemCost cost, Swap swap, Item cap) {
         if (!cost.itemStack().is(Items.EMERALD)) return cost;
+        return new ItemCost(cap, Math.min(cap.getDefaultMaxStackSize(), cost.count() * swap.capsPerEmerald()));
+    }
+
+    /** The offer with emeralds turned into caps, in its prices and its payout; itself if it has none. */
+    static MerchantOffer convert(MerchantOffer offer, @org.jetbrains.annotations.Nullable Swap swap) {
+        if (swap == null) return offer;
         Item cap = capItem(swap.cap());
-        if (cap == Items.AIR) return cost;
-        return new ItemCost(cap, Math.min(64, cost.count() * swap.capsPerEmerald()));
+        if (cap == Items.AIR) return offer;
+        boolean costs = offer.getItemCostA().itemStack().is(Items.EMERALD)
+                || offer.getItemCostB().map(c -> c.itemStack().is(Items.EMERALD)).orElse(false);
+        boolean pays = offer.getResult().is(Items.EMERALD);
+        if (!costs && !pays) return offer;
+        ItemStack result = offer.getResult();
+        if (pays) result = new ItemStack(cap, Math.min(cap.getDefaultMaxStackSize(), result.getCount() * swap.capsPerEmerald()));
+        return new MerchantOffer(
+                swap(offer.getItemCostA(), swap, cap),
+                offer.getItemCostB().map(c -> swap(c, swap, cap)),
+                result,
+                offer.getUses(),
+                offer.getMaxUses(),
+                offer.getXp(),
+                offer.getPriceMultiplier(),
+                offer.getDemand());
+    }
+
+    private static List<ItemListing> wrap(List<ItemListing> listings, @org.jetbrains.annotations.Nullable ResourceLocation profession) {
+        List<ItemListing> wrapped = new ArrayList<>(listings.size());
+        for (ItemListing listing : listings) {
+            wrapped.add((trader, random) -> {
+                MerchantOffer offer = listing.getOffer(trader, random);
+                return offer == null ? null : convert(offer, swapFor(profession));
+            });
+        }
+        return wrapped;
+    }
+
+    /** Converts the offers a trader already has: villagers made before the toggle was on. */
+    private static void convertExisting(net.minecraft.world.entity.npc.AbstractVillager trader) {
+        ResourceLocation profession = trader instanceof net.minecraft.world.entity.npc.Villager villager
+                ? BuiltInRegistries.VILLAGER_PROFESSION.getKey(villager.getVillagerData().getProfession())
+                : null;
+        Swap swap = swapFor(profession);
+        if (swap == null) return;
+        var offers = trader.getOffers();
+        for (int i = 0; i < offers.size(); i++) offers.set(i, convert(offers.get(i), swap));
+    }
+
+    @SubscribeEvent
+    public static void onInteract(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent.EntityInteract event) {
+        if (!event.getLevel().isClientSide()
+                && event.getTarget() instanceof net.minecraft.world.entity.npc.AbstractVillager trader)
+            convertExisting(trader);
+    }
+
+    @SubscribeEvent
+    public static void onWandererTrades(net.neoforged.neoforge.event.village.WandererTradesEvent event) {
+        List<ItemListing> generic = wrap(event.getGenericTrades(), null);
+        event.getGenericTrades().clear();
+        event.getGenericTrades().addAll(generic);
+        List<ItemListing> rare = wrap(event.getRareTrades(), null);
+        event.getRareTrades().clear();
+        event.getRareTrades().addAll(rare);
     }
 
     @SubscribeEvent
@@ -138,33 +211,8 @@ public final class BottlecapTrades {
         VillagerProfession type = event.getType();
         ResourceLocation id = BuiltInRegistries.VILLAGER_PROFESSION.getKey(type);
 
-        Swap swap = SWAPS.getOrDefault(id, JSON_SWAPS.get(id));
-        if (swap != null) {
-            event.getTrades()
-                    .int2ObjectEntrySet()
-                    .forEach(
-                            entry -> {
-                                List<ItemListing> wrapped = new ArrayList<>();
-                                for (ItemListing listing : entry.getValue()) {
-                                    wrapped.add(
-                                            (trader, random) -> {
-                                                MerchantOffer offer =
-                                                        listing.getOffer(trader, random);
-                                                if (offer == null) return null;
-                                                return new MerchantOffer(
-                                                        swap(offer.getItemCostA(), swap),
-                                                        offer.getItemCostB().map(c -> swap(c, swap)),
-                                                        offer.getResult(),
-                                                        offer.getUses(),
-                                                        offer.getMaxUses(),
-                                                        offer.getXp(),
-                                                        offer.getPriceMultiplier(),
-                                                        offer.getDemand());
-                                            });
-                                }
-                                entry.setValue(wrapped);
-                            });
-        }
+        // every profession's listings are wrapped, so the swap is decided per offer at runtime
+        event.getTrades().int2ObjectEntrySet().forEach(entry -> entry.setValue(wrap(entry.getValue(), id)));
 
         List<Added> added = new ArrayList<>(ADDED.getOrDefault(id, List.of()));
         added.addAll(JSON_ADDED.getOrDefault(id, List.of()));

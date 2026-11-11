@@ -6,7 +6,7 @@ Additional terms under GPL-3.0 section 7 apply: see NOTICE.md
 
 # Compatibility
 
-All of these are optional. NTM: DE runs fine on its own, and every integration switches on by itself when
+All of these are optional. NTM: Extremely Radical Derivative runs fine on its own, and every integration switches on by itself when
 the other mod is installed.
 
 | Mod | Status | What you get |
@@ -33,7 +33,7 @@ the other mod is installed.
 
 ## Shaders
 
-NTM: DE works with **Iris** shader packs from 1.0.0-beta.10. With Sodium 0.8 you need **Iris 1.8.14** or newer:
+NTM: Extremely Radical Derivative works with **Iris** shader packs from 1.0.0-beta.10. With Sodium 0.8 you need **Iris 1.8.14** or newer:
 older Iris builds are made for Sodium 0.6 and crash when you join a world.
 
 **Install Colorwheel too.** NTM draws its machines with Flywheel, the same engine Create uses. Flywheel switches
@@ -69,5 +69,5 @@ on huge setups.
 
 ## Found a problem?
 
-If NTM: DE misbehaves together with another mod, [open an issue](https://github.com/SecretAgent12/NTM-Decentralized-Edition/issues)
+If NTM: Extremely Radical Derivative misbehaves together with another mod, [open an issue](https://github.com/maxgamer134/NTM-Decentralized-Edition/issues)
 with both mod versions and your `latest.log`.

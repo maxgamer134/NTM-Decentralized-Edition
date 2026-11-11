@@ -10,7 +10,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = "ntm-decentralized-neoforge-${minecraft_version}"
+    archivesName = "ntm-erd-neoforge-${minecraft_version}"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -350,7 +350,7 @@ tasks.named('jar') {
         include '**/NOTICE.md', '**/LICENSE*'
     }
     manifest.attributes(
-            'Implementation-Title': 'NTM: Decentralized Edition (ntm-next backport to 1.21.1)',
+            'Implementation-Title': 'NTM: Extremely Radical Derivative (based on NTM: Decentralized Edition)',
             'Implementation-Version': project.version,
             'Implementation-Vendor': 'SecretAgent12')
     // licenses and notices at the jar root (LGPL-3.0: the license must travel with the binary)

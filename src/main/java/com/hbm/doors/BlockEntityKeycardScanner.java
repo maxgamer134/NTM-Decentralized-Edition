@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2026 SecretAgent12
+// SPDX-FileCopyrightText: 2026 maxgamer134
 // SPDX-License-Identifier: LGPL-3.0-only
 // Ported from susy-ntmdoors (Kyron04): https://github.com/Kyron04/susy-ntmdoors
 

@@ -113,4 +113,4 @@ ntm_scan back     -- just one (a side, or a name from peripheral.getNames())
 
 Long values are cut to 200 characters on screen. The full output is also saved to `ntm_scan.log` next to the
 script, and you can open it with `edit ntm_scan.log`. If you get any `ERR` lines, please
-[open an issue](https://github.com/SecretAgent12/NTM-Decentralized-Edition/issues) and attach the log.
+[open an issue](https://github.com/maxgamer134/NTM-Decentralized-Edition/issues) and attach the log.

@@ -1,6 +1,8 @@
 <div align="center">
 
-# ☢️ NTM: Decentralized Edition
+# ☢️ NTM: Extremely Radical Derivative
+
+**Based on [NTM: Decentralized Edition](https://github.com/SecretAgent12/NTM-Decentralized-Edition) by SecretAgent12.**
 
 **HBM's Nuclear Tech Mod for Minecraft 1.21.1 — reactors, nukes, radiation, heavy industry, and all of it working on Create: Aeronautics physics contraptions.**
 
@@ -9,9 +11,7 @@
 [![License](https://img.shields.io/badge/License-LGPL--3.0-2F80ED?style=flat-square)](LICENSE.LESSER)
 ![Status](https://img.shields.io/badge/Status-beta-F5A623?style=flat-square)
 
-[![CurseForge](https://img.shields.io/badge/CurseForge-Download-F16436?style=for-the-badge&logo=curseforge&logoColor=white)](https://www.curseforge.com/minecraft/mc-mods/ntm-decentralized-edition)
-[![Modrinth](https://img.shields.io/badge/Modrinth-under_review-1BD96A?style=for-the-badge&logo=modrinth&logoColor=white)](https://modrinth.com/mod/ntm-de)
-[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/9TV4mHG9yD)
+[![GitHub Releases](https://img.shields.io/badge/GitHub-Releases-24292F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/maxgamer134/NTM-Decentralized-Edition/releases)
 
 </div>
 
@@ -23,7 +23,7 @@ in fact a **backport of [NTM: NEXT](https://github.com/Warfactory-Official/ntm-n
 <p align="center">
   <img src="docs/images/hero.png" alt="An airship with two Fat Man bombs and an oil tank hanging on ropes, next to an oil derrick" width="900">
   <br>
-  <i>Decentralized logistics.</i>
+  <i>Logistics by airship.</i>
 </p>
 
 ## ✨ Highlights
@@ -41,14 +41,12 @@ in fact a **backport of [NTM: NEXT](https://github.com/Warfactory-Official/ntm-n
 ## 📦 Installation
 
 1. Install **Minecraft 1.21.1** with **[NeoForge](https://neoforged.net) 21.1.x**.
-2. Download the mod from **[CurseForge](https://www.curseforge.com/minecraft/mc-mods/ntm-decentralized-edition)**,
-   **[Modrinth](https://modrinth.com/mod/ntm-de)** (under review) or
-   **[GitHub Releases](https://github.com/SecretAgent12/NTM-Decentralized-Edition/releases)**.
-3. Drop `ntm-decentralized-neoforge-1.21.1-<version>.jar` into your `mods` folder.
+2. Download the mod from **[GitHub Releases](https://github.com/maxgamer134/NTM-Decentralized-Edition/releases)**.
+3. Drop `ntm-erd-neoforge-1.21.1-<version>.jar` into your `mods` folder.
 
 That's it — **Flywheel** and **Ponder** are bundled inside the jar.
 
-**Playing with shaders?** NTM: DE works with **Iris** from 1.0.0-beta.10. Also install
+**Playing with shaders?** NTM: Extremely Radical Derivative works with **Iris** from 1.0.0-beta.10. Also install
 **[Colorwheel](https://modrinth.com/mod/colorwheel)**: without it Flywheel switches off whenever a shader pack is active, and every machine
 is drawn the slow way, which costs a lot of FPS on a big base. More in [Shaders](docs/compatibility.md#shaders).
 
@@ -85,7 +83,7 @@ Details and tips: [docs/compatibility.md](docs/compatibility.md). All documentat
 
 ## 🐞 Reporting bugs
 
-Open an issue **[here](https://github.com/SecretAgent12/NTM-Decentralized-Edition/issues)** and attach:
+Open an issue **[here](https://github.com/maxgamer134/NTM-Decentralized-Edition/issues)** and attach:
 
 - `logs/latest.log` (or the crash report from `crash-reports/`),
 - steps to reproduce,
@@ -116,9 +114,6 @@ fast under a shader pack; see [Shaders](docs/compatibility.md#shaders).
 
 **Can I use it on a server?**
 Yes — install it on the server and on every client.
-
-**Why "Decentralized Edition"?**
-Because someone once said NTM needs a decentralized edition. So here it is.
 
 ## 🔨 Building from source
 
@@ -153,15 +148,14 @@ More in [How the backport works](docs/how-it-works.md). Every deliberate deviati
 
 ## 📬 Contacts
 
-- Discord: <https://discord.gg/9TV4mHG9yD>
-- CurseForge: <https://www.curseforge.com/minecraft/mc-mods/ntm-decentralized-edition>
-- Modrinth: <https://modrinth.com/mod/ntm-de> (under review)
+- Issues: <https://github.com/maxgamer134/NTM-Decentralized-Edition/issues>
 
 ## 📜 Credits & License
 
 - **HbmMods (The Bobcat)** and contributors — the original Hbm's Nuclear Tech Mod
 - **movblock** and **Warfactory** — NTM: NEXT, the 26.2 port this build is based on
-- **SecretAgent12** — the 1.21.1 backport, Create: Aeronautics support, integrations
+- **SecretAgent12** — NTM: Decentralized Edition, the 1.21.1 backport this fork is based on, Create: Aeronautics support, integrations
+- **maxgamer134** — NTM: Extremely Radical Derivative
 - **JameH2**, **MellowArpeggiation** and the NTM:Space contributors — NTM:Space (planets, atmospheres, rockets and
   orbital stations), whose fluids, data and assets the optional Space content is ported from
 - **Kyron04** — susy-ntmdoors, whose door keypads, keycard scanners, keycards and their models, textures and sounds are ported
@@ -178,12 +172,12 @@ from other projects and keep their own licenses:
 
 See [`NOTICE.md`](NOTICE.md) and [`THIRD_PARTY_NOTICES`](THIRD_PARTY_NOTICES) for details.
 
-**Forks and redistribution.** You are free to fork NTM: DE, use it in modpacks and build on it under
-the LGPL-3.0. My own code comes with a few additional terms (section 7 of the GPL v3, see
+**Forks and redistribution.** NTM: Extremely Radical Derivative is a fork of NTM: Decentralized Edition. You are free to fork it, use it in modpacks and build on it under
+the LGPL-3.0. SecretAgent12's code comes with a few additional terms (section 7 of the GPL v3, see
 [NOTICE.md](NOTICE.md)): keep the copyright headers, show "Based on NTM: Decentralized Edition by
 SecretAgent12" in your mod's metadata and at the beginning of your project page, and use your own
 name for your fork. Modpacks, server packs and mods that bundle the unmodified jar don't need to do
-anything. Addons that don't contain my code may use "NTM: DE" in their name, as described in NOTICE.md.
+anything. Addons that don't contain SecretAgent12's code may use "NTM: DE" in their name, as described in NOTICE.md.
 
 **Contributions** are accepted under the LGPL-3.0. The additional terms in NOTICE.md apply only to
 SecretAgent12's own files, not to contributions by others.

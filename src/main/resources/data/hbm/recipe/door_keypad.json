@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "B": "minecraft:stone_button",
+    "R": "minecraft:redstone"
+  },
+  "pattern": [
+    "SBS",
+    "BRB",
+    "SBS"
+  ],
+  "result": {
+    "id": "hbm:door_keypad"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/door_access/keycard_scanner.obj",
+  "flip_v": true,
+  "emissive_ambient": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "texture": "hbm:block/keycard_scanner",
+    "particle": "hbm:block/keycard_scanner"
+  }
+}

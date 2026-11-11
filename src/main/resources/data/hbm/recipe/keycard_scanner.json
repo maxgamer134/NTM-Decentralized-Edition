@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:plates/steel",
+    "G": "minecraft:glass_pane",
+    "R": "minecraft:redstone",
+    "C": "minecraft:comparator"
+  },
+  "pattern": [
+    "SGS",
+    "SRS",
+    "SCS"
+  ],
+  "result": {
+    "id": "hbm:keycard_scanner"
+  }
+}

@@ -1033,6 +1033,8 @@
     {
       "id": "hbm:create_motor_desh",
       "required": false
-    }
+    },
+    "hbm:door_keypad",
+    "hbm:keycard_scanner"
   ]
 }

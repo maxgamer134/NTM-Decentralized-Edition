@@ -153,6 +153,7 @@ public final class NuclearTech {
         load(ModItems.class);
         Autogen.register();
         load(ModBlockEntities.class);
+        com.hbm.doors.DoorAccess.init();
         ModEntities.register();
         ModMenus.register();
         ModCreativeTabs.register();

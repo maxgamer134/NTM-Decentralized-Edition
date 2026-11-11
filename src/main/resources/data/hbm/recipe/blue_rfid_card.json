@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:blank_rfid_card",
+    "#c:dyes/blue"
+  ],
+  "result": {
+    "id": "hbm:blue_rfid_card"
+  }
+}

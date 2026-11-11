@@ -51,6 +51,34 @@ public class BlockEntityDoorGeneric extends BlockEntityLockableBase implements A
     private byte incomingState;
     private boolean resumeOwed;
 
+    /**
+     * Access hardware (ported from susy-ntmdoors by Kyron04). A door with a keypad code ignores
+     * hand clicks but still takes redstone; a door bound to a keycard scanner ignores both, unless
+     * the scanner's owner let redstone back in. A door is run by keypads or by scanners, never both.
+     */
+    public @Nullable String keypadCode;
+
+    public boolean scannerBound;
+    public boolean scannerRedstone;
+    public java.util.@Nullable UUID scannerOwner;
+
+    /** Whether hands may open the door: no keypad or scanner has claimed it. */
+    public boolean handsAllowed() {
+        return keypadCode == null && !scannerBound;
+    }
+
+    private boolean redstoneAllowed() {
+        return !scannerBound || scannerRedstone;
+    }
+
+    /** Opens a closed door or closes an open one for a keypad or scanner, past its locks. */
+    public boolean toggleByDevice() {
+        if (state == STATE_CLOSED) open();
+        else if (state == STATE_OPEN) close();
+        else return false;
+        return true;
+    }
+
     public BlockEntityDoorGeneric(BlockPos pos, BlockState state) {
         super(ModBlockEntities.NTM_DOOR.get(), pos, state, 0);
     }
@@ -84,7 +112,9 @@ public class BlockEntityDoorGeneric extends BlockEntityLockableBase implements A
 
         networkPackNT(100);
 
-        if (redstonePower == -1 && state == STATE_OPEN) tryToggle(-1);
+        if (!redstoneAllowed()) {
+            // a security door ignores redstone
+        } else if (redstonePower == -1 && state == STATE_OPEN) tryToggle(-1);
         else if (redstonePower > 0 && state == STATE_CLOSED) tryToggle(-1);
         if (redstonePower == -1) {
             redstonePower = 0;
@@ -175,6 +205,14 @@ public class BlockEntityDoorGeneric extends BlockEntityLockableBase implements A
     }
 
     public boolean tryToggle(@Nullable Player player) {
+        if (player != null && !handsAllowed()) {
+            if (!player.level().isClientSide())
+                player.displayClientMessage(
+                        net.minecraft.network.chat.Component.translatable(
+                                scannerBound ? "hbm.door_access.scanner_door" : "hbm.door_access.keypad_door"),
+                        true);
+            return false;
+        }
         if (isLocked() && player == null) return false;
         if (state == STATE_CLOSED && redstonePower > 0) return false;
         if (state == STATE_CLOSED) {
@@ -441,6 +479,10 @@ public class BlockEntityDoorGeneric extends BlockEntityLockableBase implements A
         openTicks = input.getIntOr("openTicks", openTicks);
         redstonePower = input.getIntOr("redstoned", redstonePower);
         input.read("activatedBlocks", BlockPos.CODEC.listOf()).ifPresent(activatedBlocks::addAll);
+        keypadCode = input.getString("keypadCode").orElse(null);
+        scannerBound = input.getBooleanOr("scannerBound", false);
+        scannerRedstone = input.getBooleanOr("scannerRedstone", false);
+        scannerOwner = input.read("scannerOwner", net.minecraft.core.UUIDUtil.CODEC).orElse(null);
     }
 
     @Override
@@ -450,5 +492,9 @@ public class BlockEntityDoorGeneric extends BlockEntityLockableBase implements A
         output.putInt("openTicks", openTicks);
         output.putInt("redstoned", redstonePower);
         output.store("activatedBlocks", BlockPos.CODEC.listOf(), List.copyOf(activatedBlocks));
+        if (keypadCode != null) output.putString("keypadCode", keypadCode);
+        if (scannerBound) output.putBoolean("scannerBound", true);
+        if (scannerRedstone) output.putBoolean("scannerRedstone", true);
+        output.storeNullable("scannerOwner", net.minecraft.core.UUIDUtil.CODEC, scannerOwner);
     }
 }

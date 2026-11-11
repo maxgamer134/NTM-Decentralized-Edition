@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "hbm:blocks/keycard_scanner",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "hbm:keycard_scanner"
+        }
+      ]
+    }
+  ]
+}

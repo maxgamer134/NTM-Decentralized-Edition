@@ -3705,5 +3705,29 @@
         "stream": false
       }
     ]
+  },
+  "door_access.granted": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hbm:block/door_access/granted"
+      }
+    ]
+  },
+  "door_access.denied": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hbm:block/door_access/denied"
+      }
+    ]
+  },
+  "door_access.press": {
+    "category": "block",
+    "sounds": [
+      {
+        "name": "hbm:block/door_access/press"
+      }
+    ]
   }
 }

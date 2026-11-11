@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:blank_rfid_card",
+    "#c:dyes/purple"
+  ],
+  "result": {
+    "id": "hbm:violet_rfid_card"
+  }
+}

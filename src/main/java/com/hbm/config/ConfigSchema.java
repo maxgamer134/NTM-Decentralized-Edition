@@ -512,6 +512,21 @@ public final class ConfigSchema {
                     "safe_sc_battery_socket",
                     false,
                     "Self-charging batteries in a battery socket fire discharge beams, as in main. On: they sit there safely.");
+    public static final ConfigEntry<Boolean> ENABLE_SPACE =
+            bool(
+                    Domain.CONTENT,
+                    "space",
+                    "enable_space",
+                    false,
+                    "NTM:Space: planets, atmospheres, rockets and orbital stations. Off, none of its blocks, items, entities or dimensions are registered. Needs a game restart, and servers and clients must match.");
+    public static final ConfigEntry<Boolean> SPACE_CHANGES =
+            bool(
+                    Domain.CONTENT,
+                    "space",
+                    "space_changes",
+                    true,
+                    "With NTM:Space on, also apply its changes to existing NTM content (hydrogen and Watz mud that heat into new gases, rocket-grade fuels, and the rest). Off, existing content stays as in NTMain.");
+
     public static final ConfigEntry<Boolean> GUNS_VANILLA_DURABILITY =
             bool(
                     Domain.RUNTIME,
@@ -758,6 +773,8 @@ public final class ConfigSchema {
                     SPIKES_INSTAKILL,
                     SAFE_SC_BATTERY_SOCKET,
                     GUNS_VANILLA_DURABILITY,
+                    ENABLE_SPACE,
+                    SPACE_CHANGES,
                     ITEM_HAZARD_DROP_TICKRATE,
                     UNSTABLE_RECOVERY_SWEEP,
                     TOOL_HUD_INDICATOR_X,

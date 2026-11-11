@@ -1,0 +1,27 @@
+{
+  "type": "gaseous",
+  "color": "#d1cebe",
+  "flags": [
+    "nocontainer",
+    "noid"
+  ],
+  "nfpa": {
+    "flame": 0,
+    "health": 0,
+    "react": 0
+  },
+  "symbol": "NONE",
+  "temperature": 2500,
+  "traits": {
+    "coolable": {
+      "cools_to": "hbm:uranium_bromide",
+      "amount_req": 1,
+      "amount_produced": 1,
+      "heat_energy": 300
+    },
+    "rocket": {
+      "isp": 1500,
+      "thrust": 700000
+    }
+  }
+}

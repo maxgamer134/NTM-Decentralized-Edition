@@ -201,6 +201,7 @@ public final class NuclearTech {
                 FalloutConfigJSON.REGISTRY, FalloutConfigJSON.CODEC);
         NtmCapabilities.registerTokens();
         NTMFluids.init();
+        com.hbm.space.SpaceFluids.init();
         LevelNodeGraph.init();
         PowerNetwork.init();
         FluidNetwork.init();

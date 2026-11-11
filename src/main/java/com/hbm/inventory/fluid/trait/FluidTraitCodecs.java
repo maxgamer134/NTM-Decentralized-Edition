@@ -167,6 +167,28 @@ public final class FluidTraitCodecs {
                                                         .forGetter(FT_VentRadiation::getRadPerMB))
                                         .apply(i, FT_VentRadiation::new)));
 
+        if (com.hbm.space.SpaceToggle.enabled()) {
+            put(
+                    "rocket",
+                    RecordCodecBuilder.<FT_Rocket>mapCodec(
+                            i ->
+                                    i.group(
+                                                    Codec.INT.fieldOf("isp").forGetter(FT_Rocket::getISP),
+                                                    Codec.LONG
+                                                            .fieldOf("thrust")
+                                                            .forGetter(FT_Rocket::getThrust))
+                                            .apply(i, FT_Rocket::new)));
+            put(
+                    "terraformer",
+                    RecordCodecBuilder.<FT_Terraformer>mapCodec(
+                            i ->
+                                    i.group(
+                                                    Codec.STRING
+                                                            .fieldOf("body")
+                                                            .forGetter(FT_Terraformer::getBody))
+                                            .apply(i, FT_Terraformer::new)));
+        }
+
         Codec<Supplier<Fluid>> fluidRef =
                 ResourceLocation.CODEC.comapFlatMap(
                         id -> {

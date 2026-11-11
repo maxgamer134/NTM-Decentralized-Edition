@@ -34,6 +34,10 @@ public abstract class FluidTrait {
         registerTrait("toxin", FT_Toxin.class);
         registerTrait("ventradiation", FT_VentRadiation.class);
         registerTrait("pheromone", FT_Pheromone.class);
+        if (com.hbm.space.SpaceToggle.enabled()) {
+            registerTrait("rocket", FT_Rocket.class);
+            registerTrait("terraformer", FT_Terraformer.class);
+        }
         registerTrait("gaseous", FT_Gaseous.class);
         registerTrait("gaseous_art", FT_Gaseous_ART.class);
         registerTrait("liquid", FT_Liquid.class);

@@ -148,6 +148,7 @@ More in [How the backport works](docs/how-it-works.md). Every deliberate deviati
 
 - **Original Nuclear Tech Mod** by HbmMods — <https://github.com/HbmMods/Hbm-s-Nuclear-Tech-GIT>
 - **NTM: NEXT** port by Warfactory — <https://github.com/Warfactory-Official/ntm-next>
+- **NTM:Space** by JameH2, MellowArpeggiation and contributors — <https://github.com/JameH2/Hbm-s-Nuclear-Tech-GIT> (optional, off by default: `[space] enable_space` in `hbm-content.toml`)
 
 ## 📬 Contacts
 
@@ -160,6 +161,8 @@ More in [How the backport works](docs/how-it-works.md). Every deliberate deviati
 - **HbmMods (The Bobcat)** and contributors — the original Hbm's Nuclear Tech Mod
 - **movblock** and **Warfactory** — NTM: NEXT, the 26.2 port this build is based on
 - **SecretAgent12** — the 1.21.1 backport, Create: Aeronautics support, integrations
+- **JameH2**, **MellowArpeggiation** and the NTM:Space contributors — NTM:Space (planets, atmospheres, rockets and
+  orbital stations), whose fluids, data and assets the optional Space content is ported from
 - Raw ore textures: **MrNorwood** (thorium, cobalt, lithium, schrabidium); **Mr. Morgan** and **NuclearGrandFather**
   (aluminium, beryllium, lead, plutonium, titanium, tungsten, uranium)
 - Ore textures (deepslate, gneiss, meteor, nether uranium, niter, lignite, sulfur, rare earth variants, PR #52):

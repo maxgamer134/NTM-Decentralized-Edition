@@ -103,6 +103,9 @@ public final class ClientEffects {
 
     private static void spawnDeadLeaf(Level level, double x, double y, double z) {
         if (!(level instanceof ClientLevel client)) return;
+        // NTMain: every leaf at "All" particles, half at "Decreased", none at "Minimal"
+        int setting = Minecraft.getInstance().options.particles().get().ordinal();
+        if (!(setting == 0 || (setting == 1 && client.getRandom().nextBoolean()))) return;
         Minecraft.getInstance().particleEngine.add(new ParticleDeadLeaf(client, x, y, z));
     }
 
@@ -616,7 +619,6 @@ public final class ClientEffects {
                 new ParticleRocketFlame(client, x, y, z)
                         .setScale(scale)
                         .setMaxAge(maxAge)
-                        .noClip()
                         .color(color);
         fx.setParticleSpeed(mX, mY, mZ);
         Minecraft.getInstance().particleEngine.add(fx);

@@ -71,9 +71,23 @@ public final class RocketFlameEffect implements Effect {
         vy *= DRAG;
         vz *= DRAG;
 
-        x += vx;
-        y += vy;
-        z += vz;
+        // NTMain: ParticleRocketFlame moves with moveEntity, so its 0.2 box stops at blocks and
+        // the axis it hits loses its speed (launch flames spread over the pad, not through it)
+        net.minecraft.world.phys.Vec3 wanted = new net.minecraft.world.phys.Vec3(vx, vy, vz);
+        net.minecraft.world.phys.Vec3 moved =
+                net.minecraft.world.entity.Entity.collideBoundingBox(
+                        null,
+                        wanted,
+                        new net.minecraft.world.phys.AABB(
+                                x - 0.1, y - 0.1, z - 0.1, x + 0.1, y + 0.1, z + 0.1),
+                        level,
+                        java.util.List.of());
+        if (moved.x != vx) vx = 0;
+        if (moved.y != vy) vy = 0;
+        if (moved.z != vz) vz = 0;
+        x += moved.x;
+        y += moved.y;
+        z += moved.z;
     }
 
     double interpX(float partialTick) {

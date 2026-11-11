@@ -1,0 +1,21 @@
+{
+  "type": "hbm:magic",
+  "input_items": [
+    {
+      "ingredient": "#hbm:ingots/any_rubber"
+    },
+    {
+      "ingredient": "hbm:nugget_pu239"
+    },
+    {
+      "ingredient": "hbm:circuit_chip"
+    }
+  ],
+  "order": 950300,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_dart_nuclear"
+    }
+  ]
+}

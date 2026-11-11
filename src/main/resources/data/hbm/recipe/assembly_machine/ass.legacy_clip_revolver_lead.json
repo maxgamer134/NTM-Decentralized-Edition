@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 6,
+      "ingredient": "hbm:ammo_357_nuclear"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950103,
+  "output_items": [
+    "hbm:clip_revolver_lead"
+  ],
+  "power": 100
+}

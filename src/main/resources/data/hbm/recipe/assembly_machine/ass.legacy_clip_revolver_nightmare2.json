@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 6,
+      "ingredient": "hbm:ammo_357_nightmare2"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950107,
+  "output_items": [
+    "hbm:clip_revolver_nightmare2"
+  ],
+  "power": 100
+}

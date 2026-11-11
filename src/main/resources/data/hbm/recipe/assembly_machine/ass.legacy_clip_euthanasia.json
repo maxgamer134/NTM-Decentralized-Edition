@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 32,
+      "ingredient": "hbm:gun_euthanasia_ammo"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950109,
+  "output_items": [
+    "hbm:clip_euthanasia"
+  ],
+  "power": 100
+}

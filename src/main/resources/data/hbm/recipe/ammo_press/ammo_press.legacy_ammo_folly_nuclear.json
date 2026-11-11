@@ -1,0 +1,24 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "ingredient": "hbm:ammo_nuke"
+    },
+    "B": {
+      "count": 3,
+      "ingredient": "hbm:det_charge"
+    },
+    "C": {
+      "ingredient": "hbm:casing_large_steel"
+    }
+  },
+  "order": 950402,
+  "output_items": [
+    "hbm:ammo_folly_nuclear"
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

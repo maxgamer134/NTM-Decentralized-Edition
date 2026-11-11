@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "hbm:gun_osipr_ammo"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950123,
+  "output_items": [
+    "hbm:clip_osipr"
+  ],
+  "power": 100
+}

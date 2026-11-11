@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_20gauge"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950121,
+  "output_items": [
+    "hbm:clip_lever_action"
+  ],
+  "power": 100
+}

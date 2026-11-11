@@ -1,0 +1,26 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "ingredient": "hbm:ball_dynamite"
+    },
+    "B": {
+      "ingredient": "#hbm:dusts/any_smokeless"
+    },
+    "C": {
+      "ingredient": "hbm:casing_small"
+    }
+  },
+  "order": 950004,
+  "output_items": [
+    {
+      "count": 8,
+      "id": "hbm:ammo_9mm_rocket"
+    }
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

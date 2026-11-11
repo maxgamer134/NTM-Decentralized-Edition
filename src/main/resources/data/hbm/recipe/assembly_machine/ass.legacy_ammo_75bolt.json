@@ -1,0 +1,33 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 60,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#c:plates/steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_plasticexplosive"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    {
+      "count": 3,
+      "ingredient": "hbm:cordite"
+    },
+    {
+      "ingredient": "#c:ingots/uranium_238"
+    }
+  ],
+  "order": 950200,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:ammo_75bolt"
+    }
+  ],
+  "power": 100
+}

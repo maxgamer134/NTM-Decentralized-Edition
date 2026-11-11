@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 6,
+      "ingredient": "hbm:ammo_standard_m44_fmj"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950111,
+  "output_items": [
+    "hbm:clip_revolver_pip"
+  ],
+  "power": 100
+}

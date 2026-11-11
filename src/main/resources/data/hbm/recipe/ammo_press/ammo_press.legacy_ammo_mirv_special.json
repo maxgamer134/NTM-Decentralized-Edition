@@ -1,0 +1,25 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "count": 2,
+      "ingredient": "#c:nuggets/schrabidium"
+    },
+    "B": {
+      "ingredient": "hbm:assembly_nuke"
+    },
+    "C": {
+      "count": 2,
+      "ingredient": "#c:plates/weapon_steel"
+    }
+  },
+  "order": 950017,
+  "output_items": [
+    "hbm:ammo_mirv_special"
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

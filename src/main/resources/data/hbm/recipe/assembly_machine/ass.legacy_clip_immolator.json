@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 60,
+      "ingredient": "hbm:gun_immolator_ammo"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950124,
+  "output_items": [
+    "hbm:clip_immolator"
+  ],
+  "power": 100
+}

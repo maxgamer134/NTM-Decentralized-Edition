@@ -1,0 +1,26 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "ingredient": "#c:ingots/starmetal"
+    },
+    "B": {
+      "ingredient": "#hbm:ingots/any_highexplosive"
+    },
+    "C": {
+      "ingredient": "hbm:casing_large_steel"
+    }
+  },
+  "order": 950015,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_luna_explosive"
+    }
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

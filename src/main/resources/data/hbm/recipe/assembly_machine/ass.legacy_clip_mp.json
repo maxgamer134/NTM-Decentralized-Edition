@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:ammo_556_gold"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950126,
+  "output_items": [
+    "hbm:clip_mp"
+  ],
+  "power": 100
+}

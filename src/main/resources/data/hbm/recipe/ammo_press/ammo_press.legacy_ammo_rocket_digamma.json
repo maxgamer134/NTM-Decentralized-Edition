@@ -1,0 +1,23 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "ingredient": "hbm:particle_digamma"
+    },
+    "B": {
+      "ingredient": "hbm:ball_dynamite"
+    },
+    "C": {
+      "ingredient": "hbm:casing_large"
+    }
+  },
+  "order": 950019,
+  "output_items": [
+    "hbm:ammo_rocket_digamma"
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

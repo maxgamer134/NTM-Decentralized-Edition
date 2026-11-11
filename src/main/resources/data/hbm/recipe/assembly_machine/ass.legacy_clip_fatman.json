@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 6,
+      "ingredient": "hbm:ammo_nuke"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950115,
+  "output_items": [
+    "hbm:clip_fatman"
+  ],
+  "power": 100
+}

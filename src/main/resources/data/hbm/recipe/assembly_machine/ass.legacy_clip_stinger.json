@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:ammo_stinger_rocket"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950114,
+  "output_items": [
+    "hbm:clip_stinger"
+  ],
+  "power": 100
+}

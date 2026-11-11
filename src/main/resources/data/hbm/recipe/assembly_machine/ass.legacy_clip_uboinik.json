@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_12gauge"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950120,
+  "output_items": [
+    "hbm:clip_uboinik"
+  ],
+  "power": 100
+}

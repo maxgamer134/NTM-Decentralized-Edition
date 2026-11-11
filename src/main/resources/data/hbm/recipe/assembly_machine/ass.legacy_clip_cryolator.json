@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 60,
+      "ingredient": "hbm:gun_cryolator_ammo"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950125,
+  "output_items": [
+    "hbm:clip_cryolator"
+  ],
+  "power": 100
+}

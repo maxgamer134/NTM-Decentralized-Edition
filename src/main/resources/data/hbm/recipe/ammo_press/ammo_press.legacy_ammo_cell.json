@@ -1,0 +1,27 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "count": 2,
+      "ingredient": "#c:fine_wires/copper"
+    },
+    "B": {
+      "ingredient": "#c:dusts/lithium"
+    },
+    "C": {
+      "ingredient": "#c:plates/steel"
+    }
+  },
+  "order": 950005,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_cell"
+    }
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

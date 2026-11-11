@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 24,
+      "ingredient": "hbm:gun_hp_ammo"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950130,
+  "output_items": [
+    "hbm:clip_hp"
+  ],
+  "power": 100
+}

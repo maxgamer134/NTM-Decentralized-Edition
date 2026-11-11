@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:ammo_rocket"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950113,
+  "output_items": [
+    "hbm:clip_rpg"
+  ],
+  "power": 100
+}

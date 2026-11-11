@@ -1,0 +1,26 @@
+{
+  "type": "hbm:ammo_press",
+  "key": {
+    "A": {
+      "ingredient": "#c:ingots/starmetal"
+    },
+    "B": {
+      "ingredient": "#c:ingots/white_phosphorus"
+    },
+    "C": {
+      "ingredient": "hbm:casing_large_steel"
+    }
+  },
+  "order": 950016,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:ammo_luna_incendiary"
+    }
+  ],
+  "pattern": [
+    " A ",
+    " B ",
+    " C "
+  ]
+}

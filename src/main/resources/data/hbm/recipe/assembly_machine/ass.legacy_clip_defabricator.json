@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 50,
+      "ingredient": "hbm:gun_defabricator_ammo"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950110,
+  "output_items": [
+    "hbm:clip_defabricator"
+  ],
+  "power": 100
+}

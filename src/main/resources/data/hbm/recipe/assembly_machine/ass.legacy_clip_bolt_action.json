@@ -1,0 +1,18 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 40,
+  "input_items": [
+    {
+      "count": 12,
+      "ingredient": "hbm:ammo_20gauge_slug"
+    },
+    {
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "order": 950122,
+  "output_items": [
+    "hbm:clip_bolt_action"
+  ],
+  "power": 100
+}

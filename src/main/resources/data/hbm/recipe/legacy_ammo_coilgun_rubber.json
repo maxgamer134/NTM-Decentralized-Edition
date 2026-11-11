@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "T": "#hbm:ingots/any_rubber",
+    "S": "#hbm:ingots/any_plastic"
+  },
+  "pattern": [
+    " T ",
+    "TST",
+    " T "
+  ],
+  "result": {
+    "count": 16,
+    "id": "hbm:ammo_coilgun_rubber"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "#c:plates/steel",
+    "B": "#c:bolts/steel",
+    "D": "minecraft:water_bucket"
+  },
+  "pattern": [
+    " P ",
+    "BDB",
+    " P "
+  ],
+  "result": {
+    "id": "hbm:ammo_fireext_legacy"
+  }
+}

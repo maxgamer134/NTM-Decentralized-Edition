@@ -44,6 +44,9 @@ public abstract class ScreenInfoContainer<T extends AbstractContainerMenu>
         extends ContainerScreenCompat<T> {
 
     private static final ResourceLocation GUI_UTILITY = Library.id("textures/gui/gui_utility.png");
+
+    /** Where each tank's gauge was last drawn (relative to the screen), for clicks with a fluid container. */
+    private final java.util.Map<FluidTankNTM, int[]> gauges = new java.util.IdentityHashMap<>();
     private static final ResourceLocation GAUGE_ROUND_SMALL =
             Library.id("textures/gui/gauges/small_round.png");
     private static final int GAUGE_ROUND_SMALL_FRAMES = 13;
@@ -92,6 +95,30 @@ public abstract class ScreenInfoContainer<T extends AbstractContainerMenu>
             case OVERDRIVE -> "upgrade.gui.overdrive";
             default -> null;
         };
+    }
+
+    /**
+     * A fluid container on the cursor (a Mekanism gauge dropper, a bucket, a canister) clicked on a
+     * tank gauge: left draws from the tank, right pours into it.
+     */
+    @Override
+    public boolean mouseClicked(com.hbm.backport.client.gui.input.MouseButtonEvent event, boolean doubleClick) {
+        int button = event.button();
+        if ((button == 0 || button == 1)
+                && menu instanceof com.hbm.inventory.container.BlockEntityMenu<?> owner
+                && FluidTankNTM.isFluidContainer(menu.getCarried())) {
+            com.hbm.inventory.fluid.tank.FluidTankAccess tanks =
+                    com.hbm.inventory.fluid.tank.FluidTankAccess.of(owner.blockEntity());
+            for (int i = 0; i < tanks.tankCount(); i++) {
+                int[] at = gauges.get(tanks.tank(i));
+                if (at == null || !checkClick((int) event.x(), (int) event.y(), at[0], at[1], at[2], at[3])) continue;
+                com.hbm.packet.PacketWire.sendToServer(
+                        new com.hbm.packet.toserver.GaugeClickPayload(menu.containerId, i, button == 1));
+                playClick();
+                return true;
+            }
+        }
+        return super.mouseClicked(event, doubleClick);
     }
 
     protected static void playClick() {
@@ -398,6 +425,7 @@ public abstract class ScreenInfoContainer<T extends AbstractContainerMenu>
             int width,
             int height,
             FluidTankNTM tank) {
+        gauges.put(tank, new int[] {x, y, width, height});
         if (!checkClick(mouseX, mouseY, x, y, width, height)) return;
         Fluid type = tank.getTankType();
         List<Component> lines = new ArrayList<>();

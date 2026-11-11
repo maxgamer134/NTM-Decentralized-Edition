@@ -254,6 +254,10 @@ public class BlockEntityMachineAssemblyFactory extends BlockEntityMachineBase
             }
         }
 
+        changed |= FactorySharing.shareFluids(inputTanks, outputTanks);
+        dirtyThisTick |= FactorySharing.shareItems(
+                this, module, SLOTS_PER_MODULE, INPUT_OFFSET, INPUT_COUNT, OUTPUT_OFFSET, OUTPUTS_PER_MODULE);
+
         if (dirtyThisTick || power != prevPower) setChanged();
         else if (changed || maxPower != prevMaxPower) markChanged();
 

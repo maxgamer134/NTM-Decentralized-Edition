@@ -249,19 +249,8 @@ public class BlockEntityMachineChemicalFactory extends BlockEntityMachineBase
             }
         }
 
-        for (FluidTankNTM in : inputTanks) {
-            if (in.getTankType() == null) continue;
-            for (FluidTankNTM out : outputTanks) {
-                if (!in.accepts(out.getFluid())) continue;
-                if (out.getPressure() != in.getPressure()) continue;
-                int toMove = Math.min(Math.min(in.getMaxFill() - in.getFill(), out.getFill()), 50);
-                if (toMove > 0) {
-                    int moved = in.receive(out.getFluid(), toMove);
-                    out.setFill(out.getFill() - moved);
-                    changed = true;
-                }
-            }
-        }
+        changed |= FactorySharing.shareFluids(inputTanks, outputTanks);
+        dirtyThisTick |= FactorySharing.shareItems(this, module, SLOTS_PER_MODULE, 5, 3, OUTPUT_OFFSET, OUTPUTS_PER_MODULE);
 
         if (dirtyThisTick || power != prevPower) setChanged();
         else if (changed || maxPower != prevMaxPower) markChanged();

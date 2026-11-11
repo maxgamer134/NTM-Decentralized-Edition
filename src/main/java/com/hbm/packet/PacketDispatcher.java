@@ -377,6 +377,12 @@ public final class PacketDispatcher {
 
         NeoForgeNetwork.serverbound.add(
                 new NeoForgeNetwork.Registration<>(
+                        com.hbm.packet.toserver.GaugeClickPayload.TYPE,
+                        com.hbm.packet.toserver.GaugeClickPayload.STREAM_CODEC,
+                        com.hbm.packet.toserver.GaugeClickPayload::handleServer,
+                        PayloadHandlerThread.MAIN));
+        NeoForgeNetwork.serverbound.add(
+                new NeoForgeNetwork.Registration<>(
                         NbtControlPayload.TYPE,
                         NbtControlPayload.STREAM_CODEC,
                         NbtControlPayload::handleServer,

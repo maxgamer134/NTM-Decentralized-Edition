@@ -24,21 +24,14 @@ final class MultiblockPortRoles {
                     // TileEntityMachineIndustrialTurbine: power only at the back, fluids everywhere else
                     Library.id("machine_industrial_turbine"),
                     (x, y, z) -> x == 0 && y == 1 && z == -3 ? POWER : FLUID,
-                    // TileEntityMachineAssemblyFactory / ChemicalFactory: the edge cells beside the
-                    // middle ones are power only, every other port takes both
-                    Library.id("machine_assembly_factory"),
-                    MultiblockPortRoles::factory,
-                    Library.id("machine_chemical_factory"),
-                    MultiblockPortRoles::factory,
+                    // the assembly and chemical factories take power and fluids at every port: their
+                    // coolant cells (y 0, |x| 1, |z| 2) carry power and the coolant loop (main's
+                    // coolant line delegate), and fluidAccess keeps recipe fluids off them
                     // battery socket: the top face cells are power only, the side cells keep all
                     Library.id("machine_battery_socket"),
                     (x, y, z) -> y == 1 ? POWER : ~0);
 
     private MultiblockPortRoles() {}
-
-    private static int factory(int x, int y, int z) {
-        return y == 0 && Math.abs(x) == 1 && Math.abs(z) == 2 ? POWER : POWER | FLUID;
-    }
 
     static MultiblockLayout apply(ResourceLocation id, MultiblockLayout layout) {
         MultiblockMaskTable.CellRoles roles = ROLES.get(id);

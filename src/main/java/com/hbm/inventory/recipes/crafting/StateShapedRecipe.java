@@ -207,11 +207,13 @@ public final class StateShapedRecipe extends ShapedRecipe implements CraftingInp
 
     @Override
     public ItemStack assemble(CraftingInput input) {
-        if (carrier == -1) return result.create();
+        if (carrier == -1) return KeepEnchantments.apply(result.create(), input);
         int flip = orientation(input);
         if (flip < 0) return ItemStack.EMPTY;
-        return TransmuteRecipe.createWithOriginalComponents(
-                result, input.getItem(sourceCell(carrier, flip)));
+        return KeepEnchantments.apply(
+                TransmuteRecipe.createWithOriginalComponents(
+                        result, input.getItem(sourceCell(carrier, flip))),
+                input);
     }
 
     @Override

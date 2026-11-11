@@ -169,10 +169,12 @@ public final class StateShapelessRecipe extends HbmNormalCraftingRecipe {
 
     @Override
     public ItemStack assemble(CraftingInput input) {
-        if (carrier == -1 || !RecipeInputState.hasChangedInputs(input)) return result.create();
+        if (carrier == -1 || !RecipeInputState.hasChangedInputs(input))
+            return KeepEnchantments.apply(result.create(), input);
         List<ItemStack> selected = new ArrayList<>(inputs.size());
         if (!pick(input, selected)) return ItemStack.EMPTY;
-        return TransmuteRecipe.createWithOriginalComponents(result, selected.get(carrier));
+        return KeepEnchantments.apply(
+                TransmuteRecipe.createWithOriginalComponents(result, selected.get(carrier)), input);
     }
 
     @Override

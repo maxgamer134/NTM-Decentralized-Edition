@@ -362,16 +362,15 @@ public class EntityBulletBeamBase extends EntityCompat {
                 this.level().addFreshEntity(newBeam);
 
                 if (this.level() instanceof ServerLevel server) {
-                    server.sendParticles(
-                            ParticleTypes.EXPLOSION,
-                            coinHit.x,
-                            coinHit.y,
-                            coinHit.z,
-                            1,
-                            0,
-                            0,
-                            0,
-                            0);
+                    com.hbm.packet.toclient.VanillaExtPayload.send(
+                            server,
+                            com.hbm.client.particle.VanillaExt.of(
+                                            com.hbm.client.particle.VanillaExt.Mode.LARGEEXPLODE,
+                                            coinHit.x,
+                                            coinHit.y,
+                                            coinHit.z)
+                                    .explode(1.5F, 1),
+                            100);
                 }
 
                 return;

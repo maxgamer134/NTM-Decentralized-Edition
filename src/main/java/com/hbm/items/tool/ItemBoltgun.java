@@ -111,7 +111,12 @@ public class ItemBoltgun extends ItemCompat implements IToolable.Tool, IAnimated
 
     private static void burst(Level level, double x, double y, double z) {
         if (level instanceof ServerLevel server) {
-            server.sendParticles(ParticleTypes.EXPLOSION, x, y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+            com.hbm.packet.toclient.VanillaExtPayload.send(
+                    server,
+                    com.hbm.client.particle.VanillaExt.of(
+                                    com.hbm.client.particle.VanillaExt.Mode.LARGEEXPLODE, x, y, z)
+                            .explode(1F, 1),
+                    50);
         }
     }
 

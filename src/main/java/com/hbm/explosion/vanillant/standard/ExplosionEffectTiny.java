@@ -22,6 +22,11 @@ public class ExplosionEffectTiny implements IExplosionSFX {
 
         world.playSound(
                 null, x, y, z, ModSounds.EXPLOSION_TINY.get(), SoundSource.BLOCKS, 15.0F, 1.0F);
-        level.sendParticles(ParticleTypes.EXPLOSION, x, y, z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
+        com.hbm.packet.toclient.VanillaExtPayload.send(
+                level,
+                com.hbm.client.particle.VanillaExt.of(
+                                com.hbm.client.particle.VanillaExt.Mode.LARGEEXPLODE, x, y, z)
+                        .explode(1.5F, 1),
+                100);
     }
 }

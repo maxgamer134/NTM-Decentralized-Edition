@@ -409,10 +409,13 @@ public abstract class BlockEntityTurretBaseNT extends BlockEntityMachineBase
         if (!(level instanceof ServerLevel server)) return;
         at = toWorld(at);
 
-        if (count <= 1)
-            server.sendParticles(ParticleTypes.EXPLOSION, at.x, at.y, at.z, 0, size, 0D, 0D, 1D);
-        else
-            server.sendParticles(ParticleTypes.EXPLOSION, at.x, at.y, at.z, count, size, 0D, 0D, 0D);
+        // NTMain: a "largeexplode" vanillaExt, one tinted blast plus count growing grey puffs
+        com.hbm.packet.toclient.VanillaExtPayload.send(
+                server,
+                com.hbm.client.particle.VanillaExt.of(
+                                com.hbm.client.particle.VanillaExt.Mode.LARGEEXPLODE, at.x, at.y, at.z)
+                        .explode(size, count),
+                50);
     }
 
     public void manualSetup() {}

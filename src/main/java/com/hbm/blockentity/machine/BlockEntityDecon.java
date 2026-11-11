@@ -52,13 +52,13 @@ public class BlockEntityDecon extends BlockEntityCompat {
 
     public void tickClient() {
         RandomSource rand = level.getRandom();
-        level.addParticle(
-                ParticleTypes.MYCELIUM,
-                worldPosition.getX() + 0.125D + rand.nextDouble() * 0.75D,
-                worldPosition.getY() + 1.1D,
-                worldPosition.getZ() + 0.125D + rand.nextDouble() * 0.75D,
-                0D,
-                0.04D,
-                0D);
+        // NTMain: a "townaura" vanillaExt, recoloured pale blue and rising at its real speed
+        com.hbm.client.particle.VanillaExt.spawn(
+                com.hbm.client.particle.VanillaExt.of(
+                                com.hbm.client.particle.VanillaExt.Mode.TOWNAURA,
+                                worldPosition.getX() + 0.125D + rand.nextDouble() * 0.75D,
+                                worldPosition.getY() + 1.1D,
+                                worldPosition.getZ() + 0.125D + rand.nextDouble() * 0.75D)
+                        .motion(0D, 0.04D, 0D));
     }
 }

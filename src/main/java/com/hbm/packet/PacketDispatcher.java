@@ -138,6 +138,12 @@ public final class PacketDispatcher {
                         PayloadHandlerThread.MAIN));
         NeoForgeNetwork.clientbound.add(
                 new NeoForgeNetwork.Registration<>(
+                        com.hbm.packet.toclient.VanillaExtPayload.TYPE,
+                        com.hbm.packet.toclient.VanillaExtPayload.STREAM_CODEC,
+                        com.hbm.packet.toclient.VanillaExtPayload::handle,
+                        PayloadHandlerThread.MAIN));
+        NeoForgeNetwork.clientbound.add(
+                new NeoForgeNetwork.Registration<>(
                         GasFlamePayload.TYPE,
                         GasFlamePayload.STREAM_CODEC,
                         GasFlamePayload::handleClient,

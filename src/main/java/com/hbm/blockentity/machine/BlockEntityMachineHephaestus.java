@@ -167,6 +167,7 @@ public class BlockEntityMachineHephaestus extends BlockEntityMachineBase
         BlockState state = level.getBlockState(new BlockPos(x, y, z));
         if (state.is(Blocks.LAVA)) return 5;
         if (state.is(ModBlocks.VOLCANIC_LAVA_BLOCK.get())) return 150;
+        if (state.is(ModBlocks.RAD_LAVA_BLOCK.get())) return 150;
 
         if (state.is(ModBlocks.ORE_VOLCANO.get())) {
             this.fissureScanTime = level.getGameTime();

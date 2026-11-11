@@ -258,8 +258,8 @@ public class BlockEntityMachineTurbofan extends BlockEntityMachinePolluting
         Direction facing = BlockMultiblockCore.coreFacing(getBlockState());
         Direction back = facing.getOpposite();
         Direction rot = facing.getClockWise().getOpposite();
-        BlockPos front = worldPosition.relative(facing, 2);
-        BlockPos rear = worldPosition.relative(back, 2);
+        BlockPos front = worldPosition.relative(facing, 1);
+        BlockPos rear = worldPosition.relative(back, 1);
         int best = 0;
         for (BlockPos port : new BlockPos[] {front, front.relative(rot), rear, rear.relative(rot)}) {
             best = Math.max(best, portSignal(port));

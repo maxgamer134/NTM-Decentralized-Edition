@@ -103,6 +103,8 @@ public class GUIScreenRecipeSelector extends ScreenCompat {
         search.setMaxLength(32);
         search.setResponder(this::search);
         addRenderableWidget(search);
+        search.setFocused(true);
+        setInitialFocus(search);
     }
 
     private void regenerateRecipes() {

@@ -178,6 +178,16 @@ public final class DamageResistanceHandler {
             dr += res[1];
         }
 
+        // main: flamers protect their holder (fire 0.5/50%; topaz and daybreaker also explosions 5/25%)
+        ItemStack held = entity.getMainHandItem();
+        if (!held.isEmpty()) {
+            String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(held.getItem()).getPath();
+            boolean flamer = id.equals("gun_flamer");
+            boolean heavy = id.equals("gun_flamer_topaz") || id.equals("gun_flamer_daybreaker");
+            if ((flamer || heavy) && damage.is(DamageTypeTags.IS_FIRE)) { dt += 0.5F; dr += 0.5F; }
+            if (heavy && damage.is(DamageTypeTags.IS_EXPLOSION)) { dt += 5F; dr += 0.25F; }
+        }
+
         ArmorSet wornSet =
                 new ArmorSet(
                         itemOrNull(entity, EquipmentSlot.HEAD),

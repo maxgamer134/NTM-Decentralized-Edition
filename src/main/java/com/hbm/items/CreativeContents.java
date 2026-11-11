@@ -987,6 +987,8 @@ public final class CreativeContents {
                 "plate_polymer",
                 "plate_kevlar",
                 "plate_dalekanium",
+                "component_emitter",
+                "redcoil_capacitor",
                 "plate_desh",
                 "plate_bismuth",
                 "plate_euphemium",

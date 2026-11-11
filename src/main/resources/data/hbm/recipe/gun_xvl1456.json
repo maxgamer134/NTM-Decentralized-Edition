@@ -4,7 +4,7 @@
     "P": "#c:plates/steel",
     "R": "hbm:redcoil_capacitor",
     "A": "hbm:coil_magnetized_tungsten",
-    "B": "hbm:battery_generic",
+    "B": "hbm:battery_pack_battery_lead",
     "C": "hbm:coil_magnetized_tungsten",
     "Y": "hbm:mechanism_special"
   },

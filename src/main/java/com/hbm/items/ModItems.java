@@ -1103,6 +1103,11 @@ public final class ModItems {
             Reg.item("plate_kevlar", Item::new, Item.Properties::new).addTo(COMPONENT_ALL);
     public static final RegistryHandle<Item> PLATE_DALEKANIUM =
             Reg.item("plate_dalekanium", Item::new, Item.Properties::new).addTo(COMPONENT_ALL);
+    // from main: parts its assembler recipes and the B93 / XVL1456 recipes use
+    public static final RegistryHandle<Item> COMPONENT_EMITTER =
+            Reg.item("component_emitter", Item::new, Item.Properties::new).addTo(COMPONENT_ALL);
+    public static final RegistryHandle<Item> REDCOIL_CAPACITOR =
+            Reg.item("redcoil_capacitor", Item::new, () -> new Item.Properties().stacksTo(1)).addTo(COMPONENT_ALL);
     public static final RegistryHandle<Item> PLATE_DESH =
             Reg.item("plate_desh", Item::new, Item.Properties::new).addTo(COMPONENT_ALL);
     public static final RegistryHandle<ItemCustomLore> PLATE_BISMUTH =

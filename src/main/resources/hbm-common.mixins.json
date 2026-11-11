@@ -12,6 +12,8 @@
     "scalablelux.MixinConcurrentLightQueue",
     "scalablelux.MixinSimpleLightQueue",
     "MixinAbstractContainerMenu",
+    "MixinMerchantOffer",
+    "MixinMerchantResultSlot",
     "MixinAbstractFurnaceBlockEntity",
     "MixinAbstractMinecart",
     "MixinVaultServerData",

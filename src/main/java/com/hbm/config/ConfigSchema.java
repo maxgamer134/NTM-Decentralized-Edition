@@ -535,6 +535,20 @@ public final class ConfigSchema {
                     1,
                     64,
                     "How many caps one emerald becomes. A count past the cap's stack size is cut to it.");
+    public static final ConfigEntry<Boolean> TRADES_LOOSE_CHANGE =
+            bool(
+                    Domain.RUNTIME,
+                    "trades",
+                    "loose_change",
+                    false,
+                    "Trades take any currency listed in currencies and give change: with a quantum cap worth four nuka caps, a two-cap trade takes one quantum cap and hands back two nuka caps. Payments whose change no listed coins make exactly are refused.");
+    public static final ConfigEntry<String> TRADES_CURRENCIES =
+            text(
+                    Domain.RUNTIME,
+                    "trades",
+                    "currencies",
+                    "hbm:cap_nuka=1,hbm:cap_fritz=1,hbm:cap_korl=1,hbm:cap_rad=1,hbm:cap_sparkle=2,hbm:cap_quantum=4",
+                    "The currencies loose_change accepts, as item=value pairs separated by commas. Any item can be one, minecraft:emerald=8 for example.");
     public static final ConfigEntry<Boolean> ENABLE_SPACE =
             bool(
                     Domain.CONTENT,
@@ -799,6 +813,8 @@ public final class ConfigSchema {
                     TRADES_BOTTLECAPS,
                     TRADES_BOTTLECAP_ITEM,
                     TRADES_CAPS_PER_EMERALD,
+                    TRADES_LOOSE_CHANGE,
+                    TRADES_CURRENCIES,
                     ENABLE_SPACE,
                     SPACE_CHANGES,
                     ITEM_HAZARD_DROP_TICKRATE,

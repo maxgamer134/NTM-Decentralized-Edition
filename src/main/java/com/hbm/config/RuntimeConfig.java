@@ -91,4 +91,12 @@ public interface RuntimeConfig {
     default int capsPerEmerald() {
         return store().get(ConfigSchema.TRADES_CAPS_PER_EMERALD);
     }
+
+    default boolean looseChange() {
+        return store().get(ConfigSchema.TRADES_LOOSE_CHANGE);
+    }
+
+    default String tradeCurrencies() {
+        return store().get(ConfigSchema.TRADES_CURRENCIES);
+    }
 }

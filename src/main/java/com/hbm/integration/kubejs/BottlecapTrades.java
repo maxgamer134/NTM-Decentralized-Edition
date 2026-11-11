@@ -37,6 +37,61 @@ import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 @EventBusSubscriber(modid = "hbm")
 public final class BottlecapTrades {
 
+    /**
+     * Datapack form of this API: data/<namespace>/hbm_trades/<name>.json, for example
+     * <pre>{"profession": "minecraft:farmer",
+     *  "swap": {"cap": "cap_nuka", "caps_per_emerald": 2},
+     *  "trades": [{"level": 1, "cap": "cap_nuka", "count": 5,
+     *              "result": {"id": "minecraft:bread", "count": 3}, "max_uses": 12, "xp": 2}]}</pre>
+     * Both "swap" and "trades" are optional. Reloads with /reload, alongside script entries.
+     */
+    private static final Map<ResourceLocation, List<Added>> JSON_ADDED = new HashMap<>();
+    private static final Map<ResourceLocation, Swap> JSON_SWAPS = new HashMap<>();
+
+    @SubscribeEvent
+    public static void onReloadListeners(net.neoforged.neoforge.event.AddReloadListenerEvent event) {
+        event.addListener(new net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener(
+                new com.google.gson.Gson(), "hbm_trades") {
+            @Override
+            protected void apply(
+                    Map<ResourceLocation, com.google.gson.JsonElement> entries,
+                    net.minecraft.server.packs.resources.ResourceManager manager,
+                    net.minecraft.util.profiling.ProfilerFiller profiler) {
+                JSON_ADDED.clear();
+                JSON_SWAPS.clear();
+                for (var entry : entries.entrySet()) {
+                    try {
+                        var o = entry.getValue().getAsJsonObject();
+                        ResourceLocation prof = ResourceLocation.parse(o.get("profession").getAsString());
+                        if (o.has("swap")) {
+                            var sw = o.getAsJsonObject("swap");
+                            JSON_SWAPS.put(prof, new Swap(sw.get("cap").getAsString(),
+                                    Math.max(1, sw.get("caps_per_emerald").getAsInt())));
+                        }
+                        if (o.has("trades")) {
+                            for (var t : o.getAsJsonArray("trades")) {
+                                var to = t.getAsJsonObject();
+                                ItemStack result = ItemStack.CODEC
+                                        .parse(com.mojang.serialization.JsonOps.INSTANCE, to.get("result"))
+                                        .getOrThrow();
+                                JSON_ADDED.computeIfAbsent(prof, k -> new ArrayList<>()).add(new Added(
+                                        to.has("level") ? to.get("level").getAsInt() : 1,
+                                        to.get("cap").getAsString(),
+                                        to.has("count") ? to.get("count").getAsInt() : 1,
+                                        result,
+                                        to.has("max_uses") ? to.get("max_uses").getAsInt() : 12,
+                                        to.has("xp") ? to.get("xp").getAsInt() : 2));
+                            }
+                        }
+                    } catch (RuntimeException e) {
+                        com.mojang.logging.LogUtils.getLogger()
+                                .error("Bad bottlecap trade file {}: {}", entry.getKey(), e.getMessage());
+                    }
+                }
+            }
+        });
+    }
+
     private record Added(
             int level, String cap, int capCount, ItemStack result, int maxUses, int xp) {}
 
@@ -83,7 +138,7 @@ public final class BottlecapTrades {
         VillagerProfession type = event.getType();
         ResourceLocation id = BuiltInRegistries.VILLAGER_PROFESSION.getKey(type);
 
-        Swap swap = SWAPS.get(id);
+        Swap swap = SWAPS.getOrDefault(id, JSON_SWAPS.get(id));
         if (swap != null) {
             event.getTrades()
                     .int2ObjectEntrySet()
@@ -111,8 +166,8 @@ public final class BottlecapTrades {
                             });
         }
 
-        List<Added> added = ADDED.get(id);
-        if (added == null) return;
+        List<Added> added = new ArrayList<>(ADDED.getOrDefault(id, List.of()));
+        added.addAll(JSON_ADDED.getOrDefault(id, List.of()));
         for (Added a : added) {
             Item cap = capItem(a.cap());
             if (cap == Items.AIR) continue;

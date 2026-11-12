@@ -42,7 +42,10 @@ public final class LegacyBlocks {
                     "stone_resource_malachite", "stone_resource_limestone", "stone_resource_bauxite", "stone_resource_limestone",
                     "stone_resource_limestone"},
             "ore_basalt", new String[] {"ore_basalt_sulfur", "ore_basalt_fluorite", "ore_basalt_asbestos", "ore_basalt_gem",
-                    "ore_basalt_molysite"});
+                    "ore_basalt_molysite"},
+            // BlockNTMFlower's EnumFlowerType order; strawberry and mint have no block here
+            "plant_flower", new String[] {"plant_flower_foxglove", "plant_flower_tobacco", "plant_flower_nightshade",
+                    "plant_flower_weed", "plant_flower_cd0", "plant_flower_cd1"});
 
     private static final Map<Block, Block[]> VARIANT_BLOCKS = new ConcurrentHashMap<>();
 

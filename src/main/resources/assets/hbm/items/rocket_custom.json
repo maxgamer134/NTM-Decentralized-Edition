@@ -1,6 +1,7 @@
 {
   "model": {
     "type": "hbm:rocket_custom",
-    "base": "hbm:item/rocket_custom"
-  }
+    "base": "hbm:item/missile_custom_base"
+  },
+  "oversized_in_gui": true
 }

@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "minecraft:stone",
+    "T": "minecraft:tripwire_hook",
+    "P": "hbm:powder_magic"
+  },
+  "pattern": [
+    "SPS",
+    "STS",
+    "SSS"
+  ],
+  "result": {
+    "id": "hbm:stone_keyhole"
+  }
+}

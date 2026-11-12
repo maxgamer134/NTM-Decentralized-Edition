@@ -1,0 +1,16 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "B": "#minecraft:stone_bricks",
+    "G": "#c:ingots/gold",
+    "P": "hbm:powder_magic"
+  },
+  "pattern": [
+    "BBB",
+    "PGP",
+    "BBB"
+  ],
+  "result": {
+    "id": "hbm:pedestal"
+  }
+}

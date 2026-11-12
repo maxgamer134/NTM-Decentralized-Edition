@@ -388,8 +388,11 @@ public final class SpaceLaunchPad {
 
         public void launch() {
             if (!canLaunch()) return;
-            EntityRideableRocket entity = EntityRideableRocket.of(level, worldPosition.getX() + 0.5, worldPosition.getY() + 3,
-                    worldPosition.getZ() + 0.5, getItem(ROCKET)).withProgram(getItem(DRIVE));
+            // a pad on a Sable build starts the rocket in world space, along the pad's axis (as the Soyuz)
+            double x = worldPosition.getX() + 0.5, y = worldPosition.getY() + 3, z = worldPosition.getZ() + 0.5;
+            net.minecraft.world.phys.Vec3 at = com.hbm.backport.SubLevelSpace.toWorld(level, x, y, z);
+            EntityRideableRocket entity = EntityRideableRocket.of(level, at.x, at.y, at.z, getItem(ROCKET)).withProgram(getItem(DRIVE));
+            entity.setLaunchAxis(com.hbm.backport.LaunchAxis.padUp(level, x, y, z));
             level.addFreshEntity(entity);
             for (FluidTankNTM tank : tanks) {
                 tank.setTankType(NTMFluids.NONE);

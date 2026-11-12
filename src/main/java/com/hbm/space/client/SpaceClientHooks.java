@@ -168,7 +168,7 @@ public final class SpaceClientHooks {
                 (net.neoforged.neoforge.client.event.RenderLivingEvent.Pre<?, ?> event) -> {
                     if (!(event.getEntity().getVehicle() instanceof com.hbm.space.rocket.EntityRideableRocket rocket)) return;
                     event.getPoseStack().pushPose();
-                    event.getPoseStack().mulPose(com.mojang.math.Axis.ZN.rotationDegrees(rocket.getViewXRot(event.getPartialTick())));
+                    event.getPoseStack().mulPose(com.hbm.backport.LaunchAxis.rotation(rocket.nose(rocket.getViewXRot(event.getPartialTick()))));
                 });
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.HIGHEST,
                 (net.neoforged.neoforge.client.event.RenderLivingEvent.Post<?, ?> event) -> {

@@ -58,6 +58,8 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
     private static final EntityDataAccessor<Integer> STATE = SynchedEntityData.defineId(EntityRideableRocket.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TIMER = SynchedEntityData.defineId(EntityRideableRocket.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<ItemStack> DRIVE = SynchedEntityData.defineId(EntityRideableRocket.class, EntityDataSerializers.ITEM_STACK);
+    /** The pad's up axis in the world, tilted when the pad stands on a Sable build (as the Soyuz). */
+    private static final EntityDataAccessor<org.joml.Vector3f> AXIS = SynchedEntityData.defineId(EntityRideableRocket.class, EntityDataSerializers.VECTOR3);
     private static final EntityDataAccessor<CompoundTag> ROCKET = SynchedEntityData.defineId(EntityRideableRocket.class, EntityDataSerializers.COMPOUND_TAG);
 
     public ItemStack navDrive = ItemStack.EMPTY;
@@ -117,6 +119,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         builder.define(STATE, RocketState.AWAITING.ordinal());
         builder.define(TIMER, 0);
         builder.define(DRIVE, ItemStack.EMPTY);
+        builder.define(AXIS, new org.joml.Vector3f(0F, 1F, 0F));
         builder.define(ROCKET, new RocketStruct(SpaceRocketParts.RP_CAPSULE_20.get()).save());
     }
 
@@ -127,6 +130,41 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
             cachedTag = tag;
         }
         return cached;
+    }
+
+    public void setLaunchAxis(Vec3 axis) {
+        if (com.hbm.backport.LaunchAxis.upright(axis)) axis = com.hbm.backport.LaunchAxis.UP;
+        entityData.set(AXIS, new org.joml.Vector3f((float) axis.x, (float) axis.y, (float) axis.z));
+    }
+
+    public Vec3 launchAxis() {
+        org.joml.Vector3f v = entityData.get(AXIS);
+        return new Vec3(v.x(), v.y(), v.z());
+    }
+
+    /**
+     * The rocket's up before its pitch program: the pad axis while it stands on the pad, bending to
+     * straight up over the Soyuz's turn once it lifts off, straight up once it has left.
+     */
+    public Vec3 upAxis() {
+        Vec3 axis = launchAxis();
+        if (com.hbm.backport.LaunchAxis.upright(axis)) return com.hbm.backport.LaunchAxis.UP;
+        return switch (getState()) {
+            case AWAITING, NEEDSFUEL -> axis;
+            case LAUNCHING -> com.hbm.backport.LaunchAxis.steer(axis, com.hbm.backport.LaunchAxis.rocketSteerEased(getStateTimer()));
+            default -> com.hbm.backport.LaunchAxis.UP;
+        };
+    }
+
+    /** Where the nose points: the up axis leant east by {@code pitchDegrees}, NTM:Space's ascent. */
+    public Vec3 nose(float pitchDegrees) {
+        double p = Math.toRadians(pitchDegrees);
+        Vec3 d = upAxis().scale(Math.cos(p)).add(Math.sin(p), 0, 0);
+        return d.lengthSqr() < 1.0e-8 ? com.hbm.backport.LaunchAxis.UP : d.normalize();
+    }
+
+    public Vec3 nose() {
+        return nose(getXRot());
     }
 
     public void setRocket(RocketStruct rocket) {
@@ -209,6 +247,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
 
     private void beginLandingSequence(Target from, Target to) {
         setDeltaMovement(Vec3.ZERO);
+        setLaunchAxis(com.hbm.backport.LaunchAxis.UP);
         RocketStruct rocket = getRocket();
         // undocking to the body below doesn't spend a stage
         if (!rocket.stages.isEmpty() && !(getState() == RocketState.UNDOCKING && from.body() == to.body())) {
@@ -254,6 +293,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
     /** A crewed trip between bodies: coast in a temporary station cell until the transfer is done. */
     private void beginCelestialTransfer(Target from, Target to) {
         setDeltaMovement(Vec3.ZERO);
+        setLaunchAxis(com.hbm.backport.LaunchAxis.UP);
         setState(RocketState.TRANSFER);
         if (!(level() instanceof ServerLevel server)) return;
         com.hbm.space.SolarSystemSavedData data = com.hbm.space.SolarSystemSavedData.get(server);
@@ -410,9 +450,8 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
             }
 
             if (state == RocketState.LAUNCHING) {
-                // pitching over toward the east, as NTM:Space's ascent did
-                float pitch = (float) Math.toRadians(getXRot());
-                setDeltaMovement(Math.sin(pitch) * rocketVelocity, Math.cos(pitch) * rocketVelocity, 0);
+                // pitching over toward the east, as NTM:Space's ascent did, off a tilted pad's axis
+                setDeltaMovement(nose().scale(rocketVelocity));
             } else {
                 setDeltaMovement(0, rocketVelocity, 0);
             }
@@ -535,8 +574,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         Vec3 back = new Vec3(xo - getX(), yo - getY(), zo - getZ());
         double len = back.length();
         back = len < 1.0e-4 ? Vec3.ZERO : back.scale(1 / len);
-        double pitch = Math.toRadians(getXRot());
-        Vec3 thrust = new Vec3(Math.sin(pitch), Math.cos(pitch), 0);
+        Vec3 thrust = nose();
         double pressure = com.hbm.api.environment.Environment.particlePressure(level());
         for (int i = 0; i < Math.max(Math.min(len, 10), 1); i++) {
             double j = i - len;
@@ -578,8 +616,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
     public Vec3 getPassengerRidingPosition(Entity passenger) {
         // along the rocket's axis, which leans east as it pitches over (NTM:Space's updateRiderPosition)
         double length = isReusable() ? getBbHeight() - 2.5 : getBbHeight() - 3.0;
-        double pitch = Math.toRadians(getXRot());
-        return position().add(Math.sin(pitch) * length, Math.cos(pitch) * length, 0);
+        return position().add(nose().scale(length));
     }
 
     @Override
@@ -627,6 +664,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         stateTimer = input.getIntOr("timer", 0);
         entityData.set(TIMER, stateTimer);
         navDrive = input.read("drive", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
+        setLaunchAxis(new Vec3(input.getDoubleOr("axisX", 0D), input.getDoubleOr("axisY", 1D), input.getDoubleOr("axisZ", 0D)));
     }
 
     @Override
@@ -635,5 +673,9 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         output.putInt("state", getState().ordinal());
         output.putInt("timer", stateTimer);
         output.store("drive", ItemStack.OPTIONAL_CODEC, navDrive);
+        Vec3 axis = launchAxis();
+        output.putDouble("axisX", axis.x);
+        output.putDouble("axisY", axis.y);
+        output.putDouble("axisZ", axis.z);
     }
 }

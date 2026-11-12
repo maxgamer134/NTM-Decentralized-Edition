@@ -284,6 +284,8 @@ public final class SpaceEnvironment implements EnvironmentProvider {
      */
     public static void tickGravity(LivingEntity entity) {
         if (entity.isNoGravity() || entity instanceof net.minecraft.world.entity.FlyingMob) return;
+        // vanilla applies no gravity to a flying (creative) player, so undoing it here only lifted them
+        if (entity instanceof Player flier && flier.getAbilities().flying) return;
         float gravity = gravityOf(entity);
         Vec3 m = entity.getDeltaMovement();
         double my = m.y;

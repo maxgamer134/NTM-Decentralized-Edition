@@ -87,6 +87,13 @@ public final class HbmParticleGroups {
                                 engine,
                                 ParticleRenderTypes.litTranslucent(
                                         ResourceManager.particle_base_tex)));
+        out.accept(
+                ParticleDust.DUST_GROUP,
+                engine ->
+                        new QuadParticleGroup(
+                                engine,
+                                ParticleRenderTypes.litTranslucent(
+                                        ResourceManager.particle_base_tex)));
         out.accept(ParticleSpark.SPARK_GROUP, engine -> new LineParticleGroup(engine));
         out.accept(ParticleDebugLine.DEBUG_LINE_GROUP, engine -> new LineParticleGroup(engine));
         out.accept(ParticleText.TEXT_GROUP, engine -> new TextParticleGroup(engine));

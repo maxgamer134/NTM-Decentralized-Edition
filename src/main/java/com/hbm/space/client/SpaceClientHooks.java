@@ -27,6 +27,7 @@ public final class SpaceClientHooks {
                         event.enqueueWork(com.hbm.integration.recipeviewer.SpaceRecipePages::register));
         com.hbm.space.client.SpaceSkyClient.register(modBus);
         com.hbm.space.client.SpaceSiegeClient.register();
+        com.hbm.space.client.SpaceFog.register();
         com.hbm.space.client.SpacePlushieFigures.register(); com.hbm.space.client.SpaceBobbleFigures.register();
         modBus.addListener(
                 (net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block event) ->

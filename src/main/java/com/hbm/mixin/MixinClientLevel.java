@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ClientLevel.class)
 public abstract class MixinClientLevel implements IClientLevelExtension, IClientImpactState {
@@ -82,6 +83,13 @@ public abstract class MixinClientLevel implements IClientLevelExtension, IClient
     @Override
     public @Nullable BlockEntity hbm$retainedBlockEntity(BlockPos pos) {
         return hbm$predictedEntities.get(pos.asLong());
+    }
+
+    /** A planet's sky is the celestial sky's colour, which vanilla also fades the fog into. */
+    @Inject(method = "getSkyColor", at = @At("HEAD"), cancellable = true)
+    private void hbm$spaceSkyColor(Vec3 pos, float partialTick, CallbackInfoReturnable<Vec3> cir) {
+        Vec3 sky = com.hbm.space.client.SpaceFog.skyColor((ClientLevel) (Object) this);
+        if (sky != null) cir.setReturnValue(sky);
     }
 
     @Inject(

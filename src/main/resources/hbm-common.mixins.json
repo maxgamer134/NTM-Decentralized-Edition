@@ -43,6 +43,7 @@
     "MixinLevelChunkSection",
     "MixinThreadedLevelLightEngine",
     "MixinLivingEntity",
+    "MixinFluidTypeVaporize",
     "MixinLootTable",
     "MixinMinecraftServer",
     "MixinMobEffectInstance",

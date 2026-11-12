@@ -305,12 +305,16 @@ public final class SpaceSky implements CustomSkies.Renderer {
         float sunFactor = sunBrightnessFactor(level, solarAngle, partial);
 
         Vec3 cam = camera.getPosition();
+        SpaceFog.vanillaSky = true;
         float[] sky = skyColor(level, cam, partial, atmosphere, sunFactor, eclipse, war, dust, fire);
+        SpaceFog.vanillaSky = false;
         // diminish the sky colour when leaving the atmosphere
         if (cam.y > 300) {
             float curvature = Mth.clamp((800F - (float) cam.y) / 500F, 0F, 1F);
             for (int i = 0; i < 3; i++) sky[i] *= curvature;
         }
+        // the fog fades into this sky, and darkens with this eclipse
+        SpaceFog.skyDrawn(level, sky, eclipse);
 
         // the daylight wash over the bodies sinks into thick fog (ModEventHandlerRenderer.lastFogDensity * 30)
         float[] tint = sky.clone();

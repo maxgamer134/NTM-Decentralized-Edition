@@ -88,9 +88,46 @@ public final class SpaceEffects extends DimensionSpecialEffects {
         }
     }
 
+    /** On a planet the fog is its air's colour (SpaceFog.fogColor), lit by the sun there; elsewhere vanilla's. */
     @Override
     public Vec3 getBrightnessDependentFogColor(Vec3 fog, float brightness) {
+        Minecraft mc = Minecraft.getInstance();
+        CelestialBody planet = mc.level != null ? SpaceFog.planet(mc.level) : null;
+        if (planet != null) return SpaceFog.fogColor(mc.level, planet, mc.getTimer().getGameTimeDeltaPartialTick(false));
         return fog.multiply(brightness * 0.94F + 0.06F, brightness * 0.94F + 0.06F, brightness * 0.91F + 0.09F);
+    }
+
+    /**
+     * WorldProviderLaythe and WorldProviderIke.updateLightmap: where the sun doesn't reach, the
+     * gas giant overhead lights the night: Jool green on Laythe, Duna red on Ike.
+     */
+    @Override
+    public void adjustLightmapColors(ClientLevel level, float partialTicks, float skyDarken, float blockLightRedFlicker,
+            float skyLight, int pixelX, int pixelY, org.joml.Vector3f colors) {
+        boolean laythe = level.dimension() == com.hbm.space.SpaceDimensions.LAYTHE;
+        boolean ike = level.dimension() == com.hbm.space.SpaceDimensions.IKE;
+        if (!SpaceToggle.enabled() || (!laythe && !ike)) return;
+        CelestialBody body = CelestialBody.getBodyOrNull(level.dimension());
+        if (body == null) return;
+        float sun = sunBrightness(level, body) - (ike ? 0.1F : 0F);
+        float sky = net.minecraft.client.renderer.LightTexture.getBrightness(level.dimensionType(), pixelY);
+        float glow = Math.max(sky - sun, 0F);
+        if (laythe) colors.y = Math.min(colors.y + glow * 60F / 255F, 1F);
+        else colors.x = Math.min(colors.x + glow * 20F / 255F, 1F);
+    }
+
+    /** WorldProviderCelestial.getSunBrightness(1): the daylight, dimmed by weather, eclipses, impact dust and thick air. */
+    private static float sunBrightness(ClientLevel level, CelestialBody body) {
+        float solarAngle = com.hbm.space.SpaceTime.timeOfDay(level, 1F);
+        if (Float.isNaN(solarAngle)) solarAngle = level.getTimeOfDay(1F);
+        float f = 1F - Mth.clamp(1F - (Mth.cos(solarAngle * Mth.TWO_PI) * 2F + 0.2F), 0F, 1F);
+        f *= 1F - level.getRainLevel(1F) * 5F / 16F;
+        f *= 1F - level.getThunderLevel(1F) * level.getRainLevel(1F) * 5F / 16F;
+        float dust = com.hbm.handler.ImpactWorldHandler.getDustForClient(level);
+        float brightness = (f * 0.8F + 0.2F) * (float) (1D - SpaceFog.lastEclipse * 0.6D) * (1F - dust);
+        CBT_Atmosphere atmosphere = body.getTrait(CBT_Atmosphere.class);
+        if (atmosphere == null) return brightness;
+        return brightness * Mth.clamp(1F - ((float) atmosphere.getPressure() - 1.5F) * 0.2F, 0.25F, 1F);
     }
 
     @Override

@@ -54,6 +54,16 @@ public final class SpaceRockets {
     public static final RegistryHandle<SoundEvent> ROCKET_STAGE = NeoForgeRegistrar.registerSound("entity.rocket_stage");
 
     public static void init() {
+        // NTM:Space: no stepping out of a rocket in motion, unless sneak is held for three seconds;
+        // transfers keep the timer at zero, so never then
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(
+                (net.neoforged.neoforge.event.entity.EntityMountEvent event) -> {
+                    if (!event.isDismounting() || event.getLevel().isClientSide()
+                            || !(event.getEntityBeingMounted() instanceof EntityRideableRocket rocket)
+                            || !(event.getEntityMounting() instanceof net.minecraft.world.entity.player.Player)
+                            || rocket.canExitCapsule() || rocket.isRemoved()) return;
+                    if (!rocket.tryForcedExit()) event.setCanceled(true);
+                });
         var anchor = Library.id("rp_pod_20");
         for (SolarSystem.Body body : SolarSystem.Body.values()) {
             RegistryHandle<ItemVOTVdrive> drive = DRIVES.get(body);

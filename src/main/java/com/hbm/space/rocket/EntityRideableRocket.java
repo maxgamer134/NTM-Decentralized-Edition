@@ -49,7 +49,7 @@ import org.jspecify.annotations.Nullable;
  * station cell; a station drive docks at a station's port, and a rocket leaving a port drops
  * out of its bottom before climbing away.
  */
-public class EntityRideableRocket extends EntityCompat {
+public class EntityRideableRocket extends EntityCompat implements com.hbm.interfaces.IEntityLookOverlay {
 
     public enum RocketState {
         AWAITING, LAUNCHING, LANDING, LANDED, TIPPING, DOCKING, UNDOCKING, NEEDSFUEL, TRANSFER
@@ -64,6 +64,15 @@ public class EntityRideableRocket extends EntityCompat {
     private int stateTimer;
     public int decoupleTimer;
     public int forceExitTimer;
+    private long lastExitAttempt = Long.MIN_VALUE;
+
+    /** A rider sneaking to get out mid-flight: true once they have held it for three seconds. */
+    public boolean tryForcedExit() {
+        long now = level().getGameTime();
+        if (now - lastExitAttempt > 2) forceExitTimer = 0; // they let go
+        lastExitAttempt = now;
+        return forceExitTimer++ >= 60;
+    }
     private double rocketVelocity;
     private boolean willExplode;
     private @Nullable Player thrower;
@@ -172,7 +181,7 @@ public class EntityRideableRocket extends EntityCompat {
     }
 
     /** Where the rocket stands now: the body under it, or the station it's at. */
-    private Target here() {
+    public Target here() {
         if (CelestialBody.inOrbit(level())) {
             com.hbm.space.station.OrbitalStation station =
                     com.hbm.space.station.OrbitalStation.getStationFromPosition(level(), getBlockX(), getBlockZ());
@@ -263,8 +272,19 @@ public class EntityRideableRocket extends EntityCompat {
         changeDimension(new DimensionTransition(orbit, at, Vec3.ZERO, getYRot(), getXRot(), DimensionTransition.PLACE_PORTAL_TICKET));
     }
 
+    private static final double MOTION_MULT = 4;
+
+    /** Steps toward each position the server sends instead of jumping to it, as boats do. */
+    private final com.hbm.backport.InterpolationHandler interpolation = new com.hbm.backport.InterpolationHandler(this);
+
+    @Override
+    public com.hbm.backport.InterpolationHandler getInterpolation() {
+        return interpolation;
+    }
+
     @Override
     public void tick() {
+        interpolation.interpolate();
         super.tick();
         RocketState state = getState();
         Player rider = getFirstPassenger() instanceof Player p ? p : null;
@@ -393,7 +413,9 @@ public class EntityRideableRocket extends EntityCompat {
             } else {
                 setDeltaMovement(0, rocketVelocity, 0);
             }
-            setPos(getX() + getDeltaMovement().x, getY() + getDeltaMovement().y, getZ() + getDeltaMovement().z);
+            // NTM:Space's motionMult: a moving rocket covers four times its velocity each tick
+            Vec3 step = getDeltaMovement().scale(MOTION_MULT);
+            setPos(getX() + step.x, getY() + step.y, getZ() + step.z);
 
             if ((state == RocketState.LAUNCHING && getY() > 900) || (state == RocketState.UNDOCKING && getY() < 32)) {
                 Target from = here(), to = getTarget();
@@ -454,24 +476,82 @@ public class EntityRideableRocket extends EntityCompat {
         }
     }
 
+    @Override
+    public void buildLookOverlay(Level level, com.hbm.interfaces.ILookOverlay.LookInfo info) {
+        com.hbm.space.client.RocketLookOverlay.build(this, info);
+    }
+
+    /** NTM:Space's gasfire flames were drawn at 6.5 unless told otherwise. */
+    private static final float GAS_FLAME_SCALE = 6.5F;
+
     private void spawnContrail(RocketState state) {
         RocketStruct rocket = getRocket();
         double x = getX(), y = getY(), z = getZ();
-        if (rocket.stages.isEmpty() || state == RocketState.LANDING) {
-            double r = isReusable() ? 0.5 : 1.0;
-            for (int i = 0; i < 4; i++) {
-                double ox = (i & 1) == 0 ? r : -r, oz = (i & 2) == 0 ? r : -r;
-                com.hbm.client.ClientEffects.spawnGasFlame(level(), x + ox, y, z + oz, ox * 0.25, -0.75, oz * 0.25, 1F);
+        // going up, from last tick's spot, so fast ascents don't spawn them inside the capsule
+        if (y > yo) {
+            x = xo;
+            y = yo;
+            z = zo;
+        }
+        if (rocket.stages.isEmpty()) {
+            if (state == RocketState.TIPPING) return;
+            if (isReusable()) {
+                gasFlame(x + 0.5, y, z, 0, -1, 0);
+                gasFlame(x - 0.5, y, z, 0, -1, 0);
+                gasFlame(x, y, z + 0.5, 0, -1, 0);
+                gasFlame(x, y, z - 0.5, 0, -1, 0);
+            } else {
+                double r = rocket.capsule != null ? radius(rocket.capsule.bottom) * 0.5 : 0.5;
+                gasFlame(x + r, y, z + r, 0.25, -0.75, 0.25);
+                gasFlame(x - r, y, z + r, -0.25, -0.75, 0.25);
+                gasFlame(x + r, y, z - r, 0.25, -0.75, -0.25);
+                gasFlame(x - r, y, z - r, -0.25, -0.75, -0.25);
             }
             return;
         }
         RocketStage stage = rocket.stages.get(0);
-        int cluster = stage.getCluster();
-        for (int c = 0; c < cluster; c++) {
-            double angle = cluster > 1 && c > 0 ? (double) c / (cluster - 1) * Math.PI * 2 : 0;
-            double radius = c > 0 ? 2 : 0;
-            com.hbm.client.ClientEffects.spawnGasFlame(level(), x + Math.cos(angle) * radius, y, z + Math.sin(angle) * radius,
-                    0, -1, 0, 2F);
+        if (state == RocketState.LANDING) {
+            gasFlame(x, y, z, 0, -1, 0);
+        } else if (state == RocketState.LAUNCHING || getStateTimer() < 200) {
+            missileContrail(0, 0);
+            int cluster = stage.getCluster();
+            double r = stage.fuselage != null ? radius(stage.fuselage.bottom) : 1;
+            for (int c = 1; c < cluster; c++) {
+                double spin = (double) c / (cluster - 1) * Math.PI * 2;
+                missileContrail(Math.cos(spin) * r, Math.sin(spin) * r);
+            }
+        }
+    }
+
+    private void gasFlame(double x, double y, double z, double mx, double my, double mz) {
+        com.hbm.client.ClientEffects.spawnGasFlame(level(), x, y, z, mx, my, mz, GAS_FLAME_SCALE);
+    }
+
+    /** EntityMissileBaseNT's contrail: up to ten puffs a tick along the path, blown out the nozzle. */
+    private void missileContrail(double ox, double oz) {
+        Vec3 back = new Vec3(xo - getX(), yo - getY(), zo - getZ());
+        double len = back.length();
+        back = len < 1.0e-4 ? Vec3.ZERO : back.scale(1 / len);
+        double pitch = Math.toRadians(getXRot());
+        Vec3 thrust = new Vec3(Math.sin(pitch), Math.cos(pitch), 0);
+        double pressure = com.hbm.api.environment.Environment.particlePressure(level());
+        for (int i = 0; i < Math.max(Math.min(len, 10), 1); i++) {
+            double j = i - len;
+            com.hbm.client.ClientEffects.spawnRocketFlameInAir(level(),
+                    getX() - back.x * j + ox, getY() - back.y * j, getZ() - back.z * j + oz,
+                    1F, -thrust.x, -thrust.y, -thrust.z, 60 + random.nextInt(20), pressure);
+        }
+    }
+
+    /** A part size's radius in blocks: half its diameter in metres, 1 for any size. */
+    private static double radius(com.hbm.items.weapon.ItemCustomMissilePart.@Nullable PartSize size) {
+        if (size == null) return 1;
+        String name = size.name();
+        if (!name.startsWith("SIZE_")) return 1;
+        try {
+            return Integer.parseInt(name.substring(5)) / 20D;
+        } catch (NumberFormatException e) {
+            return 1;
         }
     }
 

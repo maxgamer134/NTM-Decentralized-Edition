@@ -1,0 +1,8 @@
+{
+    "dimension": "hbm:eve",
+    "base_gravity": [
+        0.0,
+        -18.6922,
+        0.0
+    ]
+}

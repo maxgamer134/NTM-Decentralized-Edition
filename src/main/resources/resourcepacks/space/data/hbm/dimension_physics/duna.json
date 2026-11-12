@@ -1,0 +1,8 @@
+{
+    "dimension": "hbm:duna",
+    "base_gravity": [
+        0.0,
+        -3.2994,
+        0.0
+    ]
+}

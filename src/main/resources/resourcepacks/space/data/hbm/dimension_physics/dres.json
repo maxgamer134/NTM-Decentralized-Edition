@@ -1,0 +1,8 @@
+{
+    "dimension": "hbm:dres",
+    "base_gravity": [
+        0.0,
+        -1.2648,
+        0.0
+    ]
+}

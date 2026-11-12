@@ -139,6 +139,10 @@ public final class NuclearTech {
 
     public static void init() {
         LOGGER.info("NTM common init on {}", "NeoForge");
+        // vanilla fills each rotation's direction table on first use and publishes it half-built: two
+        // worldgen threads rotating a jigsaw at once could read a missing entry and crash the server
+        for (com.mojang.math.OctahedralGroup group : com.mojang.math.OctahedralGroup.values())
+            for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.values()) group.rotate(dir);
         Polaroid.roll();
         com.hbm.handler.JoinGreeting.register();
 

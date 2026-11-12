@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hbm:item/votv_duna"
+    "layer0": "hbm:item/votv_f",
+    "layer1": "hbm:item/votv_duna"
   }
 }

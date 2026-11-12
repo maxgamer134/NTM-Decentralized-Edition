@@ -63,6 +63,12 @@ public final class SpaceRecipePages {
             }
 
             @Override
+            List<ItemStack> lookups(BodyRow row) {
+                // the oil deposits the well and pumpjack drill into lead here
+                return List.of(new ItemStack(ModBlocks.ORE_OIL.get()), new ItemStack(ModBlocks.ORE_BEDROCK_OIL.get()));
+            }
+
+            @Override
             void extra(BodyRow row, GuiGraphicsExtractor graphics) {
                 // upstream marks the bodies whose oil the fracking tower reaches
                 String name = row.body().name;
@@ -305,6 +311,11 @@ public final class SpaceRecipePages {
 
         void extra(BodyRow row, GuiGraphicsExtractor graphics) {}
 
+        /** Blocks that look up this row, beside its body's drive. */
+        List<ItemStack> lookups(BodyRow row) {
+            return List.of();
+        }
+
         @Override
         public Component title() {
             return title;
@@ -340,6 +351,7 @@ public final class SpaceRecipePages {
         @Override
         public void layout(BodyRow row, PageLayout page) {
             if (!row.drive().isEmpty()) page.hiddenInput().item(row.drive());
+            for (ItemStack lookup : lookups(row)) page.hiddenInput().item(lookup);
             int[][] positions = GenericMachinePage.outputPositions(row.outputs().size());
             for (int i = 0; i < row.outputs().size(); i++) {
                 Out out = row.outputs().get(i);

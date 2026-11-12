@@ -358,7 +358,22 @@ public class OrbitalStation {
         OrbitalStation station = addStation(data, x, z, body);
         station.orbiting = station.target = body;
         station.hasStation = true;
+        if (station.name.isEmpty()) station.name = randomName(new Random());
         data.setDirty();
+    }
+
+    private static final String[] NAME_FIRST = {
+        "Kestrel", "Halcyon", "Meridian", "Corvid", "Lantern", "Bastion", "Zenith", "Aurora", "Tundra", "Harbor",
+        "Cinder", "Vesper", "Orchid", "Granite", "Solstice", "Mariner", "Falcon", "Ember", "Juniper", "Atlas"
+    };
+    private static final String[] NAME_SECOND = {
+        "Station", "Outpost", "Platform", "Habitat", "Relay", "Spire", "Ring", "Dock", "Array", "Bulwark"
+    };
+
+    /** A fresh station's name: two words and a hull number, e.g. "Kestrel Relay 417". */
+    public static String randomName(Random random) {
+        return NAME_FIRST[random.nextInt(NAME_FIRST.length)] + " " + NAME_SECOND[random.nextInt(NAME_SECOND.length)]
+                + " " + (100 + random.nextInt(900));
     }
 
     /** Places the station core in the middle of a cell, if it's not there yet. */

@@ -8630,6 +8630,8 @@
   "marker.hbm.neutrino_lens.alexandrite": "Alexandrite",
   "marker.hbm.neutrino_lens.australium": "Australium",
   "marker.hbm.neutrino_lens.bedrock_oil": "Bedrock Oil",
+  "marker.hbm.neutrino_lens.brine": "Brine",
+  "marker.hbm.neutrino_lens.natural_gas": "Natural Gas",
   "marker.hbm.neutrino_lens.bedrock_ore": "Bedrock Ore",
   "marker.hbm.neutrino_lens.coltan": "Coltan",
   "marker.hbm.neutrino_lens.end_portal": "End Portal",

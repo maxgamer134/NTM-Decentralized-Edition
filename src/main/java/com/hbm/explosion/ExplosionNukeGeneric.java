@@ -118,6 +118,10 @@ public final class ExplosionNukeGeneric {
             transmuteUraniumOre(world, pos, random, oreNetherSchrabidium, oreNetherUraniumScorched);
         } else if (b == oreGneissUranium) {
             transmuteUraniumOre(world, pos, random, oreGneissSchrabidium, oreGneissUraniumScorched);
+        } else if (com.hbm.space.SpaceToggle.enabled() && b == com.hbm.space.SpaceBlocks.ORE_PLUTONIUM.get()) {
+            // NTM:Space: plutonium ore can turn into schrabidium ore too, at uranium's odds
+            if (random.nextInt(VersatileConfig.getSchrabOreChance()) == 1)
+                world.setBlock(pos, oreSchrabidium.defaultBlockState(), Block.UPDATE_ALL);
         }
     }
 

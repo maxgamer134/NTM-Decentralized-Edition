@@ -102,6 +102,9 @@ public abstract class EntityPlaneBase extends EntityCompat implements FarVisible
             if (!level().getBlockState(blockPosition()).isAir() || getY() < level().getMinBuildHeight()) {
                 double x = getX(), y = getY(), z = getZ();
                 discard();
+                // NTM:Space: a crashing plane goes up in a large fireball
+                if (com.hbm.space.SpaceToggle.changes())
+                    com.hbm.particle.helper.ExplosionCreator.composeEffectLarge(level(), x, y, z);
                 new ExplosionVNT(level(), x, y, z, 15F).makeStandard().explode();
                 level().playSound(
                                 null,

@@ -35,6 +35,8 @@ public class EntityGhost extends PathfinderMobCompat {
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0D));
         goalSelector.addGoal(2, new RandomLookAroundGoal(this));
+        // NTM:Space: ghosts turn to watch nearby players
+        goalSelector.addGoal(3, new net.minecraft.world.entity.ai.goal.LookAtPlayerGoal(this, net.minecraft.world.entity.player.Player.class, 15.0F));
     }
 
     @Override

@@ -186,6 +186,8 @@ public final class BobmazonOffers {
         out.add(new BobmazonOffer(new ItemStack(ModBlocks.CRATE_CAN), STEEL, 1));
         out.add(new BobmazonOffer(new ItemStack(ModBlocks.CRATE_AMMO), STEEL, 2));
         out.add(new BobmazonOffer(ModItems.CRUCIBLE.get().depleted(), STEEL, 10));
+        // NTM:Space sells charged pellets
+        if (com.hbm.space.SpaceToggle.changes()) out.add(new BobmazonOffer(new ItemStack(ModItems.PELLET_CHARGED), STEEL, 16));
         out.add(new BobmazonOffer(new ItemStack(ModItems.SPAWN_CHOPPER), STEEL, 10));
         out.add(new BobmazonOffer(new ItemStack(ModItems.SPAWN_WORM), STEEL, 10));
         out.add(new BobmazonOffer(new ItemStack(ModItems.SPAWN_UFO), STEEL, 10));

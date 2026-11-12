@@ -149,6 +149,11 @@ public final class SpaceBlocks {
 
     /** Adds the blocks to the creative tab, in NTM:Space's order. */
     public static void init() {
+        // NTM:Space's neutrino lens also marks natural gas and brine deposits
+        com.hbm.items.armor.ItemModLens.addTarget(ORE_GAS, 300,
+                net.minecraft.network.chat.Component.translatable("marker.hbm.neutrino_lens.natural_gas"), 0xa0a0a0);
+        com.hbm.items.armor.ItemModLens.addTarget(ORE_BRINE, 300,
+                net.minecraft.network.chat.Component.translatable("marker.hbm.neutrino_lens.brine"), 0xa0a0a0);
         CreativeContents.insertAfter(CreativeContents.Tab.BLOCKS, ANCHOR, () -> new ItemStack(MINMUS_SMOOTH.get()));
         CreativeContents.insertAfter(CreativeContents.Tab.BLOCKS, ANCHOR, () -> new ItemStack(VINYL_LOG.get()));
         CreativeContents.insertAfter(CreativeContents.Tab.BLOCKS, ANCHOR, () -> new ItemStack(VINYL_SAND.get()));

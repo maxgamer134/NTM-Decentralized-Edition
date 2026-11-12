@@ -34,6 +34,8 @@ public abstract class BlockGasBase extends BlockCompat {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
         if (!REVEALED_TO_VIEWER.getAsBoolean()) return;
+        // NTM:Space thinned the ash-glasses clouds to one block in nine each tick
+        if (com.hbm.space.SpaceToggle.changes() && rand.nextInt(9) != 1) return;
         level.addParticle(
                 revealTint(),
                 pos.getX() + 0.5D,

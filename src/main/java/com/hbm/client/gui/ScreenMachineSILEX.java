@@ -45,7 +45,8 @@ public class ScreenMachineSILEX extends ScreenInfoContainer<MenuMachineSILEX> {
     }
 
     public static float waveFrequency(EnumWavelengths mode) {
-        return 0.1F * (float) Math.pow(2, mode.ordinal());
+        // NTM:Space drew the wave at half NTM's frequency
+        return (com.hbm.space.SpaceToggle.changes() ? 0.05F : 0.1F) * (float) Math.pow(2, mode.ordinal());
     }
 
     @Override

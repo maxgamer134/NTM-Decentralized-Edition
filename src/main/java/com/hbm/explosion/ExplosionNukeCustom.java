@@ -81,10 +81,14 @@ public final class ExplosionNukeCustom {
             amat = Math.min(amat, MAX_AMAT);
 
             EntityBalefire bf = new EntityBalefire(ModEntities.BALEFIRE.get(), level);
+            // NTM:Space: the antimatter stage burns as antimatter under its own cloud, not balefire
+            boolean anti = com.hbm.space.SpaceToggle.changes();
+            if (anti) bf.antimatter();
             bf.setPos(x + 0.5, y + 0.5, z + 0.5);
             bf.destructionRange = (int) amat;
             level.addFreshEntity(bf);
-            EntityNukeTorex.statFacBale(level, x + 0.5, y + 5, z + 0.5, amat);
+            if (anti) EntityNukeTorex.statFac(level, x + 0.5, y + 5, z + 0.5, amat).setTorexType(com.hbm.space.SpaceAntimatter.TORREX_TYPE);
+            else EntityNukeTorex.statFacBale(level, x + 0.5, y + 5, z + 0.5, amat);
         } else if (hydro > 0) {
 
             hydro += nuke / 2 + tnt / 4;

@@ -163,6 +163,18 @@ public final class SpaceClientHooks {
                             com.hbm.space.machine.SpaceLPW2.LPW2BE.CONTRAIL = com.hbm.space.client.LPW2Contrail::spawn;
                             com.hbm.space.machine.SpaceTransporter.OPEN_LINKER = ScreenTransporterLinker::open;
                         }));
+        // a rocket's rider leans with it, about their own feet, as the rocket leans about its base
+        NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
+                (net.neoforged.neoforge.client.event.RenderLivingEvent.Pre<?, ?> event) -> {
+                    if (!(event.getEntity().getVehicle() instanceof com.hbm.space.rocket.EntityRideableRocket rocket)) return;
+                    event.getPoseStack().pushPose();
+                    event.getPoseStack().mulPose(com.mojang.math.Axis.ZN.rotationDegrees(rocket.getViewXRot(event.getPartialTick())));
+                });
+        NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.HIGHEST,
+                (net.neoforged.neoforge.client.event.RenderLivingEvent.Post<?, ?> event) -> {
+                    if (event.getEntity().getVehicle() instanceof com.hbm.space.rocket.EntityRideableRocket)
+                        event.getPoseStack().popPose();
+                });
         NeoForge.EVENT_BUS.addListener(
                 (ClientPlayerNetworkEvent.LoggingOut event) -> SolarSystemSavedData.onClientDisconnect());
         NeoForge.EVENT_BUS.addListener(

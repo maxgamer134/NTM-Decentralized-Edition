@@ -33,6 +33,8 @@ public class ItemModInsert extends ItemArmorMod {
     private final float projectileMod;
     private final float explosionMod;
     private final float speed;
+    /** NTM:Space: keeps corrosive air off the suit and its wearer. */
+    private boolean corrosionProtection;
 
     public ItemModInsert(
             Properties properties,
@@ -46,6 +48,16 @@ public class ItemModInsert extends ItemArmorMod {
         this.projectileMod = projectileMod;
         this.explosionMod = explosionMod;
         this.speed = speed;
+    }
+
+    /** NTM:Space's withCorrosionProtection: this insert shields its suit from corrosive atmospheres. */
+    public ItemModInsert withCorrosionProtection() {
+        corrosionProtection = true;
+        return this;
+    }
+
+    public boolean corrosionProtection() {
+        return corrosionProtection;
     }
 
     private static String signedPercent(float mod) {
@@ -62,6 +74,10 @@ public class ItemModInsert extends ItemArmorMod {
     @Override
     protected void addSpecificTooltip(ItemStack stack, Consumer<Component> adder) {
         EXTRA_LINES.get().accept(stack, adder);
+        if (corrosionProtection)
+            adder.accept(
+                    Component.translatable("desc.item.armorMod.insert.corrosion")
+                            .withStyle(ChatFormatting.GOLD));
         if (damageMod != 1F)
             adder.accept(
                     Component.translatable(

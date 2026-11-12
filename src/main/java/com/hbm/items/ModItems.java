@@ -7774,7 +7774,13 @@ public final class ModItems {
     public static final RegistryHandle<ItemModInsert> INSERT_ERA =
             insert("insert_era", 25, 0.5F, 1F, 0.25F, 1F);
     public static final RegistryHandle<ItemModInsert> INSERT_YHARONITE =
-            insert("insert_yharonite", 9999, 0.01F, 1F, 1F, 1F);
+            Reg.item(
+                            "insert_yharonite",
+                            props ->
+                                    new ItemModInsert(props, 9999, 0.01F, 1F, 1F, 1F)
+                                            .withCorrosionProtection(),
+                            Item.Properties::new)
+                    .addTo(ARMOR_MOD_ALL);
     public static final RegistryHandle<ItemModInsert> INSERT_DOXIUM =
             insert("insert_doxium", 9999, 5.0F, 1F, 1F, 1F);
     public static final RegistryHandle<ItemCigarette> CIGARETTE =

@@ -128,20 +128,45 @@ public final class SpaceEnvironment implements EnvironmentProvider {
     }
 
     /**
-     * Corrosive air eats a sealed suit first, then whoever wears it. Without NTM:Space's
-     * corrosion inserts, an unsealed wearer is hurt at once.
+     * ArmorUtil.checkForCorrosion: corrosive air does nothing to a suit whose chestplate carries a
+     * corrosion-proof insert (CMB, Yharonite). Otherwise it eats every armour piece worn, and
+     * anything that isn't a full-set suit, or a suit out of power, fizzles away at once. A sealed
+     * suit keeps its wearer safe while it lasts ("My suit is melting."); anyone else is hurt.
      */
     private static boolean checkForCorrosion(LivingEntity entity, @Nullable CBT_Atmosphere atmosphere) {
         if (!SpaceAtmosphere.willCorrode(atmosphere)) return false;
         if (!(entity instanceof Player player) || player.isCreative() || player.isSpectator()) return !(entity instanceof Player);
+        if (hasCorrosionProtection(player)) return false;
         boolean sealed = true;
         for (EquipmentSlot slot : new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
             ItemStack stack = player.getItemBySlot(slot);
             if (!(stack.getItem() instanceof ModArmorItem item) || !SEALED.contains(item.suit())) sealed = false;
             if (stack.isEmpty()) continue;
-            if (stack.isDamageableItem() && player.getRandom().nextInt(2) == 0) stack.hurtAndBreak(1, player, slot);
+            if (stack.isDamageableItem() && player.getRandom().nextInt(2) == 0) {
+                stack.setDamageValue(stack.getDamageValue() + 1);
+            }
+            boolean broken = stack.isDamageableItem() && stack.getDamageValue() >= stack.getMaxDamage();
+            if (broken || !(stack.getItem() instanceof ModArmorItem armor) || armor.suit() == ModArmorItem.Suit.NONE
+                    || !armor.isEnabled(stack)) {
+                player.setItemSlot(slot, ItemStack.EMPTY);
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+                        net.minecraft.sounds.SoundEvents.FIRE_EXTINGUISH, net.minecraft.sounds.SoundSource.PLAYERS, 0.2F, 1F);
+            }
+        }
+        if (sealed && player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            com.hbm.packet.PacketWire.sendTo(new com.hbm.packet.toclient.PlayerInformPayload(
+                    net.minecraft.network.chat.Component.translatable("info.corrosion").withStyle(net.minecraft.ChatFormatting.RED),
+                    com.hbm.packet.toclient.PlayerInformPayload.ID_GAS_HAZARD, 3_000), serverPlayer);
         }
         return !sealed;
+    }
+
+    /** ArmorUtil.getCorrosionProtection: the chestplate's insert slot holds a corrosion-proof insert. */
+    private static boolean hasCorrosionProtection(Player player) {
+        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+        if (chest.isEmpty()) return false;
+        ItemStack insert = ArmorModHandler.pryMod(chest, ArmorModHandler.KEVLAR);
+        return insert.getItem() instanceof com.hbm.items.armor.ItemModInsert mod && mod.corrosionProtection();
     }
 
     @Override

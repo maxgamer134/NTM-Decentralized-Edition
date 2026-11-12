@@ -64,7 +64,7 @@ public final class SpaceFuels {
     public static final Reg.Handle<ItemRTGPellet> RTG_CF252 = rtg("pellet_rtg_cf252");
 
     public static final Reg.Handle<ItemModInsert> INSERT_CMB = Reg.item("insert_cmb",
-            props -> new ItemModInsert(props, 9999, 0.7F, 0.9F, 0.4F, 1F), Item.Properties::new);
+            props -> new ItemModInsert(props, 9999, 0.7F, 0.9F, 0.4F, 1F).withCorrosionProtection(), Item.Properties::new);
     public static final Reg.Handle<ItemBattery> CORE_ANGEL = Reg.item("core_angel",
             props -> new ItemBattery(props, 16_000_000L, 16_000_000L, 800_000L), () -> new Item.Properties().stacksTo(1));
     public static final Reg.Handle<ItemDrinkEnergy> TEACUP = drink("teacup");

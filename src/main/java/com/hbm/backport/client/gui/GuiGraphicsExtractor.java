@@ -463,9 +463,14 @@ public class GuiGraphicsExtractor extends GuiGraphics implements com.hbm.client.
             int y1) {
         // 26.x composites the entity (rendered offscreen) over what is below it
         resetDepth();
-        enableScissor(x0, y0, x1, y1);
+        // 26.x picture-in-picture bounds are screen coordinates, untouched by the pose; container
+        // screens call this from extractLabels, where the pose is already moved to leftPos/topPos,
+        // which put the preview (and its scissor) off by that much and clipped it away
         PoseStack ps = pose;
         ps.pushPose();
+        ps.last().pose().identity();
+        ps.last().normal().identity();
+        enableScissor(x0, y0, x1, y1);
         ps.translate((x0 + x1) / 2F, (y0 + y1) / 2F, 50F);
         ps.scale(scale, scale, -scale);
         ps.translate(translation.x(), translation.y(), translation.z());

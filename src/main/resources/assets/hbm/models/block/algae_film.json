@@ -1,6 +1,12 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/space/algae_film.obj",
+  "flip_v": true,
+  "emissive_ambient": false,
+  "render_type": "minecraft:cutout",
   "textures": {
-    "all": "hbm:block/algae_film"
+    "texture": "hbm:block/algae_film",
+    "particle": "hbm:block/algae_film"
   }
 }

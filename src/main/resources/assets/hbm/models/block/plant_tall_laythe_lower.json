@@ -1,7 +1,7 @@
 {
-  "parent": "minecraft:block/cross",
+  "parent": "minecraft:block/crop",
   "render_type": "minecraft:cutout",
   "textures": {
-    "cross": "hbm:block/plant_tall_laythe_lower"
+    "crop": "hbm:block/plant_tall_laythe_lower"
   }
 }

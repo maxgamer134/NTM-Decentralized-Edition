@@ -2,7 +2,7 @@
   "variants": {
     "facing=east": {
       "model": "hbm:block/machine_radiolysis",
-      "y": 270
+      "y": 90
     },
     "facing=north": {
       "model": "hbm:block/machine_radiolysis",
@@ -13,7 +13,7 @@
     },
     "facing=west": {
       "model": "hbm:block/machine_radiolysis",
-      "y": 90
+      "y": 270
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:powder_desh_mix",
+    "hbm:nugget_mercury",
+    "hbm:nugget_mercury",
+    "#hbm:dusts/any_coke"
+  ],
+  "result": {
+    "id": "hbm:powder_desh_ready"
+  }
+}

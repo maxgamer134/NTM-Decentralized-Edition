@@ -1,0 +1,28 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "#c:dusts/iron",
+    "#c:dusts/iron",
+    "#c:dusts/iron",
+    "#c:dusts/iron",
+    "#c:dusts/coal",
+    "#c:dusts/coal",
+    "#c:dusts/coal",
+    "#c:dusts/coal"
+  ],
+  "result": {
+    "components": {
+      "hbm:scrap": {
+        "amount": 288,
+        "material": 30
+      }
+    },
+    "id": "hbm:scraps"
+  }
+}

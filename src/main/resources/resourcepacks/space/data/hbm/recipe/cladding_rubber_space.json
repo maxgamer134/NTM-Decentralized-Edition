@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "#hbm:dusts/any_coal_coke",
+    "D": "hbm:ducttape",
+    "R": "#hbm:ingots/any_rubber"
+  },
+  "pattern": [
+    "RCR",
+    "CDC",
+    "RCR"
+  ],
+  "result": {
+    "id": "hbm:cladding_rubber"
+  }
+}

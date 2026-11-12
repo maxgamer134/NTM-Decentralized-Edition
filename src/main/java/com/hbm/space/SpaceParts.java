@@ -142,6 +142,9 @@ public final class SpaceParts {
         add("plate_welded_stainless", Item::new, Item.Properties::new);
         add("powder_cn989", ItemCustomLore::new, Item.Properties::new);
         add("powder_coffee", ItemCustomLore::new, Item.Properties::new);
+        add("powder_coke_coal", Item::new, Item.Properties::new);
+        add("powder_coke_lignite", Item::new, Item.Properties::new);
+        add("powder_coke_petroleum", Item::new, Item.Properties::new);
         add("powder_gallium", Item::new, Item.Properties::new);
         add("powder_gallium_tiny", Item::new, Item.Properties::new);
         add("powder_nickel", Item::new, Item.Properties::new);

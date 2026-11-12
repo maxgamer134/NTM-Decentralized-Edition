@@ -1,0 +1,12 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#c:gems/lignite_coke"
+    }
+  ],
+  "order": 102400,
+  "output_items": [
+    "hbm:powder_coke_lignite"
+  ]
+}

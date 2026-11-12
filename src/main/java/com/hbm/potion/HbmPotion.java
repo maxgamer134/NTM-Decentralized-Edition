@@ -89,8 +89,10 @@ public final class HbmPotion {
                         "mutation", () -> new HbmMobEffect(MobEffectCategory.NEUTRAL, 0x800080));
         phosphorus = NeoForgeRegistrar.registerMobEffect("phosphorus", PhosphorusEffect::new);
         bang = NeoForgeRegistrar.registerMobEffect("bang", BangEffect::new);
-        nitan = NeoForgeRegistrar.registerMobEffect("nitan", NitanEffect::new);
-        run = NeoForgeRegistrar.registerMobEffect("run", RunEffect::new);
+        if (com.hbm.space.SpaceToggle.enabled()) {
+            nitan = NeoForgeRegistrar.registerMobEffect("nitan", NitanEffect::new);
+            run = NeoForgeRegistrar.registerMobEffect("run", RunEffect::new);
+        }
     }
 
     public static Holder<MobEffect> potionsickness() {

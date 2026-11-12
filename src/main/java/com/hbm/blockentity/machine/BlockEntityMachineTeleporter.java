@@ -95,11 +95,11 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
     }
 
     /**
-     * NTM:Space: a jump to another dimension costs 100 mB of N-MASS, unless Space is off (no N-MASS
-     * to be had) or LBSM is on.
+     * NTM:Space: a jump to another dimension costs 100 mB of N-MASS, unless Space or its changes to
+     * NTM are off, or LBSM is on.
      */
     public static boolean needsFluid() {
-        return SpaceToggle.enabled() && !BalanceConfig.enableLBSM;
+        return SpaceToggle.changes() && !BalanceConfig.enableLBSM;
     }
 
     /** Whether the jump to the set destination needs N-MASS from here. */

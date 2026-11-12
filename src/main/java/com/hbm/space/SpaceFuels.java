@@ -65,6 +65,17 @@ public final class SpaceFuels {
 
     public static final Reg.Handle<ItemModInsert> INSERT_CMB = Reg.item("insert_cmb",
             props -> new ItemModInsert(props, 9999, 0.7F, 0.9F, 0.4F, 1F).withCorrosionProtection(), Item.Properties::new);
+    /** NTM:Space's NITAN Ambrosia infusion. */
+    public static final Reg.Handle<com.hbm.items.food.ItemFlask> FLASK_INFUSION_NITAN = Reg.item("flask_infusion_nitan",
+            props -> new com.hbm.items.food.ItemFlask(props, com.hbm.items.food.ItemFlask.EnumInfusion.NITAN),
+            () -> new Item.Properties().component(com.hbm.backport.item.food.ConsumableRegistry.CONSUMABLE,
+                    com.hbm.items.food.ItemFlask.CONSUMABLE));
+    /** NTM:Space's Problematic Meal, a pill like NTM's. */
+    public static final Reg.Handle<com.hbm.items.special.ItemCustomLore> ANIMAN = Reg.item("animan",
+            com.hbm.items.special.ItemCustomLore::new,
+            () -> com.hbm.backport.item.food.ConsumableProps.food(new Item.Properties(),
+                    com.hbm.items.food.ConsumableTreatments.MEDICINE_FOOD,
+                    com.hbm.items.food.ConsumableTreatments.MEDICINE_CONSUMABLE));
     public static final Reg.Handle<com.hbm.space.item.ItemButterSword> BUTTER_SWORD = Reg.item("butter_sword",
             com.hbm.space.item.ItemButterSword::new, Item.Properties::new);
     public static final Reg.Handle<ItemBattery> CORE_ANGEL = Reg.item("core_angel",
@@ -113,6 +124,10 @@ public final class SpaceFuels {
         after(CreativeContents.Tab.CONSUMABLES, "chocolate_milk", TEACUP, BOTTLE_HONEY, GLASS_SMILK, INSERT_CMB);
         after(CreativeContents.Tab.CONSUMABLES, "insert_cmb", RECORD_GS, RECORD_GP, RECORD_EL);
         after(CreativeContents.Tab.CONTROL, "laser_crystal_bismuth", LASER_CRYSTAL_IRON);
+        com.hbm.items.CreativeContents.insertAfter(com.hbm.items.CreativeContents.Tab.CONSUMABLES,
+                com.hbm.lib.Library.id("flask_infusion_shield"), () -> new ItemStack(FLASK_INFUSION_NITAN.get()));
+        com.hbm.items.CreativeContents.insertAfter(com.hbm.items.CreativeContents.Tab.CONSUMABLES,
+                com.hbm.lib.Library.id("xanax"), () -> new ItemStack(ANIMAN.get()));
         // NTM:Space put it in vanilla's Combat tab
         com.hbm.registration.NeoForgeRegistrar.vanillaTabEntries.add(java.util.Map.entry(
                 net.minecraft.world.item.CreativeModeTabs.COMBAT, () -> new ItemStack(BUTTER_SWORD.get())));

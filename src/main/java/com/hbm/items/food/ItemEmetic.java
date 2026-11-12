@@ -28,7 +28,7 @@ public class ItemEmetic extends ItemCustomLore {
         entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, HUNGER_TICKS, HUNGER_AMPLIFIER));
         if (level instanceof ServerLevel server) {
             // NTM:Space: purging brings the Nitan back up too
-            if (entity instanceof net.minecraft.world.entity.player.Player player) {
+            if (com.hbm.potion.HbmPotion.nitan != null && entity instanceof net.minecraft.world.entity.player.Player player) {
                 player.removeEffect(com.hbm.potion.HbmPotion.nitan());
                 com.hbm.extprop.HbmPlayerProps.getData(player).nitanCount = 0;
             }

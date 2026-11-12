@@ -48,7 +48,8 @@ public class ItemDosimeter extends ItemCompat {
         double x = HbmLivingProps.getRadBuf(entity);
         int idx =
                 x > 1e-5
-                        ? pickGeiger(x, level.getRandom())
+                        // NTM:Space: under 1 RAD/s it only clicks that fraction of the time
+                        ? (com.hbm.space.SpaceToggle.changes() && level.getRandom().nextFloat() > x ? 0 : pickGeiger(x, level.getRandom()))
                         : (level.getRandom().nextInt(100) == 0 ? 1 : 0);
         if (idx > 0) {
             EntitySounds.play(

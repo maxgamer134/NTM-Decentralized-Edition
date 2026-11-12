@@ -77,6 +77,10 @@ public abstract class BlockEntityFireboxBase extends BlockEntityMachinePolluting
                     PETCOKE.block(),
                     LIGCOKE.gem(),
                     LIGCOKE.block(),
+                    // NTM:Space's coke powders
+                    COALCOKE.dust(),
+                    PETCOKE.dust(),
+                    LIGCOKE.dust(),
                     ANY_COKE.gem(),
                     ANY_COKE.block());
     private static final List<TagKey<Item>> WOOD_ASH =

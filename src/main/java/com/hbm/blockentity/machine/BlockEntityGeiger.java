@@ -58,6 +58,8 @@ public class BlockEntityGeiger extends BlockEntityCompat implements IRORValuePro
         }
         if (timer % 5 == 0) {
             if (ticker > 0D) {
+                // NTM:Space: under 1 RAD/s it only clicks that fraction of the time
+                if (com.hbm.space.SpaceToggle.changes() && level.getRandom().nextFloat() > ticker) return;
                 int r = pick(ticker, level);
                 if (r > 0) play(level, r);
             } else if (level.getRandom().nextInt(50) == 0) {

@@ -163,8 +163,20 @@ public final class SpacePlants {
 
         /** {@code state} turned to the first solid neighbour it can grow from. */
         public static BlockState attach(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos) {
-            for (net.minecraft.core.Direction dir : ATTACH_ORDER)
-                if (solid(level, pos, dir)) return state.setValue(ATTACH, dir);
+            return attach(state, level, pos, at -> true);
+        }
+
+        /**
+         * As {@link #attach(BlockState, net.minecraft.world.level.BlockGetter, BlockPos)}, reading only
+         * the neighbours {@code readable} allows: while a chunk loads or generates, asking for a
+         * block in a chunk that is not there yet would wait on that chunk forever.
+         */
+        public static BlockState attach(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos,
+                java.util.function.Predicate<BlockPos> readable) {
+            for (net.minecraft.core.Direction dir : ATTACH_ORDER) {
+                BlockPos at = pos.relative(dir);
+                if (readable.test(at) && solid(level, pos, dir)) return state.setValue(ATTACH, dir);
+            }
             return state.setValue(ATTACH, net.minecraft.core.Direction.DOWN);
         }
 

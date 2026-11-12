@@ -111,7 +111,8 @@ public class World {
         BlockPos pos = new BlockPos(x, y, z);
         // NTM:Space's coral picked the side it grows from while drawing; here the state holds it
         if (state.getBlock() instanceof com.hbm.space.SpacePlants.Coral)
-            state = com.hbm.space.SpacePlants.Coral.attach(state, level, pos);
+            state = com.hbm.space.SpacePlants.Coral.attach(state, level, pos,
+                    at -> reachable(at.getX(), at.getY(), at.getZ()));
         return level.setBlock(pos, state, 2);
     }
 

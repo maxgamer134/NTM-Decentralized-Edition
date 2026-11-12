@@ -69,6 +69,43 @@ public final class SpaceChunkUpgrade {
                 && ModBlocks.isPlanetOre(state.getBlock());
     }
 
+    /**
+     * The blocks around a loading chunk, read without loading anything: the chunk itself from its
+     * sections and its neighbours only when they are already loaded. Asking the level for the chunk
+     * that is loading, or one not loaded yet, would wait on it forever.
+     */
+    private static net.minecraft.world.level.BlockGetter loaded(ServerLevel level, LevelChunk chunk) {
+        return new net.minecraft.world.level.BlockGetter() {
+            @Override
+            public BlockState getBlockState(BlockPos at) {
+                int cx = at.getX() >> 4, cz = at.getZ() >> 4;
+                if (cx == chunk.getPos().x && cz == chunk.getPos().z) return chunk.getBlockState(at);
+                LevelChunk other = level.getChunkSource().getChunkNow(cx, cz);
+                return other == null ? net.minecraft.world.level.block.Blocks.AIR.defaultBlockState() : other.getBlockState(at);
+            }
+
+            @Override
+            public net.minecraft.world.level.material.FluidState getFluidState(BlockPos at) {
+                return getBlockState(at).getFluidState();
+            }
+
+            @Override
+            public net.minecraft.world.level.block.entity.@Nullable BlockEntity getBlockEntity(BlockPos at) {
+                return null;
+            }
+
+            @Override
+            public int getHeight() {
+                return level.getHeight();
+            }
+
+            @Override
+            public int getMinBuildHeight() {
+                return level.getMinBuildHeight();
+            }
+        };
+    }
+
     private static void upgrade(ServerLevel level, LevelChunk chunk, BlockSpaceOre.OreBody body) {
         LevelChunkSection[] sections = chunk.getSections();
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
@@ -84,7 +121,7 @@ public final class SpaceChunkUpgrade {
                         BlockState fixed;
                         if (state.getBlock() instanceof SpacePlants.Coral) {
                             pos.set(chunk.getPos().getMinBlockX() + x, baseY + y, chunk.getPos().getMinBlockZ() + z);
-                            fixed = SpacePlants.Coral.attach(state, level, pos);
+                            fixed = SpacePlants.Coral.attach(state, loaded(level, chunk), pos);
                         } else {
                             fixed = state.setValue(BlockSpaceOre.BODY, body);
                         }

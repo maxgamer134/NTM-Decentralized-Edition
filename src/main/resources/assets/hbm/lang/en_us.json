@@ -4332,6 +4332,7 @@
   "geiger.chunkRad": "Current chunk radiation:",
   "geiger.envRad": "Total environmental radiation:",
   "geiger.playerRad": "Player contamination:",
+  "geiger.playerAct": "Player radioactivity:",
   "geiger.playerRes": "Player resistance:",
   "geiger.recievedRad": "Received radiation:",
   "geiger.title": "GEIGER COUNTER",

@@ -135,6 +135,8 @@ public final class ContaminationUtil {
         double env = getPlayerRads(player);
         double received = env * radMod;
         double resPercent = (1D - radMod) * 100D;
+        double resKoeff = HazmatRegistry.getResistance(player);
+        double neutron = HbmLivingProps.getNeutron(player);
 
         player.sendSystemMessage(
                 Component.literal("===== ☢ ")
@@ -150,13 +152,22 @@ public final class ContaminationUtil {
                         .append(
                                 Component.literal(" " + fmt(eRad) + " RAD")
                                         .withStyle(radTier(eRad))));
+        // the radiation the player gives off from neutron activation, coloured as the surroundings are
+        player.sendSystemMessage(
+                Component.translatable("geiger.playerAct")
+                        .withStyle(ChatFormatting.YELLOW)
+                        .append(
+                                Component.literal(" " + fmt(neutron) + " RAD/s")
+                                        .withStyle(prefixFromRad(env))));
         player.sendSystemMessage(
                 Component.translatable("geiger.playerRes")
                         .withStyle(ChatFormatting.YELLOW)
                         .append(
-                                Component.literal(" " + String.format("%.2f", resPercent) + "%")
+                                Component.literal(
+                                                " " + String.format("%.2f", resPercent) + "% ("
+                                                        + String.format("%.2f", resKoeff) + ")")
                                         .withStyle(
-                                                resPercent > 0D
+                                                resKoeff > 0D
                                                         ? ChatFormatting.GREEN
                                                         : ChatFormatting.WHITE)));
     }

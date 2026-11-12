@@ -133,8 +133,18 @@ public final class SpaceCryoDistiller {
             return slot != 2 && slot != 4 && slot != 6 && slot != 9;
         }
 
+        private static final int LAYOUT = 1;
+        private int layout;
+
         @Override
         public void tickServer() {
+            // a machine built before its cells followed the model is refitted once
+            if (layout < LAYOUT && level instanceof net.minecraft.server.level.ServerLevel server
+                    && getBlockState().getBlock() instanceof com.hbm.blocks.multiblock.BlockMultiblockCore core) {
+                core.refitCells(server, worldPosition);
+                layout = LAYOUT;
+                setChanged();
+            }
             if (!(level instanceof ServerLevel server)) return;
             power += ItemEnergyTransfer.extract(this, 0, MAX_POWER - power, false);
             FluidIdentifierData id = getItem(7).get(ModDataComponents.FLUID_IDENTIFIER.get());
@@ -289,6 +299,7 @@ public final class SpaceCryoDistiller {
         protected void loadAdditional(ValueInput input) {
             super.loadAdditional(input);
             power = input.getLongOr("power", 0L);
+            layout = input.getIntOr("layout", 0);
             String[] keys = {"input", "o1", "o2", "o3", "o4"};
             for (int i = 0; i < tanks.length; i++) {
                 final FluidTankNTM tank = tanks[i];
@@ -300,6 +311,7 @@ public final class SpaceCryoDistiller {
         protected void saveAdditional(ValueOutput output) {
             super.saveAdditional(output);
             output.putLong("power", power);
+            output.putInt("layout", layout);
             String[] keys = {"input", "o1", "o2", "o3", "o4"};
             for (int i = 0; i < tanks.length; i++) tanks[i].serialize(output.child(keys[i]));
         }

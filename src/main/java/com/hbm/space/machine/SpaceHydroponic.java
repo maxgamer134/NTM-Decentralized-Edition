@@ -160,8 +160,18 @@ public final class SpaceHydroponic {
             return !(block instanceof SpaceCrops.Crop crop) || crop.hydroponic;
         }
 
+        private static final int LAYOUT = 1;
+        private int layout;
+
         @Override
         public void tickServer() {
+            // a machine built before its cells followed the model is refitted once
+            if (layout < LAYOUT && level instanceof net.minecraft.server.level.ServerLevel server
+                    && getBlockState().getBlock() instanceof com.hbm.blocks.multiblock.BlockMultiblockCore core) {
+                core.refitCells(server, worldPosition);
+                layout = LAYOUT;
+                setChanged();
+            }
             if (!(level instanceof ServerLevel server)) return;
             if (power > 0) power = Math.max(power - 25, 0);
 
@@ -374,6 +384,7 @@ public final class SpaceHydroponic {
         protected void loadAdditional(ValueInput input) {
             super.loadAdditional(input);
             power = input.getLongOr("power", 0L);
+            layout = input.getIntOr("layout", 0);
             fertilizer = input.getIntOr("fertilizer", 0);
             for (int i = 0; i < 3; i++) prevAge[i] = input.getIntOr("p" + i, 0);
             String[] keys = {"co2", "o2"};
@@ -387,6 +398,7 @@ public final class SpaceHydroponic {
         protected void saveAdditional(ValueOutput output) {
             super.saveAdditional(output);
             output.putLong("power", power);
+            output.putInt("layout", layout);
             output.putInt("fertilizer", fertilizer);
             for (int i = 0; i < 3; i++) output.putInt("p" + i, prevAge[i]);
             String[] keys = {"co2", "o2"};

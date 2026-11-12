@@ -8467,6 +8467,13 @@ public final class ModBlocks {
                     "cluster_titanium", "cluster_aluminium", "cluster_copper");
     }
 
+    /** Whether {@code block} is one of the base ores that took on a body's stone. */
+    public static boolean isPlanetOre(Block block) {
+        net.minecraft.resources.ResourceLocation id =
+                net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
+        return id.getNamespace().equals(com.hbm.NuclearTech.MOD_ID) && PlanetOres.NAMES.contains(id.getPath());
+    }
+
     @SuppressWarnings("unchecked")
     private static <B extends Block> Function<BlockBehaviour.Properties, B> planetOre(
             String name, Function<BlockBehaviour.Properties, B> factory) {

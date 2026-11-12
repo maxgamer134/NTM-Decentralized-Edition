@@ -161,6 +161,8 @@ public final class NuclearTech {
         if (com.hbm.space.SpaceToggle.enabled()) {
             load(com.hbm.space.SpaceBlocks.class);
             com.hbm.space.SpaceBlocks.init();
+            load(com.hbm.space.SpaceChunkUpgrade.class);
+            com.hbm.space.SpaceChunkUpgrade.init();
             load(com.hbm.space.SpaceLayers.class);
             load(com.hbm.space.SpacePlants.class);
             load(com.hbm.space.SpaceRubber.class);

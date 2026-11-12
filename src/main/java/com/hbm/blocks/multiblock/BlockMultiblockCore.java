@@ -826,6 +826,45 @@ public abstract class BlockMultiblockCore extends BlockCompat
         }
     }
 
+    /**
+     * Brings a machine built under an older layout up to its current one: cells the layout no
+     * longer has are taken away, and cells it gained are placed where nothing solid is in the way.
+     * The machine itself is left alone, so its contents stay.
+     */
+    public final void refitCells(ServerLevel level, BlockPos core) {
+        BlockState coreState = level.getBlockState(core);
+        if (!coreState.is(this)) return;
+        Direction dir = coreState.getValue(FACING);
+        it.unimi.dsi.fastutil.longs.LongOpenHashSet expected = new it.unimi.dsi.fastutil.longs.LongOpenHashSet();
+        int[] min = {core.getX(), core.getY(), core.getZ()};
+        int[] max = {core.getX(), core.getY(), core.getZ()};
+        visitPlacedCells(level, core, dir, pos -> {
+            expected.add(pos.asLong());
+            min[0] = Math.min(min[0], pos.getX()); max[0] = Math.max(max[0], pos.getX());
+            min[1] = Math.min(min[1], pos.getY()); max[1] = Math.max(max[1], pos.getY());
+            min[2] = Math.min(min[2], pos.getZ()); max[2] = Math.max(max[2], pos.getZ());
+        });
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        for (int x = min[0]; x <= max[0]; x++)
+            for (int y = min[1]; y <= max[1]; y++)
+                for (int z = min[2]; z <= max[2]; z++) {
+                    pos.set(x, y, z);
+                    if (pos.equals(core)) continue;
+                    BlockState state = level.getBlockState(pos);
+                    boolean ours = isCellOf(state) && core.equals(MultiblockSurface.indexedCore(level, pos));
+                    if (expected.contains(pos.asLong())) {
+                        if (ours || state.canBeReplaced())
+                            fillSpace(level, core, dir, BoundingBox.fromCorners(pos, pos));
+                    } else if (ours) {
+                        BlockPos gone = pos.immutable();
+                        withoutTeardown(() -> {
+                            unindexCell(level, gone);
+                            level.setBlock(gone, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                        });
+                    }
+                }
+    }
+
     public final void fillSpace(LevelAccessor level, BlockPos core, Direction dir) {
         fillSpace(level, core, dir, null);
     }

@@ -44,6 +44,12 @@ public final class HbmPotion {
     public static RegistryHandle<MobEffect> mutation;
     public static RegistryHandle<MobEffect> phosphorus;
     public static RegistryHandle<MobEffect> bang;
+    /** NTM:Space's Ambrosia, from a Nitan flask. */
+    public static RegistryHandle<MobEffect> nitan;
+    /** NTM:Space's "GOD WATCHES YOU", from the Animan pill. */
+    public static RegistryHandle<MobEffect> run;
+    private static Holder<MobEffect> nitanHolder;
+    private static Holder<MobEffect> runHolder;
 
     private static Holder<MobEffect> potionsicknessHolder;
     private static Holder<MobEffect> radiationHolder;
@@ -83,12 +89,77 @@ public final class HbmPotion {
                         "mutation", () -> new HbmMobEffect(MobEffectCategory.NEUTRAL, 0x800080));
         phosphorus = NeoForgeRegistrar.registerMobEffect("phosphorus", PhosphorusEffect::new);
         bang = NeoForgeRegistrar.registerMobEffect("bang", BangEffect::new);
+        nitan = NeoForgeRegistrar.registerMobEffect("nitan", NitanEffect::new);
+        run = NeoForgeRegistrar.registerMobEffect("run", RunEffect::new);
     }
 
     public static Holder<MobEffect> potionsickness() {
         if (potionsicknessHolder == null)
             potionsicknessHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(potionsickness.get());
         return potionsicknessHolder;
+    }
+
+    public static Holder<MobEffect> nitan() {
+        if (nitanHolder == null) nitanHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(nitan.get());
+        return nitanHolder;
+    }
+
+    public static Holder<MobEffect> run() {
+        if (runHolder == null) runHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(run.get());
+        return runHolder;
+    }
+
+    /** Ambrosia: keeps gas out like a hazmat suit; a third flask taken without a purge kills. */
+    private static final class NitanEffect extends HbmMobEffect {
+        private NitanEffect() {
+            super(MobEffectCategory.BENEFICIAL, 0x800080);
+        }
+
+        @Override
+        public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+            if (entity instanceof Player player && com.hbm.extprop.HbmPlayerProps.getData(player).nitanCount >= 3) {
+                entity.hurt(level.damageSources().source(ModDamageTypes.NITAN), 1000F);
+            }
+            return true;
+        }
+
+        @Override
+        public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+            return true;
+        }
+    }
+
+    /** GOD WATCHES YOU: the last half second of the Animan pill blows its taker apart. */
+    private static final class RunEffect extends HbmMobEffect {
+        private RunEffect() {
+            super(MobEffectCategory.HARMFUL, 0x111111);
+        }
+
+        @Override
+        public void onEffectStarted(LivingEntity entity, int amplifier) {
+            if (entity.level() instanceof ServerLevel level) {
+                com.hbm.particle.helper.ParticleCreators.vomit(level, entity, com.hbm.packet.toclient.VomitPayload.MODE_NORMAL, 25);
+                EntitySounds.play(entity, entity.getX(), entity.getY(), entity.getZ(), ModSounds.PLAYER_VOMIT.get(),
+                        SoundSource.PLAYERS, 1.0F, 1.0F);
+            }
+        }
+
+        @Override
+        public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+            if (!entity.isAlive()) return false;
+            entity.hurt(level.damageSources().source(ModDamageTypes.RUN), 1000F);
+            entity.setHealth(0.0F);
+            new com.hbm.explosion.vanillant.ExplosionVNT(level, entity.getX(), entity.getY(), entity.getZ(), 12).makeAmat().explode();
+            EntitySounds.play(entity, entity.getX(), entity.getY(), entity.getZ(), ModSounds.GUN_MINI_NUKE_EXPLOSION.get(),
+                    SoundSource.PLAYERS, 100.0F, 1.0F);
+            if (!(entity instanceof Player)) entity.discard();
+            return false;
+        }
+
+        @Override
+        public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+            return tickCount <= 10;
+        }
     }
 
     public static Holder<MobEffect> radiation() {

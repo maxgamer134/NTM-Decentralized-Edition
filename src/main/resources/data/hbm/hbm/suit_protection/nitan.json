@@ -1,0 +1,6 @@
+{
+  "effect": "hbm:nitan",
+  "protections": [
+    "hazmat"
+  ]
+}

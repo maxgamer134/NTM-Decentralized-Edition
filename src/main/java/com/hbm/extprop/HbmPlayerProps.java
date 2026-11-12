@@ -68,7 +68,10 @@ public final class HbmPlayerProps {
                                                     .forGetter(p -> p.fbiMark),
                                             Codec.BOOL
                                                     .optionalFieldOf("radMark", false)
-                                                    .forGetter(p -> p.radMark))
+                                                    .forGetter(p -> p.radMark),
+                                            Codec.INT
+                                                    .optionalFieldOf("nitan", 0)
+                                                    .forGetter(p -> p.nitanCount))
                                     .apply(i, HbmPlayerProps::create));
     public final boolean[] craneKeysPressed = new boolean[EnumCraneKey.VALUES.length];
     public final boolean[] toolKeysPressed = new boolean[EnumToolKey.VALUES.length];
@@ -88,6 +91,8 @@ public final class HbmPlayerProps {
     public int maskManTimer;
     public long fbiMark;
     public boolean radMark;
+    /** NTM:Space: Nitan flasks taken since the last purge; the third one kills. */
+    public int nitanCount;
     public boolean dashKeyPressed;
     public int armorFlightIntent;
     public boolean euphemiumFallCapped;
@@ -109,8 +114,10 @@ public final class HbmPlayerProps {
             boolean crateOpenHeld,
             int maskManTimer,
             long fbiMark,
-            boolean radMark) {
+            boolean radMark,
+            int nitanCount) {
         HbmPlayerProps p = new HbmPlayerProps();
+        p.nitanCount = nitanCount;
         p.maskManTimer = maskManTimer;
         p.fbiMark = fbiMark;
         p.radMark = radMark;

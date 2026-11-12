@@ -1565,6 +1565,15 @@
       }
     ]
   },
+  "player.oil": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:player/oil",
+        "stream": false
+      }
+    ]
+  },
   "player.vomit": {
     "category": "player",
     "sounds": [

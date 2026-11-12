@@ -6637,6 +6637,8 @@ public final class ModItems {
     public static final RegistryHandle<ItemCustomLore> PILL_IODINE =
             pill("pill_iodine", "pill_iodine");
     public static final RegistryHandle<ItemCustomLore> XANAX = pill("xanax", "xanax");
+    /** NTM:Space's Problematic Meal. */
+    public static final RegistryHandle<ItemCustomLore> ANIMAN = pill("animan", "animan");
     public static final RegistryHandle<ItemCustomLore> FMN = pill("fmn", "tablet");
     public static final RegistryHandle<ItemCustomLore> FIVE_HTP = pill("five_htp", "5htp");
     public static final RegistryHandle<ItemCustomLore> PLAN_C = pill("plan_c", "plan_c");

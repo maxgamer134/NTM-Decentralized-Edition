@@ -1,0 +1,13 @@
+{
+  "actions": [
+    {
+      "type": "effect",
+      "amplifier": 0,
+      "duration": 200,
+      "effect": "hbm:run"
+    }
+  ],
+  "sound": "hbm:player.oil",
+  "targets": "hbm:animan",
+  "trigger": "consume"
+}

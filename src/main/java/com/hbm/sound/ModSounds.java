@@ -35,6 +35,7 @@ public final class ModSounds {
     public static RegistryHandle<SoundEvent> HORN_FAR_DUAL;
     public static RegistryHandle<SoundEvent> PLAYER_COUGH;
     public static RegistryHandle<SoundEvent> PLAYER_VOMIT;
+    public static RegistryHandle<SoundEvent> PLAYER_OIL;
     public static RegistryHandle<SoundEvent> EXPLOSION_TINY;
     public static RegistryHandle<SoundEvent> GAVEL;
     public static RegistryHandle<SoundEvent> CRUCIBLE_DEPLOY;
@@ -319,6 +320,7 @@ public final class ModSounds {
         HORN_FAR_DUAL = NeoForgeRegistrar.registerSound("block.horn_far_dual");
         PLAYER_COUGH = NeoForgeRegistrar.registerSound("player.cough");
         PLAYER_VOMIT = NeoForgeRegistrar.registerSound("player.vomit");
+        PLAYER_OIL = NeoForgeRegistrar.registerSound("player.oil");
         EXPLOSION_TINY = NeoForgeRegistrar.registerSound("weapon.explosion_tiny");
         GAVEL = NeoForgeRegistrar.registerSound("weapon.whack");
         STOP = NeoForgeRegistrar.registerSound("weapon.stop");

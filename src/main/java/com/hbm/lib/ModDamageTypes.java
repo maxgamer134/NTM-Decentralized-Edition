@@ -56,6 +56,10 @@ public final class ModDamageTypes {
     public static final ResourceKey<DamageType> MKU = key("mku");
     public static final ResourceKey<DamageType> VACUUM = key("vacuum");
     public static final ResourceKey<DamageType> OVERDOSE = key("overdose");
+    /** NTM:Space: a third flask of Nitan. */
+    public static final ResourceKey<DamageType> NITAN = key("nitan");
+    /** NTM:Space: the Animan pill running out. */
+    public static final ResourceKey<DamageType> RUN = key("run");
     public static final ResourceKey<DamageType> BOIL = key("boil");
     public static final ResourceKey<DamageType> FLAMETHROWER = key("flamethrower");
     public static final ResourceKey<DamageType> ICE = key("ice");

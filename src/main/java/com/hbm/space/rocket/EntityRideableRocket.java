@@ -88,6 +88,9 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
 
     public EntityRideableRocket(EntityType<? extends EntityRideableRocket> type, Level level) {
         super(type, level);
+        // size from the rocket data, not the type's 2x8: a capsule-only rocket is the synced default,
+        // so a client spawning one after the stages are spent never gets an update to resize on
+        refreshDimensions();
     }
 
     public static EntityRideableRocket of(Level level, double x, double y, double z, ItemStack rocketItem) {

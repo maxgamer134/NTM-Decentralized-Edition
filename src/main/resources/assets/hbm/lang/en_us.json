@@ -9931,6 +9931,7 @@
   "jei.hbm.space.he_per_operation": "%s HE/operation",
   "jei.hbm.space.station_thrusters": "Station Thrusters",
   "jei.hbm.space.isp": "%s ISP",
-  "jei.hbm.space.pwr_heated": "Heated in a PWR",
+  "jei.hbm.space.pwr_heating": "PWR Heating",
+  "jei.hbm.space.pwr_heat": "%s TU: %s mB to %s mB",
   "jei.hbm.space.he_per_mb": "%s HE/mB"
 }

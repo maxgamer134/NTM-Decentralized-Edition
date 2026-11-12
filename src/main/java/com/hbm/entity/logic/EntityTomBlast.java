@@ -86,6 +86,9 @@ public class EntityTomBlast extends EntityExplosionChunkloading
                         destructionRange);
             terrain = ExplosionTom.groundLevel(server, (int) getX(), (int) getZ());
             seed = random.nextLong();
+            // NTM:Space: the impact kicks up dust that darkens this body's sky
+            if (com.hbm.space.SpaceToggle.enabled())
+                com.hbm.space.CelestialBody.modifyTraits(server, new com.hbm.space.trait.CBT_Impact(server.getGameTime()));
             this.did = true;
         }
         if (exp == null)

@@ -8,6 +8,9 @@
     },
     "hbm:powder_coke_petroleum": {
       "burn_time": 3200
+    },
+    "hbm:saltleaf": {
+      "burn_time": 200
     }
   }
 }

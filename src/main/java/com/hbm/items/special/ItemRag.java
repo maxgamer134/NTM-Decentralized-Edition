@@ -30,7 +30,12 @@ public class ItemRag extends ItemCustomLore implements IItemEntityUpdate {
     @Override
     public InteractionResult backport$use(Level level, Player player, InteractionHand hand) {
         if (!level.isClientSide()) {
-            player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.RAG_PISS));
+            // NTM:Space: badly irradiated players bleed into the rag instead
+            net.minecraft.world.item.Item out = com.hbm.space.SpaceToggle.enabled()
+                            && com.hbm.extprop.HbmLivingProps.getRadiation(player) > 500
+                    ? net.minecraft.core.registries.BuiltInRegistries.ITEM.get(com.hbm.lib.Library.id("rag_blood"))
+                    : ModItems.RAG_PISS.get();
+            player.getInventory().placeItemBackInInventory(new ItemStack(out));
             player.getItemInHand(hand).shrink(1);
         }
         return InteractionResult.SUCCESS;

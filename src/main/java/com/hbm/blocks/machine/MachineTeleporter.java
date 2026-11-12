@@ -43,6 +43,12 @@ public class MachineTeleporter extends BlockCompat
             return;
         }
         info.line(Component.literal(String.format(Locale.US, "%,d", tele.power) + " / " + String.format(Locale.US, "%,d", BlockEntityMachineTeleporter.MAX_POWER)).withStyle(tele.power >= BlockEntityMachineTeleporter.CONSUMPTION ? ChatFormatting.GREEN : ChatFormatting.RED));
+        if (tele.crossesDimension() && BlockEntityMachineTeleporter.needsFluid()) {
+            // NTM:Space: the N-MASS in the tank, shown when the jump leaves this dimension
+            info.line(Component.empty()
+                    .append(tele.tank.getTankType().getFluidType().getDescription())
+                    .append(": " + tele.tank.getFill() + "/" + tele.tank.getMaxFill() + "mB"));
+        }
         info.line(
                 "Destination: "
                         + target.pos().getX()
@@ -57,6 +63,6 @@ public class MachineTeleporter extends BlockCompat
 
     @Override
     public MachineCaps caps() {
-        return MachineCaps.of(ModBlockEntities.TELEBLOCK).powerIn().fe();
+        return MachineCaps.of(ModBlockEntities.TELEBLOCK).powerIn().fluidIn().fe();
     }
 }

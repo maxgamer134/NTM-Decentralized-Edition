@@ -4,6 +4,16 @@
 package com.hbm.blockentity.machine;
 
 import com.hbm.api.energymk2.IEnergyHandlerMK2;
+import com.hbm.api.fluidmk2.FluidTankEndpoint;
+import com.hbm.config.BalanceConfig;
+import com.hbm.inventory.fluid.NTMFluids;
+import com.hbm.inventory.fluid.tank.FluidTankNTM;
+import com.hbm.space.SpaceToggle;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.item.Items;
 import com.hbm.blockentity.GraphResident;
 import com.hbm.blockentity.Synced;
 import com.hbm.blocks.ModBlockEntities;
@@ -56,10 +66,13 @@ import net.minecraft.world.level.Level;
 import com.hbm.backport.BlockEntityCompat;
 
 public class BlockEntityMachineTeleporter extends BlockEntityCompat
-        implements Synced, GraphResident, IEnergyHandlerMK2, SyncUnitSchema {
+        implements Synced, GraphResident, IEnergyHandlerMK2, FluidTankEndpoint, SyncUnitSchema {
 
     public static final long MAX_POWER = 1_500_000;
     public static final long CONSUMPTION = 1_000_000;
+    /** NTM:Space: N-MASS burned for each jump to another dimension. */
+    public static final int FLUID_CONSUMPTION = 100;
+    private static final FluidTankNTM[] NO_TANKS = new FluidTankNTM[0];
 
     private static final DustParticleOptions EXIT_MOTE = new DustParticleOptions(net.minecraft.world.phys.Vec3.fromRGB24(0x66CCFF).toVector3f(), 1.0F);
 
@@ -69,8 +82,38 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
     @SyncField(units = 1L << 1)
     public @Nullable GlobalPos target;
 
+    /** NTM:Space's N-MASS tank, only there while Space is on (N-MASS is one of its fluids). */
+    @SyncField(units = 1L << 2)
+    public final FluidTankNTM tank;
+
+    private final FluidTankNTM[] receiving;
+
     public BlockEntityMachineTeleporter(BlockPos pos, BlockState state) {
         super(ModBlockEntities.TELEBLOCK.get(), pos, state);
+        tank = new FluidTankNTM(SpaceToggle.enabled() ? NTMFluids.byName("NMASS") : NTMFluids.NONE, 16_000);
+        receiving = SpaceToggle.enabled() ? new FluidTankNTM[] {tank} : NO_TANKS;
+    }
+
+    /**
+     * NTM:Space: a jump to another dimension costs 100 mB of N-MASS, unless Space is off (no N-MASS
+     * to be had) or LBSM is on.
+     */
+    public static boolean needsFluid() {
+        return SpaceToggle.enabled() && !BalanceConfig.enableLBSM;
+    }
+
+    /** Whether the jump to the set destination needs N-MASS from here. */
+    public boolean crossesDimension() {
+        return target != null && level != null && target.dimension() != level.dimension();
+    }
+
+    private boolean hasFluidFor(boolean crossing) {
+        return !crossing || !needsFluid() || tank.getFill() >= FLUID_CONSUMPTION;
+    }
+
+    @Override
+    public FluidTankNTM[] getReceivingTanks() {
+        return receiving;
     }
 
     public void tickServer() {
@@ -89,7 +132,7 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
     }
 
     public void tickClient() {
-        if (target == null || power < CONSUMPTION) return;
+        if (target == null || power < CONSUMPTION || !hasFluidFor(crossesDimension())) return;
         level.addParticle(
                 EXIT_MOTE,
                 worldPosition.getX() + 0.5 + level.getRandom().nextGaussian() * 0.25D,
@@ -102,6 +145,11 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
 
     public void teleport(Entity entity) {
         if (target == null || power < CONSUMPTION) return;
+        boolean crossing = entity.level().dimension() != target.dimension();
+        // N-MASS is required for cross-dimension teleporting
+        if (!hasFluidFor(crossing)) return;
+        if (crossing && needsFluid()) tank.setFill(tank.getFill() - FLUID_CONSUMPTION);
+        boolean bread = entity instanceof ItemEntity item && item.getItem().is(Items.BREAD);
 
         level.playSound(
                 null,
@@ -128,6 +176,16 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
                             entity.getYRot(),
                             entity.getXRot(),
                             arrival));
+
+            // NTM:Space: "I have done nothing but teleport bread for three days"
+            if (bread) {
+                Slime slime = EntityType.SLIME.create(destination);
+                if (slime != null) {
+                    slime.moveTo(exit.getX() + 0.5D, exit.getY() + 1.5D, exit.getZ() + 0.5D, entity.getYRot(), entity.getXRot());
+                    slime.finalizeSpawn(destination, destination.getCurrentDifficultyAt(exit), MobSpawnType.MOB_SUMMONED, null);
+                    destination.addFreshEntity(slime);
+                }
+            }
         }
 
         EntitySounds.play(
@@ -163,6 +221,7 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
         super.loadAdditional(input);
         this.power = input.getLongOr("power", 0L);
         this.target = input.read("target", GlobalPos.CODEC).orElse(null);
+        input.child("tt").ifPresent(tank::deserialize);
     }
 
     @Override
@@ -170,6 +229,7 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
         super.saveAdditional(output);
         output.putLong("power", power);
         output.storeNullable("target", GlobalPos.CODEC, target);
+        tank.serialize(output.child("tt"));
     }
 
     @Override
@@ -189,7 +249,7 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
 
     @Override
     public long syncUnitMask() {
-        return 0x3L;
+        return 0x7L;
     }
 
     @Override
@@ -197,6 +257,7 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
         switch (unit) {
             case 0 -> output.writeLong(this.power);
             case 1 -> writeTarget(output);
+            case 2 -> tank.packetSerialize(output);
             default -> throw new IllegalArgumentException();
         }
     }
@@ -206,6 +267,7 @@ public class BlockEntityMachineTeleporter extends BlockEntityCompat
         switch (unit) {
             case 0 -> this.power = input.readLong();
             case 1 -> readTarget(input);
+            case 2 -> tank.packetDeserialize(input);
             default -> throw new IllegalArgumentException();
         }
     }

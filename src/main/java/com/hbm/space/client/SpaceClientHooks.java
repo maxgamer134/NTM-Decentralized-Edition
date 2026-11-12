@@ -21,7 +21,10 @@ public final class SpaceClientHooks {
 
     public static void register(net.neoforged.bus.api.IEventBus modBus) {
         if (!SpaceToggle.enabled()) return;
-        com.hbm.integration.recipeviewer.SpaceRecipePages.register();
+        // Not at construction: the first touch of RecipePages builds every NTM page, which needs the registries.
+        modBus.addListener(
+                (net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) ->
+                        event.enqueueWork(com.hbm.integration.recipeviewer.SpaceRecipePages::register));
         com.hbm.space.client.SpaceSkyClient.register(modBus);
         com.hbm.space.client.SpaceSiegeClient.register();
         com.hbm.space.client.SpacePlushieFigures.register(); com.hbm.space.client.SpaceBobbleFigures.register();

@@ -34,23 +34,23 @@ public final class MachinePlacementOutline {
                 || !(item.getBlock() instanceof BlockMultiblockCore block)) return null;
 
         int quadrant = Mth.floor(player.getYRot() * 4F / block.placementYawSpan() + 0.5D) & 3;
-        Direction direction =
-                block.getDirModified(
-                        switch (quadrant) {
-                            case 1 -> Direction.EAST;
-                            case 2 -> Direction.SOUTH;
-                            case 3 -> Direction.WEST;
-                            default -> Direction.NORTH;
-                        });
+        Direction facing =
+                switch (quadrant) {
+                    case 1 -> Direction.EAST;
+                    case 2 -> Direction.SOUTH;
+                    case 3 -> Direction.WEST;
+                    default -> Direction.NORTH;
+                };
+        Direction direction = block.getDirModified(facing);
         MultiblockLayout.Placement placement = block.placement();
         int offset = -placement.offset();
         BlockPos placed =
                 hit.getBlockPos().relative(hit.getDirection()).above(placement.heightOffset());
         BlockPos core =
                 placed.offset(
-                        direction.getStepX() * offset,
-                        direction.getStepY() * offset,
-                        direction.getStepZ() * offset);
+                        facing.getStepX() * offset,
+                        facing.getStepY() * offset,
+                        facing.getStepZ() * offset);
         return new State(
                 core,
                 block.placementOutline(direction),

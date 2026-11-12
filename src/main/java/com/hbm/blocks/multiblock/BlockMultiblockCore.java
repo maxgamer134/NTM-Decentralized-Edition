@@ -737,16 +737,19 @@ public abstract class BlockMultiblockCore extends BlockCompat
         int o = -placement.offset();
         BlockPos placed = pos.offset(0, placement.heightOffset(), 0);
 
-        Direction dir =
-                getDirModified(
-                        switch (i) {
-                            case 1 -> Direction.EAST;
-                            case 2 -> Direction.SOUTH;
-                            case 3 -> Direction.WEST;
-                            default -> Direction.NORTH;
-                        });
+        Direction facingDir =
+                switch (i) {
+                    case 1 -> Direction.EAST;
+                    case 2 -> Direction.SOUTH;
+                    case 3 -> Direction.WEST;
+                    default -> Direction.NORTH;
+                };
+        Direction dir = getDirModified(facingDir);
 
-        BlockPos core = placed.offset(dir.getStepX() * o, dir.getStepY() * o, dir.getStepZ() * o);
+        // the core moves away from the player along the way they face, not the machine's turned
+        // direction: NTM pushes a turned machine (the LPW-2, HTR-3, Soyuz) out in front, not sideways
+        BlockPos core =
+                placed.offset(facingDir.getStepX() * o, facingDir.getStepY() * o, facingDir.getStepZ() * o);
         if (!placementClear(level, core, dir)) {
             ItemStack refund = stack.copyWithCount(1);
             if (!pl.getAbilities().instabuild) pl.getInventory().placeItemBackInInventory(refund);

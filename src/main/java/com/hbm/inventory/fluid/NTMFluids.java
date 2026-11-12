@@ -405,17 +405,24 @@ public final class NTMFluids {
         HANDLES.put(name, NeoForgeRegistrar.registerFluid(name.toLowerCase(Locale.US)));
     }
 
+    /** An anchor given by its old name (BALEFIRE, as NTMain and its addons call it) means the fluid now holding it. */
+    private static String anchor(String after) {
+        for (Map.Entry<String, String> legacy : LEGACY_NAMES.entrySet())
+            if (legacy.getValue().equals(after)) return legacy.getKey();
+        return after;
+    }
+
     public static void register(String namespace, String name, String after) {
         ADDED.add(
                 new Addition(
                         name,
-                        after,
+                        anchor(after),
                         NeoForgeRegistrar.registerFluid(
                                 namespace + ":" + name.toLowerCase(Locale.US))));
     }
 
     public static void move(String name, String after) {
-        ADDED.add(new Addition(name, after, null));
+        ADDED.add(new Addition(name, anchor(after), null));
     }
 
     public static String namespace(Fluid fluid) {

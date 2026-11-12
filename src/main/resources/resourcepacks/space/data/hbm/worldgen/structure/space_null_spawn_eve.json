@@ -1,0 +1,6 @@
+{
+  "type": "hbm:null_spawn",
+  "biomes": ["hbm:eve","hbm:eve_mountains","hbm:eve_ocean","hbm:eve_river","hbm:eve_seismic"],
+  "spawn_overrides": {},
+  "step": "strongholds"
+}

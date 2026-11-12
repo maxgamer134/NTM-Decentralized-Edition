@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "#hbm:any_ash",
+    "#c:dusts/red_phosphorus",
+    "#c:dusts/saltpeter",
+    "hbm:ammonium_nitrate"
+  ],
+  "result": {
+    "count": 4,
+    "id": "hbm:powder_fertilizer"
+  }
+}

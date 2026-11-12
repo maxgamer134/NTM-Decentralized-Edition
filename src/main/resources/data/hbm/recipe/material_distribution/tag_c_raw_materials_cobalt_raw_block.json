@@ -1,0 +1,23 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_cobalt"
+      }
+    }
+  ],
+  "type": "hbm:material_distribution",
+  "materials": [
+    {
+      "amount": 432,
+      "material": "cobalt"
+    },
+    {
+      "amount": 972,
+      "material": "stone"
+    }
+  ],
+  "targets": "#c:storage_blocks/raw_cobalt"
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 2.5,
+  "ingredient": {
+    "item": "hbm:ore_nickel"
+  },
+  "result": {
+    "id": "hbm:chunk_ore_pentlandite",
+    "count": 1
+  }
+}

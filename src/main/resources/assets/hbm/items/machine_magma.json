@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_magma_base",
+    "mesh": "hbm:models/machines/magma_drill.obj",
+    "skins": [
+      "hbm:textures/models/machines/magma_drill.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

@@ -1,0 +1,16 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/nickel"
+    }
+  ],
+  "order": 970038,
+  "output_items": [
+    {
+      "id": "hbm:plate_nickel"
+    }
+  ],
+  "tier": 3,
+  "overlay": "construction"
+}

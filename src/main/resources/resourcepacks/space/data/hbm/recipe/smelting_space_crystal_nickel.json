@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 2.0,
+  "ingredient": {
+    "item": "hbm:crystal_nickel"
+  },
+  "result": {
+    "id": "hbm:ingot_nickel",
+    "count": 2
+  }
+}

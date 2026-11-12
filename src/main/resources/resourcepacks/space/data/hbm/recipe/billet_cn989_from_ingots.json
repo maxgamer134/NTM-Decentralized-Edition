@@ -1,0 +1,13 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "#": "hbm:ingot_cn989"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "hbm:billet_cn989"
+  }
+}

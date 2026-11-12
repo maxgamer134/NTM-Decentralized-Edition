@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/launch_pad_rocket_base",
+    "mesh": "hbm:models/machines/rocket_pad.obj",
+    "skins": [
+      "hbm:textures/models/machines/rocket_pad.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

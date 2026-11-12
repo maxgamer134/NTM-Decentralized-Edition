@@ -1,0 +1,15 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:crystal_cleaned"
+    }
+  ],
+  "order": 970050,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:mineral_dust"
+    }
+  ]
+}

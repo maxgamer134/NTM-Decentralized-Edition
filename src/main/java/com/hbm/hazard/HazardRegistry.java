@@ -631,6 +631,25 @@ public final class HazardRegistry {
         }
     }
 
+    /** For addons: an RBMK rod's and its pellet's radiation, as the builtin rods get it. */
+    public static void addonRBMK(
+            RegistryHandle<ItemRBMKRod> rod,
+            RegistryHandle<ItemRBMKPellet> pellet,
+            double rodBase,
+            double rodDepleted,
+            double pelletBase,
+            double pelletDepleted) {
+        RBMKBuilder b = new RBMKBuilder(Map.of(pellet.id().getPath(), pellet));
+        b.rod(rod, rodBase, rodDepleted);
+        b.pellet(pellet.id().getPath(), pelletBase, pelletDepleted);
+    }
+
+    /** For addons: an RTG pellet's radiation, as the builtin pellets get it. */
+    public static void addonRTG(
+            RegistryHandle<ItemRTGPellet> pellet, double base, double target, double hot, double blinding) {
+        put(pellet, base, target, hot, blinding);
+    }
+
     public static void registerTrafos() {
         for (IHazardTransformer transformer : transformers()) {
             HazardSystem.addTransformer(transformer);

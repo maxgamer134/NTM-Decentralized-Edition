@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crystallizer",
+  "duration": 300,
+  "input_fluids": [
+    {
+      "type": "hbm:peroxide",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "hbm:mineral_dust"
+    }
+  ],
+  "order": 990010,
+  "output_items": [
+    "hbm:mineral_fragment_peroxide"
+  ]
+}

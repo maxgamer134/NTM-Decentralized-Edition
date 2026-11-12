@@ -1,0 +1,30 @@
+{
+  "type": "hbm:cryo_distiller",
+  "duration": 1,
+  "input_fluids": [
+    {
+      "type": "hbm:ugas",
+      "amount": 100
+    }
+  ],
+  "order": 1004,
+  "output_fluids": [
+    {
+      "type": "hbm:oxygen",
+      "amount": 45
+    },
+    {
+      "type": "hbm:nitrogen",
+      "amount": 25
+    },
+    {
+      "type": "hbm:methanol",
+      "amount": 15
+    },
+    {
+      "type": "hbm:aromatics",
+      "amount": 15
+    }
+  ],
+  "power": 20000
+}

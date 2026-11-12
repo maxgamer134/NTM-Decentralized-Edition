@@ -1,0 +1,13 @@
+{
+  "type": "hbm:single_piece",
+  "biomes": [
+    "hbm:duna",
+    "hbm:duna_lowlands",
+    "hbm:duna_polar"
+  ],
+  "height_offset": -1,
+  "spawn_overrides": {},
+  "start_pool": "hbm:space/duna_comms",
+  "step": "strongholds",
+  "aquatic": true
+}

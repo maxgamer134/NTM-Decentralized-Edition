@@ -1,0 +1,13 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/nickel"
+    }
+  ],
+  "order": 970036,
+  "output_items": [
+    "hbm:plate_nickel"
+  ],
+  "stamp": "plate"
+}

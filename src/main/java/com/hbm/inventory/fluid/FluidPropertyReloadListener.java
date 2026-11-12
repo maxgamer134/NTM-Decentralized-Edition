@@ -37,6 +37,7 @@ public final class FluidPropertyReloadListener
         List<String> failures = new ArrayList<>();
         int loaded = 0;
 
+        entries = withSpace(entries, manager);
         Map<Fluid, NTMFluidProperty> replacement = new LinkedHashMap<>();
         for (Map.Entry<ResourceLocation, JsonElement> entry : entries.entrySet()) {
             ResourceLocation id = entry.getKey();
@@ -68,5 +69,38 @@ public final class FluidPropertyReloadListener
         }
         NTMFluidProperties.replace(replacement);
         NTMFluidProperties.markResyncPending();
+    }
+
+    /**
+     * NTM:Space's fluid data, read only while Space is on. Its own fluids ({@code space/fluid_property})
+     * go in first, so a data pack's {@code fluid_property} file for one still wins. Its edits to
+     * existing fluids ({@code space_changes/fluid_property}, with {@code space_changes} on) replace a
+     * fluid's file only while that file still comes from the same pack as the edit, NTM's own jar:
+     * a fluid a data pack has redefined keeps the data pack's version (NTM:Space let its edits
+     * override custom fluid data, its issue 512).
+     */
+    private static Map<ResourceLocation, JsonElement> withSpace(
+            Map<ResourceLocation, JsonElement> entries, ResourceManager manager) {
+        if (!com.hbm.space.SpaceToggle.enabled()) return entries;
+        com.google.gson.Gson gson = new com.google.gson.Gson();
+        Map<ResourceLocation, JsonElement> merged = new java.util.HashMap<>();
+        scanDirectory(manager, "space/fluid_property", gson, merged);
+        merged.putAll(entries);
+        if (!com.hbm.space.SpaceToggle.changes()) return merged;
+        Map<ResourceLocation, JsonElement> changes = new java.util.HashMap<>();
+        scanDirectory(manager, "space_changes/fluid_property", gson, changes);
+        changes.forEach(
+                (id, json) -> {
+                    String base = pack(manager, id.withPath("fluid_property/" + id.getPath() + ".json"));
+                    String edit =
+                            pack(manager, id.withPath("space_changes/fluid_property/" + id.getPath() + ".json"));
+                    if (base == null || base.equals(edit)) merged.put(id, json);
+                });
+        return merged;
+    }
+
+    private static @org.jetbrains.annotations.Nullable String pack(
+            ResourceManager manager, ResourceLocation file) {
+        return manager.getResource(file).map(net.minecraft.server.packs.resources.Resource::sourcePackId).orElse(null);
     }
 }

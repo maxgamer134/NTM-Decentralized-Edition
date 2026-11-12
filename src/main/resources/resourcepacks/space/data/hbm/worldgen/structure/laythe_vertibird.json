@@ -1,0 +1,8 @@
+{
+  "type": "hbm:single_piece",
+  "biomes": ["hbm:laythe", "hbm:laythe_coast", "hbm:laythe_polar"],
+  "height_offset": -3,
+  "spawn_overrides": {},
+  "start_pool": "hbm:single/vertibird",
+  "step": "strongholds"
+}

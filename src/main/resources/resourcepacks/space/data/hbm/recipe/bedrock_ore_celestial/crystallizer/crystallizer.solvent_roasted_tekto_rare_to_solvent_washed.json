@@ -1,0 +1,34 @@
+{
+  "duration": 100,
+  "input_fluids": [
+    {
+      "type": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "tekto_rare",
+          "grade": "solvent_roasted"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore",
+      "count": 4
+    }
+  ],
+  "order": 993448,
+  "output_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "tekto_rare",
+          "grade": "solvent_washed"
+        }
+      },
+      "id": "hbm:bedrock_ore"
+    }
+  ],
+  "type": "hbm:crystallizer"
+}

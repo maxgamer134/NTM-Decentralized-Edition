@@ -1,0 +1,33 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "type",
+    "cases": [
+      {
+        "when": "cact",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/spike_cacti_cact"
+        }
+      },
+      {
+        "when": "bush",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/spike_cacti_bush"
+        }
+      },
+      {
+        "when": "flower",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/spike_cacti_flower"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:item/spike_cacti_cact"
+    }
+  }
+}

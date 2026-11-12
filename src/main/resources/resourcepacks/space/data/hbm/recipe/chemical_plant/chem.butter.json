@@ -1,0 +1,15 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 100,
+  "input_fluids": [
+    {
+      "type": "hbm:emilk",
+      "amount": 1000
+    }
+  ],
+  "order": 970090,
+  "output_items": [
+    "hbm:butter"
+  ],
+  "power": 100
+}

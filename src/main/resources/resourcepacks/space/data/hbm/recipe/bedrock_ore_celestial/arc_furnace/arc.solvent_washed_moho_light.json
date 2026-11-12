@@ -1,0 +1,21 @@
+{
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "moho_light",
+          "grade": "solvent_washed"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 991431,
+  "output_materials": [
+    {
+      "amount": 144,
+      "material": "nickel"
+    }
+  ],
+  "type": "hbm:arc_furnace"
+}

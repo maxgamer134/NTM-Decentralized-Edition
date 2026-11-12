@@ -1,0 +1,18 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#c:cobblestones"
+    }
+  ],
+  "order": 6144,
+  "output_items": [
+    "minecraft:gravel"
+  ]
+}

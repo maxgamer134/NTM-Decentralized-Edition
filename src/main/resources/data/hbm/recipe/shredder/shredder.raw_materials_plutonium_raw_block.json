@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_plutonium"
+      }
+    }
+  ],
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_plutonium"
+    }
+  ],
+  "order": 80385,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:powder_plutonium"
+    }
+  ]
+}

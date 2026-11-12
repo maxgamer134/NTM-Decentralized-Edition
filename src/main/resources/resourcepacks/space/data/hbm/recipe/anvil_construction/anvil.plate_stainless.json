@@ -1,0 +1,16 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/stainless"
+    }
+  ],
+  "order": 970039,
+  "output_items": [
+    {
+      "id": "hbm:plate_stainless"
+    }
+  ],
+  "tier": 3,
+  "overlay": "construction"
+}

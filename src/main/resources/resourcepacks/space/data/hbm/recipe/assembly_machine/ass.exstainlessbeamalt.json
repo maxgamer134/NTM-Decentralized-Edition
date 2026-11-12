@@ -1,0 +1,34 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 600,
+  "input_fluids": [
+    {
+      "type": "hbm:argon",
+      "amount": 1000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "#hbm:plates_welded/stainless"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:plates_cast/aluminum"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/titanium"
+    },
+    {
+      "count": 32,
+      "ingredient": "#c:bolts/steel"
+    }
+  ],
+  "name": "ass.exstainlessbeamalt",
+  "order": 990002,
+  "output_items": [
+    "hbm:item_expensive_stainless_beam"
+  ],
+  "power": 20000
+}

@@ -1,0 +1,30 @@
+{
+  "type": "hbm:cryo_distiller",
+  "duration": 1,
+  "input_fluids": [
+    {
+      "type": "hbm:earthair",
+      "amount": 100
+    }
+  ],
+  "order": 1000,
+  "output_fluids": [
+    {
+      "type": "hbm:nitrogen",
+      "amount": 60
+    },
+    {
+      "type": "hbm:oxygen",
+      "amount": 25
+    },
+    {
+      "type": "hbm:krypton",
+      "amount": 10
+    },
+    {
+      "type": "hbm:carbondioxide",
+      "amount": 5
+    }
+  ],
+  "power": 20000
+}

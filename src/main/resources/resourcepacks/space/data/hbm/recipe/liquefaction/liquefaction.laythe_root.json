@@ -1,0 +1,15 @@
+{
+  "type": "hbm:liquefaction",
+  "input_items": [
+    {
+      "ingredient": "hbm:laythe_root"
+    }
+  ],
+  "order": 970148,
+  "output_fluids": [
+    {
+      "type": "hbm:mug",
+      "amount": 100
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/orbital_station_port_base",
+    "mesh": "hbm:models/machines/docking_port.obj",
+    "skins": [
+      "hbm:textures/models/machines/docking_port_launcher.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

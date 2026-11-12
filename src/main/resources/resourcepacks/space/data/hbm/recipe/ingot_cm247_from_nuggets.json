@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "#": "hbm:nugget_cm247"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "id": "hbm:ingot_cm247"
+  }
+}

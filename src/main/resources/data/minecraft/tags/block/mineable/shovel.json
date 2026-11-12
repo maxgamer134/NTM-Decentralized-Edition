@@ -32,6 +32,62 @@
     "hbm:impact_dirt",
     "hbm:fallout",
     "hbm:waste_trinitite",
-    "hbm:waste_trinitite_red"
+    "hbm:waste_trinitite_red",
+    {
+      "id": "hbm:duna_sands",
+      "required": false
+    },
+    {
+      "id": "hbm:ferric_clay",
+      "required": false
+    },
+    {
+      "id": "hbm:eve_silt",
+      "required": false
+    },
+    {
+      "id": "hbm:rubber_silt",
+      "required": false
+    },
+    {
+      "id": "hbm:vinyl_sand",
+      "required": false
+    },
+    {
+      "id": "hbm:laythe_silt",
+      "required": false
+    },
+    {
+      "id": "hbm:tumor",
+      "required": false
+    },
+    {
+      "id": "hbm:salted_fallout",
+      "required": false
+    },
+    {
+      "id": "hbm:flesh_block",
+      "required": false
+    },
+    {
+      "id": "hbm:charred_flesh_block",
+      "required": false
+    },
+    {
+      "id": "hbm:carbonized_flesh_block",
+      "required": false
+    },
+    {
+      "id": "hbm:rubber_grass",
+      "required": false
+    },
+    {
+      "id": "hbm:astroturf",
+      "required": false
+    },
+    {
+      "id": "hbm:rubber_farmland",
+      "required": false
+    }
   ]
 }

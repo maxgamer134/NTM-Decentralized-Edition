@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/dish_control_base",
+    "mesh": "hbm:models/machines/dish_controller.obj",
+    "skins": [
+      "hbm:textures/models/machines/dish_controller.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

@@ -1,0 +1,12 @@
+{
+  "type": "hbm:single_piece",
+  "biomes": [
+    "hbm:laythe_ocean"
+  ],
+  "height_offset": 0,
+  "spawn_overrides": {},
+  "start_pool": "hbm:space/laythe_nuke_sub",
+  "step": "strongholds",
+  "aquatic": true,
+  "max_height": 54
+}

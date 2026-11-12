@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "hbm:dres_rock"
+  },
+  "result": {
+    "id": "minecraft:stone",
+    "count": 1
+  }
+}

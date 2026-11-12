@@ -1,0 +1,26 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!space_changes"
+    }
+  ],
+  "type": "hbm:cracking_tower",
+  "input_fluids": [
+    {
+      "type": "hbm:gas",
+      "amount": 100
+    }
+  ],
+  "order": 768,
+  "output_fluids": [
+    {
+      "type": "hbm:petroleum",
+      "amount": 30
+    },
+    {
+      "type": "hbm:unsaturateds",
+      "amount": 20
+    }
+  ]
+}

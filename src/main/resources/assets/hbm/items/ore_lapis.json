@@ -1,0 +1,89 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "body",
+    "cases": [
+      {
+        "when": "orbit",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_orbit"
+        }
+      },
+      {
+        "when": "kerbin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_kerbin"
+        }
+      },
+      {
+        "when": "mun",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_mun"
+        }
+      },
+      {
+        "when": "minmus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_minmus"
+        }
+      },
+      {
+        "when": "duna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_duna"
+        }
+      },
+      {
+        "when": "moho",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_moho"
+        }
+      },
+      {
+        "when": "dres",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_dres"
+        }
+      },
+      {
+        "when": "eve",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_eve"
+        }
+      },
+      {
+        "when": "ike",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_ike"
+        }
+      },
+      {
+        "when": "laythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_laythe"
+        }
+      },
+      {
+        "when": "tekto",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lapis_tekto"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:block/space_ore/ore_lapis_orbit"
+    }
+  }
+}

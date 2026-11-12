@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:duna_rock",
+    "hbm:ike_stone",
+    "hbm:moho_stone",
+    "hbm:minmus_smooth",
+    "hbm:minmus_stone",
+    "hbm:basalt_smooth"
+  ]
+}

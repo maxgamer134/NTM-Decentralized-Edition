@@ -49,6 +49,18 @@ public final class EnumWavelengths {
                             0x0A1FC4,
                             0x00EFFF,
                             ChatFormatting.AQUA));
+    /** NTM:Space's X-ray, between UV and gamma; only while Space is on, so null otherwise. */
+    public static final EnumWavelengths XRAY =
+            com.hbm.space.SpaceToggle.enabled()
+                    ? REGISTRY.add(
+                            new EnumWavelengths(
+                                    "XRAY",
+                                    "wavelengths.name.xray",
+                                    "wavelengths.waveRange.xray",
+                                    0xF8E6A7,
+                                    0xF8E6A7,
+                                    ChatFormatting.GOLD))
+                    : null;
     public static final EnumWavelengths GAMMA =
             REGISTRY.add(
                     new EnumWavelengths(

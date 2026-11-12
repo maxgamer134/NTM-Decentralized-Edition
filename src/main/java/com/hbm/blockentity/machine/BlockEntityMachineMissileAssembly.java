@@ -156,6 +156,12 @@ public class BlockEntityMachineMissileAssembly extends BlockEntityMachineBase
                 null, worldPosition, ModSounds.MISSILE_ASSEMBLY2.get(), SoundSource.BLOCKS, 1F, 1F);
     }
 
+    /** NTM:Space stacks missile parts, so its assembly holds one of each; building would eat a whole stack. */
+    @Override
+    public int getMaxStackSize() {
+        return com.hbm.space.SpaceToggle.enabled() ? 1 : super.getMaxStackSize();
+    }
+
     @Override
     public boolean hasPermission(Player player) {
         return true;

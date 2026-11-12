@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "hbm:ore_diamond"
+  },
+  "result": {
+    "id": "minecraft:diamond",
+    "count": 1
+  }
+}

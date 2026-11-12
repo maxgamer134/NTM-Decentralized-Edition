@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/transporter_rocket_base",
+    "mesh": "hbm:models/machines/transporter_pad.obj",
+    "skins": [
+      "hbm:textures/models/machines/transporter_pad.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

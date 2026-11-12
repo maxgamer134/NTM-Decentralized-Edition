@@ -1,0 +1,23 @@
+{
+  "type": "hbm:mixer",
+  "duration": 50,
+  "input_fluids": [
+    {
+      "type": "minecraft:water",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:powder_coffee"
+    }
+  ],
+  "order": 970110,
+  "output_fluids": [
+    {
+      "type": "hbm:coffee",
+      "amount": 100
+    }
+  ]
+}

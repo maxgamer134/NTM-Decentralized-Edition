@@ -1,0 +1,37 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 1200,
+  "ignition_temp": 50000000,
+  "input_fluids": [
+    {
+      "type": "hbm:stellar_flux",
+      "amount": 16000
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#hbm:plates_welded/osmiridium",
+      "count": 16
+    },
+    {
+      "ingredient": "#hbm:plates_welded/cmbsteel",
+      "count": 16
+    },
+    {
+      "ingredient": "#hbm:wires_dense/dineutronium",
+      "count": 16
+    },
+    {
+      "ingredient": "hbm:singularity_spark"
+    },
+    {
+      "ingredient": "hbm:circuit_controller_quantum",
+      "count": 16
+    }
+  ],
+  "order": 900724,
+  "output_items": [
+    "hbm:dyson_converter_anatmogenesis"
+  ],
+  "power": 10000000
+}

@@ -1,0 +1,19 @@
+{
+  "type": "hbm:assembly_machine",
+  "auto_switch_group": "autoswitch.plates",
+  "blueprint_pools": [
+    "alt.plates"
+  ],
+  "duration": 60,
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/nickel"
+    }
+  ],
+  "name": "ass.platenickel",
+  "order": 970001,
+  "output_items": [
+    "hbm:plate_nickel"
+  ],
+  "power": 100
+}

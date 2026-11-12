@@ -1,0 +1,15 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "G": "#c:ingots/graphite",
+    "I": "#c:ingots/es253"
+  },
+  "pattern": [
+    " I ",
+    "IGI",
+    " I "
+  ],
+  "result": {
+    "id": "hbm:watz_pellet_es253"
+  }
+}

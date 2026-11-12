@@ -1,0 +1,25 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crystallizer",
+  "duration": 100,
+  "input_fluids": [
+    {
+      "type": "hbm:peroxide",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#c:cobblestones"
+    }
+  ],
+  "order": 0,
+  "output_items": [
+    "hbm:reinforced_stone"
+  ]
+}

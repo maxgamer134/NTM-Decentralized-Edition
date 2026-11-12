@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_milk_reformer_base",
+    "mesh": "hbm:models/machines/milker.obj",
+    "skins": [
+      "hbm:textures/models/machines/milker.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

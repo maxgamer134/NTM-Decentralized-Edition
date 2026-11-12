@@ -23,6 +23,46 @@
     "hbm:frozen_planks",
     "hbm:waste_log",
     "hbm:pink_slab",
-    "hbm:pink_stairs"
+    "hbm:pink_stairs",
+    {
+      "id": "hbm:vinyl_planks",
+      "required": false
+    },
+    {
+      "id": "hbm:pvc_planks",
+      "required": false
+    },
+    {
+      "id": "hbm:primed_log",
+      "required": false
+    },
+    {
+      "id": "hbm:eu_log",
+      "required": false
+    },
+    {
+      "id": "hbm:bf_log",
+      "required": false
+    },
+    {
+      "id": "hbm:lattice_log",
+      "required": false
+    },
+    {
+      "id": "hbm:pvc_log",
+      "required": false
+    },
+    {
+      "id": "hbm:vinyl_log",
+      "required": false
+    },
+    {
+      "id": "hbm:laythe_root",
+      "required": false
+    },
+    {
+      "id": "hbm:vinyl_vines",
+      "required": false
+    }
   ]
 }

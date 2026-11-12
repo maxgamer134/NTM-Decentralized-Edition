@@ -1,0 +1,37 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "power": 100,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_welded/stainless"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:item_expensive_steel_plating"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:circuit_capacitor"
+    },
+    {
+      "count": 12,
+      "ingredient": "hbm:catalyst_clay"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:coil_tungsten"
+    }
+  ],
+  "output_items": [
+    "hbm:machine_alkylation"
+  ],
+  "order": 990501
+}

@@ -1,0 +1,35 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "ingredient": "hbm:item_expensive_stainless_beam"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:dusts/calcium"
+    },
+    {
+      "count": 16,
+      "ingredient": "#c:dusts/lithium"
+    },
+    {
+      "ingredient": "hbm:motor"
+    },
+    {
+      "ingredient": "hbm:turbine_titanium"
+    }
+  ],
+  "name": "ass.airscrubberEx",
+  "order": 990500,
+  "output_items": [
+    "hbm:air_scrubber"
+  ],
+  "power": 100
+}

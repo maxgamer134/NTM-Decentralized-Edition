@@ -1,0 +1,21 @@
+{
+  "type": "hbm:mixer",
+  "duration": 50,
+  "input_fluids": [
+    {
+      "type": "hbm:ammonia",
+      "amount": 300
+    },
+    {
+      "type": "hbm:unsaturateds",
+      "amount": 500
+    }
+  ],
+  "order": 970116,
+  "output_fluids": [
+    {
+      "type": "hbm:dicyanoacetylene",
+      "amount": 750
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 2.0,
+  "ingredient": {
+    "item": "hbm:crystal_zinc"
+  },
+  "result": {
+    "id": "hbm:ingot_zinc",
+    "count": 2
+  }
+}

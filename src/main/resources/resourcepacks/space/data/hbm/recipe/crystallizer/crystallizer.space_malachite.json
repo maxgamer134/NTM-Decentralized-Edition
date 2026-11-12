@@ -1,0 +1,20 @@
+{
+  "type": "hbm:crystallizer",
+  "duration": 600,
+  "input_fluids": [
+    {
+      "type": "hbm:coppersulfate",
+      "amount": 350
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/malachite"
+    }
+  ],
+  "order": 970065,
+  "output_items": [
+    "hbm:crystal_copper"
+  ],
+  "productivity": 0.1
+}

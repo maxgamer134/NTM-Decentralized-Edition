@@ -1,0 +1,28 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#c:plates/stainless"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:photo_panel"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:fine_wires/mingrade"
+    }
+  ],
+  "name": "ass.solarpanel",
+  "order": 900200,
+  "output_items": [
+    "hbm:machine_solar"
+  ],
+  "power": 100
+}

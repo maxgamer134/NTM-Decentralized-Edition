@@ -1,0 +1,21 @@
+{
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "ike_rare",
+          "grade": "solvent_washed"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 992747,
+  "output_materials": [
+    {
+      "amount": 144,
+      "material": "strontium"
+    }
+  ],
+  "type": "hbm:arc_furnace"
+}

@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 200,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/aluminum"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/stainless"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:item_expensive_plastic"
+    },
+    {
+      "count": 16,
+      "ingredient": "#c:dusts/nether_quartz"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:item_expensive_astro"
+    }
+  ],
+  "name": "ass.orbitalstationcomputerEx",
+  "order": 990503,
+  "output_items": [
+    "hbm:orbital_station_computer"
+  ],
+  "power": 100
+}

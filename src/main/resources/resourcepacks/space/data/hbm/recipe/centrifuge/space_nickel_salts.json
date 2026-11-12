@@ -1,0 +1,23 @@
+{
+  "type": "hbm:centrifuge",
+  "duration": 200,
+  "input_items": [
+    {
+      "ingredient": "hbm:nickel_salts"
+    }
+  ],
+  "order": 970076,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:powder_iron"
+    },
+    {
+      "count": 2,
+      "id": "hbm:powder_nickel"
+    },
+    "hbm:powder_sodium",
+    "hbm:sulfur"
+  ],
+  "power": 200
+}

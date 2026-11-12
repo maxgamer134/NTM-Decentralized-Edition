@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hbm:block/machine_magma"
+    },
+    "facing=south": {
+      "model": "hbm:block/machine_magma"
+    },
+    "facing=east": {
+      "model": "hbm:block/machine_magma"
+    },
+    "facing=west": {
+      "model": "hbm:block/machine_magma"
+    }
+  }
+}

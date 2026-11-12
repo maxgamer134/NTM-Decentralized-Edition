@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "input_items": [
+    {
+      "count": 6,
+      "ingredient": "#hbm:plates_welded/titanium"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:motor"
+    },
+    {
+      "count": 8,
+      "ingredient": "hbm:reinforced_glass"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:circuit_basic"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:plates/stainless"
+    }
+  ],
+  "name": "ass.orbitalstationport",
+  "order": 900006,
+  "output_items": [
+    "hbm:orbital_station_port"
+  ],
+  "power": 100
+}

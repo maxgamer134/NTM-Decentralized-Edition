@@ -1,0 +1,18 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "Q": "hbm:glass_quartz",
+    "C": "hbm:circuit_basic",
+    "W": "#c:fine_wires/gold",
+    "B": "hbm:circuit_controller_chassis",
+    "S": "#c:plates/stainless"
+  },
+  "pattern": [
+    "QCQ",
+    "WBW",
+    "SSS"
+  ],
+  "result": {
+    "id": "hbm:atmosphere_scanner"
+  }
+}

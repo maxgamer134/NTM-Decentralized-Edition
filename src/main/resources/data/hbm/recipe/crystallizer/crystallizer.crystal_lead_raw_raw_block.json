@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_lead"
+      }
+    }
+  ],
+  "type": "hbm:crystallizer",
+  "duration": 3600,
+  "input_fluids": [
+    {
+      "type": "hbm:peroxide",
+      "amount": 2997
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_lead"
+    }
+  ],
+  "order": 62209,
+  "output_items": [
+    {
+      "id": "hbm:crystal_lead",
+      "count": 6
+    }
+  ],
+  "productivity": 0.05
+}

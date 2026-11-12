@@ -1,0 +1,15 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:pvc_log"
+    }
+  ],
+  "order": 970056,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:powder_pvc"
+    }
+  ]
+}

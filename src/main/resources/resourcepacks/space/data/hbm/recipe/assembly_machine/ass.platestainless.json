@@ -1,0 +1,19 @@
+{
+  "type": "hbm:assembly_machine",
+  "auto_switch_group": "autoswitch.plates",
+  "blueprint_pools": [
+    "alt.plates"
+  ],
+  "duration": 60,
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/stainless"
+    }
+  ],
+  "name": "ass.platestainless",
+  "order": 970002,
+  "output_items": [
+    "hbm:plate_stainless"
+  ],
+  "power": 100
+}

@@ -1,0 +1,13 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_xenon_thruster_base",
+    "mesh": "hbm:models/machines/xenon_thruster.obj",
+    "part": "Thruster",
+    "skins": [
+      "hbm:textures/models/machines/xenon_thruster.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

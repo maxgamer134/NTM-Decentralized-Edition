@@ -1,0 +1,37 @@
+{
+  "variants": {
+    "body=orbit": {
+      "model": "hbm:block/space_ore/ore_fire_orbit"
+    },
+    "body=kerbin": {
+      "model": "hbm:block/space_ore/ore_fire_kerbin"
+    },
+    "body=mun": {
+      "model": "hbm:block/space_ore/ore_fire_mun"
+    },
+    "body=minmus": {
+      "model": "hbm:block/space_ore/ore_fire_minmus"
+    },
+    "body=duna": {
+      "model": "hbm:block/space_ore/ore_fire_duna"
+    },
+    "body=moho": {
+      "model": "hbm:block/space_ore/ore_fire_moho"
+    },
+    "body=dres": {
+      "model": "hbm:block/space_ore/ore_fire_dres"
+    },
+    "body=eve": {
+      "model": "hbm:block/space_ore/ore_fire_eve"
+    },
+    "body=ike": {
+      "model": "hbm:block/space_ore/ore_fire_ike"
+    },
+    "body=laythe": {
+      "model": "hbm:block/space_ore/ore_fire_laythe"
+    },
+    "body=tekto": {
+      "model": "hbm:block/space_ore/ore_fire_tekto"
+    }
+  }
+}

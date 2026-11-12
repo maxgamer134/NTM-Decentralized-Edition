@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "#": "hbm:powder_wd2004_tiny"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "id": "hbm:powder_wd2004"
+  }
+}

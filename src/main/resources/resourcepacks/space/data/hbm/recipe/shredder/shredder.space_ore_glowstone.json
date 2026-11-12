@@ -1,0 +1,15 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:ore_glowstone"
+    }
+  ],
+  "order": 970046,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "minecraft:glowstone_dust"
+    }
+  ]
+}

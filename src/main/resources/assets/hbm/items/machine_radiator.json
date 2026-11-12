@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_radiator_base",
+    "mesh": "hbm:models/machines/radiator.obj",
+    "skins": [
+      "hbm:textures/models/machines/radiator.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

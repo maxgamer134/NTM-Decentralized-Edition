@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "L": "hbm:vinyl_planks"
+  },
+  "pattern": [
+    "L",
+    "L"
+  ],
+  "result": {
+    "count": 3,
+    "id": "hbm:stick_vinyl"
+  }
+}

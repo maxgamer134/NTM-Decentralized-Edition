@@ -1,0 +1,18 @@
+{
+  "type": "hbm:material_distribution",
+  "materials": [
+    {
+      "amount": 864,
+      "material": "gold"
+    },
+    {
+      "amount": 144,
+      "material": "lead"
+    },
+    {
+      "amount": 972,
+      "material": "stone"
+    }
+  ],
+  "targets": "#c:storage_blocks/raw_gold"
+}

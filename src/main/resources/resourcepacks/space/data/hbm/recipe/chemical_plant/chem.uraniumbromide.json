@@ -1,0 +1,29 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 200,
+  "input_fluids": [
+    {
+      "type": "hbm:hydrogen",
+      "amount": 4000
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#hbm:billets/uranium_235"
+    },
+    {
+      "ingredient": "hbm:powder_bromine"
+    },
+    {
+      "ingredient": "#c:ingots/asbestos"
+    }
+  ],
+  "order": 970080,
+  "output_fluids": [
+    {
+      "type": "hbm:uranium_bromide",
+      "amount": 4000
+    }
+  ],
+  "power": 1000
+}

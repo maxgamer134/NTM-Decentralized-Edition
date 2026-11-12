@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:laythe_root"
+  ],
+  "result": {
+    "count": 4,
+    "id": "minecraft:oak_planks"
+  }
+}

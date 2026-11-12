@@ -1,0 +1,71 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:mun/connector-1",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:mun/connector-2",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:mun/connector-3",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:mun/connector-s",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:mun/connector-l",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:mun/connector-t",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

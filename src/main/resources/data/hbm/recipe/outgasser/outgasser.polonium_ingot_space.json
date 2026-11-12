@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:outgasser",
+  "duration": 10000,
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/bismuth"
+    }
+  ],
+  "order": 995003,
+  "output_items": [
+    "hbm:ingot_polonium"
+  ]
+}

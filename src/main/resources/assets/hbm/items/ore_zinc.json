@@ -1,0 +1,89 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "body",
+    "cases": [
+      {
+        "when": "orbit",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_orbit"
+        }
+      },
+      {
+        "when": "kerbin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_kerbin"
+        }
+      },
+      {
+        "when": "mun",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_mun"
+        }
+      },
+      {
+        "when": "minmus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_minmus"
+        }
+      },
+      {
+        "when": "duna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_duna"
+        }
+      },
+      {
+        "when": "moho",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_moho"
+        }
+      },
+      {
+        "when": "dres",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_dres"
+        }
+      },
+      {
+        "when": "eve",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_eve"
+        }
+      },
+      {
+        "when": "ike",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_ike"
+        }
+      },
+      {
+        "when": "laythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_laythe"
+        }
+      },
+      {
+        "when": "tekto",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_zinc_tekto"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:block/space_ore/ore_zinc_orbit"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_cobalt"
+      }
+    }
+  ],
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_cobalt"
+    }
+  ],
+  "order": 92929,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:powder_cobalt"
+    }
+  ]
+}

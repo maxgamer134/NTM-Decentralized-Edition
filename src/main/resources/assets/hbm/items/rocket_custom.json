@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "hbm:rocket_custom",
+    "base": "hbm:item/rocket_custom"
+  }
+}

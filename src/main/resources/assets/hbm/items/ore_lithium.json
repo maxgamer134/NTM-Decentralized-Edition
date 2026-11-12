@@ -1,0 +1,89 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "body",
+    "cases": [
+      {
+        "when": "orbit",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_orbit"
+        }
+      },
+      {
+        "when": "kerbin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_kerbin"
+        }
+      },
+      {
+        "when": "mun",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_mun"
+        }
+      },
+      {
+        "when": "minmus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_minmus"
+        }
+      },
+      {
+        "when": "duna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_duna"
+        }
+      },
+      {
+        "when": "moho",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_moho"
+        }
+      },
+      {
+        "when": "dres",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_dres"
+        }
+      },
+      {
+        "when": "eve",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_eve"
+        }
+      },
+      {
+        "when": "ike",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_ike"
+        }
+      },
+      {
+        "when": "laythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_laythe"
+        }
+      },
+      {
+        "when": "tekto",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_lithium_tekto"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:block/space_ore/ore_lithium_orbit"
+    }
+  }
+}

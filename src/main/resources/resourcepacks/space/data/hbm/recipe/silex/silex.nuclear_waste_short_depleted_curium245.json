@@ -1,0 +1,52 @@
+{
+  "type": "hbm:silex",
+  "fluid_consumed": 100,
+  "fluid_produced": 900,
+  "input_items": [
+    {
+      "ingredient": "hbm:nuclear_waste_short_depleted_curium245"
+    }
+  ],
+  "laser_strength": "visible",
+  "order": 990118,
+  "output_items": [
+    [
+      {
+        "data": {
+          "id": "hbm:nugget_cm_mix"
+        },
+        "weight": 10
+      },
+      {
+        "data": {
+          "id": "hbm:nugget_cm246"
+        },
+        "weight": 5
+      },
+      {
+        "data": {
+          "id": "hbm:nugget_cm247"
+        },
+        "weight": 15
+      },
+      {
+        "data": {
+          "id": "hbm:nuclear_waste_tiny"
+        },
+        "weight": 10
+      },
+      {
+        "data": {
+          "id": "hbm:nugget_cf252"
+        },
+        "weight": 15
+      },
+      {
+        "data": {
+          "id": "hbm:nugget_cf251"
+        },
+        "weight": 25
+      }
+    ]
+  ]
+}

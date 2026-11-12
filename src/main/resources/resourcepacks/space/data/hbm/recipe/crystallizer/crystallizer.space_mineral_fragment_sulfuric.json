@@ -1,0 +1,19 @@
+{
+  "type": "hbm:crystallizer",
+  "duration": 300,
+  "input_fluids": [
+    {
+      "type": "hbm:sulfuric_acid",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "hbm:mineral_dust"
+    }
+  ],
+  "order": 990012,
+  "output_items": [
+    "hbm:mineral_fragment_sulfuric"
+  ]
+}

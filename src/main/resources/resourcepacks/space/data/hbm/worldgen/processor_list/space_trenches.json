@@ -1,0 +1,57 @@
+{
+  "processors": [
+    {
+      "processor_type": "hbm:ground_height",
+      "offset": -1
+    },
+    {
+      "processor_type": "hbm:marker_table",
+      "processors": [
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:brick_concrete_cracked"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:brick_concrete"
+              },
+              "weight": 4
+            },
+            {
+              "data": {
+                "Name": "hbm:brick_concrete_mossy"
+              },
+              "weight": 3
+            },
+            {
+              "data": {
+                "Name": "hbm:brick_concrete_cracked"
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "hbm:brick_concrete_broken"
+              },
+              "weight": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "processor_type": "hbm:wire_links"
+    },
+    {
+      "processor_type": "hbm:multiblock_assembly"
+    },
+    {
+      "processor_type": "hbm:loot_pile"
+    },
+    {
+      "processor_type": "hbm:duct_fluid"
+    }
+  ]
+}

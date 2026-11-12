@@ -1,0 +1,228 @@
+{
+  "variants": {
+    "shade=0": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=1": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=2": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=3": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=4": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=5": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=6": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=7": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=8": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=9": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=10": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=11": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=12": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=13": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=14": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ],
+    "shade=15": [
+      {
+        "model": "hbm:block/space_tint/tumor_base"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base2"
+      },
+      {
+        "model": "hbm:block/space_tint/tumor_base3"
+      },
+      {
+        "model": "hbm:block/space_tint/fleshv2"
+      }
+    ]
+  }
+}

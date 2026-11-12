@@ -1,0 +1,24 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:seg_10"
+    },
+    {
+      "count": 12,
+      "ingredient": "#c:plates/aluminum"
+    },
+    {
+      "count": 3,
+      "ingredient": "#c:plates/steel"
+    }
+  ],
+  "name": "ass.mp_fuselage_10_hydrazine",
+  "order": 900502,
+  "output_items": [
+    "hbm:mp_fuselage_10_hydrazine"
+  ],
+  "power": 100
+}

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_solar_base",
+    "mesh": "hbm:models/machines/solar_panel.obj",
+    "skins": [
+      "hbm:textures/models/machines/solar_panel.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "hbm:rubber_leaves",
+      "required": false
+    },
+    {
+      "id": "hbm:pet_leaves",
+      "required": false
+    }
+  ]
+}

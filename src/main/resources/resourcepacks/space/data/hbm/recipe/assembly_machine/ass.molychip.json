@@ -1,0 +1,21 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "ingredient": "hbm:powder_molysite"
+    },
+    {
+      "ingredient": "#c:billets/red_copper"
+    },
+    {
+      "ingredient": "#c:fine_wires/gold"
+    }
+  ],
+  "name": "ass.molyChip",
+  "order": 990006,
+  "output_items": [
+    "hbm:circuit_molychip"
+  ],
+  "power": 1500
+}

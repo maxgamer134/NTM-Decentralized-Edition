@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "ingredient": "hbm:item_expensive_stainless_beam"
+    },
+    {
+      "count": 24,
+      "ingredient": "hbm:saltleaf"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:fence_metal"
+    }
+  ],
+  "name": "ass.algaefilmEx",
+  "order": 970009,
+  "output_items": [
+    "hbm:algae_film"
+  ],
+  "power": 100
+}

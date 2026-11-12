@@ -1,0 +1,12 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:vinyl_planks"
+    }
+  ],
+  "order": 970057,
+  "output_items": [
+    "hbm:powder_rubber"
+  ]
+}

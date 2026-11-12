@@ -1,0 +1,82 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/intersection",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/road",
+        "processors": "hbm:space_terrain",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/curve",
+        "processors": "hbm:space_terrain",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/tshapeintersex",
+        "processors": "hbm:space_terrain",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/block1",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/block2",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/pfmfactory",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

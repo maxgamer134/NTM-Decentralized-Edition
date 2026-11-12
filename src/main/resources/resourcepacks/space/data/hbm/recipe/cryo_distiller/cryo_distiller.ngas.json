@@ -1,0 +1,30 @@
+{
+  "type": "hbm:cryo_distiller",
+  "duration": 1,
+  "input_fluids": [
+    {
+      "type": "hbm:ngas",
+      "amount": 100
+    }
+  ],
+  "order": 1003,
+  "output_fluids": [
+    {
+      "type": "hbm:gas",
+      "amount": 45
+    },
+    {
+      "type": "hbm:ammonia",
+      "amount": 25
+    },
+    {
+      "type": "hbm:unsaturateds",
+      "amount": 15
+    },
+    {
+      "type": "hbm:xenon",
+      "amount": 15
+    }
+  ],
+  "power": 20000
+}

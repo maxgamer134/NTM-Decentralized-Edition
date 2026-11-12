@@ -1,0 +1,9 @@
+{
+  "type": "hbm:thatmo",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "thatmo"
+    }
+  }
+}

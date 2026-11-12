@@ -1,0 +1,11 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:ingot_australium_greater",
+    "hbm:ingot_australium_greater"
+  ],
+  "result": {
+    "count": 3,
+    "id": "hbm:billet_australium_greater"
+  }
+}

@@ -20,6 +20,12 @@ public final class CustomSkies {
         void render(LevelRenderer vanilla, SkyRenderState state);
 
         default void close() {}
+
+        /**
+         * Drawn after a normal sky has finished (no renderer claimed it), on top of it and of
+         * anything other mods drew into it, with renderSky's view rotation.
+         */
+        default void overlay(LevelRenderer vanilla, org.joml.Matrix4f viewRotation, float partialTicks) {}
     }
 
     private static Renderer[] renderers = new Renderer[0];
@@ -61,6 +67,16 @@ public final class CustomSkies {
             }
         }
         return true;
+    }
+
+    public static void overlay(LevelRenderer vanilla, org.joml.Matrix4f viewRotation, float partialTicks) {
+        if (drawing) return;
+        drawing = true;
+        try {
+            for (Renderer renderer : renderers) renderer.overlay(vanilla, viewRotation, partialTicks);
+        } finally {
+            drawing = false;
+        }
     }
 
     public static void close() {

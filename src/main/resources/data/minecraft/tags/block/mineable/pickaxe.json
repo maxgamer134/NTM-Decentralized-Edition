@@ -1035,6 +1035,218 @@
       "required": false
     },
     "hbm:door_keypad",
-    "hbm:keycard_scanner"
+    "hbm:keycard_scanner",
+    {
+      "id": "hbm:block_nickel",
+      "required": false
+    },
+    {
+      "id": "hbm:block_osmiridium",
+      "required": false
+    },
+    {
+      "id": "hbm:moon_rock",
+      "required": false
+    },
+    {
+      "id": "hbm:duna_cobble",
+      "required": false
+    },
+    {
+      "id": "hbm:duna_rock",
+      "required": false
+    },
+    {
+      "id": "hbm:dry_ice",
+      "required": false
+    },
+    {
+      "id": "hbm:eve_rock",
+      "required": false
+    },
+    {
+      "id": "hbm:ike_stone",
+      "required": false
+    },
+    {
+      "id": "hbm:dres_rock",
+      "required": false
+    },
+    {
+      "id": "hbm:moho_regolith",
+      "required": false
+    },
+    {
+      "id": "hbm:moho_stone",
+      "required": false
+    },
+    {
+      "id": "hbm:minmus_regolith",
+      "required": false
+    },
+    {
+      "id": "hbm:minmus_stone",
+      "required": false
+    },
+    {
+      "id": "hbm:minmus_smooth",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_iron",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_gold",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_redstone",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_lapis",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_emerald",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_quartz",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_diamond",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_morkite",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_glowstone",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_nickel",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_mineral",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_zinc",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_gas_empty",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_lithium",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_niobium",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_cadmium",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_palladium",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_iodine",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_arsenic",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_silicon",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_fire",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_shale",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_brine_empty",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_tekto_empty",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_lanthanium",
+      "required": false
+    },
+    {
+      "id": "hbm:deco_stainless",
+      "required": false
+    },
+    {
+      "id": "hbm:ike_regolith",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_plutonium",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_gas",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_brine",
+      "required": false
+    },
+    {
+      "id": "hbm:ore_tekto",
+      "required": false
+    },
+    {
+      "id": "hbm:oil_barrel",
+      "required": false
+    },
+    {
+      "id": "hbm:det_salt",
+      "required": false
+    },
+    {
+      "id": "hbm:fence_gate",
+      "required": false
+    },
+    {
+      "id": "hbm:laythe_coral_block",
+      "required": false
+    },
+    {
+      "id": "hbm:geysir_volcanic",
+      "required": false
+    },
+    {
+      "id": "hbm:geysir_chloric",
+      "required": false
+    },
+    {
+      "id": "hbm:geysir_electric",
+      "required": false
+    },
+    {
+      "id": "hbm:nuke_antimatter",
+      "required": false
+    }
   ]
 }

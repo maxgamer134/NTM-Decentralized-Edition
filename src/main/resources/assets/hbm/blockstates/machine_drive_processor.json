@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hbm:block/machine_drive_processor"
+    },
+    "facing=south": {
+      "model": "hbm:block/machine_drive_processor"
+    },
+    "facing=east": {
+      "model": "hbm:block/machine_drive_processor"
+    },
+    "facing=west": {
+      "model": "hbm:block/machine_drive_processor"
+    }
+  }
+}

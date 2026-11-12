@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hbm:block/dish_control"
+    },
+    "facing=south": {
+      "model": "hbm:block/dish_control"
+    },
+    "facing=east": {
+      "model": "hbm:block/dish_control"
+    },
+    "facing=west": {
+      "model": "hbm:block/dish_control"
+    }
+  }
+}

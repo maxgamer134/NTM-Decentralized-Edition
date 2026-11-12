@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/block",
+  "loader": "neoforge:obj",
+  "model": "hbm:models/block/space/plant_spike.obj",
+  "flip_v": true,
+  "emissive_ambient": false,
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "texture": "hbm:block/spike_cacti_bush",
+    "particle": "hbm:block/spike_cacti_bush"
+  }
+}

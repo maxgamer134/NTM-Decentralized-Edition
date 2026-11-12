@@ -1,0 +1,10 @@
+{
+  "type": "hbm:legacy_jigsaw",
+  "biomes": [
+    "hbm:thatmo"
+  ],
+  "size": 20,
+  "spawn_overrides": {},
+  "start_pool": "hbm:city/start",
+  "step": "strongholds"
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "hbm:block/cube_all_tinted",
+  "textures": {
+    "all": "hbm:block/tumor_base3"
+  }
+}

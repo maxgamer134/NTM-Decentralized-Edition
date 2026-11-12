@@ -80,6 +80,30 @@ public interface RuntimeConfig {
         return store().get(ConfigSchema.TOOL_RECURSION_DEPTH);
     }
 
+    default boolean spaceNetherPortals() {
+        return store().get(ConfigSchema.SPACE_NETHER_PORTALS);
+    }
+
+    default boolean spaceVolcanoes() {
+        return store().get(ConfigSchema.SPACE_VOLCANOES);
+    }
+
+    default boolean spaceOreLocations() {
+        return store().get(ConfigSchema.SPACE_ORE_LOCATIONS);
+    }
+
+    default int spaceMaxProbeDistance() {
+        return store().get(ConfigSchema.SPACE_MAX_PROBE_DISTANCE);
+    }
+
+    default int spaceMaxStationDistance() {
+        return store().get(ConfigSchema.SPACE_MAX_STATION_DISTANCE);
+    }
+
+    default boolean spaceCombatPodDespawn() {
+        return store().get(ConfigSchema.SPACE_COMBAT_POD_DESPAWN);
+    }
+
     default boolean bottlecapTrades() {
         return store().get(ConfigSchema.TRADES_BOTTLECAPS);
     }

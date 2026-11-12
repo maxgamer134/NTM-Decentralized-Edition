@@ -1,0 +1,12 @@
+{
+  "type": "hbm:legacy_jigsaw",
+  "biomes": [
+    "hbm:dres"
+  ],
+  "size": 20,
+  "spawn_overrides": {},
+  "start_pool": "hbm:dres/start",
+  "step": "strongholds",
+  "min_height": 40,
+  "max_height": 40
+}

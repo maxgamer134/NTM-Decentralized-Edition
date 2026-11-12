@@ -1,0 +1,36 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 200,
+  "input_fluids": [
+    {
+      "type": "hbm:milk",
+      "amount": 350
+    },
+    {
+      "type": "hbm:emilk",
+      "amount": 250
+    }
+  ],
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "minecraft:ice"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:mint_leaves"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:minmus_smooth"
+    }
+  ],
+  "order": 970093,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:minmus_smooth"
+    }
+  ],
+  "power": 1000
+}

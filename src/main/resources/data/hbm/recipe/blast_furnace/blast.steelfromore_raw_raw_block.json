@@ -1,0 +1,25 @@
+{
+  "type": "hbm:blast_furnace",
+  "duration": 7200,
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_iron"
+    },
+    {
+      "ingredient": "#minecraft:sand",
+      "count": 9
+    }
+  ],
+  "name": "blast.steelFromOre_raw_block",
+  "order": 769,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:ingot_steel"
+    },
+    {
+      "count": 12,
+      "id": "hbm:ingot_raw_slag"
+    }
+  ]
+}

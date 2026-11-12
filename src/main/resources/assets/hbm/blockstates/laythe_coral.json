@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "coral=tube": {
+      "model": "hbm:block/laythe_coral_tube"
+    },
+    "coral=brain": {
+      "model": "hbm:block/laythe_coral_brain"
+    },
+    "coral=bubble": {
+      "model": "hbm:block/laythe_coral_bubble"
+    },
+    "coral=fire": {
+      "model": "hbm:block/laythe_coral_fire"
+    },
+    "coral=horn": {
+      "model": "hbm:block/laythe_coral_horn"
+    }
+  }
+}

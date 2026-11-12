@@ -1,0 +1,28 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 14,
+      "ingredient": "#hbm:plates_cast/steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "#c:ingots/steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:motor"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:pipes/steel"
+    }
+  ],
+  "name": "ass.milkreformer",
+  "order": 900700,
+  "output_items": [
+    "hbm:machine_milk_reformer"
+  ],
+  "power": 100
+}

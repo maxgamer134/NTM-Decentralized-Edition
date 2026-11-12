@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "top=false": {
+      "model": "hbm:block/laythe_kelp"
+    },
+    "top=true": {
+      "model": "hbm:block/laythe_kelp_top"
+    }
+  }
+}

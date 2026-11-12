@@ -124,18 +124,6 @@ public final class NuclearTechNeoForge {
                                 true,
                                 Pack.Position.TOP);
                     }
-                    // NTM:Space's data (its fluids, and its changes to NTMain's) only while it is on
-                    for (String pack : new String[] {"space", "space_changes"}) {
-                        if (pack.equals("space") ? !com.hbm.space.SpaceToggle.enabled()
-                                : !com.hbm.space.SpaceToggle.changes()) continue;
-                        event.addPackFinders(
-                                Library.id("resourcepacks/" + pack),
-                                PackType.SERVER_DATA,
-                                Component.translatable("pack.hbm." + pack),
-                                PackSource.BUILT_IN,
-                                true,
-                                Pack.Position.TOP);
-                    }
                 });
         NeoForge.EVENT_BUS.addListener(
                 // backport: 1.21.1's AddReloadListenerEvent takes listeners without an id
@@ -248,6 +236,7 @@ public final class NuclearTechNeoForge {
         modBus.addListener(
                 (FMLCommonSetupEvent event) -> {
                     NuclearTech.commonSetup();
+                    com.hbm.space.SpaceHooks.commonSetup();
                     // backport: OpenComputers: Rebooted drivers (OC's driver list is not thread-safe)
                     event.enqueueWork(com.hbm.compat.computercraft.OpenComputers::init);
                     // backport: Create: Aeronautics assembles NTM multiblocks whole (SimulatedCompat)
@@ -298,6 +287,7 @@ public final class NuclearTechNeoForge {
         NeoForge.EVENT_BUS.addListener(
                 (OnDatapackSyncEvent event) -> NeoForgeNetwork.onDatapackSync(event));
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> NuclearTech.serverStopped());
+        com.hbm.space.SpaceHooks.register(modBus);
         NeoForge.EVENT_BUS.addListener(
                 (ServerStartedEvent event) -> OreGeneration.serverStarted(event.getServer()));
         NeoForge.EVENT_BUS.addListener(

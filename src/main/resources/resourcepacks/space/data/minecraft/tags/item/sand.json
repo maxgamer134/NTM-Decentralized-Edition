@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:duna_sands",
+    "hbm:laythe_silt",
+    "hbm:eve_silt",
+    "hbm:moon_turf",
+    "hbm:rubber_silt",
+    "hbm:vinyl_sand"
+  ]
+}

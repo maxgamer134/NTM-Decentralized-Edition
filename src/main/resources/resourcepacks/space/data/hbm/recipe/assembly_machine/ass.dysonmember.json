@@ -1,0 +1,41 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 200,
+  "input_items": [
+    {
+      "ingredient": "#hbm:plates_welded/tungsten"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_hard_plastic"
+    },
+    {
+      "ingredient": "hbm:beryllium_mirror"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:wires_dense/gold"
+    },
+    {
+      "count": 32,
+      "ingredient": "#c:fine_wires/mingrade"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:plates/stainless"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:circuit_capacitor_board"
+    },
+    {
+      "ingredient": "hbm:circuit_hfchip"
+    }
+  ],
+  "name": "ass.dysonmember",
+  "order": 970004,
+  "output_items": [
+    "hbm:swarm_member"
+  ],
+  "power": 100
+}

@@ -1,0 +1,15 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:laythe_coral_block"
+    }
+  ],
+  "order": 970051,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:powder_calcium"
+    }
+  ]
+}

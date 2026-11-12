@@ -108,6 +108,7 @@ public final class NuclearTechNeoForgeClient {
     private static boolean nukeShakePushed;
 
     public NuclearTechNeoForgeClient(IEventBus modBus) {
+        com.hbm.space.client.SpaceClientHooks.register(modBus);
         ClientRegistry.bindClientHooks();
         // backport: 1.21.1 registration hooks of the client shims (replace the NeoForge-26 render
         // pipeline, block state model, item model, sprite source and model loader registrations)

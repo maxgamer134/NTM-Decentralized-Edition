@@ -1,0 +1,28 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:seg_20"
+    },
+    {
+      "count": 16,
+      "ingredient": "hbm:steel_scaffold"
+    },
+    {
+      "count": 12,
+      "ingredient": "#hbm:shells/titanium"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:plates_welded/aluminum"
+    }
+  ],
+  "name": "ass.rp_fuselage_20_12",
+  "order": 900100,
+  "output_items": [
+    "hbm:rp_fuselage_20_12"
+  ],
+  "power": 100
+}

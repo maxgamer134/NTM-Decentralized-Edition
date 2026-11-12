@@ -1,0 +1,23 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 250,
+  "input_fluids": [
+    {
+      "type": "hbm:nitric_acid",
+      "amount": 2000
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "hbm:rag_piss"
+    }
+  ],
+  "order": 900601,
+  "output_fluids": [
+    {
+      "type": "hbm:hydrazine",
+      "amount": 800
+    }
+  ],
+  "power": 1000
+}

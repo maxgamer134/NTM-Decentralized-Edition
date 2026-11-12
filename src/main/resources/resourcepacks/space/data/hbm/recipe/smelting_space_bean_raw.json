@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "hbm:bean_raw"
+  },
+  "result": {
+    "id": "hbm:bean_roast",
+    "count": 1
+  }
+}

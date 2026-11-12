@@ -1,0 +1,20 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 50,
+  "input_items": [
+    {
+      "ingredient": "hbm:plate_polymer"
+    },
+    {
+      "ingredient": "hbm:circuit_gaas"
+    },
+    {
+      "ingredient": "#c:fine_wires/gold"
+    }
+  ],
+  "order": 961001,
+  "output_items": [
+    "hbm:circuit_gaschip"
+  ],
+  "power": 250
+}

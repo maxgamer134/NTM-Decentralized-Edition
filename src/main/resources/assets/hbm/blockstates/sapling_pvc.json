@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "type=vinyl": {
+      "model": "hbm:block/sapling_vinyl"
+    },
+    "type=pvc": {
+      "model": "hbm:block/sapling_pvc"
+    }
+  }
+}

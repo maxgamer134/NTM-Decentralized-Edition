@@ -1,0 +1,31 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "enable_528_pressurized"
+    }
+  ],
+  "type": "hbm:chemical_plant",
+  "duration": 250,
+  "input_fluids": [
+    {
+      "type": "hbm:ammonia",
+      "amount": 350,
+      "pressure": 1
+    },
+    {
+      "type": "hbm:blood",
+      "amount": 800,
+      "pressure": 2
+    }
+  ],
+  "name": "chem.bloodfuelPressurized",
+  "order": 970084,
+  "output_fluids": [
+    {
+      "type": "hbm:bloodgas",
+      "amount": 1000
+    }
+  ],
+  "power": 1000
+}

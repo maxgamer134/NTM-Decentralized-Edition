@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "input_items": [
+    {
+      "ingredient": "hbm:seg_15"
+    },
+    {
+      "ingredient": "#hbm:pipes/steel"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:ingots/tungsten"
+    },
+    {
+      "count": 6,
+      "ingredient": "#c:plates/steel"
+    },
+    {
+      "ingredient": "#c:ingots/saturnite"
+    }
+  ],
+  "order": 95488,
+  "output_items": [
+    "hbm:mp_thruster_15_hydrogen_dual"
+  ],
+  "power": 100
+}

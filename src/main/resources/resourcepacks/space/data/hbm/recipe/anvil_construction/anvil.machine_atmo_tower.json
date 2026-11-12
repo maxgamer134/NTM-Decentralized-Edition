@@ -1,0 +1,28 @@
+{
+  "type": "hbm:anvil_construction",
+  "input_items": [
+    {
+      "count": 6,
+      "ingredient": "#hbm:shells/steel"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:plates/stainless"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:concretes"
+    },
+    {
+      "ingredient": "hbm:heater_heatex"
+    }
+  ],
+  "order": 970042,
+  "output_items": [
+    {
+      "id": "hbm:machine_atmo_tower"
+    }
+  ],
+  "overlay": "construction",
+  "tier": 2
+}

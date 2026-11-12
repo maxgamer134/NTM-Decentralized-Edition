@@ -62,6 +62,7 @@ public final class ModRecipes {
         handlers.add(ParticleAcceleratorRecipes.INSTANCE);
         handlers.add(CokerRecipes.INSTANCE);
         handlers.add(LiquefactionRecipes.INSTANCE);
+        handlers.add(CryoDistillRecipes.INSTANCE);
         handlers.add(SolidificationRecipes.INSTANCE);
         handlers.add(PyroOvenRecipes.INSTANCE);
         handlers.add(MagicRecipes.INSTANCE);

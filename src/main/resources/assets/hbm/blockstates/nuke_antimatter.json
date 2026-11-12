@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "hbm:block/nuke_antimatter"
+    },
+    "facing=north": {
+      "model": "hbm:block/nuke_antimatter",
+      "y": 270
+    },
+    "facing=south": {
+      "model": "hbm:block/nuke_antimatter",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "hbm:block/nuke_antimatter",
+      "y": 180
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:billet_cf252"
+  ],
+  "result": {
+    "count": 6,
+    "id": "hbm:nugget_cf252"
+  }
+}

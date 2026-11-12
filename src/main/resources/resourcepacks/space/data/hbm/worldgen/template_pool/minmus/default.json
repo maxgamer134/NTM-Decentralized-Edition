@@ -1,0 +1,60 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:minmus/base",
+        "processors": "hbm:space_minmus_base",
+        "projection": "rigid",
+        "height_offset": -1,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:minmus/flag-uk",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": -1,
+        "align_to_terrain": true
+      },
+      "weight": 2
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:minmus/panels",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": -1,
+        "align_to_terrain": true
+      },
+      "weight": 6
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:minmus/stardar",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": -1,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:minmus/tanks",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "height_offset": -1,
+        "align_to_terrain": true
+      },
+      "weight": 6
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

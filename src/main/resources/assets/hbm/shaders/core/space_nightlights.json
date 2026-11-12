@@ -1,0 +1,176 @@
+{
+    "vertex": "position_tex",
+    "fragment": "hbm:space_nightlights",
+    "samplers": [
+        {
+            "name": "Sampler0"
+        },
+        {
+            "name": "Sampler1"
+        }
+    ],
+    "uniforms": [
+        {
+            "name": "ModelViewMat",
+            "type": "matrix4x4",
+            "count": 16,
+            "values": [
+                1.0,
+                0,
+                0,
+                0,
+                0,
+                1.0,
+                0,
+                0,
+                0,
+                0,
+                1.0,
+                0,
+                0,
+                0,
+                0,
+                1.0
+            ]
+        },
+        {
+            "name": "ProjMat",
+            "type": "matrix4x4",
+            "count": 16,
+            "values": [
+                1.0,
+                0,
+                0,
+                0,
+                0,
+                1.0,
+                0,
+                0,
+                0,
+                0,
+                1.0,
+                0,
+                0,
+                0,
+                0,
+                1.0
+            ]
+        },
+        {
+            "name": "phase",
+            "type": "float",
+            "count": 1,
+            "values": [
+                0.0
+            ]
+        },
+        {
+            "name": "offset",
+            "type": "float",
+            "count": 1,
+            "values": [
+                0.0
+            ]
+        },
+        {
+            "name": "atmosphereDensity",
+            "type": "float",
+            "count": 1,
+            "values": [
+                0.0
+            ]
+        },
+        {
+            "name": "atmosphereTime",
+            "type": "float",
+            "count": 1,
+            "values": [
+                0.0
+            ]
+        },
+        {
+            "name": "patternOffset",
+            "type": "float",
+            "count": 1,
+            "values": [
+                0.0
+            ]
+        },
+        {
+            "name": "impactTime",
+            "type": "float",
+            "count": 1,
+            "values": [
+                0.0
+            ]
+        },
+        {
+            "name": "atmosphereStyle",
+            "type": "int",
+            "count": 1,
+            "values": [
+                0
+            ]
+        },
+        {
+            "name": "blackouts",
+            "type": "int",
+            "count": 1,
+            "values": [
+                0
+            ]
+        },
+        {
+            "name": "nukeShockCount",
+            "type": "int",
+            "count": 1,
+            "values": [
+                0
+            ]
+        },
+        {
+            "name": "nukeShockTime",
+            "type": "float",
+            "count": 4,
+            "values": [
+                -1.0,
+                -1.0,
+                -1.0,
+                -1.0
+            ]
+        },
+        {
+            "name": "nukeShockCenterX",
+            "type": "float",
+            "count": 4,
+            "values": [
+                0.5,
+                0.5,
+                0.5,
+                0.5
+            ]
+        },
+        {
+            "name": "nukeShockCenterY",
+            "type": "float",
+            "count": 4,
+            "values": [
+                0.5,
+                0.5,
+                0.5,
+                0.5
+            ]
+        },
+        {
+            "name": "nukeShockStrength",
+            "type": "float",
+            "count": 4,
+            "values": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ]
+        }
+    ]
+}

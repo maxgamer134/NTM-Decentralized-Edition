@@ -1,0 +1,6 @@
+{
+  "type": "hbm:null_spawn",
+  "biomes": ["hbm:moon"],
+  "spawn_overrides": {},
+  "step": "strongholds"
+}

@@ -1,0 +1,23 @@
+{
+  "type": "hbm:mixer",
+  "duration": 100,
+  "input_fluids": [
+    {
+      "type": "hbm:hcl",
+      "amount": 1400
+    }
+  ],
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:duna_sands"
+    }
+  ],
+  "order": 970115,
+  "output_fluids": [
+    {
+      "type": "hbm:redmud",
+      "amount": 50
+    }
+  ]
+}

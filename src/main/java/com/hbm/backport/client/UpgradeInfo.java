@@ -410,6 +410,20 @@ public final class UpgradeInfo {
             }
             return true;
         }
+        // NTM:Space TileEntityMachineVacuumCircuit
+        if (be instanceof com.hbm.space.machine.SpaceVacuumCircuit.CircuitBE) {
+            if (!(type == UpgradeType.SPEED || type == UpgradeType.POWER)) return false;
+            label(info, "machine_vacuum_circuit");
+            if (type == UpgradeType.SPEED) {
+                info.accept(Component.translatable(KEY_DELAY, "-" + (level * 100 / 6) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_CONSUMPTION, "+" + (level * 100) + "%").withStyle(ChatFormatting.RED));
+            }
+            if (type == UpgradeType.POWER) {
+                info.accept(Component.translatable(KEY_CONSUMPTION, "-" + (level * 100 / 6) + "%").withStyle(ChatFormatting.GREEN));
+                info.accept(Component.translatable(KEY_DELAY, "+" + (level * 100 / 3) + "%").withStyle(ChatFormatting.RED));
+            }
+            return true;
+        }
         // 1.7.10 TileEntityMachineTurbofan
         if (be instanceof com.hbm.blockentity.machine.BlockEntityMachineTurbofan) {
             if (!(type == UpgradeType.AFTERBURN)) return false;

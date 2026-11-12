@@ -102,6 +102,10 @@ public class HFRWavefrontObject {
         return smoothing && com.hbm.config.RenderConfig.smoothModels;
     }
 
+    public int partCount() {
+        return groups.length;
+    }
+
     public int partId(String name) {
         int found = -1;
         for (int i = 0; i < groups.length; i++) {

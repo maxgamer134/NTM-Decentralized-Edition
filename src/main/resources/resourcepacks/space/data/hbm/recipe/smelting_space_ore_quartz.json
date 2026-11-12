@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "hbm:ore_quartz"
+  },
+  "result": {
+    "id": "minecraft:quartz",
+    "count": 1
+  }
+}

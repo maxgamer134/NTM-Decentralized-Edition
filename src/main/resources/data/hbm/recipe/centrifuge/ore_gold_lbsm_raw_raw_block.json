@@ -1,0 +1,35 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "lbsm_simple_centrifuge"
+    }
+  ],
+  "type": "hbm:centrifuge",
+  "duration": 1800,
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_gold"
+    }
+  ],
+  "order": 1281,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:powder_gold"
+    },
+    {
+      "id": "hbm:powder_gold",
+      "count": 6
+    },
+    {
+      "id": "hbm:nugget_bismuth",
+      "count": 6
+    },
+    {
+      "id": "minecraft:gravel",
+      "count": 6
+    }
+  ],
+  "power": 200
+}

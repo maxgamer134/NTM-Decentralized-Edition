@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 5.0,
+  "ingredient": {
+    "item": "hbm:ore_emerald"
+  },
+  "result": {
+    "id": "minecraft:emerald",
+    "count": 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "hbm:powder_rubber"
+  },
+  "result": {
+    "id": "hbm:ingot_rubber",
+    "count": 1
+  }
+}

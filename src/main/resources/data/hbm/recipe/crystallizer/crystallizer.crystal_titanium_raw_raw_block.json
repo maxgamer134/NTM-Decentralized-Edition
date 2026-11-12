@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_titanium"
+      }
+    }
+  ],
+  "type": "hbm:crystallizer",
+  "duration": 3600,
+  "input_fluids": [
+    {
+      "type": "hbm:sulfuric_acid",
+      "amount": 2997
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_titanium"
+    }
+  ],
+  "order": 64257,
+  "output_items": [
+    {
+      "id": "hbm:crystal_titanium",
+      "count": 6
+    }
+  ],
+  "productivity": 0.05
+}

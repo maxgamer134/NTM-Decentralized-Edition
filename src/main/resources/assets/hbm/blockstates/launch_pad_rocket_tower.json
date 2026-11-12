@@ -1,0 +1,9 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "hbm:block/rocket_assembly_platform"
+      }
+    }
+  ]
+}

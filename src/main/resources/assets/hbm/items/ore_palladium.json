@@ -1,0 +1,89 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "body",
+    "cases": [
+      {
+        "when": "orbit",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_orbit"
+        }
+      },
+      {
+        "when": "kerbin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_kerbin"
+        }
+      },
+      {
+        "when": "mun",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_mun"
+        }
+      },
+      {
+        "when": "minmus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_minmus"
+        }
+      },
+      {
+        "when": "duna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_duna"
+        }
+      },
+      {
+        "when": "moho",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_moho"
+        }
+      },
+      {
+        "when": "dres",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_dres"
+        }
+      },
+      {
+        "when": "eve",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_eve"
+        }
+      },
+      {
+        "when": "ike",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_ike"
+        }
+      },
+      {
+        "when": "laythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_laythe"
+        }
+      },
+      {
+        "when": "tekto",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_palladium_tekto"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:block/space_ore/ore_palladium_orbit"
+    }
+  }
+}

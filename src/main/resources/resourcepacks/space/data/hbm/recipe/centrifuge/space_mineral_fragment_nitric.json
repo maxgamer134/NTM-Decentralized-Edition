@@ -1,0 +1,23 @@
+{
+  "type": "hbm:centrifuge",
+  "duration": 200,
+  "input_items": [
+    {
+      "ingredient": "hbm:mineral_fragment_nitric"
+    }
+  ],
+  "order": 990017,
+  "output_items": [
+    {
+      "count": 4,
+      "id": "hbm:powder_gallium"
+    },
+    {
+      "count": 2,
+      "id": "hbm:powder_beryllium"
+    },
+    "hbm:powder_niobium",
+    "hbm:fragment_lanthanium"
+  ],
+  "power": 200
+}

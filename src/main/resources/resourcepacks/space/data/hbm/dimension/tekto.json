@@ -1,0 +1,9 @@
+{
+  "type": "hbm:tekto",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "tekto"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "hbm:plasma_forge",
+  "duration": 1200,
+  "ignition_temp": 50000000,
+  "input_fluids": [
+    {
+      "type": "hbm:stellar_flux",
+      "amount": 8000
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#hbm:plates_welded/osmiridium",
+      "count": 16
+    },
+    {
+      "ingredient": "#hbm:plates_welded/cmbsteel",
+      "count": 16
+    },
+    {
+      "ingredient": "#hbm:plates_welded/steel",
+      "count": 16
+    },
+    {
+      "ingredient": "hbm:circuit_controller_advanced",
+      "count": 8
+    }
+  ],
+  "order": 900720,
+  "output_items": [
+    "hbm:dyson_launcher"
+  ],
+  "power": 10000000
+}

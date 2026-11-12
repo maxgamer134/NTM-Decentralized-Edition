@@ -1,0 +1,22 @@
+{
+  "type": "hbm:mixer",
+  "duration": 20,
+  "input_fluids": [
+    {
+      "type": "hbm:reformgas",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "hbm:geysir_chloric"
+    }
+  ],
+  "order": 970108,
+  "output_fluids": [
+    {
+      "type": "hbm:radiosolvent",
+      "amount": 5000
+    }
+  ]
+}

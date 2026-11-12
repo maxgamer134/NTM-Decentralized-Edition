@@ -9751,7 +9751,8 @@ public final class ModItems {
                 Reg.item(
                         name,
                         props -> build.apply(new ItemCustomMissilePart(props)),
-                        () -> new Item.Properties().stacksTo(1));
+                        // NTM:Space stacks parts: its rockets cluster as many fuselages and thrusters as the stack holds
+                        () -> new Item.Properties().stacksTo(com.hbm.space.SpaceToggle.enabled() ? 64 : 1));
         MISSILE_ALL.add(h);
         return h;
     }
@@ -10504,7 +10505,7 @@ public final class ModItems {
                         equippable(material, type, suit).setDamageOnHurt(false).build());
     }
 
-    private static Item.Properties humanoidArmorProps(
+    public static Item.Properties humanoidArmorProps(
             ArmorMaterial material, ArmorType type, Suit suit) {
         Item.Properties p =
                 ItemProps26.repairable(new Item.Properties()
@@ -10527,7 +10528,7 @@ public final class ModItems {
         return TagKey.create(Registries.ITEM, Library.id("armor_repair/" + material));
     }
 
-    private static ArmorMaterial material(
+    public static ArmorMaterial material(
             String name,
             int durability,
             int helmet,

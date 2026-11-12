@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!space_changes"
+    }
+  ],
   "type": "hbm:assembly_machine",
   "duration": 200,
   "input_items": [

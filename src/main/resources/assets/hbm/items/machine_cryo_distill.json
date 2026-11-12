@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_cryo_distill_base",
+    "mesh": "hbm:models/machines/cryo_distill.obj",
+    "skins": [
+      "hbm:textures/models/machines/cryo_distiller.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

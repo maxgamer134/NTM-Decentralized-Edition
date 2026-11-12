@@ -1,0 +1,21 @@
+{
+  "type": "hbm:mixer",
+  "duration": 50,
+  "input_fluids": [
+    {
+      "type": "hbm:ammonia",
+      "amount": 1000
+    },
+    {
+      "type": "minecraft:water",
+      "amount": 500
+    }
+  ],
+  "order": 970107,
+  "output_fluids": [
+    {
+      "type": "hbm:nitric_acid",
+      "amount": 1000
+    }
+  ]
+}

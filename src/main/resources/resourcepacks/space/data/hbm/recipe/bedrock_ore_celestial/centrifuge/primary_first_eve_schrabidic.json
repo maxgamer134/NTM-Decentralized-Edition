@@ -1,0 +1,36 @@
+{
+  "duration": 200,
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "eve_schrabidic",
+          "grade": "primary_first"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 992497,
+  "output_items": [
+    {
+      "count": 18,
+      "id": "hbm:bedrock_ore_fragment_schrabidium"
+    },
+    {
+      "count": 18,
+      "id": "hbm:bedrock_ore_fragment_schrabidium"
+    },
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "eve_schrabidic",
+          "grade": "crumbs"
+        }
+      },
+      "id": "hbm:bedrock_ore"
+    }
+  ],
+  "power": 200,
+  "type": "hbm:centrifuge"
+}

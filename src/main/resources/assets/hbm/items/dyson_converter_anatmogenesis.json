@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/dyson_converter_anatmogenesis_base",
+    "mesh": "hbm:models/machines/dyson_anatmogenesis.obj",
+    "skins": [
+      "hbm:textures/models/machines/dyson_anatmogenesis.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

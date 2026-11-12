@@ -1,0 +1,15 @@
+{
+  "type": "hbm:legacy_jigsaw",
+  "biomes": [
+    "hbm:moho",
+    "hbm:moho_basalt",
+    "hbm:moho_lava",
+    "hbm:moho_plateau"
+  ],
+  "size": 20,
+  "spawn_overrides": {},
+  "start_pool": "hbm:moho/start",
+  "step": "strongholds",
+  "min_height": 52,
+  "max_height": 63
+}

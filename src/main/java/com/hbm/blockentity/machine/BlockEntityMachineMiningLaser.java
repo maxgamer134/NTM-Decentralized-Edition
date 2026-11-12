@@ -469,11 +469,16 @@ public class BlockEntityMachineMiningLaser extends BlockEntityMachineBase
                             ? FluidReserveBlock.of(blockItem.getBlock())
                             : null;
             if (reserve != null) {
-                if (reserve.blockFluidAmount() > 0) {
-                    tank.setTankType(reserve.primaryFluid());
+                net.minecraft.world.level.block.state.BlockState reserveState =
+                        stack.getOrDefault(
+                                        net.minecraft.core.component.DataComponents.BLOCK_STATE,
+                                        net.minecraft.world.item.component.BlockItemStateProperties.EMPTY)
+                                .apply(((BlockItem) stack.getItem()).getBlock().defaultBlockState());
+                if (reserve.blockFluidAmount(reserveState) > 0) {
+                    tank.setTankType(reserve.primaryFluid(reserveState));
                     tank.setFill(
                             Math.min(
-                                    tank.getFill() + reserve.blockFluidAmount(),
+                                    tank.getFill() + reserve.blockFluidAmount(reserveState),
                                     tank.getMaxFill()));
                 }
                 item.discard();

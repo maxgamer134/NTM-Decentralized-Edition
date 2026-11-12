@@ -1,0 +1,37 @@
+{
+  "variants": {
+    "body=orbit": {
+      "model": "hbm:block/space_ore/ore_silicon_orbit"
+    },
+    "body=kerbin": {
+      "model": "hbm:block/space_ore/ore_silicon_kerbin"
+    },
+    "body=mun": {
+      "model": "hbm:block/space_ore/ore_silicon_mun"
+    },
+    "body=minmus": {
+      "model": "hbm:block/space_ore/ore_silicon_minmus"
+    },
+    "body=duna": {
+      "model": "hbm:block/space_ore/ore_silicon_duna"
+    },
+    "body=moho": {
+      "model": "hbm:block/space_ore/ore_silicon_moho"
+    },
+    "body=dres": {
+      "model": "hbm:block/space_ore/ore_silicon_dres"
+    },
+    "body=eve": {
+      "model": "hbm:block/space_ore/ore_silicon_eve"
+    },
+    "body=ike": {
+      "model": "hbm:block/space_ore/ore_silicon_ike"
+    },
+    "body=laythe": {
+      "model": "hbm:block/space_ore/ore_silicon_laythe"
+    },
+    "body=tekto": {
+      "model": "hbm:block/space_ore/ore_silicon_tekto"
+    }
+  }
+}

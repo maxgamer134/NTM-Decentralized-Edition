@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#minecraft:sand"
+    }
+  ],
+  "order": 20480,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:dust"
+    }
+  ]
+}

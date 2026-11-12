@@ -1,0 +1,24 @@
+{
+  "type": "hbm:crucible",
+  "frequency": 9,
+  "icon": {
+    "id": "hbm:ingot_gaas"
+  },
+  "input_materials": [
+    {
+      "amount": 48,
+      "material": "gallium"
+    },
+    {
+      "amount": 24,
+      "material": "arsenic"
+    }
+  ],
+  "order": 990119,
+  "output_materials": [
+    {
+      "amount": 72,
+      "material": "gaas"
+    }
+  ]
+}

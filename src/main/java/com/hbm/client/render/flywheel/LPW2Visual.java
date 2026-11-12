@@ -183,28 +183,29 @@ public final class LPW2Visual extends HbmDynamicBlockEntityVisual<BlockEntityMac
 
     private void writeFrame(float partialTick) {
         double time = GameTime.millis(blockEntity.getLevel()) / 50D + partialTick;
-        double swayTimer = time / 3D % (Math.PI * 4D);
+        double t = blockEntity.animationTime(time, partialTick);
+        double swayTimer = t / 3D % (Math.PI * 4D);
         double sway =
                 (Math.sin(swayTimer)
                                 + Math.sin(swayTimer * 2D)
                                 + Math.sin(swayTimer * 4D)
                                 + 2.23255D)
                         * .5D;
-        double bellTimer = time / 5D % (Math.PI * 4D);
+        double bellTimer = t / 5D % (Math.PI * 4D);
         double h = (Math.sin(bellTimer + Math.PI) + Math.sin(bellTimer * 1.5D)) / 1.90596D;
         double v = (Math.sin(bellTimer) + Math.sin(bellTimer * 1.5D)) / 1.90596D;
-        double piston = BobMathUtil.sps(time / 5D % (Math.PI * 2D));
+        double piston = BobMathUtil.sps(t / 5D % (Math.PI * 2D));
         double rotor =
-                (BobMathUtil.sps(time / 5D % (Math.PI * 16D))
-                                + time / 5D % (Math.PI * 16D) / 2D
+                (BobMathUtil.sps(t / 5D % (Math.PI * 16D))
+                                + t / 5D % (Math.PI * 16D) / 2D
                                 - 1D)
                         / 25.1327412287D;
-        double turbine = time % 100D / 100D;
-        double coverTimer = time / 5D % (Math.PI * 4D);
+        double turbine = t % 100D / 100D;
+        double coverTimer = t / 5D % (Math.PI * 4D);
         double cover =
                 (Math.sin(coverTimer) + Math.sin(coverTimer * 2D) + Math.sin(coverTimer * 4D))
                         * .5D;
-        double serverTimer = time / 2D % (Math.PI * 4D);
+        double serverTimer = t / 2D % (Math.PI * 4D);
         double sx = (Math.sin(serverTimer + Math.PI) + Math.sin(serverTimer * 1.5D)) / 1.90596D;
         double sy = (Math.sin(serverTimer) + Math.sin(serverTimer * 1.5D)) / 1.90596D;
         double errorTimer = time / 3D;

@@ -3,6 +3,10 @@
     {
       "type": "hbm:flag",
       "name": "expensive_mode"
+    },
+    {
+      "type": "hbm:flag",
+      "name": "!space_changes"
     }
   ],
   "type": "hbm:assembly_machine",

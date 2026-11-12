@@ -1,0 +1,11 @@
+{
+  "type": "hbm:single_piece",
+  "biomes": [
+    "hbm:thatmo"
+  ],
+  "height_offset": -1,
+  "spawn_overrides": {},
+  "start_pool": "hbm:space/thatmotest",
+  "step": "strongholds",
+  "aquatic": true
+}

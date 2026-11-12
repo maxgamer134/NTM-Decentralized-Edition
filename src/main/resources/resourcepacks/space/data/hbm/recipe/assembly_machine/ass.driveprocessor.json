@@ -1,0 +1,38 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_rubber"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:fine_wires/copper"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:plates_cast/steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:crt_display"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:circuit_basic"
+    }
+  ],
+  "name": "ass.driveprocessor",
+  "order": 900002,
+  "output_items": [
+    "hbm:machine_drive_processor"
+  ],
+  "power": 100
+}

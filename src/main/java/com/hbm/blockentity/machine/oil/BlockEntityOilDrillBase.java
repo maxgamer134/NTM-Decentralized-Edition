@@ -316,25 +316,26 @@ public abstract class BlockEntityOilDrillBase extends BlockEntityMachineBase
     }
 
     protected void onReserveSuck(BlockPos pos, FluidReserveBlock reserve) {
-        tanks[0].setTankType(reserve.primaryFluid());
-        tanks[1].setTankType(reserve.secondaryFluid());
+        BlockState reserveState = level.getBlockState(pos);
+        tanks[0].setTankType(reserve.primaryFluid(reserveState));
+        tanks[1].setTankType(reserve.secondaryFluid(reserveState));
         tanks[0].setFill(
-                Math.min(tanks[0].getFill() + reservePrimary(reserve), tanks[0].getMaxFill()));
+                Math.min(tanks[0].getFill() + reservePrimary(reserve, reserveState), tanks[0].getMaxFill()));
         if (tanks[1].getTankType() != null) {
             tanks[1].setFill(
                     Math.min(
-                            tanks[1].getFill() + reserveSecondary(reserve), tanks[1].getMaxFill()));
+                            tanks[1].getFill() + reserveSecondary(reserve, reserveState), tanks[1].getMaxFill()));
         }
         reserve.drain(level, pos, level.getRandom(), reserveDrainMultiplier());
         setChanged();
     }
 
-    protected int reservePrimary(FluidReserveBlock reserve) {
-        return reserve.primaryAmount();
+    protected int reservePrimary(FluidReserveBlock reserve, BlockState state) {
+        return reserve.primaryAmount(state);
     }
 
-    protected int reserveSecondary(FluidReserveBlock reserve) {
-        return reserve.secondaryAmount(level.getRandom());
+    protected int reserveSecondary(FluidReserveBlock reserve, BlockState state) {
+        return reserve.secondaryAmount(state, level.getRandom());
     }
 
     protected double reserveDrainMultiplier() {

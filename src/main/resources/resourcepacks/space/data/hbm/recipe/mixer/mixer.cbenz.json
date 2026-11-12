@@ -1,0 +1,23 @@
+{
+  "type": "hbm:mixer",
+  "duration": 20,
+  "input_fluids": [
+    {
+      "type": "hbm:radiosolvent",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "count": 32,
+      "ingredient": "hbm:leaf_pet"
+    }
+  ],
+  "order": 970124,
+  "output_fluids": [
+    {
+      "type": "hbm:cbenz",
+      "amount": 250
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "ike_rare",
+          "grade": "rad_roasted"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 992743,
+  "output_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "ike_rare",
+          "grade": "rad_arc"
+        }
+      },
+      "id": "hbm:bedrock_ore",
+      "count": 4
+    }
+  ],
+  "type": "hbm:arc_furnace"
+}

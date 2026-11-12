@@ -1,5 +1,7 @@
 {
   "values": [
+    {"id": "hbm:entity_ntm_bfa", "required": false},
+    {"id": "hbm:entity_meme_ufo", "required": false},
     "minecraft:mooshroom",
     "minecraft:zombie",
     "minecraft:husk",

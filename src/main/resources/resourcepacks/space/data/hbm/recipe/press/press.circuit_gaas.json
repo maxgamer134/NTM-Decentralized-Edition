@@ -1,0 +1,13 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "#c:billets/gaas"
+    }
+  ],
+  "order": 961003,
+  "output_items": [
+    "hbm:circuit_gaas"
+  ],
+  "stamp": "circuit"
+}

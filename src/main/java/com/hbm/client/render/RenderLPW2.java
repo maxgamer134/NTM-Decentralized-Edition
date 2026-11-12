@@ -116,27 +116,28 @@ public class RenderLPW2
         state.yaw = facingYaw(be.getBlockState().getValue(BlockMultiblockCore.FACING));
 
         double time = (GameTime.now() % 50_000_000L) / 50D;
+        double t = be.animationTime(time, partialTicks);
 
-        double swayTimer = (time / 3D) % (Math.PI * 4);
+        double swayTimer = (t / 3D) % (Math.PI * 4);
         state.sway =
                 (Math.sin(swayTimer) + Math.sin(swayTimer * 2) + Math.sin(swayTimer * 4) + 2.23255D)
                         * 0.5;
 
-        double bellTimer = (time / 5D) % (Math.PI * 4);
+        double bellTimer = (t / 5D) % (Math.PI * 4);
         state.h = (Math.sin(bellTimer + Math.PI) + Math.sin(bellTimer * 1.5D)) / 1.90596D;
         state.v = (Math.sin(bellTimer) + Math.sin(bellTimer * 1.5D)) / 1.90596D;
 
-        double pistonTimer = (time / 5D) % (Math.PI * 2);
+        double pistonTimer = (t / 5D) % (Math.PI * 2);
         state.piston = BobMathUtil.sps(pistonTimer);
-        double rotorTimer = (time / 5D) % (Math.PI * 16);
+        double rotorTimer = (t / 5D) % (Math.PI * 16);
         state.rotor = (BobMathUtil.sps(rotorTimer) + rotorTimer / 2D - 1) / 25.1327412287D;
-        state.turbine = (time % 100) / 100D;
+        state.turbine = (t % 100) / 100D;
 
-        double coverTimer = (time / 5D) % (Math.PI * 4);
+        double coverTimer = (t / 5D) % (Math.PI * 4);
         state.cover =
                 (Math.sin(coverTimer) + Math.sin(coverTimer * 2) + Math.sin(coverTimer * 4)) * 0.5;
 
-        double serverTimer = (time / 2D) % (Math.PI * 4);
+        double serverTimer = (t / 2D) % (Math.PI * 4);
         state.sx = (Math.sin(serverTimer + Math.PI) + Math.sin(serverTimer * 1.5D)) / 1.90596D;
         state.sy = (Math.sin(serverTimer) + Math.sin(serverTimer * 1.5D)) / 1.90596D;
 

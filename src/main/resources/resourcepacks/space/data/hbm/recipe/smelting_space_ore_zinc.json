@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 2.5,
+  "ingredient": {
+    "item": "hbm:ore_zinc"
+  },
+  "result": {
+    "id": "hbm:ingot_zinc",
+    "count": 1
+  }
+}

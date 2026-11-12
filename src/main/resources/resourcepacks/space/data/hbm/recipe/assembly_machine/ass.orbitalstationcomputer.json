@@ -1,0 +1,42 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 200,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_cast/aluminum"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:plates/stainless"
+    },
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_hard_plastic"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:dusts/nether_quartz"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:circuit_molychip"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:circuit_aero"
+    }
+  ],
+  "name": "ass.orbitalstationcomputer",
+  "order": 900009,
+  "output_items": [
+    "hbm:orbital_station_computer"
+  ],
+  "power": 100
+}

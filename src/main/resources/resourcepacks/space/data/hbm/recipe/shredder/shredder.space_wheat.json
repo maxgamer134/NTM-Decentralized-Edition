@@ -1,0 +1,12 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "minecraft:wheat"
+    }
+  ],
+  "order": 970045,
+  "output_items": [
+    "hbm:flour"
+  ]
+}

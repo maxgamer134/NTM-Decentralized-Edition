@@ -1,0 +1,104 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "hbm:bean_raw",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "hbm:crop_coffee",
+                  "properties": {
+                    "age": "7"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 4
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "hbm:bean_raw",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "hbm:crop_coffee",
+                  "properties": {
+                    "age": "6"
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 3
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "hbm:bean_raw",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "hbm:crop_coffee",
+                  "properties": {
+                    "age": {
+                      "min": "4",
+                      "max": "5"
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 2
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "hbm:bean_raw",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "hbm:crop_coffee",
+                  "properties": {
+                    "age": {
+                      "min": "2",
+                      "max": "3"
+                    }
+                  }
+                }
+              ],
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "hbm:blocks/crop_coffee"
+}

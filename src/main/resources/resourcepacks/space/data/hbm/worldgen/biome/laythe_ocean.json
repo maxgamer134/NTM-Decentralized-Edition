@@ -1,0 +1,48 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.2,
+  "downfall": 0.2,
+  "effects": {
+    "sky_color": 0,
+    "fog_color": 0,
+    "water_color": 5963930,
+    "water_fog_color": 5963930
+  },
+  "spawners": {
+    "water_creature": [
+      {
+        "type": "hbm:entity_scutterfish",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "hbm:entity_siftereel",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "hbm:entity_scrapfish",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "hbm:entity_siftereel",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 4
+      },
+      {
+        "type": "hbm:entity_depthsquid",
+        "weight": 1,
+        "minCount": 1,
+        "maxCount": 4
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": []
+}

@@ -1,0 +1,29 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 200,
+  "input_fluids": [
+    {
+      "type": "hbm:hydrogen",
+      "amount": 4000
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#hbm:billets/thorium"
+    },
+    {
+      "ingredient": "hbm:powder_bromine"
+    },
+    {
+      "ingredient": "#c:ingots/asbestos"
+    }
+  ],
+  "order": 970081,
+  "output_fluids": [
+    {
+      "type": "hbm:thorium_bromide",
+      "amount": 4000
+    }
+  ],
+  "power": 1000
+}

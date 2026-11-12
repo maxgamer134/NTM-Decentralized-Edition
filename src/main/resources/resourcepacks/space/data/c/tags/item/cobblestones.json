@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "hbm:duna_cobble",
+    "hbm:dres_rock",
+    "hbm:ike_regolith",
+    "hbm:eve_rock",
+    "hbm:moho_regolith",
+    "hbm:moon_rock",
+    "hbm:minmus_regolith",
+    "hbm:basalt"
+  ]
+}

@@ -525,6 +525,7 @@ public final class ClientRegistry {
         reg.register("crucible", CrucibleItemRenderer.Unbaked.MAP_CODEC);
         reg.register("gun_b92", GunB92ItemRenderer.Unbaked.MAP_CODEC);
         reg.register("missile_custom", MissileCustomItemRenderer.Unbaked.MAP_CODEC);
+        reg.register("rocket_custom", com.hbm.space.client.RocketCustomItemRenderer.Unbaked.MAP_CODEC);
         reg.register("detonator_laser", DetonatorLaserItemRenderer.Unbaked.MAP_CODEC);
         reg.register("radar_large", RadarLargeItemRenderer.Unbaked.MAP_CODEC);
         reg.register("radar", RadarItemRenderer.Unbaked.MAP_CODEC);

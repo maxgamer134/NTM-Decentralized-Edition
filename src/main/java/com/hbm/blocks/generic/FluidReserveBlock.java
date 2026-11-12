@@ -43,6 +43,27 @@ public interface FluidReserveBlock {
 
     int blockFluidAmount();
 
+    /** The same, for a reserve whose block state picks its fluids (NTM:Space's per-body reserves). */
+    default Fluid primaryFluid(BlockState state) {
+        return primaryFluid();
+    }
+
+    default @Nullable Fluid secondaryFluid(BlockState state) {
+        return secondaryFluid();
+    }
+
+    default int primaryAmount(BlockState state) {
+        return primaryAmount();
+    }
+
+    default int secondaryAmount(BlockState state, RandomSource random) {
+        return secondaryAmount(random);
+    }
+
+    default int blockFluidAmount(BlockState state) {
+        return blockFluidAmount();
+    }
+
     default void settle(Level level, BlockPos pos, BlockState state) {}
 
     @FunctionalInterface

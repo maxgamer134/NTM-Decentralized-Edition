@@ -1,6 +1,30 @@
 {
   "values": [
     "hbm:sulfuric_acid_fluid",
-    "hbm:flowing_sulfuric_acid_fluid"
+    "hbm:flowing_sulfuric_acid_fluid",
+    {
+      "id": "hbm:mercury_fluid",
+      "required": false
+    },
+    {
+      "id": "hbm:flowing_mercury_fluid",
+      "required": false
+    },
+    {
+      "id": "hbm:bromine_fluid",
+      "required": false
+    },
+    {
+      "id": "hbm:flowing_bromine_fluid",
+      "required": false
+    },
+    {
+      "id": "hbm:ccl_fluid",
+      "required": false
+    },
+    {
+      "id": "hbm:flowing_ccl_fluid",
+      "required": false
+    }
   ]
 }

@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "hbm:paraffin_seeds",
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "hbm:spike_cacti",
+                  "properties": {
+                    "type": "flower"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "hbm:spike_cacti",
+              "functions": [
+                {
+                  "function": "minecraft:copy_state",
+                  "block": "hbm:spike_cacti",
+                  "properties": [
+                    "type"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "hbm:blocks/spike_cacti"
+}

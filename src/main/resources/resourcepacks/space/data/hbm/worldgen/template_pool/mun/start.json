@@ -1,0 +1,18 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "hbm:legacy_start",
+        "location": "hbm:mun/base",
+        "processors": "hbm:space_structure",
+        "projection": "rigid",
+        "size_limit": 32,
+        "range_limit": 128,
+        "height_offset": -1,
+        "align_to_terrain": true
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

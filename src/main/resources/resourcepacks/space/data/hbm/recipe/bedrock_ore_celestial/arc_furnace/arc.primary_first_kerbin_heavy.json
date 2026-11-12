@@ -1,0 +1,21 @@
+{
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "kerbin_heavy",
+          "grade": "primary_first"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 990198,
+  "output_materials": [
+    {
+      "amount": 720,
+      "material": "tungsten"
+    }
+  ],
+  "type": "hbm:arc_furnace"
+}

@@ -1,0 +1,27 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:dres/balcony",
+        "processors": "hbm:space_dres",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:dres/pad",
+        "processors": "hbm:space_dres",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "hbm:dres/outback"
+}

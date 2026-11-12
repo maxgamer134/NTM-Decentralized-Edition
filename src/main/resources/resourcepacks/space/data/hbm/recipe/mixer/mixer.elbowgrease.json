@@ -1,0 +1,21 @@
+{
+  "type": "hbm:mixer",
+  "duration": 50,
+  "input_fluids": [
+    {
+      "type": "hbm:reformgas",
+      "amount": 500
+    },
+    {
+      "type": "hbm:syngas",
+      "amount": 500
+    }
+  ],
+  "order": 970112,
+  "output_fluids": [
+    {
+      "type": "hbm:elbowgrease",
+      "amount": 1000
+    }
+  ]
+}

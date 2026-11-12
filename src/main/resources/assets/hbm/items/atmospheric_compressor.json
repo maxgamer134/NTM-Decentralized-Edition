@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/atmospheric_compressor_base",
+    "mesh": "hbm:models/machines/atmo_vent.obj",
+    "skins": [
+      "hbm:textures/models/machines/atmo_vent.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

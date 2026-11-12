@@ -1,0 +1,24 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 300,
+  "input_fluids": [
+    {
+      "type": "hbm:sulfuric_acid",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:minmus_smooth"
+    }
+  ],
+  "order": 970097,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:minmus_stone"
+    }
+  ],
+  "power": 500
+}

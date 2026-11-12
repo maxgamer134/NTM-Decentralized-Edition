@@ -1,0 +1,9 @@
+{
+  "type": "hbm:dres",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "dres"
+    }
+  }
+}

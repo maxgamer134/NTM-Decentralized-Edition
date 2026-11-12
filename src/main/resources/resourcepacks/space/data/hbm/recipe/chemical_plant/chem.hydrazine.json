@@ -1,0 +1,22 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 250,
+  "input_fluids": [
+    {
+      "type": "hbm:nitric_acid",
+      "amount": 2000
+    },
+    {
+      "type": "hbm:ammonia",
+      "amount": 1000
+    }
+  ],
+  "order": 900600,
+  "output_fluids": [
+    {
+      "type": "hbm:hydrazine",
+      "amount": 800
+    }
+  ],
+  "power": 1000
+}

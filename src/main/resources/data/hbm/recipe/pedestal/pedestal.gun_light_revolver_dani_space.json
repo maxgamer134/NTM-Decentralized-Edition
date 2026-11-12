@@ -1,0 +1,36 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:pedestal",
+  "key": {
+    "A": {
+      "ingredient": "#c:plates/lead"
+    },
+    "B": {
+      "ingredient": "#c:plates/gold"
+    },
+    "C": {
+      "ingredient": "hbm:gun_light_revolver"
+    },
+    "D": {
+      "ingredient": "#c:plates/gold"
+    },
+    "E": {
+      "ingredient": "#c:plates/lead"
+    }
+  },
+  "order": 0,
+  "output_items": [
+    "hbm:gun_light_revolver_dani"
+  ],
+  "pattern": [
+    " A ",
+    "BCD",
+    " E "
+  ],
+  "extra": "new_moon"
+}

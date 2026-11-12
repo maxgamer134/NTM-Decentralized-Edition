@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "I": "hbm:fence_metal"
+  },
+  "pattern": [
+    "II",
+    "II",
+    "II"
+  ],
+  "result": {
+    "id": "hbm:fence_gate"
+  }
+}

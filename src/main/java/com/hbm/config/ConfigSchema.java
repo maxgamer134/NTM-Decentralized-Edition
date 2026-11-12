@@ -562,7 +562,53 @@ public final class ConfigSchema {
                     "space",
                     "space_changes",
                     true,
-                    "With NTM:Space on, also apply its changes to existing NTM content (hydrogen and Watz mud that heat into new gases, rocket-grade fuels, and the rest). Off, existing content stays as in NTMain.");
+                    "With NTM:Space on, also apply its changes to existing NTM content (hydrogen and Watz mud that heat into new gases, rocket-grade fuels, and the rest). Off, existing content stays as in NTMain. Less Bullshit Mode keeps NTMain's recipes either way, so any recipe Space changes or removes stays as it was.");
+    public static final ConfigEntry<Boolean> SPACE_NETHER_PORTALS =
+            bool(
+                    Domain.RUNTIME,
+                    "space",
+                    "allow_nether_portals",
+                    false,
+                    "Nether portals work on other celestial bodies.");
+    public static final ConfigEntry<Boolean> SPACE_VOLCANOES =
+            bool(
+                    Domain.RUNTIME,
+                    "space",
+                    "enable_volcano_gen",
+                    true,
+                    "Natural volcanoes on other bodies spew lava and grow. Off, they stay as generated.");
+    public static final ConfigEntry<Boolean> SPACE_ORE_LOCATIONS =
+            bool(
+                    Domain.RUNTIME,
+                    "space",
+                    "show_ore_locations",
+                    true,
+                    "Ore tooltips name the bodies an ore can be found on.");
+    public static final ConfigEntry<Integer> SPACE_MAX_PROBE_DISTANCE =
+            integer(
+                    Domain.RUNTIME,
+                    "space",
+                    "max_probe_distance",
+                    32000,
+                    0,
+                    Integer.MAX_VALUE,
+                    "How far from a body dimension's centre a probe can pick its landing coordinates.");
+    public static final ConfigEntry<Integer> SPACE_MAX_STATION_DISTANCE =
+            integer(
+                    Domain.RUNTIME,
+                    "space",
+                    "max_station_distance",
+                    32000,
+                    1024,
+                    Integer.MAX_VALUE,
+                    "How far from the orbit dimension's centre orbital stations are placed.");
+    public static final ConfigEntry<Boolean> SPACE_COMBAT_POD_DESPAWN =
+            bool(
+                    Domain.RUNTIME,
+                    "space",
+                    "combat_pod_despawn",
+                    false,
+                    "Combat drop pods despawn after a while.");
 
     public static final ConfigEntry<Boolean> GUNS_VANILLA_DURABILITY =
             bool(
@@ -630,6 +676,15 @@ public final class ConfigSchema {
                     false,
                     "Preserve stereo explosion recordings instead of positioning them in the world, with distance falloff. "
                             + "Mono recordings remain positional. Applies to newly played sounds.");
+    public static final ConfigEntry<String> SPACE_OVERWORLD_SKY =
+            text(
+                    Domain.CLIENT,
+                    "render",
+                    "space_overworld_sky",
+                    "auto",
+                    "With Space on, the overworld's sky: full (NTM:Space's celestial sky replaces it), layered (the vanilla sky, and whatever other mods or shader packs draw in it, stays; Space adds its planets, satellites and stations on top), off (vanilla only), or auto (layered when a shader pack or another sky mod, such as Create: Rocketnautics, Exposure: Space or No Man's Land, is present, otherwise full).");
+    public static final ConfigEntry<Boolean> SPACE_PLSS_BREATHING =
+            bool(Domain.CLIENT, "render", "space_plss_breathing", true, "NTM:Space: play the breathing sound while wearing a PLSS oxygen tank.");
     public static final ConfigEntry<Boolean> COOLING_TOWER_PARTICLES =
             bool(Domain.CLIENT, "render", "cooling_tower_particles", true, "");
     public static final ConfigEntry<Boolean> SMOOTH_MODEL_SHADING =
@@ -817,6 +872,12 @@ public final class ConfigSchema {
                     TRADES_CURRENCIES,
                     ENABLE_SPACE,
                     SPACE_CHANGES,
+                    SPACE_NETHER_PORTALS,
+                    SPACE_VOLCANOES,
+                    SPACE_ORE_LOCATIONS,
+                    SPACE_MAX_PROBE_DISTANCE,
+                    SPACE_MAX_STATION_DISTANCE,
+                    SPACE_COMBAT_POD_DESPAWN,
                     ITEM_HAZARD_DROP_TICKRATE,
                     UNSTABLE_RECOVERY_SWEEP,
                     TOOL_HUD_INDICATOR_X,
@@ -824,6 +885,8 @@ public final class ConfigSchema {
                     CRATE_OPEN_HELD,
                     ORIGINAL_STEREO_EXPLOSIONS,
                     COOLING_TOWER_PARTICLES,
+                    SPACE_OVERWORLD_SKY,
+                    SPACE_PLSS_BREATHING,
                     SMOOTH_MODEL_SHADING,
                     GUN_MODEL_FOV,
                     GUN_VISUAL_RECOIL,

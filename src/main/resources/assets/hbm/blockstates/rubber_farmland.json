@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "moist=false": {
+      "model": "hbm:block/rubber_farmland"
+    },
+    "moist=true": {
+      "model": "hbm:block/rubber_farmland_moist"
+    }
+  }
+}

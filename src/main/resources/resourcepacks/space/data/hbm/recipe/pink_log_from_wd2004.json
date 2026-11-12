@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "hbm:powder_wd2004",
+    "#minecraft:logs"
+  ],
+  "result": {
+    "id": "hbm:pink_log"
+  }
+}

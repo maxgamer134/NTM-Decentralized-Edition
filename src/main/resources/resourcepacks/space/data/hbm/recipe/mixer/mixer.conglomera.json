@@ -1,0 +1,22 @@
+{
+  "type": "hbm:mixer",
+  "duration": 70,
+  "input_fluids": [
+    {
+      "type": "hbm:aqueous_nickel",
+      "amount": 250
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "hbm:stone_resource_conglomerate"
+    }
+  ],
+  "order": 990009,
+  "output_fluids": [
+    {
+      "type": "hbm:conglomera",
+      "amount": 1000
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "P": "hbm:ingot_cobalt",
+    "D": "hbm:billet_gaas",
+    "C": "hbm:det_nuke",
+    "I": "hbm:plate_cast_tc_alloy"
+  },
+  "pattern": [
+    "PIP",
+    "DCD",
+    "PIP"
+  ],
+  "result": {
+    "id": "hbm:det_salt"
+  }
+}

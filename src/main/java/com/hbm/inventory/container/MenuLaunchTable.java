@@ -37,7 +37,12 @@ public class MenuLaunchTable extends BlockEntityMenu<BlockEntityLaunchTable> {
                         BlockEntityLaunchTable.SLOT_MISSILE,
                         26,
                         36,
-                        stack -> stack.getItem() instanceof ItemCustomMissile));
+                        stack ->
+                                stack.getItem() instanceof ItemCustomMissile
+                                        // Space: upstream's slot took any item, so a custom rocket could be previewed
+                                        || (com.hbm.space.SpaceToggle.enabled()
+                                                && stack.getItem()
+                                                        instanceof com.hbm.space.rocket.ItemCustomRocket)));
         addSlot(
                 new SlotFiltered(
                         container,

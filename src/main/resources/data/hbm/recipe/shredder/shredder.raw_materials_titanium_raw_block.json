@@ -1,0 +1,24 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_titanium"
+      }
+    }
+  ],
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_titanium"
+    }
+  ],
+  "order": 67329,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:powder_titanium"
+    }
+  ]
+}

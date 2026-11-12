@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "hbm:block/rubber_grass_top",
+    "bottom": "hbm:block/rubber_silt",
+    "side": "hbm:block/rubber_grass_side"
+  }
+}

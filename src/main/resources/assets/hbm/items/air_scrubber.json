@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/air_scrubber_base",
+    "mesh": "hbm:models/machines/air_scrubber.obj",
+    "skins": [
+      "hbm:textures/models/machines/air_scrubber.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

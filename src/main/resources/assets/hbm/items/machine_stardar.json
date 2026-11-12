@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_stardar_base",
+    "mesh": "hbm:models/machines/stardar.obj",
+    "skins": [
+      "hbm:textures/models/machines/stardar.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

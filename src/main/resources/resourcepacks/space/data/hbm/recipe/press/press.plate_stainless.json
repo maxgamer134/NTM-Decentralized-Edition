@@ -1,0 +1,13 @@
+{
+  "type": "hbm:press",
+  "input_items": [
+    {
+      "ingredient": "#c:ingots/stainless"
+    }
+  ],
+  "order": 970037,
+  "output_items": [
+    "hbm:plate_stainless"
+  ],
+  "stamp": "plate"
+}

@@ -1,0 +1,17 @@
+{
+  "neoforge:conditions": [{"type": "hbm:flag", "name": "!expensive_mode"}],
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "power": 100,
+  "input_items": [
+    {"count": 8, "ingredient": "hbm:steel_scaffold"},
+    {"count": 2, "ingredient": "#hbm:plates_welded/tungsten"},
+    {"count": 32, "ingredient": "#c:plates/steel"},
+    {"ingredient": "hbm:drill_titanium"},
+    {"ingredient": "hbm:motor_bismuth"},
+    {"count": 8, "ingredient": "hbm:circuit_gaschip"}
+  ],
+  "name": "ass.magma",
+  "order": 961060,
+  "output_items": ["hbm:machine_magma"]
+}

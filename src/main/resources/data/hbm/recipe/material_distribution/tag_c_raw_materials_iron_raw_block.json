@@ -1,0 +1,18 @@
+{
+  "type": "hbm:material_distribution",
+  "materials": [
+    {
+      "amount": 864,
+      "material": "iron"
+    },
+    {
+      "amount": 144,
+      "material": "titanium"
+    },
+    {
+      "amount": 972,
+      "material": "stone"
+    }
+  ],
+  "targets": "#c:storage_blocks/raw_iron"
+}

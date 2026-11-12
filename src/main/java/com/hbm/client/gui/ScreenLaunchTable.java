@@ -140,6 +140,10 @@ public class ScreenLaunchTable extends ScreenInfoContainer<MenuLaunchTable> {
 
         if (table.isMissileValid(missile))
             preview.draw(this, graphics, ItemCustomMissile.getStruct(missile));
+        else if (com.hbm.space.SpaceToggle.enabled()
+                && missile.getItem() instanceof com.hbm.space.rocket.ItemCustomRocket
+                && com.hbm.space.rocket.ItemCustomRocket.get(missile) != null)
+            preview.drawRocket(this, graphics, missile);
 
         drawFluidGaugeInfo(
                 graphics, mouseX, mouseY, FUEL_X, TANK_Y, TANK_W, TANK_H, table.fuelTank);

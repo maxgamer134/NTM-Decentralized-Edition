@@ -231,7 +231,7 @@ public final class FluidTraitCodecs {
                                                         .listOf()
                                                         .fieldOf("steps")
                                                         .forGetter(FT_Heatable::steps),
-                                                heatEff.fieldOf("efficiency")
+                                                heatEff.optionalFieldOf("efficiency", Map.of())
                                                         .forGetter(
                                                                 FluidTraitCodecs::heatEfficiency))
                                         .apply(i, FluidTraitCodecs::heatable)));
@@ -256,7 +256,7 @@ public final class FluidTraitCodecs {
                                                 Codec.INT
                                                         .fieldOf("heat_energy")
                                                         .forGetter(t -> t.heatEnergy),
-                                                coolEff.fieldOf("efficiency")
+                                                coolEff.optionalFieldOf("efficiency", Map.of())
                                                         .forGetter(
                                                                 FluidTraitCodecs::coolEfficiency))
                                         .apply(i, FluidTraitCodecs::coolable)));

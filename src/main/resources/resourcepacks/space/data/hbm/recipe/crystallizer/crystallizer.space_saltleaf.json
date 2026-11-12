@@ -1,0 +1,20 @@
+{
+  "type": "hbm:crystallizer",
+  "duration": 600,
+  "input_fluids": [
+    {
+      "type": "hbm:scutterblood",
+      "amount": 1000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 5,
+      "ingredient": "hbm:saltleaf"
+    }
+  ],
+  "order": 970064,
+  "output_items": [
+    "hbm:gem_sodalite"
+  ]
+}

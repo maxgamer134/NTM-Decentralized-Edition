@@ -136,6 +136,23 @@ public final class PacketDispatcher {
                         EffectNTPayload.STREAM_CODEC,
                         EffectNTPayload::handle,
                         PayloadHandlerThread.MAIN));
+        // NTM:Space's payloads exist only while it is on (servers and clients must match)
+        if (com.hbm.space.SpaceToggle.enabled()) {
+            NeoForgeNetwork.clientbound.add(new NeoForgeNetwork.Registration<>(com.hbm.space.SkyObjectsSyncPayload.TYPE, com.hbm.space.SkyObjectsSyncPayload.STREAM_CODEC, com.hbm.space.SkyObjectsSyncPayload::handle, PayloadHandlerThread.MAIN));
+            NeoForgeNetwork.clientbound.add(new NeoForgeNetwork.Registration<>(com.hbm.space.NukeShockSyncPayload.TYPE, com.hbm.space.NukeShockSyncPayload.STREAM_CODEC, com.hbm.space.NukeShockSyncPayload::handle, PayloadHandlerThread.MAIN));
+            NeoForgeNetwork.clientbound.add(
+                    new NeoForgeNetwork.Registration<>(
+                            com.hbm.space.SolarSystemSyncPayload.TYPE,
+                            com.hbm.space.SolarSystemSyncPayload.STREAM_CODEC,
+                            com.hbm.space.SolarSystemSyncPayload::handle,
+                            PayloadHandlerThread.MAIN));
+            NeoForgeNetwork.clientbound.add(
+                    new NeoForgeNetwork.Registration<>(
+                            com.hbm.space.station.StationSyncPayload.TYPE,
+                            com.hbm.space.station.StationSyncPayload.STREAM_CODEC,
+                            com.hbm.space.station.StationSyncPayload::handle,
+                            PayloadHandlerThread.MAIN));
+        }
         NeoForgeNetwork.clientbound.add(
                 new NeoForgeNetwork.Registration<>(
                         com.hbm.packet.toclient.VanillaExtPayload.TYPE,

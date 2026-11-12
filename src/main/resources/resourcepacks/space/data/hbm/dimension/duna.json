@@ -1,0 +1,9 @@
+{
+  "type": "hbm:duna",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "duna"
+    }
+  }
+}

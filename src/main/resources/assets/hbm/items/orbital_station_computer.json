@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/orbital_station_computer_base",
+    "mesh": "hbm:models/machines/spaceship_computer.obj",
+    "skins": [
+      "hbm:textures/models/machines/spaceship_computer.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

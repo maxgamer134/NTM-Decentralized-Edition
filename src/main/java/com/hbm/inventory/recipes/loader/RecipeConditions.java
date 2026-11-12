@@ -38,6 +38,9 @@ public final class RecipeConditions {
                 () -> BalanceConfig.enableLBSM && BalanceConfig.enableLBSMSimpleMedicineRecipes);
         FLAGS.put("enable_528_pressurized", () -> BalanceConfig.enable528PressurizedRecipes);
         FLAGS.put("expensive_mode", () -> BalanceConfig.enableExpensiveMode);
+        // NTM:Space's take on an NTM recipe: tag it "space_changes" and NTM's own "!space_changes".
+        // Less bullshit mode keeps NTM's recipes, so whatever Space would replace or take away comes back.
+        FLAGS.put("space_changes", () -> com.hbm.space.SpaceToggle.changes() && !BalanceConfig.enableLBSM);
     }
 
     private RecipeConditions() {}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": ["hbm:dres","hbm:dres_basin","hbm:duna","hbm:duna_hills","hbm:duna_lowlands","hbm:duna_polar","hbm:duna_polar_hills","hbm:eve","hbm:eve_mountains","hbm:eve_ocean","hbm:eve_river","hbm:eve_seismic","hbm:ike","hbm:laythe","hbm:laythe_coast","hbm:laythe_ocean","hbm:laythe_polar","hbm:minmus","hbm:minmus_basin","hbm:moho","hbm:moho_basalt","hbm:moho_lava","hbm:moho_plateau","hbm:moon","hbm:tekto_forest","hbm:tekto_halogen_hill","hbm:tekto_polyvinyl","hbm:tekto_river","hbm:tekto_vinyl_island","hbm:thatmo"],
+  "max_distance_from_center": 128,
+  "size": 20,
+  "spawn_overrides": {},
+  "start_height": { "absolute": 33 },
+  "start_pool": "hbm:meteor/start",
+  "step": "strongholds",
+  "use_expansion_hack": false
+}

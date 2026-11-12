@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crystallizer",
+  "duration": 600,
+  "input_items": [
+    {
+      "ingredient": "hbm:ore_fire"
+    }
+  ],
+  "order": 970061,
+  "output_items": [
+    "hbm:crystal_phosphorus"
+  ],
+  "productivity": 0.05
+}

@@ -1,0 +1,27 @@
+{
+  "type": "hbm:hydrotreater",
+  "duration": 2,
+  "input_fluids": [
+    {
+      "type": "hbm:ccl",
+      "amount": 100
+    },
+    {
+      "type": "hbm:hydrogen",
+      "amount": 10,
+      "pressure": 1
+    }
+  ],
+  "order": 970133,
+  "output_fluids": [
+    {
+      "type": "hbm:chloromethane",
+      "amount": 80
+    },
+    {
+      "type": "hbm:hcl",
+      "amount": 20
+    }
+  ],
+  "power": 20000
+}

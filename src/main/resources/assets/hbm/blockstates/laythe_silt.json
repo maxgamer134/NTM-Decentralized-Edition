@@ -1,0 +1,84 @@
+{
+  "variants": {
+    "shade=0": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=1": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=2": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=3": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=4": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=5": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=6": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=7": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=8": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=9": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=10": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=11": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=12": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=13": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=14": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ],
+    "shade=15": [
+      {
+        "model": "hbm:block/space_tint/laythe_silt"
+      }
+    ]
+  }
+}

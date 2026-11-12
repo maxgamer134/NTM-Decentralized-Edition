@@ -103,13 +103,13 @@ public class BlockEntityMachinePumpjack extends BlockEntityOilDrillBase {
     }
 
     @Override
-    protected int reservePrimary(FluidReserveBlock reserve) {
-        return (int) (super.reservePrimary(reserve) * 1.5D);
+    protected int reservePrimary(FluidReserveBlock reserve, net.minecraft.world.level.block.state.BlockState state) {
+        return (int) (super.reservePrimary(reserve, state) * 1.5D);
     }
 
     @Override
-    protected int reserveSecondary(FluidReserveBlock reserve) {
-        return (int) (super.reserveSecondary(reserve) * 0.5D);
+    protected int reserveSecondary(FluidReserveBlock reserve, net.minecraft.world.level.block.state.BlockState state) {
+        return (int) (super.reserveSecondary(reserve, state) * 0.5D);
     }
 
     @Override

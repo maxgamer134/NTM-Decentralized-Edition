@@ -1,0 +1,47 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "coral",
+    "cases": [
+      {
+        "when": "tube",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/laythe_coral_tube"
+        }
+      },
+      {
+        "when": "brain",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/laythe_coral_brain"
+        }
+      },
+      {
+        "when": "bubble",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/laythe_coral_bubble"
+        }
+      },
+      {
+        "when": "fire",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/laythe_coral_fire"
+        }
+      },
+      {
+        "when": "horn",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:item/laythe_coral_horn"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:item/laythe_coral_tube"
+    }
+  }
+}

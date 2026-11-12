@@ -1,0 +1,245 @@
+{
+  "processors": [
+    {
+      "processor_type": "hbm:marker_table",
+      "processors": [
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_white"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_orange"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_magenta"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_light_blue"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_yellow"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_lime"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_pink"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_gray"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_silver"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_cyan"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_purple"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_blue"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_brown"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_green"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_red"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        },
+        {
+          "processor_type": "hbm:weighted_place",
+          "marker": {
+            "Name": "hbm:concrete_black"
+          },
+          "options": [
+            {
+              "data": {
+                "Name": "hbm:concrete_ext_sand"
+              },
+              "weight": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "processor_type": "hbm:wire_links"
+    },
+    {
+      "processor_type": "hbm:multiblock_assembly"
+    },
+    {
+      "processor_type": "hbm:loot_pile"
+    },
+    {
+      "processor_type": "hbm:duct_fluid"
+    }
+  ]
+}

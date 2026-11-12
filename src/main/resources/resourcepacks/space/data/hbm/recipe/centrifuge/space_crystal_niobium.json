@@ -1,0 +1,26 @@
+{
+  "type": "hbm:centrifuge",
+  "duration": 200,
+  "input_items": [
+    {
+      "ingredient": "hbm:crystal_niobium"
+    }
+  ],
+  "order": 970074,
+  "output_items": [
+    {
+      "count": 2,
+      "id": "hbm:powder_niobium"
+    },
+    {
+      "count": 2,
+      "id": "hbm:powder_niobium"
+    },
+    {
+      "count": 2,
+      "id": "hbm:powder_iron"
+    },
+    "hbm:nugget_hafnium"
+  ],
+  "power": 200
+}

@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "#c:plates/copper",
+    "L": {
+      "type": "hbm:fluid_content",
+      "amount": 1000,
+      "fluid": "minecraft:lava"
+    },
+    "S": "#c:stones",
+    "T": "#c:ingots/tungsten"
+  },
+  "pattern": [
+    "CCC",
+    "SLS",
+    "TST"
+  ],
+  "result": {
+    "id": "hbm:press_preheater"
+  }
+}

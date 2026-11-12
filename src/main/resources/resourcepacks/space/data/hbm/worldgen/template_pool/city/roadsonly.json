@@ -1,0 +1,27 @@
+{
+  "elements": [
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/road",
+        "processors": "hbm:space_terrain",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    },
+    {
+      "element": {
+        "element_type": "hbm:legacy_piece",
+        "location": "hbm:city/curve",
+        "processors": "hbm:space_terrain",
+        "projection": "rigid",
+        "height_offset": 0,
+        "align_to_terrain": false
+      },
+      "weight": 1
+    }
+  ],
+  "fallback": "minecraft:empty"
+}

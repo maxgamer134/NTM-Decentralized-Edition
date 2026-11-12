@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:tag_empty",
+        "tag": "c:storage_blocks/raw_aluminum"
+      }
+    }
+  ],
+  "type": "hbm:crystallizer",
+  "duration": 3600,
+  "input_fluids": [
+    {
+      "type": "hbm:peroxide",
+      "amount": 2997
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_aluminum"
+    }
+  ],
+  "order": 60929,
+  "output_items": [
+    {
+      "id": "hbm:crystal_aluminium",
+      "count": 6
+    }
+  ],
+  "productivity": 0.05
+}

@@ -23,6 +23,19 @@ public class EntityBalefire extends EntityExplosionChunkloading {
     public ExplosionBalefire exp;
     public int speed = 1;
     public boolean did = false;
+    /** NTM:Space's antimatter bomb: its own crater, set only while Space is on. */
+    public boolean antimatter = false;
+
+    public EntityBalefire antimatter() {
+        this.antimatter = true;
+        return this;
+    }
+
+    private ExplosionBalefire makeExplosion() {
+        return antimatter
+                ? new com.hbm.space.explosion.ExplosionAntimatter((int) getX(), (int) getY(), (int) getZ(), level(), destructionRange)
+                : new ExplosionBalefire((int) getX(), (int) getY(), (int) getZ(), level(), destructionRange);
+    }
 
     public EntityBalefire(EntityType<? extends EntityBalefire> type, Level level) {
         super(type, level);
@@ -41,13 +54,7 @@ public class EntityBalefire extends EntityExplosionChunkloading {
                         getZ(),
                         destructionRange);
 
-            exp =
-                    new ExplosionBalefire(
-                            (int) getX(),
-                            (int) getY(),
-                            (int) getZ(),
-                            level(),
-                            this.destructionRange);
+            exp = makeExplosion();
             if (level() instanceof ServerLevel server) burnBuilds(server);
 
             this.did = true;
@@ -63,6 +70,11 @@ public class EntityBalefire extends EntityExplosionChunkloading {
                 this.discard();
             }
         }
+
+        // NTM:Space's antimatter bomb also floods everything in twice its range with radiation
+        if (antimatter && this.tickCount < 10)
+            com.hbm.util.ContaminationUtil.radiate(level(), getX(), getY(), getZ(), destructionRange * 2D,
+                    40000D * destructionRange, com.hbm.util.ContaminationUtil.ContaminationType.CREATIVE);
 
         if (!flag) {
             ExplosionNukeGeneric.dealDamage(
@@ -98,10 +110,9 @@ public class EntityBalefire extends EntityExplosionChunkloading {
         destructionRange = input.getIntOr("destructionRange", 0);
         speed = input.getIntOr("speed", 1);
         did = input.getBooleanOr("did", false);
+        antimatter = input.getBooleanOr("antimatter", false);
 
-        exp =
-                new ExplosionBalefire(
-                        (int) getX(), (int) getY(), (int) getZ(), level(), this.destructionRange);
+        exp = makeExplosion();
         exp.readFromNbt(input, "exp_");
 
         this.did = true;
@@ -114,6 +125,7 @@ public class EntityBalefire extends EntityExplosionChunkloading {
         output.putInt("destructionRange", destructionRange);
         output.putInt("speed", speed);
         output.putBoolean("did", did);
+        if (antimatter) output.putBoolean("antimatter", true);
 
         if (exp != null) exp.saveToNbt(output, "exp_");
     }

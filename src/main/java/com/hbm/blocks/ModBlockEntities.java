@@ -819,7 +819,7 @@ public final class ModBlockEntities {
                             BlockEntityMachineTurbofan::new,
                             ModBlocks.MACHINE_TURBOFAN);
     public static final RegistryHandle<BlockEntityType<BlockEntityMachineLPW2>> LPW2 =
-            be("machine_lpw2", BlockEntityMachineLPW2::new, ModBlocks.MACHINE_LPW2);
+            be("machine_lpw2", BlockEntityMachineLPW2::create, ModBlocks.MACHINE_LPW2);
     public static final RegistryHandle<BlockEntityType<BlockEntityMachinePumpSteam>> STEAM_PUMP =
             pump("steam_pump", BlockEntityMachinePumpSteam::new, ModBlocks.PUMP_STEAM);
     public static final RegistryHandle<BlockEntityType<BlockEntitySolarBoiler>> SOLARBOILER =

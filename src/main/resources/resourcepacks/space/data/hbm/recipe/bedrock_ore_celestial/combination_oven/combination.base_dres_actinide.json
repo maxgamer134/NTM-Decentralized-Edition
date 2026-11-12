@@ -1,0 +1,31 @@
+{
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "dres_actinide"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 992040,
+  "output_fluids": [
+    {
+      "type": "hbm:vitriol",
+      "amount": 50
+    }
+  ],
+  "output_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "dres_actinide",
+          "grade": "base_roasted"
+        }
+      },
+      "id": "hbm:bedrock_ore"
+    }
+  ],
+  "type": "hbm:combination_oven"
+}

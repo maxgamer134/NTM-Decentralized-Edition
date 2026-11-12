@@ -1,0 +1,28 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:seg_20"
+    },
+    {
+      "count": 12,
+      "ingredient": "#hbm:shells/titanium"
+    },
+    {
+      "count": 16,
+      "ingredient": "#hbm:plates_welded/aluminum"
+    },
+    {
+      "count": 8,
+      "ingredient": "#c:ingots/polymer"
+    }
+  ],
+  "name": "ass.rp_fuselage_20_12_hydrazine",
+  "order": 900503,
+  "output_items": [
+    "hbm:rp_fuselage_20_12_hydrazine"
+  ],
+  "power": 100
+}

@@ -1,0 +1,25 @@
+{
+  "type": "hbm:blast_furnace",
+  "duration": 10800,
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_iron"
+    },
+    {
+      "ingredient": "hbm:powder_flux",
+      "count": 9
+    }
+  ],
+  "name": "blast.steelWithFlux_raw_block",
+  "order": 1281,
+  "output_items": [
+    {
+      "count": 18,
+      "id": "hbm:ingot_steel"
+    },
+    {
+      "count": 12,
+      "id": "hbm:ingot_raw_slag"
+    }
+  ]
+}

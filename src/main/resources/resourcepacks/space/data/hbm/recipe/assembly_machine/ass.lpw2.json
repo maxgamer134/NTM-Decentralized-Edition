@@ -1,0 +1,31 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 600,
+  "power": 100,
+  "input_items": [
+    {
+      "count": 16,
+      "ingredient": "#hbm:plates_welded/steel"
+    },
+    {
+      "count": 32,
+      "ingredient": "#c:bolts/steel"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:shells/titanium"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:motor_desh"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:item_expensive_circuit"
+    }
+  ],
+  "output_items": [
+    "hbm:machine_lpw2"
+  ],
+  "order": 961010
+}

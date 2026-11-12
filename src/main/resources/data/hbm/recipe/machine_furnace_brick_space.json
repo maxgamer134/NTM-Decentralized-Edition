@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "B": "#c:stones",
+    "I": "minecraft:brick"
+  },
+  "pattern": [
+    "III",
+    "I I",
+    "BBB"
+  ],
+  "result": {
+    "id": "hbm:machine_furnace_brick"
+  }
+}

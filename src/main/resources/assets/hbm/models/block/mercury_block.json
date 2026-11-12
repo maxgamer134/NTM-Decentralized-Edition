@@ -1,0 +1,6 @@
+{
+  "textures": {
+    "particle": "hbm:block/fluid/mercury_still"
+  },
+  "render_type": "minecraft:translucent"
+}

@@ -1,0 +1,32 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "enable_528_pressurized"
+    }
+  ],
+  "type": "hbm:chemical_plant",
+  "duration": 200,
+  "input_fluids": [
+    {
+      "type": "hbm:peroxide",
+      "amount": 250,
+      "pressure": 1
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "#hbm:ingots/any_plastic"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:strings"
+    }
+  ],
+  "name": "chem.synleatherPressurized",
+  "order": 970103,
+  "output_items": [
+    "minecraft:leather"
+  ],
+  "power": 500
+}

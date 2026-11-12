@@ -1,0 +1,34 @@
+{
+  "duration": 100,
+  "input_fluids": [
+    {
+      "type": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "eve_actinide",
+          "grade": "sulfuric_arc"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore",
+      "count": 4
+    }
+  ],
+  "order": 992457,
+  "output_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "eve_actinide",
+          "grade": "sulfuric_washed"
+        }
+      },
+      "id": "hbm:bedrock_ore"
+    }
+  ],
+  "type": "hbm:crystallizer"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "minecraft:bread",
+    "hbm:grilled_flesh"
+  ],
+  "result": {
+    "id": "hbm:flesh_burger"
+  }
+}

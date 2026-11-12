@@ -1,0 +1,33 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "blueprint_pools_528": [
+    "528.stainless"
+  ],
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "hbm:item_expensive_heavy_frame"
+    },
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_welded/stainless"
+    },
+    {
+      "count": 4,
+      "ingredient": "#c:ingots/niobium"
+    }
+  ],
+  "name": "ass.cryodistilEx",
+  "order": 970011,
+  "output_items": [
+    "hbm:machine_cryo_distill"
+  ],
+  "power": 100
+}

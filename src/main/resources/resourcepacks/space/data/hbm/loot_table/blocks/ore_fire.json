@@ -1,0 +1,81 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:alternatives",
+          "children": [
+            {
+              "type": "minecraft:item",
+              "name": "hbm:ore_fire",
+              "functions": [
+                {
+                  "function": "minecraft:copy_state",
+                  "block": "hbm:ore_fire",
+                  "properties": [
+                    "body"
+                  ]
+                }
+              ],
+              "conditions": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "predicates": {
+                      "minecraft:enchantments": [
+                        {
+                          "enchantments": "minecraft:silk_touch",
+                          "levels": {
+                            "min": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "minecraft:alternatives",
+              "children": [
+                {
+                  "type": "minecraft:item",
+                  "name": "hbm:ingot_phosphorus",
+                  "conditions": [
+                    {
+                      "condition": "minecraft:random_chance",
+                      "chance": 0.1
+                    }
+                  ]
+                },
+                {
+                  "type": "minecraft:item",
+                  "name": "hbm:powder_fire",
+                  "functions": [
+                    {
+                      "function": "minecraft:apply_bonus",
+                      "enchantment": "minecraft:fortune",
+                      "formula": "minecraft:ore_drops"
+                    },
+                    {
+                      "function": "minecraft:explosion_decay"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "hbm:blocks/ore_fire"
+}

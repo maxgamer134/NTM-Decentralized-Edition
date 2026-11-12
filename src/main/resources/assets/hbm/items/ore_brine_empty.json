@@ -1,0 +1,89 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "body",
+    "cases": [
+      {
+        "when": "orbit",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_orbit"
+        }
+      },
+      {
+        "when": "kerbin",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_kerbin"
+        }
+      },
+      {
+        "when": "mun",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_mun"
+        }
+      },
+      {
+        "when": "minmus",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_minmus"
+        }
+      },
+      {
+        "when": "duna",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_duna"
+        }
+      },
+      {
+        "when": "moho",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_moho"
+        }
+      },
+      {
+        "when": "dres",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_dres"
+        }
+      },
+      {
+        "when": "eve",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_eve"
+        }
+      },
+      {
+        "when": "ike",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_ike"
+        }
+      },
+      {
+        "when": "laythe",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_laythe"
+        }
+      },
+      {
+        "when": "tekto",
+        "model": {
+          "type": "minecraft:model",
+          "model": "hbm:block/space_ore/ore_brine_empty_tekto"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "hbm:block/space_ore/ore_brine_empty_orbit"
+    }
+  }
+}

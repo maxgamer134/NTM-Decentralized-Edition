@@ -1,0 +1,8 @@
+{
+  "comparator_output": 15,
+  "description": {
+    "translate": "jukebox_song.hbm.el"
+  },
+  "length_in_seconds": 197.739,
+  "sound_event": "hbm:music.record_el"
+}

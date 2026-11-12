@@ -1,0 +1,22 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "C": "hbm:circuit_basic",
+    "H": "hbm:part_generic_piston_hydraulic",
+    "S": "#c:plates/stainless"
+  },
+  "pattern": [
+    "SS",
+    "HC",
+    "SS"
+  ],
+  "result": {
+    "id": "hbm:refueler"
+  }
+}

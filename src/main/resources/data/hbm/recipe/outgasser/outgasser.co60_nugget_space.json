@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:outgasser",
+  "duration": 10000,
+  "input_items": [
+    {
+      "ingredient": "#c:nuggets/cobalt"
+    }
+  ],
+  "order": 995001,
+  "output_items": [
+    "hbm:nugget_co60"
+  ]
+}

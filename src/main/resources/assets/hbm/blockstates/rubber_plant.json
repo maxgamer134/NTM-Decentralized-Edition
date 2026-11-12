@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=grass": {
+      "model": "hbm:block/rubber_plant_grass"
+    },
+    "type=fern": {
+      "model": "hbm:block/rubber_plant_fern"
+    },
+    "type=shrub": {
+      "model": "hbm:block/rubber_plant_shrub"
+    }
+  }
+}

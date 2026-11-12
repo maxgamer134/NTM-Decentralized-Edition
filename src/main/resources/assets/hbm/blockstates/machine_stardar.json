@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "hbm:block/machine_stardar"
+    },
+    "facing=south": {
+      "model": "hbm:block/machine_stardar"
+    },
+    "facing=east": {
+      "model": "hbm:block/machine_stardar"
+    },
+    "facing=west": {
+      "model": "hbm:block/machine_stardar"
+    }
+  }
+}

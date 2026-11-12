@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_rocket_assembly_base",
+    "mesh": "hbm:models/machines/rocket_assembly.obj",
+    "skins": [
+      "hbm:textures/models/machines/rocket_assembly.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

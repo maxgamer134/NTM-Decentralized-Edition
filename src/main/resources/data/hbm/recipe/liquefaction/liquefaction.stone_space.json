@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:liquefaction",
+  "input_items": [
+    {
+      "ingredient": "#c:stones"
+    }
+  ],
+  "order": 3584,
+  "output_fluids": [
+    {
+      "type": "minecraft:lava",
+      "amount": 250
+    }
+  ]
+}

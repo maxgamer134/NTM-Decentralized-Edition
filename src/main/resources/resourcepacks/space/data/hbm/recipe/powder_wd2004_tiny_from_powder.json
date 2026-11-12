@@ -1,0 +1,10 @@
+{
+  "type": "hbm:crafting_shapeless",
+  "ingredients": [
+    "hbm:powder_wd2004"
+  ],
+  "result": {
+    "count": 9,
+    "id": "hbm:powder_wd2004_tiny"
+  }
+}

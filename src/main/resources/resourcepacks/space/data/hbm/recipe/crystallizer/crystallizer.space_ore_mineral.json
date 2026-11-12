@@ -1,0 +1,14 @@
+{
+  "type": "hbm:crystallizer",
+  "duration": 600,
+  "input_items": [
+    {
+      "ingredient": "hbm:ore_mineral"
+    }
+  ],
+  "order": 970062,
+  "output_items": [
+    "hbm:crystal_mineral"
+  ],
+  "productivity": 0.05
+}

@@ -1,0 +1,12 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:ore_mineral"
+    }
+  ],
+  "order": 970052,
+  "output_items": [
+    "hbm:mineral_dust"
+  ]
+}

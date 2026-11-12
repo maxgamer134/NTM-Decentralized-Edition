@@ -197,7 +197,10 @@ public abstract class MixinSkyRenderer {
             boolean foggy,
             Runnable setupFog,
             CallbackInfo ci) {
-        if (hbm$normalSky) NTMSkybox.renderExtras(viewRotation);
+        if (hbm$normalSky) {
+            NTMSkybox.renderExtras(viewRotation);
+            CustomSkies.overlay((LevelRenderer) (Object) this, viewRotation, partialTicks);
+        }
         hbm$normalSky = false;
     }
 }

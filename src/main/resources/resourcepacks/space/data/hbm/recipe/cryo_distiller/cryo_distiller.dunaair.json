@@ -1,0 +1,30 @@
+{
+  "type": "hbm:cryo_distiller",
+  "duration": 1,
+  "input_fluids": [
+    {
+      "type": "hbm:dunaair",
+      "amount": 100
+    }
+  ],
+  "order": 1007,
+  "output_fluids": [
+    {
+      "type": "hbm:carbondioxide",
+      "amount": 70
+    },
+    {
+      "type": "hbm:nitrogen",
+      "amount": 15
+    },
+    {
+      "type": "hbm:argon",
+      "amount": 10
+    },
+    {
+      "type": "hbm:oxygen",
+      "amount": 5
+    }
+  ],
+  "power": 20000
+}

@@ -1,0 +1,22 @@
+{
+  "type": "hbm:mixer",
+  "duration": 50,
+  "input_fluids": [
+    {
+      "type": "hbm:nitric_acid",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "ingredient": "hbm:nugget_technetium"
+    }
+  ],
+  "order": 970113,
+  "output_fluids": [
+    {
+      "type": "hbm:htco4",
+      "amount": 250
+    }
+  ]
+}

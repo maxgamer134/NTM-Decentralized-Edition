@@ -1,0 +1,10 @@
+{
+  "type": "hbm:legacy_jigsaw",
+  "biomes": [
+    "hbm:moon"
+  ],
+  "size": 20,
+  "spawn_overrides": {},
+  "start_pool": "hbm:mun/start",
+  "step": "strongholds"
+}

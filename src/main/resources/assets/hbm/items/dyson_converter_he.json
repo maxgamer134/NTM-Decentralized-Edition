@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/dyson_converter_he_base",
+    "mesh": "hbm:models/machines/dyson_he_converter.obj",
+    "skins": [
+      "hbm:textures/models/machines/dyson_he_converter.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

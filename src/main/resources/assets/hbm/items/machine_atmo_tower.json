@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_atmo_tower_base",
+    "mesh": "hbm:models/machines/atmo_tower.obj",
+    "skins": [
+      "hbm:textures/models/machines/machine_atmo_tower.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

@@ -1,0 +1,9 @@
+{
+  "type": "hbm:moho",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "moho"
+    }
+  }
+}

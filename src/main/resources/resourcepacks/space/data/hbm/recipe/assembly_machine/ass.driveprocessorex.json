@@ -1,0 +1,33 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 400,
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "#hbm:ingots/any_rubber"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:item_expensive_steel_plating"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:crt_display"
+    },
+    {
+      "ingredient": "hbm:item_expensive_circuit"
+    }
+  ],
+  "name": "ass.driveprocessorEx",
+  "order": 900003,
+  "output_items": [
+    "hbm:machine_drive_processor"
+  ],
+  "power": 100
+}

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/dyson_receiver_base",
+    "mesh": "hbm:models/machines/dyson_receiver.obj",
+    "skins": [
+      "hbm:textures/models/machines/dyson_receiver.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

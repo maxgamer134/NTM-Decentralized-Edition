@@ -1,0 +1,21 @@
+{
+  "input_items": [
+    {
+      "components": {
+        "hbm:bedrock_ore": {
+          "type": "moho_actinide",
+          "grade": "rad_washed"
+        }
+      },
+      "ingredient": "hbm:bedrock_ore"
+    }
+  ],
+  "order": 991632,
+  "output_materials": [
+    {
+      "amount": 72,
+      "material": "ayerite"
+    }
+  ],
+  "type": "hbm:arc_furnace"
+}

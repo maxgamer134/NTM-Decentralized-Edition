@@ -1,0 +1,22 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "input_items": [
+    {
+      "count": 16,
+      "ingredient": "minecraft:dirt"
+    },
+    {
+      "ingredient": "#hbm:ingots/any_plastic"
+    }
+  ],
+  "name": "ass.astroturf",
+  "order": 970015,
+  "output_items": [
+    {
+      "count": 16,
+      "id": "hbm:astroturf"
+    }
+  ],
+  "power": 100
+}

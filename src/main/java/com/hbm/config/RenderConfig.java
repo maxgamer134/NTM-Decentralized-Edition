@@ -10,6 +10,8 @@ public final class RenderConfig {
     public static volatile boolean cableHang = true;
     public static volatile boolean simpleRebar = false;
     public static volatile boolean smoothModels = true;
+    public static volatile String spaceOverworldSky = "auto";
+    public static volatile boolean spacePlssBreathing = true;
 
     private RenderConfig() {}
 
@@ -19,5 +21,7 @@ public final class RenderConfig {
         cableHang = c.get(ConfigSchema.RENDER_CABLE_HANG);
         simpleRebar = c.get(ConfigSchema.RENDER_REBAR_SIMPLE);
         smoothModels = c.get(ConfigSchema.SMOOTH_MODEL_SHADING);
+        spaceOverworldSky = c.get(ConfigSchema.SPACE_OVERWORLD_SKY);
+        spacePlssBreathing = c.get(ConfigSchema.SPACE_PLSS_BREATHING);
     }
 }

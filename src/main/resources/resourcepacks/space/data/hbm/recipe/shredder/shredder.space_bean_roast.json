@@ -1,0 +1,12 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:bean_roast"
+    }
+  ],
+  "order": 970053,
+  "output_items": [
+    "hbm:powder_coffee"
+  ]
+}

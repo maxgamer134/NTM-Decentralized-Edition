@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:chest",
+  "hbm:random_slots": true,
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "value": "hbm:chests/submarine"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 6.0,
+        "max": 11.0
+      }
+    }
+  ],
+  "random_sequence": "hbm:chests/submarine_6_11"
+}

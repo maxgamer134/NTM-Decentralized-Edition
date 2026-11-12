@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "hbm:moho_regolith"
+  },
+  "result": {
+    "id": "hbm:moho_stone",
+    "count": 1
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "hbm:cryo_distiller",
+  "duration": 1,
+  "input_fluids": [
+    {
+      "type": "hbm:joolgas",
+      "amount": 100
+    }
+  ],
+  "order": 1002,
+  "output_fluids": [
+    {
+      "type": "hbm:helium3",
+      "amount": 40
+    },
+    {
+      "type": "hbm:hydrogen",
+      "amount": 30
+    },
+    {
+      "type": "hbm:chlorine",
+      "amount": 20
+    },
+    {
+      "type": "hbm:neon",
+      "amount": 10
+    }
+  ],
+  "power": 20000
+}

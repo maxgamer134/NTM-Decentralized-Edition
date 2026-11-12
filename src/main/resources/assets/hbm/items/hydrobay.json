@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/hydrobay_base",
+    "mesh": "hbm:models/machines/hydroponic.obj",
+    "skins": [
+      "hbm:textures/models/machines/hydroponic.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

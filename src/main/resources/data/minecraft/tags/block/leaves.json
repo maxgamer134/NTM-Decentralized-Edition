@@ -1,5 +1,13 @@
 {
   "values": [
-    "hbm:waste_leaves"
+    "hbm:waste_leaves",
+    {
+      "id": "hbm:rubber_leaves",
+      "required": false
+    },
+    {
+      "id": "hbm:pet_leaves",
+      "required": false
+    }
   ]
 }

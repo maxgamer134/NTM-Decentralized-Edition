@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!space_changes"
+    }
+  ],
   "type": "minecraft:smelting",
   "cookingtime": 200,
   "experience": 10.0,

@@ -1,0 +1,15 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "#c:storage_blocks/raw_copper"
+    }
+  ],
+  "order": 72961,
+  "output_items": [
+    {
+      "count": 12,
+      "id": "hbm:powder_copper"
+    }
+  ]
+}

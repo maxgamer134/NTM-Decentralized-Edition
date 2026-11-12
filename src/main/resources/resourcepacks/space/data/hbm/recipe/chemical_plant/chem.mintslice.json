@@ -1,0 +1,31 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 50,
+  "input_fluids": [
+    {
+      "type": "hbm:milk",
+      "amount": 350
+    }
+  ],
+  "input_items": [
+    {
+      "count": 3,
+      "ingredient": "hbm:billet_menthol"
+    },
+    {
+      "ingredient": "hbm:minmus_stone"
+    },
+    {
+      "count": 6,
+      "ingredient": "minecraft:sugar"
+    }
+  ],
+  "order": 970096,
+  "output_items": [
+    {
+      "count": 3,
+      "id": "hbm:chocolate_mint_billet"
+    }
+  ],
+  "power": 100
+}

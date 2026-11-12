@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "hbm:mesh",
+    "base": "hbm:item/machine_drive_processor_base",
+    "mesh": "hbm:models/machines/drive_processor.obj",
+    "skins": [
+      "hbm:textures/models/machines/drive_processor.png"
+    ],
+    "smooth": true
+  },
+  "oversized_in_gui": true
+}

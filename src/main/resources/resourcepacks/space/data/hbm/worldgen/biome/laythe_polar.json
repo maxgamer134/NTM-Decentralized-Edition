@@ -1,0 +1,30 @@
+{
+  "has_precipitation": true,
+  "temperature": 0.2,
+  "downfall": 0.2,
+  "effects": {
+    "sky_color": 0,
+    "fog_color": 0,
+    "water_color": 12711167,
+    "water_fog_color": 12711167
+  },
+  "spawners": {
+    "water_creature": [
+      {
+        "type": "hbm:entity_scutterfish",
+        "weight": 10,
+        "minCount": 4,
+        "maxCount": 4
+      },
+      {
+        "type": "hbm:entity_siftereel",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": []
+}

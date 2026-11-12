@@ -21,10 +21,19 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 public class BlockSulfuricAcid extends BlockFluidClassicBase {
-    private static final float DAMAGE = 5.0F;
+    private final net.minecraft.resources.ResourceKey<net.minecraft.world.damagesource.DamageType> damageType;
+    private final float damage;
 
     public BlockSulfuricAcid(ClassicFluid fluid, Properties props) {
+        this(fluid, props, ModDamageTypes.ACID, 5.0F);
+    }
+
+    /** NTM:Space's GenericFluidBlock: the same harmful fluid with its own damage (mercury, bromine, ccl). */
+    public BlockSulfuricAcid(ClassicFluid fluid, Properties props,
+            net.minecraft.resources.ResourceKey<net.minecraft.world.damagesource.DamageType> damageType, float damage) {
         super(fluid, props);
+        this.damageType = damageType;
+        this.damage = damage;
     }
 
     @Override
@@ -39,7 +48,7 @@ public class BlockSulfuricAcid extends BlockFluidClassicBase {
             entity.setDeltaMovement(Vec3.ZERO);
             if (entity.tickCount % 20 == 0 && level instanceof ServerLevel server) {
                 ItemStack stack = item.getItem().copy();
-                entity.hurt(level.damageSources().source(ModDamageTypes.ACID), DAMAGE * 0.1F);
+                entity.hurt(level.damageSources().source(damageType), damage * 0.1F);
                 if (entity.isRemoved()) {
                     AwardRegions.nearby(
                             server,
@@ -61,7 +70,7 @@ public class BlockSulfuricAcid extends BlockFluidClassicBase {
             Vec3 motion = entity.getDeltaMovement();
             if (motion.y < -0.2D) entity.setDeltaMovement(motion.x, motion.y * 0.5D, motion.z);
             if (!level.isClientSide()) {
-                entity.hurt(level.damageSources().source(ModDamageTypes.ACID), DAMAGE);
+                entity.hurt(level.damageSources().source(damageType), damage);
             }
         }
 

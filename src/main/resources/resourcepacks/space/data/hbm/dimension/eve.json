@@ -1,0 +1,9 @@
+{
+  "type": "hbm:eve",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "eve"
+    }
+  }
+}

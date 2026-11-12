@@ -1,0 +1,13 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "R": "#hbm:ingots/any_rubber"
+  },
+  "pattern": [
+    "R R",
+    "R R"
+  ],
+  "result": {
+    "id": "hbm:flippers"
+  }
+}

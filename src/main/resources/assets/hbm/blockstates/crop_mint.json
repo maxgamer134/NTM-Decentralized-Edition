@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "hbm:block/crop_mint_1"
+    },
+    "age=1": {
+      "model": "hbm:block/crop_mint_1"
+    },
+    "age=2": {
+      "model": "hbm:block/crop_mint_2"
+    },
+    "age=3": {
+      "model": "hbm:block/crop_mint_2"
+    },
+    "age=4": {
+      "model": "hbm:block/crop_mint_3"
+    },
+    "age=5": {
+      "model": "hbm:block/crop_mint_3"
+    },
+    "age=6": {
+      "model": "hbm:block/crop_mint_4"
+    },
+    "age=7": {
+      "model": "hbm:block/crop_mint_5"
+    }
+  }
+}

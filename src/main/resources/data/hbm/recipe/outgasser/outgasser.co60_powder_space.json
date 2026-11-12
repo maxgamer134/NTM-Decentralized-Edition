@@ -1,0 +1,19 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "space_changes"
+    }
+  ],
+  "type": "hbm:outgasser",
+  "duration": 10000,
+  "input_items": [
+    {
+      "ingredient": "#c:dusts/cobalt"
+    }
+  ],
+  "order": 995002,
+  "output_items": [
+    "hbm:powder_co60"
+  ]
+}

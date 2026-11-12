@@ -1,0 +1,55 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "hbm:block/spike_cacti_cact"
+      },
+      "when": {
+        "type": "cact"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/spike_cacti_cact",
+        "y": 180
+      },
+      "when": {
+        "type": "cact"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/spike_cacti_bush"
+      },
+      "when": {
+        "type": "bush"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/spike_cacti_bush",
+        "y": 180
+      },
+      "when": {
+        "type": "bush"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/spike_cacti_flower"
+      },
+      "when": {
+        "type": "flower"
+      }
+    },
+    {
+      "apply": {
+        "model": "hbm:block/spike_cacti_flower",
+        "y": 180
+      },
+      "when": {
+        "type": "flower"
+      }
+    }
+  ]
+}

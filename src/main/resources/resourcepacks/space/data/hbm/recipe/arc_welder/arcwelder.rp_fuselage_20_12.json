@@ -1,0 +1,28 @@
+{
+  "type": "hbm:arc_welder",
+  "duration": 250,
+  "input_fluids": [
+    {
+      "type": "hbm:oxygen",
+      "amount": 500
+    }
+  ],
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "#hbm:plates_welded/stainless"
+    },
+    {
+      "ingredient": "hbm:rp_fuselage_20_6"
+    },
+    {
+      "count": 6,
+      "ingredient": "#hbm:shells/titanium"
+    }
+  ],
+  "order": 970027,
+  "output_items": [
+    "hbm:rp_fuselage_20_12"
+  ],
+  "power": 60000
+}

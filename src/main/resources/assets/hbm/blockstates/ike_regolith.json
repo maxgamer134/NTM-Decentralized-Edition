@@ -1,0 +1,276 @@
+{
+  "variants": {
+    "shade=0": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=1": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=2": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=3": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=4": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=5": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=6": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=7": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=8": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=9": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=10": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=11": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=12": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=13": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=14": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ],
+    "shade=15": [
+      {
+        "model": "hbm:block/space_tint/ike_regolith"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith2"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith3"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith4"
+      },
+      {
+        "model": "hbm:block/space_tint/ike_regolith5"
+      }
+    ]
+  }
+}

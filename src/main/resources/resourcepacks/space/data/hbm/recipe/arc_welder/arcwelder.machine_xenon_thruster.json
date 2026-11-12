@@ -1,0 +1,28 @@
+{
+  "type": "hbm:arc_welder",
+  "duration": 200,
+  "input_fluids": [
+    {
+      "type": "hbm:argon",
+      "amount": 1000
+    }
+  ],
+  "input_items": [
+    {
+      "count": 2,
+      "ingredient": "#hbm:plates_welded/tungsten"
+    },
+    {
+      "count": 6,
+      "ingredient": "#c:plates/stainless"
+    },
+    {
+      "ingredient": "hbm:arc_electrode_graphite"
+    }
+  ],
+  "order": 970023,
+  "output_items": [
+    "hbm:machine_xenon_thruster"
+  ],
+  "power": 50000
+}

@@ -61,6 +61,14 @@ public abstract class BlockEntityPylonBase extends BlockEntityCompat
     @SyncField(units = 1L << 1)
     public int color;
 
+    /**
+     * Wires a structure template asked for: the far ends' world positions as x, y, z triples,
+     * linked on graph load.
+     */
+    public static final String STRUCTURE_WIRES = "hbm_structure_wires";
+
+    private int[] structureWires = new int[0];
+
     protected BlockEntityPylonBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
@@ -125,7 +133,31 @@ public abstract class BlockEntityPylonBase extends BlockEntityCompat
     @Override
     public void onGraphLoad(ServerLevel server) {
         CableConductorBlockBase.restoreNode(server, worldPosition, getBlockState());
+        linkStructureWires(server);
         refreshConnections();
+    }
+
+    /**
+     * Strings the wires a placed structure carried. A far end that is not loaded yet keeps a
+     * dormant link here; its own copy of the wire completes the link once it loads.
+     */
+    private void linkStructureWires(ServerLevel server) {
+        if (structureWires.length == 0) return;
+        var graph = PowerGraph.get(server);
+        long self = worldPosition.asLong();
+        if (graph.getNode(self) == null) return;
+        for (int i = 0; i + 2 < structureWires.length; i += 3) {
+            long peer = BlockPos.asLong(structureWires[i], structureWires[i + 1], structureWires[i + 2]);
+            if (peer == self) continue;
+            if (graph.getNode(peer) != null) {
+                graph.addRemoteLink(self, peer);
+                refreshIfLoaded(server, peer);
+            } else {
+                graph.addDormantLink(self, peer);
+            }
+        }
+        structureWires = new int[0];
+        setChanged();
     }
 
     public void setColor(int dyed, ItemStack stack, Player player) {
@@ -139,12 +171,14 @@ public abstract class BlockEntityPylonBase extends BlockEntityCompat
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         color = input.getIntOr("color", 0);
+        structureWires = input.getIntArray(STRUCTURE_WIRES).orElse(new int[0]);
     }
 
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         output.putInt("color", color);
+        if (structureWires.length > 0) output.putIntArray(STRUCTURE_WIRES, structureWires);
     }
 
     public enum ConnectionType {

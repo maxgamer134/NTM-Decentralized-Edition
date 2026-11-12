@@ -226,8 +226,23 @@ public abstract class EntityMissileBaseNT extends ProjectileCompat
         float horiz = (float) Math.sqrt(flight.x * flight.x + flight.z * flight.z);
         this.xRot = (float) (Math.atan2(flight.y, horiz) * 180.0D / Math.PI) - 90F;
 
-        ChunkUtil.holdOwnChunk(this);
+        if (com.hbm.space.SpaceToggle.enabled()) {
+            // NTM:Space: while the missile stays in the chunk it already holds, leave the hold be
+            // (upstream returned early instead of unforcing and reforcing it); refresh well
+            // inside the hold's 40-tick timeout
+            net.minecraft.world.level.ChunkPos chunk = chunkPosition();
+            if (!chunk.equals(spaceHeldChunk) || tickCount - spaceHeldAt >= 20) {
+                ChunkUtil.holdOwnChunk(this);
+                spaceHeldChunk = chunk;
+                spaceHeldAt = tickCount;
+            }
+        } else {
+            ChunkUtil.holdOwnChunk(this);
+        }
     }
+
+    private net.minecraft.world.level.@org.jspecify.annotations.Nullable ChunkPos spaceHeldChunk;
+    private int spaceHeldAt;
 
     /** Start a missile off a tilted pad already pointing along the pad (main: always upright). */
     private void initRenderRotation() {

@@ -57,6 +57,25 @@ final class CustomMissilePreview {
                 HALF_H * 2);
     }
 
+    /** Space: upstream GUIMachineLaunchTable also pronts a custom rocket held in the missile slot. */
+    void drawRocket(ScreenInfoContainer<?> screen, GuiGraphicsExtractor graphics, ItemStack stack) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (minecraft.level == null) return;
+        if (rocket == null || rocket.level() != minecraft.level || !ItemStack.isSameItemSameComponents(rocketStack, stack)) {
+            rocket = com.hbm.space.rocket.EntityRideableRocket.of(minecraft.level, 0, 0, 0, stack);
+            rocket.setId(-1);
+            rocketStack = stack.copy();
+        }
+        float height = (float) ((com.hbm.space.rocket.EntityRideableRocket) rocket).getRocket().getHeight();
+        float scale = SIZE / Math.max(height, MIN_HEIGHT);
+        Vector3f translation = new Vector3f(0F, 0F, height / 2F);
+        Quaternionf rotation = new Quaternionf().rotateZ(Mth.PI).rotateY(Mth.HALF_PI);
+        screen.submitEntity(graphics, rocket, scale, translation, rotation, CX - HALF_W, CY - HALF_H, HALF_W * 2, HALF_H * 2);
+    }
+
+    private net.minecraft.world.entity.@Nullable Entity rocket;
+    private ItemStack rocketStack = ItemStack.EMPTY;
+
     private static ItemStack stack(@Nullable ItemCustomMissilePart part) {
         return part == null ? ItemStack.EMPTY : new ItemStack(part);
     }

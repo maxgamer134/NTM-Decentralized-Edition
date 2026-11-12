@@ -1,0 +1,9 @@
+{
+  "type": "hbm:laythe",
+  "generator": {
+    "type": "hbm:celestial",
+    "biome_source": {
+      "planet": "laythe"
+    }
+  }
+}

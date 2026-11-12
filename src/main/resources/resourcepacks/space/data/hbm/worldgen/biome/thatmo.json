@@ -1,0 +1,38 @@
+{
+  "has_precipitation": false,
+  "temperature": -1.0,
+  "downfall": 0.0,
+  "effects": {
+    "sky_color": 0,
+    "fog_color": 0,
+    "water_color": 4159204,
+    "water_fog_color": 4159204
+  },
+  "spawners": {
+    "creature": [
+      {
+        "type": "hbm:entity_moon_cow",
+        "weight": 10,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ],
+    "monster": [
+      {
+        "type": "hbm:entity_tankbot",
+        "weight": 6,
+        "minCount": 1,
+        "maxCount": 1
+      },
+      {
+        "type": "hbm:entity_war_behemoth",
+        "weight": 2,
+        "minCount": 1,
+        "maxCount": 1
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": []
+}

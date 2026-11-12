@@ -1,0 +1,21 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!space_changes"
+    }
+  ],
+  "type": "hbm:liquefaction",
+  "input_items": [
+    {
+      "ingredient": "#minecraft:logs"
+    }
+  ],
+  "order": 768,
+  "output_fluids": [
+    {
+      "type": "hbm:mug",
+      "amount": 100
+    }
+  ]
+}

@@ -413,6 +413,7 @@ public final class SpaceSky implements CustomSkies.Renderer {
         }
         float worldAngle = 0.5F - angle / 360F;
         double eclipse = eclipseFactor(metrics, trueSunSize, SolarSystem.MAX_APPARENT_SIZE_ORBIT);
+        SpaceFog.orbitEclipse = eclipse;
 
         // the backdrop is black: NTM:Space's orbit had black fog and sky
         dome(0F, 0F, 0F);

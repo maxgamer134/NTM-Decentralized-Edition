@@ -116,18 +116,9 @@ public final class SpaceEffects extends DimensionSpecialEffects {
         else colors.x = Math.min(colors.x + glow * 20F / 255F, 1F);
     }
 
-    /** WorldProviderCelestial.getSunBrightness(1): the daylight, dimmed by weather, eclipses, impact dust and thick air. */
+    /** WorldProviderCelestial.getSunBrightness(1): the daylight the world is lit by ({@link SpaceFog#skyDarken}). */
     private static float sunBrightness(ClientLevel level, CelestialBody body) {
-        float solarAngle = com.hbm.space.SpaceTime.timeOfDay(level, 1F);
-        if (Float.isNaN(solarAngle)) solarAngle = level.getTimeOfDay(1F);
-        float f = 1F - Mth.clamp(1F - (Mth.cos(solarAngle * Mth.TWO_PI) * 2F + 0.2F), 0F, 1F);
-        f *= 1F - level.getRainLevel(1F) * 5F / 16F;
-        f *= 1F - level.getThunderLevel(1F) * level.getRainLevel(1F) * 5F / 16F;
-        float dust = com.hbm.handler.ImpactWorldHandler.getDustForClient(level);
-        float brightness = (f * 0.8F + 0.2F) * (float) (1D - SpaceFog.lastEclipse * 0.6D) * (1F - dust);
-        CBT_Atmosphere atmosphere = body.getTrait(CBT_Atmosphere.class);
-        if (atmosphere == null) return brightness;
-        return brightness * Mth.clamp(1F - ((float) atmosphere.getPressure() - 1.5F) * 0.2F, 0.25F, 1F);
+        return level.getSkyDarken(1F);
     }
 
     @Override

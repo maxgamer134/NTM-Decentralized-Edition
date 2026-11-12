@@ -92,6 +92,13 @@ public abstract class MixinClientLevel implements IClientLevelExtension, IClient
         if (sky != null) cir.setReturnValue(sky);
     }
 
+    /** A planet's daylight, which lights the world through the lightmap. */
+    @Inject(method = "getSkyDarken", at = @At("RETURN"), cancellable = true)
+    private void hbm$spaceDaylight(float partialTick, CallbackInfoReturnable<Float> cir) {
+        cir.setReturnValue(com.hbm.space.client.SpaceFog.skyDarken(
+                (ClientLevel) (Object) this, cir.getReturnValueF(), partialTick));
+    }
+
     @Inject(
             method =
                     "setBlocksDirty(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockState;)V", at = @At("RETURN"))

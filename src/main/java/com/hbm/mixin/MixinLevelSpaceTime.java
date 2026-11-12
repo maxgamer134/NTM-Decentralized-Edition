@@ -21,6 +21,15 @@ public abstract class MixinLevelSpaceTime implements LevelTimeAccess {
         if (time >= 0) cir.setReturnValue(time);
     }
 
+    /** WorldProviderDuna.isDaytime: a dust storm blots out the day (no sleeping through it, the undead don't burn). */
+    @Inject(method = "isDay", at = @At("HEAD"), cancellable = true)
+    private void hbm$dunaStormNight(CallbackInfoReturnable<Boolean> cir) {
+        Level level = (Level) (Object) this;
+        if (com.hbm.space.SpaceWeather.isDuna(level) && com.hbm.space.SpaceWeather.dunaStorm(level.getGameTime()) >= 0.2F) {
+            cir.setReturnValue(false);
+        }
+    }
+
     @Override
     public float getTimeOfDay(float partialTick) {
         float angle = SpaceTime.timeOfDay((Level) (Object) this, partialTick);

@@ -39,6 +39,8 @@ public final class SpaceFog {
     private static @Nullable Level lastSkyLevel;
     /** How much of the sun the last sky drawn had eclipsed. */
     static double lastEclipse;
+    /** How much of the sun the last orbital sky drawn had eclipsed. */
+    static double orbitEclipse;
 
     /** Duna's dust storm as the client sees it, eased toward the storm blowing. */
     private static float dustStorm;
@@ -182,6 +184,42 @@ public final class SpaceFog {
         b *= 1 - dust;
         float dim = fire > 0 ? Math.max(1 - dust * 2, 0) : 1 - dust;
         return new Vec3(r * dim, g * dim, b * dim);
+    }
+
+    // ---------------------------------------------------------------- daylight
+
+    /**
+     * WorldProviderCelestial.getSunBrightness, the daylight the world is lit by: vanilla's, dimmed by
+     * eclipses, impact dust and air thicker than 1.5 atmospheres, brightened by war weapons going
+     * off; Eve's lightning flashes light it up and Tekto's haze takes 30% off. Orbit is lit by the
+     * sun unless it's eclipsed, and a destroyed star lights nothing. Vanilla's own anywhere else.
+     */
+    public static float skyDarken(ClientLevel level, float vanilla, float partial) {
+        if (!SpaceToggle.enabled() || level.dimension() == Level.OVERWORLD) return vanilla;
+        if (CelestialBody.inOrbit(level)) {
+            if (com.hbm.space.SolarSystem.kerbol.hasTrait(com.hbm.space.trait.CBT_Destroyed.class)) return 0F;
+            return 1F - (float) orbitEclipse;
+        }
+        CelestialBody body = planet(level);
+        if (body == null) return vanilla;
+        if (body.getStar().hasTrait(com.hbm.space.trait.CBT_Destroyed.class)) return 0F;
+        float sun = vanilla * (float) (1D - lastEclipse * 0.6D) * (1F - ImpactWorldHandler.getDustForClient(level));
+        float inside = 0F;
+        com.hbm.space.trait.CBT_War war = body.getTrait(com.hbm.space.trait.CBT_War.class);
+        if (war != null) {
+            for (com.hbm.space.trait.CBT_War.Projectile projectile : war.getProjectiles()) {
+                if (projectile.getAnimtime() > 0) inside += 100 - projectile.getFlashtime();
+            }
+        }
+        CBT_Atmosphere atmosphere = body.getTrait(CBT_Atmosphere.class);
+        if (atmosphere != null) sun *= Mth.clamp(1F - ((float) atmosphere.getPressure() - 1.5F) * 0.2F, 0.25F, 1F);
+        sun += inside;
+        if (level.dimension() == com.hbm.space.SpaceDimensions.EVE) {
+            sun += SpaceAtmosphereRender.eveFlashStrength(body, (level.getGameTime() + partial) / 20F) * 0.7F;
+        } else if (level.dimension() == com.hbm.space.SpaceDimensions.TEKTO) {
+            sun *= 0.7F;
+        }
+        return sun;
     }
 
     // ---------------------------------------------------------------- fog thickness

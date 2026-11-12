@@ -151,6 +151,7 @@ public final class SpaceMachinePages {
         // the station thrusters and the propellants they burn, with the ISP the burn's fuel cost is worked out from
         RecipePages.addon(new ThrusterPage());
         RecipePages.addon(new PWRHeatingPage());
+        RecipePages.addon(new FusionPlasmaPage());
     }
 
     private static Component perOperation(long he) {
@@ -336,8 +337,15 @@ public final class SpaceMachinePages {
                 rows.add(new ThrusterRow(PageIds.derived(id(), "htr3", PageIds.segment(BuiltInRegistries.FLUID.getKey(hot))),
                         new ItemStack(SpaceHTR3.BLOCK.get()), List.of(hot), isp(hot), 0L));
             }
-            // the HTR-F4 burns a fusion reactor's plasma, charged with 200M HE and cooled by perfluoromethyl
-            rows.add(new ThrusterRow(PageIds.derived(id(), "htrf4"), new ItemStack(com.hbm.space.machine.SpaceHTRF.BLOCK.get()),
+            // the HTR-F4 NEO burns a fusion reactor's plasma at that plasma's ISP (250 for plasma that
+            // is no fluid), charged with 200M HE and cooled by perfluoromethyl
+            ItemStack neo = new ItemStack(com.hbm.space.machine.SpaceHTRF.BLOCK.get());
+            for (Fluid plasma : com.hbm.space.FusionPlasmas.all()) {
+                rows.add(new ThrusterRow(PageIds.derived(id(), "htrf4", PageIds.segment(BuiltInRegistries.FLUID.getKey(plasma))),
+                        neo, List.of(plasma, NTMFluids.PERFLUOROMETHYL_COLD), isp(plasma), 0L, ItemStack.EMPTY,
+                        com.hbm.space.machine.SpaceHTRF.HTRFBE.MAX_POWER));
+            }
+            rows.add(new ThrusterRow(PageIds.derived(id(), "htrf4"), neo,
                     List.of(NTMFluids.PERFLUOROMETHYL_COLD), 250, 0L, new ItemStack(ModBlocks.FUSION_TORUS.get()),
                     com.hbm.space.machine.SpaceHTRF.HTRFBE.MAX_POWER));
             return rows;
@@ -437,6 +445,67 @@ public final class SpaceMachinePages {
             graphics.pose().popPose();
             drawLines(graphics, List.of(Component.translatable("jei.hbm.space.pwr_heat",
                     String.format(Locale.US, "%,d", row.heatReq()), row.amountReq(), row.amountProduced())));
+        }
+    }
+
+    /** {@code plasma} is null for a recipe making plasma energy only, drawn as a swatch in the recipe's colour. */
+    public record FusionPlasmaRow(ResourceLocation id, List<com.hbm.inventory.fluid.FluidStackNTM> fuels,
+            @Nullable Fluid plasma, long tuPerTick, int color) implements RecipePage.Row {}
+
+    /**
+     * What each fusion recipe's plasma is: its fuels in, the plasma fluid out (or the plasma energy
+     * alone), with the TU it puts out each tick. The fusion reactor makes it, the HTR-F4 NEO burns it.
+     */
+    static final class FusionPlasmaPage extends RecipePage<FusionPlasmaRow> {
+        FusionPlasmaPage() {
+            super(PageIds.page("fusion_plasma"), FusionPlasmaRow.class);
+        }
+
+        @Override
+        public Component title() {
+            return Component.translatable("jei.hbm.space.fusion_plasma");
+        }
+
+        @Override
+        public ItemStack icon() {
+            return new ItemStack(ModBlocks.FUSION_TORUS.get());
+        }
+
+        @Override
+        public List<ItemStack> catalysts() {
+            return List.of(new ItemStack(ModBlocks.FUSION_TORUS.get()), new ItemStack(com.hbm.space.machine.SpaceHTRF.BLOCK.get()));
+        }
+
+        @Override
+        public List<FusionPlasmaRow> rows() {
+            List<FusionPlasmaRow> rows = new ArrayList<>();
+            for (com.hbm.inventory.recipes.FusionRecipe recipe : com.hbm.inventory.recipes.FusionRecipes.INSTANCE.recipes()) {
+                if (recipe.inputFluid.length == 0) continue;
+                int color = 0xFF000000 | Math.round(recipe.r * 255) << 16 | Math.round(recipe.g * 255) << 8 | Math.round(recipe.b * 255);
+                rows.add(new FusionPlasmaRow(PageIds.derived(id(), recipe.getInternalName().toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9_.-]", "_")),
+                        List.of(recipe.inputFluid), com.hbm.space.FusionPlasmas.of(recipe), recipe.outputTemp, color));
+            }
+            return rows;
+        }
+
+        @Override
+        public void layout(FusionPlasmaRow row, PageLayout page) {
+            int[][] in = GenericMachinePage.universalInputPositions(row.fuels().size());
+            for (int i = 0; i < row.fuels().size(); i++) page.input(in[i][0], in[i][1]).background().fluid(row.fuels().get(i));
+            if (row.plasma() != null) page.output(102, 24).background().fluid(row.plasma());
+            page.catalyst(75, 31).item(ModBlocks.FUSION_TORUS.get());
+        }
+
+        @Override
+        public void draw(FusionPlasmaRow row, GuiGraphicsExtractor graphics) {
+            RecipePanel.universalPage(graphics);
+            if (row.plasma() == null) {
+                // plasma energy with no fluid of its own: a swatch in the recipe's plasma colour
+                graphics.fill(102, 24, 120, 42, 0xFF373737);
+                graphics.fill(103, 25, 119, 41, row.color());
+            }
+            drawLines(graphics, List.of(Component.translatable("jei.hbm.space.plasma_tu",
+                    com.hbm.util.BobMathUtil.getShortNumber(row.tuPerTick()))));
         }
     }
 }

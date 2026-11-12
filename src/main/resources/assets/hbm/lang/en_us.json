@@ -9932,6 +9932,8 @@
   "jei.hbm.space.station_thrusters": "Station Thrusters",
   "jei.hbm.space.isp": "%s ISP",
   "jei.hbm.space.pwr_heating": "PWR Heating",
+  "jei.hbm.space.fusion_plasma": "Fusion Plasma",
+  "jei.hbm.space.plasma_tu": "%s TU/t",
   "jei.hbm.space.he_per_burn": "%s HE per burn",
   "jei.hbm.space.pwr_heat": "%s TU: %s mB to %s mB",
   "jei.hbm.space.he_per_mb": "%s HE/mB"

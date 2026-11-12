@@ -170,6 +170,8 @@ public final class SpaceHTRF {
         private static final long UNIT_ENGINE = 1L << 3;
 
         public long plasmaEnergy;
+        /** The plasma fluid the reactor feeding this engine makes; its ISP sets the burn's cost. */
+        public net.minecraft.world.level.material.@Nullable Fluid plasmaType;
         public long plasmaEnergySync;
         public float rotor;
         public float prevRotor;
@@ -280,6 +282,18 @@ public final class SpaceHTRF {
         }
 
         @Override
+        public void receivePlasmaType(net.minecraft.world.level.material.@Nullable Fluid plasma) {
+            plasmaType = plasma;
+        }
+
+        /** The ISP of the plasma it burns: the plasma fluid's own, or 250 for plasma without one. */
+        public int isp() {
+            com.hbm.inventory.fluid.trait.FT_Rocket rocket =
+                    com.hbm.inventory.fluid.NTMFluidProperties.getTrait(plasmaType, com.hbm.inventory.fluid.trait.FT_Rocket.class);
+            return rocket != null ? rocket.getISP() : 250;
+        }
+
+        @Override
         public void receiveFusionPower(long fusionPower, double neutronPower, float r, float g, float b) {
             plasmaEnergy = fusionPower;
             plasmaR = r;
@@ -296,7 +310,7 @@ public final class SpaceHTRF {
 
         @Override
         public boolean canPerformBurn(int shipMass, double deltaV) {
-            fuelCost = SolarSystem.getFuelCost(deltaV, shipMass, 250);
+            fuelCost = SolarSystem.getFuelCost(deltaV, shipMass, isp());
             if (plasmaEnergySync < fuelCost) return false;
             if (power < MAX_POWER) return false;
             return isCool();

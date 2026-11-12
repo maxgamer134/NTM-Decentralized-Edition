@@ -288,6 +288,7 @@ public class BlockEntityFusionTorus extends BlockEntityCooledBase
             float pb = b;
             for (int i = 0; i < PORTS; i++) {
                 if (plasmaPeer[i] instanceof IFusionPowerReceiver receiver) {
+                    receiver.receivePlasmaType(com.hbm.space.FusionPlasmas.of(recipe));
                     receiver.receiveFusionPower(powerReceived, outputFlux, pr, pg, pb);
                 }
             }

@@ -362,18 +362,13 @@ public class OrbitalStation {
         data.setDirty();
     }
 
-    private static final String[] NAME_FIRST = {
-        "Kestrel", "Halcyon", "Meridian", "Corvid", "Lantern", "Bastion", "Zenith", "Aurora", "Tundra", "Harbor",
-        "Cinder", "Vesper", "Orchid", "Granite", "Solstice", "Mariner", "Falcon", "Ember", "Juniper", "Atlas"
-    };
-    private static final String[] NAME_SECOND = {
-        "Station", "Outpost", "Platform", "Habitat", "Relay", "Spire", "Ring", "Dock", "Array", "Bulwark"
-    };
+    private static final String NAME_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    /** A fresh station's name: two words and a hull number, e.g. "Kestrel Relay 417". */
+    /** A fresh station's name: eight random letters and digits, e.g. "K7QX2M9A". */
     public static String randomName(Random random) {
-        return NAME_FIRST[random.nextInt(NAME_FIRST.length)] + " " + NAME_SECOND[random.nextInt(NAME_SECOND.length)]
-                + " " + (100 + random.nextInt(900));
+        StringBuilder name = new StringBuilder(8);
+        for (int i = 0; i < 8; i++) name.append(NAME_CHARS.charAt(random.nextInt(NAME_CHARS.length())));
+        return name.toString();
     }
 
     /** Places the station core in the middle of a cell, if it's not there yet. */

@@ -15,8 +15,8 @@ import org.jspecify.annotations.Nullable;
 /**
  * Which of NTM:Space's plasma fluids a fusion recipe makes, read from its fuels: deuterium and
  * tritium make D-T plasma, hydrogen and deuterium H-D, hydrogen and tritium H-T, deuterium and
- * helium-3 D-He3, xenon and mercury XM, and anything burning balefire BF plasma. A recipe with
- * other fuels makes plasma energy only.
+ * helium-3 D-He3, xenon and mercury XM, and anything burning balefire BF plasma. Any other recipe
+ * goes by its lightest fuel (see {@link #of}).
  */
 public final class FusionPlasmas {
     private FusionPlasmas() {}
@@ -46,6 +46,12 @@ public final class FusionPlasmas {
             for (String fuel : match.fuels()) wanted.add(NTMFluids.byName(fuel));
             if (fuels.equals(wanted)) return NTMFluids.byName(match.plasma());
         }
-        return null;
+        // the rest go by their lightest fuel: helium-3 makes D-He3 plasma, deuterium (or deuterated
+        // hydrocarbon) H-D, tritium H-T, and anything heavier (chlorine, stellar flux) XM
+        if (fuels.contains(NTMFluids.byName("HELIUM3"))) return NTMFluids.byName("PLASMA_DH3");
+        if (fuels.contains(NTMFluids.byName("DEUTERIUM")) || fuels.contains(NTMFluids.byName("DHC"))
+                || fuels.contains(NTMFluids.byName("HYDROGEN"))) return NTMFluids.byName("PLASMA_HD");
+        if (fuels.contains(NTMFluids.byName("TRITIUM"))) return NTMFluids.byName("PLASMA_HT");
+        return NTMFluids.byName("PLASMA_XM");
     }
 }

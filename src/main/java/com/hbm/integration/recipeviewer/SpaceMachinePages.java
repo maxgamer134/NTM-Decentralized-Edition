@@ -337,17 +337,14 @@ public final class SpaceMachinePages {
                 rows.add(new ThrusterRow(PageIds.derived(id(), "htr3", PageIds.segment(BuiltInRegistries.FLUID.getKey(hot))),
                         new ItemStack(SpaceHTR3.BLOCK.get()), List.of(hot), isp(hot), 0L));
             }
-            // the HTR-F4 NEO burns a fusion reactor's plasma at that plasma's ISP (250 for plasma that
-            // is no fluid), charged with 200M HE and cooled by perfluoromethyl
+            // the HTR-F4 NEO burns a fusion reactor's plasma at that plasma's ISP, charged with 200M HE
+            // and cooled by perfluoromethyl
             ItemStack neo = new ItemStack(com.hbm.space.machine.SpaceHTRF.BLOCK.get());
             for (Fluid plasma : com.hbm.space.FusionPlasmas.all()) {
                 rows.add(new ThrusterRow(PageIds.derived(id(), "htrf4", PageIds.segment(BuiltInRegistries.FLUID.getKey(plasma))),
                         neo, List.of(plasma, NTMFluids.PERFLUOROMETHYL_COLD), isp(plasma), 0L, ItemStack.EMPTY,
                         com.hbm.space.machine.SpaceHTRF.HTRFBE.MAX_POWER));
             }
-            rows.add(new ThrusterRow(PageIds.derived(id(), "htrf4"), neo,
-                    List.of(NTMFluids.PERFLUOROMETHYL_COLD), 250, 0L, new ItemStack(ModBlocks.FUSION_TORUS.get()),
-                    com.hbm.space.machine.SpaceHTRF.HTRFBE.MAX_POWER));
             return rows;
         }
 

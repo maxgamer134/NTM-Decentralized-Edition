@@ -12,6 +12,7 @@ import com.hbm.integration.recipeviewer.GenericMachinePage.FluidView;
 import com.hbm.integration.recipeviewer.GenericMachinePage.Layout;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.NTMFluids;
+import com.hbm.inventory.fluid.trait.FT_Coolable;
 import com.hbm.inventory.fluid.trait.FT_Heatable;
 import com.hbm.inventory.fluid.trait.FT_Rocket;
 import com.hbm.inventory.material.MaterialShapes;
@@ -261,8 +262,9 @@ public final class SpaceMachinePages {
             RecipePanel.rightAligned(graphics, lines.get(i), 160, 55 - 12 * (lines.size() - 1 - i), RecipePanel.TEXT);
     }
 
-    public record ThrusterRow(ResourceLocation id, ItemStack thruster, List<Fluid> propellants, int isp, long hePerMb)
-            implements RecipePage.Row {}
+    /** {@code cold} is set for the LPW-3N: the fluid a PWR heats into its propellant. */
+    public record ThrusterRow(ResourceLocation id, ItemStack thruster, List<Fluid> propellants, int isp, long hePerMb,
+            @Nullable Fluid cold) implements RecipePage.Row {}
 
     /**
      * The station thrusters' propellants: the xenon thruster's xenon (and 5,000 HE for every
@@ -310,27 +312,42 @@ public final class SpaceMachinePages {
             List<ThrusterRow> rows = new ArrayList<>();
             Fluid xenon = NTMFluids.byName("XENON");
             rows.add(new ThrusterRow(PageIds.derived(id(), "xenon_thruster"), new ItemStack(SpaceXenonThruster.BLOCK.get()),
-                    List.of(xenon), isp(xenon), 5_000L));
+                    List.of(xenon), isp(xenon), 5_000L, null));
             Fluid kerosene = NTMFluids.byName("KEROSENE_REFORM");
             rows.add(new ThrusterRow(PageIds.derived(id(), "lpw2"), new ItemStack(ModBlocks.MACHINE_LPW2.get()),
-                    List.of(kerosene, NTMFluids.byName("OXYGEN")), isp(kerosene), 0L));
-            // the LPW-3N burns what a fluid identifier's fluid heats up into, when that can fly
-            Set<Fluid> heated = new LinkedHashSet<>();
+                    List.of(kerosene, NTMFluids.byName("OXYGEN")), isp(kerosene), 0L, null));
+            // the LPW-3N burns what a PWR heats a fluid into, when that can fly: found from the cold
+            // side (a PWR-heatable fluid) and from the hot side (a rocket fluid that cools back down)
+            java.util.Map<Fluid, Fluid> heated = new java.util.LinkedHashMap<>();
             for (Fluid fluid : NTMFluids.displayOrder()) {
                 FT_Heatable heatable = NTMFluidProperties.getTrait(fluid, FT_Heatable.class);
-                if (heatable == null) continue;
+                if (heatable == null || heatable.getEfficiency(FT_Heatable.HeatingType.PWR) <= 0) continue;
                 Fluid hot = firstStepProduct(heatable);
-                if (hot != null && NTMFluidProperties.hasTrait(hot, FT_Rocket.class)) heated.add(hot);
+                if (hot != null && NTMFluidProperties.hasTrait(hot, FT_Rocket.class)) heated.putIfAbsent(hot, fluid);
             }
-            for (Fluid hot : heated) {
-                rows.add(new ThrusterRow(PageIds.derived(id(), "htr3", PageIds.segment(BuiltInRegistries.FLUID.getKey(hot))),
-                        new ItemStack(SpaceHTR3.BLOCK.get()), List.of(hot), isp(hot), 0L));
+            for (Fluid fluid : NTMFluids.displayOrder()) {
+                FT_Coolable coolable = NTMFluidProperties.getTrait(fluid, FT_Coolable.class);
+                if (coolable == null || heated.containsKey(fluid) || !NTMFluidProperties.hasTrait(fluid, FT_Rocket.class)) continue;
+                Fluid cold = coolable.coolsTo();
+                if (cold != null) heated.put(fluid, cold);
             }
+            heated.forEach((hot, cold) -> rows.add(new ThrusterRow(
+                    PageIds.derived(id(), "htr3", PageIds.segment(BuiltInRegistries.FLUID.getKey(hot))),
+                    new ItemStack(SpaceHTR3.BLOCK.get()), List.of(hot), isp(hot), 0L, cold)));
             return rows;
         }
 
+        /** The PWR fuel rod drawn greyed between the cold and hot fluid: "heated in a PWR". */
+        private static final int ROD_X = 30, ROD_Y = 24;
+
         @Override
         public void layout(ThrusterRow row, PageLayout page) {
+            if (row.cold() != null) {
+                page.input(12, 24).background().fluid(row.cold());
+                page.input(48, 24).background().fluid(row.propellants().get(0));
+                page.display(102, 24).background().item(row.thruster());
+                return;
+            }
             int[][] in = GenericMachinePage.universalInputPositions(row.propellants().size());
             for (int i = 0; i < row.propellants().size(); i++)
                 page.input(in[i][0], in[i][1]).background().fluid(row.propellants().get(i));
@@ -340,7 +357,17 @@ public final class SpaceMachinePages {
         @Override
         public void draw(ThrusterRow row, GuiGraphicsExtractor graphics) {
             RecipePanel.universalPage(graphics);
+            if (row.cold() != null) {
+                // the rod, greyed out under a translucent wash: the PWR is the process, not an ingredient
+                graphics.fakeItem(new ItemStack(ModItems.cold(com.hbm.items.machine.ItemPWRFuel.EnumPWRFuel.VALUES[0])),
+                        ROD_X + 1, ROD_Y + 1);
+                graphics.pose().pushPose();
+                graphics.pose().translate(0F, 0F, 300F);
+                graphics.fill(ROD_X + 1, ROD_Y + 1, ROD_X + 17, ROD_Y + 17, 0xB08B8B8B);
+                graphics.pose().popPose();
+            }
             List<Component> lines = new ArrayList<>();
+            if (row.cold() != null) lines.add(Component.translatable("jei.hbm.space.pwr_heated"));
             lines.add(Component.translatable("jei.hbm.space.isp", row.isp()));
             if (row.hePerMb() > 0) lines.add(Component.translatable("jei.hbm.space.he_per_mb", String.format(Locale.US, "%,d", row.hePerMb())));
             drawLines(graphics, lines);

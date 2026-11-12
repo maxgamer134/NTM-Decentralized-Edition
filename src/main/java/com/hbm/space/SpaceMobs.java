@@ -66,7 +66,21 @@ public final class SpaceMobs {
         return ResourceKey.create(Registries.ENTITY_TYPE, Library.id(name)).location().toString();
     }
 
-    public static void init() {}
+    public static void init() {
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(SpaceMobs::onPotentialSpawns);
+    }
+
+    /**
+     * ChunkProviderLaythe.getPossibleCreatures: on Laythe, the monsters that spawn on tumour are
+     * flesh creepers and nothing else.
+     */
+    private static void onPotentialSpawns(net.neoforged.neoforge.event.level.LevelEvent.PotentialSpawns event) {
+        if (event.getMobCategory() != MobCategory.MONSTER || !SpaceToggle.enabled()) return;
+        if (!(event.getLevel() instanceof Level level) || level.dimension() != SpaceDimensions.LAYTHE) return;
+        if (!level.getBlockState(event.getPos().below()).is(SpaceBlocks.TUMOR.get())) return;
+        for (var data : java.util.List.copyOf(event.getSpawnerDataList())) event.removeSpawnerData(data);
+        event.addSpawnerData(new net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData(FLESH_CREEPER.get(), 10, 4, 4));
+    }
 
     /** Bursts into giblets and covers what it blows up in tumours. */
     public static class FleshCreeper extends EntityCreeperBase {
@@ -76,6 +90,7 @@ public final class SpaceMobs {
 
         @Override
         protected void detonate(ServerLevel level) {
+            com.hbm.particle.helper.ParticleCreators.giblets(level, this, 0, 2);
             ExplosionVNT vnt = new ExplosionVNT(level, getX(), getY(), getZ(), isPowered() ? 7 : 4, this);
             vnt.setBlockAllocator(new BlockAllocatorBulkie(30, isPowered() ? 16 : 8));
             vnt.setBlockProcessor(new BlockProcessorStandard()

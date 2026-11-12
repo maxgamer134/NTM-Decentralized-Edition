@@ -65,6 +65,8 @@ public final class SpaceFuels {
 
     public static final Reg.Handle<ItemModInsert> INSERT_CMB = Reg.item("insert_cmb",
             props -> new ItemModInsert(props, 9999, 0.7F, 0.9F, 0.4F, 1F).withCorrosionProtection(), Item.Properties::new);
+    public static final Reg.Handle<com.hbm.space.item.ItemButterSword> BUTTER_SWORD = Reg.item("butter_sword",
+            com.hbm.space.item.ItemButterSword::new, Item.Properties::new);
     public static final Reg.Handle<ItemBattery> CORE_ANGEL = Reg.item("core_angel",
             props -> new ItemBattery(props, 16_000_000L, 16_000_000L, 800_000L), () -> new Item.Properties().stacksTo(1));
     public static final Reg.Handle<ItemDrinkEnergy> TEACUP = drink("teacup");
@@ -111,5 +113,8 @@ public final class SpaceFuels {
         after(CreativeContents.Tab.CONSUMABLES, "chocolate_milk", TEACUP, BOTTLE_HONEY, GLASS_SMILK, INSERT_CMB);
         after(CreativeContents.Tab.CONSUMABLES, "insert_cmb", RECORD_GS, RECORD_GP, RECORD_EL);
         after(CreativeContents.Tab.CONTROL, "laser_crystal_bismuth", LASER_CRYSTAL_IRON);
+        // NTM:Space put it in vanilla's Combat tab
+        com.hbm.registration.NeoForgeRegistrar.vanillaTabEntries.add(java.util.Map.entry(
+                net.minecraft.world.item.CreativeModeTabs.COMBAT, () -> new ItemStack(BUTTER_SWORD.get())));
     }
 }

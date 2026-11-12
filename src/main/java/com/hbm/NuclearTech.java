@@ -225,7 +225,7 @@ public final class NuclearTech {
             com.hbm.space.machine.SpaceHydroponic.init();
             com.hbm.space.machine.SpaceCryoDistiller.init();
             com.hbm.space.machine.SpaceAtmoTower.init();
-            com.hbm.space.machine.SpaceAtmoEditor.init(); com.hbm.space.SpaceInvaders.init(); com.hbm.space.SpaceSiege.init(); com.hbm.space.SpacePlushies.init(); com.hbm.space.SpaceMartian.init(); com.hbm.space.SpaceSkySync.init(); com.hbm.space.SpaceWeather.init();
+            com.hbm.space.machine.SpaceAtmoEditor.init(); com.hbm.space.SpaceInvaders.init(); com.hbm.space.SpaceSiege.init(); com.hbm.space.SpacePlushies.init(); com.hbm.space.SpaceMartian.init(); com.hbm.space.SpaceSkySync.init(); com.hbm.space.SpaceWeather.init(); com.hbm.space.SpaceMobs.init();
             com.hbm.space.machine.SpaceOrrery.init();
             com.hbm.space.machine.SpaceDyson.init();
             com.hbm.space.machine.SpaceAtmoMachines.init();

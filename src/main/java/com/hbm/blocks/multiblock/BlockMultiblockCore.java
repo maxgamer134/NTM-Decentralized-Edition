@@ -732,7 +732,7 @@ public abstract class BlockMultiblockCore extends BlockCompat
             BUSY.set(prev);
         }
 
-        int i = Mth.floor(placementYaw(level, pos, placer) * 4.0F / placementYawSpan() + 0.5D) & 3;
+        int i = Mth.floor(placer.getYRot() * 4.0F / placementYawSpan() + 0.5D) & 3;
         MultiblockLayout.Placement placement = placement();
         int o = -placement.offset();
         BlockPos placed = pos.offset(0, placement.heightOffset(), 0);
@@ -779,18 +779,6 @@ public abstract class BlockMultiblockCore extends BlockCompat
         }
 
         super.setPlacedBy(level, pos, state, placer, stack);
-    }
-
-    /**
-     * The placer's yaw in the frame of the blocks being placed into: on a Sable build that's turned,
-     * the world yaw would face the machine (and its offset) the wrong way relative to the build.
-     */
-    private static float placementYaw(Level level, BlockPos pos, LivingEntity placer) {
-        var sub = com.hbm.backport.SubLevelSpace.frame(level, pos);
-        if (sub == null) return placer.getYRot();
-        net.minecraft.world.phys.Vec3 f = com.hbm.backport.SubLevelSpace.dirToLocal(
-                sub, net.minecraft.world.phys.Vec3.directionFromRotation(0, placer.getYRot()));
-        return (float) Math.toDegrees(Math.atan2(-f.x, f.z));
     }
 
     private static void detachGraphs(Level level, BlockPos pos) {

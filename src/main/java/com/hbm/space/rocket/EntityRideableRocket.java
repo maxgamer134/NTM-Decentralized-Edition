@@ -550,6 +550,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         }
         if (rocket.stages.isEmpty()) {
             if (state == RocketState.TIPPING) return;
+            groundShock(x, y, z);
             if (isReusable()) {
                 gasFlame(x + 0.5, y, z, 0, -1, 0);
                 gasFlame(x - 0.5, y, z, 0, -1, 0);
@@ -567,6 +568,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         RocketStage stage = rocket.stages.get(0);
         if (state == RocketState.LANDING) {
             gasFlame(x, y, z, 0, -1, 0);
+            groundShock(x, y, z);
         } else if (state == RocketState.LAUNCHING || getStateTimer() < 200) {
             missileContrail(0, 0);
             int cluster = stage.getCluster();
@@ -579,7 +581,15 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
     }
 
     private void gasFlame(double x, double y, double z, double mx, double my, double mz) {
-        com.hbm.client.ClientEffects.spawnGasFlame(level(), x, y, z, mx, my, mz, GAS_FLAME_SCALE);
+        com.hbm.client.ClientEffects.spawnCollidingGasFlame(level(), x, y, z, mx, my, mz, GAS_FLAME_SCALE);
+    }
+
+    /** NTM:Space's exhaust smoke spreading over the ground once a descent is within ten blocks of it. */
+    private void groundShock(double x, double y, double z) {
+        double ground = level().getHeight(Heightmap.Types.MOTION_BLOCKING, Mth.floor(x), Mth.floor(z));
+        if (y - ground < 10)
+            com.hbm.client.ClientEffects.spawnSmokeShock(level(), x, ground + 0.5, z,
+                    1 + random.nextInt(3), 1 + random.nextGaussian());
     }
 
     /** EntityMissileBaseNT's contrail: up to ten puffs a tick along the path, blown out the nozzle. */

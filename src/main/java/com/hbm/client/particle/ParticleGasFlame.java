@@ -66,6 +66,21 @@ public class ParticleGasFlame extends SingleQuadParticle implements VisualPartic
                 .add(new ParticleGasFlame(level, x, y, z, mx, my, mz, scale, activeSprites));
     }
 
+    /** As {@link #spawn}, but the flame stops at blocks instead of passing through (rocket exhaust). */
+    public static void spawnColliding(
+            ClientLevel level,
+            double x,
+            double y,
+            double z,
+            double mx,
+            double my,
+            double mz,
+            float scale) {
+        ParticleGasFlame flame = new ParticleGasFlame(level, x, y, z, mx, my, mz, scale, activeSprites);
+        flame.hasPhysics = true;
+        Minecraft.getInstance().particleEngine.add(flame);
+    }
+
     @Override
     public ClientLevel level() {
         return level;

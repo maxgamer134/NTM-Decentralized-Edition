@@ -68,6 +68,21 @@ public final class ClientEffects {
         }
     }
 
+    /** A gas flame that stops at blocks instead of passing through them. */
+    public static void spawnCollidingGasFlame(
+            Level level,
+            double x,
+            double y,
+            double z,
+            double motionX,
+            double motionY,
+            double motionZ,
+            float scale) {
+        if (level instanceof ClientLevel client) {
+            ParticleGasFlame.spawnColliding(client, x, y, z, motionX, motionY, motionZ, scale);
+        }
+    }
+
     public static void spawn(
             HbmEffectNT effect, Level level, double x, double y, double z, float scale) {
         switch (effect) {

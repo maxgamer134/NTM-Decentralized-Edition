@@ -23,7 +23,26 @@ public final class ClimbBoxes {
         return state.getBlock() instanceof ClimbBox block && block.climbBox(state) != null;
     }
 
+    /**
+     * The climb box the entity box touches: in the world, or else on a Sable build it overlaps, where
+     * the build's blocks (a launch tower on a build, say) sit in the build's own frame.
+     */
     public static @Nullable BlockPos find(Level level, AABB bb) {
+        BlockPos hit = findIn(level, bb);
+        if (hit != null) return hit;
+        dev.ryanhcode.sable.companion.math.BoundingBox3d box = new dev.ryanhcode.sable.companion.math.BoundingBox3d(
+                bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ);
+        for (dev.ryanhcode.sable.companion.SubLevelAccess sub :
+                dev.ryanhcode.sable.companion.SableCompanion.INSTANCE.getAllIntersecting(level, box)) {
+            net.minecraft.world.phys.Vec3 centre = bb.getCenter();
+            net.minecraft.world.phys.Vec3 local = com.hbm.backport.SubLevelSpace.toLocal(sub, centre);
+            hit = findIn(level, bb.move(local.subtract(centre)));
+            if (hit != null) return hit;
+        }
+        return null;
+    }
+
+    private static @Nullable BlockPos findIn(Level level, AABB bb) {
         int x0 = Mth.floor(bb.minX - ClimbBox.REACH), x1 = Mth.floor(bb.maxX + ClimbBox.REACH);
         int y0 = Mth.floor(bb.minY), y1 = Mth.floor(bb.maxY);
         int z0 = Mth.floor(bb.minZ - ClimbBox.REACH), z1 = Mth.floor(bb.maxZ + ClimbBox.REACH);

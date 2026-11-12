@@ -167,6 +167,19 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         return nose(getXRot());
     }
 
+    /** Entity boxes can't tilt: a leaning rocket's box grows to hold all of it, not just its upright self. */
+    @Override
+    protected net.minecraft.world.phys.AABB makeBoundingBox() {
+        net.minecraft.world.phys.AABB upright = super.makeBoundingBox();
+        Vec3 nose = nose();
+        if (com.hbm.backport.LaunchAxis.upright(nose)) return upright;
+        double r = getBbWidth() / 2;
+        Vec3 base = position(), top = base.add(nose.scale(getBbHeight()));
+        return new net.minecraft.world.phys.AABB(
+                Math.min(base.x, top.x) - r, Math.min(base.y, top.y), Math.min(base.z, top.z) - r,
+                Math.max(base.x, top.x) + r, Math.max(base.y, top.y), Math.max(base.z, top.z) + r);
+    }
+
     public void setRocket(RocketStruct rocket) {
         entityData.set(ROCKET, rocket.save());
         refreshDimensions();

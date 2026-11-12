@@ -86,6 +86,15 @@ public final class SubLevelSpace {
         return new Vec3(v.x, v.y, v.z);
     }
 
+    /** A world direction in {@code sub}'s block frame (rotation only). */
+    public static Vec3 dirToLocal(
+            @Nullable SubLevelAccess sub,
+            Vec3 dir) {
+        if (sub == null) return dir;
+        Vector3d v = sub.logicalPose().orientation().transformInverse(new Vector3d(dir.x, dir.y, dir.z));
+        return new Vec3(v.x, v.y, v.z);
+    }
+
     /** True when {@code (x, z)} lies inside a sub-level plot. */
     public static boolean inSubLevel(Level level, double x, double z) {
         return SableCompanion.INSTANCE.getContaining(level, x, z) != null;

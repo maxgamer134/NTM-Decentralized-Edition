@@ -53,7 +53,8 @@ public class RenderCryoDistiller
         HFRWavefrontObject m = mesh;
         int light = s.lightCoords;
         ps.pushPose();
-        ps.translate(0.5, 0, 0.5);
+        // the core sits two blocks up in the distiller; the model stands on the ground
+        ps.translate(0.5, -2.0, 0.5);
         ps.mulPose(Axis.YP.rotationDegrees(180F));
         ps.mulPose(Axis.YP.rotationDegrees(switch (s.facing) {
             case WEST -> 90F;

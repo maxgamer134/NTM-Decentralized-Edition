@@ -130,6 +130,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 	}
 
 	public void generateBedrockOres(World world, Random rand, int x, int z, Block planetStone, boolean hasIce, FluidStackNTM drillAcid) {
+		if(world.level() == null) return; // the recipe viewer's dry run: bedrock ores have their own page
 		if(rand.nextInt(10) == 0) {
 			int randPosX = x + rand.nextInt(2) + 8;
 			int randPosZ = z + rand.nextInt(2) + 8;
@@ -168,6 +169,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 
 	// A simple reimplementation of `genStandardOre1` without needing to instance a BiomeDecorator
 	private void genVanillaOre(World world, Random rand, int x, int z, int yMin, int yMax, int count, int numberOfBlocks, Block ore, Block target, int meta) {
+		if(Features.recorded(ore, meta, target, count, numberOfBlocks, yMin, yMax - 1, "vein")) return;
 		WorldGenMinable worldGenMinable = new WorldGenMinable(ore, meta, numberOfBlocks, target);
 
 		for (int l = 0; l < count; ++l) {

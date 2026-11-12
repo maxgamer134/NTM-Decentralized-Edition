@@ -59,9 +59,12 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
     @Override
     public List<OreGenerationProfile> rows() {
         List<OreGenerationProfile> profiles =
-                Minecraft.getInstance().getSingleplayerServer() == null
-                        ? OreGeneration.clientProfiles()
-                        : OreGeneration.serverProfiles();
+                new ArrayList<>(
+                        Minecraft.getInstance().getSingleplayerServer() == null
+                                ? OreGeneration.clientProfiles()
+                                : OreGeneration.serverProfiles());
+        // NTM:Space's planets place their ores from code, not ore features
+        profiles.addAll(com.hbm.space.dim.SpaceOreProfiles.profiles());
         return profiles.stream()
                 .filter(
                         profile ->
@@ -152,7 +155,11 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
             if (!details.getSiblings().isEmpty()) details.append("\n");
             details.append(condition);
         }
-        details.append("\n").append(text("biomes", biomeNames(row)));
+        // a planet's ores (no biome list) go everywhere on it
+        if (!row.biomes().isEmpty()) {
+            if (!details.getSiblings().isEmpty()) details.append("\n");
+            details.append(text("biomes", biomeNames(row)));
+        }
         boxes.add(new Box(details, 4, 124, 232, 23));
         return boxes;
     }
@@ -243,6 +250,11 @@ public final class OreGenerationPage extends RecipePage<OreGenerationProfile> {
                     };
             if (key != null) return Component.translatable(key);
         }
+        // NTM:Space's planets go by their body's name
+        if (kind.equals("dimension")
+                && id.getNamespace().equals("hbm")
+                && Language.getInstance().has("body." + id.getPath()))
+            return Component.translatable("body." + id.getPath());
         return Component.translatableWithFallback(
                 kind + "." + id.getNamespace() + "." + id.getPath().replace('/', '.'),
                 id.toString());

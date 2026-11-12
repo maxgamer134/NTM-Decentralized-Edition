@@ -394,6 +394,8 @@ public final class SpaceExtras {
      * threshold 220), through the port's 3D stratum, replacing the planet's stone.
      */
     public static void conglomerate(com.hbm.space.dim.legacy.World world, String body, int x, int z) {
+        if (com.hbm.space.dim.legacy.Features.recorded(CONGLOMERATE.get(), 0, world.stone(), -1, -1,
+                com.hbm.world.feature.Stratum3DFeature.MIN_Y, com.hbm.world.feature.Stratum3DFeature.MAX_Y, "stratum_3d")) return;
         com.hbm.world.feature.Stratum3DFeature.place(
                 world.level(),
                 net.minecraft.util.RandomSource.create(0L),

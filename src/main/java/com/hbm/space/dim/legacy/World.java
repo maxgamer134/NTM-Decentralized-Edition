@@ -65,7 +65,7 @@ public class World {
     }
 
     public BiomeGenBase getBiomeGenForCoords(int x, int z) {
-        return chunkManager.getBiomeGenAt(x, z);
+        return chunkManager == null ? null : chunkManager.getBiomeGenAt(x, z);
     }
 
     public int getHeight() {

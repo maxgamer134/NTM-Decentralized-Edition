@@ -26,6 +26,12 @@ public final class Planets {
         return planet;
     }
 
+    /** Every planet, once they are set up. */
+    public static java.util.Collection<Planet> all() {
+        SpacePlanets.bootstrap();
+        return java.util.List.copyOf(PLANETS.values());
+    }
+
     /** The world seed; 1.7's planets generated from it, as they do here. */
     public static long seed() {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();

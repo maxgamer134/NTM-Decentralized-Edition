@@ -3,6 +3,8 @@
 
 package com.hbm.space.dim.legacy;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
@@ -12,6 +14,31 @@ import net.minecraft.world.level.block.Blocks;
 public final class Features {
 
     private Features() {}
+
+    /** One kind of ore placement a planet's generator asked for, as the recipe viewer lists it. */
+    public record Vein(Block ore, int meta, Block target, double attempts, int size, int minY, int maxY, String kind) {}
+
+    private static final ThreadLocal<List<Vein>> RECORDING = new ThreadLocal<>();
+
+    /** Runs a generator with every ore placement written down instead of placed. */
+    public static List<Vein> record(Runnable generator) {
+        List<Vein> veins = new ArrayList<>();
+        RECORDING.set(veins);
+        try {
+            generator.run();
+        } finally {
+            RECORDING.remove();
+        }
+        return veins;
+    }
+
+    /** True when recording: the placement is written down and must not happen. */
+    public static boolean recorded(Block ore, int meta, Block target, double attempts, int size, int minY, int maxY, String kind) {
+        List<Vein> veins = RECORDING.get();
+        if (veins == null) return false;
+        veins.add(new Vein(ore, meta, target, attempts, size, minY, maxY, kind));
+        return true;
+    }
 
     /** WorldGenMinable: a vein of ore along a short random line through the target rock. */
     public static class WorldGenMinable extends WorldGenerator {
@@ -122,6 +149,7 @@ public final class Features {
     /** DungeonToolbox.generateOre: some veins of an ore at random heights in a chunk. */
     /** NTM's DepthDeposit: a ball of ore in filler, in the planet's stone and its bedrock. */
     public static void depthDeposit(World world, int x, int yMin, int yDev, int z, int size, double fill, Block block, Random rand, int chance, Block target, Block filler) {
+        if (recorded(block, 0, target, 1.0 / chance, size, yMin, yMin + Math.max(1, yDev) - 1, "space_deposit")) return;
         if (rand.nextInt(chance) != 0) return;
         int cx = x + rand.nextInt(16) + 8, cy = yMin + rand.nextInt(yDev), cz = z + rand.nextInt(16) + 8;
         for (int i = cx - size; i <= cx + size; i++)
@@ -139,6 +167,7 @@ public final class Features {
     public static void generateOre(World world, Random rand, int x, int z, int veins, int amount, int minHeight, int variance,
             Block ore, int meta, Block target) {
         if (veins <= 0 || ore == null || ore == Blocks.AIR) return;
+        if (recorded(ore, meta, target, veins, amount, minHeight, minHeight + Math.max(1, variance) - 1, "vein")) return;
         for (int i = 0; i < veins; i++) {
             int bx = x + rand.nextInt(16);
             int by = minHeight + (variance > 0 ? rand.nextInt(variance) : 0);

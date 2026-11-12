@@ -263,8 +263,13 @@ public final class SpaceMachinePages {
             RecipePanel.rightAligned(graphics, lines.get(i), 160, 55 - 12 * (lines.size() - 1 - i), RecipePanel.TEXT);
     }
 
-    public record ThrusterRow(ResourceLocation id, ItemStack thruster, List<Fluid> propellants, int isp, long hePerMb)
-            implements RecipePage.Row {}
+    /** {@code source} is a machine feeding the thruster (the HTR-F4's fusion reactor), {@code hePerBurn} its charge. */
+    public record ThrusterRow(ResourceLocation id, ItemStack thruster, List<Fluid> propellants, int isp, long hePerMb,
+            ItemStack source, long hePerBurn) implements RecipePage.Row {
+        ThrusterRow(ResourceLocation id, ItemStack thruster, List<Fluid> propellants, int isp, long hePerMb) {
+            this(id, thruster, propellants, isp, hePerMb, ItemStack.EMPTY, 0L);
+        }
+    }
 
     /**
      * The station thrusters' propellants: the xenon thruster's xenon (and 5,000 HE for every
@@ -291,7 +296,7 @@ public final class SpaceMachinePages {
         @Override
         public List<ItemStack> catalysts() {
             return List.of(new ItemStack(SpaceXenonThruster.BLOCK.get()), new ItemStack(ModBlocks.MACHINE_LPW2.get()),
-                    new ItemStack(SpaceHTR3.BLOCK.get()));
+                    new ItemStack(SpaceHTR3.BLOCK.get()), new ItemStack(com.hbm.space.machine.SpaceHTRF.BLOCK.get()));
         }
 
         private static @Nullable Fluid firstStepProduct(FT_Heatable heatable) {
@@ -331,14 +336,20 @@ public final class SpaceMachinePages {
                 rows.add(new ThrusterRow(PageIds.derived(id(), "htr3", PageIds.segment(BuiltInRegistries.FLUID.getKey(hot))),
                         new ItemStack(SpaceHTR3.BLOCK.get()), List.of(hot), isp(hot), 0L));
             }
+            // the HTR-F4 burns a fusion reactor's plasma, charged with 200M HE and cooled by perfluoromethyl
+            rows.add(new ThrusterRow(PageIds.derived(id(), "htrf4"), new ItemStack(com.hbm.space.machine.SpaceHTRF.BLOCK.get()),
+                    List.of(NTMFluids.PERFLUOROMETHYL_COLD), 250, 0L, new ItemStack(ModBlocks.FUSION_TORUS.get()),
+                    com.hbm.space.machine.SpaceHTRF.HTRFBE.MAX_POWER));
             return rows;
         }
 
         @Override
         public void layout(ThrusterRow row, PageLayout page) {
-            int[][] in = GenericMachinePage.universalInputPositions(row.propellants().size());
+            int count = row.propellants().size() + (row.source().isEmpty() ? 0 : 1);
+            int[][] in = GenericMachinePage.universalInputPositions(count);
             for (int i = 0; i < row.propellants().size(); i++)
                 page.input(in[i][0], in[i][1]).background().fluid(row.propellants().get(i));
+            if (!row.source().isEmpty()) page.input(in[count - 1][0], in[count - 1][1]).background().item(row.source());
             page.display(102, 24).background().item(row.thruster());
         }
 
@@ -348,6 +359,7 @@ public final class SpaceMachinePages {
             List<Component> lines = new ArrayList<>();
             lines.add(Component.translatable("jei.hbm.space.isp", row.isp()));
             if (row.hePerMb() > 0) lines.add(Component.translatable("jei.hbm.space.he_per_mb", String.format(Locale.US, "%,d", row.hePerMb())));
+            if (row.hePerBurn() > 0) lines.add(Component.translatable("jei.hbm.space.he_per_burn", String.format(Locale.US, "%,d", row.hePerBurn())));
             drawLines(graphics, lines);
         }
     }

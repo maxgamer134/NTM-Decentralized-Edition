@@ -41,6 +41,7 @@ public final class ModCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         ConfigCommand.register(dispatcher);
+        SpaceCommands.register(dispatcher);
         dispatcher.register(
                 Commands.literal("ntmcustomize")
                         .executes(ModCommands::customize)

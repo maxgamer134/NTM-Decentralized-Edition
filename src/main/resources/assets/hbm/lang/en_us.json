@@ -9915,5 +9915,19 @@
   "entity.hbm.entity_war_behemoth": "War Behemoth",
   "item.hbm.entity_war_behemoth_spawn_egg": "%s Spawn Egg",
   "block.hbm.machine_alkylation": "Alkylation Unit",
-  "container.alkylation": "Alkylation Unit"
+  "container.alkylation": "Alkylation Unit",
+  "jei.hbm.space.fluid_table": "Fluid Table",
+  "jei.hbm.space.oil_extraction": "Oil Extraction",
+  "jei.hbm.space.frackable": "Frackable",
+  "jei.hbm.space.atmosphere_extraction": "Atmosphere Extraction",
+  "jei.hbm.space.bedrock_drilling": "Bedrock Drilling",
+  "jei.hbm.space.cryo_distiller": "Cryogenic Distillation",
+  "jei.hbm.space.dairy": "Dairy",
+  "jei.hbm.space.orbit_only": "Only in orbit",
+  "jei.hbm.space.per_growth_stage": "Per growth stage",
+  "jei.hbm.space.only_on": "Only on %s",
+  "jei.hbm.space.he_per_operation": "%s HE/operation",
+  "jei.hbm.space.station_thrusters": "Station Thrusters",
+  "jei.hbm.space.isp": "%s ISP",
+  "jei.hbm.space.he_per_mb": "%s HE/mB"
 }

@@ -99,11 +99,13 @@ public final class SpaceXenonThruster {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            if (!CelestialBody.inOrbit(level)) return;
             BlockPos core = findClientCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof ThrusterBE thruster)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
-            if (!thruster.isFacingPrograde()) {
+            // the overlay shows anywhere; the engines only fire on an orbital station
+            info.line(Component.literal("Thrust: " + BobMathUtil.getShortNumber((long) thruster.getThrust()) + "N"), 0x55FFFF);
+            if (!CelestialBody.inOrbit(level)) info.line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.noOrbit")).append(" ! ! !"), BobMathUtil.getBlink() ? 0xFF0000 : 0xFFFF00);
+            if (CelestialBody.inOrbit(level) && !thruster.isFacingPrograde()) {
                 info.line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.engineFacing")).append(" ! ! !"),
                         BobMathUtil.getBlink() ? 0xFF0000 : 0xFFFF00);
                 return;

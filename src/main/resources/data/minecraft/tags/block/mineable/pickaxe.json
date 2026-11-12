@@ -1034,8 +1034,14 @@
       "id": "hbm:create_motor_desh",
       "required": false
     },
-    "hbm:door_keypad",
-    "hbm:keycard_scanner",
+    {
+      "id": "hbm:door_keypad",
+      "required": false
+    },
+    {
+      "id": "hbm:keycard_scanner",
+      "required": false
+    },
     {
       "id": "hbm:block_nickel",
       "required": false

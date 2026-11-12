@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "hbm:door_keypad"
+    }
+  ],
   "type": "hbm:crafting_shaped",
   "key": {
     "P": "minecraft:paper",

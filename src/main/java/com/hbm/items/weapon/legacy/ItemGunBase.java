@@ -771,6 +771,8 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
     }
 
     public static void setItemWear(ItemStack stack, int i) {
+        // item_durability off: guns never wear, though repairs still lower it
+        if (!com.hbm.config.NeoForgeHbmConfig.runtime().itemDurability() && i > readNBT(stack, "wear")) return;
         writeNBT(stack, "wear", i);
         if (!com.hbm.config.NeoForgeHbmConfig.runtime().gunsVanillaDurability()) return;
         // guns_vanilla_durability: the same wear as vanilla item damage, out of the gun's durability

@@ -271,4 +271,38 @@ public abstract class MixinItemStack implements com.hbm.backport.ItemInstance, G
         hbm$syncMask = 0;
         hbm$syncUnits = 0;
     }
+
+    /** item_durability off: NTM items never take vanilla item damage. */
+    @Inject(
+            method = "hurtAndBreak(ILnet/minecraft/server/level/ServerLevel;Lnet/minecraft/server/level/ServerPlayer;Ljava/util/function/Consumer;)V",
+            at = @At("HEAD"),
+            cancellable = true)
+    private void hbm$itemDurability(int amount, net.minecraft.server.level.ServerLevel level,
+            net.minecraft.server.level.@org.jspecify.annotations.Nullable ServerPlayer player,
+            Consumer<Item> onBreak, CallbackInfo ci) {
+        if (com.hbm.config.NeoForgeHbmConfig.runtime().itemDurability()) return;
+        Item item = ((ItemStack) (Object) this).getItem();
+        if ("hbm".equals(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).getNamespace())) ci.cancel();
+    }
+
+    /** ntm_enchanting off: the enchanting table refuses NTM items. */
+    @Inject(method = "isEnchantable", at = @At("HEAD"), cancellable = true)
+    private void hbm$ntmEnchanting(CallbackInfoReturnable<Boolean> cir) {
+        if (com.hbm.handler.EnchantLock.locked((ItemStack) (Object) this)
+                && !com.hbm.handler.EnchantLock.anyAllowed()) cir.setReturnValue(false);
+    }
+
+    /** ntm_enchanting off: the table offers NTM items only the allowed enchantments. */
+    public boolean isPrimaryItemFor(Holder<net.minecraft.world.item.enchantment.Enchantment> enchantment) {
+        ItemStack self = (ItemStack) (Object) this;
+        if (com.hbm.handler.EnchantLock.locked(self) && !com.hbm.handler.EnchantLock.allowed(enchantment)) return false;
+        return self.getItem().isPrimaryItemFor(self, enchantment);
+    }
+
+    /** ntm_enchanting off: books and other items only add the allowed enchantments. */
+    public boolean supportsEnchantment(Holder<net.minecraft.world.item.enchantment.Enchantment> enchantment) {
+        ItemStack self = (ItemStack) (Object) this;
+        if (com.hbm.handler.EnchantLock.locked(self) && !com.hbm.handler.EnchantLock.allowed(enchantment)) return false;
+        return self.getItem().supportsEnchantment(self, enchantment);
+    }
 }

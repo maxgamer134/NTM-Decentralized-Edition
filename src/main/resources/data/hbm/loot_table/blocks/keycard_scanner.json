@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "hbm:keycard_scanner"
+    }
+  ],
   "type": "minecraft:block",
   "random_sequence": "hbm:blocks/keycard_scanner",
   "pools": [

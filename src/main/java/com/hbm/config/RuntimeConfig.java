@@ -26,6 +26,21 @@ public interface RuntimeConfig {
     default boolean damageCompatibilityMode() {
         return store().get(ConfigSchema.DAMAGE_COMPATIBILITY_MODE);
     }
+    default boolean ntmEnchanting() {
+        return store().get(ConfigSchema.NTM_ENCHANTING);
+    }
+    default boolean ntmEnchantingEfficiency() {
+        return store().get(ConfigSchema.NTM_ENCHANTING_EFFICIENCY);
+    }
+    default String ntmEnchantingAllowed() {
+        return store().get(ConfigSchema.NTM_ENCHANTING_ALLOWED);
+    }
+    default boolean abilityEnchantStacking() {
+        return store().get(ConfigSchema.ABILITY_ENCHANT_STACKING);
+    }
+    default boolean itemDurability() {
+        return store().get(ConfigSchema.ITEM_DURABILITY);
+    }
     default boolean gunsVanillaDurability() {
         return store().get(ConfigSchema.GUNS_VANILLA_DURABILITY);
     }

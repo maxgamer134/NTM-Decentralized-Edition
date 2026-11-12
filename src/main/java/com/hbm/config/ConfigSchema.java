@@ -549,6 +549,13 @@ public final class ConfigSchema {
                     "currencies",
                     "hbm:cap_nuka=1,hbm:cap_fritz=1,hbm:cap_korl=1,hbm:cap_rad=1,hbm:cap_sparkle=2,hbm:cap_quantum=4",
                     "The currencies loose_change accepts, as item=value pairs separated by commas. Any item can be one, minecraft:emerald=8 for example.");
+    public static final ConfigEntry<Boolean> ENABLE_DOOR_ACCESS =
+            bool(
+                    Domain.CONTENT,
+                    "doors",
+                    "enable_door_access",
+                    false,
+                    "Door keypads, keycard scanners and keycards. Off, none of them are registered. Needs a game restart, and servers and clients must match.");
     public static final ConfigEntry<Boolean> ENABLE_SPACE =
             bool(
                     Domain.CONTENT,
@@ -617,6 +624,41 @@ public final class ConfigSchema {
                     "guns_vanilla_durability",
                     false,
                     "On: gun wear is kept as vanilla item damage (pre-rework and post-rework guns), with the vanilla durability bar hidden. Off: guns keep their own wear value, as in main.");
+    public static final ConfigEntry<Boolean> ITEM_DURABILITY =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "item_durability",
+                    true,
+                    "On: NTM tools, weapons, armor and guns wear down as in main. Off: they never lose durability or gun wear.");
+    public static final ConfigEntry<Boolean> NTM_ENCHANTING =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "ntm_enchanting",
+                    true,
+                    "On: NTM items can be enchanted as usual. Off: the enchanting table and the anvil only give them the enchantments ntm_enchanting_efficiency and ntm_enchanting_allowed let through; enchantments they already have stay.");
+    public static final ConfigEntry<Boolean> ABILITY_ENCHANT_STACKING =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "ability_enchant_stacking",
+                    false,
+                    "Off: a tool's fortune ability and a Fortune enchantment don't stack, the higher one counts. On: equal levels add one, as in main (Fortune III with a level 3 fortune ability digs as Fortune IV).");
+    public static final ConfigEntry<Boolean> NTM_ENCHANTING_EFFICIENCY =
+            bool(
+                    Domain.RUNTIME,
+                    "damage",
+                    "ntm_enchanting_efficiency",
+                    true,
+                    "With ntm_enchanting off, NTM tools can still take Efficiency.");
+    public static final ConfigEntry<String> NTM_ENCHANTING_ALLOWED =
+            text(
+                    Domain.RUNTIME,
+                    "damage",
+                    "ntm_enchanting_allowed",
+                    "",
+                    "With ntm_enchanting off, these enchantments are still allowed on NTM items, separated by commas: minecraft:unbreaking,minecraft:mending for example.");
     public static final ConfigEntry<Boolean> SPIKES_INSTAKILL =
             bool(
                     Domain.RUNTIME,
@@ -865,11 +907,17 @@ public final class ConfigSchema {
                     SPIKES_INSTAKILL,
                     SAFE_SC_BATTERY_SOCKET,
                     GUNS_VANILLA_DURABILITY,
+                    ITEM_DURABILITY,
+                    NTM_ENCHANTING,
+                    ABILITY_ENCHANT_STACKING,
+                    NTM_ENCHANTING_EFFICIENCY,
+                    NTM_ENCHANTING_ALLOWED,
                     TRADES_BOTTLECAPS,
                     TRADES_BOTTLECAP_ITEM,
                     TRADES_CAPS_PER_EMERALD,
                     TRADES_LOOSE_CHANGE,
                     TRADES_CURRENCIES,
+                    ENABLE_DOOR_ACCESS,
                     ENABLE_SPACE,
                     SPACE_CHANGES,
                     SPACE_NETHER_PORTALS,

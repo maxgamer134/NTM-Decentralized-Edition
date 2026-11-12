@@ -153,7 +153,11 @@ public final class NuclearTech {
         load(ModItems.class);
         Autogen.register();
         load(ModBlockEntities.class);
-        com.hbm.doors.DoorAccess.init();
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(com.hbm.handler.EnchantLock::onAnvil);
+        if (com.hbm.config.EarlyContentConfig.get(com.hbm.config.ConfigSchema.ENABLE_DOOR_ACCESS)) {
+            load(com.hbm.doors.DoorAccess.class);
+            com.hbm.doors.DoorAccess.init();
+        }
         if (com.hbm.space.SpaceToggle.enabled()) {
             load(com.hbm.space.SpaceBlocks.class);
             com.hbm.space.SpaceBlocks.init();

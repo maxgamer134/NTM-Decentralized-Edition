@@ -215,7 +215,12 @@ public enum ToolHarvestAbility implements BaseAbility, StringRepresentable {
                 existing -> {
                     ItemEnchantments.Mutable mutable = new ItemEnchantments.Mutable(existing);
                     int applied = existing.getLevel(holder);
-                    mutable.set(holder, applied == power ? power + 1 : Math.max(applied, power));
+                    // ability_enchant_stacking off: the higher of the ability and the enchantment wins
+                    boolean stack =
+                            com.hbm.config.NeoForgeHbmConfig.runtime().abilityEnchantStacking();
+                    mutable.set(
+                            holder,
+                            stack && applied == power ? power + 1 : Math.max(applied, power));
                     return mutable.toImmutable();
                 });
         return tool;

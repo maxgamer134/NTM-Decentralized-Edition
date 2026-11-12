@@ -10,7 +10,6 @@ import com.hbm.backport.client.core.CameraRenderState;
 import com.hbm.backport.client.core.ModelFeatureRenderer;
 import com.hbm.backport.client.core.SubmitNodeCollector;
 import com.hbm.backport.client.rendertype.RenderTypes;
-import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.client.model.Meshes;
 import com.hbm.lib.Library;
 import com.hbm.lib.crankshaft.ConcurrentRenderStateExtraction;
@@ -19,8 +18,6 @@ import com.hbm.space.rocket.RocketStruct;
 import com.hbm.space.rocket.RocketStruct.RocketStage;
 import com.hbm.space.rocket.SpaceAssembly;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
-import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -47,7 +44,6 @@ public class RenderRocketAssembly
 
     public static class State extends BlockEntityRenderState {
         @Nullable RocketStruct rocket;
-        Direction facing = Direction.NORTH;
     }
 
     @Override
@@ -60,7 +56,6 @@ public class RenderRocketAssembly
             ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(be, state, partialTicks, camera, breakProgress);
         state.rocket = be.rocket;
-        state.facing = be.getBlockState().getValue(BlockMultiblockCore.FACING);
     }
 
     private static void part(PoseStack ps, SubmitNodeCollector col, int light, int part) {
@@ -71,13 +66,9 @@ public class RenderRocketAssembly
     @Override
     public void submit(State s, PoseStack ps, SubmitNodeCollector col, CameraRenderState camera) {
         ps.pushPose();
+        // NTM:Space's switch reads the core's raw metadata (12 and up), so no case matches and the
+        // building is never turned: its frame and legs are the same from every side
         ps.translate(0.5, -2.0, 0.5);
-        ps.mulPose(Axis.YP.rotationDegrees(switch (s.facing) {
-            case NORTH -> 180F;
-            case WEST -> 270F;
-            case EAST -> 90F;
-            default -> 0F;
-        }));
         mesh();
         part(ps, col, s.lightCoords, base);
         RocketStruct rocket = s.rocket;
@@ -88,7 +79,7 @@ public class RenderRocketAssembly
                 ps.translate(0, -rocket.stages.get(0).thruster.height, 0);
             RocketPronter.pront(rocket, ps, col, s.lightCoords, false);
             ps.popPose();
-            ps.translate(0, 2, 0);
+            // the support and deck parts already sit two blocks up in the model
             for (int i = 0; i < rocket.stages.size(); i++) {
                 RocketStage stage = rocket.stages.get(i);
                 RocketStage next = i < rocket.stages.size() - 1 ? rocket.stages.get(i + 1) : null;

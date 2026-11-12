@@ -106,7 +106,10 @@ public final class SpaceHydroponic {
 
         @Override
         protected MultiblockLayout runtimeLayout(int declaredCaps) {
-            SpaceLayouts l = new SpaceLayouts().box(0, 0, 0, DIMS);
+            // DIMS is only the base row; as NTM:Space's fillSpace the bay is three deep above it:
+            // its front and back walls and roof, with the middle of the core's row left open for the plants
+            SpaceLayouts l = new SpaceLayouts().box(0, 0, 0, DIMS)
+                    .box(0, 1, 0, 1, 0, 1, 1, 2, 2);
             for (int x = -1; x <= 1; x++) l.remove(x, 1, 0);
             l.port(2, 0, 0);
             l.port(-2, 0, 0);

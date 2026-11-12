@@ -97,10 +97,18 @@ public final class SpaceCryoDistiller {
 
         @Override
         protected MultiblockLayout runtimeLayout(int declaredCaps) {
-            SpaceLayouts l = new SpaceLayouts().box(0, 0, 0, DIMS);
+            // DIMS only clears the space; the blocks follow the model, as NTM:Space's fillSpace:
+            // the core's plane, the two sides of the walkway under it and the two tank stacks
+            SpaceLayouts l = new SpaceLayouts()
+                    .box(0, 0, 0, 0, 0, 3, 3, 2, 2)
+                    .box(0, 0, 0, 0, 2, 3, 0, 2, 2)
+                    .box(0, 0, 0, 0, 2, -2, 3, 2, 2)
+                    .box(0, 0, 0, 2, 0, 3, -1, 2, 2)
+                    .box(0, 0, 0, 3, 0, -2, 3, 2, 2);
             int noDown = MASK_ALL & ~MASK_DOWN;
-            l.port(-2, -2, -1, noDown);
-            l.port(-2, -2, -2, noDown);
+            // the inputs sit at NTM:Space's -rot, rot being the facing turned clockwise: local +x
+            l.port(2, -2, -1, noDown);
+            l.port(2, -2, -2, noDown);
             for (int x : new int[] {-2, -1, 1, 2}) l.port(x, -2, 3, noDown);
             return l.build(this, declaredCaps, DIMS, 3, 2);
         }

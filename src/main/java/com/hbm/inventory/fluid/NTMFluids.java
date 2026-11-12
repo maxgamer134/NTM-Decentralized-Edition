@@ -436,6 +436,8 @@ public final class NTMFluids {
 
     public static Fluid byName(String name) {
         Fluid fluid = BY_NAME.get(name);
+        // an old name (BALEFIRE, as NTM:Space and other addons call it) means the fluid now holding it
+        if (fluid == null) fluid = BY_NAME.get(anchor(name));
         if (fluid == null) throw new IllegalStateException("no fluid is registered under " + name);
         return fluid;
     }

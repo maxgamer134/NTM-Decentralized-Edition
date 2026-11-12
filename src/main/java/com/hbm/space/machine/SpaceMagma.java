@@ -109,7 +109,7 @@ public final class SpaceMagma {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof MagmaBE drill)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             int blink = BobMathUtil.getBlink() ? 0xFF0000 : 0xFFFF00;

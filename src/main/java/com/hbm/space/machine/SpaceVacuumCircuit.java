@@ -177,7 +177,7 @@ public final class SpaceVacuumCircuit {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof CircuitBE be) || be.canOperate) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             info.line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.noAir")).append(" ! ! !"),

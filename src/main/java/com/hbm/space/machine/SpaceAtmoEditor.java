@@ -116,7 +116,7 @@ public final class SpaceAtmoEditor {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof EditorBE be)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             CBT_Atmosphere atmosphere = CelestialBody.getTrait(level, CBT_Atmosphere.class);

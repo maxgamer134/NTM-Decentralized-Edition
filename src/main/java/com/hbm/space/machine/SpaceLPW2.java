@@ -76,7 +76,7 @@ public final class SpaceLPW2 {
     }
 
     public static void buildLookOverlay(BlockMultiblockCore block, Level level, BlockPos pos, ILookOverlay.LookInfo info) {
-        BlockPos core = block.findClientCore(level, pos);
+        BlockPos core = block.overlayCore(level, pos);
         if (core == null || !(level.getBlockEntity(core) instanceof LPW2BE lpw)) return;
         info.title(block.getName(), 0xFFFF00, 0x404000);
         // the overlay shows anywhere; the engines only fire on an orbital station

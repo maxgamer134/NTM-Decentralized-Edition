@@ -93,7 +93,7 @@ public final class SpaceScrubber {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof ScrubberBE scrubber)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             info.line(Component.literal("Power: " + BobMathUtil.getShortNumber(scrubber.getPower()) + "HE"),

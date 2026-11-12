@@ -147,7 +147,7 @@ public final class SpaceHTR3 {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof HTR3BE htr)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             // the overlay shows anywhere; the engines only fire on an orbital station

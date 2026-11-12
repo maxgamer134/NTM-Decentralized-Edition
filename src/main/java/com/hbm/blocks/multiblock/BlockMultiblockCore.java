@@ -407,6 +407,16 @@ public abstract class BlockMultiblockCore extends BlockCompat
         return null;
     }
 
+    /**
+     * The core a look overlay at {@code pos} belongs to: {@code pos} itself when it is this block's
+     * core (where cells forward their overlay), otherwise the core the client knows for the cell.
+     */
+    public @Nullable BlockPos overlayCore(BlockGetter level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.getBlock() == this && !isCellState(state)) return pos;
+        return MultiblockSurface.clientCoreOf(level, pos);
+    }
+
     public boolean claimsCell(BlockGetter level, BlockPos core, BlockPos cell, Direction facing) {
         int dx = cell.getX() - core.getX(),
                 dy = cell.getY() - core.getY(),

@@ -155,7 +155,7 @@ public final class SpaceAtmoMachines {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof CompressorBE be)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             if (!CelestialBody.hasTrait(level, CBT_Atmosphere.class)) {
@@ -374,7 +374,7 @@ public final class SpaceAtmoMachines {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof EmitterBE be)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             info.line(Component.literal("Power: " + BobMathUtil.getShortNumber(be.power) + "HE"), be.power > 0 ? 0x55FF55 : 0xFF5555);

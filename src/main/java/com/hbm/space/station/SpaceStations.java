@@ -179,7 +179,7 @@ public final class SpaceStations {
                 noOrbit(info, this);
                 return;
             }
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof PortBE port)) return;
             for (ItemStack stack : port.inventory) if (!stack.isEmpty()) info.output(stack.getHoverName());
             if (info.size() > 0) {
@@ -486,7 +486,7 @@ public final class SpaceStations {
                 noOrbit(info, this);
                 return;
             }
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof ComputerBE computer)) return;
             OrbitalStation station = OrbitalStation.clientStation;
             double progress = station.getUnscaledProgress(0);

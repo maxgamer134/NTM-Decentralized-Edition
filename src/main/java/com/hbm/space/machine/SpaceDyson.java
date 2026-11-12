@@ -260,7 +260,7 @@ public final class SpaceDyson {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof LauncherBE launcher)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             if (launcher.swarmId > 0) {
@@ -541,7 +541,7 @@ public final class SpaceDyson {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof ReceiverBE receiver)) return;
             info.title(getName(), 0xFFFF00, 0x404000);
             if (receiver.swarmId > 0) {
@@ -911,7 +911,7 @@ public final class SpaceDyson {
 
         @Override
         public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof ConverterAnatmoBE converter)) return;
             CBT_Atmosphere atmosphere = CelestialBody.getTrait(level, CBT_Atmosphere.class);
             double pressure = atmosphere != null ? atmosphere.getPressure(converter.fluid) : 0;

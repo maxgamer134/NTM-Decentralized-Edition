@@ -142,7 +142,7 @@ public final class SpaceStationLauncher {
                         .line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.noOrbit")).append(" ! ! !"), 0xff0000);
                 return;
             }
-            BlockPos core = findClientCore(level, pos);
+            BlockPos core = overlayCore(level, pos);
             if (core == null || !(level.getBlockEntity(core) instanceof LauncherBE pad)) return;
             if (pad.hasDocked) {
                 if (pad.hasRider) info.line(Component.translatable("station.occupiedRocket").withStyle(ChatFormatting.YELLOW));

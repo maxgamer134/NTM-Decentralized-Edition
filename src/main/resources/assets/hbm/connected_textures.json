@@ -40,6 +40,14 @@
       "hbm:block/deco_rusty_steel": "hbm:block/ct/deco_rusty_steel_ct"
     }
   },
+  "hbm:deco_stainless": {
+    "connect": [
+      "hbm:deco_stainless"
+    ],
+    "textures": {
+      "hbm:block/deco_stainless": "hbm:block/ct/deco_stainless_ct"
+    }
+  },
   "hbm:deco_steel": {
     "connect": [
       "hbm:deco_steel",
@@ -137,6 +145,14 @@
     "textures": {
       "hbm:block/icf_block": "hbm:block/ct/icf_block_ct",
       "hbm:block/icf_block_port": "hbm:block/ct/icf_block_port_ct"
+    }
+  },
+  "hbm:laythe_root": {
+    "connect": [
+      "hbm:laythe_root"
+    ],
+    "textures": {
+      "hbm:block/laythe_root": "hbm:block/ct/laythe_root_ct"
     }
   },
   "hbm:pile_block": {

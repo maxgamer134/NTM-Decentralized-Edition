@@ -1,7 +1,37 @@
 {
   "variants": {
-    "": {
+    "body=orbit": {
       "model": "hbm:block/ore_oil"
+    },
+    "body=kerbin": {
+      "model": "hbm:block/ore_oil"
+    },
+    "body=mun": {
+      "model": "hbm:block/space_ore/base/ore_oil_mun"
+    },
+    "body=minmus": {
+      "model": "hbm:block/space_ore/base/ore_oil_minmus"
+    },
+    "body=duna": {
+      "model": "hbm:block/space_ore/base/ore_oil_duna"
+    },
+    "body=moho": {
+      "model": "hbm:block/space_ore/base/ore_oil_moho"
+    },
+    "body=dres": {
+      "model": "hbm:block/space_ore/base/ore_oil_dres"
+    },
+    "body=eve": {
+      "model": "hbm:block/space_ore/base/ore_oil_eve"
+    },
+    "body=ike": {
+      "model": "hbm:block/space_ore/base/ore_oil_ike"
+    },
+    "body=laythe": {
+      "model": "hbm:block/space_ore/base/ore_oil_laythe"
+    },
+    "body=tekto": {
+      "model": "hbm:block/space_ore/base/ore_oil_tekto"
     }
   }
 }

@@ -136,15 +136,56 @@ public final class SpacePlants {
     /** Laythe coral: five underwater corals that break into calcium powder. */
     public static class Coral extends WaterPlant {
         public static final EnumProperty<CoralType> CORAL = EnumProperty.create("coral", CoralType.class);
+        /** The side the coral grows from, as NTM:Space's RenderCoral picked it. */
+        public static final net.minecraft.world.level.block.state.properties.DirectionProperty ATTACH =
+                net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
+        // sideways first, then the ceiling; with none of them solid it stands on the floor
+        private static final net.minecraft.core.Direction[] ATTACH_ORDER = {
+            net.minecraft.core.Direction.NORTH, net.minecraft.core.Direction.SOUTH,
+            net.minecraft.core.Direction.WEST, net.minecraft.core.Direction.EAST,
+            net.minecraft.core.Direction.UP
+        };
 
         public Coral(BlockBehaviour.Properties props) {
             super(props);
-            registerDefaultState(defaultBlockState().setValue(CORAL, CoralType.TUBE));
+            registerDefaultState(defaultBlockState().setValue(CORAL, CoralType.TUBE).setValue(ATTACH, net.minecraft.core.Direction.DOWN));
         }
 
         @Override
         protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-            builder.add(CORAL);
+            builder.add(CORAL, ATTACH);
+        }
+
+        private static boolean solid(net.minecraft.world.level.BlockGetter level, BlockPos pos, net.minecraft.core.Direction dir) {
+            BlockPos at = pos.relative(dir);
+            return level.getBlockState(at).isFaceSturdy(level, at, dir.getOpposite());
+        }
+
+        /** {@code state} turned to the first solid neighbour it can grow from. */
+        public static BlockState attach(BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos) {
+            for (net.minecraft.core.Direction dir : ATTACH_ORDER)
+                if (solid(level, pos, dir)) return state.setValue(ATTACH, dir);
+            return state.setValue(ATTACH, net.minecraft.core.Direction.DOWN);
+        }
+
+        @Override
+        protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+            if (solid(level, pos, net.minecraft.core.Direction.DOWN)) return true;
+            for (net.minecraft.core.Direction dir : ATTACH_ORDER) if (solid(level, pos, dir)) return true;
+            return false;
+        }
+
+        @Override
+        public BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext ctx) {
+            BlockState state = super.getStateForPlacement(ctx);
+            return state == null ? null : attach(state, ctx.getLevel(), ctx.getClickedPos());
+        }
+
+        @Override
+        protected BlockState updateShape(BlockState state, net.minecraft.core.Direction dir, BlockState neighbor,
+                net.minecraft.world.level.LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
+            BlockState updated = super.updateShape(state, dir, neighbor, level, pos, neighborPos);
+            return updated.is(this) ? attach(updated, level, pos) : updated;
         }
 
         @Override

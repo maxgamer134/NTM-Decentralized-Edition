@@ -95,7 +95,7 @@ public class BlockEntityMachineFrackingTower extends BlockEntityOilDrillBase
                             + rand.nextInt(
                                     MachineData.FRACKING_GAS_PER_DEPOSIT_MAX.get() - gasMin + 1);
             if (rand.nextDouble() < MachineData.FRACKING_DRAIN_CHANCE.get()) {
-                level.setBlock(pos, ModBlocks.ORE_OIL_EMPTY.get().defaultBlockState(), 3);
+                level.setBlock(pos, com.hbm.space.BlockSpaceOre.sameBody(ModBlocks.ORE_OIL_EMPTY.get().defaultBlockState(), level.getBlockState(pos)), 3);
             }
         }
         if (b == ModBlocks.ORE_BEDROCK_OIL.get()) {

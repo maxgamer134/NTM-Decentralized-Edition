@@ -108,7 +108,11 @@ public class World {
 
     public boolean setState(int x, int y, int z, BlockState state) {
         if (!reachable(x, y, z)) return false;
-        return level.setBlock(new BlockPos(x, y, z), state, 2);
+        BlockPos pos = new BlockPos(x, y, z);
+        // NTM:Space's coral picked the side it grows from while drawing; here the state holds it
+        if (state.getBlock() instanceof com.hbm.space.SpacePlants.Coral)
+            state = com.hbm.space.SpacePlants.Coral.attach(state, level, pos);
+        return level.setBlock(pos, state, 2);
     }
 
     public boolean setBlockToAir(int x, int y, int z) {

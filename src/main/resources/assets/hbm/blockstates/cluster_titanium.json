@@ -1,7 +1,37 @@
 {
   "variants": {
-    "": {
+    "body=orbit": {
       "model": "hbm:block/cluster_titanium"
+    },
+    "body=kerbin": {
+      "model": "hbm:block/cluster_titanium"
+    },
+    "body=mun": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_mun"
+    },
+    "body=minmus": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_minmus"
+    },
+    "body=duna": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_duna"
+    },
+    "body=moho": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_moho"
+    },
+    "body=dres": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_dres"
+    },
+    "body=eve": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_eve"
+    },
+    "body=ike": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_ike"
+    },
+    "body=laythe": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_laythe"
+    },
+    "body=tekto": {
+      "model": "hbm:block/space_ore/base/cluster_titanium_tekto"
     }
   }
 }

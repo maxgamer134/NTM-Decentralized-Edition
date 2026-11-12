@@ -49,6 +49,11 @@ public class BlockSpaceOre extends Block {
         builder.add(BODY);
     }
 
+    /** {@code target} on the body {@code from} sits on, when both carry one: a drained ore keeps its stone. */
+    public static BlockState sameBody(BlockState target, BlockState from) {
+        return target.hasProperty(BODY) && from.hasProperty(BODY) ? target.setValue(BODY, from.getValue(BODY)) : target;
+    }
+
     public ItemStack stackFor(OreBody body) {
         ItemStack stack = new ItemStack(this);
         if (body != OreBody.ORBIT) stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(BODY, body));

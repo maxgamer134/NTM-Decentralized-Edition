@@ -1,19 +1,129 @@
 {
   "variants": {
-    "coral=tube": {
+    "coral=tube,facing=down": {
       "model": "hbm:block/laythe_coral_tube"
     },
-    "coral=brain": {
+    "coral=tube,facing=up": {
+      "model": "hbm:block/laythe_coral_tube",
+      "x": 180
+    },
+    "coral=tube,facing=north": {
+      "model": "hbm:block/laythe_coral_tube",
+      "x": 270
+    },
+    "coral=tube,facing=south": {
+      "model": "hbm:block/laythe_coral_tube",
+      "x": 90
+    },
+    "coral=tube,facing=west": {
+      "model": "hbm:block/laythe_coral_tube",
+      "x": 90,
+      "y": 90
+    },
+    "coral=tube,facing=east": {
+      "model": "hbm:block/laythe_coral_tube",
+      "x": 90,
+      "y": 270
+    },
+    "coral=brain,facing=down": {
       "model": "hbm:block/laythe_coral_brain"
     },
-    "coral=bubble": {
+    "coral=brain,facing=up": {
+      "model": "hbm:block/laythe_coral_brain",
+      "x": 180
+    },
+    "coral=brain,facing=north": {
+      "model": "hbm:block/laythe_coral_brain",
+      "x": 270
+    },
+    "coral=brain,facing=south": {
+      "model": "hbm:block/laythe_coral_brain",
+      "x": 90
+    },
+    "coral=brain,facing=west": {
+      "model": "hbm:block/laythe_coral_brain",
+      "x": 90,
+      "y": 90
+    },
+    "coral=brain,facing=east": {
+      "model": "hbm:block/laythe_coral_brain",
+      "x": 90,
+      "y": 270
+    },
+    "coral=bubble,facing=down": {
       "model": "hbm:block/laythe_coral_bubble"
     },
-    "coral=fire": {
+    "coral=bubble,facing=up": {
+      "model": "hbm:block/laythe_coral_bubble",
+      "x": 180
+    },
+    "coral=bubble,facing=north": {
+      "model": "hbm:block/laythe_coral_bubble",
+      "x": 270
+    },
+    "coral=bubble,facing=south": {
+      "model": "hbm:block/laythe_coral_bubble",
+      "x": 90
+    },
+    "coral=bubble,facing=west": {
+      "model": "hbm:block/laythe_coral_bubble",
+      "x": 90,
+      "y": 90
+    },
+    "coral=bubble,facing=east": {
+      "model": "hbm:block/laythe_coral_bubble",
+      "x": 90,
+      "y": 270
+    },
+    "coral=fire,facing=down": {
       "model": "hbm:block/laythe_coral_fire"
     },
-    "coral=horn": {
+    "coral=fire,facing=up": {
+      "model": "hbm:block/laythe_coral_fire",
+      "x": 180
+    },
+    "coral=fire,facing=north": {
+      "model": "hbm:block/laythe_coral_fire",
+      "x": 270
+    },
+    "coral=fire,facing=south": {
+      "model": "hbm:block/laythe_coral_fire",
+      "x": 90
+    },
+    "coral=fire,facing=west": {
+      "model": "hbm:block/laythe_coral_fire",
+      "x": 90,
+      "y": 90
+    },
+    "coral=fire,facing=east": {
+      "model": "hbm:block/laythe_coral_fire",
+      "x": 90,
+      "y": 270
+    },
+    "coral=horn,facing=down": {
       "model": "hbm:block/laythe_coral_horn"
+    },
+    "coral=horn,facing=up": {
+      "model": "hbm:block/laythe_coral_horn",
+      "x": 180
+    },
+    "coral=horn,facing=north": {
+      "model": "hbm:block/laythe_coral_horn",
+      "x": 270
+    },
+    "coral=horn,facing=south": {
+      "model": "hbm:block/laythe_coral_horn",
+      "x": 90
+    },
+    "coral=horn,facing=west": {
+      "model": "hbm:block/laythe_coral_horn",
+      "x": 90,
+      "y": 90
+    },
+    "coral=horn,facing=east": {
+      "model": "hbm:block/laythe_coral_horn",
+      "x": 90,
+      "y": 270
     }
   }
 }

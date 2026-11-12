@@ -97,7 +97,7 @@ public class BlockEntityMachinePumpjack extends BlockEntityOilDrillBase {
                                                 + 1));
 
         if (level.getRandom().nextDouble() < MachineData.PUMPJACK_DRAIN_CHANCE.get()) {
-            level.setBlock(pos, ModBlocks.ORE_OIL_EMPTY.get().defaultBlockState(), 3);
+            level.setBlock(pos, com.hbm.space.BlockSpaceOre.sameBody(ModBlocks.ORE_OIL_EMPTY.get().defaultBlockState(), level.getBlockState(pos)), 3);
         }
         setChanged();
     }

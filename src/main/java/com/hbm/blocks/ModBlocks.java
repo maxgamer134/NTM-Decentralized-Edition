@@ -73,6 +73,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.function.Function;
+import com.hbm.space.BlockSpaceOre;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 import net.minecraft.core.Direction;
@@ -5622,7 +5625,19 @@ public final class ModBlocks {
                         UnaryOperator.identity());
         ORE_OIL =
                 ModBlocks.<Block>extraOre(
-                        "ore_oil", BlockOreOil::new, 5.0F, 6.0F, UnaryOperator.identity());
+                        "ore_oil",
+                        props ->
+                                new BlockOreOil(props) {
+                                    @Override
+                                    protected void createBlockStateDefinition(
+                                            StateDefinition.Builder<Block, BlockState> builder) {
+                                        super.createBlockStateDefinition(builder);
+                                        builder.add(BlockSpaceOre.BODY);
+                                    }
+                                },
+                        5.0F,
+                        6.0F,
+                        UnaryOperator.identity());
         ORE_OIL_EMPTY = extraOre("ore_oil_empty", 5.0F, 6.0F);
         ORE_BEDROCK_OIL =
                 extraOre(
@@ -8041,7 +8056,7 @@ public final class ModBlocks {
         Reg.Handle<Block> block =
                 Reg.block(
                         name,
-                        Block::new,
+                        planetOre(name, Block::new),
                         () ->
                                 BlockBehaviour.Properties.of()
                                         .mapColor(MapColor.STONE)
@@ -8183,7 +8198,7 @@ public final class ModBlocks {
         Reg.Handle<B> block =
                 Reg.block(
                         name,
-                        factory,
+                        planetOre(name, factory),
                         () ->
                                 extra.apply(
                                         BlockBehaviour.Properties.of()
@@ -8437,6 +8452,27 @@ public final class ModBlocks {
         return block;
     }
 
+    /**
+     * The base ores NTM:Space also generates on other bodies. As there, they draw the stone of the
+     * body they sit on, picked by the {@link BlockSpaceOre#BODY} property. A holder class, as the
+     * ores register in static blocks above where a plain field would be set.
+     */
+    private static final class PlanetOres {
+        static final java.util.Set<String> NAMES =
+            java.util.Set.of(
+                    "ore_uranium", "ore_thorium", "ore_titanium", "ore_sulfur", "ore_aluminium",
+                    "ore_fluorite", "ore_niter", "ore_tungsten", "ore_lead", "ore_beryllium",
+                    "ore_rare", "ore_asbestos", "ore_cinnabar", "ore_cobalt", "ore_coltan",
+                    "ore_schrabidium", "ore_australium", "ore_oil_empty", "cluster_iron",
+                    "cluster_titanium", "cluster_aluminium", "cluster_copper");
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <B extends Block> Function<BlockBehaviour.Properties, B> planetOre(
+            String name, Function<BlockBehaviour.Properties, B> factory) {
+        return PlanetOres.NAMES.contains(name) ? props -> (B) new BlockSpaceOre(props) : factory;
+    }
+
     private static Reg.Handle<Block> ore(
             String name, NTMMaterial mat, float hardness, float resistance) {
         return ore(name, mat.dict, hardness, resistance);
@@ -8447,7 +8483,7 @@ public final class ModBlocks {
         Reg.Handle<Block> block =
                 Reg.block(
                         name,
-                        Block::new,
+                        planetOre(name, Block::new),
                         () ->
                                 BlockBehaviour.Properties.of()
                                         .mapColor(MapColor.STONE)
@@ -8468,7 +8504,17 @@ public final class ModBlocks {
         Reg.Handle<Block> block =
                 Reg.block(
                         name,
-                        props -> new BlockOutgas(props, gas, true),
+                        PlanetOres.NAMES.contains(name)
+                                ? props ->
+                                        new BlockOutgas(props, gas, true) {
+                                            @Override
+                                            protected void createBlockStateDefinition(
+                                                    StateDefinition.Builder<Block, BlockState> builder) {
+                                                super.createBlockStateDefinition(builder);
+                                                builder.add(BlockSpaceOre.BODY);
+                                            }
+                                        }
+                                : props -> new BlockOutgas(props, gas, true),
                         () ->
                                 BlockBehaviour.Properties.of()
                                         .mapColor(MapColor.STONE)

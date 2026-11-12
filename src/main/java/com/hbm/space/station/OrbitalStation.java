@@ -74,6 +74,8 @@ public class OrbitalStation {
     public static OrbitalStation clientStation = new OrbitalStation(null);
 
     public OrbitalStation(@Nullable CelestialBody orbiting) {
+        // NTM:Space's default is Kerbin; the star orbits nothing, so the orbit sky crashed on it
+        if (orbiting == null) orbiting = CelestialBody.getBodyOrNull("kerbin");
         this.orbiting = this.target = orbiting != null ? orbiting : SolarSystem.kerbol;
     }
 

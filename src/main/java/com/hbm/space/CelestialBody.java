@@ -405,6 +405,7 @@ public class CelestialBody {
 
     /** Year length in days, from the semi-major axis. */
     public double getOrbitalPeriod() {
+        if (parent == null) return Double.POSITIVE_INFINITY; // a star never comes round
         double semiMajorAxis = semiMajorAxisKm * 1_000D;
         double period =
                 2 * Math.PI

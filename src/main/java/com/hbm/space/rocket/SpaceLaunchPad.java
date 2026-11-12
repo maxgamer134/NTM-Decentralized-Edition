@@ -104,11 +104,13 @@ public final class SpaceLaunchPad {
     public static class Tower extends Block implements ClimbBox {
         public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
         public static final BooleanProperty LADDER = BooleanProperty.create("ladder");
+        // a quarter block either side of the face, as NTM:Space's ladder boxes: the tower is solid,
+        // so a box inside the block only ever touches the player and never starts the climb
         private static final AABB[] FACES = {
-            new AABB(0, 0, 15 / 16D, 1, 1, 1), // south
-            new AABB(0, 0, 0, 1 / 16D, 1, 1), // west
-            new AABB(0, 0, 0, 1, 1, 1 / 16D), // north
-            new AABB(15 / 16D, 0, 0, 1, 1, 1), // east
+            new AABB(0.25, 0, 0.75, 0.75, 1, 1.25), // south
+            new AABB(-0.25, 0, 0.25, 0.25, 1, 0.75), // west
+            new AABB(0.25, 0, -0.25, 0.75, 1, 0.25), // north
+            new AABB(0.75, 0, 0.25, 1.25, 1, 0.75), // east
         };
 
         public Tower(Properties props) {

@@ -493,7 +493,10 @@ public class EntityRideableRocket extends EntityCompat {
 
     @Override
     public Vec3 getPassengerRidingPosition(Entity passenger) {
-        return position().add(0, isReusable() ? getBbHeight() - 2.5 : getBbHeight() - 3.0, 0);
+        // along the rocket's axis, which leans east as it pitches over (NTM:Space's updateRiderPosition)
+        double length = isReusable() ? getBbHeight() - 2.5 : getBbHeight() - 3.0;
+        double pitch = Math.toRadians(getXRot());
+        return position().add(Math.sin(pitch) * length, Math.cos(pitch) * length, 0);
     }
 
     @Override

@@ -81,7 +81,12 @@ public class ItemGunStinger extends ItemGunBaseNT {
 
             if (angle < closestAngle && angle < angleThreshold) {
                 closestAngle = angle;
-                closestEntity = entity;
+                // backport: the ender dragon is only pickable through its parts, whose ids the
+                // server can't look up, so a part locks on to the dragon itself
+                closestEntity =
+                        entity instanceof net.neoforged.neoforge.entity.PartEntity<?> part
+                                ? part.getParent()
+                                : entity;
             }
         }
 

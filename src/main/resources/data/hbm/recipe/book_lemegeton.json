@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:book",
+    "G": "hbm:gem_rad",
+    "M": "hbm:powder_magic",
+    "S": "hbm:ingot_starmetal"
+  },
+  "pattern": [
+    "MSM",
+    "GBG",
+    "MSM"
+  ],
+  "result": {
+    "count": 1,
+    "id": "hbm:book_lemegeton"
+  }
+}

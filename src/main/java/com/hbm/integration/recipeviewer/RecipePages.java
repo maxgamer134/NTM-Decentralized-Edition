@@ -245,6 +245,14 @@ public final class RecipePages {
                             ModBlocks.MACHINE_COMPRESSOR.get())
                     .catalysts(ModBlocks.MACHINE_COMPRESSOR_COMPACT.get())
                     .build();
+    public static final GenericMachinePage<LemegetonRecipe> LEMEGETON =
+            universal(
+                            "lemegeton",
+                            LemegetonRecipe.class,
+                            LemegetonRecipes.INSTANCE,
+                            "item.hbm.book_lemegeton",
+                            ModItems.BOOK_LEMEGETON.get())
+                    .build();
     public static final GenericMachinePage<CrackingRecipe> CRACKING =
             GenericMachinePage.builder(
                             "cracking_tower",
@@ -398,6 +406,7 @@ public final class RecipePages {
                     COMBINATION,
                     SAWMILL,
                     COMPRESSOR,
+                    LEMEGETON,
                     CRACKING,
                     CRYSTALLIZER,
                     ELECTROLYSER_FLUID,

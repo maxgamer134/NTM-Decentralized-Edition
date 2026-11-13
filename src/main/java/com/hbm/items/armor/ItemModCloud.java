@@ -28,6 +28,11 @@ public class ItemModCloud extends ItemArmorMod {
         super(properties, ArmorModHandler.PLATE_ONLY, false, true, false, false);
     }
 
+    /** Extra running speed as a fraction of the total. */
+    protected double speed() {
+        return SPEED;
+    }
+
     public int dashes() {
         return DASHES;
     }
@@ -58,6 +63,6 @@ public class ItemModCloud extends ItemArmorMod {
         adder.accept(
                 Attributes.MOVEMENT_SPEED,
                 new AttributeModifier(
-                        SPEED_ID, SPEED, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+                        SPEED_ID, speed(), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
     }
 }

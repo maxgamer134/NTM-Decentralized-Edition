@@ -1816,6 +1816,22 @@
       }
     ]
   },
+  "player.dash": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:player/dash"
+      }
+    ]
+  },
+  "player.dash_recharge": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:player/dashRecharge"
+      }
+    ]
+  },
   "tech_boop": {
     "category": "player",
     "sounds": [

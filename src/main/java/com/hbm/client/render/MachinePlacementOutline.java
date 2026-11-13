@@ -4,7 +4,6 @@
 package com.hbm.client.render;
 
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
-import com.hbm.blocks.multiblock.MultiblockLayout;
 import com.hbm.util.GameTime;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.hbm.backport.client.core.SubmitNodeCollector;
@@ -13,7 +12,6 @@ import com.hbm.backport.client.core.BlockOutlineRenderState;
 import com.hbm.backport.client.core.LevelRenderState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.Level;
@@ -33,24 +31,10 @@ public final class MachinePlacementOutline {
                 || !(player.getMainHandItem().getItem() instanceof BlockItem item)
                 || !(item.getBlock() instanceof BlockMultiblockCore block)) return null;
 
-        int quadrant = Mth.floor(player.getYRot() * 4F / block.placementYawSpan() + 0.5D) & 3;
-        Direction facing =
-                switch (quadrant) {
-                    case 1 -> Direction.EAST;
-                    case 2 -> Direction.SOUTH;
-                    case 3 -> Direction.WEST;
-                    default -> Direction.NORTH;
-                };
+        Direction face = hit.getDirection();
+        Direction facing = block.placementFacing(player.getYRot(), face);
         Direction direction = block.getDirModified(facing);
-        MultiblockLayout.Placement placement = block.placement();
-        int offset = -placement.offset();
-        BlockPos placed =
-                hit.getBlockPos().relative(hit.getDirection()).above(placement.heightOffset());
-        BlockPos core =
-                placed.offset(
-                        facing.getStepX() * offset,
-                        facing.getStepY() * offset,
-                        facing.getStepZ() * offset);
+        BlockPos core = block.placementCore(hit.getBlockPos().relative(face), face, facing, direction);
         return new State(
                 core,
                 block.placementOutline(direction),

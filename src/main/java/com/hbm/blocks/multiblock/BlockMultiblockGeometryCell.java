@@ -167,6 +167,7 @@ public class BlockMultiblockGeometryCell extends BlockMultiblockCell implements 
     @Override
     protected VoxelShape getCollisionShape(
             BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
+        if (MultiblockPhasing.phased(ctx)) return net.minecraft.world.phys.shapes.Shapes.empty();
         return shape(idOf(state), isOpen(state), true);
     }
 

@@ -556,6 +556,13 @@ public final class ConfigSchema {
                     "enable_door_access",
                     false,
                     "Door keypads, keycard scanners and keycards. Off, none of them are registered. Needs a game restart, and servers and clients must match.");
+    public static final ConfigEntry<Boolean> ENABLE_V1 =
+            bool(
+                    Domain.CONTENT,
+                    "armor",
+                    "enable_v1",
+                    true,
+                    "The V1 chestplate mod, which NTMain removed and NTM:Space kept: faster running, three dashes, and every hit and kill heals the wearer. The Mask Man drops it. Off, it is not registered. Needs a game restart, and servers and clients must match.");
     public static final ConfigEntry<Boolean> ENABLE_SPACE =
             bool(
                     Domain.CONTENT,

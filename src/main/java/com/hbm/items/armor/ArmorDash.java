@@ -49,7 +49,7 @@ public final class ArmorDash {
                             player.getX(),
                             player.getY(),
                             player.getZ(),
-                            ModSounds.TECH_BOOP.get(),
+                            spaceSounds(player) ? DashSounds.RECHARGE.get() : ModSounds.TECH_BOOP.get(),
                             SoundSource.PLAYERS,
                             1.0F,
                             1.0F + (1F / 12F) * (stamina / PER_DASH));
@@ -80,10 +80,21 @@ public final class ArmorDash {
                 player.getX(),
                 player.getY(),
                 player.getZ(),
-                ModSounds.WEAPON_ROCKET_FLAME.get(),
+                spaceSounds(player) ? DashSounds.DASH.get() : ModSounds.WEAPON_ROCKET_FLAME.get(),
                 SoundSource.PLAYERS,
                 1.0F,
                 1.0F);
+    }
+
+    private static boolean spaceSounds(Player player) {
+        ItemStack plate = player.getItemBySlot(EquipmentSlot.CHEST);
+        boolean v1 = false;
+        if (ArmorModHandler.isArmor(plate)) {
+            var mods = ArmorModHandler.mods(plate);
+            for (int socket = 0; socket < ArmorModHandler.MOD_SLOTS && !v1; socket++)
+                v1 = mods.item(socket) instanceof ItemModV1;
+        }
+        return DashSounds.apply(v1);
     }
 
     private static int dashCount(Player player) {

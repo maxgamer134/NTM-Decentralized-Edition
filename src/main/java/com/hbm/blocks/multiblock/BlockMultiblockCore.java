@@ -3,6 +3,8 @@
 
 package com.hbm.blocks.multiblock;
 
+import com.hbm.space.SpaceToggle;
+
 import com.hbm.blockentity.BlockEntityMachineBase;
 import com.hbm.blockentity.GraphResident;
 import com.hbm.blockentity.Tiltable;
@@ -374,6 +376,59 @@ public abstract class BlockMultiblockCore extends BlockCompat
         return dir;
     }
 
+    private static final ThreadLocal<BlockPos> CLICKED_AT = new ThreadLocal<>();
+    private static final ThreadLocal<Direction> CLICKED_FACE = new ThreadLocal<>();
+
+    @Override
+    public @Nullable BlockState getStateForPlacement(net.minecraft.world.item.context.BlockPlaceContext context) {
+        CLICKED_AT.set(context.getClickedPos());
+        CLICKED_FACE.set(context.getClickedFace());
+        return super.getStateForPlacement(context);
+    }
+
+    /** The face the player clicked to place the block at pos; UP when it isn't known. */
+    private static Direction takeClickedFace(BlockPos pos) {
+        Direction face = pos.equals(CLICKED_AT.get()) ? CLICKED_FACE.get() : null;
+        CLICKED_AT.remove();
+        CLICKED_FACE.remove();
+        return face == null ? Direction.UP : face;
+    }
+
+    /**
+     * The way the placed machine is turned before getDirModified: away from the player by yaw, or,
+     * with NTM:Space changes on, away from the wall it was placed against.
+     */
+    public Direction placementFacing(float yRot, Direction face) {
+        if (SpaceToggle.changes() && face.getAxis().isHorizontal()) return face;
+        int i = Mth.floor(yRot * 4.0F / placementYawSpan() + 0.5D) & 3;
+        return switch (i) {
+            case 1 -> Direction.EAST;
+            case 2 -> Direction.SOUTH;
+            case 3 -> Direction.WEST;
+            default -> Direction.NORTH;
+        };
+    }
+
+    /**
+     * Where the core goes for a block placed at pos against the given face. NTM:Space hangs a
+     * machine placed under a ceiling below it and sets one placed on a wall flush against it.
+     */
+    public BlockPos placementCore(BlockPos pos, Direction face, Direction facingDir, Direction dir) {
+        MultiblockLayout.Placement placement = placement();
+        int o = -placement.offset();
+        BlockPos core =
+                pos.offset(facingDir.getStepX() * o, placement.heightOffset(), facingDir.getStepZ() * o);
+        if (!SpaceToggle.changes() || face == Direction.UP) return core;
+        int[] dim = placement.dimensions();
+        if (face == Direction.DOWN) return core.below(dim[0] + dim[1]);
+        int[] rotated = MultiblockHandlerXR.rotate(dim, dir);
+        int reach = rotated[face.getOpposite().ordinal()];
+        return new BlockPos(
+                face.getStepX() != 0 ? pos.getX() + face.getStepX() * reach : core.getX(),
+                core.getY(),
+                face.getStepZ() != 0 ? pos.getZ() + face.getStepZ() * reach : core.getZ());
+    }
+
     public float placementYawSpan() {
         return 360.0F;
     }
@@ -574,6 +629,7 @@ public abstract class BlockMultiblockCore extends BlockCompat
         // backport: 1.21.1 collision contexts do not mark block placement (26.x isPlacement());
         // the full-block placement shape is not used
         if (false && !level.getBlockState(pos).is(this)) return Shapes.block();
+        if (MultiblockPhasing.phased(context)) return Shapes.empty();
         return coreShape(state.getValue(FACING), false, true);
     }
 
@@ -742,24 +798,10 @@ public abstract class BlockMultiblockCore extends BlockCompat
             BUSY.set(prev);
         }
 
-        int i = Mth.floor(placer.getYRot() * 4.0F / placementYawSpan() + 0.5D) & 3;
-        MultiblockLayout.Placement placement = placement();
-        int o = -placement.offset();
-        BlockPos placed = pos.offset(0, placement.heightOffset(), 0);
-
-        Direction facingDir =
-                switch (i) {
-                    case 1 -> Direction.EAST;
-                    case 2 -> Direction.SOUTH;
-                    case 3 -> Direction.WEST;
-                    default -> Direction.NORTH;
-                };
+        Direction face = takeClickedFace(pos);
+        Direction facingDir = placementFacing(placer.getYRot(), face);
         Direction dir = getDirModified(facingDir);
-
-        // the core moves away from the player along the way they face, not the machine's turned
-        // direction: NTM pushes a turned machine (the LPW-2, HTR-3, Soyuz) out in front, not sideways
-        BlockPos core =
-                placed.offset(facingDir.getStepX() * o, facingDir.getStepY() * o, facingDir.getStepZ() * o);
+        BlockPos core = placementCore(pos, face, facingDir, dir);
         if (!placementClear(level, core, dir)) {
             ItemStack refund = stack.copyWithCount(1);
             if (!pl.getAbilities().instabuild) pl.getInventory().placeItemBackInInventory(refund);
@@ -790,6 +832,7 @@ public abstract class BlockMultiblockCore extends BlockCompat
             }
             fillSpace(level, core, dir);
         }
+        MultiblockPhasing.placed(pl);
 
         super.setPlacedBy(level, pos, state, placer, stack);
     }

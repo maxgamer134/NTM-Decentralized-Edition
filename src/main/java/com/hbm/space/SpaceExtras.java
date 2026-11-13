@@ -493,13 +493,17 @@ public final class SpaceExtras {
             if (!needsTable(item) || operates(item, stack)) return;
             String table = tag(stack).getString("table");
             net.minecraft.ChatFormatting red = net.minecraft.ChatFormatting.RED;
+            net.minecraft.network.chat.Component needs = net.minecraft.network.chat.Component.translatable(
+                    "desc.item.infFluid.needs", item.fluid().getFluidType().getDescription()).withStyle(red);
             if (table.isEmpty()) {
                 adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.noVapor").withStyle(red));
+                adder.accept(needs);
                 adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.addVapor").withStyle(red));
             } else {
                 net.minecraft.world.level.material.Fluid current = net.minecraft.core.registries.BuiltInRegistries.FLUID.get(
                         net.minecraft.resources.ResourceLocation.parse(table));
                 adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.wrongTable").withStyle(red));
+                adder.accept(needs);
                 adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.requires",
                         current.getFluidType().getDescription()).withStyle(red));
             }

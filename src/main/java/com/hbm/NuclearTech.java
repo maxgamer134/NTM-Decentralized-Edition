@@ -207,7 +207,7 @@ public final class NuclearTech {
             load(com.hbm.space.machine.SpaceGasDock.class);
             load(com.hbm.space.SpaceParts.class);
             load(com.hbm.space.SpaceFuels.class); load(com.hbm.space.SpaceExtras.class); load(com.hbm.space.SpaceBedrockOres.class);
-            load(com.hbm.space.SpaceMobs.class); load(com.hbm.space.SpaceSeaMobs.class); load(com.hbm.space.SpaceRobots.class); load(com.hbm.space.SpaceInvaders.class); load(com.hbm.space.SpaceSiege.class); load(com.hbm.space.SpacePlushies.class); load(com.hbm.space.SpaceWireLinks.class); load(com.hbm.space.SpaceWreckedMachines.class); load(com.hbm.space.SpaceSkySync.class);
+            load(com.hbm.space.SpaceMobs.class); load(com.hbm.space.SpaceSeaMobs.class); load(com.hbm.space.SpaceRobots.class); load(com.hbm.space.SpaceInvaders.class); load(com.hbm.space.SpaceSiege.class); load(com.hbm.space.SpacePlushies.class); load(com.hbm.space.SpaceWireLinks.class); load(com.hbm.space.SpaceWreckedMachines.class); load(com.hbm.space.SpacePeripherals.class); load(com.hbm.space.SpaceSkySync.class);
             load(com.hbm.space.SpaceTools.class);
             load(com.hbm.space.machine.SpaceVacuumCircuit.class);
             com.hbm.space.SpaceLayers.init();

@@ -242,6 +242,12 @@ public final class PacketDispatcher {
                         PayloadHandlerThread.MAIN));
         NeoForgeNetwork.clientbound.add(
                 new NeoForgeNetwork.Registration<>(
+                        com.hbm.packet.toclient.RocketFlameBurstPayload.TYPE,
+                        com.hbm.packet.toclient.RocketFlameBurstPayload.STREAM_CODEC,
+                        com.hbm.packet.toclient.RocketFlameBurstPayload::handleClient,
+                        PayloadHandlerThread.MAIN));
+        NeoForgeNetwork.clientbound.add(
+                new NeoForgeNetwork.Registration<>(
                         PlasmaBlastPayload.TYPE,
                         PlasmaBlastPayload.STREAM_CODEC,
                         PlasmaBlastPayload::handleClient,

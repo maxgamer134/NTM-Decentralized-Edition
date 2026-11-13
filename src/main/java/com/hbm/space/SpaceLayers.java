@@ -218,8 +218,8 @@ public final class SpaceLayers {
 
     /**
      * NTM:Space's metal fence gate: a door that slides aside instead of swinging. Closed it is a
-     * one-pixel plate down the middle of the block; open it slides half a block over and stops
-     * blocking, while its outline stays where the closed gate stands, as in NTM:Space.
+     * one-pixel plate down the middle of the block; open it slides half a block over along the block's
+     * edge, while its outline stays where the closed gate stands, as in NTM:Space.
      */
     public static class FenceGate extends net.minecraft.world.level.block.DoorBlock {
         private static final VoxelShape X_PLATE = Block.box(7.5, 0, 0, 8.5, 16, 16);
@@ -238,9 +238,26 @@ public final class SpaceLayers {
             return plate(state);
         }
 
+        // NTM:Space's open gate is a one-pixel panel slid half a block along the block's edge
+        // (func_150011_b): meta 0-3 are east, south, west, north; meta bit 16 the other hinge
+        private static final VoxelShape[] OPEN_PANEL = {
+            Block.box(8, 0, 0, 24, 16, 1), Block.box(8, 0, 15, 24, 16, 16), // east
+            Block.box(15, 0, 8, 16, 16, 24), Block.box(0, 0, 8, 1, 16, 24), // south
+            Block.box(-8, 0, 15, 8, 16, 16), Block.box(-8, 0, 0, 8, 16, 1), // west
+            Block.box(0, 0, -8, 1, 16, 8), Block.box(15, 0, -8, 16, 16, 8) // north
+        };
+
         @Override
         protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
-            return state.getValue(OPEN) ? net.minecraft.world.phys.shapes.Shapes.empty() : plate(state);
+            if (!state.getValue(OPEN)) return plate(state);
+            int j = switch (state.getValue(FACING)) {
+                case SOUTH -> 1;
+                case WEST -> 2;
+                case NORTH -> 3;
+                default -> 0;
+            };
+            boolean otherSide = state.getValue(HINGE) == net.minecraft.world.level.block.state.properties.DoorHingeSide.RIGHT;
+            return OPEN_PANEL[j * 2 + (otherSide ? 1 : 0)];
         }
     }
 }

@@ -361,9 +361,16 @@ public final class SpaceDyson {
             server.playSound(null, sx, sy, sz, SPIN_SHOT.get(), SoundSource.BLOCKS, volume, 0.9F + server.random.nextFloat() * 0.3F);
             server.playSound(null, sx, sy, sz, SPIN_SHOT.get(), SoundSource.BLOCKS, volume, 1F + server.random.nextFloat() * 0.3F);
             int count = Math.min(20, (int) (pressure * 80));
-            if (count > 0)
-                server.sendParticles(ParticleTypes.CLOUD, worldPosition.getX() + 0.5 + rot.getStepX() * 9, worldPosition.getY() + 12,
-                        worldPosition.getZ() + 0.5 + rot.getStepZ() * 9, count, 1.5, 1.5, 1.5, 0.3);
+            if (count > 0) {
+                double px = worldPosition.getX() + rot.getStepX() * 9;
+                double py = worldPosition.getY() + 12;
+                double pz = worldPosition.getZ() + rot.getStepZ() * 9;
+                com.hbm.packet.PacketWire.sendToAllAround(
+                        com.hbm.packet.toclient.RocketFlameBurstPayload.spinlaunch(px, py, pz,
+                                facing.getStepX() * 10, 10, facing.getStepZ() * 10, 3F,
+                                10 + count / 2 + server.random.nextInt(5), count),
+                        new com.hbm.handler.threading.TargetPoint(server, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 150));
+            }
 
             members.shrink(toLaunch);
             operatingTime = 0;

@@ -179,13 +179,9 @@ public final class AtmosphereBlob {
         Vec3 hole = Vec3.atCenterOf(pos);
         level.playSound(null, pos, SoundEvents.GENERIC_EXPLODE.value(), SoundSource.BLOCKS, 1.0F, 1.6F);
         level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, 0.25F);
-        // what NTM:Space's EntityDepress did: drag everything nearby out through the breach
-        Vec3 out = Vec3.atLowerCornerOf(dir.getOpposite().getNormal());
-        for (Entity e : level.getEntities((Entity) null, new AABB(pos).inflate(10))) {
-            Vec3 pull = hole.subtract(e.position()).normalize().add(out).scale(0.6);
-            e.push(pull.x, pull.y, pull.z);
-            e.hurtMarked = true;
-        }
+        // NTM:Space's EntityDepress: for 20 ticks a white jet blows out through the breach and
+        // everything within 8 blocks is pulled toward it
+        SpaceDepress.start(level, hole, dir.getOpposite(), 20);
     }
 
     void checkGrowth() {

@@ -77,7 +77,7 @@ public class RenderHTR3 implements BlockEntityRenderer<SpaceHTR3.HTR3BE, RenderH
     private static RocketFlameColor color(@Nullable Fluid type) {
         if (type == null) return RocketFlameColor.FLAME;
         if (type == NTMFluids.byName("GAS_WATZ") || type == NTMFluids.byName("WASTEGAS")
-                || type == NTMFluids.byName("GASEOUS_THORIUM_BROMIDE")) return new RocketFlameColor(1F, 1F, 0F, true, false, false, 240);
+                || type == NTMFluids.byName("GASEOUS_THORIUM_BROMIDE")) return new RocketFlameColor(1F, 1F, 0F, false, false, false, 240); // ParticleRocketMUD overwrites its faded red
         if (type == NTMFluids.byName("GASEOUS_SCHRABIDIUM_BROMIDE")) return new RocketFlameColor(1F, 1F, 1F, true, false, false, 240);
         if (type == NTMFluids.byName("GASEOUS_URANIUM_BROMIDE") || type == NTMFluids.byName("GASEOUS_PLUTONIUM_BROMIDE"))
             return new RocketFlameColor(0F, 1F, 0F, false, false, false, 240);

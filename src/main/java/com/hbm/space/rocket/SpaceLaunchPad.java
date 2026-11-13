@@ -346,11 +346,11 @@ public final class SpaceLaunchPad {
 
         // launch checks
 
-        private boolean hasRocket() {
+        public boolean hasRocket() {
             return ItemCustomRocket.get(getItem(ROCKET)) != null;
         }
 
-        private boolean hasDrive() {
+        public boolean hasDrive() {
             return getItem(DRIVE).getItem() instanceof ItemVOTVdrive;
         }
 

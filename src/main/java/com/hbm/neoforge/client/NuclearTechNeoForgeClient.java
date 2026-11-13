@@ -158,6 +158,16 @@ public final class NuclearTechNeoForgeClient {
                         }
                     });
         }
+        // the ores' 1.7-style textures from before NTM DE's retexture, as an optional built-in pack
+        modBus.addListener(
+                (AddPackFindersEvent event) ->
+                        event.addPackFinders(
+                                Library.id("resourcepacks/classic_textures"),
+                                PackType.CLIENT_RESOURCES,
+                                net.minecraft.network.chat.Component.translatable("pack.hbm.classic_textures"),
+                                PackSource.BUILT_IN,
+                                false,
+                                Pack.Position.TOP));
         if (ctm == CtmEngine.CONTINUITY) {
             HbmCtmLoader.register();
         }

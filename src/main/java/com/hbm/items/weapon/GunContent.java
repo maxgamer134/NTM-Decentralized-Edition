@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.Block;
 
 /**
  * backport: the gun content switches (disable_all_guns, disable_post_rework_guns,
- * disable_pre_rework_guns and disable_war_explosives in the content config). A disabled item stays registered, so worlds and
+ * disable_pre_rework_guns, disable_war_explosives and its four parts in the content config). A disabled item stays registered, so worlds and
  * servers keep loading, but it leaves the creative tabs and recipe viewers, every recipe naming it
  * is dropped, and a disabled gun does not fire.
  */
@@ -110,7 +110,9 @@ public final class GunContent {
     private static Set<Item> compute() {
         boolean post = BalanceConfig.disableAllGuns || BalanceConfig.disablePostReworkGuns;
         boolean pre = BalanceConfig.disableAllGuns || BalanceConfig.disablePreReworkGuns;
-        boolean war = BalanceConfig.disableWarExplosives;
+        boolean all = BalanceConfig.disableWarExplosives;
+        boolean[] war = {all || BalanceConfig.disableWarMissiles, all || BalanceConfig.disableWarNukes,
+                all || BalanceConfig.disableWarBombs, all || BalanceConfig.disableWarMisc};
         boolean conv = BalanceConfig.preReworkGunsUseNewAmmo;
         Set<Item> out = Collections.newSetFromMap(new IdentityHashMap<>());
         Set<Item> dup = Collections.newSetFromMap(new IdentityHashMap<>());
@@ -127,7 +129,7 @@ public final class GunContent {
                             || (id.getNamespace().equals(NuclearTech.MOD_ID)
                                     && POST_REWORK.matcher(id.getPath()).matches())))
                 out.add(e.getValue());
-            else if (war && war(id, e.getValue())) out.add(e.getValue());
+            else if (warOff(war, war(id, e.getValue()))) out.add(e.getValue());
             else if (!post && id.getNamespace().equals(NuclearTech.MOD_ID) && DUPLICATES.contains(id.getPath())) {
                 out.add(e.getValue());
                 dup.add(e.getValue());
@@ -158,27 +160,51 @@ public final class GunContent {
         };
     }
 
-    private static boolean war(ResourceLocation id, Item item) {
+    /** Which war switch takes an item: 0 missiles, 1 nukes, 2 conventional bombs, 3 the rest, -1 none. */
+    private static final int NONE = -1, MISSILES = 0, NUKES = 1, BOMBS = 2, MISC = 3;
+
+    private static final Pattern WAR_MISSILE =
+            Pattern.compile("missile_(kit|assembly)|machine_missile_assembly|launch_(code|code_piece|key)");
+    private static final Pattern WAR_MISC = Pattern.compile("grenade_(filling|fuze|shell|extra)|bomb_caller(_.+)?");
+
+    private static boolean warOff(boolean[] off, int kind) {
+        return kind != NONE && off[kind];
+    }
+
+    private static int war(ResourceLocation id, Item item) {
         if (!id.getNamespace().equals(NuclearTech.MOD_ID) || SPACE.matcher(id.getPath()).matches()) {
-            return false;
+            return NONE;
         }
         if (item instanceof BlockItem blockItem) {
             Block block = blockItem.getBlock();
             // NTM:Space's bombs (the antimatter nuke, salted det cord) live in its own package
             String pkg = block.getClass().getPackageName();
-            return block instanceof IBomb
-                    && (pkg.equals("com.hbm.blocks.bomb") || pkg.equals("com.hbm.space"))
-                    && !(block instanceof BlockChargeDynamite
-                            || block instanceof BlockChargeMiner
-                            || block instanceof BlockDetMiner);
+            if (!(block instanceof IBomb)
+                    || !(pkg.equals("com.hbm.blocks.bomb") || pkg.equals("com.hbm.space"))
+                    || block instanceof BlockChargeDynamite
+                    || block instanceof BlockChargeMiner
+                    || block instanceof BlockDetMiner) return NONE;
+            if (block instanceof com.hbm.blocks.bomb.LaunchPad
+                    || block instanceof com.hbm.blocks.bomb.LaunchPadLarge
+                    || block instanceof com.hbm.blocks.bomb.LaunchPadRusted
+                    || block instanceof com.hbm.blocks.bomb.LaunchTable
+                    || block instanceof com.hbm.blocks.bomb.CompactLauncher) return MISSILES;
+            String name = block.getClass().getName();
+            if (name.contains("Nuke") || name.contains("Balefire") || name.contains("CrashedBomb")
+                    || name.contains("Antimatter")) return NUKES;
+            return BOMBS;
         }
-        return item instanceof ItemMissile
-                || item instanceof ItemCustomMissile
-                || item instanceof ItemCustomMissilePart
-                || item instanceof ItemGrenadeUniversal
-                || (item instanceof ItemGrenade
-                        && !(item instanceof ItemGrenadeDynamite || item instanceof ItemGrenadeFishing))
-                || WAR.matcher(id.getPath()).matches();
+        if (item instanceof ItemMissile || item instanceof ItemCustomMissile || item instanceof ItemCustomMissilePart)
+            return MISSILES;
+        if (item instanceof ItemGrenadeUniversal
+                || (item instanceof ItemGrenade && !(item instanceof ItemGrenadeDynamite || item instanceof ItemGrenadeFishing)))
+            return MISC;
+        String path = id.getPath();
+        if (!WAR.matcher(path).matches()) return NONE;
+        if (WAR_MISSILE.matcher(path).matches()) return MISSILES;
+        if (WAR_MISC.matcher(path).matches()) return MISC;
+        if (path.equals("multi_kit")) return BOMBS;
+        return NUKES; // the nuke kits, cores, parts and custom nuke charges
     }
 
     /** Ids of the recipes whose json names a disabled item anywhere (output, input, catalyst). */

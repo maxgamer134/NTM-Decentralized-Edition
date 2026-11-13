@@ -10,6 +10,10 @@ public final class BalanceConfig {
     public static boolean disablePostReworkGuns = false;
     public static boolean disablePreReworkGuns = true;
     public static boolean disableWarExplosives = false;
+    public static boolean disableWarMissiles = false;
+    public static boolean disableWarNukes = false;
+    public static boolean disableWarBombs = false;
+    public static boolean disableWarMisc = false;
     public static boolean disableHeavyTurrets = false;
     public static boolean disableTurretHenry = false;
     public static boolean disableTurretGreg = false;
@@ -54,6 +58,10 @@ public final class BalanceConfig {
         disablePostReworkGuns = c.get(ConfigSchema.DISABLE_POST_REWORK_GUNS);
         disablePreReworkGuns = c.get(ConfigSchema.DISABLE_PRE_REWORK_GUNS);
         disableWarExplosives = c.get(ConfigSchema.DISABLE_WAR_EXPLOSIVES);
+        disableWarMissiles = c.get(ConfigSchema.DISABLE_WAR_MISSILES);
+        disableWarNukes = c.get(ConfigSchema.DISABLE_WAR_NUKES);
+        disableWarBombs = c.get(ConfigSchema.DISABLE_WAR_BOMBS);
+        disableWarMisc = c.get(ConfigSchema.DISABLE_WAR_MISC);
         disableHeavyTurrets = c.get(ConfigSchema.DISABLE_HEAVY_TURRETS);
         disableTurretHenry = c.get(ConfigSchema.DISABLE_TURRET_HENRY);
         disableTurretGreg = c.get(ConfigSchema.DISABLE_TURRET_GREG);

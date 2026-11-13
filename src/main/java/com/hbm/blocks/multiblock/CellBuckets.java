@@ -69,6 +69,7 @@ public final class CellBuckets {
                     Geometry.of(GeometryCellPartition.STATIC, Plain.of(5F, 6F, MapColor.NONE), 12),
                     Geometry.analog(
                             GeometryCellPartition.STATIC, Plain.of(5F, 12F, MapColor.NONE), 5),
+                    Geometry.of(GeometryCellPartition.STATIC, Plain.of(5F, 10F, MapColor.NONE), 2),
                     Geometry.of(GeometryCellPartition.STATIC, Plain.of(5F, 60F, MapColor.NONE), 13),
                     Geometry.of(
                             GeometryCellPartition.STATIC, Plain.of(5F, 360F, MapColor.METAL), 2),

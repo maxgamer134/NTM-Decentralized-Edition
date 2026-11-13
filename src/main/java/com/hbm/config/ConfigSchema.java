@@ -152,11 +152,29 @@ public final class ConfigSchema {
                     "guns",
                     "disable_war_explosives",
                     false,
-                    "Switches off the explosives made for war: missiles and launch pads, bombs and nukes,"
+                    "Switches off every explosive made for war (all four switches below at once): missiles and launch pads, bombs and nukes,"
                             + " grenades, landmines and C4/semtex charges. They leave the creative tabs and"
                             + " recipe viewers, their recipes are dropped, and they can't be launched, thrown"
                             + " or set off. Mining explosives (dynamite, mining charges) stay. The items stay"
                             + " registered, so old worlds still load.");
+    public static final ConfigEntry<Boolean> DISABLE_WAR_MISSILES =
+            bool(Domain.CONTENT, "guns", "disable_war_missiles", false,
+                    "Switches off only the missiles: missiles, custom missiles and their parts, launch pads, the"
+                            + " launch table, the compact launcher, the missile assembly and launch codes and keys.");
+    public static final ConfigEntry<Boolean> DISABLE_WAR_NUKES =
+            bool(Domain.CONTENT, "guns", "disable_war_nukes", false,
+                    "Switches off only the stationary nuclear bombs: the assembled nukes (Gadget, Little Boy, Fat"
+                            + " Man, Ivy Mike, Tsar Bomba, F.L.E.I.J.A., Solinium, N2, prototype, custom nuke), the"
+                            + " balefire bomb, the crashed bomb, the nuclear det charge and the antimatter bomb, with"
+                            + " their kits and parts.");
+    public static final ConfigEntry<Boolean> DISABLE_WAR_BOMBS =
+            bool(Domain.CONTENT, "guns", "disable_war_bombs", false,
+                    "Switches off only the stationary conventional bombs: C4, semtex, det charges, plastic"
+                            + " explosive, landmines and the EMP, thermobaric, floating, flame and multi-purpose"
+                            + " bombs. Mining explosives stay.");
+    public static final ConfigEntry<Boolean> DISABLE_WAR_MISC =
+            bool(Domain.CONTENT, "guns", "disable_war_misc", false,
+                    "Switches off the other war explosives: grenades and their parts and the bomb caller.");
 
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =
             bool(
@@ -862,6 +880,10 @@ public final class ConfigSchema {
                     DISABLE_POST_REWORK_GUNS,
                     DISABLE_PRE_REWORK_GUNS,
                     DISABLE_WAR_EXPLOSIVES,
+                    DISABLE_WAR_MISSILES,
+                    DISABLE_WAR_NUKES,
+                    DISABLE_WAR_BOMBS,
+                    DISABLE_WAR_MISC,
                     DISABLE_HEAVY_TURRETS,
                     DISABLE_TURRET_HENRY,
                     DISABLE_TURRET_GREG,

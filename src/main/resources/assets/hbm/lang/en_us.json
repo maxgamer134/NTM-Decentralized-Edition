@@ -2297,7 +2297,7 @@
   "chat.glitch.29": "Bam!",
   "chat.glitch.30": "It's dangerous to go alone, take this!",
   "chat.glitch.8": "Oh, and by the way: The polaroid shifts reality. Things can be different if the polaroid is broken.",
-  "chat.hbm.loaded": "Loaded world with Hbm's Nuclear Tech Mod %s for Minecraft %s!",
+  "chat.hbm.loaded": "Loaded world with NTM: Extremely Radical Derivative %s for Minecraft %s!",
   "chat.logicBlock.chargeAdjacent": " Charge adjacent energy storage to at least 500KHE to release emergency lock",
   "chat.logicBlock.lowPowerWarningLocking": " Low Power Warning! Locking Safe",
   "chat.logicBlock.powerLock": "[POWER LOCK]",

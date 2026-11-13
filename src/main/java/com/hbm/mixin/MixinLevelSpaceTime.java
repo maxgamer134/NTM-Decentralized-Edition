@@ -25,6 +25,8 @@ public abstract class MixinLevelSpaceTime implements LevelTimeAccess {
     @Inject(method = "isDay", at = @At("HEAD"), cancellable = true)
     private void hbm$dunaStormNight(CallbackInfoReturnable<Boolean> cir) {
         Level level = (Level) (Object) this;
+        // Space off: SpaceWeather registers a sound as it loads, and registration is long closed by now
+        if (!com.hbm.space.SpaceToggle.enabled()) return;
         if (com.hbm.space.SpaceWeather.isDuna(level) && com.hbm.space.SpaceWeather.dunaStorm(level.getGameTime()) >= 0.2F) {
             cir.setReturnValue(false);
         }

@@ -79,5 +79,29 @@ public final class SpaceHooks {
                         SolarSystemSyncPayload.sendTo(player, SolarSystemSavedData.get(player.serverLevel()));
                 });
         NeoForge.EVENT_BUS.addListener((ServerStoppedEvent event) -> SolarSystemSavedData.onServerStopped());
+
+        // NTM:Space city lights: bright blocks built above the horizon show on the night side from orbit
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.level.BlockEvent.EntityPlaceEvent event) -> {
+            if (event.getLevel() instanceof net.minecraft.server.level.ServerLevel level)
+                light(level, event.getPos(), event.getPlacedBlock(), true);
+        });
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.level.BlockEvent.BreakEvent event) -> {
+            // placing onto a spotlight beam counts as a break upstream; beams never count as lights here
+            if (event.getLevel() instanceof net.minecraft.server.level.ServerLevel level
+                    && !(event.getState().getBlock() instanceof com.hbm.blocks.machine.BlockSpotlightBeam))
+                light(level, event.getPos(), event.getState(), false);
+        });
+        com.hbm.api.block.BlockPlacements.onRepaired((level, pos) -> light(level, pos, level.getBlockState(pos), true));
+    }
+
+    private static void light(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
+            net.minecraft.world.level.block.state.BlockState state, boolean add) {
+        if (pos.getY() < level.getSeaLevel() || state.getLightEmission() <= 10) return;
+        CelestialBody body = CelestialBody.getBody(level);
+        com.hbm.space.trait.CBT_Lights lights = body.getTrait(com.hbm.space.trait.CBT_Lights.class);
+        if (lights == null) lights = new com.hbm.space.trait.CBT_Lights();
+        if (add) lights.addLight(state);
+        else lights.removeLight(state);
+        body.modifyTraits(lights);
     }
 }

@@ -105,6 +105,7 @@ public final class SpaceRobots {
         Robot(EntityType<? extends Robot> type, Level level, EntityDataAccessor<Integer> targetId) {
             super(type, level);
             this.targetId = targetId;
+            setPathfindingMalus(net.minecraft.world.level.pathfinder.PathType.WATER, -1.0F); // setAvoidsWater(true)
         }
 
         protected void robotGoals(Class<? extends Robot> self) {
@@ -224,6 +225,12 @@ public final class SpaceRobots {
         protected void defineSynchedData(SynchedEntityData.Builder builder) {
             super.defineSynchedData(builder);
             builder.define(BEHEMOTH_TARGET, 0);
+        }
+
+        // jumpMovementFactor = 0: no steering in mid-air
+        @Override
+        protected float getFlyingSpeed() {
+            return 0F;
         }
 
         @Override

@@ -85,12 +85,14 @@ public final class SpaceEnvironment implements EnvironmentProvider {
                 .getPath().contains("rocket")) return; // breathe easy in your ship
         CBT_Atmosphere atmosphere = atmosphere(entity);
         handleOxy(entity, atmosphere);
+        // glyphids and cyber crabs don't mind acid air
+        if (entity instanceof com.hbm.entity.mob.glyphid.EntityGlyphid || entity instanceof com.hbm.entity.mob.EntityCyberCrab) return;
         if (checkForCorrosion(entity, atmosphere))
             entity.hurt(entity.damageSources().source(ModDamageTypes.ACID), 1);
     }
 
     private static void handleOxy(LivingEntity entity, @Nullable CBT_Atmosphere atmosphere) {
-        if (entity instanceof SuffocationImmune) return;
+        if (entity instanceof com.hbm.api.environment.ISuffocationImmune) return;
         int[] oxygen = OXYGEN.computeIfAbsent(entity, e -> new int[] {100});
         if (checkForOxy(entity, atmosphere)) {
             oxygen[0] = 100; // 5 seconds until vacuum damage
@@ -103,9 +105,6 @@ public final class SpaceEnvironment implements EnvironmentProvider {
         int amount = Math.max(-o / 40 - 10, 1);
         if (entity.tickCount % interval == 0) entity.hurt(entity.damageSources().source(OXYPRIME), amount);
     }
-
-    /** Marks a mob that needs no air. */
-    public interface SuffocationImmune {}
 
     public static boolean checkForOxy(LivingEntity entity, @Nullable CBT_Atmosphere atmosphere) {
         if (!(entity instanceof Player player)) return SpaceAtmosphere.canBreathe(atmosphere);

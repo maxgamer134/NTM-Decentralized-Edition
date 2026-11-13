@@ -59,7 +59,18 @@ public final class SpaceMobs {
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         NeoForgeRegistrar.registerLivingAttributes(MOON_COW, Cow::createAttributes);
         NeoForgeRegistrar.registerSpawnPlacement(MOON_COW, SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpaceMobs::checkMoonCowSpawn);
+    }
+
+    /**
+     * 1.7 placed a world's animals while generating its chunks without asking for grass; only the
+     * later, ongoing spawns needed it. Mun has no grass, so its cows come with the terrain.
+     */
+    private static boolean checkMoonCowSpawn(EntityType<MoonCow> type, net.minecraft.world.level.LevelAccessor level,
+            net.minecraft.world.entity.MobSpawnType reason, net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (reason == net.minecraft.world.entity.MobSpawnType.CHUNK_GENERATION)
+            return net.minecraft.world.entity.Mob.checkMobSpawnRules(type, level, reason, pos, random);
+        return Animal.checkAnimalSpawnRules(type, level, reason, pos, random);
     }
 
     private static String key(String name) {
@@ -102,10 +113,11 @@ public final class SpaceMobs {
         }
     }
 
-    /** A cow in a space helmet: quiet, and drops cheese as well as leather. */
-    public static class MoonCow extends Cow {
+    /** A cow in a space helmet: needs no air, shrugs off radiation, moonwalks, is quiet, and drops cheese and leather. */
+    public static class MoonCow extends Cow implements com.hbm.api.environment.ISuffocationImmune {
         public MoonCow(EntityType<? extends Cow> type, Level level) {
             super(type, level);
+            moveControl = new MoonWalkControl(this);
         }
 
         @Override
@@ -121,7 +133,39 @@ public final class SpaceMobs {
         @Override
         protected void dropCustomDeathLoot(ServerLevel level, net.minecraft.world.damagesource.DamageSource source, boolean recentlyHit) {
             super.dropCustomDeathLoot(level, source, recentlyHit);
-            spawnAtLocation(new net.minecraft.world.item.ItemStack(ModItems.CHEESE.get(), 1 + random.nextInt(3)));
+            int looting = SpaceSeaMobs.looting(level, source);
+            int leather = random.nextInt(3) + random.nextInt(1 + looting);
+            for (int i = 0; i < leather; i++) spawnAtLocation(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER));
+            int cheese = random.nextInt(3) + 1 + random.nextInt(1 + looting);
+            for (int i = 0; i < cheese; i++) spawnAtLocation(new net.minecraft.world.item.ItemStack(ModItems.CHEESE.get()));
+        }
+    }
+
+    /** EntityMoonWalkHelper: faces away from where it's going and walks there backwards. */
+    static class MoonWalkControl extends net.minecraft.world.entity.ai.control.MoveControl {
+        MoonWalkControl(net.minecraft.world.entity.Mob mob) {
+            super(mob);
+        }
+
+        @Override
+        public void tick() {
+            if (operation != Operation.MOVE_TO) {
+                super.tick();
+                return;
+            }
+            mob.setZza(0F);
+            operation = Operation.WAIT;
+            int floor = net.minecraft.util.Mth.floor(mob.getBoundingBox().minY + 0.5D);
+            double dx = wantedX - mob.getX();
+            double dz = wantedZ - mob.getZ();
+            double dy = wantedY - floor;
+            if (dx * dx + dy * dy + dz * dz < 2.500000277905201E-7D) return;
+            float yaw = (float) (Math.atan2(dz, dx) * 180.0D / Math.PI) + 90.0F;
+            mob.setYRot(rotlerp(mob.getYRot(), yaw, 30.0F));
+            float speed = (float) (speedModifier * mob.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED));
+            mob.setSpeed(speed);
+            mob.setZza(-speed);
+            if (dy > 0.0D && dx * dx + dz * dz < 1.0D) mob.getJumpControl().jump();
         }
     }
 }

@@ -62,14 +62,14 @@ public final class SpaceSeaMobs {
             RegistryHandle<EntityType<WaterAnimal>> t = (RegistryHandle<EntityType<WaterAnimal>>) (Object) type;
             NeoForgeRegistrar.registerLivingAttributes(t, Fish::createFishAttributes);
             NeoForgeRegistrar.registerSpawnPlacement(t, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                    WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+                    SpaceSeaMobs::checkWaterMobSpawn);
         }
         NeoForgeRegistrar.registerLivingAttributes(SCUTTLECRAB, Mob::createMobAttributes);
         NeoForgeRegistrar.registerSpawnPlacement(SCUTTLECRAB, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+                SpaceSeaMobs::checkWaterMobSpawn);
         NeoForgeRegistrar.registerLivingAttributes(DEPTH_SQUID, Squid::createAttributes);
         NeoForgeRegistrar.registerSpawnPlacement(DEPTH_SQUID, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
+                SpaceSeaMobs::checkWaterMobSpawn);
     }
 
     private static <T extends Mob> RegistryHandle<EntityType<T>> fish(String name, EntityType.EntityFactory<T> factory, float w, float h) {
@@ -82,6 +82,31 @@ public final class SpaceSeaMobs {
     }
 
     public static void init() {}
+
+    /**
+     * EntityWaterMob.getCanSpawnHere: anywhere in water with room for it, at any depth (the depth
+     * squid lives deep), instead of vanilla's thirteen blocks under the surface.
+     */
+    static boolean checkWaterMobSpawn(EntityType<? extends Mob> type, net.minecraft.world.level.LevelAccessor level,
+            net.minecraft.world.entity.MobSpawnType reason, net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        return level.getFluidState(pos).is(net.minecraft.tags.FluidTags.WATER)
+                && level.getFluidState(pos.below()).is(net.minecraft.tags.FluidTags.WATER);
+    }
+
+    /** The looting level of whoever got the kill, for the 1.7 dropFewItems rolls. */
+    static int looting(ServerLevel level, DamageSource source) {
+        if (!(source.getEntity() instanceof net.minecraft.world.entity.LivingEntity killer)) return 0;
+        return net.minecraft.world.item.enchantment.EnchantmentHelper.getEnchantmentLevel(level.registryAccess()
+                .lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(net.minecraft.world.item.enchantment.Enchantments.LOOTING), killer);
+    }
+
+    /** EntityLivingBase.dropFewItems: 0-2 of the drop item, plus up to the looting level. */
+    static int dropCount(ServerLevel level, DamageSource source, net.minecraft.util.RandomSource random) {
+        int n = random.nextInt(3);
+        int looting = looting(level, source);
+        if (looting > 0) n += random.nextInt(looting + 1);
+        return n;
+    }
 
     /** A mob with one of several skins, picked when it spawns and kept from then on. */
     public interface Variant {
@@ -196,6 +221,7 @@ public final class SpaceSeaMobs {
                 Vec3 m = getDeltaMovement();
                 setDeltaMovement(m.x, m.y * 0.8F, m.z);
                 move(net.minecraft.world.entity.MoverType.SELF, getDeltaMovement());
+                calculateEntityAnimation(false);
             } else {
                 super.travel(input);
             }
@@ -210,7 +236,7 @@ public final class SpaceSeaMobs {
         @Override
         protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
             super.dropCustomDeathLoot(level, source, recentlyHit);
-            int n = random.nextInt(3);
+            int n = dropCount(level, source, random);
             if (n > 0) spawnAtLocation(new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(Library.id("scuttertail")), n));
         }
     }
@@ -231,7 +257,7 @@ public final class SpaceSeaMobs {
         @Override
         protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
             super.dropCustomDeathLoot(level, source, recentlyHit);
-            int j = random.nextInt(3) + 1;
+            int j = random.nextInt(3 + looting(level, source)) + 1;
             for (int k = 0; k < j; k++) {
                 ItemStack stack = ItemPool.getStack(ItemPools.POOL_MACHINE_PARTS, ItemPool.context(level, random));
                 if (!stack.isEmpty()) spawnAtLocation(stack.copy());
@@ -285,6 +311,13 @@ public final class SpaceSeaMobs {
             if (!level().isClientSide()) variant();
         }
 
+        // vanilla's squid never updates its limb swing, which the depth squid's tentacles follow
+        @Override
+        public void travel(Vec3 input) {
+            super.travel(input);
+            calculateEntityAnimation(false);
+        }
+
         @Override
         public void addAdditionalSaveData(net.minecraft.nbt.CompoundTag output) {
             super.addAdditionalSaveData(output);
@@ -309,6 +342,12 @@ public final class SpaceSeaMobs {
 
         public Scuttlecrab(EntityType<? extends Scuttlecrab> type, Level level) {
             super(type, level);
+        }
+
+        // 1.7's EntityWaterMob was an EntityCreature, which wanders to random spots when it has no AI tasks
+        @Override
+        protected void registerGoals() {
+            goalSelector.addGoal(1, new RandomStrollGoal(this, 1.0D));
         }
 
         @Override
@@ -354,7 +393,7 @@ public final class SpaceSeaMobs {
         @Override
         protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
             super.dropCustomDeathLoot(level, source, recentlyHit);
-            int n = random.nextInt(3);
+            int n = dropCount(level, source, random);
             if (n > 0) spawnAtLocation(new ItemStack(Items.CLAY_BALL, n));
         }
 

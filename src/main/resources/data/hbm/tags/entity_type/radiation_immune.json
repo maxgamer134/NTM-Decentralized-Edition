@@ -2,6 +2,8 @@
   "values": [
     {"id": "hbm:entity_ntm_bfa", "required": false},
     {"id": "hbm:entity_meme_ufo", "required": false},
+    {"id": "hbm:entity_moon_cow", "required": false},
+    {"id": "hbm:entity_tankbot", "required": false},
     "minecraft:mooshroom",
     "minecraft:zombie",
     "minecraft:husk",

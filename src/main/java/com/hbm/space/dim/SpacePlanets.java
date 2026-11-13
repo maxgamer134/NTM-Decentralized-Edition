@@ -53,7 +53,24 @@ final class SpacePlanets {
     private SpacePlanets() {}
 
     private static List<Planet.Decorator> decorators(Planet.Decorator own) {
-        return own == null ? List.of(new WorldGeneratorCelestial()) : List.of(own, new WorldGeneratorCelestial());
+        return own == null ? List.of(GLOBAL_STRATA, new WorldGeneratorCelestial())
+                : List.of(GLOBAL_STRATA, own, new WorldGeneratorCelestial());
+    }
+
+    /**
+     * MainRegistry's OreLayer3D.setGlobal(true): the hematite, bauxite and malachite strata run on
+     * every body too, in its own stone. They hung off DecorateBiomeEvent.Pre, so they come before
+     * the world generators.
+     */
+    private static final Planet.Decorator GLOBAL_STRATA = (random, chunkX, chunkZ, world) -> {
+        int x = chunkX * 16, z = chunkZ * 16;
+        com.hbm.space.SpaceExtras.layer(world, "hematite", stone("stone_resource_hematite"), 0.04D, 0.25D, 230D, x, z);
+        com.hbm.space.SpaceExtras.layer(world, "bauxite", stone("stone_resource_bauxite"), 0.03D, 0.15D, 300D, x, z);
+        com.hbm.space.SpaceExtras.layer(world, "malachite", stone("stone_resource_malachite"), 0.1D, 0.15D, 275D, x, z);
+    };
+
+    private static net.minecraft.world.level.block.state.BlockState stone(String name) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(com.hbm.lib.Library.id(name)).defaultBlockState();
     }
 
     /** Every biome a planet's layers can give: its own, and the vanilla rivers 1.7's river mix puts in. */

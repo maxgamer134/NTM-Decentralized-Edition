@@ -26,6 +26,7 @@ public class ItemDrinkEnergy extends ItemCustomLore {
     private final @Nullable ResourceLocation cap;
     private final boolean requiresOpener;
     private final Effect effect;
+    private java.util.function.@Nullable Supplier<Item> lateRemainder;
 
     public ItemDrinkEnergy(
             Properties properties,
@@ -36,6 +37,19 @@ public class ItemDrinkEnergy extends ItemCustomLore {
         this.cap = cap;
         this.requiresOpener = requiresOpener;
         this.effect = effect;
+    }
+
+    /** An empty container resolved on first use, for items registered before it (NTM:Space's mugs and glasses). */
+    public ItemDrinkEnergy withLateRemainder(java.util.function.Supplier<Item> remainder) {
+        this.lateRemainder = remainder;
+        return this;
+    }
+
+    @Override
+    public @Nullable ItemStackTemplate getCraftingRemainder() {
+        ItemStackTemplate base = super.getCraftingRemainder();
+        if (base != null || lateRemainder == null) return base;
+        return new ItemStackTemplate(lateRemainder.get());
     }
 
     private static Item resolve(ResourceLocation id) {

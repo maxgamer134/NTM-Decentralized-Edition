@@ -101,15 +101,15 @@ public class MapGenVNoise extends MapGenBase {
 					alpha = Math.pow(alpha, shapeExponent);
 					int topY = plateStartY + (int)(plateThickness * alpha);
 
-					for(int y = plateStartY; y < topY && y < 256; y++) {
-						int index = (lx * 16 + lz) * 256 + y;
+					for(int y = plateStartY; y < topY && y < 320; y++) {
+						int index = ChunkProviderCelestial.idx(lx, lz, y);
 
 						if(blocks[index] == Blocks.AIR || blocks[index] == fluidBlock) {
 							blocks[index] = rockBlock;
 						}
 					}
 					if(topY > plateStartY) {
-						int topIndex = (lx * 16 + lz) * 256 + (topY - 1);
+						int topIndex = ChunkProviderCelestial.idx(lx, lz, (topY - 1));
 						blocks[topIndex] = surfBlock;
 					}
 				}

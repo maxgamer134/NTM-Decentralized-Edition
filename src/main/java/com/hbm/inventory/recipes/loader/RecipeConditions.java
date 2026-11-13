@@ -41,6 +41,8 @@ public final class RecipeConditions {
         // NTM:Space's take on an NTM recipe: tag it "space_changes" and NTM's own "!space_changes".
         // Less bullshit mode keeps NTM's recipes, so whatever Space would replace or take away comes back.
         FLAGS.put("space_changes", () -> com.hbm.space.SpaceToggle.changes() && !BalanceConfig.enableLBSM);
+        // NTM:Space's changes to the overworld's generation, which LBSM has no say in
+        FLAGS.put("space_world", com.hbm.space.SpaceToggle::changes);
     }
 
     private RecipeConditions() {}

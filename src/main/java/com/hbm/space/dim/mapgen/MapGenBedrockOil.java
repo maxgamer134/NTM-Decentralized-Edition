@@ -79,7 +79,8 @@ public class MapGenBedrockOil extends MapGenBaseMeta {
 			for(int bx = 15; bx >= 0; bx--)
 			for(int bz = 15; bz >= 0; bz--)
 			for(int y = 0; y < 5; y++) {
-				int index = (bx * 16 + bz) * 256 + y;
+				// on the bedrock floor, now at the bottom of the deeper world
+				int index = ChunkProviderCelestial.idx(bx, bz, ChunkProviderCelestial.MIN_Y + y);
 
 				if(blocks[index] == replace || blocks[index] == Blocks.BEDROCK) {
 					// x, z are the coordinates relative to the target virtual chunk origin
@@ -103,7 +104,7 @@ public class MapGenBedrockOil extends MapGenBaseMeta {
 				if(rx >= 0 && rx < 16 && rz >= 0 && rz < 16) {
 					// find ground level
 					for(int y = 127; y >= 4; y--) {
-						int index = (rx * 16 + rz) * 256 + y;
+						int index = ChunkProviderCelestial.idx(rx, rz, y);
 
 						if(blocks[index] != null && Material.isOpaqueCube(blocks[index])) {
 							for(int oy = 1; oy > -3; oy--) {

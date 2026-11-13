@@ -87,8 +87,8 @@ public class MapGenPlateau extends MapGenBase {
 				}
 				int baseHeight = baseHeights[localX][localZ];
 				int plateauTop = plateauTops[localX][localZ];
-				for(int y = baseHeight + 1; y < 256; y++) {
-					int index = (localX * 16 + localZ) * 256 + y;
+				for(int y = baseHeight + 1; y < 320; y++) {
+					int index = ChunkProviderCelestial.idx(localX, localZ, y);
 					if(y < plateauTop - topsoilThickness) {
 						blocks[index] = stoneBlock;
 					} else if(y < plateauTop) {
@@ -112,8 +112,8 @@ public class MapGenPlateau extends MapGenBase {
 
 	private int getSurfaceHeight(Block[] blocks, int localX, int localZ) {
 		int baseHeight = 0;
-		for(int y = 255; y >= 0; y--) {
-			int index = (localX * 16 + localZ) * 256 + y;
+		for(int y = 319; y >= -64; y--) {
+			int index = ChunkProviderCelestial.idx(localX, localZ, y);
 			if(blocks[index] != Blocks.AIR) {
 				baseHeight = y;
 				break;

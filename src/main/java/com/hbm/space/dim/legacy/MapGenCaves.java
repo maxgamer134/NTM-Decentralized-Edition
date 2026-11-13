@@ -68,16 +68,16 @@ public class MapGenCaves extends MapGenBase {
             int z0 = Mth.floor(z - rh) - chunkZ * 16 - 1, z1 = Mth.floor(z + rh) - chunkZ * 16 + 1;
             x0 = Math.max(x0, 0);
             x1 = Math.min(x1, 16);
-            y0 = Math.max(y0, 1);
-            y1 = Math.min(y1, 248);
+            y0 = Math.max(y0, -63);
+            y1 = Math.min(y1, 312);
             z0 = Math.max(z0, 0);
             z1 = Math.min(z1, 16);
             boolean water = false;
             for (int bx = x0; !water && bx < x1; ++bx)
                 for (int bz = z0; !water && bz < z1; ++bz)
                     for (int by = y1 + 1; !water && by >= y0 - 1; --by) {
-                        if (by < 0 || by >= 256) continue;
-                        if (isOceanBlock(blocks, (bx * 16 + bz) * 256 + by, bx, by, bz, chunkX, chunkZ)) water = true;
+                        if (by < -64 || by >= 320) continue;
+                        if (isOceanBlock(blocks, ChunkProviderCelestial.idx(bx, bz, by), bx, by, bz, chunkX, chunkZ)) water = true;
                         if (by != y0 - 1 && bx != x0 && bx != x1 - 1 && bz != z0 && bz != z1 - 1) by = y0;
                     }
             if (water) continue;
@@ -85,7 +85,7 @@ public class MapGenCaves extends MapGenBase {
                 double fx = (bx + chunkX * 16 + 0.5D - x) / rh;
                 for (int bz = z0; bz < z1; ++bz) {
                     double fz = (bz + chunkZ * 16 + 0.5D - z) / rh;
-                    int index = (bx * 16 + bz) * 256 + y1;
+                    int index = ChunkProviderCelestial.idx(bx, bz, y1);
                     boolean top = false;
                     if (fx * fx + fz * fz < 1.0D) {
                         for (int by = y1 - 1; by >= y0; --by) {
@@ -109,7 +109,7 @@ public class MapGenCaves extends MapGenBase {
         if (rand.nextInt(7) != 0) count = 0;
         for (int i = 0; i < count; ++i) {
             double x = offsetX * 16 + rand.nextInt(16);
-            double y = rand.nextInt(rand.nextInt(120) + 8);
+            double y = rand.nextInt(rand.nextInt(184) + 8) - 64;
             double z = offsetZ * 16 + rand.nextInt(16);
             int tunnels = 1;
             if (rand.nextInt(4) == 0) {
@@ -140,7 +140,7 @@ public class MapGenCaves extends MapGenBase {
         BiomeGenBase biome = worldObj.getBiomeGenForCoords(x + chunkX * 16, z + chunkZ * 16);
         Block block = data[index];
         if (block == Blocks.STONE || block == biome.fillerBlock || block == biome.topBlock) {
-            if (y < 10) {
+            if (y < -54) {
                 data[index] = Blocks.LAVA;
             } else {
                 data[index] = null;

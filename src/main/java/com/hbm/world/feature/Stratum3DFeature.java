@@ -36,6 +36,12 @@ public class Stratum3DFeature extends Feature<Stratum3DConfig> {
 
     public static void place(
             WorldGenLevel level, RandomSource rand, Stratum3DConfig cfg, int x0, int z0) {
+        place(level, rand, cfg, x0, z0, MIN_Y, MAX_Y);
+    }
+
+    /** The stratum stretched over another height range, for worlds taller than the overworld's. */
+    public static void place(
+            WorldGenLevel level, RandomSource rand, Stratum3DConfig cfg, int x0, int z0, int lo, int hi) {
         NtmWorldgenFields fields = NtmWorldgenFields.get(level);
         double sh = cfg.scaleH();
         double sv = cfg.scaleV();
@@ -57,8 +63,8 @@ public class Stratum3DFeature extends Feature<Stratum3DConfig> {
                 double ny = cacheY[ox * SIZE + oz];
                 if (rowX.maxAbs()[oz] * Math.abs(ny) * rowZ.maxAbs()[ox] <= threshold) continue;
 
-                for (int y = MIN_Y; y <= MAX_Y; y++) {
-                    int oy = y - MIN_Y;
+                for (int y = lo; y <= hi; y++) {
+                    int oy = hi == lo ? 0 : (int) ((long) (y - lo) * (SPAN - 1) / (hi - lo));
                     double nx = cacheX[oy * SIZE + oz];
                     double nz = cacheZ[ox * SPAN + oy];
                     if (nx * ny * nz <= threshold) continue;

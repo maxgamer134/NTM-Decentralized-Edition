@@ -61,10 +61,13 @@ public class CelestialChunkGenerator extends ChunkGenerator {
         return planet.provider(Planets.seed());
     }
 
-    private ChunkProviderCelestial.BlockMetaBuffer buffer(int x, int z) {
+    /** A chunk's blocks as this planet generates them, in the 1.7 buffer. */
+    public ChunkProviderCelestial.BlockMetaBuffer buffer(int x, int z) {
         ChunkProviderCelestial provider = provider();
         synchronized (provider) {
-            return provider.getChunkPrimer(x, z);
+            ChunkProviderCelestial.BlockMetaBuffer buffer = provider.getChunkPrimer(x, z);
+            provider.modernize(x, z, buffer);
+            return buffer;
         }
     }
 
@@ -74,12 +77,12 @@ public class CelestialChunkGenerator extends ChunkGenerator {
         ChunkProviderCelestial.BlockMetaBuffer buffer = buffer(cx, cz);
         Heightmap ocean = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
         Heightmap surface = chunk.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
-        for (int y = 0; y < 256; y++) {
+        for (int y = ChunkProviderCelestial.MIN_Y; y < ChunkProviderCelestial.MAX_Y; y++) {
             if (y < chunk.getMinBuildHeight() || y >= chunk.getMaxBuildHeight()) continue;
             LevelChunkSection section = chunk.getSection(chunk.getSectionIndex(y));
             for (int x = 0; x < 16; x++) {
                 for (int z = 0; z < 16; z++) {
-                    int i = x << 12 | z << 8 | y;
+                    int i = ChunkProviderCelestial.idx(x, z, y);
                     Block block = buffer.blocks[i];
                     if (block == null || block == Blocks.AIR) continue;
                     BlockState state = LegacyBlocks.state(block, buffer.metas[i]);
@@ -126,7 +129,7 @@ public class CelestialChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getGenDepth() {
-        return 256;
+        return ChunkProviderCelestial.H;
     }
 
     @Override
@@ -136,28 +139,35 @@ public class CelestialChunkGenerator extends ChunkGenerator {
 
     @Override
     public int getMinY() {
-        return 0;
+        return ChunkProviderCelestial.MIN_Y;
     }
 
     @Override
     public int getBaseHeight(int x, int z, Heightmap.Types type, LevelHeightAccessor level, RandomState random) {
         ChunkProviderCelestial.BlockMetaBuffer buffer = buffer(x >> 4, z >> 4);
-        for (int y = 255; y >= 0; y--) {
-            Block block = buffer.blocks[(x & 15) << 12 | (z & 15) << 8 | y];
+        for (int y = ChunkProviderCelestial.MAX_Y - 1; y >= ChunkProviderCelestial.MIN_Y; y--) {
+            Block block = buffer.blocks[ChunkProviderCelestial.idx(x & 15, z & 15, y)];
             if (block != null && type.isOpaque().test(LegacyBlocks.state(block, 0))) return y + 1;
         }
-        return 0;
+        return ChunkProviderCelestial.MIN_Y;
     }
 
     @Override
     public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor level, RandomState random) {
         ChunkProviderCelestial.BlockMetaBuffer buffer = buffer(x >> 4, z >> 4);
-        BlockState[] states = new BlockState[256];
-        for (int y = 0; y < 256; y++) {
-            int i = (x & 15) << 12 | (z & 15) << 8 | y;
+        BlockState[] states = new BlockState[ChunkProviderCelestial.H];
+        for (int y = 0; y < ChunkProviderCelestial.H; y++) {
+            int i = ChunkProviderCelestial.idx(x & 15, z & 15, y + ChunkProviderCelestial.MIN_Y);
             states[y] = LegacyBlocks.state(buffer.blocks[i], buffer.metas[i]);
         }
-        return new NoiseColumn(0, states);
+        return new NoiseColumn(ChunkProviderCelestial.MIN_Y, states);
+    }
+
+    /** The rock under y 0 here, for old chunks' floors. */
+    public BlockState deepStone() {
+        ChunkProviderCelestial provider = provider();
+        Block deep = DeepStone.of(provider.stone());
+        return (deep != null ? deep : provider.stone()).defaultBlockState();
     }
 
     @Override

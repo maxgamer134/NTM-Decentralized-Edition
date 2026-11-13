@@ -25,6 +25,8 @@ import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.NTMFluids;
 import com.hbm.inventory.fluid.tank.FluidTankAccess;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
+import com.hbm.inventory.fluid.trait.FluidTrait;
+import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Amat;
 import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Gaseous;
 import com.hbm.items.CreativeContents;
 import com.hbm.items.ModDataComponents;
@@ -85,7 +87,8 @@ public final class SpaceAtmoMachines {
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);
 
     public static final RegistryHandle<Algae> ALGAE = Reg.blockItem("algae_film", Algae::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 2, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<AlgaeBE> ALGAE_BE = Reg.be("algae_film",
                     () -> new BlockEntityType<>(AlgaeBE::new, Set.of(ALGAE.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer);
@@ -401,7 +404,25 @@ public final class SpaceAtmoMachines {
             if (tank.getFill() > 0 && type != null) {
                 int toSpill = Math.max(tank.getFill() / 2, 1);
                 if (power >= toSpill * 10L) {
+                    if (NTMFluidProperties.hasTrait(type, FT_Amat.class)) {
+                        server.explode(
+                                null,
+                                worldPosition.getX() + 0.5,
+                                worldPosition.getY() + 0.5,
+                                worldPosition.getZ() + 0.5,
+                                10F,
+                                true,
+                                Level.ExplosionInteraction.BLOCK);
+                        return;
+                    }
                     tank.setFill(tank.getFill() - toSpill);
+                    FluidTrait.onRelease(
+                            server,
+                            worldPosition,
+                            type,
+                            tank,
+                            FluidTrait.FluidReleaseType.SPILL,
+                            toSpill);
                     if (NTMFluidProperties.hasTrait(type, FT_Gaseous.class)) CelestialBody.emitGas(server, type, toSpill);
                     power -= toSpill * 10L;
                     if (tank.getFill() <= 0) tank.setTankType(null);
@@ -518,7 +539,7 @@ public final class SpaceAtmoMachines {
 
     // algae film
 
-    public static class Algae extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock {
+    public static class Algae extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock, ILookOverlay {
         public Algae(Properties props) {
             super(props);
         }
@@ -542,6 +563,18 @@ public final class SpaceAtmoMachines {
         protected MultiblockLayout runtimeLayout(int declaredCaps) {
             SpaceLayouts l = new SpaceLayouts().box(0, 0, 0, ALGAE_DIMS);
             return l.build(this, declaredCaps, ALGAE_DIMS, 0, 0);
+        }
+
+        @Override
+        public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
+            BlockPos core = overlayCore(level, pos);
+            if (core == null || !(level.getBlockEntity(core) instanceof AlgaeBE be)) return;
+            info.title(getName(), 0xFFFF00, 0x404000);
+            if (!be.canOperate)
+                info.line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.noGravity")).append(" ! ! !"),
+                        BobMathUtil.getBlink() ? 0xFF0000 : 0xFFFF00);
+            info.input(NTMFluidProperties.clientName(be.tanks[0].getFluid()) + ": " + be.tanks[0].getFill() + "/" + be.tanks[0].getMaxFill() + "mB");
+            info.output(NTMFluidProperties.clientName(be.tanks[1].getFluid()) + ": " + be.tanks[1].getFill() + "/" + be.tanks[1].getMaxFill() + "mB");
         }
     }
 

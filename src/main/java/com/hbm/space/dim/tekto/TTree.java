@@ -75,7 +75,7 @@ public class TTree extends WorldGenAbstractTree {
 	public boolean generate(World world, Random rand, int x, int y, int z) {
 		int height = rand.nextInt(smallest) + tallest;
 
-		if (y < 1 || y + height + 1 > 256) {
+		if (y < 1 || y + height + 1 > 320) {
 			return false;
 		}
 
@@ -101,7 +101,13 @@ public class TTree extends WorldGenAbstractTree {
 					if (Math.pow(dx / (double)bulbRadiusXz, 2) + Math.pow(dy / (double)bulbRadiusY, 2) + Math.pow(dz / (double)bulbRadiusXz, 2) <= 1) {
 						Block block = world.getBlock(x + dx, bulbStartY + dy, z + dz);
 						if (Material.isAir(block)) {
-							world.setBlock(x + dx, bulbStartY + dy, z + dz, leavBlock, 0, 2);
+							{
+								// persistent, so the canopy stands even where the trunk's distance isn't tracked
+								net.minecraft.world.level.block.state.BlockState leaf = LegacyBlocks.state(leavBlock, 0);
+								if (leaf.hasProperty(net.minecraft.world.level.block.LeavesBlock.PERSISTENT))
+									leaf = leaf.setValue(net.minecraft.world.level.block.LeavesBlock.PERSISTENT, true);
+								world.setState(x + dx, bulbStartY + dy, z + dz, leaf);
+							}
 							if (vines) {
 								for (int i = 0; i < 4; i++) {
 									int vineX = x + dx + (i % 2 == 0 ? (i - 1) : 0);

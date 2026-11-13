@@ -679,6 +679,24 @@ public final class ConfigSchema {
                     "combat_pod_despawn",
                     false,
                     "Combat drop pods despawn after a while.");
+    public static final ConfigEntry<Boolean> SPACE_ENABLE_MUN_COWS =
+            bool(Domain.RUNTIME, "space", "enable_mun_cows", true, "Cows spawn on Mun.");
+    public static final ConfigEntry<Boolean> SERVER_SAFETY =
+            bool(
+                    Domain.RUNTIME,
+                    "entities",
+                    "server_safety",
+                    false,
+                    "Lets automated entity culling kill the elder one, which is otherwise unkillable.");
+    public static final ConfigEntry<Double> SPACE_CELESTIAL_RAD =
+            real(
+                    Domain.RUNTIME,
+                    "space",
+                    "celestial_rad_multiplier",
+                    0.25D,
+                    0D,
+                    100D,
+                    "Radiation from the sun under open sky on other bodies and stations, as a multiple of the sun's strength there less 4 per atmosphere of pressure. 1 = 1 rad/s on the Mun.");
 
     public static final ConfigEntry<Boolean> GUNS_VANILLA_DURABILITY =
             bool(
@@ -1003,6 +1021,9 @@ public final class ConfigSchema {
                     SPACE_MAX_PROBE_DISTANCE,
                     SPACE_MAX_STATION_DISTANCE,
                     SPACE_COMBAT_POD_DESPAWN,
+                    SPACE_ENABLE_MUN_COWS,
+                    SERVER_SAFETY,
+                    SPACE_CELESTIAL_RAD,
                     ITEM_HAZARD_DROP_TICKRATE,
                     UNSTABLE_RECOVERY_SWEEP,
                     TOOL_HUD_INDICATOR_X,

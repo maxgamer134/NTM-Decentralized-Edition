@@ -185,20 +185,31 @@ public class ItemVOTVdrive extends com.hbm.backport.compat.ItemCompat {
         if (body == SolarSystem.Body.ORBIT) {
             adder.accept(Component.literal("Destination: ORBITAL STATION"));
             String name = tag(stack).getString("stationName");
-            if (!name.isEmpty()) adder.accept(Component.literal("Station: " + name).withStyle(ChatFormatting.AQUA));
+            // 1.7's ChunkCoordIntPair.hashCode, which names a station that has none yet
+            if (name.isEmpty()) name = "0x" + Integer.toHexString((1664525 * destination.x() + 1013904223) ^ (1664525 * (destination.z() ^ -559038737) + 1013904223)).toUpperCase();
+            adder.accept(Component.literal("Station: " + name).withStyle(ChatFormatting.AQUA));
+            Level level = context.level();
+            if (level != null && !CelestialBody.inOrbit(level)) {
+                for (String line : Component.translatable("item.hbm.hard_drive_full.orbit.desc").getString().split("\\$"))
+                    adder.accept(Component.literal(line).withStyle(ChatFormatting.GOLD));
+            }
             return;
         }
         adder.accept(Component.literal("Destination: ").append(Component.translatable("body." + body.name).withStyle(ChatFormatting.AQUA)));
         if (destination.x() == 0 && destination.z() == 0) {
             adder.accept(Component.literal("Needs destination coordinates!").withStyle(ChatFormatting.GOLD));
         } else if (!getProcessed(stack)) {
+            Level level = context.level();
+            if (level != null) adder.accept(Component.literal("Process requirement: Level " + body.getProcessingLevel(CelestialBody.getBody(level))));
             adder.accept(Component.literal("Needs processing!").withStyle(ChatFormatting.GOLD));
             adder.accept(Component.literal("Target coordinates: " + destination.x() + ", " + destination.z()));
         } else {
             adder.accept(Component.literal("Processed!").withStyle(ChatFormatting.GREEN));
             adder.accept(Component.literal("Target coordinates: " + destination.x() + ", " + destination.z()));
         }
-        for (String line : Component.translatable("item.hbm.hard_drive_full.surface.desc").getString().split("\\$"))
-            adder.accept(Component.literal(line).withStyle(ChatFormatting.GOLD));
+        if (context.level() != null && onBody(context.level(), body)) {
+            for (String line : Component.translatable("item.hbm.hard_drive_full.surface.desc").getString().split("\\$"))
+                adder.accept(Component.literal(line).withStyle(ChatFormatting.GOLD));
+        }
     }
 }

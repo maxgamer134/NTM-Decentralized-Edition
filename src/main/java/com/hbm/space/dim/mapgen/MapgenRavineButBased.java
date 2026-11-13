@@ -87,7 +87,7 @@ public class MapgenRavineButBased extends MapGenBase {
 
 		float f5 = 1.0F;
 
-		for(int k1 = 0; k1 < 256; ++k1) {
+		for(int k1 = 0; k1 < 384; ++k1) {
 			if(k1 == 0 || random.nextInt(strataFreq) == 0) {
 				f5 = 1.0F + random.nextFloat() * random.nextFloat() * strataScale;
 			}
@@ -139,12 +139,12 @@ public class MapgenRavineButBased extends MapGenBase {
 						l1 = 16;
 					}
 
-					if(j4 < 1) {
-						j4 = 1;
+					if(j4 < -63) {
+						j4 = -63;
 					}
 
-					if(i2 > 248) {
-						i2 = 248;
+					if(i2 > 312) {
+						i2 = 312;
 					}
 
 					if(k4 < 0) {
@@ -162,9 +162,9 @@ public class MapgenRavineButBased extends MapGenBase {
 					for(k2 = i4; !isUnderwater && k2 < l1; ++k2) {
 						for(int l2 = k4; !isUnderwater && l2 < j2; ++l2) {
 							for(int i3 = i2 + 1; !isUnderwater && i3 >= j4 - 1; --i3) {
-								j3 = (k2 * 16 + l2) * 256 + i3;
+								j3 = ChunkProviderCelestial.idx(k2, l2, i3);
 
-								if(i3 >= 0 && i3 < 256) {
+								if(i3 >= -64 && i3 < 320) {
 									if(isOceanBlock(blocks, j3, k2, i3, l2, chunkX, chunkZ)) {
 										isUnderwater = true;
 									}
@@ -183,14 +183,14 @@ public class MapgenRavineButBased extends MapGenBase {
 
 							for(j3 = k4; j3 < j2; ++j3) {
 								double d14 = ((double) (j3 + chunkZ * 16) + 0.5D - z) / d12;
-								int k3 = (k2 * 16 + j3) * 256 + i2;
+								int k3 = ChunkProviderCelestial.idx(k2, j3, i2);
 								boolean foundTop = false;
 
 								if(d13 * d13 + d14 * d14 < width) {
 									for(int l3 = i2 - 1; l3 >= j4; --l3) {
 										double d11 = ((double) l3 + 0.5D - y) / d6;
 
-										if((d13 * d13 + d14 * d14) * (double) this.randoms[l3] + d11 * d11 / taper < width) {
+										if((d13 * d13 + d14 * d14) * (double) this.randoms[l3 + 64] + d11 * d11 / taper < width) {
 											if(isTopBlock(blocks, k3, k2, l3, j3, chunkX, chunkZ)) {
 												foundTop = true;
 											}
@@ -249,7 +249,7 @@ public class MapgenRavineButBased extends MapGenBase {
 		Block block = data[index];
 
 		if(block == stoneBlock || block == filler || block == top) {
-			if(y < 10) {
+			if(y < -54) {
 				data[index] = underwater ? Blocks.OBSIDIAN : Blocks.LAVA;
 			} else {
 				data[index] = underwater && y < 62 ? Blocks.WATER : null;

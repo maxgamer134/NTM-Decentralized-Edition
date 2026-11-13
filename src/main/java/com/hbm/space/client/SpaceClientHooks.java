@@ -62,6 +62,7 @@ public final class SpaceClientHooks {
                 (net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) ->
                         event.enqueueWork(com.hbm.integration.recipeviewer.SpaceRecipePages::register));
         com.hbm.space.client.SpaceSkyClient.register(modBus);
+        com.hbm.space.satellite.SatSettings.OPEN_SCREEN = player -> Minecraft.getInstance().setScreen(new ScreenSatSettings(player));
         SpaceVacuumTorex.register();
         // NTM:Space's airliner (bomber style 9)
         com.hbm.client.render.BomberStyles.register(9,

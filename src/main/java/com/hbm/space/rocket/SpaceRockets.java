@@ -52,6 +52,7 @@ public final class SpaceRockets {
     public static final RegistryHandle<SoundEvent> ROCKET_FLY_LIGHT = NeoForgeRegistrar.registerSound("entity.rocket_fly_light");
     public static final RegistryHandle<SoundEvent> ROCKET_IGNITION = NeoForgeRegistrar.registerSound("entity.rocket_ignition");
     public static final RegistryHandle<SoundEvent> ROCKET_STAGE = NeoForgeRegistrar.registerSound("entity.rocket_stage");
+    public static final RegistryHandle<SoundEvent> PIPEFAIL = NeoForgeRegistrar.registerSound("entity.pipefail");
 
     public static void init() {
         // NTM:Space: no stepping out of a rocket in motion, unless sneak is held for three seconds;

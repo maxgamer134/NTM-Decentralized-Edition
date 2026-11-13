@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "hbm:block/deep_dres_rock"
+    }
+  }
+}

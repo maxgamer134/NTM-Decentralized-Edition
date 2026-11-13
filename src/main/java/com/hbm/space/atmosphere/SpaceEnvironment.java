@@ -44,7 +44,7 @@ public final class SpaceEnvironment implements EnvironmentProvider {
     public static final ResourceKey<DamageType> OXYPRIME = ResourceKey.create(Registries.DAMAGE_TYPE, Library.id("oxyprime"));
 
     /** Suits that seal, as NTM:Space's setSealed(true) sets marked them. */
-    private static final EnumSet<ModArmorItem.Suit> SEALED = EnumSet.of(ModArmorItem.Suit.DNT, ModArmorItem.Suit.DESH,
+    private static final EnumSet<ModArmorItem.Suit> SEALED = EnumSet.of(ModArmorItem.Suit.T51, ModArmorItem.Suit.DESH,
             ModArmorItem.Suit.AJR, ModArmorItem.Suit.AJRO, ModArmorItem.Suit.RPA, ModArmorItem.Suit.NCRPA,
             ModArmorItem.Suit.ENVSUIT, ModArmorItem.Suit.HEV, ModArmorItem.Suit.DIGAMMA, ModArmorItem.Suit.DNS,
             ModArmorItem.Suit.TAURUN, ModArmorItem.Suit.TRENCHMASTER);
@@ -139,9 +139,16 @@ public final class SpaceEnvironment implements EnvironmentProvider {
         return breathes;
     }
 
+    /** ArmorUtil's check: any four worn pieces that are each sealed suit pieces, mixed sets included. */
     private static boolean sealedSuit(LivingEntity entity) {
-        if (!(entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ModArmorItem plate)) return false;
-        return SEALED.contains(plate.suit()) && ArmorSuitEffects.hasFullSet(entity, plate.suit(), false);
+        for (EquipmentSlot slot : new EquipmentSlot[] {EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET}) {
+            if (!isSealedPiece(entity.getItemBySlot(slot))) return false;
+        }
+        return true;
+    }
+
+    public static boolean isSealedPiece(ItemStack stack) {
+        return stack.getItem() instanceof ModArmorItem item && SEALED.contains(item.suit());
     }
 
     /**
@@ -207,6 +214,9 @@ public final class SpaceEnvironment implements EnvironmentProvider {
 
     @Override
     public boolean evaporates(ServerLevel level, BlockPos pos, boolean vacuumProof) {
+        // firestorms boil off even vacuum-proof condensers
+        if (com.hbm.saveddata.TomSaveData.get(level).fire > 1e-5F
+                && level.getBrightness(net.minecraft.world.level.LightLayer.SKY, pos) > 7) return true;
         if (vacuumProof) return false;
         // TileEntityCondenser asks the body, not the room: a sealed hall doesn't save the steam
         return vacuum(level);
@@ -250,6 +260,25 @@ public final class SpaceEnvironment implements EnvironmentProvider {
         if (body == null) return com.hbm.inventory.fluid.NTMFluids.WATER;
         CBT_Water table = body.getTrait(CBT_Water.class);
         return table == null ? null : table.fluid;
+    }
+
+    /** EntityEffectHandler: out under the open sky of another body, the sun irradiates you, less what the air stops. */
+    @Override
+    public double skyRadiation(ServerLevel level, BlockPos pos, double rad) {
+        if (level.dimension() == net.minecraft.world.level.Level.OVERWORLD) return rad;
+        if (level.getBrightness(net.minecraft.world.level.LightLayer.SKY, pos) - level.getSkyDarken() < 14) return rad;
+        float sun;
+        if (CelestialBody.inOrbit(level)) {
+            sun = com.hbm.space.station.OrbitalStation.getStationFromPosition(level, pos.getX(), pos.getZ()).getSunPower();
+        } else {
+            CelestialBody body = CelestialBody.getBodyOrNull(level.dimension());
+            if (body == null) return rad;
+            sun = body.getSunPower();
+            CBT_Atmosphere atmosphere = CelestialBody.getTrait(level, CBT_Atmosphere.class);
+            if (atmosphere != null) sun -= (float) atmosphere.getPressure() * 4;
+        }
+        double target = sun * com.hbm.config.NeoForgeHbmConfig.runtime().store().get(com.hbm.config.ConfigSchema.SPACE_CELESTIAL_RAD);
+        return Math.max(rad, target);
     }
 
     @Override
@@ -317,6 +346,19 @@ public final class SpaceEnvironment implements EnvironmentProvider {
     public double particlePressure(Level level) {
         CBT_Atmosphere atmosphere = bodyAtmosphere(level);
         return atmosphere == null ? 0 : atmosphere.getPressure();
+    }
+
+    /** ModEventHandler.onPlayerTick: falling fast through thick air high up trails flame behind you. */
+    public static void tickReentry(net.minecraft.server.level.ServerPlayer player) {
+        if (player.getY() <= 300 || player.getY() >= 1000 || player.isPassenger()) return;
+        Vec3 motion = player.getDeltaMovement();
+        if (Math.abs(motion.x) <= 1 && Math.abs(motion.y) <= 1 && Math.abs(motion.z) <= 1) return;
+        CBT_Atmosphere atmosphere = bodyAtmosphere(player.level());
+        if (atmosphere == null || atmosphere.getPressure() <= 0.05) return;
+        double x = player.getX() - 1 + 3 * player.getRandom().nextDouble(), y = player.getY(), z = player.getZ();
+        com.hbm.packet.PacketWire.sendToAllAround(
+                new com.hbm.packet.toclient.GasFlamePayload(x, y, z, 0, 0, 0, com.hbm.packet.toclient.GasFlamePayload.DEFAULT_SCALE),
+                new com.hbm.handler.threading.TargetPoint(player.serverLevel(), x, y, z, 150));
     }
 
     /**

@@ -84,7 +84,7 @@ public class BiomeDecoratorCelestial extends BiomeDecorator {
 		if(doGen && this.generateLakes) {
 			for (int i = 0; i < lavaCount; ++i) {
 				int x = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
-				int y = this.randomGenerator.nextInt(this.randomGenerator.nextInt(this.randomGenerator.nextInt(240) + 8) + 8);
+				int y = com.hbm.space.dim.legacy.Features.stretch(this.randomGenerator.nextInt(this.randomGenerator.nextInt(this.randomGenerator.nextInt(240) + 8) + 8));
 				int z = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 				(new WorldGenLiquidsCelestial(Blocks.LAVA, stoneBlock)).generate(this.currentWorld, this.randomGenerator, x, y, z);
 			}

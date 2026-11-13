@@ -1,0 +1,14 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [
+    {
+      "ingredient": "hbm:stone_resource_calcium"
+    }
+  ],
+  "output_items": [
+    {
+      "count": 6,
+      "id": "hbm:powder_calcium"
+    }
+  ]
+}

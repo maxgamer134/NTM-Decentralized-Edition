@@ -7,11 +7,13 @@ import com.hbm.blocks.ModBlockEntities;
 import com.hbm.extprop.ContaminationEffect;
 import com.hbm.extprop.HbmLivingProps;
 import com.hbm.potion.HbmPotion;
+import com.hbm.space.SpaceToggle;
 import com.hbm.util.ContaminationUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -23,6 +25,8 @@ public class BlockEntityDecon extends BlockEntityCompat {
 
     private static final float NEUTRON_REMOVE = -0.005F;
     private static final float NEUTRON_DECAY = 0.9998074776F;
+
+    private static final float SPACE_NEUTRON_DECAY = 0.899916F;
 
     private static final ContaminationEffect[] NO_CONTAMINATION = new ContaminationEffect[0];
 
@@ -44,8 +48,29 @@ public class BlockEntityDecon extends BlockEntityCompat {
             HbmLivingProps.incrementRadiation(entity, RAD_REMOVE);
             entity.removeEffect(HbmPotion.radiation());
             HbmLivingProps.getData(entity).setCont(NO_CONTAMINATION);
-            if (entity instanceof Player player) {
+            if (SpaceToggle.changes()) {
+                deconNeutron(entity);
+            } else if (entity instanceof Player player) {
                 ContaminationUtil.neutronActivateInventory(player, NEUTRON_REMOVE, NEUTRON_DECAY);
+            }
+        }
+    }
+
+    /** NTM:Space: the pad burns a body's neutron activation off as radiation, and decays carried items. */
+    private static void deconNeutron(LivingEntity entity) {
+        double neut = HbmLivingProps.getNeutron(entity);
+        if (neut > 0D) {
+            ContaminationUtil.contaminate(
+                    entity,
+                    ContaminationUtil.HazardType.RADIATION,
+                    ContaminationUtil.ContaminationType.RAD_BYPASS,
+                    neut / 20D);
+            HbmLivingProps.setNeutron(entity, neut * SPACE_NEUTRON_DECAY);
+        }
+        if (entity instanceof Player player) {
+            Inventory inv = player.getInventory();
+            for (int i = 0; i < inv.getContainerSize(); i++) {
+                ContaminationUtil.neutronActivateItem(inv.getItem(i), 0F, SPACE_NEUTRON_DECAY);
             }
         }
     }

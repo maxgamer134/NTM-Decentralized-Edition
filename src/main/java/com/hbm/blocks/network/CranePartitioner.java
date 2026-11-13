@@ -125,15 +125,16 @@ public class CranePartitioner extends BlockCompat
         if (!(level.getBlockEntity(pos) instanceof BlockEntityCranePartitioner partitioner)) return;
 
         ItemStack stack = entity.getItemStack().copy();
-        int slots = BlockEntityCranePartitioner.SLOT_COUNT;
+        int in = BlockEntityCranePartitioner.inputCount();
+        int out = BlockEntityCranePartitioner.outputCount();
         boolean queued = CrystallizerRecipes.INSTANCE.getAmount(stack) > 0;
 
         ItemStack left =
                 queued
                         ? InventoryUtil.tryAddItemToInventory(
-                                partitioner.inventory, 0, slots - 1, stack)
+                                partitioner.inventory, 0, in - 1, stack)
                         : InventoryUtil.tryAddItemToInventory(
-                                partitioner.inventory, slots, slots * 2 - 1, stack);
+                                partitioner.inventory, in, in + out - 1, stack);
         partitioner.setChanged();
 
         if (!left.isEmpty()) {

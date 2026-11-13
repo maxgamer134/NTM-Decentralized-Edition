@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 import com.hbm.backport.compat.ItemCompat;
 
-public final class ItemSatellite extends ItemCompat implements ISatChip {
+public final class ItemSatellite extends ItemCompat implements ISatChip, com.hbm.items.IItemControlReceiver {
     public static final OverridePoint<Describer> DESCRIBE =
             OverridePoint.of(
                     Library.id("satellite_describe"),
@@ -50,6 +50,11 @@ public final class ItemSatellite extends ItemCompat implements ISatChip {
                 Level level,
                 Player player,
                 InteractionHand hand);
+    }
+
+    @Override
+    public void receiveControl(net.minecraft.server.level.ServerPlayer player, ItemStack stack, net.minecraft.nbt.CompoundTag data) {
+        if (com.hbm.space.SpaceToggle.enabled()) com.hbm.space.satellite.SatSettings.receive(player, stack, data);
     }
 
     public ItemSatellite(Properties properties) {

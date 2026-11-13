@@ -85,8 +85,8 @@ public class MapGenCrater extends MapGenBase {
 
 			for(int bx = 15; bx >= 0; bx--) { // bx, bz is the coordinate of the block we're modifying, relative to the generating chunk origin
 				for(int bz = 15; bz >= 0; bz--) {
-					for(int y = 254; y >= 0; y--) {
-						int index = (bx * 16 + bz) * 256 + y;
+					for(int y = 318; y >= -64; y--) {
+						int index = ChunkProviderCelestial.idx(bx, bz, y);
 
 						if(blocks[index] != null && (Material.isOpaqueCube(blocks[index]) || Material.of(blocks[index]).isLiquid())) {
 							// x, z are the coordinates relative to the target virtual chunk origin

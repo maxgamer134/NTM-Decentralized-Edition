@@ -5,6 +5,7 @@ package com.hbm.blockentity.bomb;
 
 import com.hbm.lib.Library;
 import com.hbm.registration.OverridePoint;
+import com.hbm.space.SpaceToggle;
 import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -61,8 +62,14 @@ public final class CustomNukeEntries {
 
         add(built, "cell_antimatter", Stage.AMAT, 5F);
         add(built, "custom_amat", Stage.AMAT, 15F);
-        add(built, "egg_balefire_shard", Stage.AMAT, 15F);
-        add(built, "egg_balefire", Stage.AMAT, 150F);
+        if (SpaceToggle.changes()) {
+            // Space drops the balefire eggs and adds the particle and pellet
+            add(built, "particle_amat", Stage.AMAT, 5F);
+            add(built, "pellet_antimatter", Stage.AMAT, 45F);
+        } else {
+            add(built, "egg_balefire_shard", Stage.AMAT, 15F);
+            add(built, "egg_balefire", Stage.AMAT, 150F);
+        }
 
         add(built, "ingot_tungsten", Stage.DIRTY, 1F);
         add(built, "custom_dirty", Stage.DIRTY, 10F);

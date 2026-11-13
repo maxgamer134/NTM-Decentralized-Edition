@@ -126,8 +126,8 @@ public class MapGenGreg extends MapGenCaves {
 						double z1Add = (x1z1 - x0z1) * 0.25D;
 
 						for (int pieceX = 0; pieceX < 4; ++pieceX) {
-							int index = pieceX + noiseX * 4 << 12 | noiseZ * 4 << 8 | noiseY * 8 + pieceY;
-							short idAdd = 256;
+							int index = ChunkProviderCelestial.idx(pieceX + noiseX * 4, noiseZ * 4, noiseY * 8 + pieceY);
+							int idAdd = ChunkProviderCelestial.H;
 							index -= idAdd;
 							double densityAdd = (z1 - z0) * 0.25D;
 							double density = z0 - densityAdd;

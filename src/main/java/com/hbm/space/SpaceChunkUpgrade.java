@@ -26,8 +26,8 @@ import org.jspecify.annotations.Nullable;
  */
 public final class SpaceChunkUpgrade {
 
-    /** 1: planet ores and coral attachment. */
-    private static final int VERSION = 1;
+    /** 1: planet ores and coral attachment. 2: the planets' new depth, from y -64. */
+    private static final int VERSION = 2;
 
     public static final Supplier<AttachmentType<Integer>> DATA =
             NeoForgeAttachments.register(
@@ -53,11 +53,57 @@ public final class SpaceChunkUpgrade {
     }
 
     private static void onChunkLoad(ServerLevel level, LevelChunk chunk) {
-        if (chunk.getData(DATA) >= VERSION) return;
-        BlockSpaceOre.OreBody body = body(level);
-        if (body != null) upgrade(level, chunk, body);
+        int version = chunk.getData(DATA);
+        if (version >= VERSION) return;
+        if (version < 1) {
+            BlockSpaceOre.OreBody body = body(level);
+            if (body != null) upgrade(level, chunk, body);
+        }
+        if (version < 2) deepen(level, chunk);
         chunk.setData(DATA, VERSION);
         chunk.setUnsaved(true);
+    }
+
+    /**
+     * A planet chunk saved while the planets began at y 0: the rock under it, which the planet
+     * now generates down to -64, is filled in as a new chunk's would be, its old bedrock floor
+     * turned to rock (bedrock ores stay where they are) and its biomes carried down.
+     */
+    private static void deepen(ServerLevel level, LevelChunk chunk) {
+        if (!(level.getChunkSource().getGenerator() instanceof com.hbm.space.dim.CelestialChunkGenerator generator)) return;
+        int min = com.hbm.space.dim.legacy.ChunkProviderCelestial.MIN_Y;
+        if (chunk.getMinBuildHeight() != min) return;
+        LevelChunkSection[] sections = chunk.getSections();
+        int below = chunk.getSectionIndex(0);
+        for (int i = 0; i < below; i++) if (!sections[i].hasOnlyAir()) return;
+        LevelChunkSection floor = sections[below];
+        var buffer = generator.buffer(chunk.getPos().x, chunk.getPos().z);
+        java.util.List<BlockPos> lights = new java.util.ArrayList<>();
+        for (int y = min; y < 5; y++) {
+            LevelChunkSection section = sections[chunk.getSectionIndex(y)];
+            for (int x = 0; x < 16; x++)
+                for (int z = 0; z < 16; z++) {
+                    if (y >= 0 && !section.getBlockState(x, y & 15, z).is(net.minecraft.world.level.block.Blocks.BEDROCK)) continue;
+                    int i = com.hbm.space.dim.legacy.ChunkProviderCelestial.idx(x, z, y);
+                    var block = buffer.blocks[i];
+                    BlockState state = block == null ? net.minecraft.world.level.block.Blocks.AIR.defaultBlockState()
+                            : com.hbm.space.dim.legacy.LegacyBlocks.state(block, buffer.metas[i]);
+                    if (y >= 0 && state.isAir()) state = generator.deepStone();
+                    section.setBlockState(x, y & 15, z, state, false);
+                    if (state.getLightEmission() > 0)
+                        lights.add(new BlockPos(chunk.getPos().getMinBlockX() + x, y, chunk.getPos().getMinBlockZ() + z));
+                }
+        }
+        for (int i = 0; i < below; i++)
+            sections[i].fillBiomesFromNoise((qx, qy, qz, sampler) -> floor.getNoiseBiome(qx & 3, 0, qz & 3), null, 0, 0, 0);
+        net.minecraft.world.level.levelgen.Heightmap.primeHeightmaps(chunk, java.util.EnumSet.of(
+                net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE,
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.level.levelgen.Heightmap.Types.OCEAN_FLOOR));
+        var light = level.getChunkSource().getLightEngine();
+        for (int i = 0; i < below; i++) light.updateSectionStatus(net.minecraft.core.SectionPos.of(chunk.getPos(), chunk.getSectionYFromSectionIndex(i)), false);
+        for (BlockPos pos : lights) light.checkBlock(pos);
     }
 
     private static boolean wanted(BlockState state, BlockSpaceOre.OreBody body) {

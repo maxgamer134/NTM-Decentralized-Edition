@@ -425,7 +425,7 @@ public final class SpaceExtras {
     public static void layer(com.hbm.space.dim.legacy.World world, String key, net.minecraft.world.level.block.state.BlockState block,
             double scaleH, double scaleV, double threshold, int x, int z) {
         if (com.hbm.space.dim.legacy.Features.recorded(block.getBlock(), 0, world.stone(), -1, -1,
-                com.hbm.world.feature.Stratum3DFeature.MIN_Y, com.hbm.world.feature.Stratum3DFeature.MAX_Y, "stratum_3d")) return;
+                LO, com.hbm.world.feature.Stratum3DFeature.MAX_Y, "stratum_3d")) return;
         com.hbm.world.feature.Stratum3DFeature.place(
                 world.level(),
                 net.minecraft.util.RandomSource.create(0L),
@@ -434,12 +434,32 @@ public final class SpaceExtras {
                         Library.id("stratum_" + key + "/y"),
                         Library.id("stratum_" + key + "/z"),
                         block,
-                        new net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest(world.stone()),
+                        new DeepMatch(world.stone()),
                         scaleH,
                         scaleV,
                         threshold),
                 x,
-                z);
+                z,
+                LO,
+                com.hbm.world.feature.Stratum3DFeature.MAX_Y);
+    }
+
+    /** The strata stretched down into the planets' deep rock, as their ores are. */
+    private static final int LO = com.hbm.space.dim.legacy.Features.stretch(com.hbm.world.feature.Stratum3DFeature.MIN_Y);
+
+    /** A planet's stone, or the deep stone under it. */
+    private static final class DeepMatch extends net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest {
+        private final net.minecraft.world.level.block.Block stone;
+
+        DeepMatch(net.minecraft.world.level.block.Block stone) {
+            super(stone);
+            this.stone = stone;
+        }
+
+        @Override
+        public boolean test(net.minecraft.world.level.block.state.BlockState state, net.minecraft.util.RandomSource random) {
+            return com.hbm.space.dim.DeepStone.matches(state.getBlock(), stone);
+        }
     }
 
     /**
@@ -547,6 +567,21 @@ public final class SpaceExtras {
     public static final RegistryHandle<net.minecraft.sounds.SoundEvent> JET_LOOP_BOMB =
             com.hbm.registration.NeoForgeRegistrar.registerSound("entity.jet_loop_bomb");
 
+    /** stone_resource CALCIUM: the planets' limestone-like rock, which shreds into calcium and melts into flux. */
+    public static final RegistryHandle<net.minecraft.world.level.block.Block> STONE_RESOURCE_CALCIUM = Reg.blockItem("stone_resource_calcium",
+            net.minecraft.world.level.block.Block::new, () -> net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                    .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(5.0F, 6.0F)
+                    .sound(net.minecraft.world.level.block.SoundType.STONE).requiresCorrectToolForDrops());
+
+    /** The planets' stone below y 0, as deepslate is the overworld's: one per planet stone. */
+    public static final java.util.List<? extends RegistryHandle<net.minecraft.world.level.block.Block>> DEEP_STONES = java.util.stream.Stream.of(
+                    "moon_rock", "duna_rock", "eve_rock", "ike_stone", "dres_rock", "moho_stone", "minmus_stone", "basalt")
+            .map(stone -> Reg.blockItem("deep_" + stone, net.minecraft.world.level.block.Block::new,
+                    () -> net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
+                            .mapColor(net.minecraft.world.level.material.MapColor.DEEPSLATE).strength(3.0F, 6.0F)
+                            .sound(net.minecraft.world.level.block.SoundType.DEEPSLATE).requiresCorrectToolForDrops()))
+            .toList();
+
     public static void init() {
         after(CreativeContents.Tab.CONSUMABLES, "bomb_caller_atomic_bomb", java.util.List.of(BOMB_CALLER_AIRLINER));
         after(CreativeContents.Tab.PARTS, "chlorine_pinwheel", java.util.List.of(OXY_PINWHEEL));
@@ -571,7 +606,8 @@ public final class SpaceExtras {
         after(CreativeContents.Tab.CONTROL, "pellet_rtg_americium", java.util.List.of(RTG_BERKELIUM));
         after(CreativeContents.Tab.CONTROL, "pellet_rtg_depleted_neptunium", java.util.List.of(RTG_DEPLETED_AMERICIUM));
         after(CreativeContents.Tab.CONSUMABLES, "jetpack_tank", java.util.List.of(OXY_PLSS, LOX_TANK));
-        after(CreativeContents.Tab.BLOCKS, "stone_resource_bauxite", java.util.List.of(CONGLOMERATE));
+        after(CreativeContents.Tab.BLOCKS, "stone_resource_bauxite", java.util.List.of(CONGLOMERATE, STONE_RESOURCE_CALCIUM));
+        after(CreativeContents.Tab.BLOCKS, "minmus_stone", DEEP_STONES);
         after(CreativeContents.Tab.BLOCKS, "bobblehead_cirno", java.util.List.of(BOBBLEHEAD_GWEN, BOBBLEHEAD_JUICE, BOBBLEHEAD_JAMESH_2, BOBBLEHEAD_MRKIMKIMORA));
     }
 }

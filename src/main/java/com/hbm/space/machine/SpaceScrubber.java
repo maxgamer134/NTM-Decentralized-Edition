@@ -54,7 +54,8 @@ public final class SpaceScrubber {
     public static final int[] DIMS = {1, 0, 0, 0, 0, 0};
 
     public static final RegistryHandle<Scrubber> BLOCK = Reg.blockItem("air_scrubber", Scrubber::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 1, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<ScrubberBE> BE = Reg.be("air_scrubber",
                     () -> new BlockEntityType<>(ScrubberBE::new, Set.of(BLOCK.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);

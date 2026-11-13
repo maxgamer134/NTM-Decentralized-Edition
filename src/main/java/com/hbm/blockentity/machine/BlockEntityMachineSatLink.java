@@ -91,7 +91,7 @@ public final class BlockEntityMachineSatLink extends BlockEntityCompat
     public static void tickServer(
             Level level, BlockPos pos, BlockState state, BlockEntityMachineSatLink be) {
         ServerLevel server = (ServerLevel) level;
-        SatelliteSavedData data = SatelliteSavedData.get(server);
+        SatelliteSavedData data = SatelliteSavedData.at(server, pos.getX(), pos.getZ());
         be.connected = be.clearColumn(server) && data.isFreqTaken(be.freq);
         Satellite sat = be.connected ? data.getSatFromFreq(be.freq) : null;
         List<Component> nextInfo = sat == null ? List.of() : sat.getInfo(server);
@@ -146,7 +146,7 @@ public final class BlockEntityMachineSatLink extends BlockEntityCompat
         if (name.equals(PREFIX_VALUE + "connected")) return connected ? "TRUE" : "FALSE";
         if (name.equals(PREFIX_VALUE + "freq")) return Integer.toString(freq);
         if (name.equals(PREFIX_VALUE + "type") || name.equals(PREFIX_VALUE + "rx")) {
-            Satellite sat = SatelliteSavedData.get((ServerLevel) level).getSatFromFreq(freq);
+            Satellite sat = SatelliteSavedData.at((ServerLevel) level, worldPosition.getX(), worldPosition.getZ()).getSatFromFreq(freq);
             if (sat == null) return "";
             return name.equals(PREFIX_VALUE + "type") ? sat.type().orbitName() : sat.tx;
         }
@@ -160,7 +160,7 @@ public final class BlockEntityMachineSatLink extends BlockEntityCompat
         }
         if (name.equals(PREFIX_FUNCTION + "tx")) {
             ServerLevel server = (ServerLevel) level;
-            SatelliteSavedData data = SatelliteSavedData.get(server);
+            SatelliteSavedData data = SatelliteSavedData.at(server, worldPosition.getX(), worldPosition.getZ());
             Satellite sat = data.getSatFromFreq(freq);
             String[] command = String.join(PARAM_SEPARATOR, params).split(" ");
             if (sat != null) {

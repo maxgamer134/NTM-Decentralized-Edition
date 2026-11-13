@@ -32,6 +32,10 @@ public class ItemPancake extends ItemCompat {
                     .alwaysEdible()
                     .build();
 
+    /** NTM:Space tones the pancake's saturation down. */
+    public static final FoodProperties SPACE_FOOD =
+            new FoodProperties.Builder().nutrition(20).saturationModifier(1F).alwaysEdible().build();
+
     public ItemPancake(Properties props) {
         super(props);
     }

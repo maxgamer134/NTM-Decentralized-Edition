@@ -63,7 +63,8 @@ public final class SpaceMagma {
             Mats.makeSmeltable(24_002, Mats.df("magma"), 0x7F7F7F, 0x353555, 0xFF6212);
 
     public static final RegistryHandle<Magma> BLOCK = Reg.blockItem("machine_magma", Magma::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 1, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<MagmaBE> BE = Reg.be("machine_magma",
                     () -> new BlockEntityType<>(MagmaBE::new, Set.of(BLOCK.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);

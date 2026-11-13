@@ -84,7 +84,7 @@ public final class Features {
                         if (dx * dx + dy * dy >= 1) continue;
                         for (int bz = minZ; bz <= maxZ; bz++) {
                             double dz = (bz + 0.5 - cz) / (rh / 2);
-                            if (dx * dx + dy * dy + dz * dz < 1 && world.getBlock(bx, by, bz) == target)
+                            if (dx * dx + dy * dy + dz * dz < 1 && com.hbm.space.dim.DeepStone.matches(world.getBlock(bx, by, bz), target))
                                 world.setBlock(bx, by, bz, ore, meta, 2);
                         }
                     }
@@ -146,19 +146,27 @@ public final class Features {
         }
     }
 
+    /**
+     * A 1.7 ore height on the planets' taller world: the old rock below the sea, 0 to 63, now
+     * spans the new depth from -64, so the ores spread through it as the modern overworld's do.
+     */
+    public static int stretch(int y) {
+        return y < 64 ? y * 2 + ChunkProviderCelestial.MIN_Y : y;
+    }
+
     /** DungeonToolbox.generateOre: some veins of an ore at random heights in a chunk. */
     /** NTM's DepthDeposit: a ball of ore in filler, in the planet's stone and its bedrock. */
     public static void depthDeposit(World world, int x, int yMin, int yDev, int z, int size, double fill, Block block, Random rand, int chance, Block target, Block filler) {
         if (recorded(block, 0, target, 1.0 / chance, size, yMin, yMin + Math.max(1, yDev) - 1, "space_deposit")) return;
         if (rand.nextInt(chance) != 0) return;
-        int cx = x + rand.nextInt(16) + 8, cy = yMin + rand.nextInt(yDev), cz = z + rand.nextInt(16) + 8;
+        int cx = x + rand.nextInt(16) + 8, cy = stretch(yMin + rand.nextInt(yDev)), cz = z + rand.nextInt(16) + 8;
         for (int i = cx - size; i <= cx + size; i++)
             for (int j = cy - size; j <= cy + size; j++)
                 for (int k = cz - size; k <= cz + size; k++) {
-                    if (j < 1 || j > 126) continue;
+                    if (j < ChunkProviderCelestial.MIN_Y + 1 || j > 126) continue;
                     double len = Math.sqrt((cx - i) * (cx - i) + (cy - j) * (cy - j) + (cz - k) * (cz - k));
                     Block here = world.getBlock(i, j, k);
-                    if (here != target && here != net.minecraft.world.level.block.Blocks.BEDROCK) continue;
+                    if (!com.hbm.space.dim.DeepStone.matches(here, target) && here != net.minecraft.world.level.block.Blocks.BEDROCK) continue;
                     if (len + rand.nextInt(2) < size * fill) world.setBlock(i, j, k, block);
                     else if (len + rand.nextInt(2) <= size) world.setBlock(i, j, k, filler);
                 }
@@ -170,7 +178,7 @@ public final class Features {
         if (recorded(ore, meta, target, veins, amount, minHeight, minHeight + Math.max(1, variance) - 1, "vein")) return;
         for (int i = 0; i < veins; i++) {
             int bx = x + rand.nextInt(16);
-            int by = minHeight + (variance > 0 ? rand.nextInt(variance) : 0);
+            int by = stretch(minHeight + (variance > 0 ? rand.nextInt(variance) : 0));
             int bz = z + rand.nextInt(16);
             new WorldGenMinable(ore, meta, amount, target).generate(world, rand, bx, by, bz);
         }

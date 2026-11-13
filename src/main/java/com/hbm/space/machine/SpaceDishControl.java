@@ -55,7 +55,8 @@ public final class SpaceDishControl {
     public static final int[] DIMS = {0, 0, 0, 0, 0, 1};
 
     public static final RegistryHandle<DishControl> BLOCK = Reg.blockItem("dish_control", DishControl::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 3, com.hbm.items.DescBlockItem.Desc.PLAIN));
 
     public static final Reg.BeHandle<DishControlBE> BE = Reg.be("dish_control",
                     () -> new BlockEntityType<>(DishControlBE::new, Set.of(BLOCK.get()), null))

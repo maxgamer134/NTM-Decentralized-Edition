@@ -21,7 +21,7 @@ public class ItemButterSword extends SwordItem {
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         if (target instanceof Squid && !target.level().isClientSide()) {
-            target.level().explode(attacker, target.getX(), target.getY(), target.getZ(), 2F, true, Level.ExplosionInteraction.MOB);
+            target.level().explode(attacker, target.getX(), target.getY(), target.getZ(), 2F, false, Level.ExplosionInteraction.TNT);
         }
         return super.hurtEnemy(stack, target, attacker);
     }

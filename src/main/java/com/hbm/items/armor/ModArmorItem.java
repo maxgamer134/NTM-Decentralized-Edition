@@ -133,6 +133,12 @@ public class ModArmorItem extends com.hbm.backport.item.armor.ArmorItem26 implem
         }
 
         EXTRA_LINES.get().accept(stack, adder);
+        if (com.hbm.space.SpaceToggle.changes()) {
+            if (com.hbm.space.atmosphere.SpaceEnvironment.isSealedPiece(stack))
+                adder.accept(Component.translatable("armor.canSeal").withStyle(ChatFormatting.BLUE));
+            if (suit == Suit.DNS)
+                adder.accept(Component.translatable("armor.canBreathe").withStyle(ChatFormatting.BLUE));
+        }
         fullSetBonus(stack, adder);
     }
 

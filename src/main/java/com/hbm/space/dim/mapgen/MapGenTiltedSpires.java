@@ -121,7 +121,7 @@ public class MapGenTiltedSpires extends MapGenBase {
 					int d = 0;
 
 					for(int y = mid + 63; y >= 0; y--) {
-						int index = (bx * 16 + bz) * 256 + y;
+						int index = ChunkProviderCelestial.idx(bx, bz, y);
 
 						// Run until the first opaque block
 						if(blocks[index] == null || !Material.isOpaqueCube(blocks[index])) {

@@ -68,6 +68,7 @@ public final class SpaceMobs {
      */
     private static boolean checkMoonCowSpawn(EntityType<MoonCow> type, net.minecraft.world.level.LevelAccessor level,
             net.minecraft.world.entity.MobSpawnType reason, net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        if (!com.hbm.config.NeoForgeHbmConfig.runtime().spaceMunCows()) return false;
         if (reason == net.minecraft.world.entity.MobSpawnType.CHUNK_GENERATION)
             return net.minecraft.world.entity.Mob.checkMobSpawnRules(type, level, reason, pos, random);
         return Animal.checkAnimalSpawnRules(type, level, reason, pos, random);
@@ -86,7 +87,13 @@ public final class SpaceMobs {
      * flesh creepers and nothing else.
      */
     private static void onPotentialSpawns(net.neoforged.neoforge.event.level.LevelEvent.PotentialSpawns event) {
-        if (event.getMobCategory() != MobCategory.MONSTER || !SpaceToggle.enabled()) return;
+        if (!SpaceToggle.enabled()) return;
+        if (event.getMobCategory() == MobCategory.CREATURE && !com.hbm.config.NeoForgeHbmConfig.runtime().spaceMunCows()) {
+            for (var data : java.util.List.copyOf(event.getSpawnerDataList()))
+                if (data.type == MOON_COW.get()) event.removeSpawnerData(data);
+            return;
+        }
+        if (event.getMobCategory() != MobCategory.MONSTER) return;
         if (!(event.getLevel() instanceof Level level) || level.dimension() != SpaceDimensions.LAYTHE) return;
         if (!level.getBlockState(event.getPos().below()).is(SpaceBlocks.TUMOR.get())) return;
         for (var data : java.util.List.copyOf(event.getSpawnerDataList())) event.removeSpawnerData(data);

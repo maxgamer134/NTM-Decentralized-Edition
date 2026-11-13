@@ -98,31 +98,13 @@ public final class SpaceSky implements CustomSkies.Renderer {
     private static final double TRANSITION_MAX_SIZE = 0.5D;
     private static final float BLEND_DARKEN = 0.1F;
 
-    // SatelliteBase's defaults: no satellite item or GUI of NTM:Space ever changes them
+    // SatelliteBase's defaults, which Kerbin's delivery satellite keeps; the others carry their own settings
     private static final float SAT_INCLINATION = 0F;
     private static final float SAT_ALTITUDE_KM = AstronomyUtil.DEFAULT_ALTITUDE_KM;
     private static final float SAT_PHASE_OFFSET = 0F;
     private static final boolean SAT_BLINKING = false;
     private static final float SAT_BLINK_PERIOD = 0.3F;
 
-    /** XSatelliteRegistry's colour for each satellite, by the 1.21.1 satellite type's name. */
-    private static final Map<String, float[]> SAT_COLORS = Map.ofEntries(
-            Map.entry("mapper", new float[] {0.538F, 1.0F, 0.523F}),
-            Map.entry("scanner", new float[] {0.544F, 0.680F, 1.0F}),
-            Map.entry("radar", new float[] {0.134F, 1.0F, 0.134F}),
-            Map.entry("death_ray", new float[] {0.221F, 0.663F, 1.0F}),
-            Map.entry("resonator", new float[] {1.0F, 0.646F, 0.181F}),
-            Map.entry("relay", new float[] {1.0F, 0.15F, 0.15F}),
-            Map.entry("miner", new float[] {0.46F, 0.56F, 0.68F}),
-            Map.entry("lunar_miner", new float[] {0.42F, 0.54F, 0.82F}),
-            Map.entry("dyson_relay", new float[] {1.0F, 0.9F, 0.8F}),
-            Map.entry("horizons", new float[] {0.0F, 0.0F, 0.0F}),
-            Map.entry("war", new float[] {0.0F, 0.0F, 0.0F}),
-            Map.entry("precision_laser", new float[] {0.221F, 1.0F, 0.663F}),
-            Map.entry("detector", new float[] {0.1F, 0.2F, 0.3F}),
-            Map.entry("ray_scan", new float[] {0.1F, 0.2F, 0.3F}),
-            Map.entry("science", new float[] {0.2F, 0.64F, 0.8F}));
-    private static final float[] WHITE = {1F, 1F, 1F};
 
     private static boolean registered;
 
@@ -1291,9 +1273,9 @@ public final class SpaceSky implements CustomSkies.Renderer {
         if (level.dimension() == Level.OVERWORLD) {
             renderSatellite(solarAngle, 1.0F, 0.534F, 0.385F, SAT_INCLINATION, SAT_ALTITUDE_KM, SAT_PHASE_OFFSET, SAT_BLINKING, SAT_BLINK_PERIOD);
         }
-        for (String type : SpaceSkySync.clientSatellites.values()) {
-            float[] c = SAT_COLORS.getOrDefault(type, WHITE);
-            renderSatellite(solarAngle, c[0], c[1], c[2], SAT_INCLINATION, SAT_ALTITUDE_KM, SAT_PHASE_OFFSET, SAT_BLINKING, SAT_BLINK_PERIOD);
+        for (SpaceSkySync.SkySat sat : SpaceSkySync.clientSatellites.values()) {
+            com.hbm.space.satellite.SatSettings c = sat.settings();
+            renderSatellite(solarAngle, c.r(), c.g(), c.b(), c.inclination(), c.altitude(), c.phaseOffset(), c.blinking(), c.blinkPeriod());
         }
         renderHeldSatellitePreview(mc, body, solarAngle);
         for (int[] station : SpaceSkySync.clientStations) renderStation(station[0], station[1], solarAngle);
@@ -1315,9 +1297,9 @@ public final class SpaceSky implements CustomSkies.Renderer {
             default -> body.name;
         };
         if (!target.equals(body.name)) return;
-        float[] c = SAT_COLORS.getOrDefault(type.getSerializedName(), WHITE);
-        renderOrbitLine(solarAngle, c[0], c[1], c[2], SAT_INCLINATION, SAT_ALTITUDE_KM, SAT_BLINKING, SAT_BLINK_PERIOD);
-        renderSatellite(solarAngle, c[0], c[1], c[2], SAT_INCLINATION, SAT_ALTITUDE_KM, SAT_PHASE_OFFSET, SAT_BLINKING, SAT_BLINK_PERIOD);
+        com.hbm.space.satellite.SatSettings c = com.hbm.space.satellite.SatSettings.of(held, type.getSerializedName());
+        renderOrbitLine(solarAngle, c.r(), c.g(), c.b(), c.inclination(), c.altitude(), c.blinking(), c.blinkPeriod());
+        renderSatellite(solarAngle, c.r(), c.g(), c.b(), c.inclination(), c.altitude(), c.phaseOffset(), c.blinking(), c.blinkPeriod());
     }
 
     /** SatelliteBase.renderDefault: a satellite going round every thirty seconds at the default altitude, faster lower. */

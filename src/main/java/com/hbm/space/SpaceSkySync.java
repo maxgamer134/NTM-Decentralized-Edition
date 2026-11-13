@@ -4,7 +4,7 @@
 
 package com.hbm.space;
 
-import com.hbm.entity.logic.EntityNukeExplosionMK5;
+import com.hbm.api.explosion.NukeDetonations;
 import com.hbm.registration.NeoForgeRegistrar;
 import com.hbm.registration.RegistryHandle;
 import com.hbm.saveddata.SatelliteSavedData;
@@ -25,7 +25,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 import org.jetbrains.annotations.Nullable;
@@ -45,11 +44,8 @@ public final class SpaceSkySync {
     private SpaceSkySync() {}
 
     public static void init() {
-        NeoForge.EVENT_BUS.addListener((EntityJoinLevelEvent event) -> {
-            if (event.getLevel().isClientSide() || !(event.getEntity() instanceof EntityNukeExplosionMK5 explosion)) return;
-            if (explosion.tickCount > 1 || !(event.getLevel() instanceof ServerLevel level)) return;
-            trigger(level, explosion.getX(), explosion.getZ(), explosion.getRadius());
-        });
+        // MK5 blasts and mini nukes both report through NukeDetonations
+        NukeDetonations.register(SpaceSkySync::trigger);
         NeoForge.EVENT_BUS.addListener((ServerTickEvent.Post event) -> tick(event.getServer()));
         NeoForge.EVENT_BUS.addListener((PlayerEvent.PlayerLoggedInEvent event) -> {
             if (event.getEntity() instanceof ServerPlayer player) NukeShockSyncPayload.send(player);
@@ -63,8 +59,11 @@ public final class SpaceSkySync {
 
     /** Client side: the stations orbiting the body the player is on, as {dX, dZ}. */
     public static volatile List<int[]> clientStations = List.of();
-    /** Client side: the satellites around the player's body, frequency to satellite type name. */
-    public static volatile Map<Integer, String> clientSatellites = Map.of();
+    /** A satellite as the sky draws it: its type's name and its own orbit settings. */
+    public record SkySat(String type, com.hbm.space.satellite.SatSettings settings) {}
+
+    /** Client side: the satellites around the player's body, by frequency. */
+    public static volatile Map<Integer, SkySat> clientSatellites = Map.of();
 
     private static void tick(MinecraftServer server) {
         long time = server.overworld().getGameTime();
@@ -92,7 +91,7 @@ public final class SpaceSkySync {
     }
 
     /** SatelliteSavedData.getData(world, x, z): in orbit, the satellites of the body the station circles. */
-    private static Map<Integer, String> collectSatellites(ServerPlayer player) {
+    private static Map<Integer, SkySat> collectSatellites(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         SatelliteSavedData data;
         if (CelestialBody.inOrbit(level)) {
@@ -100,14 +99,12 @@ public final class SpaceSkySync {
             ServerLevel orbited = station == null || station.orbiting == null || station.orbiting.dimension == null
                     ? null : level.getServer().getLevel(station.orbiting.dimension);
             if (orbited == null) return Map.of();
-            data = SatelliteSavedData.get(orbited);
-        } else {
-            data = SatelliteSavedData.at(level, player.getBlockX(), player.getBlockZ());
         }
-        Map<Integer, String> sats = new LinkedHashMap<>();
+        data = SatelliteSavedData.at(level, player.getBlockX(), player.getBlockZ());
+        Map<Integer, SkySat> sats = new LinkedHashMap<>();
         for (Map.Entry<Integer, Satellite> entry : data.sats.entrySet()) {
             if (entry.getValue() == null) continue;
-            sats.put(entry.getKey(), entry.getValue().type().getSerializedName());
+            sats.put(entry.getKey(), new SkySat(entry.getValue().type().getSerializedName(), com.hbm.space.satellite.SatSettings.of(entry.getValue())));
         }
         return sats;
     }

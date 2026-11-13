@@ -18,6 +18,21 @@ import net.minecraft.world.phys.Vec3;
  */
 public abstract class ChunkProviderCelestial {
 
+    /** The planets' build range, the modern world's: y -64 up to 320, 48 terrain cells of 8. */
+    public static final int MIN_Y = -64, MAX_Y = 320, H = MAX_Y - MIN_Y;
+    private static final int CELLS = H / 8, CELL_OFFSET = MIN_Y / 8;
+    /** How much taller than 1.7's the land above the sea stands: the same shapes, stretched upward. */
+    protected double heightStretch = 1.5D;
+
+    /** A buffer index, x (or 1.7's swapped z) first, then the other, then world y. */
+    public static int idx(int a, int b, int y) {
+        return ((a << 4) | b) * H + (y - MIN_Y);
+    }
+
+    public Block stone() {
+        return stoneBlock;
+    }
+
     protected Block stoneBlock = Blocks.STONE;
     protected Block seaBlock = Blocks.AIR;
     protected int seaLevel = 63;
@@ -73,16 +88,16 @@ public abstract class ChunkProviderCelestial {
 
     protected void generateBlocks(int x, int z, Block[] blocks) {
         BiomeGenBase[] biomes = worldObj.getWorldChunkManager().getBiomesForGeneration(null, x * 4 - 2, z * 4 - 2, 10, 10);
-        double[] terrain = generateNoiseField(x * 4, 0, z * 4, biomes);
+        double[] terrain = generateNoiseField(x * 4, CELL_OFFSET, z * 4, biomes);
         for (int k = 0; k < 4; ++k) {
             int l = k * 5;
             int i1 = (k + 1) * 5;
             for (int j1 = 0; j1 < 4; ++j1) {
-                int k1 = (l + j1) * 33;
-                int l1 = (l + j1 + 1) * 33;
-                int i2 = (i1 + j1) * 33;
-                int j2 = (i1 + j1 + 1) * 33;
-                for (int k2 = 0; k2 < 32; ++k2) {
+                int k1 = (l + j1) * (CELLS + 1);
+                int l1 = (l + j1 + 1) * (CELLS + 1);
+                int i2 = (i1 + j1) * (CELLS + 1);
+                int j2 = (i1 + j1 + 1) * (CELLS + 1);
+                for (int k2 = 0; k2 < CELLS; ++k2) {
                     double d1 = terrain[k1 + k2];
                     double d2 = terrain[l1 + k2];
                     double d3 = terrain[i2 + k2];
@@ -97,14 +112,14 @@ public abstract class ChunkProviderCelestial {
                         double d12 = (d3 - d1) * 0.25D;
                         double d13 = (d4 - d2) * 0.25D;
                         for (int i3 = 0; i3 < 4; ++i3) {
-                            int j3 = (i3 + k * 4) << 12 | (j1 * 4) << 8 | (k2 * 8 + l2);
-                            j3 -= 256;
+                            int wy = k2 * 8 + l2 + MIN_Y;
+                            int j3 = idx(i3 + k * 4, j1 * 4, wy) - H;
                             double d16 = (d11 - d10) * 0.25D;
                             double d15 = d10 - d16;
                             for (int k3 = 0; k3 < 4; ++k3) {
-                                if ((d15 += d16) > 0.0D) blocks[j3 += 256] = stoneBlock;
-                                else if (k2 * 8 + l2 < seaLevel) blocks[j3 += 256] = seaBlock;
-                                else blocks[j3 += 256] = null;
+                                if ((d15 += d16) > 0.0D) blocks[j3 += H] = stoneBlock;
+                                else if (wy < seaLevel) blocks[j3 += H] = seaBlock;
+                                else blocks[j3 += H] = null;
                             }
                             d10 += d12;
                             d11 += d13;
@@ -120,11 +135,12 @@ public abstract class ChunkProviderCelestial {
     }
 
     protected double[] generateNoiseField(int x, int y, int z, BiomeGenBase[] biomes) {
-        double[] first = firstOrder.generateNoiseOctaves(null, x, y, z, 5, 33, 5, firstOrderFreq.x, firstOrderFreq.y, firstOrderFreq.z);
-        double[] second = secondOrder.generateNoiseOctaves(null, x, y, z, 5, 33, 5, secondOrderFreq.x, secondOrderFreq.y, secondOrderFreq.z);
-        double[] third = thirdOrder.generateNoiseOctaves(null, x, y, z, 5, 33, 5, thirdOrderFreq.x, thirdOrderFreq.y, thirdOrderFreq.z);
+        double[] first = firstOrder.generateNoiseOctaves(null, x, y, z, 5, CELLS + 1, 5, firstOrderFreq.x, firstOrderFreq.y, firstOrderFreq.z);
+        double[] second = secondOrder.generateNoiseOctaves(null, x, y, z, 5, CELLS + 1, 5, secondOrderFreq.x, secondOrderFreq.y, secondOrderFreq.z);
+        double[] third = thirdOrder.generateNoiseOctaves(null, x, y, z, 5, CELLS + 1, 5, thirdOrderFreq.x, thirdOrderFreq.y, thirdOrderFreq.z);
         double[] height = heightOrder.generateNoiseOctaves(null, x, z, 5, 5, heightOrderFreq.x, heightOrderFreq.y, heightOrderFreq.z);
-        double[] terrain = new double[825];
+        double[] terrain = new double[25 * (CELLS + 1)];
+        double[] column = new double[CELLS + 1];
         int l = 0;
         int i1 = 0;
         for (int j1 = 0; j1 < 5; ++j1) {
@@ -169,7 +185,10 @@ public abstract class ChunkProviderCelestial {
                 d13 += d12 * 0.2D;
                 d13 = d13 * 8.5D / 8.0D;
                 double d5 = 8.5D + d13 * 4.0D;
-                for (int j2 = 0; j2 < 33; ++j2) {
+                // 1.7's column as it was, cell by cell from the old y 0 (and on down to the new floor)
+                int base = l;
+                for (int n = 0; n <= CELLS; ++n) {
+                    int j2 = n + CELL_OFFSET;
                     double d6 = ((double) j2 - d5) * 12.0D * 128.0D / 256.0D / d14;
                     if (d6 < 0.0D) d6 *= 4.0D;
                     double d7 = first[l] / 512.0D;
@@ -177,11 +196,25 @@ public abstract class ChunkProviderCelestial {
                     double d9 = (third[l] / 10.0D + 1.0D) / 2.0D;
                     double d10 = reclamp ? Mth.clampedLerp(d7, d8, d9) - d6 : d8 - d6;
                     if (j2 > 29) {
-                        double d11 = (float) (j2 - 29) / 3.0F;
+                        double d11 = Math.min(1.0D, (float) (j2 - 29) / 3.0F);
                         d10 = d10 * (1.0D - d11) + -10.0D * d11;
                     }
-                    terrain[l] = d10;
+                    column[n] = d10;
                     ++l;
+                }
+                // then stretched upward from the sea: each new height reads the old one it stands for
+                for (int n = 0; n <= CELLS; ++n) {
+                    double wy = n * 8 + MIN_Y;
+                    double old = wy > seaLevel ? seaLevel + (wy - seaLevel) / heightStretch : wy;
+                    double c = (old - MIN_Y) / 8.0D;
+                    int i0 = Math.min((int) Math.floor(c), CELLS - 1);
+                    double d10 = Mth.lerp(c - i0, column[i0], column[i0 + 1]);
+                    // the rare peak that would pass the build limit rounds off under it
+                    if (n > CELLS - 3) {
+                        double d11 = (n - (CELLS - 3)) / 3.0D;
+                        d10 = d10 * (1.0D - d11) + -10.0D * d11;
+                    }
+                    terrain[base + n] = d10;
                 }
             }
         }
@@ -217,9 +250,96 @@ public abstract class ChunkProviderCelestial {
         biome.decorate(world, random, k, l);
     }
 
+    private net.minecraft.world.level.levelgen.synth.SimplexNoise cheese, cheeseDetail, noodleA, noodleB;
+
+    private void caveNoises() {
+        if (cheese != null) return;
+        var random = net.minecraft.util.RandomSource.create(worldObj.getSeed() ^ 0x6A09E667F3BCC909L ^ getClass().getName().hashCode());
+        cheese = new net.minecraft.world.level.levelgen.synth.SimplexNoise(random);
+        cheeseDetail = new net.minecraft.world.level.levelgen.synth.SimplexNoise(random);
+        noodleA = new net.minecraft.world.level.levelgen.synth.SimplexNoise(random);
+        noodleB = new net.minecraft.world.level.levelgen.synth.SimplexNoise(random);
+    }
+
+    private static final int GRID_Y = H / 8 + 1;
+
+    /**
+     * The modern pass over a finished 1.7 chunk: cheese caverns and winding spaghetti tunnels
+     * through the rock from the deep up to under the surface, lava pooled at the bottom as the
+     * modern overworld's, and the planet's deep stone from y 8 down. 1.7's own carvers have
+     * already run, so the old caves and the new ones cross.
+     */
+    public void modernize(int chunkX, int chunkZ, BlockMetaBuffer buffer) {
+        caveNoises();
+        Block[] blocks = buffer.blocks;
+        // the noise on a coarse grid (4 by 8 by 4), filled in between as the terrain's is
+        double[] c = new double[25 * GRID_Y], na = new double[25 * GRID_Y], nb = new double[25 * GRID_Y];
+        for (int gx = 0; gx < 5; gx++)
+            for (int gz = 0; gz < 5; gz++)
+                for (int gy = 0; gy < GRID_Y; gy++) {
+                    double wx = chunkX * 16 + gx * 4, wy = MIN_Y + gy * 8, wz = chunkZ * 16 + gz * 4;
+                    int i = (gx * 5 + gz) * GRID_Y + gy;
+                    c[i] = cheese.getValue(wx / 110D, wy / 55D, wz / 110D) * 0.75D + cheeseDetail.getValue(wx / 36D, wy / 22D, wz / 36D) * 0.25D;
+                    na[i] = noodleA.getValue(wx / 60D, wy / 42D, wz / 60D);
+                    nb[i] = noodleB.getValue(wx / 60D, wy / 42D, wz / 60D);
+                }
+        Block deep = com.hbm.space.dim.DeepStone.of(stoneBlock);
+        for (int x = 0; x < 16; x++)
+            for (int z = 0; z < 16; z++) {
+                // the column's ground, and whether a sea stands over it
+                int top = MIN_Y;
+                boolean wet = false;
+                for (int y = MAX_Y - 1; y >= MIN_Y; y--) {
+                    Block b = blocks[idx(x, z, y)];
+                    if (b == null || b == Blocks.AIR) continue;
+                    if (b.defaultBlockState().liquid()) {
+                        wet = true;
+                        continue;
+                    }
+                    top = y;
+                    break;
+                }
+                int cheeseTop = top - (wet ? 20 : 14), noodleTop = top - (wet ? 20 : 3);
+                int gx = x >> 2, gz = z >> 2;
+                double fx = (x & 3) / 4D, fz = (z & 3) / 4D;
+                for (int y = MIN_Y + 5; y <= Math.max(cheeseTop, noodleTop); y++) {
+                    int i = idx(x, z, y);
+                    if (blocks[i] != stoneBlock) continue;
+                    int gy = (y - MIN_Y) >> 3;
+                    double fy = ((y - MIN_Y) & 7) / 8D;
+                    // fewer, smaller openings near the ground
+                    double fade = Math.max(0D, (y - (top - 40)) / 40D);
+                    boolean carve = y <= cheeseTop && lerp(c, gx, gy, gz, fx, fy, fz) > 0.5D + fade * 0.35D;
+                    if (!carve && y <= noodleTop) {
+                        double a = lerp(na, gx, gy, gz, fx, fy, fz), b = lerp(nb, gx, gy, gz, fx, fy, fz);
+                        carve = a * a + b * b < 0.0045D * (1D - fade * 0.6D);
+                    }
+                    if (carve) {
+                        blocks[i] = y < MIN_Y + 10 ? Blocks.LAVA : null;
+                        buffer.metas[i] = 0;
+                    }
+                }
+                if (deep == null) continue;
+                for (int y = MIN_Y; y < 8; y++) {
+                    int i = idx(x, z, y);
+                    if (blocks[i] != stoneBlock) continue;
+                    // all deep under 0, thinning out over the 8 blocks above as deepslate does
+                    if (y < 0 || (net.minecraft.util.Mth.getSeed(chunkX * 16 + x, y, chunkZ * 16 + z) & 7) >= y) blocks[i] = deep;
+                }
+            }
+    }
+
+    private static double lerp(double[] g, int gx, int gy, int gz, double fx, double fy, double fz) {
+        int i00 = (gx * 5 + gz) * GRID_Y + gy, i10 = ((gx + 1) * 5 + gz) * GRID_Y + gy;
+        int i01 = (gx * 5 + gz + 1) * GRID_Y + gy, i11 = ((gx + 1) * 5 + gz + 1) * GRID_Y + gy;
+        return net.minecraft.util.Mth.lerp3(fx, fy, fz,
+                g[i00], g[i10], g[i00 + 1], g[i10 + 1],
+                g[i01], g[i11], g[i01 + 1], g[i11 + 1]);
+    }
+
     public static class BlockMetaBuffer {
-        public final Block[] blocks = new Block[65536];
-        public final byte[] metas = new byte[65536];
+        public final Block[] blocks = new Block[16 * 16 * H];
+        public final byte[] metas = new byte[16 * 16 * H];
         public Random rand;
     }
 }

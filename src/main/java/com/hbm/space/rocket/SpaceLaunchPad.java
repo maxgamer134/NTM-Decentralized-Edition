@@ -84,7 +84,8 @@ public final class SpaceLaunchPad {
     public static final int[] DIMS = {2, 0, 7, 6, 6, 6};
 
     public static final RegistryHandle<Pad> BLOCK = Reg.blockItem("launch_pad_rocket", Pad::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion().forceSolidOn());
+            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion().forceSolidOn(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 1, com.hbm.items.DescBlockItem.Desc.PLAIN));
 
     public static final RegistryHandle<Tower> TOWER = Reg.block("launch_pad_rocket_tower", Tower::new,
             () -> BlockBehaviour.Properties.of().strength(-1F, 3_600_000F).noLootTable().noOcclusion()
@@ -134,7 +135,7 @@ public final class SpaceLaunchPad {
         }
     }
 
-    public static class Pad extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock {
+    public static class Pad extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock, com.hbm.interfaces.ILookOverlay {
         public Pad(Properties props) {
             super(props);
         }
@@ -171,6 +172,14 @@ public final class SpaceLaunchPad {
             // the side ladder is its own climbable block
             for (int oy = 0; oy < 3; oy++) layout.remove(SIDE_LADDER_X, oy, LADDER_Z);
             return layout.build(this, declaredCaps, DIMS, 6, 0);
+        }
+
+        @Override
+        public void buildLookOverlay(Level level, BlockPos pos, com.hbm.interfaces.ILookOverlay.LookInfo info) {
+            if (!CelestialBody.inOrbit(level)) return;
+            info.title(getName(), 0xFFFF00, 0x404000);
+            info.line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.yesOrbit")).append(" ! ! !"),
+                    com.hbm.util.BobMathUtil.getBlink() ? 0xFF0000 : 0xFFFF00);
         }
     }
 

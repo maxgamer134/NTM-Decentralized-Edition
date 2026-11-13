@@ -119,6 +119,14 @@ public interface RuntimeConfig {
         return store().get(ConfigSchema.SPACE_COMBAT_POD_DESPAWN);
     }
 
+    default boolean spaceMunCows() {
+        return store().get(ConfigSchema.SPACE_ENABLE_MUN_COWS);
+    }
+
+    default boolean serverSafety() {
+        return store().get(ConfigSchema.SERVER_SAFETY);
+    }
+
     default boolean bottlecapTrades() {
         return store().get(ConfigSchema.TRADES_BOTTLECAPS);
     }

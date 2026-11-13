@@ -9,6 +9,7 @@ import com.hbm.explosion.ExplosionNukeCustom;
 import com.hbm.inventory.IGUIProvider;
 import com.hbm.inventory.container.MenuNukeCustom;
 import com.hbm.items.ModItems;
+import com.hbm.space.SpaceToggle;
 import java.util.Arrays;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -71,7 +72,7 @@ public class BlockEntityNukeCustom extends BlockEntityMachineBase implements IGU
 
         if (tnt < NUKE_NEEDS_TNT) nuke = 0;
         if (nuke < HYDRO_NEEDS_NUKE) hydro = 0;
-        if (nuke < AMAT_NEEDS_NUKE) amat = 0;
+        if (!SpaceToggle.changes() && nuke < AMAT_NEEDS_NUKE) amat = 0;
         if (nuke < SCHRAB_NEEDS_NUKE) schrab = 0;
         if (schrab == 0) euph = 0;
         return new Totals(tnt, nuke, hydro, amat, dirty, schrab, euph);

@@ -241,6 +241,14 @@ public final class SpaceBedrockOres {
                     BedrockOreSet set = SETS.get(body.type);
                     return set != null ? set : BedrockOreSet.NTM;
                 });
+        // the planets' own drill acids (WorldProviderCelestial.getBedrockAcid), for the density scanner and auto-placed ores
+        com.hbm.world.feature.BedrockOreFeature.BORE_FLUID.install(
+                "hbm_space",
+                level -> {
+                    String acid = level.dimension() == com.hbm.space.SpaceDimensions.DRES ? "NITRIC_ACID"
+                            : level.dimension() == com.hbm.space.SpaceDimensions.EVE ? "KMNO4" : null;
+                    return acid == null ? null : new com.hbm.inventory.fluid.FluidStackNTM(com.hbm.inventory.fluid.NTMFluids.byName(acid), 500);
+                });
         BedrockOreSet.SAMPLES.install(
                 "hbm_space",
                 () -> {

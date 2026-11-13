@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "hbm:vinyl_log", "required": false },
+    { "id": "hbm:pvc_log", "required": false },
+    { "id": "hbm:lattice_log", "required": false },
+    { "id": "hbm:bf_log", "required": false },
+    { "id": "hbm:eu_log", "required": false },
+    { "id": "hbm:primed_log", "required": false }
+  ]
+}

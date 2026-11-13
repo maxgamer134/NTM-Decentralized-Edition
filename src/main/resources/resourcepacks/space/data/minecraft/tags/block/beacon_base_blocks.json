@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "hbm:block_nickel", "required": false },
+    { "id": "hbm:block_osmiridium", "required": false }
+  ]
+}

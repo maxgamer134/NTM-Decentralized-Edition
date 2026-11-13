@@ -71,8 +71,8 @@ public final class SpaceFuels {
             () -> new Item.Properties().component(com.hbm.backport.item.food.ConsumableRegistry.CONSUMABLE,
                     com.hbm.items.food.ItemFlask.CONSUMABLE));
     /** NTM:Space's Problematic Meal, a pill like NTM's. */
-    public static final Reg.Handle<com.hbm.items.special.ItemCustomLore> ANIMAN = Reg.item("animan",
-            com.hbm.items.special.ItemCustomLore::new,
+    public static final Reg.Handle<com.hbm.space.item.ItemAniman> ANIMAN = Reg.item("animan",
+            com.hbm.space.item.ItemAniman::new,
             () -> com.hbm.backport.item.food.ConsumableProps.food(new Item.Properties(),
                     com.hbm.items.food.ConsumableTreatments.MEDICINE_FOOD,
                     com.hbm.items.food.ConsumableTreatments.MEDICINE_CONSUMABLE));
@@ -80,9 +80,15 @@ public final class SpaceFuels {
             com.hbm.space.item.ItemButterSword::new, Item.Properties::new);
     public static final Reg.Handle<ItemBattery> CORE_ANGEL = Reg.item("core_angel",
             props -> new ItemBattery(props, 16_000_000L, 16_000_000L, 800_000L), () -> new Item.Properties().stacksTo(1));
-    public static final Reg.Handle<ItemDrinkEnergy> TEACUP = drink("teacup");
-    public static final Reg.Handle<ItemDrinkEnergy> BOTTLE_HONEY = drink("bottle_honey");
-    public static final Reg.Handle<ItemDrinkEnergy> GLASS_SMILK = drink("glass_smilk");
+    public static final Reg.Handle<ItemDrinkEnergy> TEACUP = drink("teacup", () -> SpaceParts.TEACUP_EMPTY.get(), player -> {
+        player.heal(3F);
+        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE, 30 * 20, 4));
+    });
+    public static final Reg.Handle<ItemDrinkEnergy> BOTTLE_HONEY = drink("bottle_honey", () -> net.minecraft.world.item.Items.GLASS_BOTTLE, player -> {
+        player.heal(9F);
+        com.hbm.extprop.HbmLivingProps.setDigamma(player, Math.max(com.hbm.extprop.HbmLivingProps.getDigamma(player) - 0.3D, 0D));
+    });
+    public static final Reg.Handle<ItemDrinkEnergy> GLASS_SMILK = drink("glass_smilk", () -> SpaceParts.GLASS_EMPTY.get(), player -> player.heal(6F));
 
     public static final RegistryHandle<net.minecraft.sounds.SoundEvent> SOUND_GS = com.hbm.registration.NeoForgeRegistrar.registerSound("music.record_gs");
     public static final RegistryHandle<net.minecraft.sounds.SoundEvent> SOUND_GP = com.hbm.registration.NeoForgeRegistrar.registerSound("music.record_gp");
@@ -98,8 +104,10 @@ public final class SpaceFuels {
                 .jukeboxPlayable(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.JUKEBOX_SONG, Library.id(song))));
     }
 
-    private static Reg.Handle<ItemDrinkEnergy> drink(String name) {
-        return Reg.item(name, props -> new ItemDrinkEnergy(props, null, false, player -> {}), Item.Properties::new);
+    private static Reg.Handle<ItemDrinkEnergy> drink(String name, java.util.function.Supplier<Item> empty, ItemDrinkEnergy.Effect effect) {
+        return Reg.item(name, props -> new ItemDrinkEnergy(props, null, false, effect).withLateRemainder(empty),
+                () -> new Item.Properties().component(com.hbm.backport.item.food.ConsumableRegistry.CONSUMABLE,
+                        com.hbm.backport.item.food.Consumables.DEFAULT_DRINK));
     }
 
     private static Reg.Handle<ItemRTGPellet> rtg(String name) {

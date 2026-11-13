@@ -5,7 +5,6 @@
 package com.hbm.space;
 
 import com.hbm.blocks.fluid.BlockFluidClassicBase;
-import com.hbm.blocks.fluid.BlockSulfuricAcid;
 import com.hbm.blocks.fluid.ClassicFluid;
 import com.hbm.blocks.generic.BlockFallout;
 import com.hbm.inventory.fluid.NTMFluids;
@@ -63,11 +62,11 @@ public final class SpaceLayers {
             () -> new Item.Properties().food(new FoodProperties.Builder().nutrition(6).saturationModifier(0.8F).build()));
 
     public static final ClassicFluid.Pair MERCURY_FLUID = fluid("mercury", 8, 5, 1840, () -> SpaceLayers.MERCURY_BLOCK.get(), "MERCURY");
-    public static final RegistryHandle<BlockSulfuricAcid> MERCURY_BLOCK = fluidBlock("mercury_block", MERCURY_FLUID, ModDamageTypes.LEAD, 1F, MapColor.METAL);
+    public static final RegistryHandle<PlainFluidBlock> MERCURY_BLOCK = fluidBlock("mercury_block", MERCURY_FLUID, MapColor.METAL);
     public static final ClassicFluid.Pair BROMINE_FLUID = fluid("bromine", 8, 15, 3000, () -> SpaceLayers.BROMINE_BLOCK.get(), "BROMINE");
-    public static final RegistryHandle<BlockSulfuricAcid> BROMINE_BLOCK = fluidBlock("bromine_block", BROMINE_FLUID, ModDamageTypes.ACID, 5F, MapColor.COLOR_RED);
+    public static final RegistryHandle<PlainFluidBlock> BROMINE_BLOCK = fluidBlock("bromine_block", BROMINE_FLUID, MapColor.COLOR_RED);
     public static final ClassicFluid.Pair CCL_FLUID = fluid("ccl", 8, 5, 1840, () -> SpaceLayers.CCL_BLOCK.get(), "CCL");
-    public static final RegistryHandle<BlockSulfuricAcid> CCL_BLOCK = fluidBlock("ccl_block", CCL_FLUID, ModDamageTypes.LEAD, 1F, MapColor.COLOR_LIGHT_GRAY);
+    public static final RegistryHandle<PlainFluidBlock> CCL_BLOCK = fluidBlock("ccl_block", CCL_FLUID, MapColor.COLOR_LIGHT_GRAY);
 
     /** NTM:Space's GenericFluid: quanta and tick delay from its viscosity, as NTM's sulfuric acid does. */
     private static ClassicFluid.Pair fluid(String name, int quanta, int delay, int density,
@@ -76,9 +75,15 @@ public final class SpaceLayers {
                 Library.id("block/fluid/" + name), block, () -> ItemFluidBucket.make(NTMFluids.byName(ntmFluid))));
     }
 
-    private static RegistryHandle<BlockSulfuricAcid> fluidBlock(String name, ClassicFluid.Pair fluid,
-            ResourceKey<DamageType> type, float damage, MapColor color) {
-        return Reg.block(name, props -> new BlockSulfuricAcid(fluid.source().get(), props, type, damage),
+    /** NTM:Space's GenericFluidBlock: only sulfuric acid hurts, mercury, bromine and ccl are plain fluids. */
+    public static class PlainFluidBlock extends BlockFluidClassicBase {
+        PlainFluidBlock(ClassicFluid fluid, net.minecraft.world.level.block.state.BlockBehaviour.Properties props) {
+            super(fluid, props);
+        }
+    }
+
+    private static RegistryHandle<PlainFluidBlock> fluidBlock(String name, ClassicFluid.Pair fluid, MapColor color) {
+        return Reg.block(name, props -> new PlainFluidBlock(fluid.source().get(), props),
                 () -> BlockBehaviour.Properties.of().mapColor(color).replaceable().noCollission().strength(0F, 300F)
                         .pushReaction(PushReaction.DESTROY).noLootTable().liquid());
     }
@@ -182,7 +187,7 @@ public final class SpaceLayers {
         }
     }
 
-    /** NTM:Space's oily barrel: a brown barrel for decoration, it never goes off. */
+    /** NTM:Space's oily barrel: it never goes off, but it keeps scarring the surface with oil spots. */
     public static class OilBarrel extends Block {
         private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 16, 14);
 
@@ -193,6 +198,18 @@ public final class SpaceLayers {
         @Override
         protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext ctx) {
             return SHAPE;
+        }
+
+        @Override
+        protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState old, boolean moved) {
+            super.onPlace(state, level, pos, old, moved);
+            level.scheduleTick(pos, this, 20);
+        }
+
+        @Override
+        protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+            com.hbm.world.feature.OilSurfaceScarring.generateOilSpot(level, random, pos.getX(), pos.getZ(), 4, 10);
+            level.scheduleTick(pos, this, 20);
         }
     }
 

@@ -68,7 +68,7 @@ public class MapGenVanillaCaves extends MapGenCaves {
 		Block block = data[index];
 
 		if(block == stoneBlock || block == biome.fillerBlock || block == biome.topBlock) {
-			if(y < 10) {
+			if(y < -54) {
 				data[index] = lavaBlock;
 			} else {
 				data[index] = null;

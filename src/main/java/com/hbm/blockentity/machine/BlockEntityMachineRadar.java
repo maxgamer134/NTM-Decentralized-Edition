@@ -591,7 +591,7 @@ public class BlockEntityMachineRadar extends BlockEntityMachineBase
         if (!data.contains("launchPosX")) return;
         if (!(player.level() instanceof ServerLevel orbit)) return;
 
-        Satellite sat = SatelliteSavedData.get(orbit).getSatFromFreq(freq);
+        Satellite sat = SatelliteSavedData.at(orbit, worldPosition.getX(), worldPosition.getZ()).getSatFromFreq(freq);
         if (sat == null) return;
 
         int x = Nbt.getIntOr(data, "launchPosX", 0);

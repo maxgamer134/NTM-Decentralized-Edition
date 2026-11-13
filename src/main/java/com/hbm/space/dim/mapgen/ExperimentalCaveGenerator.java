@@ -176,12 +176,12 @@ public class ExperimentalCaveGenerator extends MapGenBase {
 						l1 = 16;
 					}
 
-					if (j4 < 1) {
-						j4 = 1;
+					if (j4 < -63) {
+						j4 = -63;
 					}
 
-					if (i2 > 248) {
-						i2 = 248;
+					if (i2 > 312) {
+						i2 = 312;
 					}
 
 					if (k4 < 0) {
@@ -199,9 +199,9 @@ public class ExperimentalCaveGenerator extends MapGenBase {
 					for (k2 = i4; !flag3 && k2 < l1; ++k2) {
 						for (int l2 = k4; !flag3 && l2 < j2; ++l2) {
 							for (int i3 = i2 + 1; !flag3 && i3 >= j4 - 1; --i3) {
-								j3 = (k2 * 16 + l2) * 256 + i3;
+								j3 = ChunkProviderCelestial.idx(k2, l2, i3);
 
-								if (i3 >= 0 && i3 < 256) {
+								if (i3 >= -64 && i3 < 320) {
 									// Block block = blocks[j3];
 
 									if (isOceanBlock(blocks, j3, k2, i3, l2, chunkX, chunkZ)) {
@@ -228,7 +228,7 @@ public class ExperimentalCaveGenerator extends MapGenBase {
 								double noiseZ = perlinNoise.noise(x * noiseScaleZ, y * noiseScaleZ, (j3 + chunkZ * 16) * noiseScaleZ) * noiseMagnitude;
 								double d14 = (((double) (j3 + chunkZ * 16) + 0.5D - z) / d6) + noiseZ;
 
-								int k3 = (k2 * 16 + j3) * 256 + i2;
+								int k3 = ChunkProviderCelestial.idx(k2, j3, i2);
 								boolean flag1 = false;
 
 								if (d13 * d13 + d14 * d14 < 1.0D) {
@@ -275,7 +275,7 @@ public class ExperimentalCaveGenerator extends MapGenBase {
 
 		for (int j1 = 0; j1 < i1; ++j1) {
 			double d0 = (double) (p_151538_2_ * 16 + this.rand.nextInt(16));
-			double d1 = (double) this.rand.nextInt(this.rand.nextInt(120) + 8);
+			double d1 = (double) this.rand.nextInt(this.rand.nextInt(184) + 8) - 64;
 			double d2 = (double) (p_151538_3_ * 16 + this.rand.nextInt(16));
 			int k1 = 1;
 
@@ -336,7 +336,7 @@ public class ExperimentalCaveGenerator extends MapGenBase {
 		Block block = data[index];
 
 		if (block != null && (block == stoneBlock || block == biome.fillerBlock || block == biome.topBlock || Material.of(block).isLiquid())) {
-			if (y < 10) {
+			if (y < -54) {
 				data[index] = lavaBlock;
 			} else {
 				data[index] = null;

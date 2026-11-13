@@ -6,19 +6,22 @@
       "conditions": [
         {
           "condition": "minecraft:survives_explosion"
-        },
-        {
-          "condition": "minecraft:block_state_property",
-          "block": "hbm:plant_tall_laythe",
-          "properties": {
-            "half": "lower"
-          }
         }
       ],
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "hbm:plant_tall_laythe"
+          "name": "hbm:saltleaf",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0.0,
+                "max": 3.0
+              }
+            }
+          ]
         }
       ],
       "rolls": 1.0

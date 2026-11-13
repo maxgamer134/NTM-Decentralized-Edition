@@ -4,6 +4,7 @@
 package com.hbm.blockentity.machine;
 
 import com.hbm.api.energymk2.IEnergyHandlerMK2;
+import com.hbm.space.SpaceToggle;
 import com.hbm.api.fluidmk2.FluidFlushOutputs;
 import com.hbm.api.fluidmk2.FluidTankEndpoint;
 import com.hbm.api.fluidmk2.FlushFaces;
@@ -68,13 +69,16 @@ public class BlockEntityDeuteriumExtractor extends BlockEntityMachineBase
 
     @Override
     public void tickServer() {
-        if (hasPower() && hasEnoughWater() && tanks[1].getFill() < tanks[1].getMaxFill()) {
+        if (hasPower()
+                && (!SpaceToggle.changes() || power > 200)
+                && hasEnoughWater()
+                && tanks[1].getFill() < tanks[1].getMaxFill()) {
             int convert = Math.min(tanks[1].getMaxFill(), tanks[0].getFill()) / RATIO;
             convert = Math.min(convert, tanks[1].getMaxFill() - tanks[1].getFill());
 
             tanks[0].setFill(tanks[0].getFill() - convert * RATIO);
             tanks[1].setFill(tanks[1].getFill() + convert);
-            power -= getMaxPower() / 20;
+            power -= getMaxPower() / powerDivisor();
             setChanged();
         }
 
@@ -84,7 +88,12 @@ public class BlockEntityDeuteriumExtractor extends BlockEntityMachineBase
     }
 
     public boolean hasPower() {
-        return power >= getMaxPower() / 20;
+        return power >= getMaxPower() / powerDivisor();
+    }
+
+    /** Space makes the extractor draw a fifth of the power. */
+    private static int powerDivisor() {
+        return SpaceToggle.changes() ? 100 : 20;
     }
 
     public boolean hasEnoughWater() {

@@ -7,6 +7,7 @@ import com.hbm.blockentity.BlockEntityMachineBase;
 import com.hbm.blocks.ModBlockEntities;
 import com.hbm.entity.item.EntityMovingItem;
 import com.hbm.inventory.recipes.CrystallizerRecipes;
+import com.hbm.space.SpaceToggle;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -17,7 +18,16 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class BlockEntityCranePartitioner extends BlockEntityMachineBase {
 
-    public static final int SLOT_COUNT = 45;
+    private static final int SLOT_COUNT = 45;
+
+    /** Space's partitioner holds 96 queued stacks and only 8 finished ones. */
+    public static int inputCount() {
+        return SpaceToggle.changes() ? 96 : SLOT_COUNT;
+    }
+
+    public static int outputCount() {
+        return SpaceToggle.changes() ? 8 : SLOT_COUNT;
+    }
 
     private static final Comparator<ItemStack> BY_STACK_SIZE =
             (a, b) -> (int) Math.signum(a.getCount() - b.getCount());
@@ -25,11 +35,11 @@ public class BlockEntityCranePartitioner extends BlockEntityMachineBase {
     private static final int[] ACCESS = accessAll();
 
     public BlockEntityCranePartitioner(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.CRANE_PARTITIONER.get(), pos, state, SLOT_COUNT * 2);
+        super(ModBlockEntities.CRANE_PARTITIONER.get(), pos, state, inputCount() + outputCount());
     }
 
     private static int[] accessAll() {
-        int[] access = new int[SLOT_COUNT * 2];
+        int[] access = new int[inputCount() + outputCount()];
         for (int i = 0; i < access.length; i++) access[i] = i;
         return access;
     }
@@ -37,7 +47,7 @@ public class BlockEntityCranePartitioner extends BlockEntityMachineBase {
     @Override
     public void tickServer() {
         List<ItemStack> queued = new ArrayList<>();
-        for (int i = 0; i < SLOT_COUNT; i++) if (!getItem(i).isEmpty()) queued.add(getItem(i));
+        for (int i = 0; i < inputCount(); i++) if (!getItem(i).isEmpty()) queued.add(getItem(i));
         queued.sort(BY_STACK_SIZE);
 
         boolean changed = false;
@@ -62,7 +72,7 @@ public class BlockEntityCranePartitioner extends BlockEntityMachineBase {
             }
         }
 
-        for (int i = 0; i < SLOT_COUNT; i++) {
+        for (int i = 0; i < inputCount(); i++) {
             if (getItem(i).isEmpty()) inventory.set(i, ItemStack.EMPTY);
         }
 
@@ -76,11 +86,11 @@ public class BlockEntityCranePartitioner extends BlockEntityMachineBase {
 
     @Override
     public boolean canPlaceItem(int slot, ItemStack stack) {
-        return slot < SLOT_COUNT && CrystallizerRecipes.INSTANCE.getAmount(stack) >= 1;
+        return slot < inputCount() && CrystallizerRecipes.INSTANCE.getAmount(stack) >= 1;
     }
 
     @Override
     public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction side) {
-        return slot >= SLOT_COUNT;
+        return slot >= inputCount();
     }
 }

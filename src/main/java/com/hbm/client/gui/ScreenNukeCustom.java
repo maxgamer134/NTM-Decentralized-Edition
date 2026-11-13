@@ -7,6 +7,7 @@ import com.hbm.blockentity.bomb.BlockEntityNukeCustom;
 import com.hbm.explosion.ExplosionNukeCustom;
 import com.hbm.inventory.container.MenuNukeCustom;
 import com.hbm.lib.Library;
+import com.hbm.space.SpaceToggle;
 import com.hbm.util.TooltipStyle;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +127,14 @@ public class ScreenNukeCustom extends ScreenInfoContainer<MenuNukeCustom> {
                 "desc.gui.nukeCustom.hydro",
                 bomb.hydro(),
                 bomb.hydroAdj());
-        stage(graphics, mouseX, mouseY, 3, "desc.gui.nukeCustom.amat", bomb.amat(), bomb.amatAdj());
+        stage(
+                graphics,
+                mouseX,
+                mouseY,
+                3,
+                SpaceToggle.changes() ? "desc.gui.nukeCustom.amat.space" : "desc.gui.nukeCustom.amat",
+                bomb.amat(),
+                bomb.amatAdj());
         stage(
                 graphics,
                 mouseX,

@@ -170,8 +170,12 @@ public final class ArmorSuitEffects {
     private static void geigerClick(ServerPlayer player) {
         if (!TickPhase.every(player, 5)) return;
         if (player.getInventory().contains(s -> s.is(ModItems.GEIGER_COUNTER.get()))) return;
+        // NTM:Space: a dosimeter silences the suit too, and the clicks thin out below 1 rad
+        boolean space = com.hbm.space.SpaceToggle.changes();
+        if (space && player.getInventory().contains(s -> s.is(ModItems.DOSIMETER.get()))) return;
 
         double rads = ContaminationUtil.getNoNeutronPlayerRads(player);
+        if (space && rads > 1E-5 && player.level().getRandom().nextFloat() > rads) return;
         int idx = ItemGeigerCounter.pickGeiger(rads, player.level().getRandom());
         if (idx > 0) {
             EntitySounds.play(

@@ -28,7 +28,7 @@ public class ItemAntimatterCell extends ItemFluidCell implements IItemEntityUpda
         if (!entity.onGround()) return false;
 
         if (ItemData.DROP_ANTIMATTER_CELL.get()) {
-            new ExplosionVNT(entity.level(), entity.getX(), entity.getY(), entity.getZ(), 3F)
+            new ExplosionVNT(entity.level(), entity.getX(), entity.getY(), entity.getZ(), com.hbm.space.SpaceToggle.changes() ? 5F : 3F)
                     .makeAmat()
                     .explode();
         }

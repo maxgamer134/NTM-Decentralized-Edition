@@ -75,7 +75,17 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 	}
 
 	public void generateStructures(World world, Random rand, int x, int z) {
-
+		// NTM's fallen meteorites, which NTM:Space let fall on every body (1 in 200 chunks)
+		if(rand.nextInt(200) == 0 && Boolean.TRUE.equals(com.hbm.config.NeoForgeHbmConfig.STORE.get(com.hbm.config.ConfigSchema.WORLD_METEORITES))) {
+			var level = world.level();
+			var feature = level.registryAccess().registryOrThrow(net.minecraft.core.registries.Registries.CONFIGURED_FEATURE)
+					.get(com.hbm.lib.Library.id("meteorite"));
+			if(feature != null) {
+				var at = level.getHeightmapPos(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,
+						new net.minecraft.core.BlockPos(x + rand.nextInt(16) + 8, 0, z + rand.nextInt(16) + 8));
+				feature.place(level, level.getLevel().getChunkSource().getGenerator(), net.minecraft.util.RandomSource.create(rand.nextLong()), at);
+			}
+		}
 	}
 
 	public void generateNTMOres(World world, Random rand, int x, int z, Block planetStone, int meta) {
@@ -154,7 +164,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 
 	private static void bedrockOre(World world, Random rand, int x, int z, net.minecraft.world.item.ItemStack stack, FluidStackNTM acid, int color, int tier, Block target) {
 		com.hbm.world.feature.BedrockOreFeature.generate(world.level(), x, z, stack, acid, color, tier,
-				LegacyBlocks.b("stone_depth").defaultBlockState(), state -> state.is(target), net.minecraft.util.RandomSource.create(rand.nextLong()));
+				LegacyBlocks.b("stone_depth").defaultBlockState(), state -> com.hbm.space.dim.DeepStone.matches(state.getBlock(), target), net.minecraft.util.RandomSource.create(rand.nextLong()));
 	}
 
 	// This will generate vanilla ores for the chunk when the biome decorator fails to find any regular stone
@@ -174,7 +184,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 
 		for (int l = 0; l < count; ++l) {
 			int genX = x + rand.nextInt(16);
-			int genY = rand.nextInt(yMax - yMin) + yMin; // millenial supremacy
+			int genY = Features.stretch(rand.nextInt(yMax - yMin) + yMin); // millenial supremacy
 			int genZ = z + rand.nextInt(16);
 			worldGenMinable.generate(world, rand, genX, genY, genZ);
 		}

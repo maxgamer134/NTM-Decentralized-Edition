@@ -119,8 +119,8 @@ public class ChunkProviderEve extends ChunkProviderCelestial {
 
 				if(crackValue > 0.9) {
 					int bedrockY = -1;
-					for(int y = 0; y < 256; y++) {
-						int index = (x * 16 + z) * 256 + y;
+					for(int y = -64; y < 320; y++) {
+						int index = ChunkProviderCelestial.idx(x, z, y);
 						if(buffer.blocks[index] == Blocks.BEDROCK) {
 							if(bedrockY == -1) bedrockY = y;
 						} else {
@@ -128,8 +128,8 @@ public class ChunkProviderEve extends ChunkProviderCelestial {
 						}
 					}
 					if(bedrockY != -1) {
-						for(int y = bedrockY + 1; y < Math.min(bedrockY + 10, 256); y++) {
-							int index = (x * 16 + z) * 256 + y;
+						for(int y = bedrockY + 1; y < Math.min(bedrockY + 10, 320); y++) {
+							int index = ChunkProviderCelestial.idx(x, z, y);
 							buffer.blocks[index] = Blocks.LAVA;
 						}
 					}

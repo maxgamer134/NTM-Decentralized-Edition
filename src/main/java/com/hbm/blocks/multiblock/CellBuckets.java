@@ -42,7 +42,10 @@ public final class CellBuckets {
                     Plain.of(10F, 600F, MapColor.METAL),
                     Plain.of(20F, 1200F, MapColor.METAL),
                     Plain.of(50F, 36F, MapColor.NONE),
-                    Plain.of(100F, 480F, MapColor.NONE));
+                    Plain.of(100F, 480F, MapColor.NONE),
+                    // NTM:Space's orbital station: the unbreakable core, and its parts
+                    new Plain(-1F, 3600000F, MapColor.NONE, 0, false, BlockTags.MINEABLE_WITH_PICKAXE),
+                    Plain.of(1F, 5F, MapColor.NONE));
 
     private static final List<Plain> ADDON_PLAIN = new ArrayList<>();
 

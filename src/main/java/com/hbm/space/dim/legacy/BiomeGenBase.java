@@ -141,9 +141,9 @@ public class BiomeGenBase {
         int depth = (int) (noise / 3.0 + 3.0 + rand.nextDouble() * 0.25);
         int lx = x & 15, lz = z & 15;
         int height = blocks.length / 256;
-        for (int y = 255; y >= 0; y--) {
-            int i = (lz * 16 + lx) * height + y;
-            if (y <= rand.nextInt(5)) {
+        for (int y = 319; y >= -64; y--) {
+            int i = (lz * 16 + lx) * height + y - ChunkProviderCelestial.MIN_Y;
+            if (y <= -64 + rand.nextInt(5)) {
                 blocks[i] = Blocks.BEDROCK;
                 continue;
             }

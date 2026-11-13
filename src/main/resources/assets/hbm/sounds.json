@@ -3867,6 +3867,7 @@
   "entity.rocket_fly_light": {"category": "player", "sounds": [{"name": "hbm:entity/rocket_fly_light", "stream": false}]},
   "entity.rocket_ignition": {"category": "player", "sounds": [{"name": "hbm:entity/rocket_ignition", "stream": false}]},
   "entity.rocket_stage": {"category": "player", "sounds": [{"name": "hbm:entity/rocket_stage", "stream": false}]},
+  "entity.pipefail": {"category": "player", "sounds": [{"name": "hbm:entity/pipefail", "stream": false}]},
   "misc.htrstart": {"category": "block", "sounds": [{"name": "hbm:misc/htr3start", "stream": false}]},
   "misc.htrstop": {"category": "block", "sounds": [{"name": "hbm:misc/htrstop", "stream": false}]},
   "misc.htrfstart": {"category": "block", "sounds": [{"name": "hbm:misc/htrstart", "stream": false}]},

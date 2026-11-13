@@ -64,7 +64,8 @@ public final class SpaceAssembly {
     public static final int[] DIMS = {0, 2, 4, 4, 4, 4};
 
     public static final RegistryHandle<Assembly> BLOCK = Reg.blockItem("machine_rocket_assembly", Assembly::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 3, com.hbm.items.DescBlockItem.Desc.PLAIN));
 
     public static final RegistryHandle<Platform> PLATFORM = Reg.block("rocket_assembly_platform", Platform::new,
             () -> BlockBehaviour.Properties.of().strength(-1F, 3_600_000F).noLootTable().noOcclusion()
@@ -92,7 +93,7 @@ public final class SpaceAssembly {
         }
     }
 
-    public static class Assembly extends BlockMultiblockCore implements ITickingBlock {
+    public static class Assembly extends BlockMultiblockCore implements ITickingBlock, com.hbm.interfaces.ILookOverlay {
         public Assembly(Properties props) {
             super(props);
         }
@@ -118,6 +119,14 @@ public final class SpaceAssembly {
                     layout.box(4 * sx, 0, 3 * sz, 0, 2, 0, 0, 0, 0);
                 }
             return layout.build(this, declaredCaps, DIMS, 4, 2);
+        }
+
+        @Override
+        public void buildLookOverlay(Level level, BlockPos pos, com.hbm.interfaces.ILookOverlay.LookInfo info) {
+            if (!CelestialBody.inOrbit(level)) return;
+            info.title(getName(), 0xFFFF00, 0x404000);
+            info.line(Component.literal("! ! ! ").append(Component.translatable("atmosphere.yesOrbit")).append(" ! ! !"),
+                    com.hbm.util.BobMathUtil.getBlink() ? 0xFF0000 : 0xFFFF00);
         }
     }
 

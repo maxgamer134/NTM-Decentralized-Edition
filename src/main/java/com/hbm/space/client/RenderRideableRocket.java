@@ -46,6 +46,8 @@ public class RenderRideableRocket extends EntityRenderer<EntityRideableRocket, R
         RocketState s = entity.getState();
         state.deployed = s == RocketState.LANDING || s == RocketState.LANDED || s == RocketState.AWAITING
                 || s == RocketState.TIPPING || s == RocketState.NEEDSFUEL;
+        state.decoupleTimer = entity.decoupleTimer;
+        state.partialTicks = partialTicks;
         state.pod = entity.isReusable() ? RenderDropPod.extract(entity, partialTicks) : null;
     }
 
@@ -55,7 +57,7 @@ public class RenderRideableRocket extends EntityRenderer<EntityRideableRocket, R
             pose.pushPose();
             // the rocket faces east and leans over that way
             pose.mulPose(com.hbm.backport.LaunchAxis.rotation(state.nose));
-            RocketPronter.pront(state.rocket, pose, collector, state.lightCoords, state.deployed, 0, 0, state.pod);
+            RocketPronter.pront(state.rocket, pose, collector, state.lightCoords, state.deployed, state.decoupleTimer, state.partialTicks, state.pod);
             pose.popPose();
         }
         super.submit(state, pose, collector, camera);
@@ -66,6 +68,8 @@ public class RenderRideableRocket extends EntityRenderer<EntityRideableRocket, R
         float pitch;
         net.minecraft.world.phys.Vec3 nose = com.hbm.backport.LaunchAxis.UP;
         boolean deployed;
+        int decoupleTimer;
+        float partialTicks;
         RenderDropPod.@Nullable Pose pod;
     }
 }

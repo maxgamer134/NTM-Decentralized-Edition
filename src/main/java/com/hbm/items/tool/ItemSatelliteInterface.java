@@ -35,7 +35,7 @@ public class ItemSatelliteInterface extends ItemSatelliteChip implements IItemCo
 
     @Override
     public void receiveControl(ServerPlayer player, ItemStack stack, CompoundTag data) {
-        Satellite satellite = SatelliteSavedData.get(player.serverLevel()).getSatFromFreq(getFreq(stack));
+        Satellite satellite = SatelliteSavedData.at(player.serverLevel(), player.getBlockX(), player.getBlockZ()).getSatFromFreq(getFreq(stack));
         if (satellite != null) {
             satellite.onCoordAction(
                     player.serverLevel(),
@@ -57,7 +57,7 @@ public class ItemSatelliteInterface extends ItemSatelliteChip implements IItemCo
             ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot) {
         if (!(entity instanceof ServerPlayer player)) return;
         if (player.getMainHandItem() != stack) return;
-        boolean connected = SatelliteSavedData.get(level).getSatFromFreq(getFreq(stack)) != null;
+        boolean connected = SatelliteSavedData.at(level, player.getBlockX(), player.getBlockZ()).getSatFromFreq(getFreq(stack)) != null;
         CustomData data = stack.get(ModDataComponents.PERSISTENT_DATA.get());
         if (data != null && Nbt.getBooleanOr(data.copyTag(), KEY_CONNECTED, false) == connected) return;
         if (data == null && !connected) return;

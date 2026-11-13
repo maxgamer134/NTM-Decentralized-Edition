@@ -74,21 +74,21 @@ public final class SpaceStations {
     public static final int[] PORT_DIMS = {1, 0, 2, 2, 2, 2};
 
     public static final RegistryHandle<Port> CORE = Reg.block("orbital_station", Port::new,
-            () -> BlockBehaviour.Properties.of().strength(100F, 480F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(-1F, 3600000F).noOcclusion());
     public static final RegistryHandle<Port> PORT = Reg.blockItem("orbital_station_port", Port::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(1F, 5F).requiresCorrectToolForDrops().noOcclusion());
     public static final Reg.BeHandle<PortBE> PORT_BE = Reg.be("orbital_station",
                     () -> new BlockEntityType<>(PortBE::new, Set.of(CORE.get(), PORT.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);
 
     public static final RegistryHandle<Computer> COMPUTER = Reg.blockItem("orbital_station_computer", Computer::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(1F, 5F).requiresCorrectToolForDrops().noOcclusion());
     public static final Reg.BeHandle<ComputerBE> COMPUTER_BE = Reg.be("orbital_station_computer",
                     () -> new BlockEntityType<>(ComputerBE::new, Set.of(COMPUTER.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer);
 
     public static final RegistryHandle<CreativePropulsion> PROPULSION_CREATIVE = Reg.blockItem("propulsion_creative", CreativePropulsion::new,
-            () -> BlockBehaviour.Properties.of().strength(1F, 6F));
+            () -> BlockBehaviour.Properties.of().strength(1F, 5F));
     public static final Reg.BeHandle<CreativePropulsionBE> PROPULSION_CREATIVE_BE = Reg.be("propulsion_creative",
                     () -> new BlockEntityType<>(CreativePropulsionBE::new, Set.of(PROPULSION_CREATIVE.get()), null))
             .ticksServer(CreativePropulsionBE::tick);

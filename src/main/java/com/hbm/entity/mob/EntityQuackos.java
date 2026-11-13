@@ -75,8 +75,14 @@ public class EntityQuackos extends EntityDuck {
         if (level().isClientSide()
                 || (reason != RemovalReason.KILLED && reason != RemovalReason.DISCARDED)) {
             super.remove(reason);
+        } else if (com.hbm.config.NeoForgeHbmConfig.runtime().serverSafety()) {
+            // killed once a tick for a second, or ten times in a row, and automated culling gets its way
+            killCounter += 2;
+            if (killCounter > 20) super.remove(reason);
         }
     }
+
+    private int killCounter;
 
     @Override
     public void startSeenByPlayer(ServerPlayer player) {
@@ -157,6 +163,7 @@ public class EntityQuackos extends EntityDuck {
         super.tick();
 
         if (!level().isClientSide()) bossEvent.setProgress(getHealth() / getMaxHealth());
+        if (killCounter > 0) killCounter--;
     }
 
     @Override

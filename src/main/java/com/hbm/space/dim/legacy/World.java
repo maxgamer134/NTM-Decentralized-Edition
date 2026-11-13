@@ -69,11 +69,11 @@ public class World {
     }
 
     public int getHeight() {
-        return 256;
+        return 320;
     }
 
     private boolean reachable(int x, int y, int z) {
-        if (level == null || y < 0 || y > 255) return false;
+        if (level == null || y < -64 || y > 319) return false;
         BlockPos pos = new BlockPos(x, y, z);
         return level.hasChunk(x >> 4, z >> 4) && level.ensureCanWrite(pos);
     }

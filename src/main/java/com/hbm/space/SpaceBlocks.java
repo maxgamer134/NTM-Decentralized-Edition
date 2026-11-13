@@ -55,7 +55,7 @@ public final class SpaceBlocks {
     public static final RegistryHandle<BlockSpaceOre> ORE_MORKITE =
             Reg.blockItem("ore_morkite", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(MORKITE_SOUND).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryHandle<BlockSpaceOre> ORE_GLOWSTONE =
-            Reg.blockItem("ore_glowstone", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
+            Reg.blockItem("ore_glowstone", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5.0F, 6.0F).lightLevel(s -> 4).requiresCorrectToolForDrops());
     public static final RegistryHandle<BlockSpaceOre> ORE_NICKEL =
             Reg.blockItem("ore_nickel", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryHandle<BlockSpaceOre> ORE_MINERAL =
@@ -157,7 +157,8 @@ public final class SpaceBlocks {
     public static final RegistryHandle<RotatedPillarBlock> VINYL_LOG =
             Reg.blockItem("vinyl_log", RotatedPillarBlock::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(0.5F, 1.5F));
     public static final RegistryHandle<Block> MINMUS_SMOOTH =
-            Reg.blockItem("minmus_smooth", Block::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops());
+            Reg.blockItem("minmus_smooth", Block::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 1, com.hbm.items.DescBlockItem.Desc.PLAIN));
 
     private SpaceBlocks() {}
 

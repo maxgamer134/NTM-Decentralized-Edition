@@ -65,6 +65,7 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
     public ItemStack navDrive = ItemStack.EMPTY;
     private int stateTimer;
     public int decoupleTimer;
+    public int shroudTimer;
     public int forceExitTimer;
     private long lastExitAttempt = Long.MIN_VALUE;
 
@@ -410,7 +411,11 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
                     setXRot(Math.min(tip * tip, 90F));
                     if (getXRot() >= 90F && willExplode) {
                         dropNDie();
-                        level().explode(this, getX(), getY(), getZ(), 5F, true, Level.ExplosionInteraction.TNT);
+                        Vec3 motion = getDeltaMovement();
+                        com.hbm.explosion.ExplosionLarge.explode(level(), getX(), getY(), getZ(), 5F, true, false, true);
+                        com.hbm.explosion.ExplosionLarge.spawnShrapnelShower(level(), getX(), getY(), getZ(), motion.x, motion.y, motion.z, 15, 0.075);
+                        level().playSound(null, getX(), getY(), getZ(), SpaceRockets.PIPEFAIL.get(), SoundSource.PLAYERS,
+                                10_000F, 0.8F + random.nextFloat() * 0.4F);
                     }
                     rocketVelocity = 0;
                 }
@@ -513,7 +518,9 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
             }
             lastState = state;
         }
-        boolean burning = state == RocketState.LAUNCHING || (state == RocketState.LANDING && getDeltaMovement().y > -0.4);
+        com.hbm.space.station.OrbitalStation clientStation = com.hbm.space.station.OrbitalStation.clientStation;
+        boolean burning = state == RocketState.LAUNCHING || (state == RocketState.LANDING && getDeltaMovement().y > -0.4)
+                || (state == RocketState.TRANSFER && clientStation.getUnscaledProgress(0) <= 0.15);
         if (burning) {
             if (audio == null || !audio.isPlaying()) {
                 audio = AudioSystem.getLoopedSound(getRocket().stages.size() <= 1 ? SpaceRockets.ROCKET_FLY_LIGHT.get()
@@ -528,6 +535,29 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         } else if (audio != null) {
             audio.stopSound();
             audio = null;
+        }
+
+        // the spent stage and shroud fall away once a transfer is under way
+        if (state == RocketState.TRANSFER) {
+            clientStation.update(level());
+            if (clientStation.getUnscaledProgress(0) > 0.2) {
+                if (decoupleTimer == 0) stageSound(0.9F);
+                if (decoupleTimer == 100 && getRocket().stages.size() > 1) stageSound(1.2F);
+                else if (decoupleTimer > 100) shroudTimer++;
+                decoupleTimer++;
+            }
+        } else {
+            decoupleTimer = 0;
+            shroudTimer = 0;
+        }
+    }
+
+    private void stageSound(float pitch) {
+        AudioWrapper decouple = AudioSystem.getLoopedSound(SpaceRockets.ROCKET_STAGE.get(), SoundSource.PLAYERS,
+                (float) getX(), (float) getY(), (float) getZ(), 0.5F, 250F, pitch + random.nextFloat() * 0.2F, 40);
+        if (decouple != null) {
+            decouple.setDoesRepeat(false);
+            decouple.startSound();
         }
     }
 
@@ -688,6 +718,14 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         entityData.set(TIMER, stateTimer);
         navDrive = input.read("drive", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
         setLaunchAxis(new Vec3(input.getDoubleOr("axisX", 0D), input.getDoubleOr("axisY", 1D), input.getDoubleOr("axisZ", 0D)));
+        destinationOverride = null;
+        if (input.getBooleanOr("hasOverride", false)) {
+            try {
+                destinationOverride = new Destination(SolarSystem.Body.valueOf(input.getStringOr("overrideBody", "")),
+                        input.getIntOr("overrideX", 0), input.getIntOr("overrideZ", 0));
+            } catch (IllegalArgumentException ignored) {
+            }
+        }
     }
 
     @Override
@@ -700,5 +738,11 @@ public class EntityRideableRocket extends EntityCompat implements com.hbm.interf
         output.putDouble("axisX", axis.x);
         output.putDouble("axisY", axis.y);
         output.putDouble("axisZ", axis.z);
+        if (destinationOverride != null) {
+            output.putBoolean("hasOverride", true);
+            output.putString("overrideBody", destinationOverride.body().name());
+            output.putInt("overrideX", destinationOverride.x());
+            output.putInt("overrideZ", destinationOverride.z());
+        }
     }
 }

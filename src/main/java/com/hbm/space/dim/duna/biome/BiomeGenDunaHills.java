@@ -114,14 +114,14 @@ public class BiomeGenDunaHills extends BiomeGenBaseDuna {
 		boolean flag2 = false;
 		int k1 = blocks.length / 256;
 
-		for (int l1 = 255; l1 >= 0; --l1) {
-			int i2 = (l * 16 + k) * k1 + l1;
+		for (int l1 = 319; l1 >= -64; --l1) {
+			int i2 = (l * 16 + k) * k1 + l1 - ChunkProviderCelestial.MIN_Y;
 
 			if ((blocks[i2] == null || Material.of(blocks[i2]) == Material.air) && l1 < (int) d5) {
 				blocks[i2] = LegacyBlocks.b("duna_rock");
 			}
 
-			if (l1 <= 0 + rand.nextInt(5)) {
+			if (l1 <= -64 + rand.nextInt(5)) {
 				blocks[i2] = Blocks.BEDROCK;
 			} else {
 				Block block1 = blocks[i2];

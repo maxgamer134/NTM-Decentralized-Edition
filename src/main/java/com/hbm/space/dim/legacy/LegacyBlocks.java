@@ -34,13 +34,12 @@ public final class LegacyBlocks {
             "ore_copper", "minecraft:copper_ore");
 
     /**
-     * 1.7 blocks whose metadata picked a variant that is its own block now, by metadata. Calcium
-     * (stone_resource 7) never had a block; Space's limestone spawn asked for it, so it is limestone.
+     * 1.7 blocks whose metadata picked a variant that is its own block now, by metadata.
      */
     private static final Map<String, String[]> VARIANTS = Map.of(
             "stone_resource", new String[] {"stone_resource_sulfur", "stone_resource_asbestos", "stone_resource_hematite",
-                    "stone_resource_malachite", "stone_resource_limestone", "stone_resource_bauxite", "stone_resource_limestone",
-                    "stone_resource_limestone"},
+                    "stone_resource_malachite", "stone_resource_limestone", "stone_resource_bauxite", "stone_resource_conglomerate",
+                    "stone_resource_calcium"},
             "ore_basalt", new String[] {"ore_basalt_sulfur", "ore_basalt_fluorite", "ore_basalt_asbestos", "ore_basalt_gem",
                     "ore_basalt_molysite"},
             // BlockNTMFlower's EnumFlowerType order; strawberry and mint have no block here

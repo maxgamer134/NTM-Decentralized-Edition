@@ -60,28 +60,28 @@ public class WorldGenLiquidsCelestial extends WorldGenerator {
 	}
 
 	public boolean generate(World world, Random rand, int x, int y, int z) {
-		if(world.getBlock(x, y + 1, z) != targetBlock) {
+		if(!DeepStone.matches(world.getBlock(x, y + 1, z), targetBlock)) {
 			return false;
-		} else if(world.getBlock(x, y - 1, z) != targetBlock) {
+		} else if(!DeepStone.matches(world.getBlock(x, y - 1, z), targetBlock)) {
 			return false;
-		} else if(Material.of(world.getBlock(x, y, z)) != Material.air && world.getBlock(x, y, z) != targetBlock) {
+		} else if(Material.of(world.getBlock(x, y, z)) != Material.air && !DeepStone.matches(world.getBlock(x, y, z), targetBlock)) {
 			return false;
 		} else {
 			int l = 0;
 
-			if(world.getBlock(x - 1, y, z) == targetBlock) {
+			if(DeepStone.matches(world.getBlock(x - 1, y, z), targetBlock)) {
 				++l;
 			}
 
-			if(world.getBlock(x + 1, y, z) == targetBlock) {
+			if(DeepStone.matches(world.getBlock(x + 1, y, z), targetBlock)) {
 				++l;
 			}
 
-			if(world.getBlock(x, y, z - 1) == targetBlock) {
+			if(DeepStone.matches(world.getBlock(x, y, z - 1), targetBlock)) {
 				++l;
 			}
 
-			if(world.getBlock(x, y, z + 1) == targetBlock) {
+			if(DeepStone.matches(world.getBlock(x, y, z + 1), targetBlock)) {
 				++l;
 			}
 

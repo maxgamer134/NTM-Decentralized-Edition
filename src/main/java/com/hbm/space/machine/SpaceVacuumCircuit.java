@@ -82,7 +82,8 @@ public final class SpaceVacuumCircuit {
             Reg.item("circuit_capacitor_lanthanium", Item::new, Item.Properties::new);
 
     public static final RegistryHandle<Solderer> BLOCK = Reg.blockItem("machine_vacuum_circuit", Solderer::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 1, com.hbm.items.DescBlockItem.Desc.PLAIN));
 
     public static final Reg.BeHandle<CircuitBE> BE = Reg.be("machine_vacuum_circuit",
                     () -> new BlockEntityType<>(CircuitBE::new, Set.of(BLOCK.get()), null))

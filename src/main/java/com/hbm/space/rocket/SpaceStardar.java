@@ -60,7 +60,8 @@ public final class SpaceStardar {
     public static final int MAP = 256;
 
     public static final RegistryHandle<Stardar> BLOCK = Reg.blockItem("machine_stardar", Stardar::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 6F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 3, com.hbm.items.DescBlockItem.Desc.PLAIN));
 
     public static final Reg.BeHandle<StardarBE> BE = Reg.be("machine_stardar",
                     () -> new BlockEntityType<>(StardarBE::new, Set.of(BLOCK.get()), null))

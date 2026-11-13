@@ -81,6 +81,18 @@ public class BlockEntityFurnaceBrick extends BlockEntitySmeltingFurnace
             BURN_SPEED.put(Items.NETHERRACK, 4);
             BURN_SPEED.put(Items.COBBLESTONE, 2);
             BURN_SPEED.put(Items.COBBLED_DEEPSLATE, 2);
+            if (com.hbm.space.SpaceToggle.enabled()) {
+                // NTM:Space's planet stones smelt as fast as cobblestone
+                for (String rock :
+                        new String[] {
+                            "duna_cobble", "dres_rock", "ike_regolith", "eve_rock", "moho_regolith",
+                            "moon_rock", "minmus_regolith", "duna_sands", "laythe_silt", "eve_silt",
+                            "moon_turf"
+                        }) {
+                    Item item = com.hbm.space.dim.legacy.LegacyBlocks.b(rock).asItem();
+                    if (item != Items.AIR) BURN_SPEED.put(item, 2);
+                }
+            }
         }
         return BURN_SPEED;
     }

@@ -90,7 +90,14 @@ public final class ModCommands {
         dispatcher.register(
                 Commands.literal("ntmsatellites")
                         .requires((source -> source.hasPermission(Commands.LEVEL_OWNERS)))
-                        .then(Commands.literal("orbit").executes(ModCommands::orbitSatellite))
+                        .then(
+                                Commands.literal("orbit")
+                                        .executes(ModCommands::orbitSatellite)
+                                        .then(
+                                                Commands.argument(
+                                                                "frequency",
+                                                                IntegerArgumentType.integer())
+                                                        .executes(ModCommands::orbitSatellite)))
                         .then(
                                 Commands.literal("descend")
                                         .then(
@@ -108,6 +115,15 @@ public final class ModCommands {
                 satellites(ctx.getSource()).sats.keySet().stream().map(String::valueOf), builder);
     }
 
+    /** The optional frequency argument overrides the chip's own. */
+    private static int freq(CommandContext<CommandSourceStack> ctx, ItemStack held) {
+        try {
+            return IntegerArgumentType.getInteger(ctx, "frequency");
+        } catch (IllegalArgumentException e) {
+            return ISatChip.getFreqS(held);
+        }
+    }
+
     private static int orbitSatellite(CommandContext<CommandSourceStack> ctx) {
         CommandSourceStack source = ctx.getSource();
         if (!(source.getEntity() instanceof ServerPlayer player)) return notAPlayer(source);
@@ -118,7 +134,7 @@ public final class ModCommands {
                 || !Satellite.orbit(
                         source.getLevel(),
                         held,
-                        ISatChip.getFreqS(held),
+                        freq(ctx, held),
                         player.getX(),
                         player.getY(),
                         player.getZ())) {

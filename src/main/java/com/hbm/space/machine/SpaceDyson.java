@@ -111,12 +111,14 @@ public final class SpaceDyson {
         return BlockBehaviour.Properties.of().strength(10F, 12F).requiresCorrectToolForDrops().noOcclusion();
     }
 
-    public static final RegistryHandle<Launcher> LAUNCHER = Reg.blockItem("dyson_launcher", Launcher::new, SpaceDyson::props);
+    public static final RegistryHandle<Launcher> LAUNCHER = Reg.blockItem("dyson_launcher", Launcher::new, SpaceDyson::props,
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 2, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<LauncherBE> LAUNCHER_BE = Reg.be("dyson_launcher",
                     () -> new BlockEntityType<>(LauncherBE::new, Set.of(LAUNCHER.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);
 
-    public static final RegistryHandle<Receiver> RECEIVER = Reg.blockItem("dyson_receiver", Receiver::new, SpaceDyson::props);
+    public static final RegistryHandle<Receiver> RECEIVER = Reg.blockItem("dyson_receiver", Receiver::new, SpaceDyson::props,
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 2, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<ReceiverBE> RECEIVER_BE = Reg.be("dyson_receiver",
                     () -> new BlockEntityType<>(ReceiverBE::new, Set.of(RECEIVER.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);

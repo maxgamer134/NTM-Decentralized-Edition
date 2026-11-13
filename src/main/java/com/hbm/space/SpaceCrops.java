@@ -58,7 +58,21 @@ public final class SpaceCrops {
     public static final RegistryHandle<Item> TEA_LEAF = Reg.item("tea_leaf", Item::new, Item.Properties::new);
     public static final RegistryHandle<Item> PARAFFIN_SEEDS = seed("paraffin_seeds", CROP_PARAFFIN, 1, 0.2F);
 
+    /** BlockNTMFlower's STRAWBERRY and MINT: the wild plants in plains that drop a strawberry or mint leaves. */
+    public static final RegistryHandle<com.hbm.blocks.generic.BlockNTMFlower> FLOWER_STRAWBERRY = wild("plant_flower_strawberry");
+    public static final RegistryHandle<com.hbm.blocks.generic.BlockNTMFlower> FLOWER_MINT = wild("plant_flower_mint");
+    public static final RegistryHandle<Item> FLOWER_STRAWBERRY_ITEM = Reg.item("plant_flower_strawberry",
+            p -> new net.minecraft.world.item.BlockItem(FLOWER_STRAWBERRY.get(), p), Item.Properties::new);
+    public static final RegistryHandle<Item> FLOWER_MINT_ITEM = Reg.item("plant_flower_mint",
+            p -> new net.minecraft.world.item.BlockItem(FLOWER_MINT.get(), p), Item.Properties::new);
+
     private SpaceCrops() {}
+
+    private static RegistryHandle<com.hbm.blocks.generic.BlockNTMFlower> wild(String name) {
+        return Reg.block(name, p -> new com.hbm.blocks.generic.BlockNTMFlower(p, com.hbm.blocks.generic.BlockNTMFlower.Variant.FOXGLOVE),
+                () -> BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().noOcclusion().instabreak()
+                        .sound(SoundType.GRASS).pushReaction(PushReaction.DESTROY));
+    }
 
     private static RegistryHandle<Crop> crop(String name, Supplier<Block> soil, Predicate<CBT_Atmosphere> breathes, boolean hydro, Supplier<ItemLike> seed) {
         return Reg.block(name, p -> new Crop(p, soil, breathes, hydro, seed), () -> BlockBehaviour.Properties.of()
@@ -75,6 +89,8 @@ public final class SpaceCrops {
         var anchor = Library.id("lemon");
         for (var i : new RegistryHandle<?>[] {PARAFFIN_SEEDS, TEA_LEAF, TEASEEDS, BEAN_RAW, MINT_LEAVES, STRAWBERRY})
             CreativeContents.insertAfter(CreativeContents.Tab.CONSUMABLES, anchor, () -> new ItemStack((Item) i.get()));
+        CreativeContents.insertAfter(CreativeContents.Tab.BLOCKS, Library.id("plant_flower_cd1"), () -> new ItemStack(FLOWER_MINT_ITEM.get()));
+        CreativeContents.insertAfter(CreativeContents.Tab.BLOCKS, Library.id("plant_flower_cd1"), () -> new ItemStack(FLOWER_STRAWBERRY_ITEM.get()));
     }
 
     public static class Crop extends CropBlock {

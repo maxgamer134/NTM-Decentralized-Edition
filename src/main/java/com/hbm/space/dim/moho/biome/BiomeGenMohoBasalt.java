@@ -71,13 +71,13 @@ public class BiomeGenMohoBasalt extends BiomeGenBaseMoho {
 		int bz = z & 15;
 		int s = blocks.length / 256;
 
-		for(int by = 255; by >= 0; --by) {
-			int i = (bz * 16 + bx) * s + by;
+		for(int by = 319; by >= -64; --by) {
+			int i = (bz * 16 + bx) * s + by - ChunkProviderCelestial.MIN_Y;
 
 			boolean contour = (noise > -0.25D && noise < 1.0D) || (noise > 1.5D && noise < 2.0D) || (noise > 2.5D && noise < 3.0D);
 			double offset = contour ? 0 : Math.pow(rand.nextDouble(), 4) * 8;
 
-			if(by <= 0 + rand.nextInt(5)) {
+			if(by <= -64 + rand.nextInt(5)) {
 				blocks[i] = Blocks.BEDROCK;
 			} else {
 				Block block2 = blocks[i];

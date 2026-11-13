@@ -5,6 +5,12 @@
       "amplifier": 0,
       "duration": 200,
       "effect": "hbm:run"
+    },
+    {
+      "type": "effect",
+      "amplifier": 19,
+      "duration": 60,
+      "effect": "minecraft:hunger"
     }
   ],
   "sound": "hbm:player.oil",

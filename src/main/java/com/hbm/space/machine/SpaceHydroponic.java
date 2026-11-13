@@ -74,7 +74,8 @@ public final class SpaceHydroponic {
     public static final long LIGHT_POWER = 200;
 
     public static final RegistryHandle<Bay> BLOCK = Reg.blockItem("hydrobay", Bay::new,
-            () -> BlockBehaviour.Properties.of().strength(3F, 3F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> 15));
+            () -> BlockBehaviour.Properties.of().strength(3F, 3F).requiresCorrectToolForDrops().noOcclusion().lightLevel(state -> state.getValue(Bay.LIT) ? 15 : 0),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 2, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<BayBE> BE = Reg.be("hydrobay",
                     () -> new BlockEntityType<>(BayBE::new, Set.of(BLOCK.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer);
@@ -85,8 +86,19 @@ public final class SpaceHydroponic {
     }
 
     public static class Bay extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock {
+        /** The grow lights only shine while the bay holds enough power. */
+        public static final net.minecraft.world.level.block.state.properties.BooleanProperty LIT =
+                net.minecraft.world.level.block.state.properties.BlockStateProperties.LIT;
+
         public Bay(Properties props) {
             super(props);
+            registerDefaultState(defaultBlockState().setValue(LIT, false));
+        }
+
+        @Override
+        protected void createBlockStateDefinition(net.minecraft.world.level.block.state.StateDefinition.Builder<net.minecraft.world.level.block.Block, BlockState> builder) {
+            super.createBlockStateDefinition(builder);
+            builder.add(LIT);
         }
 
         @Override
@@ -183,6 +195,10 @@ public final class SpaceHydroponic {
                 setChanged();
             }
             power += ItemEnergyTransfer.extract(this, SLOT_BATTERY, MAX_POWER - power, false);
+
+            BlockState current = getBlockState();
+            if (current.hasProperty(Bay.LIT) && current.getValue(Bay.LIT) != lightsOn())
+                server.setBlock(worldPosition, current.setValue(Bay.LIT, lightsOn()), net.minecraft.world.level.block.Block.UPDATE_CLIENTS);
 
             Direction rot = getBlockState().getValue(BlockMultiblockCore.FACING).getClockWise();
             for (int i = 0; i < 3; i++) {

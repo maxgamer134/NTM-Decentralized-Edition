@@ -73,10 +73,10 @@ public class BiomeGenHalogenHills extends BiomeGenBaseTekto {
 		int j1 = z & 15;
 		int k1 = blocks.length / 256;
 
-		for(int l1 = 255; l1 >= 0; --l1) {
-			int i2 = (j1 * 16 + i1) * k1 + l1;
+		for(int l1 = 319; l1 >= -64; --l1) {
+			int i2 = (j1 * 16 + i1) * k1 + l1 - ChunkProviderCelestial.MIN_Y;
 
-			if(l1 <= 0 + rand.nextInt(5)) {
+			if(l1 <= -64 + rand.nextInt(5)) {
 				blocks[i2] = Blocks.BEDROCK;
 			} else {
 				Block block2 = blocks[i2];

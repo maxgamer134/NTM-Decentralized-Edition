@@ -33,7 +33,7 @@ public final class SkyObjectsSyncPayload extends ThreadedPayload {
         return data;
     }
 
-    static SkyObjectsSyncPayload of(List<int[]> stations, Map<Integer, String> satellites) {
+    static SkyObjectsSyncPayload of(List<int[]> stations, Map<Integer, SpaceSkySync.SkySat> satellites) {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         buf.writeVarInt(stations.size());
         for (int[] station : stations) {
@@ -41,9 +41,10 @@ public final class SkyObjectsSyncPayload extends ThreadedPayload {
             buf.writeInt(station[1]);
         }
         buf.writeVarInt(satellites.size());
-        satellites.forEach((freq, type) -> {
+        satellites.forEach((freq, sat) -> {
             buf.writeInt(freq);
-            buf.writeUtf(type);
+            buf.writeUtf(sat.type());
+            com.hbm.space.satellite.SatSettings.STREAM_CODEC.encode(buf, sat.settings());
         });
         byte[] bytes = new byte[buf.writerIndex()];
         buf.getBytes(0, bytes);
@@ -62,8 +63,8 @@ public final class SkyObjectsSyncPayload extends ThreadedPayload {
         List<int[]> stations = new ArrayList<>(stationCount);
         for (int i = 0; i < stationCount; i++) stations.add(new int[] {buf.readInt(), buf.readInt()});
         int satCount = buf.readVarInt();
-        Map<Integer, String> sats = new LinkedHashMap<>();
-        for (int i = 0; i < satCount; i++) sats.put(buf.readInt(), buf.readUtf());
+        Map<Integer, SpaceSkySync.SkySat> sats = new LinkedHashMap<>();
+        for (int i = 0; i < satCount; i++) sats.put(buf.readInt(), new SpaceSkySync.SkySat(buf.readUtf(), com.hbm.space.satellite.SatSettings.STREAM_CODEC.decode(buf)));
         SpaceSkySync.clientStations = List.copyOf(stations);
         SpaceSkySync.clientSatellites = Map.copyOf(sats);
     }

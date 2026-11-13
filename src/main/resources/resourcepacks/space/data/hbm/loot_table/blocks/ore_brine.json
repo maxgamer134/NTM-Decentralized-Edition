@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "hbm:ore_brine",
+          "name": "hbm:ore_brine_empty",
           "functions": [
             {
               "function": "minecraft:copy_state",

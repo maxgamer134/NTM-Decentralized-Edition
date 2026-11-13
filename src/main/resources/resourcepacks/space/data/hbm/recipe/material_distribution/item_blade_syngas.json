@@ -1,0 +1,10 @@
+{
+  "type": "hbm:material_distribution",
+  "materials": [
+    {
+      "amount": 216,
+      "material": "stainless"
+    }
+  ],
+  "targets": "hbm:blade_syngas"
+}

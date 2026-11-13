@@ -1061,7 +1061,7 @@ public final class ModItems {
                                     .food(
                                             new FoodProperties.Builder()
                                                     .nutrition(4)
-                                                    .saturationModifier(2F)
+                                                    .saturationModifier(com.hbm.space.SpaceToggle.changes() ? 0.6F : 2F)
                                                     .build()));
     public static final RegistryHandle<ItemCustomLore> NUGGET_SR90 =
             residualLore("nugget_sr90").addTo(RESIDUAL_ALL);
@@ -1695,7 +1695,10 @@ public final class ModItems {
     public static final RegistryHandle<ItemFluidCell> PARTICLE_AMAT =
             Reg.item(
                             "particle_amat",
-                            props -> new ItemFluidCell(props, () -> NTMFluids.AMAT, PARTICLE_EMPTY),
+                            props ->
+                                    com.hbm.space.SpaceToggle.changes()
+                                            ? new com.hbm.space.item.ItemParticleAmat(props)
+                                            : new ItemFluidCell(props, () -> NTMFluids.AMAT, PARTICLE_EMPTY),
                             ModItems::capsuleProperties)
                     .addTo(MISC_ALL);
     public static final RegistryHandle<ItemFluidCell> PARTICLE_ASCHRAB =
@@ -6786,7 +6789,7 @@ public final class ModItems {
     public static final RegistryHandle<Item> SPONGEBOB_MACARONI =
             Reg.item("spongebob_macaroni", Item::new, () -> food(5, 1F)).addTo(MISC_ALL);
     public static final RegistryHandle<Item> FOODITEM =
-            Reg.item("fooditem", Item::new, () -> food(2, 5F)).addTo(MISC_ALL);
+            Reg.item("fooditem", Item::new, () -> food(2, com.hbm.space.SpaceToggle.changes() ? 0.6F : 5F)).addTo(MISC_ALL);
     public static final RegistryHandle<ItemCustomLore> TWINKIE =
             Reg.item(
                             "twinkie",
@@ -6810,14 +6813,14 @@ public final class ModItems {
                                             .food(
                                                     new FoodProperties.Builder()
                                                             .nutrition(6)
-                                                            .saturationModifier(1F)
+                                                            .saturationModifier(com.hbm.space.SpaceToggle.changes() ? 0.6F : 1F)
                                                             .build()))
                     .addTo(MISC_ALL);
     public static final RegistryHandle<ItemPancake> PANCAKE =
             Reg.item(
                             "pancake",
                             ItemPancake::new,
-                            () -> new Item.Properties().food(ItemPancake.FOOD))
+                            () -> new Item.Properties().food(com.hbm.space.SpaceToggle.changes() ? ItemPancake.SPACE_FOOD : ItemPancake.FOOD))
                     .addTo(MISC_ALL);
     public static final RegistryHandle<Item> NUGGET =
             Reg.item("nugget", Item::new, () -> food(200, 1F)).addTo(MISC_ALL);
@@ -7214,11 +7217,18 @@ public final class ModItems {
                                                 .craftRemainder(CAN_EMPTY.get())));
     }
 
+    /** NTM:Space's coffee comes in a mug that is handed back empty. */
+    private static ItemDrinkEnergy spaceMug(ItemDrinkEnergy drink) {
+        return com.hbm.space.SpaceToggle.changes()
+                ? drink.withLateRemainder(() -> com.hbm.space.SpaceParts.CMUG_EMPTY.get())
+                : drink;
+    }
+
     public static final RegistryHandle<ItemDrinkEnergy> COFFEE =
             Reg.item(
                             "coffee",
                             props ->
-                                    new ItemDrinkEnergy(
+                                    spaceMug(new ItemDrinkEnergy(
                                             props,
                                             null,
                                             false,
@@ -7231,7 +7241,7 @@ public final class ModItems {
                                                                         * SharedConstants
                                                                                 .TICKS_PER_SECOND,
                                                                 2));
-                                            }),
+                                            })),
                             () ->
                                     new Item.Properties()
                                             .component(

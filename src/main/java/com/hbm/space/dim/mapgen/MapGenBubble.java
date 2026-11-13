@@ -93,18 +93,18 @@ public class MapGenBubble extends MapGenBaseMeta {
 			int xCoord = (chunkX - offsetX) * 16 + rand.nextInt(16);
 			int zCoord = (chunkZ - offsetZ) * 16 + rand.nextInt(16);
 
-			int yCoord = rand.nextInt(rangeY) + minY;
+			int yCoord = Features.stretch(rand.nextInt(rangeY) + minY);
 
 			double radius = rand.nextInt(maxSize - minSize) + minSize;
 			double radiusSqr = (radius * radius) / 2; // original OilBubble implementation divided the square by 2 for some reason
 
-			int yMin = Math.max(1, Mth.floor(yCoord - radius));
+			int yMin = Math.max(ChunkProviderCelestial.MIN_Y + 1, Mth.floor(yCoord - radius));
 			int yMax = Math.min(127, Mth.ceil(yCoord + radius));
 
 			for(int bx = 15; bx >= 0; bx--) // bx, bz is the coordinate of the block we're modifying, relative to the generating chunk origin
 			for(int bz = 15; bz >= 0; bz--)
 			for(int by = yMin; by < yMax; by++) {
-				int index = (bx * 16 + bz) * 256 + by;
+				int index = ChunkProviderCelestial.idx(bx, bz, by);
 
 				if(blocks[index] == replace) {
 					// x, z are the coordinates relative to the target virtual chunk origin
@@ -143,7 +143,7 @@ public class MapGenBubble extends MapGenBaseMeta {
 			if(rx >= 0 && rx < 16 && rz >= 0 && rz < 16) {
 				// find ground level
 				for(int y = 127; y >= 4; y--) {
-					int index = (rx * 16 + rz) * 256 + y;
+					int index = ChunkProviderCelestial.idx(rx, rz, y);
 
 					if(blocks[index] != null && Material.isOpaqueCube(blocks[index])) {
 						for(int oy = 1; oy > -3; oy--) {
@@ -192,7 +192,7 @@ public class MapGenBubble extends MapGenBaseMeta {
 				int solids = 0;
 				
 				for(int y = 127; y >= 0; y--) {
-					int index = (x * 16 + z) * 256 + y;
+					int index = ChunkProviderCelestial.idx(x, z, y);
 					if(blocks[index] == null) continue;
 					
 					if(Material.of(blocks[index]).isLiquid()) break; 

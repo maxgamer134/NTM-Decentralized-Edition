@@ -3958,6 +3958,10 @@ public final class ModBlocks {
             stalagmiteVariant("glyphid2", 5, null);
     public static final RegistryHandle<BlockStalagmite> STALAGMITE_GLYPHID3 =
             stalagmiteVariant("glyphid3", 6, null);
+    public static final RegistryHandle<BlockStalagmite> STALAGMITE_FLESH =
+            stalagmiteVariant("flesh", 7, "hbm:flesh");
+    public static final RegistryHandle<BlockStalactite> STALACTITE_FLESH =
+            stalactiteVariant("flesh", 7, "hbm:flesh");
     public static final RegistryHandle<BlockStalactite> STALACTITE_ICE =
             stalactiteVariant("ice", 2, "hbm:powder_ice");
     public static final RegistryHandle<BlockStalactite> STALACTITE_SNOW =

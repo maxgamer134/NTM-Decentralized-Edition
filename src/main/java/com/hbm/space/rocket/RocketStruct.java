@@ -45,6 +45,8 @@ public class RocketStruct {
 
     /** A satellite riding under the fairing, by item id; empty for crewed rockets. */
     public String payload = "";
+    /** The satellite's orbit settings (SatelliteBase.copyItemData), carried from the item to the orbit. */
+    public com.hbm.space.satellite.@Nullable SatSettings satSettings;
 
     public RocketStruct(ItemStack capsule) {
         this.capsule = ItemCustomMissilePart.part(capsule);
@@ -52,6 +54,7 @@ public class RocketStruct {
             this.capsule = SpaceRocketParts.RP_SATELLITE_20.get();
             payload = BuiltInRegistries.ITEM.getKey(capsule.getItem()).toString();
             satFreq = com.hbm.items.ISatChip.getFreqS(capsule);
+            satSettings = capsule.get(com.hbm.space.satellite.SatSettings.COMPONENT.get());
         }
     }
 
@@ -82,6 +85,7 @@ public class RocketStruct {
             if (key != null && BuiltInRegistries.ITEM.containsKey(key)) {
                 ItemStack sat = new ItemStack(BuiltInRegistries.ITEM.get(key));
                 com.hbm.items.ISatChip.setFreqS(sat, satFreq);
+                if (satSettings != null) sat.set(com.hbm.space.satellite.SatSettings.COMPONENT.get(), satSettings);
                 return sat;
             }
         }
@@ -309,6 +313,8 @@ public class RocketStruct {
         }
         buf.writeVarInt(satFreq);
         buf.writeUtf(payload);
+        buf.writeBoolean(satSettings != null);
+        if (satSettings != null) com.hbm.space.satellite.SatSettings.STREAM_CODEC.encode(buf, satSettings);
         buf.writeVarInt(extraIssues.size());
         for (Component issue : extraIssues) buf.writeUtf(issue.getString());
     }
@@ -327,6 +333,7 @@ public class RocketStruct {
         }
         rocket.satFreq = buf.readVarInt();
         rocket.payload = buf.readUtf();
+        if (buf.readBoolean()) rocket.satSettings = com.hbm.space.satellite.SatSettings.STREAM_CODEC.decode(buf);
         count = buf.readVarInt();
         for (int i = 0; i < count; i++) rocket.extraIssues.add(Component.literal(buf.readUtf()));
         return rocket;
@@ -348,6 +355,8 @@ public class RocketStruct {
         nbt.put("stages", list);
         nbt.putInt("freq", satFreq);
         if (!payload.isEmpty()) nbt.putString("payload", payload);
+        if (satSettings != null)
+            com.hbm.space.satellite.SatSettings.CODEC.encodeStart(net.minecraft.nbt.NbtOps.INSTANCE, satSettings).result().ifPresent(tag -> nbt.put("sat", tag));
         return nbt;
     }
 
@@ -366,6 +375,8 @@ public class RocketStruct {
         }
         rocket.satFreq = nbt.getInt("freq");
         rocket.payload = nbt.getString("payload");
+        if (nbt.contains("sat"))
+            rocket.satSettings = com.hbm.space.satellite.SatSettings.CODEC.parse(net.minecraft.nbt.NbtOps.INSTANCE, nbt.get("sat")).result().orElse(null);
         // in case of emergency, a capsule
         if (rocket.capsule == null) rocket.capsule = SpaceRocketParts.RP_CAPSULE_20.get();
         return rocket;

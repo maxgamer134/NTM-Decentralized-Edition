@@ -14,6 +14,14 @@
     "hbm:minmus_smooth",
     "hbm:minmus_stone",
     "hbm:basalt",
-    "hbm:basalt_smooth"
+    "hbm:basalt_smooth",
+    "hbm:deep_moon_rock",
+    "hbm:deep_duna_rock",
+    "hbm:deep_eve_rock",
+    "hbm:deep_ike_stone",
+    "hbm:deep_dres_rock",
+    "hbm:deep_moho_stone",
+    "hbm:deep_minmus_stone",
+    "hbm:deep_basalt"
   ]
 }

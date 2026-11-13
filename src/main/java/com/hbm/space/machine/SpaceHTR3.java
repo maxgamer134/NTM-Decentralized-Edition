@@ -77,7 +77,8 @@ public final class SpaceHTR3 {
     public static final RegistryHandle<SoundEvent> LOOP = NeoForgeRegistrar.registerSound("misc.htrloop");
 
     public static final RegistryHandle<HTR3> BLOCK = Reg.blockItem("machine_htr3", HTR3::new,
-            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion());
+            () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops().noOcclusion(),
+            (block, props) -> new com.hbm.items.DescBlockItem(block, props, 1, com.hbm.items.DescBlockItem.Desc.PLAIN));
     public static final Reg.BeHandle<HTR3BE> BE = Reg.be("machine_htr3",
                     () -> new BlockEntityType<>(HTR3BE::new, Set.of(BLOCK.get()), null))
             .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);

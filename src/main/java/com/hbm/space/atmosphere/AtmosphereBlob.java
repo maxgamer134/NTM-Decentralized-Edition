@@ -57,6 +57,12 @@ public final class AtmosphereBlob {
         var block = state.getBlock();
         if (block instanceof FarmBlock || block instanceof FenceBlock) return false;
         if (block instanceof IBlockSealable sealable) return sealable.isSealed(level, pos);
+        // a door's cells seal by the door's rules
+        if (block instanceof BlockMultiblockCell) {
+            BlockPos core = com.hbm.blocks.multiblock.MultiblockSurface.coreOfAny(level, pos, state);
+            if (core != null && level.getBlockState(core).getBlock() instanceof IBlockSealable sealable)
+                return sealable.isSealed(level, pos);
+        }
         // machines can't seal, almost all have gaps
         if (block instanceof BlockMultiblockCore || block instanceof BlockMultiblockCell) return false;
         // liquids need to know which volume they sit in, to know whether they boil off

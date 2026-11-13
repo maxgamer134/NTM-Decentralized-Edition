@@ -174,6 +174,8 @@ public final class SpaceParts {
     }
 
     public static void init() {
+        // NTM:Space: the blade mold casts stainless steel into syngas turbine blades
+        com.hbm.items.machine.ItemMold.MoldMulti.named("blade").addon(MAT_STAINLESS, Library.id("blade_syngas"));
         String anchor = "ingot_hafnium";
         for (RegistryHandle<? extends Item> item : ITEMS) {
             CreativeContents.insertAfter(CreativeContents.Tab.PARTS, Library.id(anchor), () -> new ItemStack(item.get()));

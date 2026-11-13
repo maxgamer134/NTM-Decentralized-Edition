@@ -17,6 +17,9 @@ import net.neoforged.neoforge.common.NeoForge;
 /** NTM:Space's client side hooks, only while it is switched on. */
 public final class SpaceClientHooks {
 
+    private static final java.util.function.Supplier<com.hbm.render.loader.HFRWavefrontObject> AIRLINER =
+            com.google.common.base.Suppliers.memoize(() -> com.hbm.client.model.Meshes.load(com.hbm.lib.Library.id("models/737.obj")));
+
     private SpaceClientHooks() {}
 
     public static void register(net.neoforged.bus.api.IEventBus modBus) {
@@ -26,6 +29,10 @@ public final class SpaceClientHooks {
                 (net.neoforged.fml.event.lifecycle.FMLClientSetupEvent event) ->
                         event.enqueueWork(com.hbm.integration.recipeviewer.SpaceRecipePages::register));
         com.hbm.space.client.SpaceSkyClient.register(modBus);
+        SpaceVacuumTorex.register();
+        // NTM:Space's airliner (bomber style 9)
+        com.hbm.client.render.BomberStyles.register(9,
+                () -> AIRLINER.get(), com.hbm.lib.Library.id("textures/models/airliner.png"), 30F / 3.1F, 180F);
         com.hbm.space.client.SpaceSiegeClient.register();
         com.hbm.space.client.SpaceFog.register();
         com.hbm.space.client.SpacePlushieFigures.register(); com.hbm.space.client.SpaceBobbleFigures.register();

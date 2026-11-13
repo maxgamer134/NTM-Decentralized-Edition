@@ -41,6 +41,58 @@ public class BlockSpaceOreFluid extends BlockSpaceOre implements FluidReserveBlo
         }
     }
 
+    /** For the oil detector: "", "_gas" or "_brine" after its message keys. */
+    public String reserveSuffix() {
+        return switch (type) {
+            case GAS -> "_gas";
+            case BRINE -> "_brine";
+            default -> "";
+        };
+    }
+
+    private static final com.hbm.space.dim.legacy.Noise.Perlin CRACKS =
+            new com.hbm.space.dim.legacy.Noise.Perlin(new java.util.Random(73470), 4);
+
+    /** NTM:Space: fracking Tekto cracks the ground open instead of spilling oil on it. */
+    @Override
+    public void scarSurface(Level level, RandomSource random, int x, int z, int range) {
+        if (level.dimension() != com.hbm.space.SpaceDimensions.TEKTO) {
+            FluidReserveBlock.super.scarSurface(level, random, x, z, range);
+            return;
+        }
+        Block plant = id("rubber_plant"), grass = id("rubber_grass"), silt = id("rubber_silt"), vinyl = id("vinyl_sand");
+        Block slaked = id("sellafield_slaked"), basalt = id("basalt"), dead = id("plant_dead");
+        for (int i = 0; i < 100; i++) { // only ~10% of spots pass the noise
+            int rX = x + (int) (random.nextGaussian() * range);
+            int rZ = z + (int) (random.nextGaussian() * range);
+            if (CRACKS.func_151601_a(rX * 0.25, rZ * 0.25) < 0.9) continue;
+            int rY = level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.WORLD_SURFACE, rX, rZ);
+            for (int y = rY; y > rY - 4; y--) {
+                BlockPos pos = new BlockPos(rX, y, rZ), down = pos.below();
+                BlockState belowState = level.getBlockState(down), groundState = level.getBlockState(pos);
+                Block ground = groundState.getBlock();
+                if (ground == plant && belowState.isCollisionShapeFullBlock(level, down))
+                    level.setBlock(pos, dead.defaultBlockState(), 3);
+                if (ground == grass) {
+                    level.setBlock(pos, silt.defaultBlockState(), 3);
+                    break;
+                }
+                if (ground == silt || ground == vinyl || ground == slaked || ground == basalt) {
+                    if (belowState.getDestroySpeed(level, down) < 0) break;
+                    level.setBlock(down, net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(), 3);
+                    // vinyl sand falls by itself; the rest is shaken loose
+                    if (ground != vinyl && level instanceof net.minecraft.server.level.ServerLevel server)
+                        net.minecraft.world.entity.item.FallingBlockEntity.fall(server, pos, groundState).dropItem = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    private static Block id(String path) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(com.hbm.lib.Library.id(path));
+    }
+
     private static OreBody body(BlockState state) {
         return state.hasProperty(BODY) ? state.getValue(BODY) : OreBody.KERBIN;
     }

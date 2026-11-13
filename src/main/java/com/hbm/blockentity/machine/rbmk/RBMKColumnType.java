@@ -18,7 +18,9 @@ public enum RBMKColumnType {
     BREEDER(100),
     STORAGE(110),
     COOLER(120),
-    HEATEX(130);
+    HEATEX(130),
+    /** NTM:Space burner column; nothing upstream builds one yet. */
+    BURNER(140);
 
     public final int offset;
 

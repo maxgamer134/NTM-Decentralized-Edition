@@ -40,10 +40,34 @@ public class ItemOilDetector extends ItemCompat {
         return false;
     }
 
+    /** NTM:Space: the first oil, gas or brine reserve in the column, its key suffix, or null. */
+    private static @org.jspecify.annotations.Nullable String spaceReserve(Level level, int x, int z, int topY) {
+        for (int y = topY; y > 5; y--) {
+            var block = level.getBlockState(new BlockPos(x, y, z)).getBlock();
+            if (block instanceof com.hbm.space.BlockSpaceOreFluid reserve) return reserve.reserveSuffix();
+            if (block == ModBlocks.ORE_OIL.get()) return "";
+        }
+        return null;
+    }
+
+    private static Component spaceScan(Level level, int x, int y, int z) {
+        String direct = spaceReserve(level, x, z, y + 15);
+        String near = direct;
+        int[][] offsets = {{5, 0}, {-5, 0}, {0, 5}, {0, -5}, {10, 0}, {-10, 0}, {0, 10}, {0, -10}, {5, 5}, {-5, 5}, {5, -5}, {-5, -5}};
+        for (int i = 0; near == null && i < offsets.length; i++)
+            near = spaceReserve(level, x + offsets[i][0], z + offsets[i][1], y + 15);
+        if (direct != null)
+            return Component.translatable("item.hbm.oil_detector.bullseye" + direct).withStyle(ChatFormatting.DARK_GREEN);
+        if (near != null)
+            return Component.translatable("item.hbm.oil_detector.detected" + near).withStyle(ChatFormatting.GOLD);
+        return Component.translatable("item.hbm.oil_detector.noOil").withStyle(ChatFormatting.RED);
+    }
+
     private static Component scan(Level level, Player player) {
         int x = (int) player.getX();
         int y = (int) player.getY();
         int z = (int) player.getZ();
+        if (com.hbm.space.SpaceToggle.enabled()) return spaceScan(level, x, y, z);
 
         boolean direct = containsOil(level, x, z, y + 15, 5);
         boolean oil =

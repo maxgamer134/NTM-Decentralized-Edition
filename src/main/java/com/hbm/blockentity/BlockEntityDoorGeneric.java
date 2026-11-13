@@ -106,8 +106,12 @@ public class BlockEntityDoorGeneric extends BlockEntityLockableBase implements A
         if (state == STATE_OPENING || state == STATE_CLOSING) markChanged();
         updateDoorCells(door);
 
+        byte before = state;
         if (state == STATE_OPENING && openTicks == door.timeToOpen()) state = STATE_OPEN;
         if (state == STATE_CLOSING && openTicks == 0) state = STATE_CLOSED;
+        // NTM:Space: a door that finished opening or closing re-floods or cuts the air around it
+        if (state != before && com.hbm.space.SpaceToggle.enabled())
+            com.hbm.space.atmosphere.SpaceAtmosphere.sealChanged((ServerLevel) level, worldPosition);
         syncCoreOpen();
 
         networkPackNT(100);

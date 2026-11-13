@@ -48,6 +48,8 @@ public class ItemBombCaller extends ItemCompat {
                         case VT_STINGER_ROCKETS -> EntityBomber.statFacStinger(level, x, y, z);
                         case PIP_OH_GOD -> EntityBomber.statFacBoxcar(level, x, y, z);
                         case CLOUD_THE_CLOUD -> EntityBomber.statFacPC(level, x, y, z);
+                        // NTM:Space: an airliner that passes over and drops nothing
+                        case CIVILIAN_AIRLINER -> EntityBomber.variant(level, x, y + 16, z, 75, 125, 90000, 8, 9);
                     };
             level.addFreshEntity(bomber);
             player.sendSystemMessage(
@@ -91,7 +93,9 @@ public class ItemBombCaller extends ItemCompat {
         ATOMIC_BOMB,
         VT_STINGER_ROCKETS,
         PIP_OH_GOD,
-        CLOUD_THE_CLOUD;
+        CLOUD_THE_CLOUD,
+        /** NTM:Space's; it registers with Space (SpaceExtras). */
+        CIVILIAN_AIRLINER;
 
         public String key() {
             String[] words = name().toLowerCase(Locale.ROOT).split("_");

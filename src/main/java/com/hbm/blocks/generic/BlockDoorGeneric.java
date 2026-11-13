@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
 public class BlockDoorGeneric extends BlockMultiblockCore
-        implements ITickingBlock, IBomb, IToolable {
+        implements ITickingBlock, IBomb, IToolable, com.hbm.space.atmosphere.IBlockSealable {
     public static final IntegerProperty SKIN = IntegerProperty.create("skin", 0, 6);
 
     public static final BooleanProperty OPEN = BooleanProperty.create("open");
@@ -55,6 +55,19 @@ public class BlockDoorGeneric extends BlockMultiblockCore
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         super.createBlockStateDefinition(builder);
         builder.add(SKIN, OPEN);
+    }
+
+    /**
+     * NTM:Space: a door holds air wherever it blocks movement. The core counts as shut only
+     * while the whole door is; {@code pos} may be the core or one of its cells.
+     */
+    @Override
+    public boolean isSealed(Level level, BlockPos pos) {
+        BlockState here = level.getBlockState(pos);
+        if (here.getBlock() instanceof com.hbm.blocks.multiblock.BlockMultiblockGeometryCell)
+            return !com.hbm.blocks.multiblock.BlockMultiblockGeometryCell.isOpenCell(here);
+        return level.getBlockEntity(pos) instanceof BlockEntityDoorGeneric door
+                && door.state == BlockEntityDoorGeneric.STATE_CLOSED;
     }
 
     @Override

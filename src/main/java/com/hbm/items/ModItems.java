@@ -8088,8 +8088,11 @@ public final class ModItems {
             lootCrate("loot_misc", ItemLootCrate.LIST_MISC);
     public static final ItemFamily<ItemBombCaller.EnumCallerType, ItemBombCaller> BOMB_CALLER =
             Reg.family(
-                            "bomb_caller",
-                            ItemBombCaller.EnumCallerType.class,
+                            // NTM:Space's airliner caller registers with Space (SpaceExtras)
+                            java.util.Arrays.stream(ItemBombCaller.EnumCallerType.values())
+                                    .filter(t -> t != ItemBombCaller.EnumCallerType.CIVILIAN_AIRLINER)
+                                    .toArray(ItemBombCaller.EnumCallerType[]::new),
+                            t -> "bomb_caller_" + t.name().toLowerCase(java.util.Locale.ROOT),
                             ItemBombCaller::new,
                             () -> new Item.Properties().stacksTo(1))
                     .creative(

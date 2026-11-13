@@ -1087,6 +1087,15 @@
       }
     ]
   },
+  "entity.jet_loop_bomb": {
+    "category": "player",
+    "sounds": [
+      {
+        "name": "hbm:entity/jetbomb2",
+        "stream": false
+      }
+    ]
+  },
   "entity.bomber_loop": {
     "category": "player",
     "sounds": [

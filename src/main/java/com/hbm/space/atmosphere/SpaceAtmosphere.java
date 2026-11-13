@@ -228,6 +228,12 @@ public final class SpaceAtmosphere {
     private static boolean wasSealed(ServerLevel level, BlockPos pos, BlockState old) {
         if (old.isAir() || old.liquid() || !old.isSolid()) return false;
         if (old.getBlock() instanceof IBlockSealable) return true;
+        // a door's cell was shut if it was closed, however thin the panel
+        if (old.getBlock() instanceof com.hbm.blocks.multiblock.BlockMultiblockGeometryCell) {
+            BlockPos core = com.hbm.blocks.multiblock.MultiblockSurface.coreOfAny(level, pos, old);
+            if (core != null && level.getBlockState(core).getBlock() instanceof com.hbm.blocks.generic.BlockDoorGeneric)
+                return !com.hbm.blocks.multiblock.BlockMultiblockGeometryCell.isOpenCell(old);
+        }
         return old.isCollisionShapeFullBlock(level, pos);
     }
 

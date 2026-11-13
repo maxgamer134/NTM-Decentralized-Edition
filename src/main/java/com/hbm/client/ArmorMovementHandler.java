@@ -93,14 +93,20 @@ public final class ArmorMovementHandler {
 
         if (!player.isShiftKeyDown() && !player.onGround() && props.enableBackpack) {
             player.fallDistance = 0;
+            // NTM:Space: hovering also brakes a climb, keeps speed only while steering, and
+            // flies forward only while sprinting
+            boolean space = com.hbm.space.SpaceToggle.changes();
             double dy =
                     motion.y < -1D
                             ? motion.y + 0.4D
-                            : motion.y < -0.1D ? motion.y + 0.2D : motion.y < 0D ? 0D : motion.y;
-            double dx = motion.x * 1.05D;
-            double dz = motion.z * 1.05D;
+                            : motion.y < -0.1D
+                                    ? motion.y + 0.2D
+                                    : space && motion.y > 0.1D ? motion.y - 0.2D : motion.y < 0D ? 0D : motion.y;
             float forward = forwardInput();
-            if (forward != 0F) {
+            boolean steering = !space || forward != 0F || strafeInput() != 0F;
+            double dx = steering ? motion.x * 1.05D : motion.x;
+            double dz = steering ? motion.z * 1.05D : motion.z;
+            if (forward != 0F && (!space || player.isSprinting())) {
                 Vec3 look = player.getLookAngle();
                 dx += look.x * 0.25D * forward;
                 dz += look.z * 0.25D * forward;
@@ -108,7 +114,9 @@ public final class ArmorMovementHandler {
             player.setDeltaMovement(dx, dy, dz);
         }
 
-        if (player.isShiftKeyDown() && !player.onGround()) {
+        // NTM:Space: with no gravity, sneaking descends only in hover mode
+        if (player.isShiftKeyDown() && !player.onGround()
+                && (!com.hbm.space.SpaceToggle.changes() || gravity > 0F || props.enableBackpack)) {
             Vec3 current = player.getDeltaMovement();
             player.setDeltaMovement(current.x, current.y - 0.1D, current.z);
         }

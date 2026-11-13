@@ -412,7 +412,17 @@ public final class SpaceExtras {
                 z);
     }
 
+    /** NTM:Space's civilian airliner caller and its jet loop. */
+    public static final RegistryHandle<com.hbm.items.tool.ItemBombCaller> BOMB_CALLER_AIRLINER = Reg.item(
+            "bomb_caller_civilian_airliner",
+            props -> new com.hbm.items.tool.ItemBombCaller(props, com.hbm.items.tool.ItemBombCaller.EnumCallerType.CIVILIAN_AIRLINER),
+            () -> new Item.Properties().stacksTo(1));
+    public static final RegistryHandle<net.minecraft.sounds.SoundEvent> JET_LOOP_BOMB =
+            com.hbm.registration.NeoForgeRegistrar.registerSound("entity.jet_loop_bomb");
+
     public static void init() {
+        after(CreativeContents.Tab.WEAPONS, "bomb_caller_atomic_bomb", java.util.List.of(BOMB_CALLER_AIRLINER));
+        com.hbm.entity.logic.EntityBomber.addonLoop(9, JET_LOOP_BOMB::get);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_americium242", WASTE_SHORT);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_tiny_americium242", WASTE_SHORT_TINY);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_depleted_americium242", WASTE_SHORT_DEPLETED);

@@ -207,6 +207,18 @@ public final class GunContent {
         return NUKES; // the nuke kits, cores, parts and custom nuke charges
     }
 
+    private static boolean secretPartOn(String part) {
+        if (BalanceConfig.enableSecretPartRecipes) return true;
+        return switch (part) {
+            case "selenium_steel" -> BalanceConfig.enableSecretSeleniumSteelRecipe;
+            case "canister" -> BalanceConfig.enableSecretCanisterRecipe;
+            case "controller" -> BalanceConfig.enableSecretControllerRecipe;
+            case "folly" -> BalanceConfig.enableSecretFollyRecipe;
+            case "aberrator" -> BalanceConfig.enableSecretAberratorRecipe;
+            default -> false;
+        };
+    }
+
     /** Ids of the recipes whose json names a disabled item anywhere (output, input, catalyst). */
     public static Set<ResourceLocation> recipesToDrop(Map<ResourceLocation, JsonElement> recipes) {
         Set<ResourceLocation> drop = new HashSet<>();
@@ -215,10 +227,10 @@ public final class GunContent {
             if (!id.getNamespace().equals(NuclearTech.MOD_ID)) return;
             String path = id.getPath();
             if (!BalanceConfig.enablePedestalRecipe && path.equals("pedestal_block")) drop.add(id);
-            if (!BalanceConfig.enableSecretPartRecipes
-                    && path.startsWith("precision_assembler/precass.item_secret_")
-                    && !path.endsWith(".recycle")) drop.add(id);
-            if (!BalanceConfig.enableSecretPartRecipes && path.equals("stone_keyhole_meta")) drop.add(id);
+            if (path.startsWith("precision_assembler/precass.item_secret_")
+                    && !path.endsWith(".recycle")
+                    && !secretPartOn(path.substring("precision_assembler/precass.item_secret_".length()))) drop.add(id);
+            if (!BalanceConfig.enableRedRoomKeyholeRecipe && path.equals("stone_keyhole_meta")) drop.add(id);
         });
         Set<Item> items = disabled();
         if (items.isEmpty()) return drop;

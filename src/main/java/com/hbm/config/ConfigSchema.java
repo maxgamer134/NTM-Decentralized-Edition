@@ -182,8 +182,27 @@ public final class ConfigSchema {
     public static final ConfigEntry<Boolean> ENABLE_SECRET_PART_RECIPES =
             bool(Domain.CONTENT, "guns", "enable_secret_part_recipes", false,
                     "Lets the precision assembler make the secret gun parts (selenium steel, the SB-26"
-                            + " canister, the control unit, the folly and aberrator parts), and lets the red room keyhole be crafted. Recycling broken"
+                            + " canister, the control unit, the folly and aberrator parts); the switches below turn on one each. Recycling broken"
                             + " ones works either way.");
+    public static final ConfigEntry<Boolean> ENABLE_RED_ROOM_KEYHOLE_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_red_room_keyhole_recipe", false,
+                    "Lets the red room keyhole (Strange Red Room Brick) be crafted from bricks, starmetal,"
+                            + " alexandrite and red dye.");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_SELENIUM_STEEL_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_secret_selenium_steel_recipe", false,
+                    "Lets the precision assembler make the selenium steel (on with enable_secret_part_recipes too).");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_CANISTER_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_secret_canister_recipe", false,
+                    "Lets the precision assembler make the SB-26 canister (on with enable_secret_part_recipes too).");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_CONTROLLER_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_secret_controller_recipe", false,
+                    "Lets the precision assembler make the control unit (on with enable_secret_part_recipes too).");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_FOLLY_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_secret_folly_recipe", false,
+                    "Lets the precision assembler make the folly part (on with enable_secret_part_recipes too).");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_ABERRATOR_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_secret_aberrator_recipe", false,
+                    "Lets the precision assembler make the aberrator part (on with enable_secret_part_recipes too).");
 
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =
             bool(
@@ -895,6 +914,12 @@ public final class ConfigSchema {
                     DISABLE_WAR_MISC,
                     ENABLE_PEDESTAL_RECIPE,
                     ENABLE_SECRET_PART_RECIPES,
+                    ENABLE_RED_ROOM_KEYHOLE_RECIPE,
+                    ENABLE_SECRET_SELENIUM_STEEL_RECIPE,
+                    ENABLE_SECRET_CANISTER_RECIPE,
+                    ENABLE_SECRET_CONTROLLER_RECIPE,
+                    ENABLE_SECRET_FOLLY_RECIPE,
+                    ENABLE_SECRET_ABERRATOR_RECIPE,
                     DISABLE_HEAVY_TURRETS,
                     DISABLE_TURRET_HENRY,
                     DISABLE_TURRET_GREG,

@@ -16,6 +16,12 @@ public final class BalanceConfig {
     public static boolean disableWarMisc = false;
     public static boolean enablePedestalRecipe = false;
     public static boolean enableSecretPartRecipes = false;
+    public static boolean enableRedRoomKeyholeRecipe = false;
+    public static boolean enableSecretSeleniumSteelRecipe = false;
+    public static boolean enableSecretCanisterRecipe = false;
+    public static boolean enableSecretControllerRecipe = false;
+    public static boolean enableSecretFollyRecipe = false;
+    public static boolean enableSecretAberratorRecipe = false;
     public static boolean disableHeavyTurrets = false;
     public static boolean disableTurretHenry = false;
     public static boolean disableTurretGreg = false;
@@ -66,6 +72,12 @@ public final class BalanceConfig {
         disableWarMisc = c.get(ConfigSchema.DISABLE_WAR_MISC);
         enablePedestalRecipe = c.get(ConfigSchema.ENABLE_PEDESTAL_RECIPE);
         enableSecretPartRecipes = c.get(ConfigSchema.ENABLE_SECRET_PART_RECIPES);
+        enableRedRoomKeyholeRecipe = c.get(ConfigSchema.ENABLE_RED_ROOM_KEYHOLE_RECIPE);
+        enableSecretSeleniumSteelRecipe = c.get(ConfigSchema.ENABLE_SECRET_SELENIUM_STEEL_RECIPE);
+        enableSecretCanisterRecipe = c.get(ConfigSchema.ENABLE_SECRET_CANISTER_RECIPE);
+        enableSecretControllerRecipe = c.get(ConfigSchema.ENABLE_SECRET_CONTROLLER_RECIPE);
+        enableSecretFollyRecipe = c.get(ConfigSchema.ENABLE_SECRET_FOLLY_RECIPE);
+        enableSecretAberratorRecipe = c.get(ConfigSchema.ENABLE_SECRET_ABERRATOR_RECIPE);
         disableHeavyTurrets = c.get(ConfigSchema.DISABLE_HEAVY_TURRETS);
         disableTurretHenry = c.get(ConfigSchema.DISABLE_TURRET_HENRY);
         disableTurretGreg = c.get(ConfigSchema.DISABLE_TURRET_GREG);

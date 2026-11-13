@@ -116,11 +116,14 @@ public class MapGenTiltedSpires extends MapGenBase {
 			int ox = (int)(tx * (curve ? 800 : 8));
 			int oz = (int)(tz * (curve ? 800 : 8));
 
+			// the spires stand 1.5 times as tall, as the land they rise from does
+			int top = Math.min(ChunkProviderCelestial.MAX_Y - 2, Features.stretchUp(mid + 63));
+
 			for(int bx = 15; bx >= 0; bx--) { // bx, bz is the coordinate of the block we're modifying, relative to the generating chunk origin
 				for(int bz = 15; bz >= 0; bz--) {
 					int d = 0;
 
-					for(int y = mid + 63; y >= 0; y--) {
+					for(int y = top; y >= ChunkProviderCelestial.MIN_Y; y--) {
 						int index = ChunkProviderCelestial.idx(bx, bz, y);
 
 						// Run until the first opaque block
@@ -128,9 +131,9 @@ public class MapGenTiltedSpires extends MapGenBase {
 							// x, z are the coordinates relative to the target virtual chunk origin
 							int x = xCoord * 16 + bx - ox;
 							int z = zCoord * 16 + bz - oz;
-							int oy = y - mid;
+							float oy = (y > 63 ? 63 + (y - 63) / 1.5F : y) - mid;
 
-							float factor = (float) oy;
+							float factor = oy;
 							if(curve) factor *= factor;
 
 							x += tx * factor;

@@ -11,6 +11,9 @@ import com.hbm.blocks.multiblock.BlockMultiblockCore;
 import com.hbm.blocks.multiblock.MultiblockLayout;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
+import com.hbm.interfaces.ILookOverlay;
+import com.hbm.inventory.fluid.NTMFluidProperties;
+import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.items.CreativeContents;
 import com.hbm.lib.Library;
 import com.hbm.registration.Reg;
@@ -19,6 +22,7 @@ import com.hbm.space.rocket.SpaceLayouts;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -44,7 +48,7 @@ public final class SpaceRadiator {
         CreativeContents.insertAfter(CreativeContents.Tab.MACHINES, Library.id("machine_condenser_powered"), () -> new ItemStack(BLOCK.get()));
     }
 
-    public static class Radiator extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock {
+    public static class Radiator extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock, ILookOverlay {
         public Radiator(Properties props) {
             super(props);
         }
@@ -72,6 +76,19 @@ public final class SpaceRadiator {
             layout.port(-1, 1, 0);
             layout.port(-1, -1, 0);
             return layout.build(this, declaredCaps, DIMS, 0, 0);
+        }
+
+        @Override
+        public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
+            BlockPos core = overlayCore(level, pos);
+            if (core == null || !(level.getBlockEntity(core) instanceof RadiatorBE be)) return;
+            info.title(getName(), 0xFFFF00, 0x404000);
+            info.input(tankLine(be.input));
+            info.output(tankLine(be.output));
+        }
+
+        private static String tankLine(FluidTankNTM tank) {
+            return NTMFluidProperties.clientName(tank.getFluid()) + ": " + tank.getFill() + "/" + tank.getMaxFill() + "mB";
         }
     }
 

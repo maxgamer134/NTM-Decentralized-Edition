@@ -103,7 +103,7 @@ public class MapGenBedrockOil extends MapGenBaseMeta {
 
 				if(rx >= 0 && rx < 16 && rz >= 0 && rz < 16) {
 					// find ground level
-					for(int y = 127; y >= 4; y--) {
+					for(int y = ChunkProviderCelestial.MAX_Y - 1; y >= ChunkProviderCelestial.MIN_Y + 4; y--) {
 						int index = ChunkProviderCelestial.idx(rx, rz, y);
 
 						if(blocks[index] != null && Material.isOpaqueCube(blocks[index])) {

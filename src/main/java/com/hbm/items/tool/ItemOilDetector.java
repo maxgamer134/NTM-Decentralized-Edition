@@ -42,7 +42,10 @@ public class ItemOilDetector extends ItemCompat {
 
     /** NTM:Space: the first oil, gas or brine reserve in the column, its key suffix, or null. */
     private static @org.jspecify.annotations.Nullable String spaceReserve(Level level, int x, int z, int topY) {
-        for (int y = topY; y > 5; y--) {
+        // the planets' reserves lie deeper, down to the bedrock oil at the bottom of the world
+        int floor = com.hbm.NuclearTech.MOD_ID.equals(level.dimension().location().getNamespace())
+                ? level.getMinBuildHeight() : 5;
+        for (int y = topY; y > floor; y--) {
             var block = level.getBlockState(new BlockPos(x, y, z)).getBlock();
             if (block instanceof com.hbm.space.BlockSpaceOreFluid reserve) return reserve.reserveSuffix();
             if (block == ModBlocks.ORE_OIL.get()) return "";

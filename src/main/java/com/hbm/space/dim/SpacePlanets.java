@@ -62,7 +62,7 @@ final class SpacePlanets {
      * every body too, in its own stone. They hung off DecorateBiomeEvent.Pre, so they come before
      * the world generators.
      */
-    private static final Planet.Decorator GLOBAL_STRATA = (random, chunkX, chunkZ, world) -> {
+    static final Planet.Decorator GLOBAL_STRATA = (random, chunkX, chunkZ, world) -> {
         int x = chunkX * 16, z = chunkZ * 16;
         com.hbm.space.SpaceExtras.layer(world, "hematite", stone("stone_resource_hematite"), 0.04D, 0.25D, 230D, x, z);
         com.hbm.space.SpaceExtras.layer(world, "bauxite", stone("stone_resource_bauxite"), 0.03D, 0.15D, 300D, x, z);
@@ -73,11 +73,15 @@ final class SpacePlanets {
         return net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(com.hbm.lib.Library.id(name)).defaultBlockState();
     }
 
-    /** Every biome a planet's layers can give: its own, and the vanilla rivers 1.7's river mix puts in. */
+    /** Every biome a planet's layers can give: its own. */
     private static List<BiomeGenBase> biomes(BiomeGenBase... own) {
+        return List.of(own);
+    }
+
+    /** Duna's and Moho's, whose 1.7 river mix lays the plain river over them too (Eve and Tekto swap in their own). */
+    private static List<BiomeGenBase> biomesAndRiver(BiomeGenBase... own) {
         List<BiomeGenBase> all = new ArrayList<>(List.of(own));
         all.add(BiomeGenBase.river);
-        all.add(BiomeGenBase.frozenRiver);
         return all;
     }
 
@@ -102,7 +106,7 @@ final class SpacePlanets {
                 .ice().acid(() -> fluid("NITRIC_ACID", 500)));
 
         Planets.register(new Planet(Body.DUNA, () -> LegacyBlocks.b("duna_rock"), SpacePlanets::duna, ChunkProviderDuna::new,
-                biomes(BiomeGenBaseDuna.dunaPlains, BiomeGenBaseDuna.dunaLowlands, BiomeGenBaseDuna.dunaPolar,
+                biomesAndRiver(BiomeGenBaseDuna.dunaPlains, BiomeGenBaseDuna.dunaLowlands, BiomeGenBaseDuna.dunaPolar,
                         BiomeGenBaseDuna.dunaHills, BiomeGenBaseDuna.dunaPolarHills),
                 decorators(new WorldGeneratorDuna())).ice());
 
@@ -120,7 +124,7 @@ final class SpacePlanets {
                 biomes(BiomeGenBaseMinmus.minmusPlains, BiomeGenBaseMinmus.minmusCanyon), decorators(new WorldGeneratorMinmus())).ice());
 
         Planets.register(new Planet(Body.MOHO, () -> LegacyBlocks.b("moho_stone"), SpacePlanets::moho, ChunkProviderMoho::new,
-                biomes(BiomeGenBaseMoho.mohoCrag, BiomeGenBaseMoho.mohoBasalt, BiomeGenBaseMoho.mohoLavaSea,
+                biomesAndRiver(BiomeGenBaseMoho.mohoCrag, BiomeGenBaseMoho.mohoBasalt, BiomeGenBaseMoho.mohoLavaSea,
                         BiomeGenBaseMoho.mohoPlateau),
                 decorators(new WorldGeneratorMoho())));
 

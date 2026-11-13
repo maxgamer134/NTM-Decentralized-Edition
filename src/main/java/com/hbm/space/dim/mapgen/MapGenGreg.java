@@ -51,6 +51,9 @@ public class MapGenGreg extends MapGenCaves {
 
 	public Block stoneBlock = Blocks.STONE;
 
+	/** The planets' -64..320 as cells of 8, from the cell 1.7's y 0 is now the eighth of. */
+	private static final int CELLS = ChunkProviderCelestial.H / 8, CELL_OFFSET = ChunkProviderCelestial.MIN_Y / 8;
+
 	private double[] caveNoise;
 	private float[] biomeWeightTable;
 	private NoiseCaveGenerator noiseCaves;
@@ -66,7 +69,7 @@ public class MapGenGreg extends MapGenCaves {
 	@Override
 	public void func_151539_a(Object c, World w, int chunkX, int chunkZ, Block[] blocks) {
 		if (worldObj != w) {
-			this.caveNoise = new double[825];
+			this.caveNoise = new double[25 * (CELLS + 1)];
 			this.biomeWeightTable = new float[25];
 			this.field_147431_j = new Noise.Octaves(this.rand, 16);
 			this.field_147432_k = new Noise.Octaves(this.rand, 16);
@@ -104,12 +107,12 @@ public class MapGenGreg extends MapGenCaves {
 			int ix1 = (noiseX + 1) * 5;
 
 			for (int noiseZ = 0; noiseZ < 4; ++noiseZ) {
-				int ix0z0 = (ix0 + noiseZ) * 33;
-				int ix0z1 = (ix0 + noiseZ + 1) * 33;
-				int ix1z0 = (ix1 + noiseZ) * 33;
-				int ix1z1 = (ix1 + noiseZ + 1) * 33;
+				int ix0z0 = (ix0 + noiseZ) * (CELLS + 1);
+				int ix0z1 = (ix0 + noiseZ + 1) * (CELLS + 1);
+				int ix1z0 = (ix1 + noiseZ) * (CELLS + 1);
+				int ix1z1 = (ix1 + noiseZ + 1) * (CELLS + 1);
 
-				for (int noiseY = 0; noiseY < 32; ++noiseY) {
+				for (int noiseY = 0; noiseY < CELLS; ++noiseY) {
 					double x0z0 = this.caveNoise[ix0z0 + noiseY];
 					double x0z1 = this.caveNoise[ix0z1 + noiseY];
 					double x1z0 = this.caveNoise[ix1z0 + noiseY];
@@ -126,7 +129,7 @@ public class MapGenGreg extends MapGenCaves {
 						double z1Add = (x1z1 - x0z1) * 0.25D;
 
 						for (int pieceX = 0; pieceX < 4; ++pieceX) {
-							int index = ChunkProviderCelestial.idx(pieceX + noiseX * 4, noiseZ * 4, noiseY * 8 + pieceY);
+							int index = ChunkProviderCelestial.idx(pieceX + noiseX * 4, noiseZ * 4, noiseY * 8 + pieceY + ChunkProviderCelestial.MIN_Y);
 							int idAdd = ChunkProviderCelestial.H;
 							index -= idAdd;
 							double densityAdd = (z1 - z0) * 0.25D;
@@ -135,8 +138,8 @@ public class MapGenGreg extends MapGenCaves {
 							for (int pieceZ = 0; pieceZ < 4; ++pieceZ) {
 								index += idAdd;
 								if ((density += densityAdd) < 0) {
-									int y = noiseY * 8 + pieceY;
-									if (y > 0) {
+									int y = noiseY * 8 + pieceY + ChunkProviderCelestial.MIN_Y;
+									if (y > ChunkProviderCelestial.MIN_Y) {
 										if (blocks[index] != Blocks.BEDROCK) {
 											blocks[index] = null;
 										}
@@ -161,9 +164,9 @@ public class MapGenGreg extends MapGenCaves {
 	private void generateNoiseCavesNoise(int chunkX, int chunkZ) {
 		int cx = chunkX * 4, cz = chunkZ * 4;
 		this.depthNoises = this.noiseGen6.generateNoiseOctaves(this.depthNoises, cx, cz, 5, 5, 200.0D, 200.0D, 0.5D);
-		this.interpolationNoises = this.interpolationNoise.generateNoiseOctaves(this.interpolationNoises, cx, 0, cz, 5, 33, 5, 8.555150000000001D, 4.277575000000001D, 8.555150000000001D);
-		this.lowerInterpolatedNoises = this.field_147431_j.generateNoiseOctaves(this.lowerInterpolatedNoises, cx, 0, cz, 5, 33, 5, 684.412D, 684.412D, 684.412D);
-		this.upperInterpolatedNoises = this.field_147432_k.generateNoiseOctaves(this.upperInterpolatedNoises, cx, 0, cz, 5, 33, 5, 684.412D, 684.412D, 684.412D);
+		this.interpolationNoises = this.interpolationNoise.generateNoiseOctaves(this.interpolationNoises, cx, CELL_OFFSET, cz, 5, CELLS + 1, 5, 8.555150000000001D, 4.277575000000001D, 8.555150000000001D);
+		this.lowerInterpolatedNoises = this.field_147431_j.generateNoiseOctaves(this.lowerInterpolatedNoises, cx, CELL_OFFSET, cz, 5, CELLS + 1, 5, 684.412D, 684.412D, 684.412D);
+		this.upperInterpolatedNoises = this.field_147432_k.generateNoiseOctaves(this.upperInterpolatedNoises, cx, CELL_OFFSET, cz, 5, CELLS + 1, 5, 684.412D, 684.412D, 684.412D);
 		BiomeGenBase[] biomes = null;
 		biomes = this.worldObj.getWorldChunkManager().getBiomesForGeneration(biomes, cx - 2, cz - 2, 10, 10);
 		int i = 0, j = 0;
@@ -237,7 +240,10 @@ public class MapGenGreg extends MapGenCaves {
 				double startLevel = 56 + (lowestScaledDepth * 20);
 				int sub = (int) (startLevel / 8);
 
-				for (int y = 0; y < 33; y++) {
+				// 1.7's column cell by cell from the new floor, then stretched upward from the sea like the terrain
+				double[] column = new double[CELLS + 1];
+				for (int n = 0; n <= CELLS; n++) {
+					int y = n + CELL_OFFSET;
 					double falloff = ((double) y - terrainHeight) * 12.0D * 128.0D / 256.0D / scaledScale;
 
 					if (falloff < 0.0D) {
@@ -251,7 +257,7 @@ public class MapGenGreg extends MapGenCaves {
 
 					// Scale down the last 3 layers
 					if (y > 29) {
-						double lerp = (float) (y - 29) / 3.0F;
+						double lerp = Math.min(1.0D, (float) (y - 29) / 3.0F);
 						noise = noise * (1.0D - lerp) + -10.0D * lerp;
 					}
 
@@ -260,8 +266,15 @@ public class MapGenGreg extends MapGenCaves {
 					// Reduce so we don't break the surface
 					caveNoise = NoiseMath.clampedLerp(caveNoise, (lowestScaledDepth * -30) + 20, (y - sub + 2) / 2.0);
 
-					this.caveNoise[i] = caveNoise;
+					column[n] = caveNoise;
 					i++;
+				}
+				for (int n = 0; n <= CELLS; n++) {
+					double wy = n * 8 + ChunkProviderCelestial.MIN_Y;
+					double old = wy > 63 ? 63 + (wy - 63) / 1.5D : wy;
+					double c = (old - ChunkProviderCelestial.MIN_Y) / 8.0D;
+					int i0 = Math.min((int) Math.floor(c), CELLS - 1);
+					this.caveNoise[i - (CELLS + 1) + n] = Mth.lerp(c - i0, column[i0], column[i0 + 1]);
 				}
 			}
 		}
@@ -274,7 +287,7 @@ public class MapGenGreg extends MapGenCaves {
 		Block block = data[index];
 
 		if (block == stoneBlock || block == filler || block == top) {
-			if (y < 2) {
+			if (y < ChunkProviderCelestial.MIN_Y + 2) {
 				data[index] = Blocks.LAVA;
 			} else {
 				data[index] = null;

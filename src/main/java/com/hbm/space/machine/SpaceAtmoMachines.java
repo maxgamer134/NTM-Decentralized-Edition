@@ -13,6 +13,7 @@ import com.hbm.api.fluidmk2.IFluidHandlerMK2;
 import com.hbm.backport.InteractionResult;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
+import com.hbm.blockentity.AudioLoop;
 import com.hbm.blockentity.BlockEntityMachineBase;
 import com.hbm.blocks.ITickingBlock;
 import com.hbm.blocks.multiblock.BlockMultiblockCore;
@@ -22,6 +23,7 @@ import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.interfaces.IToolable;
 import com.hbm.inventory.fluid.NTMFluidProperties;
+import com.hbm.inventory.fluid.NTMFluidProperty;
 import com.hbm.inventory.fluid.NTMFluids;
 import com.hbm.inventory.fluid.tank.FluidTankAccess;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
@@ -33,19 +35,25 @@ import com.hbm.items.ModDataComponents;
 import com.hbm.items.machine.FluidIdentifierData;
 import com.hbm.lib.Library;
 import com.hbm.packet.SyncUnitSchema;
+import com.hbm.particle.CoolingTowerParticleOptions;
 import com.hbm.registration.Reg;
 import com.hbm.registration.RegistryHandle;
 import com.hbm.space.CelestialBody;
 import com.hbm.space.atmosphere.SpaceAtmosphere;
 import com.hbm.space.rocket.SpaceLayouts;
 import com.hbm.space.trait.CBT_Atmosphere;
+import com.hbm.sound.AudioSystem;
+import com.hbm.sound.AudioWrapper;
+import com.hbm.sound.ModSounds;
 import com.hbm.util.BobMathUtil;
 import io.netty.buffer.ByteBuf;
 import java.util.Set;
 import java.util.function.Consumer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -388,10 +396,11 @@ public final class SpaceAtmoMachines {
     }
 
     public static class EmitterBE extends BlockEntityMachineBase
-            implements IEnergyHandlerMK2, IFluidHandlerMK2, FluidTankAccess, SyncUnitSchema {
+            implements IEnergyHandlerMK2, IFluidHandlerMK2, FluidTankAccess, SyncUnitSchema, AudioLoop {
         public final FluidTankNTM tank = new FluidTankNTM(null, 50_000);
         public long power;
         public float fan, prevFan;
+        private @Nullable AudioWrapper audio;
 
         public EmitterBE(BlockPos pos, BlockState state) {
             super(EMITTER_BE.get(), pos, state, 0);
@@ -435,13 +444,52 @@ public final class SpaceAtmoMachines {
         @Override
         public void tickClient() {
             prevFan = fan;
-            if (power >= Math.max(tank.getFill() / 2, 1) * 10L) {
-                fan += 45;
-                if (fan >= 360) {
-                    fan -= 360;
-                    prevFan -= 360;
-                }
+            boolean running = power >= Math.max(tank.getFill() / 2, 1) * 10L;
+            audioLoop(running, 0.25F);
+            if (!running) return;
+            fan += 45;
+            if (fan >= 360) {
+                fan -= 360;
+                prevFan -= 360;
             }
+            Fluid type = tank.getTankType();
+            if (tank.getFill() <= 0 || type == null) return;
+            Direction dir = getBlockState().getValue(BlockMultiblockCore.FACING);
+            Direction rot = dir.getClockWise();
+            double x = worldPosition.getX() + 0.5 - dir.getStepX() * 0.5 + rot.getStepX() * 0.5;
+            double y = worldPosition.getY() + 2.5;
+            double z = worldPosition.getZ() + 0.5 - dir.getStepZ() * 0.5 + rot.getStepZ() * 0.5;
+            if (level.getNearestPlayer(x, y, z, 100.0D, false) == null) return;
+            NTMFluidProperty prop = NTMFluidProperties.get(type);
+            level.addParticle(new CoolingTowerParticleOptions.Builder()
+                    .setLift(0.5F)
+                    .setBaseScale(0.375F)
+                    .setMaxScale(3F)
+                    .setLife(100 + level.getRandom().nextInt(50))
+                    .setColor(prop != null ? prop.color() & 0xFFFFFF : CoolingTowerParticleOptions.NO_TINT)
+                    .build(), x, y, z, 0, 0.2, 0);
+        }
+
+        @Override
+        public AudioWrapper createAudioLoop() {
+            return AudioSystem.getLoopedSound(ModSounds.MOTOR_LOOP.get(), SoundSource.BLOCKS,
+                    worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), 0.25F, 10F, 1.0F, 20);
+        }
+
+        @Override
+        public void audioLoop(boolean running, float volume) {
+            audio = AudioLoop.loop(this, audio, running, volume, 0F, false);
+        }
+
+        @Override
+        public void audioLoop(boolean running, float volume, float pitch) {
+            audio = AudioLoop.loop(this, audio, running, volume, pitch, true);
+        }
+
+        @Override
+        public void setRemoved() {
+            audioLoop(false, 0F);
+            super.setRemoved();
         }
 
         @Override

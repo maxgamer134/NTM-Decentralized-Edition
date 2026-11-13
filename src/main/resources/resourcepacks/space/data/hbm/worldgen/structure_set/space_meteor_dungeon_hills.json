@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.053,
+    "salt": 996997020,
+    "separation": 4,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "hbm:space_meteor_dungeon_hills",
+      "weight": 1
+    }
+  ]
+}

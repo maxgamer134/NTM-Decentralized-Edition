@@ -98,7 +98,7 @@ public class MapGenCrater extends MapGenBase {
 
 							if(r - rand.nextInt(3) <= radius) {
 								// Carve out to intended depth
-								int dep = (int)Mth.clamp(depthFunc(r, radius, depth), 0, y - 1);
+								int dep = (int)Mth.clamp(depthFunc(r, radius, depth), 0, y - ChunkProviderCelestial.MIN_Y - 1);
 								for(int i = 0; i < dep; i++) {
 									blocks[index - i] = null;
 								}
@@ -106,7 +106,7 @@ public class MapGenCrater extends MapGenBase {
 								index -= dep;
 								y -= dep;
 
-								dep = Math.min(3, y - 1);
+								dep = Math.min(3, y - ChunkProviderCelestial.MIN_Y - 1);
 
 								// Fill back in
 								if(r + rand.nextInt(3) <= radius / 3D) {

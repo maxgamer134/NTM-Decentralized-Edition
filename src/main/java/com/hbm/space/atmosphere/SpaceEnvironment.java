@@ -283,8 +283,18 @@ public final class SpaceEnvironment implements EnvironmentProvider {
 
     @Override
     public int sunHeat(ServerLevel level, BlockPos pos, int heat) {
-        CelestialBody body = CelestialBody.getBodyOrNull(level.dimension());
-        return body == null ? heat : (int) (heat * body.getSunPower());
+        if (!CelestialBody.inOrbit(level) && CelestialBody.getBodyOrNull(level.dimension()) == null) return heat;
+        // the body's (or station's) sunlight, less what an eclipse covers
+        return (int) (heat * com.hbm.space.SpaceEclipse.sunPower(level, pos));
+    }
+
+    /** BlockPedestal's new moon on a celestial world: an eclipse by day. Orbit keeps vanilla's moon. */
+    @Override
+    public TriState eclipse(Level level) {
+        if (CelestialBody.inOrbit(level) || com.hbm.space.SpaceEclipse.surface(level) == null) return TriState.DEFAULT;
+        float angle = level.getTimeOfDay(0);
+        boolean day = angle <= 0.15F || angle >= 0.85F;
+        return day && com.hbm.space.SpaceEclipse.amount(level) > 0 ? TriState.TRUE : TriState.FALSE;
     }
 
     @Override

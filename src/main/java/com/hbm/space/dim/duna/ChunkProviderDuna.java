@@ -93,8 +93,12 @@ public class ChunkProviderDuna extends ChunkProviderCelestial {
 	public BlockMetaBuffer getChunkPrimer(int x, int z) {
 		// Instead of calling super, we want to do some generation before _and_ after block replacement, for shaping!
 		BlockMetaBuffer buffer = new BlockMetaBuffer();
+		// Seeded per chunk, so the surface doesn't depend on generation order
+		java.util.Random random = new java.util.Random((long) x * 341873128712L + (long) z * 132897987541L);
+		buffer.rand = random;
 		generateBlocks(x, z, buffer.blocks);
-		biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(biomesForGeneration, x * 16, z * 16, 16, 16);
+		BiomeGenBase[] biomesForGeneration = this.worldObj.getWorldChunkManager().loadBlockGeneratorData(null, x * 16, z * 16, 16, 16);
+		this.biomesForGeneration = biomesForGeneration;
 
 		boolean hasLowlands = false;
 		boolean hasNotLowlands = false;
@@ -109,7 +113,7 @@ public class ChunkProviderDuna extends ChunkProviderCelestial {
 		// Pre-biome blocks
 		if(hasPlateau) genPlateau.func_151539_a(this, worldObj, x, z, buffer.blocks);
 
-		replaceBlocksForBiome(x, z, buffer.blocks, buffer.metas, biomesForGeneration);
+		replaceBlocksForBiome(x, z, buffer.blocks, buffer.metas, biomesForGeneration, random);
 
 		// Post-biome blocks
 		if(hasLowlands) caveGenV2.func_151539_a(this, worldObj, x, z, buffer.blocks);

@@ -7,6 +7,6 @@
   "spawn_overrides": {},
   "start_pool": "hbm:dres/start",
   "step": "strongholds",
-  "min_height": 40,
-  "max_height": 40
+  "min_height": 45,
+  "max_height": 45
 }

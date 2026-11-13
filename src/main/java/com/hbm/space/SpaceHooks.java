@@ -59,7 +59,7 @@ public final class SpaceHooks {
         // a bed only becomes your spawn where you could breathe waking up in it
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.event.entity.player.PlayerSetSpawnEvent event) -> {
             if (event.getNewSpawn() == null || event.getEntity().level().dimension() != event.getSpawnLevel()) return;
-            if (SpaceTime.body(event.getEntity().level()) == null) return;
+            if (SpaceTime.body(event.getEntity().level()) == null && !CelestialBody.inOrbit(event.getEntity().level())) return;
             if (event.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level
                     && !com.hbm.space.atmosphere.SpaceAtmosphere.canBreathe(
                             com.hbm.space.atmosphere.SpaceAtmosphere.getAtmosphere(level, event.getNewSpawn())))
@@ -148,7 +148,7 @@ public final class SpaceHooks {
 
     private static void light(net.minecraft.server.level.ServerLevel level, net.minecraft.core.BlockPos pos,
             net.minecraft.world.level.block.state.BlockState state, boolean add) {
-        if (pos.getY() < level.getSeaLevel() || state.getLightEmission() <= 10) return;
+        if (pos.getY() < SpaceWeather.horizon(level) || state.getLightEmission() <= 10) return;
         CelestialBody body = CelestialBody.getBody(level);
         com.hbm.space.trait.CBT_Lights lights = body.getTrait(com.hbm.space.trait.CBT_Lights.class);
         if (lights == null) lights = new com.hbm.space.trait.CBT_Lights();

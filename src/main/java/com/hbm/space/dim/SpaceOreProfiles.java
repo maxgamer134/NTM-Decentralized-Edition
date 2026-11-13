@@ -50,6 +50,15 @@ public final class SpaceOreProfiles {
             List<Features.Vein> veins =
                     Features.record(
                             () -> {
+                                // Laythe's vanilla ores come from its biome decorator
+                                if (world.stone() == Blocks.STONE) {
+                                    try {
+                                        planet.provider(0L).populate(world, 1, 1);
+                                    } catch (RuntimeException e) {
+                                        LogUtils.getLogger()
+                                                .warn("Could not list {}'s ores", planet.name, e);
+                                    }
+                                }
                                 for (Planet.Decorator decorator : planet.decorators) {
                                     try {
                                         // chunk 1,1: chunk 0,0 of Duna builds the martian base

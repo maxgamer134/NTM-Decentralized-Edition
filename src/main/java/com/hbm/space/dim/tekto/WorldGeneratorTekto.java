@@ -71,7 +71,7 @@ public class WorldGeneratorTekto implements Planet.Decorator {
 
 		for(int x = 0; x < 16; x++) {
 			for(int z = 0; z < 16; z++) {
-				for(int y = 32; y < 128; y++) {
+				for(int y = 32; y < ChunkProviderCelestial.MAX_Y; y++) { // volcano peaks stand on the taller land
 					int ox = i + x + 8;
 					int oz = j + z + 8;
 					Block b = world.getBlock(ox, y, oz);

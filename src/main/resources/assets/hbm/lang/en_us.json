@@ -10023,14 +10023,6 @@
   "jei.hbm.space.he_per_burn": "%s HE per burn",
   "jei.hbm.space.pwr_heat": "%s TU: %s mB to %s mB",
   "jei.hbm.space.he_per_mb": "%s HE/mB",
-  "block.hbm.deep_moon_rock": "Mun Deeprock",
-  "block.hbm.deep_duna_rock": "Duna Deeprock",
-  "block.hbm.deep_eve_rock": "Eve Deeprock",
-  "block.hbm.deep_ike_stone": "Ike Deeprock",
-  "block.hbm.deep_dres_rock": "Dres Deeprock",
-  "block.hbm.deep_moho_stone": "Moho Deeprock",
-  "block.hbm.deep_minmus_stone": "Minmus Deeprock",
-  "block.hbm.deep_basalt": "Tekto Deeprock",
   "block.hbm.stalactite_flesh": "Fleshy Stalactite",
   "block.hbm.stalagmite_flesh": "Fleshy Stalagmite",
   "desc.hbm.algae_film.line1": "Converts CO2 back into O2.",
@@ -10085,5 +10077,7 @@
   "gui.sat.settings.tooltip.scroll_phase": "Scroll with your mouse wheel to change orbital phase",
   "gui.sat.settings.tooltip.scroll_blink": "Scroll with your mouse wheel to change blink time",
   "block.hbm.multiblock_cell_h-1_r3600000": "Machine Structure",
-  "block.hbm.multiblock_cell_h1_r5": "Machine Structure"
+  "block.hbm.multiblock_cell_h1_r5": "Machine Structure",
+  "commands.weather.no_cycle": "This celestial body has no weather cycle.",
+  "biome.hbm.planet_river": "River"
 }

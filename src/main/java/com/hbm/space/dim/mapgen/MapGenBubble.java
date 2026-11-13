@@ -99,7 +99,7 @@ public class MapGenBubble extends MapGenBaseMeta {
 			double radiusSqr = (radius * radius) / 2; // original OilBubble implementation divided the square by 2 for some reason
 
 			int yMin = Math.max(ChunkProviderCelestial.MIN_Y + 1, Mth.floor(yCoord - radius));
-			int yMax = Math.min(127, Mth.ceil(yCoord + radius));
+			int yMax = Math.min(ChunkProviderCelestial.MAX_Y, Mth.ceil(yCoord + radius));
 
 			for(int bx = 15; bx >= 0; bx--) // bx, bz is the coordinate of the block we're modifying, relative to the generating chunk origin
 			for(int bz = 15; bz >= 0; bz--)
@@ -142,7 +142,7 @@ public class MapGenBubble extends MapGenBaseMeta {
 
 			if(rx >= 0 && rx < 16 && rz >= 0 && rz < 16) {
 				// find ground level
-				for(int y = 127; y >= 4; y--) {
+				for(int y = ChunkProviderCelestial.MAX_Y - 1; y >= ChunkProviderCelestial.MIN_Y + 4; y--) {
 					int index = ChunkProviderCelestial.idx(rx, rz, y);
 
 					if(blocks[index] != null && Material.isOpaqueCube(blocks[index])) {
@@ -191,7 +191,7 @@ public class MapGenBubble extends MapGenBaseMeta {
 			if(x >= 0 && x < 16 && z >= 0 && z < 16) {
 				int solids = 0;
 				
-				for(int y = 127; y >= 0; y--) {
+				for(int y = ChunkProviderCelestial.MAX_Y - 1; y >= ChunkProviderCelestial.MIN_Y; y--) {
 					int index = ChunkProviderCelestial.idx(x, z, y);
 					if(blocks[index] == null) continue;
 					

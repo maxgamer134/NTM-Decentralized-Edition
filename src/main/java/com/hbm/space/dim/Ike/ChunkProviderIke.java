@@ -54,7 +54,7 @@ public class ChunkProviderIke extends ChunkProviderCelestial {
 	private MapGenTiltedSpires spires = new MapGenTiltedSpires(6, 6, 0F);
 
 	private MapGenBubble brine = new MapGenBubble(WorldConfig.ikeBrineSpawn);
-	private MapGenCrater sellafield = new MapGenCrater(WorldConfig.radfreq / 10);
+	private MapGenTerrainCrater sellafield = new MapGenTerrainCrater(WorldConfig.radfreq / 10);
 
 	public ChunkProviderIke(World world, long seed) {
 		super(world, seed);

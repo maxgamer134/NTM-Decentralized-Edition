@@ -396,11 +396,16 @@ public final class SpaceLaunchPad {
         }
 
         public void launch() {
+            launch(null);
+        }
+
+        /** Launches the rocket, crediting whoever pressed the button. */
+        public void launch(@Nullable Player player) {
             if (!canLaunch()) return;
             // a pad on a Sable build starts the rocket in world space, along the pad's axis (as the Soyuz)
             double x = worldPosition.getX() + 0.5, y = worldPosition.getY() + 3, z = worldPosition.getZ() + 0.5;
             net.minecraft.world.phys.Vec3 at = com.hbm.backport.SubLevelSpace.toWorld(level, x, y, z);
-            EntityRideableRocket entity = EntityRideableRocket.of(level, at.x, at.y, at.z, getItem(ROCKET)).withProgram(getItem(DRIVE));
+            EntityRideableRocket entity = EntityRideableRocket.of(level, at.x, at.y, at.z, getItem(ROCKET)).withProgram(getItem(DRIVE)).launchedBy(player);
             entity.setLaunchAxis(com.hbm.backport.LaunchAxis.padUp(level, x, y, z));
             level.addFreshEntity(entity);
             for (FluidTankNTM tank : tanks) {
@@ -539,7 +544,12 @@ public final class SpaceLaunchPad {
 
         @Override
         public void receiveControl(CompoundTag data) {
-            if (data.getBoolean("launch")) launch();
+            receiveControl(null, data);
+        }
+
+        @Override
+        public void receiveControl(@Nullable Player player, CompoundTag data) {
+            if (data.getBoolean("launch")) launch(player);
         }
 
         @Override

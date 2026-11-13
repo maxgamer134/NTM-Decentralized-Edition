@@ -16,6 +16,13 @@ import com.hbm.blocks.multiblock.MultiblockLayout;
 import com.hbm.blocks.multiblock.MultiblockSurface;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
+import com.hbm.explosion.vanillant.ExplosionVNT;
+import com.hbm.explosion.vanillant.standard.BlockAllocatorStandard;
+import com.hbm.explosion.vanillant.standard.BlockMutatorFire;
+import com.hbm.explosion.vanillant.standard.BlockProcessorStandard;
+import com.hbm.explosion.vanillant.standard.EntityProcessorStandard;
+import com.hbm.explosion.vanillant.standard.ExplosionEffectStandard;
+import com.hbm.explosion.vanillant.standard.PlayerProcessorStandard;
 import com.hbm.interfaces.IToolable;
 import com.hbm.interfaces.ILookOverlay;
 import com.hbm.inventory.fluid.NTMFluidProperties;
@@ -624,7 +631,13 @@ public final class SpaceDyson {
                     if (state.isSolidRender(server, at) || be != null) {
                         if (detonate) {
                             server.removeBlock(at, false);
-                            server.explode(null, at.getX() + 0.5, at.getY() + 0.5, at.getZ() + 0.5, 3F, true, Level.ExplosionInteraction.BLOCK);
+                            ExplosionVNT vnt = new ExplosionVNT(server, at.getX(), at.getY(), at.getZ(), 3F);
+                            vnt.setBlockAllocator(new BlockAllocatorStandard());
+                            vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorFire()));
+                            vnt.setEntityProcessor(new EntityProcessorStandard().allowSelfDamage());
+                            vnt.setPlayerProcessor(new PlayerProcessorStandard());
+                            vnt.setSFX(new ExplosionEffectStandard());
+                            vnt.explode();
                         }
                         beamLength = i;
                         break;
@@ -633,9 +646,17 @@ public final class SpaceDyson {
                 Vec3 a = Vec3.atCenterOf(worldPosition).add(0, 1, 0);
                 Vec3 b = a.add(dir.getStepX() * beamLength, 0, dir.getStepZ() * beamLength);
                 AABB beam = new AABB(a, b).inflate(0.4, 0.5, 0.4);
+                // a fiery blast at everything caught in the beam, which then burns for a 1000th of the energy
                 for (LivingEntity entity : server.getEntitiesOfClass(LivingEntity.class, beam)) {
-                    entity.hurt(server.damageSources().explosion(null), (float) energy / 1_000F);
-                    entity.igniteForSeconds(10);
+                    ExplosionVNT vnt = new ExplosionVNT(server, entity.getX() - dir.getStepX(), entity.getY() + 1.5, entity.getZ() - dir.getStepZ(), 3F);
+                    vnt.setBlockAllocator(new BlockAllocatorStandard());
+                    vnt.setBlockProcessor(new BlockProcessorStandard().withBlockEffect(new BlockMutatorFire()));
+                    vnt.setEntityProcessor(new EntityProcessorStandard().withDamageMod((blast, hit, distance) -> {
+                        if (hit instanceof LivingEntity) hit.hurt(EntityProcessorStandard.setExplosionSource(blast), (float) energy / 1_000F);
+                    }));
+                    vnt.setPlayerProcessor(new PlayerProcessorStandard());
+                    vnt.setSFX(new ExplosionEffectStandard());
+                    vnt.explode();
                 }
             }
             if (was != isReceiving) setChanged();

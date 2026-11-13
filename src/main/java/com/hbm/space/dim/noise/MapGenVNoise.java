@@ -104,7 +104,7 @@ public class MapGenVNoise extends MapGenBase {
 					for(int y = plateStartY; y < topY && y < 320; y++) {
 						int index = ChunkProviderCelestial.idx(lx, lz, y);
 
-						if(blocks[index] == Blocks.AIR || blocks[index] == fluidBlock) {
+						if(blocks[index] == null || blocks[index] == Blocks.AIR || blocks[index] == fluidBlock) {
 							blocks[index] = rockBlock;
 						}
 					}

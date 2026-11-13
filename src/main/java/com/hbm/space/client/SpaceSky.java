@@ -18,6 +18,7 @@ import com.hbm.space.SolarSystem.AstroMetric;
 import com.hbm.space.SpaceSkySync;
 import com.hbm.space.SpaceTime;
 import com.hbm.space.SpaceToggle;
+import com.hbm.space.SpaceWeather;
 import com.hbm.space.station.OrbitalStation;
 import com.hbm.space.station.OrbitalStation.StationState;
 import com.hbm.space.trait.CBT_Atmosphere;
@@ -300,7 +301,7 @@ public final class SpaceSky implements CustomSkies.Renderer {
 
         // the daylight wash over the bodies sinks into thick fog (ModEventHandlerRenderer.lastFogDensity * 30)
         float[] tint = sky.clone();
-        float fogIntensity = fogDensity(atmosphere) * 30F;
+        float fogIntensity = SpaceFog.fogDensity(level, body) * 30F;
         if (fogIntensity > 0.01F) {
             float[] fog = RenderSystem.getShaderFogColor();
             for (int i = 0; i < 3; i++) tint[i] = clampedLerp(sky[i], fog[i], fogIntensity);
@@ -482,13 +483,6 @@ public final class SpaceSky implements CustomSkies.Renderer {
         return Mth.clamp(f * f * 0.5F, distanceFactor, 1F);
     }
 
-    /** WorldProviderCelestial.fogDensity: only air thicker than two atmospheres fogs up. */
-    private static float fogDensity(@Nullable CBT_Atmosphere atmosphere) {
-        if (atmosphere == null) return 0F;
-        float pressure = (float) atmosphere.getPressure();
-        return pressure <= 2F ? 0F : pressure * pressure * 0.002F;
-    }
-
     /**
      * WorldProviderCelestial.getSkyColor: each gas's colour by its share of the air, flashing white
      * as war projectiles burst, thinner in thin air, darker in an eclipse and dimmed or reddened by
@@ -543,6 +537,12 @@ public final class SpaceSky implements CustomSkies.Renderer {
             }
             for (int i = 0; i < 3; i++) color[i] *= fire + (1 - dust);
         }
+        // WorldProviderEve.getSkyColor: lightning flashes light up the whole sky
+        if (level.dimension() == com.hbm.space.SpaceDimensions.EVE) {
+            float flash = SpaceAtmosphereRender.eveFlashStrength(CelestialBody.getBodyOrNull(level.dimension()),
+                    (level.getGameTime() + partial) / 20F);
+            for (int i = 0; i < 3; i++) color[i] += flash;
+        }
         return color;
     }
 
@@ -561,23 +561,7 @@ public final class SpaceSky implements CustomSkies.Renderer {
 
     /** WorldProviderCelestial.getEclipseFactor: how much of the star the nearest large body covers. */
     static double eclipseFactor(List<AstroMetric> metrics, double sunSize, double maxSize) {
-        double factor = 0;
-        double sunArc = arc(sunSize);
-        for (AstroMetric metric : metrics) {
-            if (metric.apparentSize < 1) continue;
-            double planetArc = arc(Mth.clamp(metric.apparentSize, 0, maxSize));
-            double minPhase = 1 - (planetArc + sunArc);
-            double maxPhase = 1 - (planetArc - sunArc);
-            if (metric.phaseObscure < minPhase) continue;
-            double thisFactor = 1 - (metric.phaseObscure - maxPhase) / (minPhase - maxPhase);
-            factor = Math.min(Math.max(factor, thisFactor), 1.0);
-        }
-        return factor;
-    }
-
-    // apparentSize to 0-1 of the sky; the flat quads warp the larger they get
-    private static double arc(double apparentSize) {
-        return apparentSize * 0.0017D + Math.sqrt(apparentSize * 0.00003D);
+        return com.hbm.space.SpaceEclipse.factor(metrics, sunSize, maxSize);
     }
 
     // ---------------------------------------------------------------- passes
@@ -620,7 +604,8 @@ public final class SpaceSky implements CustomSkies.Renderer {
         Matrix4fStack modelView = RenderSystem.getModelViewStack();
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(0F, 0F, 0F, 1F);
-        double heightAboveHorizon = cam.y - level.getLevelData().getHorizonHeight(level);
+        double horizon = SpaceWeather.isDuna(level) ? SpaceWeather.DUNA_HORIZON : level.getLevelData().getHorizonHeight(level);
+        double heightAboveHorizon = cam.y - horizon;
         if (heightAboveHorizon < 0) {
             modelView.pushMatrix();
             modelView.translate(0F, 12F, 0F);
@@ -696,6 +681,10 @@ public final class SpaceSky implements CustomSkies.Renderer {
         }
         if (color == null) return;
         float direction = Mth.sin(solarAngle * Mth.TWO_PI) < 0F ? 180F : 0F;
+        if (pressure >= 0.05F && level.dimension() == com.hbm.space.SpaceDimensions.LAYTHE) {
+            laytheSunset(color, direction);
+            return;
+        }
         Matrix4fStack modelView = RenderSystem.getModelViewStack();
         modelView.pushMatrix();
         modelView.rotateX(rad(90F));
@@ -716,6 +705,54 @@ public final class SpaceSky implements CustomSkies.Renderer {
 
         if (pressure < 0.05F) chargedDust(mc, level, color[3]);
         modelView.popMatrix();
+    }
+
+    /**
+     * SkyProviderLaytheSunset.renderSunset: Laythe's sunset spreads wider and higher, with two more
+     * fixed glows low over the horizon, the last one fading to magenta. Blended against the
+     * constant alpha, as NTM:Space did.
+     */
+    private static void laytheSunset(float[] color, float direction) {
+        Matrix4fStack modelView = RenderSystem.getModelViewStack();
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_CONSTANT_ALPHA,
+                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+
+        modelView.pushMatrix();
+        modelView.rotateX(rad(90F));
+        modelView.rotateZ(rad(direction));
+        modelView.rotateZ(rad(90F));
+        sunsetFan(color, 150F, 160F, 90F * color[3], color[1]);
+        modelView.popMatrix();
+
+        modelView.pushMatrix();
+        modelView.rotateX(rad(135F));
+        modelView.translate(0F, -60F, 0F);
+        sunsetFan(color, 100F, 100F, 90F, color[1]);
+        modelView.popMatrix();
+
+        modelView.pushMatrix();
+        modelView.rotateX(rad(135F));
+        modelView.translate(0F, -30F, 0F);
+        sunsetFan(color, 80F, 100F, 90F, color[1] * 0.2F);
+        modelView.popMatrix();
+
+        RenderSystem.applyModelViewMatrix();
+        RenderSystem.defaultBlendFunc();
+    }
+
+    /** A sunrise fan: the colour at its centre, fading out to its rim (whose green is {@code rimGreen}). */
+    private static void sunsetFan(float[] color, float height, float radius, float depth, float rimGreen) {
+        RenderSystem.applyModelViewMatrix();
+        BufferBuilder builder = Tesselator.getInstance().begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
+        builder.addVertex(0F, height, 0F).setColor(color[0], color[1], color[2], color[3]);
+        int segments = 16;
+        for (int j = 0; j <= segments; j++) {
+            float angle = j * Mth.TWO_PI / segments;
+            float sin = Mth.sin(angle), cos = Mth.cos(angle);
+            builder.addVertex(sin * radius, cos * radius, -cos * depth).setColor(color[0], rimGreen, color[2], 0F);
+        }
+        BufferUploader.drawWithShader(builder.buildOrThrow());
     }
 
     /**

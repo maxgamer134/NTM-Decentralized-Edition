@@ -84,7 +84,7 @@ public final class Features {
                         if (dx * dx + dy * dy >= 1) continue;
                         for (int bz = minZ; bz <= maxZ; bz++) {
                             double dz = (bz + 0.5 - cz) / (rh / 2);
-                            if (dx * dx + dy * dy + dz * dz < 1 && com.hbm.space.dim.DeepStone.matches(world.getBlock(bx, by, bz), target))
+                            if (dx * dx + dy * dy + dz * dz < 1 && world.getBlock(bx, by, bz) == target)
                                 world.setBlock(bx, by, bz, ore, meta, 2);
                         }
                     }
@@ -106,8 +106,8 @@ public final class Features {
         public boolean generate(World world, Random rand, int x, int y, int z) {
             x -= 8;
             z -= 8;
-            while (y > 5 && world.isAirBlock(x, y, z)) y--;
-            if (y <= 4) return false;
+            while (y > ChunkProviderCelestial.MIN_Y + 5 && world.isAirBlock(x, y, z)) y--;
+            if (y <= ChunkProviderCelestial.MIN_Y + 4) return false;
             y -= 4;
             boolean[] shape = new boolean[2048];
             int blobs = rand.nextInt(4) + 4;
@@ -154,19 +154,34 @@ public final class Features {
         return y < 64 ? y * 2 + ChunkProviderCelestial.MIN_Y : y;
     }
 
+    /** A 1.7 height above the sea on the planets' land, which stands 1.5 times as tall. */
+    public static int stretchUp(int y) {
+        return y > 63 ? 63 + (int) ((y - 63) * 1.5D) : y;
+    }
+
+    /** A 1.7 height anywhere: the rock below the sea deepened, the land above it raised. */
+    public static int stretchAll(int y) {
+        return y < 64 ? stretch(y) : stretchUp(y);
+    }
+
+    /** The other way: a planet height back to the 1.7 one it stands for, above the sea. */
+    public static int unstretchUp(int y) {
+        return y > 63 ? 63 + (int) ((y - 63) / 1.5D) : y;
+    }
+
     /** DungeonToolbox.generateOre: some veins of an ore at random heights in a chunk. */
     /** NTM's DepthDeposit: a ball of ore in filler, in the planet's stone and its bedrock. */
     public static void depthDeposit(World world, int x, int yMin, int yDev, int z, int size, double fill, Block block, Random rand, int chance, Block target, Block filler) {
-        if (recorded(block, 0, target, 1.0 / chance, size, yMin, yMin + Math.max(1, yDev) - 1, "space_deposit")) return;
+        if (recorded(block, 0, target, 1.0 / chance, size, stretch(yMin), stretch(yMin + Math.max(1, yDev) - 1), "space_deposit")) return;
         if (rand.nextInt(chance) != 0) return;
         int cx = x + rand.nextInt(16) + 8, cy = stretch(yMin + rand.nextInt(yDev)), cz = z + rand.nextInt(16) + 8;
         for (int i = cx - size; i <= cx + size; i++)
             for (int j = cy - size; j <= cy + size; j++)
                 for (int k = cz - size; k <= cz + size; k++) {
-                    if (j < ChunkProviderCelestial.MIN_Y + 1 || j > 126) continue;
+                    if (j < ChunkProviderCelestial.MIN_Y + 1 || j > ChunkProviderCelestial.MAX_Y - 2) continue;
                     double len = Math.sqrt((cx - i) * (cx - i) + (cy - j) * (cy - j) + (cz - k) * (cz - k));
                     Block here = world.getBlock(i, j, k);
-                    if (!com.hbm.space.dim.DeepStone.matches(here, target) && here != net.minecraft.world.level.block.Blocks.BEDROCK) continue;
+                    if (here != target && here != net.minecraft.world.level.block.Blocks.BEDROCK) continue;
                     if (len + rand.nextInt(2) < size * fill) world.setBlock(i, j, k, block);
                     else if (len + rand.nextInt(2) <= size) world.setBlock(i, j, k, filler);
                 }
@@ -175,7 +190,7 @@ public final class Features {
     public static void generateOre(World world, Random rand, int x, int z, int veins, int amount, int minHeight, int variance,
             Block ore, int meta, Block target) {
         if (veins <= 0 || ore == null || ore == Blocks.AIR) return;
-        if (recorded(ore, meta, target, veins, amount, minHeight, minHeight + Math.max(1, variance) - 1, "vein")) return;
+        if (recorded(ore, meta, target, veins, amount, stretch(minHeight), stretch(minHeight + Math.max(1, variance) - 1), "vein")) return;
         for (int i = 0; i < veins; i++) {
             int bx = x + rand.nextInt(16);
             int by = stretch(minHeight + (variance > 0 ? rand.nextInt(variance) : 0));

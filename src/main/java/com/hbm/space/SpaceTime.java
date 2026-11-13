@@ -91,8 +91,12 @@ public final class SpaceTime {
         return now + day - now % day;
     }
 
-    /** The solar angle, NaN for vanilla's. */
+    /**
+     * The solar angle, NaN for vanilla's. On the server orbit is always at noon
+     * (WorldProviderOrbit's angle is only ever set by the client's sky), so stations' panels never sleep.
+     */
     public static float timeOfDay(Level level, float partialTicks) {
+        if (!level.isClientSide && SpaceToggle.enabled() && CelestialBody.inOrbit(level)) return 0F;
         CelestialBody body = body(level);
         if (body == null) return Float.NaN;
         double dayLength = dayLength(body);
@@ -102,5 +106,32 @@ public final class SpaceTime {
         double f2 = f1;
         f1 = 0.5 - Math.cos(f1 * Math.PI) / 2.0;
         return (float) (f2 + (f1 - f2) / 3.0);
+    }
+
+    private static final Map<Level, long[]> MOON_PHASE = new WeakHashMap<>();
+
+    /**
+     * WorldProviderCelestial.getMoonPhase: the phase (and so the night's difficulty) follows the
+     * body's first moon, a half moon where there is none. Kerbin too while Space changes NTM.
+     * -1 for vanilla's.
+     */
+    public static int moonPhase(Level level) {
+        CelestialBody body = body(level);
+        if (body == null && level.dimension() == Level.OVERWORLD && SpaceToggle.changes())
+            body = CelestialBody.getBodyOrNull(Level.OVERWORLD);
+        if (body == null) return -1;
+        if (body.satellites.isEmpty()) return 2;
+        long tick = level.getGameTime();
+        long[] cached;
+        synchronized (MOON_PHASE) {
+            cached = MOON_PHASE.get(level);
+        }
+        if (cached != null && cached[0] == tick) return (int) cached[1];
+        float angle = (float) SolarSystem.calculateSingleAngle(level, body, body.satellites.get(0));
+        int phase = Math.floorMod(Math.round(8 - (angle / 45 + 4)), 8);
+        synchronized (MOON_PHASE) {
+            MOON_PHASE.put(level, new long[] {tick, phase});
+        }
+        return phase;
     }
 }

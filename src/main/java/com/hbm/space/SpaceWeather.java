@@ -68,6 +68,14 @@ public final class SpaceWeather {
         return SpaceToggle.enabled() && level.dimension() == SpaceDimensions.DUNA;
     }
 
+    /** WorldProviderDuna.getHorizon: Duna's low plains sit under 1.7's y 52, here 2 * 52 - 64 (the planets' deepened rock). */
+    public static final int DUNA_HORIZON = 40;
+
+    /** Where the horizon lies (city lights count above it): Duna's lower, elsewhere the sea. */
+    public static int horizon(Level level) {
+        return isDuna(level) ? DUNA_HORIZON : level.getSeaLevel();
+    }
+
     // ---------------------------------------------------------------- boiling water
 
     /**
@@ -80,6 +88,11 @@ public final class SpaceWeather {
         if (level.dimension() == Level.OVERWORLD || !stack.getFluid().is(FluidTags.WATER)) return false;
         if (!CelestialBody.inOrbit(level) && CelestialBody.getBodyOrNull(level.dimension()) == null) return false;
         return !SpaceAtmosphere.hasLiquidPressure(SpaceAtmosphere.getAtmosphere(level, pos));
+    }
+
+    /** The same for ice: mined or melted where water would boil, it leaves nothing behind. */
+    public static boolean iceVanishes(Level level, BlockPos pos) {
+        return boilsAway(level, pos, new FluidStack(net.minecraft.world.level.material.Fluids.WATER, 1000));
     }
 
     // ---------------------------------------------------------------- fishing

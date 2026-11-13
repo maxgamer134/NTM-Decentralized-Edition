@@ -35,6 +35,11 @@ public abstract class MixinStructure {
                         .registryOrThrow(Registries.STRUCTURE)
                         .getKey((Structure) (Object) this);
         if (id == null || !id.getNamespace().equals(NuclearTech.MOD_ID)) return;
+        // NTM:Space moved the meteor dungeons off the overworld (its planets have their own)
+        if (id.getPath().equals("meteor_dungeon") && !com.hbm.space.SpaceToggle.overworldMeteorDungeons()) {
+            cir.setReturnValue(Optional.empty());
+            return;
+        }
         cir.setReturnValue(
                 findGenerationPoint(context).filter(stub -> ColumnBiome.valid(stub, context)));
     }

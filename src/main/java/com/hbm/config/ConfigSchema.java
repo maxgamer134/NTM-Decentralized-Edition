@@ -633,6 +633,20 @@ public final class ConfigSchema {
                     "space_changes",
                     true,
                     "With NTM:Space on, also apply its changes to existing NTM content (hydrogen and Watz mud that heat into new gases, rocket-grade fuels, and the rest). Off, existing content stays as in NTMain. Less Bullshit Mode keeps NTMain's recipes either way, so any recipe Space changes or removes stays as it was.");
+    public static final ConfigEntry<Boolean> SPACE_OVERWORLD_METEOR_DUNGEONS =
+            bool(
+                    Domain.CONTENT,
+                    "space",
+                    "overworld_meteor_dungeons",
+                    false,
+                    "With NTM:Space changes on, meteor dungeons also generate in the overworld, as in NTMain, as well as on the other bodies. Off, as in NTM:Space, they are found on the other bodies only. Affects newly generated chunks.");
+    public static final ConfigEntry<Boolean> SPACE_OVERWORLD_AUSTRALIUM =
+            bool(
+                    Domain.CONTENT,
+                    "space",
+                    "overworld_australium",
+                    false,
+                    "With NTM:Space changes on, the overworld's Australium deposit also generates, as in NTMain, as well as Moho's Australium bedrock ores. Off, as in NTM:Space, Australium comes from Moho only. Affects newly generated chunks.");
     public static final ConfigEntry<Boolean> SPACE_NETHER_PORTALS =
             bool(
                     Domain.RUNTIME,
@@ -1015,6 +1029,8 @@ public final class ConfigSchema {
                     ENABLE_DOOR_ACCESS,
                     ENABLE_SPACE,
                     SPACE_CHANGES,
+                    SPACE_OVERWORLD_METEOR_DUNGEONS,
+                    SPACE_OVERWORLD_AUSTRALIUM,
                     SPACE_NETHER_PORTALS,
                     SPACE_VOLCANOES,
                     SPACE_ORE_LOCATIONS,

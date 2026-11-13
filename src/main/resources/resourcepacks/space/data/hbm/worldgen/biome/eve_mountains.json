@@ -3,7 +3,7 @@
   "temperature": 1.0,
   "downfall": 0.5,
   "effects": {
-    "sky_color": 0,
+    "sky_color": 7776511,
     "fog_color": 0,
     "water_color": 5963930,
     "water_fog_color": 5963930

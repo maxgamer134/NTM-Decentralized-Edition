@@ -93,7 +93,7 @@ public class BiomeDecoratorCelestial extends BiomeDecorator {
 		if(doGen && this.lakeChancePerChunk > 0) {
 			if(this.randomGenerator.nextInt(lakeChancePerChunk) == 0) {
 				int x = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
-				int y = this.randomGenerator.nextInt(256);
+				int y = Math.min(com.hbm.space.dim.legacy.ChunkProviderCelestial.MAX_Y - 1, com.hbm.space.dim.legacy.Features.stretchAll(this.randomGenerator.nextInt(256)));
 				int z = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 				(new WorldGenLakes(lakeBlock)).generate(this.currentWorld, this.randomGenerator, x, y, z);
 			}
@@ -114,7 +114,7 @@ public class BiomeDecoratorCelestial extends BiomeDecorator {
 			for (int i = 0; i < rubberPlantsPerChunk; ++i) {
 				int x = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 				int z = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
-				int y = this.randomGenerator.nextInt(80);
+				int y = com.hbm.space.dim.legacy.Features.stretchUp(this.randomGenerator.nextInt(80)); // on the raised land
 				genRPlants.generate(currentWorld, randomGenerator, x, y, z);
 			}
 		}

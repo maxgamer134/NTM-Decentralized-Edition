@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.059,
+    "salt": 996997021,
+    "separation": 4,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "hbm:space_meteor_dungeon_ike",
+      "weight": 1
+    }
+  ]
+}

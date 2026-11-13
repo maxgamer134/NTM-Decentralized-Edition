@@ -3,13 +3,21 @@
   "temperature": 0.2,
   "downfall": 0.2,
   "effects": {
-    "sky_color": 0,
+    "sky_color": 8233727,
     "fog_color": 0,
     "water_color": 5963930,
     "water_fog_color": 5963930
   },
   "spawners": {
     "water_creature": [
+      {
+        "type": "hbm:entity_scuttlecrab",
+        "weight": 4,
+        "minCount": 1,
+        "maxCount": 3
+      }
+    ],
+    "water_ambient": [
       {
         "type": "hbm:entity_scutterfish",
         "weight": 10,
@@ -19,12 +27,6 @@
       {
         "type": "hbm:entity_siftereel",
         "weight": 10,
-        "minCount": 1,
-        "maxCount": 3
-      },
-      {
-        "type": "hbm:entity_scuttlecrab",
-        "weight": 4,
         "minCount": 1,
         "maxCount": 3
       }

@@ -17,9 +17,7 @@ import com.hbm.items.CreativeContents;
 import com.hbm.lib.Library;
 import com.hbm.registration.Reg;
 import com.hbm.registration.RegistryHandle;
-import com.hbm.space.CelestialBody;
 import com.hbm.space.rocket.SpaceLayouts;
-import com.hbm.space.station.OrbitalStation;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -92,9 +90,8 @@ public final class SpaceSolar {
             // sun ranges 1-4
             int sun = level.getBrightness(LightLayer.SKY, worldPosition) - level.getSkyDarken() - 11;
             if (sun <= 0 || !level.canSeeSky(worldPosition.above())) return;
-            float sunPower = CelestialBody.inOrbit(level)
-                    ? OrbitalStation.getStationFromPosition(level, worldPosition.getX(), worldPosition.getZ()).getSunPower()
-                    : CelestialBody.getBody(level).getSunPower();
+            // eclipses dim the panel too
+            float sunPower = com.hbm.space.SpaceEclipse.sunPower(level, worldPosition);
             power = Math.min(MAX_POWER, power + Mth.ceil(sun * 25 * sunPower));
         }
 

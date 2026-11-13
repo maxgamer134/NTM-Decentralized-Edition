@@ -2,14 +2,6 @@
   "replace": false,
   "values": [
     "hbm:stone_resource_conglomerate",
-    "hbm:stone_resource_calcium",
-    "hbm:deep_moon_rock",
-    "hbm:deep_duna_rock",
-    "hbm:deep_eve_rock",
-    "hbm:deep_ike_stone",
-    "hbm:deep_dres_rock",
-    "hbm:deep_moho_stone",
-    "hbm:deep_minmus_stone",
-    "hbm:deep_basalt"
+    "hbm:stone_resource_calcium"
   ]
 }

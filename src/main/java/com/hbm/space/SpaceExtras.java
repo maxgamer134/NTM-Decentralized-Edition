@@ -434,7 +434,7 @@ public final class SpaceExtras {
                         Library.id("stratum_" + key + "/y"),
                         Library.id("stratum_" + key + "/z"),
                         block,
-                        new DeepMatch(world.stone()),
+                        new net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest(world.stone()),
                         scaleH,
                         scaleV,
                         threshold),
@@ -444,23 +444,8 @@ public final class SpaceExtras {
                 com.hbm.world.feature.Stratum3DFeature.MAX_Y);
     }
 
-    /** The strata stretched down into the planets' deep rock, as their ores are. */
+    /** The strata stretched down over the planets' added depth, as their ores are. */
     private static final int LO = com.hbm.space.dim.legacy.Features.stretch(com.hbm.world.feature.Stratum3DFeature.MIN_Y);
-
-    /** A planet's stone, or the deep stone under it. */
-    private static final class DeepMatch extends net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest {
-        private final net.minecraft.world.level.block.Block stone;
-
-        DeepMatch(net.minecraft.world.level.block.Block stone) {
-            super(stone);
-            this.stone = stone;
-        }
-
-        @Override
-        public boolean test(net.minecraft.world.level.block.state.BlockState state, net.minecraft.util.RandomSource random) {
-            return com.hbm.space.dim.DeepStone.matches(state.getBlock(), stone);
-        }
-    }
 
     /**
      * Upstream's OreCave on a Space body, through the port's ore cave feature: ore lines the
@@ -488,11 +473,11 @@ public final class SpaceExtras {
                 new net.minecraft.core.BlockPos(x, yLevel, z), config));
     }
 
-    /** NTM:Space's sulfur caves, on every body that has them. */
+    /** NTM:Space's sulfur caves, on every body that has them, at y 30 deepened as the ores are. */
     public static void sulfurCave(com.hbm.space.dim.legacy.World world, int x, int z, boolean acid) {
         oreCave(world, x, z, "sulfur", com.hbm.space.dim.legacy.LegacyBlocks.b("stone_resource_sulfur").defaultBlockState(),
                 acid ? com.hbm.space.dim.legacy.LegacyBlocks.b("sulfuric_acid_block").defaultBlockState() : null,
-                "sulfur", null, 1.5D, 20, 30, 20, false);
+                "sulfur", null, 1.5D, 20, com.hbm.space.dim.legacy.Features.stretch(30), 20, false);
     }
 
     /** NTM:Space's Oxygen Pinwheel, an endless trickle of oxygen like the chlorine one. */
@@ -573,14 +558,6 @@ public final class SpaceExtras {
                     .mapColor(net.minecraft.world.level.material.MapColor.STONE).strength(5.0F, 6.0F)
                     .sound(net.minecraft.world.level.block.SoundType.STONE).requiresCorrectToolForDrops());
 
-    /** The planets' stone below y 0, as deepslate is the overworld's: one per planet stone. */
-    public static final java.util.List<? extends RegistryHandle<net.minecraft.world.level.block.Block>> DEEP_STONES = java.util.stream.Stream.of(
-                    "moon_rock", "duna_rock", "eve_rock", "ike_stone", "dres_rock", "moho_stone", "minmus_stone", "basalt")
-            .map(stone -> Reg.blockItem("deep_" + stone, net.minecraft.world.level.block.Block::new,
-                    () -> net.minecraft.world.level.block.state.BlockBehaviour.Properties.of()
-                            .mapColor(net.minecraft.world.level.material.MapColor.DEEPSLATE).strength(3.0F, 6.0F)
-                            .sound(net.minecraft.world.level.block.SoundType.DEEPSLATE).requiresCorrectToolForDrops()))
-            .toList();
 
     public static void init() {
         after(CreativeContents.Tab.CONSUMABLES, "bomb_caller_atomic_bomb", java.util.List.of(BOMB_CALLER_AIRLINER));
@@ -607,7 +584,6 @@ public final class SpaceExtras {
         after(CreativeContents.Tab.CONTROL, "pellet_rtg_depleted_neptunium", java.util.List.of(RTG_DEPLETED_AMERICIUM));
         after(CreativeContents.Tab.CONSUMABLES, "jetpack_tank", java.util.List.of(OXY_PLSS, LOX_TANK));
         after(CreativeContents.Tab.BLOCKS, "stone_resource_bauxite", java.util.List.of(CONGLOMERATE, STONE_RESOURCE_CALCIUM));
-        after(CreativeContents.Tab.BLOCKS, "minmus_stone", DEEP_STONES);
         after(CreativeContents.Tab.BLOCKS, "bobblehead_cirno", java.util.List.of(BOBBLEHEAD_GWEN, BOBBLEHEAD_JUICE, BOBBLEHEAD_JAMESH_2, BOBBLEHEAD_MRKIMKIMORA));
     }
 }

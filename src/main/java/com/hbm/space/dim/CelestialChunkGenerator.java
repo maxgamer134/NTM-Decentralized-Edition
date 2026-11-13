@@ -61,12 +61,43 @@ public class CelestialChunkGenerator extends ChunkGenerator {
         return planet.provider(Planets.seed());
     }
 
-    /** A chunk's blocks as this planet generates them, in the 1.7 buffer. */
+    /** Recently made chunks' buffers, as structure placement asks for the same chunks many times. */
+    private static final int CACHE_SIZE = 32;
+    private final java.util.LinkedHashMap<Long, ChunkProviderCelestial.BlockMetaBuffer> cache = new java.util.LinkedHashMap<>(CACHE_SIZE, 0.75F, true) {
+        @Override
+        protected boolean removeEldestEntry(java.util.Map.Entry<Long, ChunkProviderCelestial.BlockMetaBuffer> eldest) {
+            return size() > CACHE_SIZE;
+        }
+    };
+    /** The provider the cached buffers came from: another world's seed makes another one. */
+    private ChunkProviderCelestial cacheProvider;
+
+    /**
+     * A chunk's blocks as this planet generates them, in the 1.7 buffer. The buffer may be shared
+     * with other callers, so it must only be read.
+     */
     public ChunkProviderCelestial.BlockMetaBuffer buffer(int x, int z) {
         ChunkProviderCelestial provider = provider();
+        long key = net.minecraft.world.level.ChunkPos.asLong(x, z);
+        synchronized (cache) {
+            if (cacheProvider != provider) {
+                cache.clear();
+                cacheProvider = provider;
+            }
+            ChunkProviderCelestial.BlockMetaBuffer cached = cache.get(key);
+            if (cached != null) return cached;
+        }
         synchronized (provider) {
+            // another thread may have made it while this one waited
+            synchronized (cache) {
+                ChunkProviderCelestial.BlockMetaBuffer cached = cacheProvider == provider ? cache.get(key) : null;
+                if (cached != null) return cached;
+            }
             ChunkProviderCelestial.BlockMetaBuffer buffer = provider.getChunkPrimer(x, z);
             provider.modernize(x, z, buffer);
+            synchronized (cache) {
+                if (cacheProvider == provider) cache.put(key, buffer);
+            }
             return buffer;
         }
     }
@@ -102,18 +133,30 @@ public class CelestialChunkGenerator extends ChunkGenerator {
         long seed = Planets.seed();
         World world = planet.world(seed).in(level);
         ChunkProviderCelestial provider = provider();
+        // each step on its own, so one failing leaves the others
+        try {
+            // the global strata hung off DecorateBiomeEvent.Pre, ahead of the biome's decorator
+            if (planet.decorators.contains(SpacePlanets.GLOBAL_STRATA)) SpacePlanets.GLOBAL_STRATA.generate(null, cx, cz, world);
+        } catch (RuntimeException e) {
+            NuclearTech.LOGGER.error("NTM:Space could not lay the strata in chunk {}, {} of {}", cx, cz, planet.name, e);
+        }
         try {
             synchronized (provider) {
                 provider.populate(world, cx, cz);
             }
-            Random random = new Random(seed);
-            long a = random.nextLong(), b = random.nextLong();
-            for (Planet.Decorator decorator : planet.decorators) {
-                random.setSeed((long) cx * a ^ (long) cz * b ^ seed);
-                decorator.generate(random, cx, cz, world);
-            }
         } catch (RuntimeException e) {
-            NuclearTech.LOGGER.error("NTM:Space could not decorate chunk {}, {} of {}", cx, cz, planet.name, e);
+            NuclearTech.LOGGER.error("NTM:Space could not populate chunk {}, {} of {}", cx, cz, planet.name, e);
+        }
+        Random random = new Random(seed);
+        long a = random.nextLong(), b = random.nextLong();
+        for (Planet.Decorator decorator : planet.decorators) {
+            if (decorator == SpacePlanets.GLOBAL_STRATA) continue;
+            random.setSeed((long) cx * a ^ (long) cz * b ^ seed);
+            try {
+                decorator.generate(random, cx, cz, world);
+            } catch (RuntimeException e) {
+                NuclearTech.LOGGER.error("NTM:Space decorator {} failed in chunk {}, {} of {}", decorator, cx, cz, planet.name, e);
+            }
         }
     }
 
@@ -125,7 +168,15 @@ public class CelestialChunkGenerator extends ChunkGenerator {
     public void buildSurface(WorldGenRegion region, StructureManager structures, RandomState random, ChunkAccess chunk) {}
 
     @Override
-    public void spawnOriginalMobs(WorldGenRegion region) {}
+    public void spawnOriginalMobs(WorldGenRegion region) {
+        // as the noise generator does: Mun's cows only come with the terrain
+        net.minecraft.world.level.ChunkPos pos = region.getCenter();
+        var biome = region.getBiome(pos.getWorldPosition().atY(region.getMaxBuildHeight() - 1));
+        var random = new net.minecraft.world.level.levelgen.WorldgenRandom(new net.minecraft.world.level.levelgen.LegacyRandomSource(
+                net.minecraft.world.level.levelgen.RandomSupport.generateUniqueSeed()));
+        random.setDecorationSeed(region.getSeed(), pos.getMinBlockX(), pos.getMinBlockZ());
+        net.minecraft.world.level.NaturalSpawner.spawnMobsForChunkGeneration(region, biome, pos, random);
+    }
 
     @Override
     public int getGenDepth() {
@@ -163,11 +214,9 @@ public class CelestialChunkGenerator extends ChunkGenerator {
         return new NoiseColumn(ChunkProviderCelestial.MIN_Y, states);
     }
 
-    /** The rock under y 0 here, for old chunks' floors. */
-    public BlockState deepStone() {
-        ChunkProviderCelestial provider = provider();
-        Block deep = DeepStone.of(provider.stone());
-        return (deep != null ? deep : provider.stone()).defaultBlockState();
+    /** The planet's stone, for old chunks' floors. */
+    public BlockState stone() {
+        return provider().stone().defaultBlockState();
     }
 
     @Override

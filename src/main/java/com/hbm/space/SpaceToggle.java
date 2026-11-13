@@ -37,6 +37,25 @@ public final class SpaceToggle {
         return value;
     }
 
+    private static volatile Boolean overworldMeteorDungeons;
+    private static volatile Boolean overworldAustralium;
+
+    /** Whether the overworld keeps its meteor dungeons: always without Space's changes, else by config. */
+    public static boolean overworldMeteorDungeons() {
+        Boolean value = overworldMeteorDungeons;
+        if (value == null)
+            overworldMeteorDungeons = value = !changes() || read(ConfigSchema.SPACE_OVERWORLD_METEOR_DUNGEONS);
+        return value;
+    }
+
+    /** Whether the overworld keeps its Australium deposit: always without Space's changes, else by config. */
+    public static boolean overworldAustralium() {
+        Boolean value = overworldAustralium;
+        if (value == null)
+            overworldAustralium = value = !changes() || read(ConfigSchema.SPACE_OVERWORLD_AUSTRALIUM);
+        return value;
+    }
+
     private static boolean read() {
         return read(ConfigSchema.ENABLE_SPACE);
     }

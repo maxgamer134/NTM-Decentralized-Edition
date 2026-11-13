@@ -45,11 +45,11 @@ public final class SpaceSeaMobs {
 
     private SpaceSeaMobs() {}
 
-    public static final RegistryHandle<EntityType<Scutterfish>> SCUTTERFISH = fish("entity_scutterfish", Scutterfish::new, 2F, 2F);
-    public static final RegistryHandle<EntityType<ScrapFish>> SCRAPFISH = fish("entity_scrapfish", ScrapFish::new, 2F, 2F);
-    public static final RegistryHandle<EntityType<SifterEel>> SIFTER_EEL = fish("entity_siftereel", SifterEel::new, 2F, 2F);
-    public static final RegistryHandle<EntityType<DepthSquid>> DEPTH_SQUID = fish("entity_depthsquid", DepthSquid::new, 0.95F, 0.95F);
-    public static final RegistryHandle<EntityType<Scuttlecrab>> SCUTTLECRAB = fish("entity_scuttlecrab", Scuttlecrab::new, 0.6F, 1.8F);
+    public static final RegistryHandle<EntityType<Scutterfish>> SCUTTERFISH = fish("entity_scutterfish", Scutterfish::new, 2F, 2F, MobCategory.WATER_AMBIENT);
+    public static final RegistryHandle<EntityType<ScrapFish>> SCRAPFISH = fish("entity_scrapfish", ScrapFish::new, 2F, 2F, MobCategory.WATER_AMBIENT);
+    public static final RegistryHandle<EntityType<SifterEel>> SIFTER_EEL = fish("entity_siftereel", SifterEel::new, 2F, 2F, MobCategory.WATER_AMBIENT);
+    public static final RegistryHandle<EntityType<DepthSquid>> DEPTH_SQUID = fish("entity_depthsquid", DepthSquid::new, 0.95F, 0.95F, MobCategory.WATER_CREATURE);
+    public static final RegistryHandle<EntityType<Scuttlecrab>> SCUTTLECRAB = fish("entity_scuttlecrab", Scuttlecrab::new, 0.6F, 1.8F, MobCategory.WATER_CREATURE);
 
     static {
         egg("entity_scutterfish", SCUTTERFISH, 0xC8C9CD, 0x858894);
@@ -69,11 +69,11 @@ public final class SpaceSeaMobs {
                 SpaceSeaMobs::checkWaterMobSpawn);
         NeoForgeRegistrar.registerLivingAttributes(DEPTH_SQUID, Squid::createAttributes);
         NeoForgeRegistrar.registerSpawnPlacement(DEPTH_SQUID, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
-                SpaceSeaMobs::checkWaterMobSpawn);
+                SpaceSeaMobs::checkDeepWaterMobSpawn);
     }
 
-    private static <T extends Mob> RegistryHandle<EntityType<T>> fish(String name, EntityType.EntityFactory<T> factory, float w, float h) {
-        return Reg.entity(name, () -> EntityType.Builder.of(factory, MobCategory.WATER_CREATURE).sized(w, h).clientTrackingRange(10)
+    private static <T extends Mob> RegistryHandle<EntityType<T>> fish(String name, EntityType.EntityFactory<T> factory, float w, float h, MobCategory category) {
+        return Reg.entity(name, () -> EntityType.Builder.of(factory, category).sized(w, h).clientTrackingRange(10)
                 .build(ResourceKey.create(Registries.ENTITY_TYPE, Library.id(name)).location().toString()));
     }
 
@@ -84,13 +84,22 @@ public final class SpaceSeaMobs {
     public static void init() {}
 
     /**
-     * EntityWaterMob.getCanSpawnHere: anywhere in water with room for it, at any depth (the depth
-     * squid lives deep), instead of vanilla's thirteen blocks under the surface.
+     * As modern vanilla's fish and squid (WaterAnimal.checkSurfaceWaterAnimalSpawnRules): in water
+     * with water above, from the sea surface down to thirteen blocks under it.
      */
     static boolean checkWaterMobSpawn(EntityType<? extends Mob> type, net.minecraft.world.level.LevelAccessor level,
             net.minecraft.world.entity.MobSpawnType reason, net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
-        return level.getFluidState(pos).is(net.minecraft.tags.FluidTags.WATER)
-                && level.getFluidState(pos.below()).is(net.minecraft.tags.FluidTags.WATER);
+        int sea = level.getSeaLevel();
+        return pos.getY() >= sea - 13 && pos.getY() <= sea
+                && level.getFluidState(pos.below()).is(net.minecraft.tags.FluidTags.WATER)
+                && level.getBlockState(pos.above()).is(net.minecraft.world.level.block.Blocks.WATER);
+    }
+
+    /** The depth squid lives deep, as modern vanilla's glow squid: in dark water 33 blocks or more under the sea. */
+    static boolean checkDeepWaterMobSpawn(EntityType<? extends Mob> type, net.minecraft.world.level.LevelAccessor level,
+            net.minecraft.world.entity.MobSpawnType reason, net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
+        return pos.getY() <= level.getSeaLevel() - 33 && level.getRawBrightness(pos, 0) == 0
+                && level.getBlockState(pos).is(net.minecraft.world.level.block.Blocks.WATER);
     }
 
     /** The looting level of whoever got the kill, for the 1.7 dropFewItems rolls. */

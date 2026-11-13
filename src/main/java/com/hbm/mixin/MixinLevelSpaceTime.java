@@ -37,4 +37,16 @@ public abstract class MixinLevelSpaceTime implements LevelTimeAccess {
         float angle = SpaceTime.timeOfDay((Level) (Object) this, partialTick);
         return Float.isNaN(angle) ? dimensionType().timeOfDay(dayTime()) : angle;
     }
+
+    /** The moon phase follows the body's first moon ({@link SpaceTime#moonPhase}). */
+    @Override
+    public int getMoonPhase() {
+        int phase = SpaceTime.moonPhase((Level) (Object) this);
+        return phase < 0 ? dimensionType().moonPhase(dayTime()) : phase;
+    }
+
+    @Override
+    public float getMoonBrightness() {
+        return net.minecraft.world.level.dimension.DimensionType.MOON_BRIGHTNESS_PER_PHASE[getMoonPhase()];
+    }
 }

@@ -40,6 +40,8 @@ public class World {
         World w = new World(seed, chunkManager);
         w.level = level;
         w.bodyMeta = bodyMeta;
+        w.hasIce = hasIce;
+        w.bedrockAcid = bedrockAcid;
         w.stone = stone;
         return w;
     }
@@ -140,11 +142,16 @@ public class World {
 
     /** The height of the first block light cannot pass, from the top. */
     public int getHeightValue(int x, int z) {
-        return level == null ? 0 : level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
+        return columnReachable(x, z) ? level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) : 0;
     }
 
+    /** Above the top block that blocks movement: 1.7's liquids did not, so this is the sea floor. */
     public int getTopSolidOrLiquidBlock(int x, int z) {
-        return level == null ? 0 : level.getHeight(Heightmap.Types.OCEAN_FLOOR, x, z);
+        return columnReachable(x, z) ? level.getHeight(Heightmap.Types.OCEAN_FLOOR, x, z) : 0;
+    }
+
+    private boolean columnReachable(int x, int z) {
+        return level != null && level.hasChunk(x >> 4, z >> 4);
     }
 
     public long getTotalWorldTime() {

@@ -132,6 +132,48 @@ public final class SpaceCommands {
         return 1;
     }
 
+    public enum Weather { CLEAR, RAIN, THUNDER }
+
+    /** {@link #planetWeather}'s answer for the overworld and other mods' levels: vanilla's /weather runs. */
+    public static final int NOT_A_BODY = Integer.MIN_VALUE;
+
+    /**
+     * ModEventHandler.handlePlanetaryWeatherCommand: /weather on another body, or in orbit (the body
+     * the station circles), sets that body's weather. With no duration, 300 to 900 seconds.
+     */
+    public static int planetWeather(CommandSourceStack source, Weather weather, int time) {
+        if (!SpaceToggle.enabled()) return NOT_A_BODY;
+        ServerLevel level = source.getLevel();
+        CelestialBody body;
+        if (CelestialBody.inOrbit(level)) {
+            var pos = source.getPosition();
+            body = OrbitalStation.getStationFromPosition(level, (int) Math.floor(pos.x), (int) Math.floor(pos.z)).orbiting;
+        } else {
+            if (level.dimension() == net.minecraft.world.level.Level.OVERWORLD) return NOT_A_BODY;
+            body = CelestialBody.getBodyOrNull(level.dimension());
+            if (body == null) return NOT_A_BODY;
+        }
+        var trait = com.hbm.space.trait.CBT_Weather.ensureTrait(body);
+        if (trait == null || !com.hbm.space.trait.CBT_Weather.supportsWeather(body)) {
+            source.sendFailure(Component.translatable("commands.weather.no_cycle"));
+            return 0;
+        }
+        int duration = time == -1 ? (300 + level.random.nextInt(600)) * 20 : time;
+        switch (weather) {
+            case CLEAR -> trait.forceClear(level.random, duration);
+            case RAIN -> trait.forceRain(level.random, duration);
+            case THUNDER -> trait.forceThunder(duration);
+        }
+        SolarSystemSavedData.get(level).changed();
+        String key = switch (weather) {
+            case CLEAR -> "commands.weather.set.clear";
+            case RAIN -> "commands.weather.set.rain";
+            case THUNDER -> "commands.weather.set.thunder";
+        };
+        source.sendSuccess(() -> Component.translatable(key), true);
+        return duration;
+    }
+
     private static ItemVOTVdrive.@org.jspecify.annotations.Nullable Destination stationDrive(CommandSourceStack source, ServerPlayer player) {
         ItemStack held = player.getMainHandItem();
         if (!(held.getItem() instanceof ItemVOTVdrive) || ItemVOTVdrive.getBody(held) != SolarSystem.Body.ORBIT) {

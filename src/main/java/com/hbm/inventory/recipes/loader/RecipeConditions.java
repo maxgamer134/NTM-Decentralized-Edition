@@ -43,6 +43,7 @@ public final class RecipeConditions {
         FLAGS.put("space_changes", () -> com.hbm.space.SpaceToggle.changes() && !BalanceConfig.enableLBSM);
         // NTM:Space's changes to the overworld's generation, which LBSM has no say in
         FLAGS.put("space_world", com.hbm.space.SpaceToggle::changes);
+        FLAGS.put("space_no_overworld_australium", () -> !com.hbm.space.SpaceToggle.overworldAustralium());
     }
 
     private RecipeConditions() {}

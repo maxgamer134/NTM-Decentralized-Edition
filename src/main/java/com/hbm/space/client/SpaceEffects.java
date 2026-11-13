@@ -443,6 +443,18 @@ public final class SpaceEffects extends DimensionSpecialEffects {
         return out;
     }
 
+    /**
+     * ModEventHandlerRenderer.tintWeatherParticles: while it rains on a body, raindrops and their
+     * splashes take the rain's colour. Null to leave them be.
+     */
+    @Nullable
+    public static float[] rainParticleColor(ClientLevel level) {
+        if (!SpaceToggle.enabled()) return null;
+        CelestialBody body = SpaceFog.planet(level);
+        if (body == null || !CBT_Weather.supportsWeather(body) || level.getRainLevel(1F) <= 0F) return null;
+        return rainColor(body);
+    }
+
     /** WorldProviderCelestial.getSnowColor: white over water, the rain colour over other liquids. */
     private static float[] snowColor(CelestialBody body) {
         CBT_Water water = body.getTrait(CBT_Water.class);

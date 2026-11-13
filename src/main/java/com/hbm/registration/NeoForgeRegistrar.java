@@ -93,6 +93,19 @@ import net.neoforged.neoforge.registries.*;
 import org.jspecify.annotations.Nullable;
 
 public final class NeoForgeRegistrar {
+    /** Old block and item ids and what now stands in their place, for worlds saved before. */
+    private static final String[][] ALIASES = {
+        // the deep stones under the planets' y 0 (Space audit 4), dropped for the planets' own stone
+        {"hbm:deep_basalt", "hbm:basalt"},
+        {"hbm:deep_dres_rock", "hbm:dres_rock"},
+        {"hbm:deep_duna_rock", "hbm:duna_rock"},
+        {"hbm:deep_eve_rock", "hbm:eve_rock"},
+        {"hbm:deep_ike_stone", "hbm:ike_stone"},
+        {"hbm:deep_minmus_stone", "hbm:minmus_stone"},
+        {"hbm:deep_moho_stone", "hbm:moho_stone"},
+        {"hbm:deep_moon_rock", "hbm:moon_rock"},
+    };
+
     private static final class Registers {
         final DeferredRegister.Blocks blocks;
         final DeferredRegister.Items items;
@@ -166,6 +179,13 @@ public final class NeoForgeRegistrar {
                     DeferredRegister.create(Registries.DENSITY_FUNCTION_TYPE, namespace);
             materialRules = DeferredRegister.create(Registries.MATERIAL_RULE, namespace);
             materialConditions = DeferredRegister.create(Registries.MATERIAL_CONDITION, namespace);
+            // Removed blocks load in old worlds as what replaced them, not as air.
+            for (String[] alias : ALIASES) {
+                if (!alias[0].startsWith(namespace + ":")) continue;
+                ResourceLocation from = ResourceLocation.parse(alias[0]), to = ResourceLocation.parse(alias[1]);
+                blocks.addAlias(from, to);
+                items.addAlias(from, to);
+            }
         }
 
         void subscribe(IEventBus modBus) {

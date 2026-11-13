@@ -63,6 +63,8 @@
     "MixinServerLevelSpaceTime",
     "MixinLevelSpaceTime",
     "MixinFurnaceSpace",
+    "MixinIceSpace",
+    "MixinWeatherCommandSpace",
     "MixinServerGamePacketListenerImpl",
     "MixinServerPlayer",
     "MixinSinglePoolElement",
@@ -120,6 +122,8 @@
     "MixinRenderSectionRegion",
     "MixinTerrainParticle",
     "MixinWeatherEffectRenderer",
+    "MixinWaterDropParticleSpace",
+    "MixinOverworldEffectsSpace",
     "backport.BlockmodelQuadLightMixin",
     "backport.ParticleEngineBridgeMixin",
     "backport.MixinsClientBreakingParticlesMixin"

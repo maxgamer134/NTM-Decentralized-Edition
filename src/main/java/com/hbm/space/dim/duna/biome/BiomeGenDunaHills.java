@@ -100,7 +100,7 @@ public class BiomeGenDunaHills extends BiomeGenBaseDuna {
 					d5 = d4;
 				}
 
-				d5 += 64.0D;
+				d5 = 63.0D + (d5 + 1.0D) * 1.5D; // on the taller land
 			}
 		}
 
@@ -116,6 +116,8 @@ public class BiomeGenDunaHills extends BiomeGenBaseDuna {
 
 		for (int l1 = 319; l1 >= -64; --l1) {
 			int i2 = (l * 16 + k) * k1 + l1 - ChunkProviderCelestial.MIN_Y;
+			// the bands keep to the heights they had before the land was raised
+			int ly = Features.unstretchUp(l1);
 
 			if ((blocks[i2] == null || Material.of(blocks[i2]) == Material.air) && l1 < (int) d5) {
 				blocks[i2] = LegacyBlocks.b("duna_rock");
@@ -154,12 +156,12 @@ public class BiomeGenDunaHills extends BiomeGenBaseDuna {
 									} else {
 										blocks[i2] = LegacyBlocks.b("duna_sands");
 									}
-								} else if (l1 > 66 + i1) {
+								} else if (ly > 66 + i1) {
 									b0 = 16;
 
-									if (l1 >= 64 && l1 <= 127) {
+									if (ly >= 64 && ly <= 127) {
 										if (!flag1) {
-											b0 = this.func_150618_d(x, l1, z);
+											b0 = this.func_150618_d(x, ly, z);
 										}
 									} else {
 										b0 = 1;
@@ -184,7 +186,7 @@ public class BiomeGenDunaHills extends BiomeGenBaseDuna {
 							if (flag2) {
 								blocks[i2] = LegacyBlocks.b("ferric_clay");
 							} else {
-								b0 = this.func_150618_d(x, l1, z);
+								b0 = this.func_150618_d(x, ly, z);
 
 								if(b0 == 4) { // yellow is ugly
 									blocks[i2] = LegacyBlocks.b("ferric_clay");

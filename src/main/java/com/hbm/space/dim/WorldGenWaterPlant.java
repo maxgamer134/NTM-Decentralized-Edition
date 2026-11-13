@@ -84,8 +84,10 @@ public class WorldGenWaterPlant extends WorldGenerator {
 					if(py < seaLevel - 4) {
 						int height = 2 + rand.nextInt(Math.min(8, seaLevel - py - 2)); 
 						for(int h = 0; h < height; ++h) {
-							world.setBlock(px, py + h, pz, LegacyBlocks.b("laythe_kelp"), 0, 1);
-						}	                	
+							// only the last piece is drawn as the tip
+							world.setState(px, py + h, pz, LegacyBlocks.state(LegacyBlocks.b("laythe_kelp"), 0)
+									.trySetValue(com.hbm.space.SpacePlants.Kelp.TOP, h == height - 1));
+						}
 					}
 					break;
 				}

@@ -69,8 +69,10 @@ public final class SpaceMobs {
     private static boolean checkMoonCowSpawn(EntityType<MoonCow> type, net.minecraft.world.level.LevelAccessor level,
             net.minecraft.world.entity.MobSpawnType reason, net.minecraft.core.BlockPos pos, net.minecraft.util.RandomSource random) {
         if (!com.hbm.config.NeoForgeHbmConfig.runtime().spaceMunCows()) return false;
+        // as modern vanilla's animals (Animal.checkAnimalSpawnRules), with Mun's turf for grass
         if (reason == net.minecraft.world.entity.MobSpawnType.CHUNK_GENERATION)
-            return net.minecraft.world.entity.Mob.checkMobSpawnRules(type, level, reason, pos, random);
+            return level.getBlockState(pos.below()).is(net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(Library.id("moon_turf")))
+                    && level.getRawBrightness(pos, 0) > 8;
         return Animal.checkAnimalSpawnRules(type, level, reason, pos, random);
     }
 

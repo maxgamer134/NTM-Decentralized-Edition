@@ -61,7 +61,8 @@ public class MapGenPlateau extends MapGenBase {
 	public BiomeGenBase applyToBiome;
 
 	public MapGenPlateau(World world) {
-		this.plateauNoise = new Noise.Perlin(world.rand, 4);
+		// From the world seed, so terraces line up across chunks and reloads
+		this.plateauNoise = new Noise.Perlin(new Random(world.getSeed()), 4);
 	}
 
 	@Override
@@ -103,7 +104,7 @@ public class MapGenPlateau extends MapGenBase {
 							blocks[index] = surfrock;
 						}
 					} else {
-						blocks[index] = Blocks.AIR;
+						blocks[index] = null;
 					}
 				}
 			}
@@ -111,10 +112,10 @@ public class MapGenPlateau extends MapGenBase {
 	}
 
 	private int getSurfaceHeight(Block[] blocks, int localX, int localZ) {
-		int baseHeight = 0;
+		int baseHeight = ChunkProviderCelestial.MIN_Y;
 		for(int y = 319; y >= -64; y--) {
 			int index = ChunkProviderCelestial.idx(localX, localZ, y);
-			if(blocks[index] != Blocks.AIR) {
+			if(blocks[index] != null && blocks[index] != Blocks.AIR) {
 				baseHeight = y;
 				break;
 			}

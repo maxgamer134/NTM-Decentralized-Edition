@@ -86,7 +86,7 @@ public class WorldGeneratorMoho implements Planet.Decorator {
 		for(int k = 0; k < 2; k++){
 			int x = i + rand.nextInt(16) + 8;
 			int z = j + rand.nextInt(16) + 8;
-			int d = 16 + rand.nextInt(96);
+			int d = Features.stretchAll(16 + rand.nextInt(96));
 
 			for(int y = d - 5; y <= d; y++) {
 				Block b = world.getBlock(x, y, z);
@@ -108,7 +108,7 @@ public class WorldGeneratorMoho implements Planet.Decorator {
 		// a full fix for floating lava would cause infinite cascades so we uh, don't
 		for(int x = 0; x < 16; x++) {
 			for(int z = 0; z < 16; z++) {
-				for(int y = 32; y < 128; y++) {
+				for(int y = 32; y < ChunkProviderCelestial.MAX_Y; y++) { // volcano peaks stand on the taller land
 					int ox = i + x + 8;
 					int oz = j + z + 8;
 					Block b = world.getBlock(ox, y, oz);

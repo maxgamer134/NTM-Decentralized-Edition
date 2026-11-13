@@ -68,14 +68,38 @@ public final class SpaceFog {
         lastEclipse = eclipse;
     }
 
+    /** The eclipse the sky last drew over this level, none if it last drew another. */
+    private static double eclipse(Level level) {
+        return lastSkyLevel == level ? lastEclipse : 0;
+    }
+
     /**
      * The level's sky colour on a planet: the one the celestial sky last drew
      * (WorldProviderCelestial.getSkyColor), which vanilla mixes into the fog; null for vanilla's.
      */
     public static @Nullable Vec3 skyColor(Level level) {
         float[] sky = lastSky;
-        if (vanillaSky || sky == null || lastSkyLevel != level || planet(level) == null) return null;
+        if (vanillaSky || sky == null || lastSkyLevel != level) return null;
+        if (planet(level) == null && !(level instanceof ClientLevel client && kerbin(client) != null)) return null;
         return new Vec3(sky[0], sky[1], sky[2]);
+    }
+
+    /**
+     * Kerbin, when the overworld has the full celestial sky (not off or layered): WorldProviderEarth
+     * was a celestial world, so its eclipses, dead star and air light and colour the overworld too.
+     */
+    static @Nullable CelestialBody kerbin(ClientLevel level) {
+        if (!SpaceToggle.enabled() || level.dimension() != Level.OVERWORLD) return null;
+        if (SpaceSky.observer(level) == null || SpaceSky.layered(level)) return null;
+        return CelestialBody.getBodyOrNull(Level.OVERWORLD);
+    }
+
+    /** Kerbin's fog colour under the full celestial sky (WorldProviderCelestial.getFogColor), null for vanilla's. */
+    public static @Nullable Vec3 kerbinFogColor() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.level == null) return null;
+        CelestialBody body = kerbin(mc.level);
+        return body == null ? null : fogColor(mc.level, body, mc.getTimer().getGameTimeDeltaPartialTick(false));
     }
 
     // ---------------------------------------------------------------- fog colour
@@ -164,7 +188,7 @@ public final class SpaceFog {
             b *= curvature;
         }
 
-        double eclipse = lastEclipse;
+        double eclipse = eclipse(level);
         if (eclipse > 0) {
             r *= 1 - eclipse * 0.3;
             g *= 1 - eclipse * 0.3;
@@ -195,15 +219,15 @@ public final class SpaceFog {
      * sun unless it's eclipsed, and a destroyed star lights nothing. Vanilla's own anywhere else.
      */
     public static float skyDarken(ClientLevel level, float vanilla, float partial) {
-        if (!SpaceToggle.enabled() || level.dimension() == Level.OVERWORLD) return vanilla;
+        if (!SpaceToggle.enabled()) return vanilla;
         if (CelestialBody.inOrbit(level)) {
             if (com.hbm.space.SolarSystem.kerbol.hasTrait(com.hbm.space.trait.CBT_Destroyed.class)) return 0F;
             return 1F - (float) orbitEclipse;
         }
-        CelestialBody body = planet(level);
+        CelestialBody body = level.dimension() == Level.OVERWORLD ? kerbin(level) : planet(level);
         if (body == null) return vanilla;
         if (body.getStar().hasTrait(com.hbm.space.trait.CBT_Destroyed.class)) return 0F;
-        float sun = vanilla * (float) (1D - lastEclipse * 0.6D) * (1F - ImpactWorldHandler.getDustForClient(level));
+        float sun = vanilla * (float) (1D - eclipse(level) * 0.6D) * (1F - ImpactWorldHandler.getDustForClient(level));
         float inside = 0F;
         com.hbm.space.trait.CBT_War war = body.getTrait(com.hbm.space.trait.CBT_War.class);
         if (war != null) {
@@ -241,12 +265,14 @@ public final class SpaceFog {
      * to where the exponential fog was nearly solid (2.5 / density: 92% fogged).
      */
     private static void onRenderFog(ViewportEvent.RenderFog event) {
-        if (event.getType() != FogType.NONE) return;
+        boolean water = event.getType() == FogType.WATER;
+        if (event.getType() != FogType.NONE && !water) return;
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
         CelestialBody body = planet(mc.level);
         if (body == null) return;
-        float density = fogDensity(mc.level, body);
+        // WorldProviderLaythe.fogDensity: its seas are murky; elsewhere the air's fog reaches underwater too
+        float density = water && mc.level.dimension() == com.hbm.space.SpaceDimensions.LAYTHE ? 0.03F : fogDensity(mc.level, body);
         if (density <= 0F) return;
         float far = Math.min(event.getFarPlaneDistance(), 2.5F / density);
         event.setNearPlaneDistance(event.getMode() == FogRenderer.FogMode.FOG_SKY ? 0F : Math.min(event.getNearPlaneDistance(), 0F));

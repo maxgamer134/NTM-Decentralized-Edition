@@ -27,12 +27,17 @@ public class BiomeGenBase {
 
     private static final BiomeGenBase[] BIOMES = new BiomeGenBase[256];
 
-    /** The vanilla river, which 1.7's river layers put on planets too. */
-    public static final BiomeGenBase river = new BiomeGenBase(RIVER_ID, ResourceLocation.withDefaultNamespace("river"))
+    /**
+     * 1.7's river, which the river layers put on planets too: a bare Space biome of NTM's, as
+     * vanilla's own would bring the overworld's features, structures and spawns along. Older
+     * planet chunks keep the minecraft:river they were saved with.
+     */
+    public static final BiomeGenBase river = new BiomeGenBase(RIVER_ID, Library.id("planet_river"))
             .setHeight(new Height(-0.5F, 0.0F));
     public static final BiomeGenBase mushroomIsland = new BiomeGenBase(14, ResourceLocation.withDefaultNamespace("mushroom_fields"));
     public static final BiomeGenBase mushroomIslandShore = mushroomIsland;
-    public static final BiomeGenBase frozenRiver = new BiomeGenBase(FROZEN_RIVER_ID, ResourceLocation.withDefaultNamespace("frozen_river"))
+    /** Only beside ice plains, which no planet has; the same river if a configured id ever brings it. */
+    public static final BiomeGenBase frozenRiver = new BiomeGenBase(FROZEN_RIVER_ID, Library.id("planet_river"))
             .setHeight(new Height(-0.5F, 0.0F));
 
     public final int biomeID;

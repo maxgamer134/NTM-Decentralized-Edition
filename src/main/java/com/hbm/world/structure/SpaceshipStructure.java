@@ -11,6 +11,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -28,10 +31,32 @@ public class SpaceshipStructure extends Structure implements ColumnBiome.SelfTes
         super(settings);
     }
 
+    /** NTM:Space's Spaceship.GetValidSpawnBlocks: on the planets, NTM's ground or these rocks only. */
+    private static final String[] PLANET_GROUND = {
+        "moon_turf", "moon_rock", "duna_sands", "duna_rock", "duna_cobble", "ike_regolith", "ike_stone",
+        "dres_rock", "laythe_silt", "eve_silt", "eve_rock", "moho_regolith", "moho_stone"
+    };
+
+    private static boolean planetGround(BlockState state) {
+        if (LocationIsValidSpawn.isGrass(state)
+                || state.is(Blocks.DIRT)
+                || state.is(Blocks.STONE)
+                || state.is(Blocks.SAND)
+                || state.is(Blocks.SANDSTONE)) return true;
+        for (String name : PLANET_GROUND) {
+            Block block = com.hbm.space.dim.legacy.LegacyBlocks.b(name);
+            if (block != Blocks.AIR && state.is(block)) return true;
+        }
+        return false;
+    }
+
     private static boolean validCorner(Structure.GenerationContext context, int x, int y, int z) {
         NoiseColumn column =
                 context.chunkGenerator()
                         .getBaseColumn(x, z, context.heightAccessor(), context.randomState());
+        if (context.chunkGenerator() instanceof com.hbm.space.dim.CelestialChunkGenerator)
+            return LocationIsValidSpawn.isValidGround(
+                    column.getBlock(y - 1), column.getBlock(y - 2), SpaceshipStructure::planetGround);
         return LocationIsValidSpawn.isDryGround(column.getBlock(y - 1));
     }
 

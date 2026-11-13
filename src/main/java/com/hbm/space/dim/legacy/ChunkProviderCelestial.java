@@ -266,7 +266,7 @@ public abstract class ChunkProviderCelestial {
     /**
      * The modern pass over a finished 1.7 chunk: cheese caverns and winding spaghetti tunnels
      * through the rock from the deep up to under the surface, lava pooled at the bottom as the
-     * modern overworld's, and the planet's deep stone from y 8 down. 1.7's own carvers have
+     * modern overworld's. 1.7's own carvers have
      * already run, so the old caves and the new ones cross.
      */
     public void modernize(int chunkX, int chunkZ, BlockMetaBuffer buffer) {
@@ -283,23 +283,43 @@ public abstract class ChunkProviderCelestial {
                     na[i] = noodleA.getValue(wx / 60D, wy / 42D, wz / 60D);
                     nb[i] = noodleB.getValue(wx / 60D, wy / 42D, wz / 60D);
                 }
-        Block deep = com.hbm.space.dim.DeepStone.of(stoneBlock);
+        // each column's ground, and whether a sea (liquid, or frozen over) stands over it
+        int[] tops = new int[256];
+        boolean[] wets = new boolean[256];
+        int[] wetLimits = new int[256];
         for (int x = 0; x < 16; x++)
             for (int z = 0; z < 16; z++) {
-                // the column's ground, and whether a sea stands over it
                 int top = MIN_Y;
                 boolean wet = false;
                 for (int y = MAX_Y - 1; y >= MIN_Y; y--) {
                     Block b = blocks[idx(x, z, y)];
                     if (b == null || b == Blocks.AIR) continue;
-                    if (b.defaultBlockState().liquid()) {
+                    if (isLiquid(b) || b.defaultBlockState().is(net.minecraft.tags.BlockTags.ICE)) {
                         wet = true;
                         continue;
                     }
                     top = y;
                     break;
                 }
-                int cheeseTop = top - (wet ? 20 : 14), noodleTop = top - (wet ? 20 : 3);
+                tops[x << 4 | z] = top;
+                wets[x << 4 | z] = wet;
+                wetLimits[x << 4 | z] = wet ? top - 20 : Integer.MAX_VALUE;
+            }
+        // a sea in the next chunk: its columns from the bare terrain, the same whichever chunk asks first
+        boolean seas = isLiquid(seaBlock);
+        int[] west = seas ? wetLimits(chunkX - 1, chunkZ) : null, east = seas ? wetLimits(chunkX + 1, chunkZ) : null;
+        int[] north = seas ? wetLimits(chunkX, chunkZ - 1) : null, south = seas ? wetLimits(chunkX, chunkZ + 1) : null;
+        for (int x = 0; x < 16; x++)
+            for (int z = 0; z < 16; z++) {
+                int top = tops[x << 4 | z];
+                boolean wet = wets[x << 4 | z];
+                // no cave beside a sea column higher than that column's own caves reach
+                int beside = Math.min(
+                        Math.min(x > 0 ? wetLimits[(x - 1) << 4 | z] : west != null ? west[15 << 4 | z] : Integer.MAX_VALUE,
+                                x < 15 ? wetLimits[(x + 1) << 4 | z] : east != null ? east[z] : Integer.MAX_VALUE),
+                        Math.min(z > 0 ? wetLimits[x << 4 | (z - 1)] : north != null ? north[x << 4 | 15] : Integer.MAX_VALUE,
+                                z < 15 ? wetLimits[x << 4 | (z + 1)] : south != null ? south[x << 4] : Integer.MAX_VALUE));
+                int cheeseTop = Math.min(top - (wet ? 20 : 14), beside), noodleTop = Math.min(top - (wet ? 20 : 3), beside);
                 int gx = x >> 2, gz = z >> 2;
                 double fx = (x & 3) / 4D, fz = (z & 3) / 4D;
                 for (int y = MIN_Y + 5; y <= Math.max(cheeseTop, noodleTop); y++) {
@@ -319,14 +339,54 @@ public abstract class ChunkProviderCelestial {
                         buffer.metas[i] = 0;
                     }
                 }
-                if (deep == null) continue;
-                for (int y = MIN_Y; y < 8; y++) {
-                    int i = idx(x, z, y);
-                    if (blocks[i] != stoneBlock) continue;
-                    // all deep under 0, thinning out over the 8 blocks above as deepslate does
-                    if (y < 0 || (net.minecraft.util.Mth.getSeed(chunkX * 16 + x, y, chunkZ * 16 + z) & 7) >= y) blocks[i] = deep;
-                }
             }
+    }
+
+    private static boolean isLiquid(Block b) {
+        return b != null && (b.defaultBlockState().liquid() || !b.defaultBlockState().getFluidState().isEmpty());
+    }
+
+    /** Recent chunks' sea columns from bare terrain, as neighbouring chunks ask for them repeatedly. */
+    private final java.util.Map<Long, int[]> wetLimitCache = new java.util.LinkedHashMap<>(16, 0.75F, true) {
+        @Override
+        protected boolean removeEldestEntry(java.util.Map.Entry<Long, int[]> eldest) {
+            return size() > 32;
+        }
+    };
+
+    /**
+     * For each column of a chunk's bare terrain (no surface or carvers), the highest a cave may
+     * reach beside it: 20 under the sea floor where the sea stands, otherwise no limit.
+     */
+    private int[] wetLimits(int chunkX, int chunkZ) {
+        long key = net.minecraft.world.level.ChunkPos.asLong(chunkX, chunkZ);
+        synchronized (wetLimitCache) {
+            int[] cached = wetLimitCache.get(key);
+            if (cached != null) return cached;
+        }
+        Block[] terrain = new Block[16 * 16 * H];
+        generateBlocks(chunkX, chunkZ, terrain);
+        int[] limits = new int[256];
+        for (int x = 0; x < 16; x++)
+            for (int z = 0; z < 16; z++) {
+                int limit = Integer.MAX_VALUE;
+                boolean wet = false;
+                for (int y = MAX_Y - 1; y >= MIN_Y; y--) {
+                    Block b = terrain[idx(x, z, y)];
+                    if (b == null || b == Blocks.AIR) continue;
+                    if (isLiquid(b)) {
+                        wet = true;
+                        continue;
+                    }
+                    if (wet) limit = y - 20;
+                    break;
+                }
+                limits[x << 4 | z] = limit;
+            }
+        synchronized (wetLimitCache) {
+            wetLimitCache.put(key, limits);
+        }
+        return limits;
     }
 
     private static double lerp(double[] g, int gx, int gy, int gz, double fx, double fy, double fz) {

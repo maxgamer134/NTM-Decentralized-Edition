@@ -265,9 +265,9 @@ public final class SpaceSiege {
             if (lifetime > MAX_LIFETIME) isRetreating = true;
             if (isRetreating) {
                 target = null;
-                setWaypoint((int) getX(), 255, (int) getZ());
+                setWaypoint((int) getX(), level.getMaxBuildHeight() - 1, (int) getZ());
                 approachPosition(20);
-                if (getY() > 250 || lifetime > MAX_LIFETIME + 300) {
+                if (getY() > level.getMaxBuildHeight() - 6 || lifetime > MAX_LIFETIME + 300) {
                     discard();
                     return;
                 }

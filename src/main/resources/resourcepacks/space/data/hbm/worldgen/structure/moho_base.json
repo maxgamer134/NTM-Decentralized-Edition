@@ -11,5 +11,5 @@
   "start_pool": "hbm:moho/start",
   "step": "strongholds",
   "min_height": 52,
-  "max_height": 63
+  "max_height": 68
 }

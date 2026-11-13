@@ -5,6 +5,7 @@
 package com.hbm.space.machine;
 
 import com.hbm.api.fluidmk2.IFluidHandlerMK2;
+import com.hbm.backport.InteractionResult;
 import com.hbm.backport.compat.BlockCompat;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
@@ -13,12 +14,19 @@ import com.hbm.blocks.ITickingBlock;
 import com.hbm.capability.ICapabilityBlock;
 import com.hbm.capability.MachineCaps;
 import com.hbm.interfaces.ILookOverlay;
+import com.hbm.inventory.fluid.NTMFluidProperties;
+import com.hbm.inventory.fluid.NTMFluidProperty;
 import com.hbm.inventory.fluid.NTMFluids;
 import com.hbm.inventory.fluid.tank.FluidTankAccess;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
+import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Gaseous;
+import com.hbm.inventory.fluid.trait.FluidTraitSimple.FT_Gaseous_ART;
+import com.hbm.items.ModDataComponents;
+import com.hbm.items.machine.FluidIdentifierData;
 import com.hbm.items.CreativeContents;
 import com.hbm.lib.Library;
 import com.hbm.packet.SyncUnitSchema;
+import com.hbm.particle.CoolingTowerParticleOptions;
 import com.hbm.registration.Reg;
 import com.hbm.registration.RegistryHandle;
 import com.hbm.space.atmosphere.AtmosphereBlob;
@@ -29,10 +37,14 @@ import com.hbm.util.BobMathUtil;
 import io.netty.buffer.ByteBuf;
 import java.util.Set;
 import java.util.function.Consumer;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -40,12 +52,14 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jspecify.annotations.Nullable;
 
 /**
- * The air vent: fed oxygen, it fills the sealed room around it, a millibucket a block, and lets the
- * gas leak back out as the room is breathed. The CO2 scrubber, gas identifier swap and
- * OpenComputers hooks are left out.
+ * The air vent: fed oxygen (or any gas set with a fluid identifier), it fills the sealed room around
+ * it, a millibucket a block, and lets the gas leak back out as the room is breathed. Only an oxygen
+ * vent feeds a CO2 scrubber. The OpenComputers hooks are left out.
  */
 public final class SpaceVents {
 
@@ -55,7 +69,7 @@ public final class SpaceVents {
             () -> BlockBehaviour.Properties.of().strength(5F, 10F).requiresCorrectToolForDrops());
     public static final Reg.BeHandle<AirVentBE> VENT_BE = Reg.be("air_vent",
                     () -> new BlockEntityType<>(AirVentBE::new, Set.of(VENT.get()), null))
-            .ticksServer(BlockEntityMachineBase::tickServer);
+            .ticksServer(BlockEntityMachineBase::tickServer).ticksClient(BlockEntityMachineBase::tickClient);
 
     public static void init() {
         CreativeContents.insertAfter(CreativeContents.Tab.MACHINES, Library.id("machine_condenser_powered"), () -> new ItemStack(VENT.get()));
@@ -74,6 +88,23 @@ public final class SpaceVents {
         @Override
         public MachineCaps caps() {
             return MachineCaps.of(VENT_BE).fluidIn();
+        }
+
+        @Override
+        protected InteractionResult backport$useItemOn(ItemStack held, BlockState state, Level level, BlockPos pos, Player player,
+                InteractionHand hand, BlockHitResult hit) {
+            FluidIdentifierData data = held.get(ModDataComponents.FLUID_IDENTIFIER.get());
+            if (data == null) return super.backport$useItemOn(held, state, level, pos, player, hand, hit);
+            if (level.isClientSide()) return InteractionResult.SUCCESS;
+            Fluid type = data.primary();
+            if (!(level.getBlockEntity(pos) instanceof AirVentBE vent) || type == null || type == Fluids.EMPTY) return InteractionResult.SUCCESS;
+            if (NTMFluidProperties.hasTrait(type, FT_Gaseous.class) || NTMFluidProperties.hasTrait(type, FT_Gaseous_ART.class)) {
+                vent.tank.setTankType(type);
+                vent.setChanged();
+                player.sendSystemMessage(Component.translatable("desc.shared.changedTypeTo").withStyle(ChatFormatting.YELLOW)
+                        .append(NTMFluidProperties.getDisplayName(type)).append("!"));
+            }
+            return InteractionResult.SUCCESS;
         }
 
         @Override
@@ -148,7 +179,7 @@ public final class SpaceVents {
                                 consumeFromTank(1);
                                 wasteFill++;
                             }
-                            if (scrubber != null && !scrubber.isRemoved()) {
+                            if (scrubber != null && !scrubber.isRemoved() && tank.getTankType() == NTMFluids.byName("OXYGEN")) {
                                 wasteFill -= scrubber.scrub(Mth.clamp(wasteFill, 0, 20));
                             }
                         } else {
@@ -175,6 +206,24 @@ public final class SpaceVents {
             networkPackNT(100);
         }
 
+        @Override
+        public void tickClient() {
+            if (!on || level == null || level.getGameTime() % 2 != 0) return;
+            RandomSource rand = level.getRandom();
+            NTMFluidProperty prop = NTMFluidProperties.get(getFluidType());
+            level.addParticle(new CoolingTowerParticleOptions.Builder()
+                            .setLift(0.1F)
+                            .setBaseScale(0.3F)
+                            .setMaxScale(1F)
+                            .setLife(20 + rand.nextInt(20))
+                            .setColor(prop != null ? prop.color() & 0xFFFFFF : CoolingTowerParticleOptions.NO_TINT)
+                            .build(),
+                    worldPosition.getX() + 0.5 + rand.nextDouble() - 0.5,
+                    worldPosition.getY() + 1,
+                    worldPosition.getZ() + 0.5 + rand.nextDouble() - 0.5,
+                    0, 0, 0);
+        }
+
         private void consumeFromTank(int amount) {
             int bonus = Mth.clamp(amount, 0, bonusFill);
             bonusFill -= bonus;
@@ -193,7 +242,7 @@ public final class SpaceVents {
 
         /** A scrubber claims the vent's waste gas; one at a time, the one that can run. */
         public boolean registerScrubber(SpaceScrubber.ScrubberBE candidate) {
-            if (isRemoved() || tank.getFluid() != NTMFluids.byName("OXYGEN")) return false;
+            if (isRemoved() || tank.getTankType() != NTMFluids.byName("OXYGEN")) return false;
             if (scrubber == candidate) return true;
             if (scrubber != null && !scrubber.isRemoved() && scrubber.canOperate()) return false;
             scrubber = candidate;
@@ -223,7 +272,7 @@ public final class SpaceVents {
 
         @Override
         public Fluid getFluidType() {
-            Fluid type = tank.getFluid();
+            Fluid type = tank.getTankType();
             return type != null ? type : NTMFluids.byName("OXYGEN");
         }
 
@@ -341,6 +390,8 @@ public final class SpaceVents {
         protected void loadAdditional(ValueInput input) {
             super.loadAdditional(input);
             input.child("tank").ifPresent(tank::deserialize);
+            // vents from before the gas swap may have no type saved: they were oxygen
+            if (tank.getTankType() == null) tank.setTankType(NTMFluids.byName("OXYGEN"));
             airFill = input.getIntOr("fill", 0);
             wasteFill = input.getIntOr("waste", 0);
             bonusFill = input.getIntOr("bonus", 0);

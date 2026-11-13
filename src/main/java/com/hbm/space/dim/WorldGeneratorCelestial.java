@@ -130,7 +130,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 
 		if(rand.nextInt(4) == 0) {
 			int rx = x + rand.nextInt(16) + 8;
-			int ry = 6 + rand.nextInt(13);
+			int ry = Features.stretch(6 + rand.nextInt(13));
 			int rz = z + rand.nextInt(16) + 8;
 
 			if(world.getBlock(rx, ry, rz) == planetStone) {
@@ -164,7 +164,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 
 	private static void bedrockOre(World world, Random rand, int x, int z, net.minecraft.world.item.ItemStack stack, FluidStackNTM acid, int color, int tier, Block target) {
 		com.hbm.world.feature.BedrockOreFeature.generate(world.level(), x, z, stack, acid, color, tier,
-				LegacyBlocks.b("stone_depth").defaultBlockState(), state -> com.hbm.space.dim.DeepStone.matches(state.getBlock(), target), net.minecraft.util.RandomSource.create(rand.nextLong()));
+				LegacyBlocks.b("stone_depth").defaultBlockState(), state -> state.getBlock() == target, net.minecraft.util.RandomSource.create(rand.nextLong()));
 	}
 
 	// This will generate vanilla ores for the chunk when the biome decorator fails to find any regular stone
@@ -179,7 +179,7 @@ public class WorldGeneratorCelestial implements Planet.Decorator {
 
 	// A simple reimplementation of `genStandardOre1` without needing to instance a BiomeDecorator
 	private void genVanillaOre(World world, Random rand, int x, int z, int yMin, int yMax, int count, int numberOfBlocks, Block ore, Block target, int meta) {
-		if(Features.recorded(ore, meta, target, count, numberOfBlocks, yMin, yMax - 1, "vein")) return;
+		if(Features.recorded(ore, meta, target, count, numberOfBlocks, Features.stretch(yMin), Features.stretch(yMax - 1), "vein")) return;
 		WorldGenMinable worldGenMinable = new WorldGenMinable(ore, meta, numberOfBlocks, target);
 
 		for (int l = 0; l < count; ++l) {

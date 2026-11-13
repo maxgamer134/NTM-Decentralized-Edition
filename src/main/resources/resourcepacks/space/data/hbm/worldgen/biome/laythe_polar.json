@@ -3,13 +3,13 @@
   "temperature": 0.2,
   "downfall": 0.2,
   "effects": {
-    "sky_color": 0,
+    "sky_color": 8233727,
     "fog_color": 0,
     "water_color": 12711167,
     "water_fog_color": 12711167
   },
   "spawners": {
-    "water_creature": [
+    "water_ambient": [
       {
         "type": "hbm:entity_scutterfish",
         "weight": 10,

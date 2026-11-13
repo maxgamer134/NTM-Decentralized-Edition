@@ -71,18 +71,12 @@
     "hbm:laythe_coast",
     "hbm:laythe_ocean",
     "hbm:laythe_polar",
-    "hbm:minmus",
-    "hbm:minmus_basin",
     "hbm:moho",
     "hbm:moho_basalt",
     "hbm:moho_lava",
     "hbm:moho_plateau",
     "hbm:moon",
-    "hbm:tekto_forest",
-    "hbm:tekto_halogen_hill",
-    "hbm:tekto_polyvinyl",
-    "hbm:tekto_river",
-    "hbm:tekto_vinyl_island"
+    "hbm:planet_river"
   ],
   "spawn_overrides": {},
   "step": "strongholds"

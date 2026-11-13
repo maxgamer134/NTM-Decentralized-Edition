@@ -6,6 +6,8 @@ package com.hbm.space.dim.legacy;
 import com.hbm.NuclearTech;
 import com.hbm.lib.Library;
 import com.hbm.space.BlockSpaceOre;
+import com.hbm.space.BlockSpaceTint;
+import com.hbm.space.SpacePlants;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,6 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 /**
@@ -75,7 +78,17 @@ public final class LegacyBlocks {
         Block[] variants = VARIANT_BLOCKS.get(block);
         if (variants != null) return variants[Math.min(meta & 15, variants.length - 1)].defaultBlockState();
         BlockState state = block.defaultBlockState();
+        // two-block plants: metadata 8 is the upper half
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF))
+            state = state.setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, (meta & 8) != 0 ? DoubleBlockHalf.UPPER : DoubleBlockHalf.LOWER);
         if (meta == 0) return state;
+        // BlockEnumMulti textured by metadata modulo its variant count (worldgen coral uses 8-12)
+        if (state.hasProperty(SpacePlants.Coral.CORAL)) {
+            var types = SpacePlants.CoralType.values();
+            return state.setValue(SpacePlants.Coral.CORAL, types[Math.floorMod(meta, types.length)]);
+        }
+        if (state.hasProperty(BlockSpaceTint.SHADE)) return state.setValue(BlockSpaceTint.SHADE, meta & 15);
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF)) return state;
         if (state.hasProperty(BlockSpaceOre.BODY)) {
             var bodies = BlockSpaceOre.OreBody.values();
             return state.setValue(BlockSpaceOre.BODY, bodies[Math.min(meta, bodies.length - 1)]);
@@ -91,6 +104,11 @@ public final class LegacyBlocks {
             IntegerProperty level = BlockStateProperties.LEVEL;
             return state.setValue(level, Math.min(meta, 15));
         }
+        // otherwise the metadata was a number from 0, like an age
+        for (var property : state.getProperties()) {
+            if (property instanceof IntegerProperty i && i.getPossibleValues().contains(0) && i.getPossibleValues().contains(meta))
+                return state.setValue(i, meta);
+        }
         return state;
     }
 
@@ -105,6 +123,10 @@ public final class LegacyBlocks {
             for (int i = 0; i < variants.length; i++) if (state.is(variants[i])) return i;
         if (state.hasProperty(BlockSpaceOre.BODY)) return state.getValue(BlockSpaceOre.BODY).ordinal();
         for (int i = 0; i < CLAY.length; i++) if (state.is(CLAY[i])) return i;
+        if (state.hasProperty(BlockSpaceTint.SHADE)) return state.getValue(BlockSpaceTint.SHADE);
+        if (state.hasProperty(SpacePlants.Coral.CORAL)) return state.getValue(SpacePlants.Coral.CORAL).ordinal();
+        if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF))
+            return state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER ? 8 : 0;
         return 0;
     }
 

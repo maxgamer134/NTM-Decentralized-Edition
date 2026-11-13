@@ -295,6 +295,34 @@ public class OrbitalStation {
         return progress > 0 ? (float) Mth.lerp(progress, sun, target.getSunPower()) : sun;
     }
 
+    /** WorldProviderOrbit.getSunPower: the station's sunlight, less what an eclipse covers while in orbit. */
+    public float getSunPower(Level level) {
+        if (getTransferProgress(0) > 0) return getSunPower();
+        return orbiting.getSunPower() * (1 - (float) getEclipseAmount(level));
+    }
+
+    private double eclipseAmount;
+    private long eclipseTick = Long.MIN_VALUE;
+
+    /** How much of the star the bodies around the station cover, cached per tick. */
+    public double getEclipseAmount(Level level) {
+        long tick = level.getGameTime();
+        if (tick == eclipseTick) return eclipseAmount;
+        double sunSize = SolarSystem.calculateSunSize(orbiting);
+        double progress = getTransferProgress(0);
+        java.util.List<SolarSystem.AstroMetric> metrics;
+        if (state == StationState.ORBIT) {
+            metrics = SolarSystem.calculateMetricsFromSatellite(level, 0, orbiting, getOrbitalAltitude(orbiting));
+        } else {
+            metrics = SolarSystem.calculateMetricsBetweenSatelliteOrbits(level, 0, orbiting, target,
+                    getOrbitalAltitude(orbiting), getOrbitalAltitude(target), progress);
+            sunSize = Mth.lerp(progress, sunSize, SolarSystem.calculateSunSize(target));
+        }
+        eclipseAmount = com.hbm.space.SpaceEclipse.factor(metrics, sunSize, SolarSystem.MAX_APPARENT_SIZE_ORBIT);
+        eclipseTick = tick;
+        return eclipseAmount;
+    }
+
     // the station grid
 
     public static long key(int x, int z) {

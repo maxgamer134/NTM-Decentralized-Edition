@@ -80,7 +80,7 @@ public final class LegacyConfig {
         public static int alexandriteSpawn = 100;
         public static int aluminiumClusterSpawn = 3;
         public static int aluminiumSpawn = 7;
-        public static int asbestosSpawn = 4;
+        public static int asbestosSpawn = 2;
         public static int berylliumSpawn = 6;
         public static int cinnebarSpawn = 1;
         public static int cobaltSpawn = 2;
@@ -96,11 +96,11 @@ public final class LegacyConfig {
         public static int leadSpawn = 6;
         public static int limestoneSpawn = 1;
         public static int lithiumSpawn = 6;
-        public static int mineralSpawn = 5;
+        public static int mineralSpawn = 4;
         public static int minmusBrineSpawn = 100;
         public static int munBrineSpawn = 100;
         public static int netherPhosphorusSpawn = 24;
-        public static int nickelSpawn = 9;
+        public static int nickelSpawn = 12;
         public static int niterSpawn = 6;
         public static int pyramidStructure = 4000;
         public static int radfreq = 5000;
@@ -112,7 +112,7 @@ public final class LegacyConfig {
         public static int titaniumClusterSpawn = 2;
         public static int titaniumSpawn = 8;
         public static int tungstenSpawn = 10;
-        public static int uraniumSpawn = 6;
+        public static int uraniumSpawn = 7;
         public static int zincSpawn = 8;
     }
 

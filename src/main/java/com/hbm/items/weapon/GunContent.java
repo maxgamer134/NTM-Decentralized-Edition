@@ -43,7 +43,7 @@ public final class GunContent {
     private static final Pattern WAR =
             Pattern.compile(
                     "nuke_.+_kit|tsar_(kit|core)|missile_(kit|assembly)|machine_missile_assembly|"
-                            + "grenade_(filling|fuze|shell|extra)|bomb_caller|launch_(code|code_piece|key)|"
+                            + "grenade_(filling|fuze|shell|extra)|bomb_caller(_.+)?|launch_(code|code_piece|key)|"
                             + "gadget_(core|explosive|wireing)|boy_(bullet|igniter|propellant|shielding|target)|"
                             + "man_(core|explosive|igniter)|mike_(cooling_unit|core|deut)|"
                             + "(fleija|solinium)_(core|igniter|propellant)|n2_charge|"
@@ -164,8 +164,10 @@ public final class GunContent {
         }
         if (item instanceof BlockItem blockItem) {
             Block block = blockItem.getBlock();
+            // NTM:Space's bombs (the antimatter nuke, salted det cord) live in its own package
+            String pkg = block.getClass().getPackageName();
             return block instanceof IBomb
-                    && block.getClass().getPackageName().equals("com.hbm.blocks.bomb")
+                    && (pkg.equals("com.hbm.blocks.bomb") || pkg.equals("com.hbm.space"))
                     && !(block instanceof BlockChargeDynamite
                             || block instanceof BlockChargeMiner
                             || block instanceof BlockDetMiner);

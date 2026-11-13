@@ -706,7 +706,7 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
         // backport: smooth_model_shading draws OBJ block models like the original mod. The block
         // renderer only knows the per-axis block shade, so the soft two-light shade is worked out
         // here per corner, baked into the colour, and the quad is marked unshaded.
-        if (com.hbm.config.RenderConfig.smoothModels && info.shade()) {
+        if (com.hbm.config.RenderConfig.smoothModels && info.shade() && !BAKING_ITEM.get()) {
             colors =
                     BakedColors.of(
                             diffuse(color, normals[0]), diffuse(color, normals[1]),
@@ -760,8 +760,30 @@ public final class ObjUnbakedGeometry implements UnbakedGeometry {
         return (color & 0xFF000000) | (r << 16) | (g << 8) | b;
     }
 
+    // backport-fix: an item model is drawn by the item renderer, which lights it itself (GUI and
+    // hand lighting turn with the item); the block-only baked shade made every OBJ machine icon
+    // shaded twice, from a light fixed above the model, and far too dark
+    private static final ThreadLocal<Boolean> BAKING_ITEM = ThreadLocal.withInitial(() -> false);
+
+    private static boolean isItemModel(ModelDebugName name) {
+        String n = name.debugName();
+        int colon = n.indexOf(':');
+        return n.startsWith("item/", colon + 1);
+    }
+
     @Override
     public QuadCollection bake(
+            TextureSlots slots, ModelBaker baker, ModelState state, ModelDebugName name) {
+        boolean outer = BAKING_ITEM.get();
+        BAKING_ITEM.set(isItemModel(name));
+        try {
+            return bakeModel(slots, baker, state, name);
+        } finally {
+            BAKING_ITEM.set(outer);
+        }
+    }
+
+    private QuadCollection bakeModel(
             TextureSlots slots, ModelBaker baker, ModelState state, ModelDebugName name) {
         if (groups != null) return bakeSpecs(slots, baker, state, name);
         if (skins.size() == 1) {

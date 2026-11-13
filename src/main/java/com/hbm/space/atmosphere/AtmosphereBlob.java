@@ -48,6 +48,9 @@ public final class AtmosphereBlob {
         this.handler = handler;
     }
 
+    private static final net.minecraft.tags.TagKey<net.minecraft.world.level.block.Block> NEVER_SEALS =
+            net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.BLOCK, com.hbm.lib.Library.id("never_seals"));
+
     public static boolean isBlockSealed(ServerLevel level, BlockPos pos) {
         if (pos.getY() < level.getMinBuildHeight() || pos.getY() >= level.getMaxBuildHeight()) return false;
         // unloaded chunks count as walls, so a volume never loads the world it searches
@@ -56,6 +59,8 @@ public final class AtmosphereBlob {
         if (state.isAir()) return false;
         var block = state.getBlock();
         if (block instanceof FarmBlock || block instanceof FenceBlock) return false;
+        // the machines NTM:Space marked IBlockSealable with isSealed false: full blocks with gaps
+        if (state.is(NEVER_SEALS)) return false;
         if (block instanceof IBlockSealable sealable) return sealable.isSealed(level, pos);
         // a door's cells seal by the door's rules
         if (block instanceof BlockMultiblockCell) {

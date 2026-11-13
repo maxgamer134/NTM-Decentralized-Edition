@@ -613,6 +613,11 @@ public final class SpaceDyson {
                         BlockPos core = MultiblockSurface.coreOfAny(server, at, state);
                         be = server.getBlockEntity(core != null ? core : at);
                         if (be instanceof Converter converter) detonate = !converter.provideEnergy(at, energy);
+                        // NTM:Space's tungsten crate takes the beam as a laser, a 5000th of it
+                        else if (be instanceof com.hbm.blockentity.machine.storage.BlockEntityCrateTungsten crate) {
+                            crate.addEnergy(server, at, energy / 5000, Direction.NORTH);
+                            detonate = false;
+                        }
                     }
                     if (state.isSolidRender(server, at) || be != null) {
                         if (detonate) {

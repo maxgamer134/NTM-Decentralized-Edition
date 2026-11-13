@@ -110,7 +110,14 @@ public final class SpaceStations {
 
     // the docking ports
 
-    public static class Port extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock, ILookOverlay {
+    public static class Port extends BlockMultiblockCore implements ITickingBlock, ICapabilityBlock, ILookOverlay,
+            com.hbm.space.atmosphere.IBlockSealable {
+        /** BlockOrbitalStation: the docking port is part of the hull and holds air. */
+        @Override
+        public boolean isSealed(net.minecraft.world.level.Level level, BlockPos pos) {
+            return true;
+        }
+
         public Port(Properties props) {
             super(props);
         }

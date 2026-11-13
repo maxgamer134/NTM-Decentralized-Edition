@@ -190,8 +190,8 @@ public final class SpaceEnvironment implements EnvironmentProvider {
     @Override
     public boolean evaporates(ServerLevel level, BlockPos pos, boolean vacuumProof) {
         if (vacuumProof) return false;
-        CBT_Atmosphere atmosphere = SpaceAtmosphere.getAtmosphere(level, pos);
-        return atmosphere == null || atmosphere.getPressure() < 0.01;
+        // TileEntityCondenser asks the body, not the room: a sealed hall doesn't save the steam
+        return vacuum(level);
     }
 
     @Override

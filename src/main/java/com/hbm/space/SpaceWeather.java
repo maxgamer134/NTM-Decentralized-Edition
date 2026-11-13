@@ -100,12 +100,17 @@ public final class SpaceWeather {
         CelestialBody body = planet(level);
         if (body == null) return;
         List<ItemStack> drops = event.getDrops();
-        RandomSource rand = level.getRandom();
-        for (int i = 0; i < drops.size(); i++) {
-            ItemStack drop = drops.get(i);
-            if (level.dimension() == SpaceDimensions.IKE) drops.set(i, BlockPlushie.PlushieType.YOMI.stack());
-            else if (drop.is(ItemTags.FISHES)) drops.set(i, junk(rand));
-        }
+        for (int i = 0; i < drops.size(); i++) drops.set(i, swap(level, drops.get(i)));
+    }
+
+    private static ItemStack swap(Level level, ItemStack drop) {
+        if (level.dimension() == SpaceDimensions.IKE) return BlockPlushie.PlushieType.YOMI.stack();
+        return drop.is(ItemTags.FISHES) ? junk(level.getRandom()) : drop;
+    }
+
+    /** What a fish caught here becomes: the fishing grenade's catch, by the same rules as a rod's. */
+    public static ItemStack planetCatch(Level level, ItemStack fish) {
+        return fish.isEmpty() || planet(level) == null ? fish : swap(level, fish);
     }
 
     /** 1.7.10's junk table, as NTM:Space trimmed it (no boots, leather, bones or rotten flesh). */

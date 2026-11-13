@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:furnace",
+    "hbm:machine_blast_furnace",
+    "hbm:machine_furnace_brick",
+    "hbm:machine_diesel",
+    "hbm:fan",
+    "hbm:air_vent"
+  ]
+}

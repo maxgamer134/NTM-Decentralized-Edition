@@ -31,7 +31,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jspecify.annotations.Nullable;
 
-public class BlockRefueler extends BlockMachineHorizontal implements ICapabilityBlock {
+public class BlockRefueler extends BlockMachineHorizontal implements ICapabilityBlock, com.hbm.interfaces.ILookOverlay {
 
     private static final VoxelShape NORTH = Block.box(0, 0, 12, 16, 16, 16);
     private static final VoxelShape SOUTH = Block.box(0, 0, 0, 16, 16, 4);
@@ -62,6 +62,19 @@ public class BlockRefueler extends BlockMachineHorizontal implements ICapability
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new BlockEntityRefueler(pos, state);
+    }
+
+    /** NTM:Space's look overlay: the fluid it hands out, in that fluid's colour. */
+    @Override
+    public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
+        if (!com.hbm.space.SpaceToggle.changes()) return;
+        if (!(level.getBlockEntity(pos) instanceof BlockEntityRefueler refueler)) return;
+        info.title(getName().getString(), 0xFFFF00, 0x404000);
+        Fluid fluid = refueler.tank.getTankType();
+        if (fluid == null) fluid = Fluids.EMPTY;
+        int colour = fluid == Fluids.EMPTY ? 0xFFFFFF
+                : net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions.of(fluid).getTintColor() & 0xFFFFFF;
+        info.line(NTMFluidProperties.clientName(fluid), colour);
     }
 
     @Override

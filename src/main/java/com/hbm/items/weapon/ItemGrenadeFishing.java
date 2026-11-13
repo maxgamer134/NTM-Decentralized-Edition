@@ -39,7 +39,9 @@ public class ItemGrenadeFishing extends ItemGenericGrenade {
                                 .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(pos))
                                 .withParameter(LootContextParams.TOOL, ItemStack.EMPTY)
                                 .create(LootContextParamSets.FISHING));
-        return loot.isEmpty() ? ItemStack.EMPTY : loot.getFirst();
+        ItemStack fish = loot.isEmpty() ? ItemStack.EMPTY : loot.getFirst();
+        // NTM:Space: the grenade fishes each planet's waters as a rod would
+        return com.hbm.space.SpaceToggle.enabled() ? com.hbm.space.SpaceWeather.planetCatch(level, fish) : fish;
     }
 
     @Override

@@ -123,7 +123,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.MinecartRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
-import net.minecraft.client.renderer.entity.TntRenderer;
 import com.hbm.backport.client.itemmodel.ItemModel;
 import com.hbm.backport.client.itemmodel.RangeSelectItemModelProperty;
 import com.hbm.backport.client.itemmodel.SelectItemModelProperty;
@@ -596,7 +595,7 @@ public final class ClientRegistry {
         reg.accept(ModEntities.MOVING_ITEM.get(), RenderMovingItem::new);
         reg.accept(ModEntities.MOVING_PACKAGE.get(), RenderMovingPackage::new);
 
-        reg.accept(ModEntities.TNT_NTM.get(), TntRenderer::new);
+        reg.accept(ModEntities.TNT_NTM.get(), com.hbm.client.render.RenderTntNtm::new);
 
         reg.accept(ModEntities.CLOUD_FLEIJA.get(), RenderCloudFleija::new);
         reg.accept(ModEntities.CLOUD_SOLINIUM.get(), RenderCloudSolinium::new);

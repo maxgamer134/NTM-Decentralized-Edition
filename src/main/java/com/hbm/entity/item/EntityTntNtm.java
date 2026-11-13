@@ -14,8 +14,24 @@ import com.hbm.backport.compat.PrimedTntCompat;
 
 public class EntityTntNtm extends PrimedTntCompat {
 
+    /** NTM:Space: primed charges tumble as they fly, each at its own rate (client-side only). */
+    private final float momentumPitch, momentumYaw;
+    public float spinPitch, spinYaw, prevSpinPitch, prevSpinYaw;
+
     public EntityTntNtm(EntityType<? extends EntityTntNtm> type, Level level) {
         super(type, level);
+        this.momentumPitch = (float) (level.getRandom().nextGaussian() * 5F);
+        this.momentumYaw = (float) (level.getRandom().nextGaussian() * 10F);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!level().isClientSide()) return;
+        prevSpinPitch = spinPitch;
+        prevSpinYaw = spinYaw;
+        spinPitch += momentumPitch;
+        spinYaw += momentumYaw;
     }
 
     public EntityTntNtm(

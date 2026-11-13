@@ -48,6 +48,7 @@ public class BlockEntityMachineShredder extends BlockEntityMachineBase
     public static final int SOUND_CYCLE = 50;
 
     private static final int[] ACCESSIBLE_SLOTS = accessibleSlots();
+    private static final net.minecraft.resources.ResourceLocation GWEN = com.hbm.lib.Library.id("bobblehead_gwen");
 
     @ContainerSync public long power;
     @ContainerSync public int progress;
@@ -203,6 +204,14 @@ public class BlockEntityMachineShredder extends BlockEntityMachineBase
     public void processItem() {
         for (int inputSlot = SLOT_INPUT_START; inputSlot < SLOT_INPUT_END; inputSlot++) {
             ItemStack input = inventory.get(inputSlot);
+            // NTM:Space: Gwen does not go quietly
+            if (com.hbm.space.SpaceToggle.changes() && !input.isEmpty()
+                    && net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(input.getItem()).equals(GWEN)) {
+                level.destroyBlock(worldPosition, false);
+                level.explode(null, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5,
+                        5F, true, net.minecraft.world.level.Level.ExplosionInteraction.BLOCK);
+                return;
+            }
             if (input.isEmpty() || !hasSpace(input)) continue;
 
             ItemStack result = ShredderRecipes.shred(input);

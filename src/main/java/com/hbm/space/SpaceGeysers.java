@@ -93,7 +93,7 @@ public final class SpaceGeysers {
 
         @Override
         public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
-            ClientEffects.spawnGasFlame(level, pos.getX() + rand.nextDouble(), pos.getY() + 1.1, pos.getZ() + rand.nextDouble(),
+            ClientEffects.spawnGasFlame(level, pos.getX() + rand.nextDouble(), pos.getY() + 0.5 + rand.nextDouble(), pos.getZ() + rand.nextDouble(),
                     rand.nextGaussian() * 0.2, 0.1, rand.nextGaussian() * 0.2, 1F);
         }
     }

@@ -65,7 +65,8 @@ public enum ToolAreaAbility implements BaseAbility, StringRepresentable {
         public boolean onDig(ToolDig dig, int abilityLevel) {
             ServerLevel level = dig.level();
             BlockState reference = level.getBlockState(dig.reference());
-            if (reference.is(BlockTags.BASE_STONE_OVERWORLD)
+            // NTM:Space counts every stone and cobblestone, the planets' too (hbm:recursion_stone)
+            if ((reference.is(BlockTags.BASE_STONE_OVERWORLD) || reference.is(RECURSION_STONE))
                     && !ItemData.TOOL_RECURSION_STONE.get()) {
                 return false;
             }
@@ -222,6 +223,8 @@ public enum ToolAreaAbility implements BaseAbility, StringRepresentable {
             ByteBufCodecs.idMapper(id -> VALUES[id], Enum::ordinal);
 
     private static final int SORT_ORDER_BASE = 0;
+    private static final TagKey<net.minecraft.world.level.block.Block> RECURSION_STONE =
+            TagKey.create(net.minecraft.core.registries.Registries.BLOCK, com.hbm.lib.Library.id("recursion_stone"));
     private static final int[] RANGE = {1, 2, 3, 4};
     private static final List<BlockPos> OFFSETS = neighbourhood();
 

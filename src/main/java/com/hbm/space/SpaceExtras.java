@@ -553,6 +553,15 @@ public final class SpaceExtras {
         if (com.hbm.space.SpaceToggle.changes())
             com.hbm.items.machine.ItemFluidContainerInfinite.CONDITION.install("hbm_space", new WaterTableCondition());
         com.hbm.entity.logic.EntityBomber.addonLoop(9, JET_LOOP_BOMB::get);
+        // NTM:Space's survey scanner reports natural gas and brine deposits too
+        com.hbm.items.tool.ItemSurveyScanner.addLine("chat.surveyScanner.foundGas", net.minecraft.ChatFormatting.WHITE,
+                java.util.List.of(SpaceBlocks.ORE_GAS));
+        com.hbm.items.tool.ItemSurveyScanner.addLine("chat.surveyScanner.foundBrine", net.minecraft.ChatFormatting.WHITE,
+                java.util.List.of(SpaceBlocks.ORE_BRINE));
+        // NTM:Space's pumps draw groundwater through the planets' soils too
+        for (String ground : new String[] {"eve_silt", "eve_rock", "ike_regolith", "ike_stone", "duna_sands", "moon_turf",
+                "laythe_silt", "moho_regolith", "minmus_smooth", "vinyl_sand", "rubber_silt", "rubber_grass"})
+            com.hbm.blockentity.machine.BlockEntityMachinePumpBase.addGround(() -> com.hbm.space.dim.legacy.LegacyBlocks.b(ground));
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_americium242", WASTE_SHORT);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_tiny_americium242", WASTE_SHORT_TINY);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_depleted_americium242", WASTE_SHORT_DEPLETED);

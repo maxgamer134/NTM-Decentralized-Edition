@@ -66,6 +66,12 @@ public class BlockEntityDemonLamp extends BlockEntityCompat {
             eRads /= (float) (len * len);
             ContaminationUtil.contaminate(
                     e, HazardType.RADIATION, ContaminationType.CREATIVE, eRads);
+            // NTM:Space: the lamp activates what it shines on, and what you carry
+            if (com.hbm.space.SpaceToggle.changes()) {
+                ContaminationUtil.contaminate(e, HazardType.NEUTRON, ContaminationType.CREATIVE, eRads);
+                if (e instanceof net.minecraft.world.entity.player.Player player)
+                    ContaminationUtil.neutronActivateInventory(player, eRads, 1F);
+            }
 
             if (len < BURN_RANGE) e.hurt(level.damageSources().inFire(), BURN_DAMAGE);
         }

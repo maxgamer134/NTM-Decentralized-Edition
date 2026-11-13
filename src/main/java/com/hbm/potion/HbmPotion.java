@@ -48,6 +48,12 @@ public final class HbmPotion {
     public static RegistryHandle<MobEffect> nitan;
     /** NTM:Space's "GOD WATCHES YOU", from the Animan pill. */
     public static RegistryHandle<MobEffect> run;
+    /** NTM:Space's Butterfingers: you slide about on the ground and float up a little. */
+    public static RegistryHandle<MobEffect> slippery;
+    /** NTM:Space's flashbang: a white-out over the screen. */
+    public static RegistryHandle<MobEffect> flashbang;
+    private static Holder<MobEffect> slipperyHolder;
+    private static Holder<MobEffect> flashbangHolder;
     private static Holder<MobEffect> nitanHolder;
     private static Holder<MobEffect> runHolder;
 
@@ -92,7 +98,69 @@ public final class HbmPotion {
         if (com.hbm.space.SpaceToggle.enabled()) {
             nitan = NeoForgeRegistrar.registerMobEffect("nitan", NitanEffect::new);
             run = NeoForgeRegistrar.registerMobEffect("run", RunEffect::new);
+            slippery = NeoForgeRegistrar.registerMobEffect("slippery", SlipperyEffect::new);
+            flashbang = NeoForgeRegistrar.registerMobEffect("flashbang",
+                    () -> new HbmMobEffect(MobEffectCategory.BENEFICIAL, 0xD0D0D0));
+            net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(HbmPotion::slide);
         }
+    }
+
+    public static Holder<MobEffect> slippery() {
+        if (slipperyHolder == null) slipperyHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(slippery.get());
+        return slipperyHolder;
+    }
+
+    public static Holder<MobEffect> flashbang() {
+        if (flashbangHolder == null) flashbangHolder = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(flashbang.get());
+        return flashbangHolder;
+    }
+
+    /** Butterfingers lifts you a touch every tick. */
+    private static final class SlipperyEffect extends HbmMobEffect {
+        private SlipperyEffect() {
+            super(MobEffectCategory.BENEFICIAL, 0xD0D0D0);
+        }
+
+        @Override
+        public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+            entity.setDeltaMovement(entity.getDeltaMovement().add(0, 0.026D, 0));
+            return true;
+        }
+
+        @Override
+        public boolean shouldApplyEffectTickThisTick(int tickCount, int amplifier) {
+            return true;
+        }
+    }
+
+    /**
+     * ModEventHandler's slippery ground: on the ground you keep sliding the way you were going, and
+     * only slowly come to a stop. Players on both sides, everything else on the server.
+     */
+    private static void slide(net.neoforged.neoforge.event.tick.EntityTickEvent.Pre event) {
+        if (!(event.getEntity() instanceof LivingEntity living) || !living.hasEffect(slippery())) return;
+        if (living instanceof Player player) {
+            if (player.getAbilities().flying) return;
+        } else if (living.level().isClientSide()) {
+            return;
+        }
+        if (!living.onGround()) return;
+        net.minecraft.world.phys.Vec3 m = living.getDeltaMovement();
+        double slipperiness = 0.6, inertia = 0.1;
+        boolean moving = living.zza != 0.0F || living.xxa != 0.0F;
+        double angle = Math.atan2(m.z, m.x);
+        double mx = m.x + (Math.cos(angle) * slipperiness - m.x) * inertia;
+        double mz = m.z + (Math.sin(angle) * slipperiness - m.z) * inertia;
+        if (!moving) {
+            mx *= 0.9;
+            double total = Math.sqrt(mx * mx + mz * mz);
+            if (total > 0) {
+                double smoothing = total * 0.02;
+                mx -= mx / total * smoothing;
+                mz -= mz / total * smoothing;
+            }
+        }
+        living.setDeltaMovement(mx, m.y, mz);
     }
 
     public static Holder<MobEffect> potionsickness() {

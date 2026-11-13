@@ -61,6 +61,24 @@ public class BlockEntityFileCabinet extends BlockEntityLockableBase implements M
     public void tickServer() {
         if (this.playersUsing > 0) {
             if (timer < UPPER_DELAY) timer++;
+            // NTM:Space: a Soyuz does not fit in a filing cabinet
+            if (com.hbm.space.SpaceToggle.changes()
+                    && level instanceof net.minecraft.server.level.ServerLevel server) {
+                for (net.minecraft.world.item.ItemStack slot : inventory) {
+                    if (!(slot.getItem() instanceof com.hbm.items.special.ItemSoyuz)) continue;
+                    double x = worldPosition.getX() + 0.5, y = worldPosition.getY() + 0.5, z = worldPosition.getZ() + 0.5;
+                    new com.hbm.explosion.vanillant.ExplosionVNT(server, x, y, z, 15F)
+                            .setBlockAllocator(new com.hbm.explosion.vanillant.standard.BlockAllocatorStandard(48))
+                            .setBlockProcessor(new com.hbm.explosion.vanillant.standard.BlockProcessorStandard().setNoDrop()
+                                    .withBlockEffect(new com.hbm.explosion.vanillant.standard.BlockMutatorDebris(
+                                            () -> com.hbm.blocks.ModBlocks.BLOCK_SLAG.get().defaultBlockState())))
+                            .setEntityProcessor(new com.hbm.explosion.vanillant.standard.EntityProcessorCross(7.5D).withRangeMod(3F))
+                            .setPlayerProcessor(new com.hbm.explosion.vanillant.standard.PlayerProcessorStandard())
+                            .explode();
+                    com.hbm.particle.helper.ExplosionCreator.composeEffectStandard(server, x, y, z);
+                    return;
+                }
+            }
         } else {
             timer = 0;
         }

@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:red_sand",
+    "hbm:tektite",
+    "hbm:duna_rock",
+    "hbm:duna_cobble",
+    "hbm:dres_rock",
+    "hbm:ike_regolith",
+    "hbm:ike_stone",
+    "hbm:eve_rock",
+    "hbm:moho_regolith",
+    "hbm:moho_stone",
+    "hbm:moon_rock",
+    "hbm:minmus_regolith",
+    "hbm:minmus_smooth",
+    "hbm:minmus_stone",
+    "hbm:basalt_smooth",
+    "hbm:duna_sands",
+    "hbm:laythe_silt",
+    "hbm:eve_silt",
+    "hbm:moon_turf",
+    "hbm:rubber_silt",
+    "hbm:vinyl_sand"
+  ]
+}

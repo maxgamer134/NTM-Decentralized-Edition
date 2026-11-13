@@ -20,6 +20,9 @@ public final class SpaceClientHooks {
     private static final java.util.function.Supplier<com.hbm.render.loader.HFRWavefrontObject> AIRLINER =
             com.google.common.base.Suppliers.memoize(() -> com.hbm.client.model.Meshes.load(com.hbm.lib.Library.id("models/737.obj")));
 
+    private static final net.minecraft.resources.ResourceLocation FLASHBANG =
+            com.hbm.lib.Library.id("textures/misc/overlay_flashbang.png");
+
     private SpaceClientHooks() {}
 
     public static void register(net.neoforged.bus.api.IEventBus modBus) {
@@ -34,6 +37,18 @@ public final class SpaceClientHooks {
         com.hbm.client.render.BomberStyles.register(9,
                 () -> AIRLINER.get(), com.hbm.lib.Library.id("textures/models/airliner.png"), 30F / 3.1F, 180F);
         com.hbm.space.client.SpaceSiegeClient.register();
+        // ModEventHandlerClient: the flashbang effect whites out the screen
+        modBus.addListener(
+                (net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) ->
+                        event.registerBelow(net.neoforged.neoforge.client.gui.VanillaGuiLayers.CROSSHAIR,
+                                com.hbm.lib.Library.id("flashbang"), (graphics, delta) -> {
+                                    var player = net.minecraft.client.Minecraft.getInstance().player;
+                                    if (player == null || !player.hasEffect(com.hbm.potion.HbmPotion.flashbang())) return;
+                                    com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+                                    com.mojang.blaze3d.systems.RenderSystem.defaultBlendFunc();
+                                    graphics.blit(FLASHBANG, 0, 0, graphics.guiWidth(), graphics.guiHeight(), 0F, 0F, 256, 256, 256, 256);
+                                    com.mojang.blaze3d.systems.RenderSystem.disableBlend();
+                                }));
         com.hbm.space.client.SpaceFog.register();
         com.hbm.space.client.SpacePlushieFigures.register(); com.hbm.space.client.SpaceBobbleFigures.register();
         modBus.addListener(
@@ -171,6 +186,11 @@ public final class SpaceClientHooks {
                             com.hbm.space.machine.SpaceLPW2.LPW2BE.CONTRAIL = com.hbm.space.client.LPW2Contrail::spawn;
                             com.hbm.space.machine.SpaceTransporter.OPEN_LINKER = ScreenTransporterLinker::open;
                         }));
+        // NTM:Space pulls the third-person camera out to 12 blocks while you ride a rocket
+        NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.CalculateDetachedCameraDistanceEvent event) -> {
+            if (event.getCamera().getEntity().getVehicle() instanceof com.hbm.space.rocket.EntityRideableRocket)
+                event.setDistance(12F);
+        });
         // a rocket's rider leans with it, about their own feet, as the rocket leans about its base
         NeoForge.EVENT_BUS.addListener(net.neoforged.bus.api.EventPriority.LOWEST,
                 (net.neoforged.neoforge.client.event.RenderLivingEvent.Pre<?, ?> event) -> {

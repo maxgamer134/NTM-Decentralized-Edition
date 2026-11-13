@@ -1356,11 +1356,8 @@ public final class ResourceManager {
         return transition_seal_anim;
     }
 
-    // NTM:Space models (JameH2, MellowArpeggiation and contributors), not yet drawn by a renderer
-    public static final HFRWavefrontObject algae_film = load("models/blocks/algae_film.obj");
-    public static final HFRWavefrontObject antimatter = load("models/bombs/blomb.obj");
-    public static final ResourceLocation antimatter_tex =
-            Library.id("textures/models/bombs/blomb_tex.png");
+    // NTM:Space models (JameH2, MellowArpeggiation and contributors). sphere_v2 is the flesh sky;
+    // the rest are only drawn by Thatmo content (b2x, sat_rail) or nothing upstream (liquidator, hemisphere)
     public static final HFRWavefrontObject dyson_swarm_member = load("models/dyson_swarm_satellite.obj");
     public static final ResourceLocation dyson_swarm_member_tex =
             Library.id("textures/models/dyson_swarm_satellite.png");
@@ -1369,9 +1366,6 @@ public final class ResourceManager {
     public static final HFRWavefrontObject liquidator = load("models/mobs/liquidator.obj");
     public static final ResourceLocation liquidator_tex = Library.id("textures/entity/liqtex.png");
     public static final HFRWavefrontObject sky_plane = load("models/plane.obj");
-    public static final HFRWavefrontObject spike_plant = load("models/plant_spike.obj");
-    public static final ResourceLocation spike_plant_tex =
-            Library.id("textures/models/rubber_cacti.png");
     public static final HFRWavefrontObject sat_rail = load("models/railgun_main.obj");
     public static final ResourceLocation sat_rail_tex = Library.id("textures/models/railgun_main.png");
     public static final HFRWavefrontObject sphere_v2 = load("models/spherev2.obj");

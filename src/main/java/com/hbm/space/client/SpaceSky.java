@@ -1497,22 +1497,20 @@ public final class SpaceSky implements CustomSkies.Renderer {
         additive();
     }
 
-    /** A unit sphere as quads, standing in for ResourceManager.sphere_v2. */
+    /** NTM:Space's sphere_v2 mesh as bare quad positions. */
     private static float[] sphere() {
         if (sphere != null) return sphere;
-        int stacks = 16, slices = 32;
-        float[] v = new float[stacks * slices * 4 * 3];
         int n = 0;
-        for (int i = 0; i < stacks; i++) {
-            double t0 = Math.PI * i / stacks - Math.PI / 2, t1 = Math.PI * (i + 1) / stacks - Math.PI / 2;
-            for (int j = 0; j < slices; j++) {
-                double p0 = Math.PI * 2 * j / slices, p1 = Math.PI * 2 * (j + 1) / slices;
-                double[][] corners = {{t0, p0}, {t0, p1}, {t1, p1}, {t1, p0}};
-                for (double[] c : corners) {
-                    v[n++] = (float) (Math.cos(c[0]) * Math.cos(c[1]));
-                    v[n++] = (float) Math.sin(c[0]);
-                    v[n++] = (float) (Math.cos(c[0]) * Math.sin(c[1]));
-                }
+        for (com.hbm.render.loader.GroupObject g : com.hbm.main.ResourceManager.sphere_v2.groups)
+            n += g.quads(false).length / com.hbm.render.loader.GroupObject.STRIDE * 3;
+        float[] v = new float[n];
+        int k = 0;
+        for (com.hbm.render.loader.GroupObject g : com.hbm.main.ResourceManager.sphere_v2.groups) {
+            float[] q = g.quads(false);
+            for (int i = 0; i < q.length; i += com.hbm.render.loader.GroupObject.STRIDE) {
+                v[k++] = q[i];
+                v[k++] = q[i + 1];
+                v[k++] = q[i + 2];
             }
         }
         sphere = v;

@@ -106,6 +106,10 @@ public class ItemGunChargeThrower extends ItemGunBaseNT {
         if (slot == EquipmentSlot.MAINHAND && entity instanceof Player player) {
             Entity e = anchoredHook(level, stack);
             if (e != null) {
+                // backport-fix: the server's fall distance kept counting while the rope held the
+                // player up, so landing after letting go dealt damage for the whole swing; only
+                // the drop from where the player lets go counts
+                player.resetFallDistance();
                 double line =
                         e.position()
                                 .subtract(

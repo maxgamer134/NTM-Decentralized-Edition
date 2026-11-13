@@ -35,6 +35,9 @@
       "processor_type": "hbm:wire_links"
     },
     {
+      "processor_type": "hbm:wrecked_machines"
+    },
+    {
       "processor_type": "hbm:multiblock_assembly"
     },
     {

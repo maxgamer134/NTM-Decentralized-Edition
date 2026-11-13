@@ -1,6 +1,156 @@
 {
-  "parent": "minecraft:item/generated",
+  "ambientocclusion": false,
+  "gui_light": "side",
+  "loader": "hbm:obj",
+  "model": "hbm:models/dyson_swarm_satellite.obj",
+  "offset_x": 0.5,
+  "offset_y": 0.1,
+  "offset_z": 0.5,
+  "skins": {
+    "all": [
+      "Dyson_Swarm_Module"
+    ]
+  },
   "textures": {
-    "layer0": "hbm:item/swarm_member"
+    "all": "hbm:block/models/dyson_swarm_satellite",
+    "particle": "hbm:block/models/dyson_swarm_satellite"
+  },
+  "display": {
+    "gui": {
+      "rotation": [
+        30,
+        -45,
+        -45
+      ],
+      "scale": [
+        0.11,
+        0.11,
+        0.11
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "translation": [
+        0,
+        2,
+        0
+      ]
+    },
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.11,
+        0.11,
+        0.11
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [
+        75,
+        45,
+        0
+      ],
+      "scale": [
+        0.05,
+        0.05,
+        0.05
+      ],
+      "translation": [
+        0,
+        2.5,
+        0
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        45,
+        0
+      ],
+      "scale": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        225,
+        0
+      ],
+      "scale": [
+        0.06,
+        0.06,
+        0.06
+      ],
+      "translation": [
+        0,
+        0,
+        0
+      ]
+    },
+    "head": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        0.12,
+        0.12,
+        0.12
+      ],
+      "translation": [
+        0,
+        10,
+        0
+      ]
+    }
   }
 }

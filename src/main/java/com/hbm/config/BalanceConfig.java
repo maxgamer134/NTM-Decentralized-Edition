@@ -14,6 +14,8 @@ public final class BalanceConfig {
     public static boolean disableWarNukes = false;
     public static boolean disableWarBombs = false;
     public static boolean disableWarMisc = false;
+    public static boolean enablePedestalRecipe = false;
+    public static boolean enableSecretPartRecipes = false;
     public static boolean disableHeavyTurrets = false;
     public static boolean disableTurretHenry = false;
     public static boolean disableTurretGreg = false;
@@ -62,6 +64,8 @@ public final class BalanceConfig {
         disableWarNukes = c.get(ConfigSchema.DISABLE_WAR_NUKES);
         disableWarBombs = c.get(ConfigSchema.DISABLE_WAR_BOMBS);
         disableWarMisc = c.get(ConfigSchema.DISABLE_WAR_MISC);
+        enablePedestalRecipe = c.get(ConfigSchema.ENABLE_PEDESTAL_RECIPE);
+        enableSecretPartRecipes = c.get(ConfigSchema.ENABLE_SECRET_PART_RECIPES);
         disableHeavyTurrets = c.get(ConfigSchema.DISABLE_HEAVY_TURRETS);
         disableTurretHenry = c.get(ConfigSchema.DISABLE_TURRET_HENRY);
         disableTurretGreg = c.get(ConfigSchema.DISABLE_TURRET_GREG);

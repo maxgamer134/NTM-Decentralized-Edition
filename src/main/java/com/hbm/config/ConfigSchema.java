@@ -175,6 +175,15 @@ public final class ConfigSchema {
     public static final ConfigEntry<Boolean> DISABLE_WAR_MISC =
             bool(Domain.CONTENT, "guns", "disable_war_misc", false,
                     "Switches off the other war explosives: grenades and their parts and the bomb caller.");
+    public static final ConfigEntry<Boolean> ENABLE_PEDESTAL_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_pedestal_recipe", false,
+                    "Lets the Pedestal be crafted (blackstone brick slabs, obsidian, blackstone bricks)."
+                            + " Off, it is only found, as in NTM.");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_PART_RECIPES =
+            bool(Domain.CONTENT, "guns", "enable_secret_part_recipes", false,
+                    "Lets the precision assembler make the secret gun parts (selenium steel, the SB-26"
+                            + " canister, the control unit, the folly and aberrator parts). Recycling broken"
+                            + " ones works either way.");
 
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =
             bool(
@@ -884,6 +893,8 @@ public final class ConfigSchema {
                     DISABLE_WAR_NUKES,
                     DISABLE_WAR_BOMBS,
                     DISABLE_WAR_MISC,
+                    ENABLE_PEDESTAL_RECIPE,
+                    ENABLE_SECRET_PART_RECIPES,
                     DISABLE_HEAVY_TURRETS,
                     DISABLE_TURRET_HENRY,
                     DISABLE_TURRET_GREG,

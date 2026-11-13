@@ -209,11 +209,20 @@ public final class GunContent {
 
     /** Ids of the recipes whose json names a disabled item anywhere (output, input, catalyst). */
     public static Set<ResourceLocation> recipesToDrop(Map<ResourceLocation, JsonElement> recipes) {
+        Set<ResourceLocation> drop = new HashSet<>();
+        // the Pedestal and the secret gun parts are only craftable with their switches on
+        recipes.keySet().forEach(id -> {
+            if (!id.getNamespace().equals(NuclearTech.MOD_ID)) return;
+            String path = id.getPath();
+            if (!BalanceConfig.enablePedestalRecipe && path.equals("pedestal_block")) drop.add(id);
+            if (!BalanceConfig.enableSecretPartRecipes
+                    && path.startsWith("precision_assembler/precass.item_secret_")
+                    && !path.endsWith(".recycle")) drop.add(id);
+        });
         Set<Item> items = disabled();
-        if (items.isEmpty()) return Set.of();
+        if (items.isEmpty()) return drop;
         Set<String> ids = new HashSet<>();
         for (Item item : items) ids.add(BuiltInRegistries.ITEM.getKey(item).toString());
-        Set<ResourceLocation> drop = new HashSet<>();
         recipes.forEach((id, json) -> {
             if (names(json, ids)) drop.add(id);
         });

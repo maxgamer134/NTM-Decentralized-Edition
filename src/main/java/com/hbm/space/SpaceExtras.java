@@ -332,10 +332,15 @@ public final class SpaceExtras {
     public static final RegistryHandle<Block> CONGLOMERATE = Reg.blockItem("stone_resource_conglomerate", Block::new,
             () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(5.0F, 6.0F).sound(SoundType.STONE).requiresCorrectToolForDrops());
 
-    /** Gwen's bobblehead (upstream BobbleType.GWEN, meta 21), made on the magic pedestal. */
+    /** NTM:Space's bobbleheads: Gwen (meta 21, made on the magic pedestal) and three contributors. */
     public enum SpaceBobble implements Bobble {
         GWEN("Gwen", "Gwen", "Numero Uno Homie",
-                "HELP ME I'M TRAPPED IN THIS FUCKING POLYRESIN PRISON YOU NEED TO LET ME OUT PLEASE SMASH IT OPEN DO IT NOW CRACK IT", true);
+                "HELP ME I'M TRAPPED IN THIS FUCKING POLYRESIN PRISON YOU NEED TO LET ME OUT PLEASE SMASH IT OPEN DO IT NOW CRACK IT", true),
+        JUICE("Juicy_Lad", "Juicy_Lad", "The Mojave Testing for this funny fork",
+                "\"What should the Inscription be?\",$ \"Uhh.. I'll think about it.\"", true),
+        JAMESH_2("JamesH_2", "JamesH_2", "The fork itself", "COME ON AND SLAM", true),
+        MRKIMKIMORA("MrKimkimora", "MrKimkimora", "Part of NTM:Space models,$textures and russian localization",
+                "I know your IP. Your IP is 127.0.0.1.", false);
 
         private final String fullName;
         private final String label;
@@ -356,11 +361,27 @@ public final class SpaceExtras {
         @Override public @Nullable String contribution() { return contribution; }
         @Override public @Nullable String inscription() { return inscription; }
         @Override public boolean skinLayers() { return layers; }
-        @Override public ItemStack stack() { return new ItemStack(BOBBLEHEAD_GWEN.get()); }
+        @Override public ItemStack stack() {
+            return new ItemStack(switch (this) {
+                case GWEN -> BOBBLEHEAD_GWEN.get();
+                case JUICE -> BOBBLEHEAD_JUICE.get();
+                case JAMESH_2 -> BOBBLEHEAD_JAMESH_2.get();
+                case MRKIMKIMORA -> BOBBLEHEAD_MRKIMKIMORA.get();
+            });
+        }
     }
 
     public static final RegistryHandle<GwenBobblehead> BOBBLEHEAD_GWEN = Reg.item("bobblehead_gwen",
             GwenBobblehead::new, Item.Properties::new);
+
+    /** NTM:Space's contributor bobbleheads besides Gwen; creative-only, as upstream. */
+    public static final RegistryHandle<ItemBlockTrinket<SpaceBobble>> BOBBLEHEAD_JUICE = bobble("bobblehead_juice", SpaceBobble.JUICE);
+    public static final RegistryHandle<ItemBlockTrinket<SpaceBobble>> BOBBLEHEAD_JAMESH_2 = bobble("bobblehead_jamesh_2", SpaceBobble.JAMESH_2);
+    public static final RegistryHandle<ItemBlockTrinket<SpaceBobble>> BOBBLEHEAD_MRKIMKIMORA = bobble("bobblehead_mrkimkimora", SpaceBobble.MRKIMKIMORA);
+
+    private static RegistryHandle<ItemBlockTrinket<SpaceBobble>> bobble(String id, SpaceBobble type) {
+        return Reg.item(id, props -> new ItemBlockTrinket<>(ModBlocks.BOBBLEHEAD.get(), props, type), Item.Properties::new);
+    }
 
     /** Upstream's shredder breaks and blows up when Gwen goes into it (TileEntityMachineShredder.canProcess). */
     public static class GwenBobblehead extends ItemBlockTrinket<SpaceBobble>
@@ -380,6 +401,9 @@ public final class SpaceExtras {
 
     static {
         BlockBobble.TYPES.addAfter(BobbleType.CIRNO, SpaceBobble.GWEN);
+        BlockBobble.TYPES.addAfter(SpaceBobble.GWEN, SpaceBobble.JUICE);
+        BlockBobble.TYPES.addAfter(SpaceBobble.JUICE, SpaceBobble.JAMESH_2);
+        BlockBobble.TYPES.addAfter(BobbleType.MELLOW, SpaceBobble.MRKIMKIMORA);
     }
 
     private static void after(CreativeContents.Tab tab, String anchor, Iterable<? extends RegistryHandle<? extends net.minecraft.world.level.ItemLike>> items) {
@@ -539,6 +563,6 @@ public final class SpaceExtras {
         after(CreativeContents.Tab.CONTROL, "pellet_rtg_depleted_neptunium", java.util.List.of(RTG_DEPLETED_AMERICIUM));
         after(CreativeContents.Tab.CONSUMABLES, "jetpack_tank", java.util.List.of(OXY_PLSS, LOX_TANK));
         after(CreativeContents.Tab.BLOCKS, "stone_resource_bauxite", java.util.List.of(CONGLOMERATE));
-        after(CreativeContents.Tab.BLOCKS, "bobblehead_cirno", java.util.List.of(BOBBLEHEAD_GWEN));
+        after(CreativeContents.Tab.BLOCKS, "bobblehead_cirno", java.util.List.of(BOBBLEHEAD_GWEN, BOBBLEHEAD_JUICE, BOBBLEHEAD_JAMESH_2, BOBBLEHEAD_MRKIMKIMORA));
     }
 }

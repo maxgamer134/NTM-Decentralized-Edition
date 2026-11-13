@@ -97,7 +97,7 @@ public final class ExplosionNukeGeneric {
             world.setBlock(pos, Blocks.TERRACOTTA.defaultBlockState(), Block.UPDATE_ALL);
         } else if (state.is(Blocks.MOSSY_COBBLESTONE)) {
             world.setBlock(pos, Blocks.COAL_ORE.defaultBlockState(), Block.UPDATE_ALL);
-        } else if (state.is(Blocks.COAL_ORE)) {
+        } else if (state.is(net.neoforged.neoforge.common.Tags.Blocks.ORES_COAL)) {
             int roll = random.nextInt(10);
             if (roll >= 1 && roll <= 3) {
                 world.setBlock(pos, Blocks.DIAMOND_ORE.defaultBlockState(), Block.UPDATE_ALL);
@@ -189,7 +189,7 @@ public final class ExplosionNukeGeneric {
             world.setBlock(pos, Blocks.TERRACOTTA.defaultBlockState(), Block.UPDATE_ALL);
         } else if (state.is(Blocks.MOSSY_COBBLESTONE)) {
             world.setBlock(pos, Blocks.COAL_ORE.defaultBlockState(), Block.UPDATE_ALL);
-        } else if (state.is(Blocks.COAL_ORE)) {
+        } else if (state.is(net.neoforged.neoforge.common.Tags.Blocks.ORES_COAL)) {
             int roll = random.nextInt(30);
             if (roll >= 1 && roll <= 3) {
                 world.setBlock(pos, Blocks.DIAMOND_ORE.defaultBlockState(), Block.UPDATE_ALL);

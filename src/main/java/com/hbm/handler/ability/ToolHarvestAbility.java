@@ -174,7 +174,7 @@ public enum ToolHarvestAbility implements BaseAbility, StringRepresentable {
         @Override
         public void onHarvestBlock(ToolDig dig, int abilityLevel, BlockPos pos, BlockState state) {
             int mercury = 0;
-            if (state.is(Blocks.REDSTONE_ORE)) mercury = dig.player().getRandom().nextInt(5) + 4;
+            if (state.is(net.neoforged.neoforge.common.Tags.Blocks.ORES_REDSTONE)) mercury = dig.player().getRandom().nextInt(5) + 4;
             if (state.is(Blocks.REDSTONE_BLOCK)) mercury = dig.player().getRandom().nextInt(7) + 8;
 
             ItemToolAbility.harvest(dig, pos, mercury > 0);

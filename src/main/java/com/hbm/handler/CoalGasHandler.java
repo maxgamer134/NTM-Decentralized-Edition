@@ -17,8 +17,7 @@ public final class CoalGasHandler {
 
     public static void onBlockBroken(Level level, BlockPos pos, BlockState broken) {
         if (level.isClientSide() || RadiationConfig.coalDustDisabled()) return;
-        if (!broken.is(Blocks.COAL_ORE)
-                && !broken.is(Blocks.DEEPSLATE_COAL_ORE)
+        if (!broken.is(net.neoforged.neoforge.common.Tags.Blocks.ORES_COAL)
                 && !broken.is(Blocks.COAL_BLOCK)
                 && !broken.is(ModBlocks.ORE_LIGNITE.get())) {
             return;

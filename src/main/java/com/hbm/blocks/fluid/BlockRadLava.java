@@ -51,7 +51,7 @@ public class BlockRadLava extends BlockVolcanicLava {
         if (state.is(BlockTags.LOGS)) return ModBlocks.WASTE_LOG.get();
         if (state.is(BlockTags.PLANKS)) return wastePlanks();
         if (state.is(BlockTags.LEAVES)) return Blocks.FIRE;
-        if (state.is(Blocks.DIAMOND_ORE)) return ModBlocks.ORE_SELLAFIELD_RADGEM.get();
+        if (state.is(net.neoforged.neoforge.common.Tags.Blocks.ORES_DIAMOND)) return ModBlocks.ORE_SELLAFIELD_RADGEM.get();
         if (state.is(ModBlocks.ORE_URANIUM.get()) || state.is(requireBlock("ore_gneiss_uranium"))) {
             return level.getRandom().nextInt(5) == 0
                     ? ModBlocks.ORE_SELLAFIELD_SCHRABIDIUM.get()

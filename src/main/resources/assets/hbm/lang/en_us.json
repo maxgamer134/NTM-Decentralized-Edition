@@ -6205,6 +6205,8 @@
   "item.hbm.grenade_shell_nuke": "Nuclear Grenade Shell",
   "item.hbm.grenade_shell_stick": "Stick Grenade Shell",
   "item.hbm.grenade_shell_tech": "High-Tech Grenade Shell",
+  "item.hbm.grenade_cloud": "Jar of Corrosive Fumes",
+  "item.hbm.grenade_pink_cloud": "Jar of Pink Cloud",
   "item.hbm.grenade_universal": "Grenade",
   "item.hbm.gun_aberrator": "Aberrator",
   "item.hbm.gun_aberrator_eott": "Eyes Of The Tempest",

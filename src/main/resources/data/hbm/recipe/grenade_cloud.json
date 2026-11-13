@@ -1,0 +1,27 @@
+{
+  "type": "hbm:crafting_shaped",
+  "key": {
+    "S": "#c:dusts/sulfur",
+    "P": "hbm:powder_poison",
+    "C": "#c:dusts/copper",
+    "A": {
+      "type": "neoforge:components",
+      "components": {
+        "hbm:fluid_content": {
+          "type": "hbm:peroxide",
+          "amount": 1000,
+          "pressure": 0
+        }
+      },
+      "items": "hbm:fluid_tank"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "CAC",
+    "SPS"
+  ],
+  "result": {
+    "id": "hbm:grenade_cloud"
+  }
+}

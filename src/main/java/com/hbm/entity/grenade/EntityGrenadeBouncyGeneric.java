@@ -86,4 +86,9 @@ public class EntityGrenadeBouncyGeneric extends EntityGrenadeBouncyBase implemen
     protected double getBounceMod() {
         return getGrenade().getBounceMod();
     }
+
+    @Override
+    protected boolean explodesOnImpact() {
+        return getGrenade().explodesOnImpact();
+    }
 }

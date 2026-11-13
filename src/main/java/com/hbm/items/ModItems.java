@@ -5008,6 +5008,18 @@ public final class ModItems {
                             p -> new ItemGrenadeFishing(p, 3),
                             () -> new Item.Properties().stacksTo(16))
                     .addTo(WEAPON_ALL);
+    public static final RegistryHandle<com.hbm.items.weapon.ItemGrenadeCloud> GRENADE_CLOUD =
+            Reg.item(
+                            "grenade_cloud",
+                            p -> new com.hbm.items.weapon.ItemGrenadeCloud(p, 250, 1.5D, 1),
+                            () -> new Item.Properties().stacksTo(16))
+                    .addTo(WEAPON_ALL);
+    public static final RegistryHandle<com.hbm.items.weapon.ItemGrenadeCloud> GRENADE_PINK_CLOUD =
+            Reg.item(
+                            "grenade_pink_cloud",
+                            p -> new com.hbm.items.weapon.ItemGrenadeCloud(p, 500, 2.0D, 2),
+                            () -> new Item.Properties().stacksTo(16))
+                    .addTo(WEAPON_ALL);
     public static final RegistryHandle<Item> STICK_TNT =
             Reg.item("stick_tnt", Item::new, Item.Properties::new).addTo(WEAPON_ALL);
     public static final RegistryHandle<Item> STICK_SEMTEX =

@@ -61,6 +61,10 @@ public class ItemGenericGrenade extends ItemGrenade implements ProjectileItem {
         return 0.5D;
     }
 
+    public boolean explodesOnImpact() {
+        return false;
+    }
+
     @Override
     public Projectile asProjectile(
             Level level, Position position, ItemStack stack, Direction direction) {

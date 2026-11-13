@@ -141,6 +141,12 @@ public abstract class EntityGrenadeBouncyBase extends ProjectileCompat {
             py += (hitVec.y - py) * 0.6;
             pz += (hitVec.z - pz) * 0.6;
 
+            if (explodesOnImpact() && !level().isClientSide()) {
+                setPos(px, py, pz);
+                explode();
+                return;
+            }
+
             Direction side = hit.getDirection();
             motion =
                     switch (side.getAxis()) {
@@ -240,4 +246,9 @@ public abstract class EntityGrenadeBouncyBase extends ProjectileCompat {
     protected abstract int getMaxTimer();
 
     protected abstract double getBounceMod();
+
+    /** true for grenades that go off where they land instead of bouncing until the fuse runs out */
+    protected boolean explodesOnImpact() {
+        return false;
+    }
 }

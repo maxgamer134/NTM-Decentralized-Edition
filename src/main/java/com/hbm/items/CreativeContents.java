@@ -3524,6 +3524,8 @@ public final class CreativeContents {
                 "ammo_container_alt",
                 "stick_dynamite",
                 "stick_dynamite_fishing",
+                "grenade_cloud",
+                "grenade_pink_cloud",
                 "stick_tnt",
                 "stick_semtex",
                 "stick_c4",

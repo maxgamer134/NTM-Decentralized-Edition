@@ -183,6 +183,7 @@ public final class SpaceClientHooks {
                     if (event.getEntity().getVehicle() instanceof com.hbm.space.rocket.EntityRideableRocket)
                         event.getPoseStack().popPose();
                 });
+        SpaceAmbience.register();
         NeoForge.EVENT_BUS.addListener(
                 (ClientPlayerNetworkEvent.LoggingOut event) -> SolarSystemSavedData.onClientDisconnect());
         NeoForge.EVENT_BUS.addListener(

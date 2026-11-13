@@ -67,8 +67,8 @@ public class ItemCassette extends ItemCompat {
         EAS_ALARM("EAS Alarm Screech", "alarm.eas_alarm", SoundType.LOOP, 0xb3a8c1, 50),
         APC_PASS("APC Pass", "alarm.apc_pass", SoundType.PASS, 3422163, 50),
         RAZORTRAIN("Razortrain Horn", "alarm.razortrain_horn", SoundType.SOUND, 7819501, 250),
-        DISEMBODIED("Ducc", null, SoundType.LOOP, 0xb3a8c1, 50),
-        SUICIDE("Xbox Live", null, SoundType.LOOP, 0xb3a8c1, 70);
+        DISEMBODIED("Ducc", "alarm.ducc", SoundType.LOOP, 0xb3a8c1, 50),
+        SUICIDE("Xbox Live", "alarm.mama", SoundType.LOOP, 0xb3a8c1, 70);
 
         public static final TrackType[] VALUES = values();
 

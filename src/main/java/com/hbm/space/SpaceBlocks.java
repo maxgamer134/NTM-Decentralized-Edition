@@ -38,8 +38,22 @@ public final class SpaceBlocks {
             Reg.blockItem("ore_diamond", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops());
     public static final RegistryHandle<BlockSpaceOre> ORE_PLUTONIUM =
             Reg.blockItem("ore_plutonium", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
+    /** NTM:Space's creative capacitor: a hundred quadrillion HE. */
+    public static final RegistryHandle<com.hbm.blocks.machine.storage.MachineCapacitor> CAPACITOR_COMPLEX =
+            Reg.blockItem("capacitor_complex",
+                    props -> new com.hbm.blocks.machine.storage.MachineCapacitor(100_000_000_000_000_000L, props),
+                    () -> BlockBehaviour.Properties.of().strength(5.0F, 10.0F).requiresCorrectToolForDrops().noOcclusion(),
+                    com.hbm.items.block.ItemCapacitor::new);
+
+    /** NTM:Space's morkite crunch when the ore breaks; steps stay stone. */
+    public static final RegistryHandle<net.minecraft.sounds.SoundEvent> MORKITE_BREAK =
+            com.hbm.registration.NeoForgeRegistrar.registerSound("step.morkite");
+    private static final SoundType MORKITE_SOUND = new net.neoforged.neoforge.common.util.DeferredSoundType(
+            0.85F, 0.85F, () -> MORKITE_BREAK.get(), () -> net.minecraft.sounds.SoundEvents.STONE_STEP,
+            () -> net.minecraft.sounds.SoundEvents.STONE_PLACE, () -> net.minecraft.sounds.SoundEvents.STONE_HIT,
+            () -> net.minecraft.sounds.SoundEvents.STONE_FALL);
     public static final RegistryHandle<BlockSpaceOre> ORE_MORKITE =
-            Reg.blockItem("ore_morkite", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
+            Reg.blockItem("ore_morkite", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(MORKITE_SOUND).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryHandle<BlockSpaceOre> ORE_GLOWSTONE =
             Reg.blockItem("ore_glowstone", BlockSpaceOre::new, () -> BlockBehaviour.Properties.of().mapColor(MapColor.STONE).sound(SoundType.STONE).strength(5.0F, 6.0F).requiresCorrectToolForDrops());
     public static final RegistryHandle<BlockSpaceOre> ORE_NICKEL =
@@ -149,6 +163,8 @@ public final class SpaceBlocks {
 
     /** Adds the blocks to the creative tab, in NTM:Space's order. */
     public static void init() {
+        CreativeContents.insertAfter(CreativeContents.Tab.MACHINES, com.hbm.lib.Library.id("capacitor_copper"),
+                () -> new ItemStack(CAPACITOR_COMPLEX.get()));
         // NTM:Space's neutrino lens also marks natural gas and brine deposits
         com.hbm.items.armor.ItemModLens.addTarget(ORE_GAS, 300,
                 net.minecraft.network.chat.Component.translatable("marker.hbm.neutrino_lens.natural_gas"), 0xa0a0a0);

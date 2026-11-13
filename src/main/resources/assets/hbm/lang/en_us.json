@@ -585,6 +585,7 @@
   "block.hbm.calcium_solution": "Calcium Solution",
   "block.hbm.capacitor_bus": "Capacitor Bus (LEGACY)",
   "block.hbm.capacitor_copper": "Old Capacitor",
+  "block.hbm.capacitor_complex": "Wavefunction Capacitor (LEGACY)",
   "block.hbm.capacitor_gold": "Golden Capacitor (LEGACY)",
   "block.hbm.capacitor_niobium": "Niobium Capacitor (LEGACY)",
   "block.hbm.capacitor_schrabidate": "Schrabidate Capacitor (LEGACY)",

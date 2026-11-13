@@ -515,6 +515,11 @@ public final class SpaceExtras {
             "bomb_caller_civilian_airliner",
             props -> new com.hbm.items.tool.ItemBombCaller(props, com.hbm.items.tool.ItemBombCaller.EnumCallerType.CIVILIAN_AIRLINER),
             () -> new Item.Properties().stacksTo(1));
+    /** NTM:Space's music off Earth and its station hum ({@code SpaceAmbience}). */
+    public static final RegistryHandle<net.minecraft.sounds.SoundEvent> MUSIC_SPACE =
+            com.hbm.registration.NeoForgeRegistrar.registerSound("music.game.space");
+    public static final RegistryHandle<net.minecraft.sounds.SoundEvent> STATION_HUM =
+            com.hbm.registration.NeoForgeRegistrar.registerSound("misc.stationhum");
     public static final RegistryHandle<net.minecraft.sounds.SoundEvent> JET_LOOP_BOMB =
             com.hbm.registration.NeoForgeRegistrar.registerSound("entity.jet_loop_bomb");
 

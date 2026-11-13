@@ -155,7 +155,9 @@ public class BlockEntityMachineEPress extends BlockEntityMachineBase
                             level.playSound(
                                     null,
                                     worldPosition,
-                                    ModSounds.PRESS_OPERATE.get(),
+                                    com.hbm.space.SpaceToggle.changes()
+                                        ? com.hbm.space.SpacePressPlushie.stamp(level, worldPosition, ModSounds.PRESS_OPERATE.get())
+                                        : ModSounds.PRESS_OPERATE.get(),
                                     SoundSource.BLOCKS,
                                     1.5F,
                                     1.0F);

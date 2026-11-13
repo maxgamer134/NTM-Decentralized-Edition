@@ -843,7 +843,16 @@ public final class ModBlockEntities {
                     .ticksServer(BlockEntityBatteryREDD::tickServer)
                     .ticksClient(BlockEntityBatteryREDD::tickClient);
     public static final RegistryHandle<BlockEntityType<BlockEntityMachineCapacitor>> CAPACITOR =
-            be("capacitor", BlockEntityMachineCapacitor::new, ModBlocks.CAPACITOR_COPPER)
+            be(
+                            "capacitor",
+                            () -> {
+                                java.util.Set<Block> blocks = new java.util.HashSet<>();
+                                blocks.add(ModBlocks.CAPACITOR_COPPER.get());
+                                // NTM:Space's creative capacitor shares the type
+                                if (com.hbm.space.SpaceToggle.enabled())
+                                    blocks.add(com.hbm.space.SpaceBlocks.CAPACITOR_COMPLEX.get());
+                                return new BlockEntityType<>(BlockEntityMachineCapacitor::new, java.util.Set.copyOf(blocks), null);
+                            })
                     .ticksServer(BlockEntityMachineCapacitor::tickServer);
     public static final RegistryHandle<BlockEntityType<BlockEntityCharger>> NTM_CHARGER =
             be("charger", BlockEntityCharger::new, ModBlocks.CHARGER)

@@ -20,3 +20,8 @@ _updates/
 /apply-updates.ps1
 /setup.ps1
 /tools/
+/patches
+patches.7z
+hs_err_pid*.log
+ntm-decentralized-neoforge-*.jar
+src/main/java/com/hbm/fixes/SUMMARY.md

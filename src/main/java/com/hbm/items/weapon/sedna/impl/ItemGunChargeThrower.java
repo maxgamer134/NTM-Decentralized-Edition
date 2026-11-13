@@ -66,7 +66,9 @@ public class ItemGunChargeThrower extends ItemGunBaseNT {
             player.setDeltaMovement(player.getDeltaMovement().scale(0.5));
         }
 
-        if (player.getDeltaMovement().y > -0.1) player.fallDistance = 0;
+        // backport-fix: hanging from an anchored hook cancels fall damage on the client too, not
+        // only while rising (the server side resets it in inventoryTick)
+        if (!player.onGround()) player.fallDistance = 0;
     }
 
     public static boolean anchored(Player player) {

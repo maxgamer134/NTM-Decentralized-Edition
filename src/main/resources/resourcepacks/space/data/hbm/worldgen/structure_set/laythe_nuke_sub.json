@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.857,
+    "salt": 996997010,
+    "separation": 4,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "hbm:laythe_nuke_sub",
+      "weight": 1
+    }
+  ]
+}

@@ -1,6 +1,0 @@
-{
-  "type": "hbm:null_spawn",
-  "biomes": ["hbm:minmus","hbm:minmus_basin"],
-  "spawn_overrides": {},
-  "step": "strongholds"
-}

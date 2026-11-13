@@ -1,6 +1,0 @@
-{
-  "type": "hbm:null_spawn",
-  "biomes": ["hbm:moho","hbm:moho_basalt","hbm:moho_lava","hbm:moho_plateau"],
-  "spawn_overrides": {},
-  "step": "strongholds"
-}

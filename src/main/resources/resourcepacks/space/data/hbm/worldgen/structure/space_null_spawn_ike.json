@@ -1,6 +1,0 @@
-{
-  "type": "hbm:null_spawn",
-  "biomes": ["hbm:ike"],
-  "spawn_overrides": {},
-  "step": "strongholds"
-}

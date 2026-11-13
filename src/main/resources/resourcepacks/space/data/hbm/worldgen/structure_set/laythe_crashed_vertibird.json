@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.462,
+    "salt": 996996999,
+    "separation": 4,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "hbm:laythe_crashed_vertibird",
+      "weight": 1
+    }
+  ]
+}

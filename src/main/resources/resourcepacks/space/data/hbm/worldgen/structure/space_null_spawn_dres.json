@@ -1,6 +1,0 @@
-{
-  "type": "hbm:null_spawn",
-  "biomes": ["hbm:dres","hbm:dres_basin"],
-  "spawn_overrides": {},
-  "step": "strongholds"
-}

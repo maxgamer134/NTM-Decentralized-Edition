@@ -1,6 +1,0 @@
-{
-  "type": "hbm:null_spawn",
-  "biomes": ["hbm:tekto_forest","hbm:tekto_halogen_hill","hbm:tekto_polyvinyl","hbm:tekto_river","hbm:tekto_vinyl_island"],
-  "spawn_overrides": {},
-  "step": "strongholds"
-}

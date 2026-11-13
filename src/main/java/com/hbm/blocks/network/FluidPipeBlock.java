@@ -156,8 +156,25 @@ public class FluidPipeBlock extends FluidDuctBlockBase implements SimpleWaterlog
     }
 
     public static void refreshAround(ServerLevel level, BlockPos pos) {
-        refreshConnections(level, pos);
-        for (Direction d : Direction.VALUES) refreshConnections(level, pos.relative(d));
+        recheck(level, new long[] {pos.asLong()});
+    }
+
+    /**
+     * After a retype, every touched duct and its neighbours redo their connections: the visual arms
+     * of each pipe and the machine endpoints beside it, which accept or refuse by fluid.
+     */
+    public static void recheck(ServerLevel level, long[] keys) {
+        LongOpenHashSet seen = new LongOpenHashSet();
+        for (long key : keys) {
+            BlockPos pos = BlockPos.of(key);
+            if (seen.add(key)) refreshConnections(level, pos);
+            for (Direction d : Direction.VALUES) {
+                BlockPos side = pos.relative(d);
+                if (seen.add(side.asLong())) refreshConnections(level, side);
+            }
+            LevelNodeGraph.invalidateTransportAround(level, pos);
+            ChunkDuctNodes.schedule(level, pos);
+        }
     }
 
     public static void scheduleConnections(BlockEntity owner) {
@@ -289,7 +306,8 @@ public class FluidPipeBlock extends FluidDuctBlockBase implements SimpleWaterlog
             long[] touched = retyped.toLongArray();
             FluidPipeGraph.get(level, fluid).compactAround(touched);
             fromGraph.compactAround(touched);
-            FluidPipeTintData.sync(level, retyped.toLongArray(), fluid);
+            FluidPipeTintData.sync(level, touched, fluid);
+            recheck(level, touched);
         }
     }
 

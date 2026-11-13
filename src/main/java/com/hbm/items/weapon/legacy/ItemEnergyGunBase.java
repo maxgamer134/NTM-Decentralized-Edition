@@ -49,7 +49,7 @@ public class ItemEnergyGunBase extends ItemGunBase implements IBatteryItem {
         if (getDelay(stack) > 0 && isCurrentItem) setDelay(stack, getDelay(stack) - 1);
         if (getIsMouseDown(stack) && player.getMainHandItem() != stack) setIsMouseDown(stack, false);
         if (getIsAltDown(stack) && !isCurrentItem) setIsAltDown(stack, false);
-        if (ItemData.ENABLE_GUNS.get()
+        if ((ItemData.ENABLE_GUNS.get() || GunContent.isUtility(this))
                 && !GunContent.isDisabled(this)
                 && mainConfig.firingMode == 1
                 && getIsMouseDown(stack)

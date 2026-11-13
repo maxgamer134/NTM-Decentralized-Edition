@@ -50,6 +50,23 @@ public final class GunContent {
                             + "(boy|custom|fleija|gadget|man|mike|multi|prototype|solinium)_kit|"
                             + "custom_(amat|dirty|fall|hydro|nuke|schrab|tnt)");
 
+    /**
+     * Tools that only look like guns: the Charge Thrower (grappling hook, demolition charges) and the
+     * fire extinguishers, their ammo, and the parts and ammo press the Charge Thrower is made with.
+     * The gun switches leave them alone.
+     */
+    private static final Pattern UTILITY =
+            Pattern.compile(
+                    "gun_charge_thrower|gun_fireext(_legacy)?|ammo_fireext(_foam|_sand)?(_legacy)?|"
+                            + "ammo_standard_ct_(hook|mortar|mortar_charge)|"
+                            + "part_barrel_heavy_steel|part_grip_steel|part_mechanism_gun_metal|machine_ammo_press");
+
+    /** Not a weapon, so the gun switches (enable_guns and the disable_*_guns ones) leave it alone. */
+    public static boolean isUtility(Item item) {
+        ResourceLocation id = BuiltInRegistries.ITEM.getKey(item);
+        return id.getNamespace().equals(NuclearTech.MOD_ID) && UTILITY.matcher(id.getPath()).matches();
+    }
+
     /** Rockets for space, not war. */
     private static final Pattern SPACE = Pattern.compile("missile_(soyuz.*|shuttle)");
 
@@ -121,6 +138,14 @@ public final class GunContent {
             ResourceLocation id = e.getKey().location();
             if (id.getNamespace().equals(NuclearTech.MOD_ID) && id.getPath().startsWith("turret_")) {
                 if (turretOff(id.getPath(), post)) out.add(e.getValue());
+                continue;
+            }
+            if (id.getNamespace().equals(NuclearTech.MOD_ID) && UTILITY.matcher(id.getPath()).matches()) {
+                // the gun switches leave tools alone; the old extinguisher still gives way to the new one
+                if (DUPLICATES.contains(id.getPath())) {
+                    out.add(e.getValue());
+                    dup.add(e.getValue());
+                }
                 continue;
             }
             if (pre && PRE_REWORK.contains(id)) out.add(e.getValue());

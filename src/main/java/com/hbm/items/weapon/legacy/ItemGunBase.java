@@ -89,7 +89,7 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
     public void handleKeybind(Player player, ItemStack stack, EnumKeybind keybind, boolean state) {
         Level world = player.level();
         if (world.isClientSide() || player.getMainHandItem() != stack) return;
-        if (!ItemData.ENABLE_GUNS.get() || GunContent.isDisabled(this)) return;
+        if (!(ItemData.ENABLE_GUNS.get() || GunContent.isUtility(this)) || GunContent.isDisabled(this)) return;
         switch (keybind) {
             case GUN_PRIMARY -> {
                 if (state && getIsAltDown(stack)) return;
@@ -162,7 +162,7 @@ public class ItemGunBase extends ItemCompat implements IKeybindReceiver, IEquipR
 
         if (getIsAltDown(stack) && !isCurrentItem) setIsAltDown(stack, false);
 
-        if (ItemData.ENABLE_GUNS.get()
+        if ((ItemData.ENABLE_GUNS.get() || GunContent.isUtility(this))
                 && !GunContent.isDisabled(this)
                 && mainConfig.firingMode == 1
                 && getIsMouseDown(stack)

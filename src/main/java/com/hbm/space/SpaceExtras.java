@@ -412,6 +412,61 @@ public final class SpaceExtras {
                 z);
     }
 
+    /** NTM:Space's Oxygen Pinwheel, an endless trickle of oxygen like the chlorine one. */
+    public static final RegistryHandle<com.hbm.items.machine.ItemFluidContainerInfinite> OXY_PINWHEEL = Reg.item("oxy_pinwheel",
+            p -> new com.hbm.items.machine.ItemFluidContainerInfinite(p, () -> NTMFluids.byName("OXYGEN"), 1),
+            Item.Properties::new);
+    /**
+     * NTM:Space: the infinite water barrels draw on the body's water table, so they only run
+     * where it is water. The verdict is sampled while carried and kept on the stack.
+     */
+    private static final class WaterTableCondition implements com.hbm.items.machine.ItemFluidContainerInfinite.Condition {
+        private static boolean needsTable(com.hbm.items.machine.ItemFluidContainerInfinite item) {
+            return item == com.hbm.items.ModItems.INF_WATER.get() || item == com.hbm.items.ModItems.INF_WATER_MK2.get();
+        }
+
+        private static net.minecraft.nbt.CompoundTag tag(ItemStack stack) {
+            return stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA,
+                    net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+        }
+
+        @Override
+        public boolean operates(com.hbm.items.machine.ItemFluidContainerInfinite item, ItemStack stack) {
+            return !needsTable(item) || !tag(stack).getBoolean("noAtmo");
+        }
+
+        @Override
+        public void sample(com.hbm.items.machine.ItemFluidContainerInfinite item, ItemStack stack, net.minecraft.server.level.ServerLevel level) {
+            if (!needsTable(item)) return;
+            net.minecraft.world.level.material.Fluid table =
+                    com.hbm.space.CelestialBody.inOrbit(level) ? null : com.hbm.api.environment.Environment.groundwater(level);
+            boolean blocked = table != item.fluid();
+            String fluid = table == null ? "" : net.minecraft.core.registries.BuiltInRegistries.FLUID.getKey(table).toString();
+            net.minecraft.nbt.CompoundTag tag = tag(stack);
+            if (tag.getBoolean("noAtmo") == blocked && tag.getString("table").equals(fluid)) return;
+            tag.putBoolean("noAtmo", blocked);
+            tag.putString("table", fluid);
+            stack.set(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+        }
+
+        @Override
+        public void describe(com.hbm.items.machine.ItemFluidContainerInfinite item, ItemStack stack, java.util.function.Consumer<net.minecraft.network.chat.Component> adder) {
+            if (!needsTable(item) || operates(item, stack)) return;
+            String table = tag(stack).getString("table");
+            net.minecraft.ChatFormatting red = net.minecraft.ChatFormatting.RED;
+            if (table.isEmpty()) {
+                adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.noVapor").withStyle(red));
+                adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.addVapor").withStyle(red));
+            } else {
+                net.minecraft.world.level.material.Fluid current = net.minecraft.core.registries.BuiltInRegistries.FLUID.get(
+                        net.minecraft.resources.ResourceLocation.parse(table));
+                adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.wrongTable").withStyle(red));
+                adder.accept(net.minecraft.network.chat.Component.translatable("desc.item.infFluid.requires",
+                        current.getFluidType().getDescription()).withStyle(red));
+            }
+        }
+    }
+
     /** NTM:Space's civilian airliner caller and its jet loop. */
     public static final RegistryHandle<com.hbm.items.tool.ItemBombCaller> BOMB_CALLER_AIRLINER = Reg.item(
             "bomb_caller_civilian_airliner",
@@ -422,6 +477,9 @@ public final class SpaceExtras {
 
     public static void init() {
         after(CreativeContents.Tab.WEAPONS, "bomb_caller_atomic_bomb", java.util.List.of(BOMB_CALLER_AIRLINER));
+        after(CreativeContents.Tab.PARTS, "chlorine_pinwheel", java.util.List.of(OXY_PINWHEEL));
+        if (com.hbm.space.SpaceToggle.changes())
+            com.hbm.items.machine.ItemFluidContainerInfinite.CONDITION.install("hbm_space", new WaterTableCondition());
         com.hbm.entity.logic.EntityBomber.addonLoop(9, JET_LOOP_BOMB::get);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_americium242", WASTE_SHORT);
         after(CreativeContents.Tab.PARTS, "nuclear_waste_short_tiny_americium242", WASTE_SHORT_TINY);

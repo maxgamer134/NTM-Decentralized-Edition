@@ -117,9 +117,35 @@ public class BlockEntityReactorResearch extends BlockEntityMachineBase
         if (controlLevel > 0 && heat > 0 && !isShielded()) {
             double rad = (double) heat / MAX_HEAT * 50D;
             RadiationSystemNT.incrementRad((ServerLevel) getLevel(), worldPosition, rad);
+            if (com.hbm.space.SpaceToggle.changes()) irradiateNeutrons((float) rad);
         }
 
         networkPackNT(150);
+    }
+
+    /**
+     * NTM:Space: the running core sprays neutrons 25 blocks out, thinned by the blast resistance
+     * of what's in the way and by distance squared, and activates what players carry.
+     */
+    private void irradiateNeutrons(float rad) {
+        if (!com.hbm.data.RadiationData.NEUTRON_ACTIVATION.get()) return;
+        net.minecraft.world.phys.Vec3 core = net.minecraft.world.phys.Vec3.atCenterOf(worldPosition);
+        for (net.minecraft.world.entity.LivingEntity e : level.getEntitiesOfClass(
+                net.minecraft.world.entity.LivingEntity.class, new net.minecraft.world.phys.AABB(worldPosition).inflate(25D))) {
+            net.minecraft.world.phys.Vec3 to = e.getEyePosition().subtract(core);
+            double len = to.length();
+            net.minecraft.world.phys.Vec3 dir = to.normalize();
+            float res = 0;
+            for (int i = 1; i < len; i++) {
+                BlockPos at = BlockPos.containing(core.add(dir.scale(i)));
+                res += level.getBlockState(at).getBlock().getExplosionResistance();
+            }
+            float eRads = rad / Math.max(res, 1F) / (float) (len * len);
+            com.hbm.util.ContaminationUtil.contaminate(e, com.hbm.util.ContaminationUtil.HazardType.NEUTRON,
+                    com.hbm.util.ContaminationUtil.ContaminationType.CREATIVE, eRads);
+            if (e instanceof net.minecraft.world.entity.player.Player player)
+                com.hbm.util.ContaminationUtil.neutronActivateInventory(player, eRads, 1F);
+        }
     }
 
     private void rodControl() {

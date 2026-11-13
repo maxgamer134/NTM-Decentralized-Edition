@@ -82,8 +82,21 @@ public class BlockEntitySawmill extends BlockEntityMachineBase
         super(ModBlockEntities.SAWMILL.get(), pos, state, 3);
     }
 
+    /** NTM:Space: Tekto's plastic woods saw into each other, and make no sawdust. */
+    private static final java.util.Map<String, String> SPACE_WOODS = java.util.Map.of(
+            "vinyl_log", "vinyl_planks", "pvc_log", "pvc_planks",
+            "vinyl_planks", "stick_vinyl", "pvc_planks", "stick_pvc",
+            "stick_vinyl", "dust", "stick_pvc", "dust");
+
+    private static @org.jspecify.annotations.Nullable String spaceWood(ItemStack stack) {
+        if (!com.hbm.space.SpaceToggle.enabled()) return null;
+        net.minecraft.resources.ResourceLocation id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem());
+        return "hbm".equals(id.getNamespace()) && SPACE_WOODS.containsKey(id.getPath()) ? id.getPath() : null;
+    }
+
     public static float sawdustChance(ItemStack result) {
         if (result.is(ModItems.POWDER_SAWDUST.get())) return 0F;
+        if (spaceWood(result) != null) return 0F;
         return result.is(Items.STICK) ? 0.1F : 0.5F;
     }
 
@@ -224,6 +237,12 @@ public class BlockEntitySawmill extends BlockEntityMachineBase
     public ItemStack getOutput(ItemStack input) {
         if (input.isEmpty()) return null;
         if (!input.getComponentsPatch().isEmpty()) return null;
+        String wood = spaceWood(input);
+        if (wood != null) {
+            String out = SPACE_WOODS.get(wood);
+            int count = wood.endsWith("_log") || wood.endsWith("_planks") ? 6 : 1;
+            return new ItemStack(net.minecraft.core.registries.BuiltInRegistries.ITEM.get(com.hbm.lib.Library.id(out)), count);
+        }
         if (input.is(OreDictManager.KEY_STICK)) return new ItemStack(ModItems.POWDER_SAWDUST);
         if (input.is(ItemTags.LOGS)) {
             if (!(level instanceof ServerLevel server)) return null;

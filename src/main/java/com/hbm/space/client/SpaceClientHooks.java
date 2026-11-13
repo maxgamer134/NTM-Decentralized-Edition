@@ -184,6 +184,7 @@ public final class SpaceClientHooks {
                         event.getPoseStack().popPose();
                 });
         SpaceAmbience.register();
+        SpaceOreLocations.register();
         NeoForge.EVENT_BUS.addListener(
                 (ClientPlayerNetworkEvent.LoggingOut event) -> SolarSystemSavedData.onClientDisconnect());
         NeoForge.EVENT_BUS.addListener(

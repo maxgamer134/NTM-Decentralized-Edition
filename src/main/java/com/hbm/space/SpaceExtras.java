@@ -548,7 +548,7 @@ public final class SpaceExtras {
             com.hbm.registration.NeoForgeRegistrar.registerSound("entity.jet_loop_bomb");
 
     public static void init() {
-        after(CreativeContents.Tab.WEAPONS, "bomb_caller_atomic_bomb", java.util.List.of(BOMB_CALLER_AIRLINER));
+        after(CreativeContents.Tab.CONSUMABLES, "bomb_caller_atomic_bomb", java.util.List.of(BOMB_CALLER_AIRLINER));
         after(CreativeContents.Tab.PARTS, "chlorine_pinwheel", java.util.List.of(OXY_PINWHEEL));
         if (com.hbm.space.SpaceToggle.changes())
             com.hbm.items.machine.ItemFluidContainerInfinite.CONDITION.install("hbm_space", new WaterTableCondition());

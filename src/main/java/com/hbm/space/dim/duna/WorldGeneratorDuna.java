@@ -82,7 +82,16 @@ public class WorldGeneratorDuna implements Planet.Decorator {
 			com.hbm.space.SpaceMartian.buildBase(world.level());
 		}
 
-		// The broken behemoth lanterns come with the structure port
+		// a broken behemoth lantern, half the time with a booklet beside it
+		if(rand.nextInt(1234) == 0 && world.level() != null) {
+			int x = i + rand.nextInt(16);
+			int z = j + rand.nextInt(16);
+			int y = world.getHeightValue(x, z);
+			net.minecraft.world.level.WorldGenLevel level = world.level();
+			com.hbm.world.HbmFeatures.lanternBehemoth().place(new net.minecraft.world.level.levelgen.feature.FeaturePlaceContext<>(
+					java.util.Optional.empty(), level, null, net.minecraft.util.RandomSource.create(rand.nextLong()),
+					new net.minecraft.core.BlockPos(x, y, z), net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration.INSTANCE));
+		}
 	}
 
 }

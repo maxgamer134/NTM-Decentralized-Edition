@@ -188,8 +188,12 @@ public final class ConfigSchema {
             bool(Domain.CONTENT, "guns", "enable_secret_augment_recipes", false,
                     "Lets the assembly machine make the red room's and other secret augments that have no"
                             + " recipe: armor polish, band-aid, serum, plutonium quartz, morning glory, spider milk,"
-                            + " scrumpy, Wild Pegasus Dry Whiskey, the Ace of Spades and Queen of Hearts, V1, and"
-                            + " the nickel and doubloon gun mods.");
+                            + " scrumpy, Wild Pegasus Dry Whiskey, the Ace of Spades and Queen of Hearts, and"
+                            + " the nickel and doubloon gun mods. V1 has its own switch.");
+    public static final ConfigEntry<Boolean> ENABLE_V1_RECIPE =
+            bool(Domain.CONTENT, "guns", "enable_v1_recipe", true,
+                    "Lets the assembly machine make the V1 chestplate mod (secret augment blueprint)."
+                            + " Does nothing while enable_v1 is off.");
     public static final ConfigEntry<Boolean> ENABLE_RED_ROOM_KEYHOLE_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_red_room_keyhole_recipe", false,
                     "Lets the red room keyhole (Strange Red Room Brick) be crafted from bricks, starmetal,"
@@ -922,6 +926,7 @@ public final class ConfigSchema {
                     ENABLE_SECRET_PART_RECIPES,
                     ENABLE_RED_ROOM_KEYHOLE_RECIPE,
                     ENABLE_SECRET_AUGMENT_RECIPES,
+                    ENABLE_V1_RECIPE,
                     ENABLE_SECRET_SELENIUM_STEEL_RECIPE,
                     ENABLE_SECRET_CANISTER_RECIPE,
                     ENABLE_SECRET_CONTROLLER_RECIPE,

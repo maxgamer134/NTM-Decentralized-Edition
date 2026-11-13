@@ -13,6 +13,8 @@ import com.hbm.itempool.ItemPools;
 import com.hbm.items.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -249,10 +251,17 @@ public final class RedRoom {
                     x,
                     y + 1,
                     z,
-                    ItemPool.getUnit(ItemPools.POOL_RED_PEDESTAL, ItemPool.context(level, random)));
+                    pedestalLoot(level, random));
         }
 
         clearItems(level, x, y, z);
+    }
+
+    /** The pedestal pool, plus V1 at the weight of the playing cards (5 of 165) while enable_v1 registers it. */
+    private static ItemStack pedestalLoot(ServerLevel level, RandomSource random) {
+        var v1 = BuiltInRegistries.ITEM.getOptional(ResourceLocation.fromNamespaceAndPath("hbm", "v1"));
+        if (v1.isPresent() && random.nextInt(165) < 5) return new ItemStack(v1.get());
+        return ItemPool.getUnit(ItemPools.POOL_RED_PEDESTAL, ItemPool.context(level, random));
     }
 
     private static void black(

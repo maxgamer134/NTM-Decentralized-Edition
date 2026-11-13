@@ -229,7 +229,10 @@ public final class GunContent {
             if (!BalanceConfig.enablePedestalRecipe && path.equals("pedestal_block")) drop.add(id);
             if (path.startsWith("assembly_machine/ass.item_secret_")
                     && !secretPartOn(path.substring("assembly_machine/ass.item_secret_".length()))) drop.add(id);
-            if (!BalanceConfig.enableSecretAugmentRecipes && path.startsWith("assembly_machine/ass.secret_augment.")) drop.add(id);
+            if (path.equals("assembly_machine/ass.secret_augment.v1")) {
+                if (!BalanceConfig.enableV1Recipe
+                        || !com.hbm.config.EarlyContentConfig.get(com.hbm.config.ConfigSchema.ENABLE_V1)) drop.add(id);
+            } else if (!BalanceConfig.enableSecretAugmentRecipes && path.startsWith("assembly_machine/ass.secret_augment.")) drop.add(id);
             if (!BalanceConfig.enableRedRoomKeyholeRecipe && path.equals("stone_keyhole_meta")) drop.add(id);
         });
         Set<Item> items = disabled();

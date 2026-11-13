@@ -99,7 +99,8 @@ public final class CrystallizerVisual
     public void updateMovingParts(float partialTick) {
         float angle = Mth.lerp(partialTick, blockEntity.prevAngle, blockEntity.angle);
         Fluid type = blockEntity.tank.getTankType();
-        boolean moving = blockEntity.prevAngle != blockEntity.angle;
+        // the acid shows whenever the tank holds some, not only while it works
+        boolean moving = blockEntity.tank.getFill() > 0;
         boolean spinnerChanged = !initialized || angle != lastAngle;
         boolean typeChanged = !initialized || type != fluidType;
         boolean movingChanged = !initialized || moving != lastMoving;

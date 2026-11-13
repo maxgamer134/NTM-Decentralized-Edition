@@ -1,0 +1,35 @@
+{
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "#c:plates/titanium"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:plate_polymer"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:motor_desh"
+    },
+    {
+      "count": 1,
+      "ingredient": "hbm:tank_steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:crystal_xen"
+    },
+    {
+      "count": 16,
+      "ingredient": "#c:dusts/chlorocalcite"
+    }
+  ],
+  "order": 950330,
+  "output_items": [
+    "hbm:chlorine_pinwheel"
+  ],
+  "power": 20000,
+  "type": "hbm:assembly_machine"
+}

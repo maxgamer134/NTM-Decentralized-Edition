@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "B": "minecraft:polished_blackstone_bricks",
-    "O": "minecraft:obsidian",
+    "O": "#c:obsidians",
     "S": "minecraft:polished_blackstone_brick_slab"
   },
   "pattern": [

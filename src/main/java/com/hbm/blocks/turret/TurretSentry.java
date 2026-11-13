@@ -61,6 +61,7 @@ public class TurretSentry extends BlockCompat implements ITickingBlock, ICapabil
         return MachineCaps.of(ModBlockEntities.TURRET_SENTRY)
                 .powerIn()
                 .items()
-                .faces(BlockEntityTurretSentry.class, (be, side) -> side == Direction.DOWN);
+                // power from the sides and the bottom; the gun sits on top
+                .faces(BlockEntityTurretSentry.class, (be, side) -> side != Direction.UP);
     }
 }

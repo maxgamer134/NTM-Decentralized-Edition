@@ -48,6 +48,7 @@ public class TurretSentryDamaged extends TurretSentry {
         return MachineCaps.of(ModBlockEntities.TURRET_SENTRY_DAMAGED)
                 .powerIn()
                 .items()
-                .faces(BlockEntityTurretSentry.class, (be, side) -> side == Direction.DOWN);
+                // power from the sides and the bottom; the gun sits on top
+                .faces(BlockEntityTurretSentry.class, (be, side) -> side != Direction.UP);
     }
 }

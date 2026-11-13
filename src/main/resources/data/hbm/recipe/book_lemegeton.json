@@ -5,7 +5,7 @@
     "B": "minecraft:book",
     "G": "hbm:gem_rad",
     "M": "hbm:powder_magic",
-    "S": "hbm:ingot_starmetal"
+    "S": "#c:ingots/starmetal"
   },
   "pattern": [
     "MSM",

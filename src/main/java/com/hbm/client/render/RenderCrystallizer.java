@@ -85,7 +85,7 @@ public class RenderCrystallizer
         state.yaw = facingYaw(be.getBlockState().getValue(BlockMultiblockCore.FACING));
         state.angle = Mth.lerp(partialTicks, be.prevAngle, be.angle);
         Fluid type = be.tank.getTankType();
-        state.fluidSheet = be.prevAngle != be.angle && type != null ? FluidGauge.sheet(type) : null;
+        state.fluidSheet = be.tank.getFill() > 0 && type != null ? FluidGauge.sheet(type) : null;
     }
 
     @Override

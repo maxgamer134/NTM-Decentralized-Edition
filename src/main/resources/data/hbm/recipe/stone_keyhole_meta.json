@@ -2,10 +2,10 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "A": "hbm:gem_alexandrite",
+    "A": "#c:gems/alexandrite",
     "B": "minecraft:bricks",
     "R": "#c:dyes/red",
-    "S": "hbm:ingot_starmetal"
+    "S": "#c:ingots/starmetal"
   },
   "pattern": [
     "RSR",

@@ -1,0 +1,41 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:item_exists",
+      "item": "hbm:oxy_pinwheel"
+    }
+  ],
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 8,
+      "ingredient": "#c:plates/aluminum"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:plate_polymer"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:motor_desh"
+    },
+    {
+      "count": 1,
+      "ingredient": "hbm:tank_steel"
+    },
+    {
+      "count": 2,
+      "ingredient": "hbm:crystal_xen"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:part_generic_piston_pneumatic"
+    }
+  ],
+  "order": 950331,
+  "output_items": [
+    "hbm:oxy_pinwheel"
+  ],
+  "power": 20000,
+  "type": "hbm:assembly_machine"
+}

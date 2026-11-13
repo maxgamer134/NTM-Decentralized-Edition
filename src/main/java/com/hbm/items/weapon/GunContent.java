@@ -234,6 +234,14 @@ public final class GunContent {
                         || !com.hbm.config.EarlyContentConfig.get(com.hbm.config.ConfigSchema.ENABLE_V1)) drop.add(id);
             } else if (!BalanceConfig.enableSecretAugmentRecipes && path.startsWith("assembly_machine/ass.secret_augment.")) drop.add(id);
             if (!BalanceConfig.enableRedRoomKeyholeRecipe && path.equals("stone_keyhole_meta")) drop.add(id);
+            // each secret blueprint is craftable while anything in its pool is
+            if (path.equals("assembly_machine/ass.secret_blueprint.parts")
+                    && !java.util.stream.Stream.of("selenium_steel", "canister", "controller", "folly", "aberrator")
+                            .anyMatch(GunContent::secretPartOn)) drop.add(id);
+            if (path.equals("assembly_machine/ass.secret_blueprint.augments")
+                    && !BalanceConfig.enableSecretAugmentRecipes
+                    && !(BalanceConfig.enableV1Recipe
+                            && com.hbm.config.EarlyContentConfig.get(com.hbm.config.ConfigSchema.ENABLE_V1))) drop.add(id);
         });
         Set<Item> items = disabled();
         if (items.isEmpty()) return drop;

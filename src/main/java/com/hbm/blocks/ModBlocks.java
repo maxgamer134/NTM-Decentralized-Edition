@@ -4289,7 +4289,10 @@ public final class ModBlocks {
                     BlockRedBrickKeyhole::new,
                     () ->
                             BlockBehaviour.Properties.ofFullCopy(Blocks.STONE)
-                                    .strength(0.0F, 6000.0F));
+                                    .strength(0.0F, 6000.0F),
+                    (block, props) ->
+                            new net.minecraft.world.item.BlockItem(
+                                    block, props.rarity(net.minecraft.world.item.Rarity.RARE)));
     public static final RegistryHandle<DoorBlock> DOOR_RED =
             Reg.block(
                             "door_red",

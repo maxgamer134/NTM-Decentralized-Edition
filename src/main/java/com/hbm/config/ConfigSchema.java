@@ -182,7 +182,7 @@ public final class ConfigSchema {
     public static final ConfigEntry<Boolean> ENABLE_SECRET_PART_RECIPES =
             bool(Domain.CONTENT, "guns", "enable_secret_part_recipes", false,
                     "Lets the precision assembler make the secret gun parts (selenium steel, the SB-26"
-                            + " canister, the control unit, the folly and aberrator parts). Recycling broken"
+                            + " canister, the control unit, the folly and aberrator parts), and lets the red room keyhole be crafted. Recycling broken"
                             + " ones works either way.");
 
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =

@@ -228,9 +228,11 @@ public final class RedRoom {
         if (rand == 0) {
             set(level, x, y + 1, z, ModBlocks.LOOT.get().defaultBlockState());
             BlockEntityLoot loot =
-                    (BlockEntityLoot) level.getBlockEntity(new BlockPos(x, y + 1, z));
+                    level.getBlockEntity(new BlockPos(x, y + 1, z)) instanceof BlockEntityLoot l ? l : null;
 
-            if (random.nextInt(5) == 0) {
+            if (loot == null) {
+                // a player's block stands where the loot goes
+            } else if (random.nextInt(5) == 0) {
                 loot.addItem(new ItemStack(ModItems.NCRPA_HELMET.get()), 0, 0, 0);
                 loot.addItem(new ItemStack(ModItems.NCRPA_PLATE.get()), 0, 0, 0);
                 loot.addItem(new ItemStack(ModItems.NCRPA_LEGS.get()), 0, 0, 0);
@@ -316,7 +318,31 @@ public final class RedRoom {
     }
 
     private static void set(ServerLevel level, int x, int y, int z, BlockState state) {
-        level.setBlock(new BlockPos(x, y, z), state, Block.UPDATE_ALL);
+        BlockPos pos = new BlockPos(x, y, z);
+        if (canReplace(level, pos)) level.setBlock(pos, state, Block.UPDATE_ALL);
+    }
+
+    /**
+     * The room only carves natural ground (air, fluids, plants, stone, dirt, sand, gravel, ores) and
+     * its own blocks, so whatever players built there stays. Block entities are never replaced.
+     */
+    private static boolean canReplace(ServerLevel level, BlockPos pos) {
+        BlockState old = level.getBlockState(pos);
+        if (old.isAir() || old.liquid()) return true;
+        Block block = old.getBlock();
+        if (block == ModBlocks.BRICK_RED.get() || block == ModBlocks.STONE_KEYHOLE_META.get()) return true;
+        if (old.hasBlockEntity()) return false;
+        if (old.canBeReplaced()
+                || old.is(net.minecraft.tags.BlockTags.BASE_STONE_OVERWORLD)
+                || old.is(net.minecraft.tags.BlockTags.BASE_STONE_NETHER)
+                || old.is(net.minecraft.tags.BlockTags.DIRT)
+                || old.is(net.minecraft.tags.BlockTags.SAND)
+                || old.is(net.minecraft.tags.BlockTags.TERRACOTTA)
+                || old.is(net.neoforged.neoforge.common.Tags.Blocks.GRAVELS)
+                || old.is(net.neoforged.neoforge.common.Tags.Blocks.ORES)
+                || old.is(net.neoforged.neoforge.common.Tags.Blocks.STONES)
+                || old.is(Blocks.BEDROCK)) return !old.is(Blocks.BEDROCK);
+        return false;
     }
 
     private static void torch(ServerLevel level, int x, int y, int z) {
@@ -333,9 +359,10 @@ public final class RedRoom {
 
     private static void pedestal(ServerLevel level, int x, int y, int z, ItemStack stack) {
         BlockPos pos = new BlockPos(x, y, z);
+        if (!canReplace(level, pos)) return;
         BlockState state = ModBlocks.PEDESTAL.get().defaultBlockState();
         level.setBlock(pos, state, Block.UPDATE_ALL);
-        BlockEntityPedestal pedestal = (BlockEntityPedestal) level.getBlockEntity(pos);
+        if (!(level.getBlockEntity(pos) instanceof BlockEntityPedestal pedestal)) return;
         pedestal.item = stack;
         pedestal.setChanged();
         level.sendBlockUpdated(pos, state, state, Block.UPDATE_CLIENTS);
@@ -345,11 +372,12 @@ public final class RedRoom {
         for (ItemEntity item :
                 level.getEntitiesOfClass(
                         ItemEntity.class, new AABB(x - 4, y, z - 4, x + 5, y + 5, z + 5)))
-            item.discard();
+            if (item.getAge() == 0) item.discard(); // only what the carving just dropped
     }
 
     private static void door(ServerLevel level, BlockPos pos, Direction facing) {
         DoorBlock block = ModBlocks.DOOR_RED.get();
+        if (!canReplace(level, pos) || !canReplace(level, pos.above())) return;
         level.setBlock(pos.above(), Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
         BlockState state =
                 block.getStateForPlacement(

@@ -218,6 +218,7 @@ public final class GunContent {
             if (!BalanceConfig.enableSecretPartRecipes
                     && path.startsWith("precision_assembler/precass.item_secret_")
                     && !path.endsWith(".recycle")) drop.add(id);
+            if (!BalanceConfig.enableSecretPartRecipes && path.equals("stone_keyhole_meta")) drop.add(id);
         });
         Set<Item> items = disabled();
         if (items.isEmpty()) return drop;

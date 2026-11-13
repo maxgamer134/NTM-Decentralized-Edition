@@ -1836,6 +1836,7 @@
   "block.hbm.stone_gneiss": "Graphitic Schist",
   "block.hbm.stone_keyhole": "Strange Stone",
   "block.hbm.stone_keyhole_meta": "Strange Red Room Brick",
+  "block.hbm.stone_keyhole_meta.desc": "You get a feeling that this is unsafe to open near your valuables...",
   "block.hbm.stone_porous": "Porous Stone",
   "block.hbm.stone_resource_asbestos": "Chrysotile",
   "block.hbm.stone_resource_bauxite": "Bauxite",

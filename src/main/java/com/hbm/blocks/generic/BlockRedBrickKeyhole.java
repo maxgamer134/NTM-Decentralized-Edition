@@ -52,6 +52,17 @@ public class BlockRedBrickKeyhole extends BlockKeyhole {
     }
 
     @Override
+    public void appendHoverText(
+            ItemStack stack,
+            net.minecraft.world.item.Item.TooltipContext context,
+            com.hbm.backport.TooltipDisplay display,
+            java.util.function.Consumer<net.minecraft.network.chat.Component> tooltip,
+            net.minecraft.world.item.TooltipFlag flag) {
+        tooltip.accept(net.minecraft.network.chat.Component.translatable(getDescriptionId() + ".desc")
+                .withStyle(net.minecraft.ChatFormatting.RED, net.minecraft.ChatFormatting.ITALIC));
+    }
+
+    @Override
     protected ItemStack getCloneItemStack(
             LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
         return new ItemStack(ModBlocks.BRICK_RED.get());

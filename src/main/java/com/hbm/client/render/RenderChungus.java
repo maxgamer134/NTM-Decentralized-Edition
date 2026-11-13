@@ -91,10 +91,12 @@ public class RenderChungus
         s.yaw = facingYaw(be.getBlockState().getValue(BlockMultiblockCore.FACING));
         s.lever = 15F - steamTier(be.tanks[0].getTankType()) * 10F;
         s.rotor = Mth.lerp(partialTicks, be.lastRotor, be.rotor);
+        s.damaged = com.hbm.blocks.machine.DamageableMachine.isDamaged(be.getBlockState());
     }
 
     @Override
     public void submit(State s, PoseStack ps, SubmitNodeCollector col, CameraRenderState camera) {
+        if (s.damaged) return; // NTM:Space: the wrecked model is baked and has no moving parts
         int light = s.lightCoords;
         ps.pushPose();
         ps.translate(0.5, 0.0, 0.5);
@@ -119,6 +121,7 @@ public class RenderChungus
     }
 
     public static final class State extends BlockEntityRenderState {
+        public boolean damaged;
         public float yaw;
         public float lever;
         public float rotor;

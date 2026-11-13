@@ -21,9 +21,48 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
 public class MachineCondenserPowered extends BlockMultiblockCore
-        implements ITickingBlock, ILookOverlay, ICapabilityBlock {
+        implements ITickingBlock, ILookOverlay, ICapabilityBlock, com.hbm.interfaces.IToolable {
     public MachineCondenserPowered(Properties props) {
         super(props);
+        registerDefaultState(defaultBlockState().setValue(DamageableMachine.DAMAGED, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(
+            net.minecraft.world.level.block.state.StateDefinition.Builder<
+                            net.minecraft.world.level.block.Block, BlockState>
+                    builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(DamageableMachine.DAMAGED);
+    }
+
+    // NTM:Space: the first explosion wrecks the machine, the second removes it
+    @Override
+    protected void onExplosionHit(
+            BlockState state,
+            net.minecraft.server.level.ServerLevel level,
+            BlockPos core,
+            net.minecraft.world.level.Explosion explosion,
+            java.util.function.BiConsumer<net.minecraft.world.item.ItemStack, BlockPos> onHit) {
+        if (DamageableMachine.onExplosion(level, core, explosion)) return;
+        super.onExplosionHit(state, level, core, explosion, onHit);
+    }
+
+    @Override
+    public boolean dropFromExplosion(net.minecraft.world.level.Explosion explosion) {
+        return !com.hbm.space.SpaceToggle.changes() && super.dropFromExplosion(explosion);
+    }
+
+    @Override
+    public boolean onScrew(
+            Level level,
+            net.minecraft.world.entity.player.Player player,
+            BlockPos core,
+            net.minecraft.core.@Nullable Direction side,
+            net.minecraft.world.phys.Vec3 hit,
+            com.hbm.interfaces.IToolable.ToolType tool) {
+        if (tool != com.hbm.interfaces.IToolable.ToolType.TORCH) return false;
+        return com.hbm.interfaces.IRepairable.tryRepairMultiblock(level, core, player);
     }
 
     // backport-fix: BF-137 main colours only the arrow; the fluid or item name after it stays white
@@ -49,7 +88,13 @@ public class MachineCondenserPowered extends BlockMultiblockCore
 
     @Override
     public void buildLookOverlay(Level level, BlockPos pos, LookInfo info) {
-        if (!(level.getBlockEntity(pos) instanceof BlockEntityCondenserPowered be)) return;
+        var owner = BlockMultiblockCore.ownerOf(level, pos);
+        BlockPos core = owner != null ? owner.pos() : pos;
+        if (!(level.getBlockEntity(core) instanceof BlockEntityCondenserPowered be)) return;
+        if (DamageableMachine.isDamaged(level.getBlockState(core))) {
+            com.hbm.client.RepairLookOverlay.build(level, core, info);
+            return;
+        }
         info.title(getName().getString(), 0xFFFF00, 0x404000);
         info.line(
                 BobMathUtil.getShortNumber(be.power)

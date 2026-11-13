@@ -48,6 +48,7 @@ public final class CondenserPoweredVisual
     private final Matrix4f[] local = {new Matrix4f(), new Matrix4f()};
     private final Matrix4f world = new Matrix4f();
     private float lastFan = Float.NaN;
+    private boolean lastDamaged;
 
     public CondenserPoweredVisual(
             VisualizationContext context,
@@ -75,6 +76,13 @@ public final class CondenserPoweredVisual
     }
 
     public void updateMovingParts(float partialTick) {
+        // NTM:Space: the wrecked condenser's baked model has no fans
+        boolean damaged = com.hbm.blocks.machine.DamageableMachine.isDamaged(blockEntity.getBlockState());
+        if (damaged != lastDamaged) {
+            lastDamaged = damaged;
+            for (TransformedInstance instance : instances) instance.setVisible(!damaged);
+        }
+        if (damaged) return;
         float fan = Mth.lerp(partialTick, blockEntity.prevSpin, blockEntity.spin);
         if (fan == lastFan) return;
         local[0].set(basePose)

@@ -38,6 +38,7 @@ public final class ChungusVisual extends HbmDynamicBlockEntityVisual<BlockEntity
     private final Matrix4f basePose = new Matrix4f();
     private float lastLever = Float.NaN;
     private float lastRotor = Float.NaN;
+    private boolean lastDamaged;
 
     public ChungusVisual(
             VisualizationContext context, BlockEntityChungus blockEntity, float partialTick) {
@@ -72,6 +73,13 @@ public final class ChungusVisual extends HbmDynamicBlockEntityVisual<BlockEntity
     }
 
     public void updateMovingParts(float partialTick) {
+        // NTM:Space: the wrecked turbine's baked model has no moving parts
+        boolean damaged = com.hbm.blocks.machine.DamageableMachine.isDamaged(blockEntity.getBlockState());
+        if (damaged != lastDamaged) {
+            lastDamaged = damaged;
+            for (TransformedInstance instance : instances) instance.setVisible(!damaged);
+        }
+        if (damaged) return;
         float lever = 15F - steamTier(blockEntity.tanks[0].getTankType()) * 10F;
         float rotor = Mth.lerp(partialTick, blockEntity.lastRotor, blockEntity.rotor);
         if (lever != lastLever) {

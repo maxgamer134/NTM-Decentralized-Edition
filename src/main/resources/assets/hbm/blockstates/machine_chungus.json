@@ -1,18 +1,33 @@
 {
   "variants": {
-    "facing=east": {
+    "damaged=false,facing=east": {
       "model": "hbm:block/machine_chungus",
       "y": 270
     },
-    "facing=north": {
+    "damaged=true,facing=east": {
+      "model": "hbm:block/machine_chungus_damaged",
+      "y": 270
+    },
+    "damaged=false,facing=north": {
       "model": "hbm:block/machine_chungus",
       "y": 180
     },
-    "facing=south": {
+    "damaged=true,facing=north": {
+      "model": "hbm:block/machine_chungus_damaged",
+      "y": 180
+    },
+    "damaged=false,facing=south": {
       "model": "hbm:block/machine_chungus"
     },
-    "facing=west": {
+    "damaged=true,facing=south": {
+      "model": "hbm:block/machine_chungus_damaged"
+    },
+    "damaged=false,facing=west": {
       "model": "hbm:block/machine_chungus",
+      "y": 90
+    },
+    "damaged=true,facing=west": {
+      "model": "hbm:block/machine_chungus_damaged",
       "y": 90
     }
   }

@@ -130,6 +130,8 @@ public final class ModDataComponents {
     public static RegistryHandle<DataComponentType<Boolean>> CONTAGION;
     public static RegistryHandle<DataComponentType<Boolean>> TOOLBOX_OPEN;
     public static RegistryHandle<DataComponentType<Boolean>> MUFFLED;
+    /** NTM:Space: a wrecked Leviathan turbine or powered condenser keeps its damage when broken. */
+    public static RegistryHandle<DataComponentType<Boolean>> MACHINE_DAMAGED;
     public static RegistryHandle<DataComponentType<Map<String, Float>>> CASING_PROGRESS;
     public static RegistryHandle<DataComponentType<Integer>> POTATO_TIMER;
     public static RegistryHandle<DataComponentType<Integer>> B92_ENERGY;
@@ -464,6 +466,13 @@ public final class ModDataComponents {
         MUFFLED =
                 NeoForgeRegistrar.registerDataComponent(
                         "muffled",
+                        DataComponentType.<Boolean>builder()
+                                .persistent(Codec.BOOL)
+                                .networkSynchronized(ByteBufCodecs.BOOL)
+                                .build());
+        MACHINE_DAMAGED =
+                NeoForgeRegistrar.registerDataComponent(
+                        "machine_damaged",
                         DataComponentType.<Boolean>builder()
                                 .persistent(Codec.BOOL)
                                 .networkSynchronized(ByteBufCodecs.BOOL)

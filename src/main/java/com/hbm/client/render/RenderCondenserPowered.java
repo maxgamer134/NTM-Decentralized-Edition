@@ -81,10 +81,12 @@ public class RenderCondenserPowered
                 be, state, partialTicks, cameraPosition, breakProgress);
         state.yaw = facingYaw(be.getBlockState().getValue(BlockMultiblockCore.FACING));
         state.fan = Mth.lerp(partialTicks, be.prevSpin, be.spin);
+        state.damaged = com.hbm.blocks.machine.DamageableMachine.isDamaged(be.getBlockState());
     }
 
     @Override
     public void submit(State s, PoseStack ps, SubmitNodeCollector col, CameraRenderState camera) {
+        if (s.damaged) return; // NTM:Space: the wrecked model is baked and has no moving parts
         int light = s.lightCoords;
         ps.pushPose();
         ps.translate(0.5, 0.0, 0.5);
@@ -113,6 +115,7 @@ public class RenderCondenserPowered
     }
 
     public static final class State extends BlockEntityRenderState {
+        public boolean damaged;
         public float yaw;
         public float fan;
     }

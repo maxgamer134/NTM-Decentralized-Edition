@@ -20,7 +20,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jspecify.annotations.Nullable;
 
-public class BlockEntityChungus extends BlockEntityTurbineBase implements AudioLoop {
+public class BlockEntityChungus extends BlockEntityTurbineBase
+        implements AudioLoop, com.hbm.interfaces.IRepairable, com.hbm.blocks.machine.DamageableMachine.Holder {
 
     public static final String[] ROR = new String[] {PREFIX_VALUE + "output"};
     public static @Nullable Consumer<BlockEntityChungus> CLIENT_SOUND;
@@ -62,6 +63,7 @@ public class BlockEntityChungus extends BlockEntityTurbineBase implements AudioL
 
     @Override
     protected void onClientTick() {
+        if (isDamaged()) return;
         this.lastRotor = this.rotor;
         this.rotor += this.fanAcceleration;
         if (this.rotor >= 360) {
@@ -170,5 +172,73 @@ public class BlockEntityChungus extends BlockEntityTurbineBase implements AudioL
     public void setRemoved() {
         super.setRemoved();
         hbm$audioRemove();
+    }
+
+    // NTM:Space: wrecked by an explosion (see DamageableMachine), repaired with a blowtorch
+    private net.minecraft.world.level.@org.jspecify.annotations.Nullable Explosion lastExplosion;
+
+    public boolean isDamaged() {
+        return com.hbm.blocks.machine.DamageableMachine.isDamaged(getBlockState());
+    }
+
+    @Override
+    public net.minecraft.world.level.@org.jspecify.annotations.Nullable Explosion lastExplosion() {
+        return lastExplosion;
+    }
+
+    @Override
+    public void lastExplosion(
+            net.minecraft.world.level.@org.jspecify.annotations.Nullable Explosion explosion) {
+        lastExplosion = explosion;
+    }
+
+    private static final java.util.function.Supplier<
+                    java.util.List<com.hbm.inventory.recipes.ingredient.CountIngredient>>
+            REPAIR_MATERIALS =
+                    com.google.common.base.Suppliers.memoize(
+                            () -> java.util.List.of(
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.STEEL.plateWelded(), 6),
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.STEEL.pipe(), 8),
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.ANY_RESISTANTALLOY.ingot(), 8),
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.GOLD.wireDense(), 24),
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.items.ModItems.FLYWHEEL_BERYLLIUM.get(), 1)));
+
+    @Override
+    public java.util.List<com.hbm.inventory.recipes.ingredient.CountIngredient>
+            getRepairMaterials() {
+        return REPAIR_MATERIALS.get();
+    }
+
+    @Override
+    public void repair(net.minecraft.world.entity.player.Player player) {
+        com.hbm.blocks.machine.DamageableMachine.setDamaged(level, worldPosition, false);
+    }
+
+    @Override
+    public void tryExtinguish(
+            net.minecraft.world.level.Level level,
+            BlockPos pos,
+            com.hbm.interfaces.IRepairable.EnumExtinguishType type) {}
+
+    @Override
+    public void tickServer() {
+        if (isDamaged()) return;
+        super.tickServer();
+    }
+
+    @Override
+    protected void collectImplicitComponents(
+            net.minecraft.core.component.DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (isDamaged()) components.set(com.hbm.items.ModDataComponents.MACHINE_DAMAGED.get(), true);
+    }
+
+    @Override
+    protected void applyImplicitComponents(com.hbm.backport.DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        if (level != null
+                && Boolean.TRUE.equals(
+                        components.get(com.hbm.items.ModDataComponents.MACHINE_DAMAGED.get())))
+            com.hbm.blocks.machine.DamageableMachine.setDamaged(level, worldPosition, true);
     }
 }

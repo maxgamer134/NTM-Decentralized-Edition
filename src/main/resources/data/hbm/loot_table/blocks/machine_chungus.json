@@ -11,7 +11,16 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "hbm:machine_chungus"
+          "name": "hbm:machine_chungus",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "hbm:machine_damaged"
+              ],
+              "source": "block_entity"
+            }
+          ]
         }
       ],
       "rolls": 1.0

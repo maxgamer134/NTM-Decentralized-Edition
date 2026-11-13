@@ -17,7 +17,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import com.hbm.backport.storage.ValueInput;
 import com.hbm.backport.storage.ValueOutput;
 
-public class BlockEntityCondenserPowered extends BlockEntityCondenser implements IEnergyHandlerMK2 {
+public class BlockEntityCondenserPowered extends BlockEntityCondenser
+        implements IEnergyHandlerMK2, com.hbm.interfaces.IRepairable, com.hbm.blocks.machine.DamageableMachine.Holder {
 
     @SyncField(units = 1L << 3)
     public long power;
@@ -52,6 +53,7 @@ public class BlockEntityCondenserPowered extends BlockEntityCondenser implements
 
     @Override
     public void tickClient() {
+        if (isDamaged()) return;
         prevSpin = spin;
 
         if (waterTimer > 0) {
@@ -132,5 +134,71 @@ public class BlockEntityCondenserPowered extends BlockEntityCondenser implements
             case 3 -> this.power = input.readLong();
             default -> super.readSyncUnit(unit, input);
         }
+    }
+
+    // NTM:Space: wrecked by an explosion (see DamageableMachine), repaired with a blowtorch
+    private net.minecraft.world.level.@org.jspecify.annotations.Nullable Explosion lastExplosion;
+
+    public boolean isDamaged() {
+        return com.hbm.blocks.machine.DamageableMachine.isDamaged(getBlockState());
+    }
+
+    @Override
+    public net.minecraft.world.level.@org.jspecify.annotations.Nullable Explosion lastExplosion() {
+        return lastExplosion;
+    }
+
+    @Override
+    public void lastExplosion(
+            net.minecraft.world.level.@org.jspecify.annotations.Nullable Explosion explosion) {
+        lastExplosion = explosion;
+    }
+
+    private static final java.util.function.Supplier<
+                    java.util.List<com.hbm.inventory.recipes.ingredient.CountIngredient>>
+            REPAIR_MATERIALS =
+                    com.google.common.base.Suppliers.memoize(
+                            () -> java.util.List.of(
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.STEEL.plateWelded(), 4),
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.STEEL.pipe(), 12),
+                                    com.hbm.inventory.recipes.ingredient.CountIngredient.of(com.hbm.inventory.OreDictManager.ANY_RESISTANTALLOY.plateWelded(), 2)));
+
+    @Override
+    public java.util.List<com.hbm.inventory.recipes.ingredient.CountIngredient>
+            getRepairMaterials() {
+        return REPAIR_MATERIALS.get();
+    }
+
+    @Override
+    public void repair(net.minecraft.world.entity.player.Player player) {
+        com.hbm.blocks.machine.DamageableMachine.setDamaged(level, worldPosition, false);
+    }
+
+    @Override
+    public void tryExtinguish(
+            net.minecraft.world.level.Level level,
+            BlockPos pos,
+            com.hbm.interfaces.IRepairable.EnumExtinguishType type) {}
+
+    @Override
+    public void tickServer() {
+        if (isDamaged()) return;
+        super.tickServer();
+    }
+
+    @Override
+    protected void collectImplicitComponents(
+            net.minecraft.core.component.DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (isDamaged()) components.set(com.hbm.items.ModDataComponents.MACHINE_DAMAGED.get(), true);
+    }
+
+    @Override
+    protected void applyImplicitComponents(com.hbm.backport.DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        if (level != null
+                && Boolean.TRUE.equals(
+                        components.get(com.hbm.items.ModDataComponents.MACHINE_DAMAGED.get())))
+            com.hbm.blocks.machine.DamageableMachine.setDamaged(level, worldPosition, true);
     }
 }

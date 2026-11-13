@@ -1,0 +1,10 @@
+{
+  "type": "hbm:ammo_press",
+  "pattern": [" A ", " B ", " C "],
+  "key": {
+    "A": { "ingredient": "minecraft:flint" },
+    "B": { "count": 2, "ingredient": "minecraft:stick" },
+    "C": { "ingredient": "minecraft:feather" }
+  },
+  "output_items": [{ "count": 16, "id": "minecraft:arrow" }]
+}

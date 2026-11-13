@@ -1,0 +1,11 @@
+{
+  "type": "hbm:pedestal",
+  "extra": "full_moon",
+  "pattern": ["ABA", "BCB", "ABA"],
+  "key": {
+    "A": { "ingredient": "minecraft:diamond" },
+    "B": { "ingredient": "minecraft:gold_ingot" },
+    "C": { "ingredient": "minecraft:emerald" }
+  },
+  "output_items": ["minecraft:nether_star"]
+}

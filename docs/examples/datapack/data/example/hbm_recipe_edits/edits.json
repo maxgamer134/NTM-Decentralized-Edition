@@ -1,0 +1,18 @@
+{
+  "remove": [
+    { "id": "hbm:assembly_machine/ass.acidizer" },
+    { "type": "hbm:rock_mill" },
+    { "type": "hbm:crystallizer", "output": "hbm:nugget_arsenic" },
+    { "type": "hbm:shredder", "input": "minecraft:cobblestone" },
+    { "type": "minecraft:crafting_shaped", "output": "hbm:anvil_iron" }
+  ],
+  "replace_input": [
+    { "filter": { "type": "hbm:assembly_machine" }, "from": "hbm:motor", "to": "minecraft:stick" },
+    { "filter": { "type": "hbm:chemical_plant" }, "from": "hbm:petroleum", "to": "hbm:oil", "fluid": true },
+    { "filter": { "output": "hbm:anvil_lead" }, "from": "#c:ingots/lead", "to": "minecraft:copper_ingot" }
+  ],
+  "replace_output": [
+    { "filter": { "type": "hbm:shredder" }, "from": "minecraft:gravel", "to": "minecraft:sand" },
+    { "filter": { "type": "hbm:shredder" }, "from": "hbm:powder_iron", "to": "minecraft:iron_nugget", "count": 3 }
+  ]
+}

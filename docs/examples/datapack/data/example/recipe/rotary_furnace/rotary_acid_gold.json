@@ -1,0 +1,6 @@
+{
+  "type": "hbm:rotary_furnace",
+  "duration": 60,
+  "input_fluids": [{ "type": "hbm:sulfuric_acid", "amount": 250 }],
+  "output_material": { "amount": 72, "material": "gold" }
+}

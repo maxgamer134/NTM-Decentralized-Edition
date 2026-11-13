@@ -1,0 +1,30 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "expensive_mode"
+    }
+  ],
+  "type": "hbm:assembly_machine",
+  "duration": 600,
+  "input_items": [
+    {
+      "count": 4,
+      "ingredient": "hbm:item_expensive_steel_plating"
+    },
+    {
+      "count": 4,
+      "ingredient": "hbm:motor"
+    },
+    {
+      "count": 8,
+      "ingredient": "#hbm:pipes/steel"
+    }
+  ],
+  "name": "ass.milkreformer",
+  "order": 900701,
+  "output_items": [
+    "hbm:machine_milk_reformer"
+  ],
+  "power": 100
+}

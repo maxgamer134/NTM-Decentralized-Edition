@@ -1,4 +1,10 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "hbm:flag",
+      "name": "!expensive_mode"
+    }
+  ],
   "type": "hbm:assembly_machine",
   "duration": 600,
   "input_items": [

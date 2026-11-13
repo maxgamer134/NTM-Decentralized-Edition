@@ -28,6 +28,19 @@ public abstract class MixinRecipeManager {
      * apply(Map&lt;ResourceLocation, JsonElement&gt;, ...) parses them itself into byName, so the
      * datapack rows are bound from getRecipes() once apply has finished.
      */
+    /** Datapack recipe edits (hbm_recipe_edits), the KubeJS plugin's remove/replace without KubeJS. */
+    @Inject(
+            method =
+                    "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V",
+            at = @At("HEAD"))
+    private void hbm$recipeEdits(
+            Map<ResourceLocation, JsonElement> json,
+            ResourceManager manager,
+            ProfilerFiller profiler,
+            CallbackInfo ci) {
+        com.hbm.inventory.recipes.RecipeEdits.apply(json, manager);
+    }
+
     @Inject(
             method =
                     "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V",

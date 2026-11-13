@@ -1,0 +1,6 @@
+{
+  "type": "hbm:press",
+  "stamp": "plate",
+  "input_items": [{ "count": 9, "ingredient": "minecraft:iron_nugget" }],
+  "output_items": ["hbm:plate_iron"]
+}

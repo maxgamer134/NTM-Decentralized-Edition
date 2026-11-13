@@ -1,0 +1,7 @@
+{
+  "type": "hbm:rotary_furnace",
+  "duration": 100,
+  "steam": 200,
+  "input_items": [{ "ingredient": "minecraft:raw_copper" }],
+  "output_material": { "amount": 144, "material": "copper" }
+}

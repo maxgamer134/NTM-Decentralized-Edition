@@ -1,0 +1,7 @@
+{
+  "profession": "minecraft:farmer",
+  "swap": { "cap": "cap_nuka", "caps_per_emerald": 2 },
+  "trades": [
+    { "level": 1, "cap": "cap_nuka", "count": 5, "result": { "id": "minecraft:bread", "count": 3 }, "max_uses": 12, "xp": 2 }
+  ]
+}

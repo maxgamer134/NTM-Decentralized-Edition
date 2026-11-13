@@ -1,0 +1,10 @@
+{
+  "type": "hbm:gas_centrifuge",
+  "stage": "example_diamond",
+  "feed": "minecraft:water",
+  "duration": 150,
+  "consumed": 300,
+  "power": 200,
+  "requires_upgrade": true,
+  "output_items": [{ "count": 3, "id": "minecraft:diamond" }]
+}

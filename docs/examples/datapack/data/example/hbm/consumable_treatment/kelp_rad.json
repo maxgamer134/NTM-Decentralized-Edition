@@ -1,0 +1,7 @@
+{
+  "targets": "minecraft:dried_kelp",
+  "trigger": "consume",
+  "actions": [
+    { "type": "effect", "effect": "hbm:radaway", "duration": 40 }
+  ]
+}

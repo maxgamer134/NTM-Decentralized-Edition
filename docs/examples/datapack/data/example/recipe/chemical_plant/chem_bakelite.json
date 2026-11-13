@@ -1,0 +1,9 @@
+{
+  "type": "hbm:chemical_plant",
+  "duration": 60,
+  "power": 50,
+  "input_items": [{ "ingredient": "hbm:powder_coal" }],
+  "input_fluids": [{ "type": "hbm:sulfuric_acid", "amount": 500 }],
+  "output_items": ["hbm:ingot_bakelite"],
+  "output_fluids": [{ "type": "hbm:hydrogen", "amount": 250 }]
+}

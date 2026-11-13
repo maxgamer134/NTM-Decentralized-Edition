@@ -1,0 +1,13 @@
+{
+  "type": "hbm:crucible",
+  "frequency": 4,
+  "icon": { "id": "minecraft:iron_block" },
+  "input_materials": [
+    { "amount": 72, "material": "iron" },
+    { "amount": 8, "material": "coal" }
+  ],
+  "output_materials": [
+    { "amount": 72, "material": "steel" },
+    { "amount": 8, "material": "slag" }
+  ]
+}

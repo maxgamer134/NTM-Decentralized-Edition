@@ -1,0 +1,7 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "ae2" }],
+  "type": "hbm:press",
+  "stamp": "ae2_silicon",
+  "input_items": [{ "ingredient": "#c:silicon" }],
+  "output_items": ["ae2:printed_silicon"]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "hbm:assembly_machine",
+  "duration": 100,
+  "power": 200,
+  "input_items": [
+    { "count": 4, "ingredient": "#c:ingots/steel" },
+    { "ingredient": "hbm:circuit_basic" }
+  ],
+  "output_items": ["minecraft:emerald"]
+}

@@ -1,0 +1,5 @@
+{
+  "type": "hbm:shredder",
+  "input_items": [{ "ingredient": "minecraft:amethyst_shard" }],
+  "output_items": [{ "count": 2, "id": "hbm:powder_coal" }]
+}

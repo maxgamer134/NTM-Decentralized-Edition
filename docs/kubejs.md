@@ -123,9 +123,10 @@ ServerEvents.recipes(event => {
     event.recipes.hbm.crucible(['72x steel', '8x slag'], ['72x iron', '8x coal'], 4)
         .merge({ icon: { id: 'minecraft:iron_block' } })   // the template item shown in the GUI
 
-    // gas centrifuge stage: output items, stage name, duration
-    event.recipes.hbm.gas_centrifuge(['3x minecraft:diamond'], 'heuf6', 150)
-        .consumed(300).power(200).requiresUpgrade(true)
+    // gas centrifuge stage: output items, stage name, duration. Stage names are unique:
+    // reusing one of NTM's ('heuf6', ...) stops the server, so a new stage needs its own name and feed
+    event.recipes.hbm.gas_centrifuge(['3x minecraft:diamond'], 'example_diamond', 150)
+        .feed('minecraft:water').consumed(300).power(200).requiresUpgrade(true)
 
     // ammo press / pedestal: a 3x3 grid like a shaped crafting recipe; keys take counts ('2x ...')
     event.recipes.hbm.ammo_press(['16x minecraft:arrow'], [' A ', ' B ', ' C '], {
@@ -302,6 +303,36 @@ An armor set, `suit_protection/asbestos.json`:
   "protections": ["asbestos"]
 }
 ```
+
+## Without KubeJS
+
+Everything above works from a plain datapack too. [`docs/examples/datapack`](examples/datapack) is a datapack
+with every example on this page as a file; drop the folder into a world's `datapacks/` to try it.
+
+| KubeJS | Datapack |
+|---|---|
+| `event.recipes.hbm.<machine>(...)`, `event.custom(...)` | a recipe file, `data/<ns>/recipe/<machine>/<name>.json` |
+| `event.remove({ id })` | a file at the recipe's own path holding `{"neoforge:conditions": [{"type": "neoforge:false"}]}`, or an edit below |
+| `event.remove({ type, input, output })` | `remove` in `data/<ns>/hbm_recipe_edits/<name>.json` |
+| `event.replaceInput` / `event.replaceOutput` | `replace_input` / `replace_output` in the same file |
+| `ServerEvents.tags` | `data/<ns>/tags/item/...json` |
+| `HbmTrades.add` / `HbmTrades.swapEmeralds` | `data/<ns>/hbm_trades/<name>.json` |
+
+An edit file:
+
+```json
+{
+  "remove": [{ "type": "hbm:shredder", "input": "minecraft:cobblestone" }],
+  "replace_input": [{ "filter": { "type": "hbm:assembly_machine" }, "from": "hbm:motor", "to": "minecraft:stick" }],
+  "replace_output": [{ "filter": { "type": "hbm:shredder" }, "from": "minecraft:gravel", "to": "minecraft:sand", "count": 2 }]
+}
+```
+
+A filter takes any of `id`, `type`, `mod`, `input` and `output`; all must match, and an empty one matches
+every recipe. Items are ids or `#tags`. `"fluid": true` on a replacement swaps fluids, keeping their amount
+and pressure. Replaced items keep their count unless `count` is given. Edits apply to every recipe from every
+datapack (crafting recipes included), run in file-id order, and reload with `/reload`; the server log says how
+many recipes each file changed.
 
 ## Limitations
 

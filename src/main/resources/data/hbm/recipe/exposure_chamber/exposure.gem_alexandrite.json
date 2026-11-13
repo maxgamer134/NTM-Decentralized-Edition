@@ -1,0 +1,15 @@
+{
+  "type": "hbm:exposure_chamber",
+  "input_items": [
+    {
+      "ingredient": "hbm:particle_strange"
+    },
+    {
+      "ingredient": "hbm:gem_rad"
+    }
+  ],
+  "order": 1296,
+  "output_items": [
+    "hbm:gem_alexandrite"
+  ]
+}

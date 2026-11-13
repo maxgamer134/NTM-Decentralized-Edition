@@ -397,8 +397,7 @@ public final class LegacyGuns {
         // main's parts tab entries the old guns and bullets are made from
         MECHANISM_REVOLVER_1 = part("mechanism_revolver_1");
         MECHANISM_REVOLVER_2 = part("mechanism_revolver_2");
-        // the secret aberrator and V1 need it, so it stays on with the old guns off
-        MECHANISM_SPECIAL = keep(NeoForgeRegistrar.registerItem("mechanism_special", Item::new, Item.Properties::new));
+        MECHANISM_SPECIAL = part("mechanism_special");
         CASING_357 = part("casing_357");
         ASSEMBLY_IRON = part("assembly_iron");
         ASSEMBLY_STEEL = part("assembly_steel");
@@ -775,12 +774,6 @@ public final class LegacyGuns {
     private static <T extends Item> RegistryHandle<T> add(RegistryHandle<T> handle) {
         TAB.add(handle);
         GunContent.markPreRework(handle.id());
-        return handle;
-    }
-
-    /** in the old guns' tab, but not switched off with them */
-    private static <T extends Item> RegistryHandle<T> keep(RegistryHandle<T> handle) {
-        TAB.add(handle);
         return handle;
     }
 

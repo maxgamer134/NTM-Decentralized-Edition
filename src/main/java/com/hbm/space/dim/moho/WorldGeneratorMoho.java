@@ -64,6 +64,7 @@ public class WorldGeneratorMoho implements Planet.Decorator {
 	private void generateMoho(World world, Random rand, int i, int j) {
 		int meta = world.bodyMeta();
 		Block stone = world.stone();
+		com.hbm.space.SpaceExtras.sulfurCave(world, i, j, false);
 
 		Features.generateOre(world, rand, i, j, WorldConfig.mineralSpawn, 10, 12, 32, LegacyBlocks.b("ore_mineral"), meta, stone);
 

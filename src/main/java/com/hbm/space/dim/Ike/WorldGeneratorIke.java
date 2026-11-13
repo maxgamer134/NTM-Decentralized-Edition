@@ -65,6 +65,7 @@ public class WorldGeneratorIke implements Planet.Decorator {
 	private void generateIke(World world, Random rand, int i, int j) {
 		int meta = world.bodyMeta();
 		Block stone = world.stone();
+		com.hbm.space.SpaceExtras.sulfurCave(world, i, j, false);
 
 		Features.generateOre(world, rand, i, j, WorldConfig.asbestosSpawn, 8, 3, 22, LegacyBlocks.b("ore_asbestos"), meta, stone);
 		Features.generateOre(world, rand, i, j, WorldConfig.copperSpawn, 9, 4, 27, LegacyBlocks.b("ore_copper"), meta, stone);

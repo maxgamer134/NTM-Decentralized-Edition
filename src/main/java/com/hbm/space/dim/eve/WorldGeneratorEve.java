@@ -66,6 +66,10 @@ public class WorldGeneratorEve implements Planet.Decorator {
 	private void generateEve(World world, Random rand, int i, int j) {
 		int meta = world.bodyMeta();
 		Block stone = world.stone();
+		com.hbm.space.SpaceExtras.sulfurCave(world, i, j, true);
+		// basalt walls the silt-filled caves
+		com.hbm.space.SpaceExtras.oreCave(world, i, j, "eve_basalt", LegacyBlocks.b("basalt").defaultBlockState(), null, null,
+				LegacyBlocks.b("eve_silt"), 0.15D, 40, 54, 24, true);
 
 		Features.generateOre(world, rand, i, j, 12,  8, 1, 33, LegacyBlocks.b("ore_niobium"), meta, stone);
 		Features.generateOre(world, rand, i, j, 8,  4, 5, 48, LegacyBlocks.b("ore_iodine"), meta, stone);

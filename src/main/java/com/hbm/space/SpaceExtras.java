@@ -394,22 +394,61 @@ public final class SpaceExtras {
      * threshold 220), through the port's 3D stratum, replacing the planet's stone.
      */
     public static void conglomerate(com.hbm.space.dim.legacy.World world, String body, int x, int z) {
-        if (com.hbm.space.dim.legacy.Features.recorded(CONGLOMERATE.get(), 0, world.stone(), -1, -1,
+        layer(world, "conglomerate_" + body, CONGLOMERATE.get().defaultBlockState(), 0.04D, 0.25D, 220D, x, z);
+    }
+
+    /** Upstream's OreLayer3D on a Space body, through the port's 3D stratum, replacing its stone. */
+    public static void layer(com.hbm.space.dim.legacy.World world, String key, net.minecraft.world.level.block.state.BlockState block,
+            double scaleH, double scaleV, double threshold, int x, int z) {
+        if (com.hbm.space.dim.legacy.Features.recorded(block.getBlock(), 0, world.stone(), -1, -1,
                 com.hbm.world.feature.Stratum3DFeature.MIN_Y, com.hbm.world.feature.Stratum3DFeature.MAX_Y, "stratum_3d")) return;
         com.hbm.world.feature.Stratum3DFeature.place(
                 world.level(),
                 net.minecraft.util.RandomSource.create(0L),
                 new com.hbm.world.feature.Stratum3DConfig(
-                        Library.id("stratum_conglomerate_" + body + "/x"),
-                        Library.id("stratum_conglomerate_" + body + "/y"),
-                        Library.id("stratum_conglomerate_" + body + "/z"),
-                        CONGLOMERATE.get().defaultBlockState(),
+                        Library.id("stratum_" + key + "/x"),
+                        Library.id("stratum_" + key + "/y"),
+                        Library.id("stratum_" + key + "/z"),
+                        block,
                         new net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest(world.stone()),
-                        0.04D,
-                        0.25D,
-                        220D),
+                        scaleH,
+                        scaleV,
+                        threshold),
                 x,
                 z);
+    }
+
+    /**
+     * Upstream's OreCave on a Space body, through the port's ore cave feature: ore lines the
+     * cave walls of {@code replace} (the planet's stone when null) around {@code yLevel}.
+     */
+    public static void oreCave(com.hbm.space.dim.legacy.World world, int x, int z, String key,
+            net.minecraft.world.level.block.state.BlockState ore,
+            net.minecraft.world.level.block.state.@org.jspecify.annotations.Nullable BlockState fluid,
+            @org.jspecify.annotations.Nullable String spikes, @org.jspecify.annotations.Nullable Block replace,
+            double threshold, int rangeMult, int yLevel, int maxRange, boolean ignoreWater) {
+        Block target = replace != null ? replace : world.stone();
+        if (com.hbm.space.dim.legacy.Features.recorded(ore.getBlock(), 0, target, -1, -1,
+                yLevel - maxRange, yLevel + maxRange, "ore_cave")) return;
+        java.util.Optional<net.minecraft.world.level.block.state.BlockState> stalactite = java.util.Optional.empty(), stalagmite = java.util.Optional.empty();
+        if (spikes != null) {
+            stalactite = java.util.Optional.of(net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(Library.id("stalactite_" + spikes)).defaultBlockState());
+            stalagmite = java.util.Optional.of(net.minecraft.core.registries.BuiltInRegistries.BLOCK.get(Library.id("stalagmite_" + spikes)).defaultBlockState());
+        }
+        com.hbm.world.feature.OreCaveConfig config = new com.hbm.world.feature.OreCaveConfig(ore, java.util.Optional.ofNullable(fluid),
+                stalactite, stalagmite, new net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest(target),
+                threshold, rangeMult, maxRange, yLevel, Library.id("noise/ore_cave_" + key), ignoreWater);
+        net.minecraft.world.level.WorldGenLevel level = world.level();
+        com.hbm.world.HbmFeatures.ORE_CAVE.get().place(new net.minecraft.world.level.levelgen.feature.FeaturePlaceContext<>(
+                java.util.Optional.empty(), level, null, net.minecraft.util.RandomSource.create(level.getSeed() ^ ((long) x * 341873128712L + (long) z * 132897987541L)),
+                new net.minecraft.core.BlockPos(x, yLevel, z), config));
+    }
+
+    /** NTM:Space's sulfur caves, on every body that has them. */
+    public static void sulfurCave(com.hbm.space.dim.legacy.World world, int x, int z, boolean acid) {
+        oreCave(world, x, z, "sulfur", com.hbm.space.dim.legacy.LegacyBlocks.b("stone_resource_sulfur").defaultBlockState(),
+                acid ? com.hbm.space.dim.legacy.LegacyBlocks.b("sulfuric_acid_block").defaultBlockState() : null,
+                "sulfur", null, 1.5D, 20, 30, 20, false);
     }
 
     /** NTM:Space's Oxygen Pinwheel, an endless trickle of oxygen like the chlorine one. */

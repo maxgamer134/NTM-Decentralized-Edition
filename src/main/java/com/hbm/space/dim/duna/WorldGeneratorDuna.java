@@ -64,6 +64,7 @@ public class WorldGeneratorDuna implements Planet.Decorator {
 	private void generateDuna(World world, Random rand, int i, int j) {
 		int meta = world.bodyMeta();
 		Block stone = world.stone();
+		com.hbm.space.SpaceExtras.sulfurCave(world, i, j, false);
 
 		Features.generateOre(world, rand, i, j, WorldConfig.ironSpawn, 8, 32, 64, LegacyBlocks.b("ore_iron"), meta, stone);
 		Features.generateOre(world, rand, i, j, WorldConfig.zincSpawn, 9, 4, 27, LegacyBlocks.b("ore_zinc"), meta, stone);

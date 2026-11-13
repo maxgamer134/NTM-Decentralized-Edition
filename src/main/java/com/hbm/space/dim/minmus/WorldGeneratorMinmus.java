@@ -58,6 +58,8 @@ public class WorldGeneratorMinmus implements Planet.Decorator {
 	public void generate(Random random, int chunkX, int chunkZ, World world) {
 		if(true) {
 			generateMinmus(world, random, chunkX * 16, chunkZ * 16);
+			com.hbm.space.SpaceExtras.layer(world, "minmus_regolith", LegacyBlocks.b("minmus_regolith").defaultBlockState(), 0.06D, 0.25D, 220D, chunkX * 16, chunkZ * 16);
+			com.hbm.space.SpaceExtras.layer(world, "minmus_smooth", LegacyBlocks.b("minmus_smooth").defaultBlockState(), 0.05D, 0.15D, 280D, chunkX * 16, chunkZ * 16);
 			com.hbm.space.SpaceExtras.conglomerate(world, "minmus", chunkX * 16, chunkZ * 16);
 		}
 	}
@@ -65,6 +67,7 @@ public class WorldGeneratorMinmus implements Planet.Decorator {
 	private void generateMinmus(World world, Random rand, int i, int j) {
 		int meta = world.bodyMeta();
 		Block stone = world.stone();
+		com.hbm.space.SpaceExtras.sulfurCave(world, i, j, false);
 
 		Features.generateOre(world, rand, i, j, WorldConfig.nickelSpawn, 8, 1, 43, LegacyBlocks.b("ore_nickel"), meta, stone);
 		Features.generateOre(world, rand, i, j, WorldConfig.titaniumSpawn, 12, 4, 27, LegacyBlocks.b("ore_titanium"), meta, stone);

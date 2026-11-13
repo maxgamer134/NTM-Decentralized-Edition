@@ -65,6 +65,7 @@ public class WorldGeneratorMoon implements Planet.Decorator {
 	private void generateMoon(World world, Random rand, int i, int j) {
 		int meta = world.bodyMeta();
 		Block stone = world.stone();
+		com.hbm.space.SpaceExtras.sulfurCave(world, i, j, false);
 
 		Features.generateOre(world, rand, i, j, WorldConfig.lithiumSpawn,  6, 4, 8, LegacyBlocks.b("ore_lithium"), meta, stone);
 		Features.generateOre(world, rand, i, j, WorldConfig.aluminiumSpawn,  6, 5, 40, LegacyBlocks.b("ore_aluminium"), meta, stone);

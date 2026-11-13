@@ -4,6 +4,8 @@
 
 package com.hbm.space.atmosphere;
 
+import com.hbm.space.SpaceToggle;
+
 import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.fluid.NTMFluidProperties;
 import com.hbm.inventory.fluid.NTMFluids;
@@ -155,7 +157,9 @@ public final class SpaceAtmosphere {
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
         boolean needsPressure = state.is(Blocks.WATER);
-        boolean needsO2 = (block instanceof TorchBlock && !(block instanceof RedstoneTorchBlock)) || block instanceof BaseFireBlock;
+        boolean litBurner = SpaceCombustion.isLitBurner(block);
+        boolean needsO2 = (block instanceof TorchBlock && !(block instanceof RedstoneTorchBlock)) || block instanceof BaseFireBlock
+                || litBurner;
         boolean needsAir = block instanceof BushBlock;
         if (!needsPressure && !needsO2 && !needsAir) return false;
         boolean canExist;
@@ -165,6 +169,11 @@ public final class SpaceAtmosphere {
         else canExist = atmosphere != null
                 && (atmosphere.hasFluid(NTMFluids.OXYGEN, 0.01) || atmosphere.hasFluid(NTMFluids.byName("EARTHAIR"), 0.1));
         if (canExist) return false;
+        if (litBurner) {
+            if (!SpaceToggle.changes()) return false;
+            level.setBlock(pos, SpaceCombustion.emptyBurner(), 3);
+            return true;
+        }
         level.destroyBlock(pos, !(block instanceof BaseFireBlock) && !needsPressure);
         if (needsPressure) level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
         return true;
@@ -219,7 +228,8 @@ public final class SpaceAtmosphere {
     public static void blockChanged(ServerLevel level, BlockPos pos, BlockState oldState, BlockState newState) {
         boolean tracked = BLOBS.containsKey(level) && !BLOBS.get(level).isEmpty();
         boolean judged = newState.is(Blocks.WATER) || newState.getBlock() instanceof TorchBlock
-                || newState.getBlock() instanceof BaseFireBlock || newState.getBlock() instanceof BushBlock;
+                || newState.getBlock() instanceof BaseFireBlock || newState.getBlock() instanceof BushBlock
+                || SpaceCombustion.isLitBurner(newState.getBlock());
         if (!tracked && !judged) return;
         boolean wasSealed = tracked && wasSealed(level, pos, oldState);
         CHANGES.computeIfAbsent(level, l -> new ArrayDeque<>()).add(new Change(pos.immutable(), wasSealed));

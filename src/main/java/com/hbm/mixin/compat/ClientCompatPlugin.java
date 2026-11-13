@@ -12,6 +12,15 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 public final class ClientCompatPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String target, String mixin) {
+        // Space: other mods' burners need oxygen, each only with its mod installed
+        if (mixin.contains(".burncreate."))
+            return has("com/simibubi/create/content/processing/burner/BlazeBurnerBlockEntity.class");
+        if (mixin.contains(".burnaero."))
+            return has("dev/eriksonn/aeronautics/content/blocks/hot_air/hot_air_burner/HotAirBurnerBlockEntity.class");
+        if (mixin.contains(".burnsim."))
+            return has("dev/simulated_team/simulated/content/blocks/portable_engine/PortableEngineBlockEntity.class");
+        if (mixin.contains(".burnprop."))
+            return has("dev/propulsionteam/propulsionsimulated/content/heat/burners/AbstractBurnerBlockEntity.class");
         // backport: the sodium mixins are gated like the Iris ones. They are @Pseudo and name
         // their targets by string (no Sodium on the backport's compile classpath), so this only
         // keeps them (and the duck interfaces they add) from being considered without Sodium.
@@ -50,6 +59,10 @@ public final class ClientCompatPlugin implements IMixinConfigPlugin {
         // Sodium mixins into hbm-common; DE keeps it for hbm-compat's DE-only mixins (JEI, Create and
         // the Sodium duck mixins). The Iris mixins are disabled on 1.21.1.
         return true;
+    }
+
+    private boolean has(String resource) {
+        return getClass().getClassLoader().getResource(resource) != null;
     }
 
     @Override

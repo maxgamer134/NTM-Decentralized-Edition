@@ -23,6 +23,13 @@ public final class SpaceLayouts {
     private final Set<Long> ports = new LinkedHashSet<>();
     private final Set<Long> heat = new LinkedHashSet<>();
     private final java.util.Map<Long, Integer> portMasks = new java.util.HashMap<>();
+    private double height = 1.0;
+
+    /** Gives every cell and the core a box this tall instead of a full block, as NTM:Space's gas dock. */
+    public SpaceLayouts height(double height) {
+        this.height = height;
+        return this;
+    }
 
     /** Adds a box around a local origin, in NTM's {up, down, north, south, west, east} form. */
     public SpaceLayouts box(int ox, int oy, int oz, int... dims) {
@@ -97,6 +104,25 @@ public final class SpaceLayouts {
                 offsets,
                 new long[][] {MultiblockLayout.NO_CELLS, MultiblockLayout.NO_CELLS, MultiblockLayout.NO_CELLS, MultiblockLayout.NO_CELLS},
                 new MultiblockLayout.Placement(dims, offset, heightOffset, preview, new double[0]),
-                MultiblockLayout.CellGeometry.NONE);
+                height >= 1.0 ? MultiblockLayout.CellGeometry.NONE : geometry(offsets[0].length));
+    }
+
+    private MultiblockLayout.CellGeometry geometry(int size) {
+        double[] box = {0, 0, 0, 1, height, 1};
+        long[] local = new long[size];
+        int i = 0;
+        long origin = BlockPos.asLong(0, 0, 0);
+        for (long cell : cells) if (cell != origin) local[i++] = cell;
+        double[][] core = new double[16][];
+        java.util.Arrays.fill(core, box);
+        return new MultiblockLayout.CellGeometry(
+                new String[] {"box:" + height},
+                new double[][][] {{box, box, box, box}},
+                new double[1][],
+                true,
+                new long[][] {local, local, local, local},
+                new int[4][size],
+                core,
+                new double[4][]);
     }
 }

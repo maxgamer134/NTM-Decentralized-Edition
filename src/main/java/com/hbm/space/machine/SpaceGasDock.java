@@ -82,7 +82,7 @@ public final class SpaceGasDock {
 
         @Override
         protected MultiblockLayout runtimeLayout(int declaredCaps) {
-            SpaceLayouts l = new SpaceLayouts().box(0, 0, 0, DIMS);
+            SpaceLayouts l = new SpaceLayouts().box(0, 0, 0, DIMS).height(12.0 / 16.0);
             for (int x = -1; x <= 1; x++) for (int z = -1; z <= 1; z++) l.port(x, 0, z);
             return l.build(this, declaredCaps, DIMS, 0, 0);
         }

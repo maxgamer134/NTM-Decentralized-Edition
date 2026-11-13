@@ -9,7 +9,12 @@
     "createfluid.CreateFluidHandlerSourceMixin",
     "createfluid.CreatePumpEndpointMixin",
     "createitem.CreateCapManipulationCellMixin",
-    "createitem.CreateChuteCellMixin"
+    "createitem.CreateChuteCellMixin",
+    "burncreate.BlazeBurnerAirMixin",
+    "burnaero.HotAirBurnerAirMixin",
+    "burnsim.PortableEngineAirMixin",
+    "burnprop.PropulsionBurnerAirMixin",
+    "burnprop.PropulsionThermostatAirMixin"
   ],
   "client": [
     "sodium.QuadTagMixin",

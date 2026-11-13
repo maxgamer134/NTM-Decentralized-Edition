@@ -59,7 +59,7 @@ public class BlockRedBrickKeyhole extends BlockKeyhole {
             java.util.function.Consumer<net.minecraft.network.chat.Component> tooltip,
             net.minecraft.world.item.TooltipFlag flag) {
         tooltip.accept(net.minecraft.network.chat.Component.translatable(getDescriptionId() + ".desc")
-                .withStyle(net.minecraft.ChatFormatting.RED, net.minecraft.ChatFormatting.ITALIC));
+                .withStyle(net.minecraft.ChatFormatting.GRAY, net.minecraft.ChatFormatting.ITALIC));
     }
 
     @Override

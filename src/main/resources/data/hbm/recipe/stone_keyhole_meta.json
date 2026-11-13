@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "building",
   "key": {
-    "A": "hbm:gem_alexandrite",
+    "A": "minecraft:redstone",
     "B": "minecraft:bricks",
     "R": "#c:dyes/red",
     "S": "hbm:ingot_starmetal"

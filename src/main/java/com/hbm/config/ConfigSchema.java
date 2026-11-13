@@ -187,7 +187,7 @@ public final class ConfigSchema {
     public static final ConfigEntry<Boolean> ENABLE_RED_ROOM_KEYHOLE_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_red_room_keyhole_recipe", false,
                     "Lets the red room keyhole (Strange Red Room Brick) be crafted from bricks, starmetal,"
-                            + " alexandrite and red dye.");
+                            + " redstone and red dye.");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_SELENIUM_STEEL_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_secret_selenium_steel_recipe", false,
                     "Lets the precision assembler make the selenium steel (on with enable_secret_part_recipes too).");

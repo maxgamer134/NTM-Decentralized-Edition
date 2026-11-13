@@ -209,6 +209,28 @@ public class ItemToolAbility extends ItemCompat implements IKeybindReceiver {
                                 stack));
     }
 
+    /** whether a block class overrides Block.playerDestroy */
+    private static final ClassValue<Boolean> OWN_PLAYER_DESTROY =
+            new ClassValue<>() {
+                @Override
+                protected Boolean computeValue(Class<?> type) {
+                    try {
+                        return type.getMethod(
+                                                "playerDestroy",
+                                                net.minecraft.world.level.Level.class,
+                                                Player.class,
+                                                BlockPos.class,
+                                                BlockState.class,
+                                                BlockEntity.class,
+                                                ItemStack.class)
+                                        .getDeclaringClass()
+                                != Block.class;
+                    } catch (NoSuchMethodException e) {
+                        return false;
+                    }
+                }
+            };
+
     public static void harvest(ToolDig dig, BlockPos pos, boolean skipDefaultDrops) {
         ServerLevel level = dig.level();
         ServerPlayer player = dig.player();
@@ -221,16 +243,24 @@ public class ItemToolAbility extends ItemCompat implements IKeybindReceiver {
                         && !player.getAbilities().instabuild
                         && state.canHarvestBlock((BlockGetter) level, pos, (Player) player);
         BlockState adjusted = state.getBlock().playerWillDestroy(level, pos, state, player);
-        if (!level.removeBlock(pos, false)) return;
-        state.getBlock().destroy(level, pos, state);
+        // as ServerPlayerGameMode.destroyBlock: blocks that handle their own removal (Mekanism's
+        // machines and multiblocks among them) do it in onDestroyedByPlayer
+        if (!adjusted.onDestroyedByPlayer(level, pos, player, drops, level.getFluidState(pos))) return;
+        adjusted.getBlock().destroy(level, pos, adjusted);
         NeoForgePlatform.afterPlayerBreak(level, player, pos, adjusted, blockEntity);
 
         if (player.getAbilities().instabuild) return;
         if (drops) {
-            player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
-            player.causeFoodExhaustion(0.005F);
-            NeoForgePlatform.dropResources(
-                    level, pos, dig.reference(), adjusted, blockEntity, player, dig.harvestTool());
+            if (OWN_PLAYER_DESTROY.get(adjusted.getBlock().getClass())) {
+                // a block with its own playerDestroy makes its drops there (data-carrying machines);
+                // building the drop list here instead lost them
+                adjusted.getBlock().playerDestroy(level, player, pos, adjusted, blockEntity, dig.harvestTool());
+            } else {
+                player.awardStat(Stats.BLOCK_MINED.get(state.getBlock()));
+                player.causeFoodExhaustion(0.005F);
+                NeoForgePlatform.dropResources(
+                        level, pos, dig.reference(), adjusted, blockEntity, player, dig.harvestTool());
+            }
         }
         ((ItemToolAbility) dig.held().getItem()).spendPerBlock(dig.held(), player);
     }

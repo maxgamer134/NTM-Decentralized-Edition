@@ -43,7 +43,7 @@ public final class GunContent {
     private static final Pattern WAR =
             Pattern.compile(
                     "nuke_.+_kit|tsar_(kit|core)|missile_(kit|assembly)|machine_missile_assembly|"
-                            + "grenade_(filling|fuze|shell|extra)|bomb_caller(_.+)?|launch_(code|code_piece|key)|"
+                            + "grenade_(filling|fuze|shell|extra)_.+|bomb_caller(_.+)?|launch_(code|code_piece|key)|"
                             + "gadget_(core|explosive|wireing)|boy_(bullet|igniter|propellant|shielding|target)|"
                             + "man_(core|explosive|igniter)|mike_(cooling_unit|core|deut)|"
                             + "(fleija|solinium)_(core|igniter|propellant)|n2_charge|"
@@ -190,7 +190,7 @@ public final class GunContent {
 
     private static final Pattern WAR_MISSILE =
             Pattern.compile("missile_(kit|assembly)|machine_missile_assembly|launch_(code|code_piece|key)");
-    private static final Pattern WAR_MISC = Pattern.compile("grenade_(filling|fuze|shell|extra)|bomb_caller(_.+)?");
+    private static final Pattern WAR_MISC = Pattern.compile("grenade_(filling|fuze|shell|extra)_.+|bomb_caller(_.+)?");
 
     private static boolean warOff(boolean[] off, int kind) {
         return kind != NONE && off[kind];

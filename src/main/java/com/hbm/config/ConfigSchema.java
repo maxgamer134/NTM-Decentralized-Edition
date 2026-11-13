@@ -149,7 +149,7 @@ public final class ConfigSchema {
     public static final ConfigEntry<Boolean> DISABLE_WAR_EXPLOSIVES =
             bool(
                     Domain.CONTENT,
-                    "guns",
+                    "war_explosives",
                     "disable_war_explosives",
                     false,
                     "Switches off every explosive made for war (all four switches below at once): missiles and launch pads, bombs and nukes,"
@@ -158,60 +158,60 @@ public final class ConfigSchema {
                             + " or set off. Mining explosives (dynamite, mining charges) stay. The items stay"
                             + " registered, so old worlds still load.");
     public static final ConfigEntry<Boolean> DISABLE_WAR_MISSILES =
-            bool(Domain.CONTENT, "guns", "disable_war_missiles", false,
+            bool(Domain.CONTENT, "war_explosives", "disable_war_missiles", false,
                     "Switches off only the missiles: missiles, custom missiles and their parts, launch pads, the"
                             + " launch table, the compact launcher, the missile assembly and launch codes and keys.");
     public static final ConfigEntry<Boolean> DISABLE_WAR_NUKES =
-            bool(Domain.CONTENT, "guns", "disable_war_nukes", false,
+            bool(Domain.CONTENT, "war_explosives", "disable_war_nukes", false,
                     "Switches off only the stationary nuclear bombs: the assembled nukes (Gadget, Little Boy, Fat"
                             + " Man, Ivy Mike, Tsar Bomba, F.L.E.I.J.A., Solinium, N2, prototype, custom nuke), the"
                             + " balefire bomb, the crashed bomb, the nuclear det charge and the antimatter bomb, with"
                             + " their kits and parts.");
     public static final ConfigEntry<Boolean> DISABLE_WAR_BOMBS =
-            bool(Domain.CONTENT, "guns", "disable_war_bombs", false,
+            bool(Domain.CONTENT, "war_explosives", "disable_war_bombs", false,
                     "Switches off only the stationary conventional bombs: C4, semtex, det charges, plastic"
                             + " explosive, landmines and the EMP, thermobaric, floating, flame and multi-purpose"
                             + " bombs. Mining explosives stay.");
     public static final ConfigEntry<Boolean> DISABLE_WAR_MISC =
-            bool(Domain.CONTENT, "guns", "disable_war_misc", false,
+            bool(Domain.CONTENT, "war_explosives", "disable_war_misc", false,
                     "Switches off the other war explosives: grenades and their parts and the bomb caller.");
     public static final ConfigEntry<Boolean> ENABLE_PEDESTAL_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_pedestal_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_pedestal_recipe", false,
                     "Lets the Pedestal be crafted (blackstone brick slabs, obsidian, blackstone bricks)."
                             + " Off, it is only found, as in NTM.");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_PART_RECIPES =
-            bool(Domain.CONTENT, "guns", "enable_secret_part_recipes", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_part_recipes", false,
                     "Lets the assembly machine make the secret gun parts (selenium steel, the SB-26"
                             + " canister, the control unit, the folly and aberrator parts); the switches below turn on one each. Recycling broken"
                             + " ones works either way.");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_AUGMENT_RECIPES =
-            bool(Domain.CONTENT, "guns", "enable_secret_augment_recipes", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_augment_recipes", false,
                     "Lets the assembly machine make the red room's and other secret augments that have no"
                             + " recipe: armor polish, band-aid, serum, plutonium quartz, morning glory, spider milk,"
                             + " scrumpy, Wild Pegasus Dry Whiskey, the Ace of Spades and Queen of Hearts, and"
                             + " the nickel and doubloon gun mods. V1 has its own switch.");
     public static final ConfigEntry<Boolean> ENABLE_V1_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_v1_recipe", true,
+            bool(Domain.CONTENT, "secret_recipes", "enable_v1_recipe", true,
                     "Lets the assembly machine make the V1 chestplate mod (secret augment blueprint)."
                             + " Does nothing while enable_v1 is off.");
     public static final ConfigEntry<Boolean> ENABLE_RED_ROOM_KEYHOLE_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_red_room_keyhole_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_red_room_keyhole_recipe", false,
                     "Lets the red room keyhole (Strange Red Room Brick) be crafted from bricks, starmetal,"
                             + " alexandrite and red dye.");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_SELENIUM_STEEL_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_secret_selenium_steel_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_selenium_steel_recipe", false,
                     "Lets the assembly machine make the selenium steel (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_CANISTER_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_secret_canister_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_canister_recipe", false,
                     "Lets the assembly machine make the SB-26 canister (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_CONTROLLER_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_secret_controller_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_controller_recipe", false,
                     "Lets the assembly machine make the control unit (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_FOLLY_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_secret_folly_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_folly_recipe", false,
                     "Lets the assembly machine make the folly part (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_ABERRATOR_RECIPE =
-            bool(Domain.CONTENT, "guns", "enable_secret_aberrator_recipe", false,
+            bool(Domain.CONTENT, "secret_recipes", "enable_secret_aberrator_recipe", false,
                     "Lets the assembly machine make the aberrator part (on with enable_secret_part_recipes too).");
 
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =

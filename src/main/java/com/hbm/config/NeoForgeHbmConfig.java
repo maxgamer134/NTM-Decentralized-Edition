@@ -113,7 +113,50 @@ public final class NeoForgeHbmConfig {
         return RUNTIME;
     }
 
+    /** Content switches that moved out of [guns]: old key, new section. */
+    private static final Map<String, String> MOVED_FROM_GUNS = new HashMap<>();
+
+    static {
+        for (String key : List.of("disable_war_explosives", "disable_war_missiles", "disable_war_nukes",
+                "disable_war_bombs", "disable_war_misc")) MOVED_FROM_GUNS.put(key, "war_explosives");
+        for (String key : List.of("enable_pedestal_recipe", "enable_secret_part_recipes",
+                "enable_secret_augment_recipes", "enable_v1_recipe", "enable_red_room_keyhole_recipe",
+                "enable_secret_selenium_steel_recipe", "enable_secret_canister_recipe",
+                "enable_secret_controller_recipe", "enable_secret_folly_recipe",
+                "enable_secret_aberrator_recipe")) MOVED_FROM_GUNS.put(key, "secret_recipes");
+    }
+
+    /**
+     * Moves the switches that left [guns] to their new sections before NeoForge reads the file,
+     * which would otherwise drop them as unknown and reset them to their defaults.
+     */
+    private static void migrateContentFile() {
+        java.nio.file.Path file =
+                net.neoforged.fml.loading.FMLPaths.CONFIGDIR.get().resolve(ConfigFiles.neoForgeFile(Domain.CONTENT));
+        if (!java.nio.file.Files.isRegularFile(file)) return;
+        try (com.electronwill.nightconfig.core.file.CommentedFileConfig config =
+                com.electronwill.nightconfig.core.file.CommentedFileConfig.of(file)) {
+            config.load();
+            boolean changed = false;
+            for (Map.Entry<String, String> e : MOVED_FROM_GUNS.entrySet()) {
+                List<String> from = List.of("guns", e.getKey());
+                if (!config.contains(from)) continue;
+                Object value = config.remove(from);
+                List<String> to = List.of(e.getValue(), e.getKey());
+                if (!config.contains(to)) config.set(to, value);
+                changed = true;
+            }
+            if (changed) {
+                config.save();
+                NuclearTech.LOGGER.info("Moved the war explosive and secret recipe switches out of [guns] in {}", file);
+            }
+        } catch (RuntimeException e) {
+            NuclearTech.LOGGER.warn("Could not move the old [guns] switches in {}", file, e);
+        }
+    }
+
     public static void registerSpecs(ModContainer container) {
+        migrateContentFile();
         container.registerConfig(
                 ModConfig.Type.COMMON, CONTENT_SPEC, ConfigFiles.neoForgeFile(Domain.CONTENT));
         container.registerConfig(

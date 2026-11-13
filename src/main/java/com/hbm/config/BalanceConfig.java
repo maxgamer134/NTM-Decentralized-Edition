@@ -17,6 +17,7 @@ public final class BalanceConfig {
     public static boolean enablePedestalRecipe = false;
     public static boolean enableSecretPartRecipes = false;
     public static boolean enableRedRoomKeyholeRecipe = false;
+    public static boolean enableSecretAugmentRecipes = false;
     public static boolean enableSecretSeleniumSteelRecipe = false;
     public static boolean enableSecretCanisterRecipe = false;
     public static boolean enableSecretControllerRecipe = false;
@@ -73,6 +74,7 @@ public final class BalanceConfig {
         enablePedestalRecipe = c.get(ConfigSchema.ENABLE_PEDESTAL_RECIPE);
         enableSecretPartRecipes = c.get(ConfigSchema.ENABLE_SECRET_PART_RECIPES);
         enableRedRoomKeyholeRecipe = c.get(ConfigSchema.ENABLE_RED_ROOM_KEYHOLE_RECIPE);
+        enableSecretAugmentRecipes = c.get(ConfigSchema.ENABLE_SECRET_AUGMENT_RECIPES);
         enableSecretSeleniumSteelRecipe = c.get(ConfigSchema.ENABLE_SECRET_SELENIUM_STEEL_RECIPE);
         enableSecretCanisterRecipe = c.get(ConfigSchema.ENABLE_SECRET_CANISTER_RECIPE);
         enableSecretControllerRecipe = c.get(ConfigSchema.ENABLE_SECRET_CONTROLLER_RECIPE);

@@ -227,9 +227,9 @@ public final class GunContent {
             if (!id.getNamespace().equals(NuclearTech.MOD_ID)) return;
             String path = id.getPath();
             if (!BalanceConfig.enablePedestalRecipe && path.equals("pedestal_block")) drop.add(id);
-            if (path.startsWith("precision_assembler/precass.item_secret_")
-                    && !path.endsWith(".recycle")
-                    && !secretPartOn(path.substring("precision_assembler/precass.item_secret_".length()))) drop.add(id);
+            if (path.startsWith("assembly_machine/ass.item_secret_")
+                    && !secretPartOn(path.substring("assembly_machine/ass.item_secret_".length()))) drop.add(id);
+            if (!BalanceConfig.enableSecretAugmentRecipes && path.startsWith("assembly_machine/ass.secret_augment.")) drop.add(id);
             if (!BalanceConfig.enableRedRoomKeyholeRecipe && path.equals("stone_keyhole_meta")) drop.add(id);
         });
         Set<Item> items = disabled();

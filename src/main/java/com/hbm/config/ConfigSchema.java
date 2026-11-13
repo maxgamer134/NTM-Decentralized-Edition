@@ -181,28 +181,34 @@ public final class ConfigSchema {
                             + " Off, it is only found, as in NTM.");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_PART_RECIPES =
             bool(Domain.CONTENT, "guns", "enable_secret_part_recipes", false,
-                    "Lets the precision assembler make the secret gun parts (selenium steel, the SB-26"
+                    "Lets the assembly machine make the secret gun parts (selenium steel, the SB-26"
                             + " canister, the control unit, the folly and aberrator parts); the switches below turn on one each. Recycling broken"
                             + " ones works either way.");
+    public static final ConfigEntry<Boolean> ENABLE_SECRET_AUGMENT_RECIPES =
+            bool(Domain.CONTENT, "guns", "enable_secret_augment_recipes", false,
+                    "Lets the assembly machine make the red room's and other secret augments that have no"
+                            + " recipe: armor polish, band-aid, serum, plutonium quartz, morning glory, spider milk,"
+                            + " scrumpy, Wild Pegasus Dry Whiskey, the Ace of Spades and Queen of Hearts, V1, and"
+                            + " the nickel and doubloon gun mods.");
     public static final ConfigEntry<Boolean> ENABLE_RED_ROOM_KEYHOLE_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_red_room_keyhole_recipe", false,
                     "Lets the red room keyhole (Strange Red Room Brick) be crafted from bricks, starmetal,"
                             + " alexandrite and red dye.");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_SELENIUM_STEEL_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_secret_selenium_steel_recipe", false,
-                    "Lets the precision assembler make the selenium steel (on with enable_secret_part_recipes too).");
+                    "Lets the assembly machine make the selenium steel (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_CANISTER_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_secret_canister_recipe", false,
-                    "Lets the precision assembler make the SB-26 canister (on with enable_secret_part_recipes too).");
+                    "Lets the assembly machine make the SB-26 canister (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_CONTROLLER_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_secret_controller_recipe", false,
-                    "Lets the precision assembler make the control unit (on with enable_secret_part_recipes too).");
+                    "Lets the assembly machine make the control unit (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_FOLLY_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_secret_folly_recipe", false,
-                    "Lets the precision assembler make the folly part (on with enable_secret_part_recipes too).");
+                    "Lets the assembly machine make the folly part (on with enable_secret_part_recipes too).");
     public static final ConfigEntry<Boolean> ENABLE_SECRET_ABERRATOR_RECIPE =
             bool(Domain.CONTENT, "guns", "enable_secret_aberrator_recipe", false,
-                    "Lets the precision assembler make the aberrator part (on with enable_secret_part_recipes too).");
+                    "Lets the assembly machine make the aberrator part (on with enable_secret_part_recipes too).");
 
     public static final ConfigEntry<Boolean> ENABLE_LBSM_SIMPLE_CRAFTING =
             bool(
@@ -915,6 +921,7 @@ public final class ConfigSchema {
                     ENABLE_PEDESTAL_RECIPE,
                     ENABLE_SECRET_PART_RECIPES,
                     ENABLE_RED_ROOM_KEYHOLE_RECIPE,
+                    ENABLE_SECRET_AUGMENT_RECIPES,
                     ENABLE_SECRET_SELENIUM_STEEL_RECIPE,
                     ENABLE_SECRET_CANISTER_RECIPE,
                     ENABLE_SECRET_CONTROLLER_RECIPE,

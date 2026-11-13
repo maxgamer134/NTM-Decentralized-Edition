@@ -66,6 +66,56 @@ public final class SpaceHazards {
         waste(SpaceExtras.WASTE_SHORT_DEPLETED_TINY, () -> HazardRegistry.makeData(HazardRegistry.RADIATION, 0.3D));
         HazardSystem.register(SpaceExtras.RTG_DEPLETED_AMERICIUM.get(),
                 HazardRegistry.makeData(HazardRegistry.RADIATION, 9.0D * HazardRegistry.mult_rtg));
+
+        plainHazard("ammonium_nitrate", HazardRegistry.EXPLOSIVE, 4D);
+        plainHazard("powder_wd2004", HazardRegistry.DIGAMMA, 1D);
+        plainHazard("powder_wd2004_tiny", HazardRegistry.DIGAMMA, 0.05D);
+        HazardSystem.register(com.hbm.items.ModItems.SAT_GERALD.get(), HazardRegistry.makeData(AUTISM, 1D));
+        HazardSystem.register(SpaceExtras.BOBBLEHEAD_JUICE.get(), HazardRegistry.makeData(HazardRegistry.ASBESTOS, 1D));
+        HazardSystem.register(com.hbm.blocks.ModBlocks.BOBBLEHEADS.get(com.hbm.blocks.generic.BlockBobble.BobbleType.MICROWAVE),
+                HazardRegistry.makeData(GLITCH, 1D));
+    }
+
+    /** NTM:Space's AUTISM: confuses whoever holds it without eye protection. */
+    public static final com.hbm.hazard.type.IHazardType AUTISM = new Confusing(false);
+    /** NTM:Space's GLITCH: confuses too, and its tooltip names a random item. */
+    public static final com.hbm.hazard.type.IHazardType GLITCH = new Confusing(true);
+
+    private record Confusing(boolean glitch) implements com.hbm.hazard.type.IHazardType {
+        @Override
+        public void onUpdate(net.minecraft.world.entity.LivingEntity target, double level, net.minecraft.world.item.ItemStack stack) {
+            if (com.hbm.data.RadiationData.DISABLE_BLINDING.get()) return;
+            if (!com.hbm.util.ArmorRegistry.hasProtection(target, net.minecraft.world.entity.EquipmentSlot.HEAD, com.hbm.hazard.HazardClass.LIGHT))
+                target.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.CONFUSION,
+                        (int) Math.ceil(level) * com.hbm.config.RadiationConfig.hazardRate, 0));
+        }
+
+        @Override
+        public void updateEntity(net.minecraft.world.entity.item.ItemEntity item, double level) {}
+
+        @Override
+        public void addHazardInformation(net.minecraft.world.entity.player.Player player, java.util.List<net.minecraft.network.chat.Component> list,
+                double level, net.minecraft.world.item.ItemStack stack, java.util.List<com.hbm.hazard.modifier.IHazardModifier> modifiers) {
+            if (!glitch) {
+                list.add(net.minecraft.network.chat.Component.literal("[").append(net.minecraft.network.chat.Component.translatable("trait.confusion"))
+                        .append("]").withStyle(net.minecraft.ChatFormatting.GOLD));
+                return;
+            }
+            if (player != null && player.getRandom().nextInt(10) == 0) {
+                list.add(net.minecraft.network.chat.Component.literal("WORLD").withStyle(net.minecraft.ChatFormatting.DARK_RED));
+                return;
+            }
+            var items = net.minecraft.core.registries.BuiltInRegistries.ITEM;
+            int r = new java.util.Random(System.currentTimeMillis() / 500).nextInt(items.size() + 16);
+            Item item = r < items.size() ? items.byId(r) : null;
+            if (item != null) list.add(new net.minecraft.world.item.ItemStack(item).getHoverName());
+            else list.add(net.minecraft.network.chat.Component.literal("STACKTRACE0x00" + r).withStyle(net.minecraft.ChatFormatting.RED));
+        }
+    }
+
+    private static void plainHazard(String id, com.hbm.hazard.type.IHazardType type, double level) {
+        for (var handle : SpaceParts.ITEMS)
+            if (handle.id().getPath().equals(id)) HazardSystem.register(handle.get(), HazardRegistry.makeData(type, level));
     }
 
     private static void metal(String name, double base) {

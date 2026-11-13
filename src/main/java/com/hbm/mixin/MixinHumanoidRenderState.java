@@ -56,6 +56,8 @@ public abstract class MixinHumanoidRenderState implements MotionRenderState {
                 clientDriven && !entity.isControlledByLocalInstance()
                         ? entity.getY() - entity.yOld
                         : entity.getDeltaMovement().y;
-        ((MotionRenderState) state).hbm$setMotion(entity.onGround(), motionY);
+        // NTM:Space: wings fold up while riding too, the way they do on the ground
+        boolean grounded = entity.onGround() || (com.hbm.space.SpaceToggle.changes() && entity.isPassenger());
+        ((MotionRenderState) state).hbm$setMotion(grounded, motionY);
     }
 }

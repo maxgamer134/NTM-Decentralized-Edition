@@ -140,6 +140,7 @@ public final class PacketDispatcher {
         if (com.hbm.space.SpaceToggle.enabled()) {
             NeoForgeNetwork.clientbound.add(new NeoForgeNetwork.Registration<>(com.hbm.space.SkyObjectsSyncPayload.TYPE, com.hbm.space.SkyObjectsSyncPayload.STREAM_CODEC, com.hbm.space.SkyObjectsSyncPayload::handle, PayloadHandlerThread.MAIN));
             NeoForgeNetwork.clientbound.add(new NeoForgeNetwork.Registration<>(com.hbm.space.NukeShockSyncPayload.TYPE, com.hbm.space.NukeShockSyncPayload.STREAM_CODEC, com.hbm.space.NukeShockSyncPayload::handle, PayloadHandlerThread.MAIN));
+            NeoForgeNetwork.clientbound.add(new NeoForgeNetwork.Registration<>(com.hbm.space.SpaceOxygenPayload.TYPE, com.hbm.space.SpaceOxygenPayload.STREAM_CODEC, com.hbm.space.SpaceOxygenPayload::handle, PayloadHandlerThread.MAIN));
             NeoForgeNetwork.clientbound.add(
                     new NeoForgeNetwork.Registration<>(
                             com.hbm.space.SolarSystemSyncPayload.TYPE,

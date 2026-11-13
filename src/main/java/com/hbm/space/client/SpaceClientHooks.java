@@ -25,6 +25,36 @@ public final class SpaceClientHooks {
 
     private SpaceClientHooks() {}
 
+    private static final net.minecraft.resources.ResourceLocation AIR = net.minecraft.resources.ResourceLocation.withDefaultNamespace("hud/air");
+    private static final net.minecraft.resources.ResourceLocation AIR_BURSTING = net.minecraft.resources.ResourceLocation.withDefaultNamespace("hud/air_bursting");
+
+    private static void renderOxygen(net.minecraft.client.gui.GuiGraphics graphics) {
+        Minecraft mc = Minecraft.getInstance();
+        var player = mc.player;
+        if (player == null || mc.options.hideGui || mc.gameMode == null || !mc.gameMode.canHurtPlayer()) return;
+        var gui = mc.gui;
+        int right = graphics.guiWidth() / 2 + 91;
+        int air = com.hbm.space.SpaceOxygenPayload.clientOxygen;
+        if (air < 100) {
+            int top = graphics.guiHeight() - gui.rightHeight;
+            int full = net.minecraft.util.Mth.ceil((air - 2) * 10.0D / 100.0D);
+            int partial = net.minecraft.util.Mth.ceil(air * 10.0D / 100.0D) - full;
+            for (int i = 0; i < full + partial; i++)
+                graphics.blitSprite(i < full ? AIR : AIR_BURSTING, right - i * 8 - 9, top, 9, 9);
+            gui.rightHeight += 10;
+        }
+        var tank = com.hbm.space.atmosphere.SpaceEnvironment.oxygenTank(player);
+        if (tank.getItem() instanceof com.hbm.space.SpaceExtras.OxyTank oxy) {
+            int capacity = oxy.capacity(tank);
+            float tot = capacity <= 0 ? 0F : net.minecraft.util.Mth.clamp((float) oxy.getFuel(tank) / capacity, 0F, 1F);
+            int top = graphics.guiHeight() - gui.rightHeight + 3;
+            graphics.fill(right - 82, top - 1, right + 1, top + 5, 0xFF404040);
+            int r = (int) ((1F - tot) * 255), gb = (int) (tot * 255);
+            graphics.fill(right - (int) (81 * tot), top, right, top + 4, 0xFF000000 | r << 16 | gb << 8 | gb);
+            gui.rightHeight += 6;
+        }
+    }
+
     public static void register(net.neoforged.bus.api.IEventBus modBus) {
         if (!SpaceToggle.enabled()) return;
         // Not at construction: the first touch of RecipePages builds every NTM page, which needs the registries.
@@ -37,6 +67,22 @@ public final class SpaceClientHooks {
         com.hbm.client.render.BomberStyles.register(9,
                 () -> AIRLINER.get(), com.hbm.lib.Library.id("textures/models/airliner.png"), 30F / 3.1F, 180F);
         com.hbm.space.client.SpaceSiegeClient.register();
+        // ModEventHandlerRenderer: the bubbles of breath left in a vacuum, and the oxygen tank's gauge
+        modBus.addListener(
+                (net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) ->
+                        event.registerAbove(net.neoforged.neoforge.client.gui.VanillaGuiLayers.AIR_LEVEL,
+                                com.hbm.lib.Library.id("space_oxygen"), (graphics, delta) -> renderOxygen(graphics)));
+        // RenderScreenOverlay.renderTaintBar: Nitan wraps the hearts in a tainted frame
+        modBus.addListener(
+                (net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) ->
+                        event.registerAbove(net.neoforged.neoforge.client.gui.VanillaGuiLayers.PLAYER_HEALTH,
+                                com.hbm.lib.Library.id("nitan_bar"), (graphics, delta) -> {
+                                    Minecraft mc = Minecraft.getInstance();
+                                    if (mc.player == null || mc.options.hideGui || mc.gameMode == null || !mc.gameMode.canHurtPlayer()) return;
+                                    if (!mc.player.hasEffect(com.hbm.potion.HbmPotion.nitan())) return;
+                                    graphics.blit(com.hbm.render.util.RenderScreenOverlay.misc,
+                                            graphics.guiWidth() / 2 - 92, graphics.guiHeight() - 41, 146, 18, 81, 12);
+                                }));
         // ModEventHandlerClient: the flashbang effect whites out the screen
         modBus.addListener(
                 (net.neoforged.neoforge.client.event.RegisterGuiLayersEvent event) ->
@@ -185,6 +231,11 @@ public final class SpaceClientHooks {
                             com.hbm.space.machine.SpaceHTR3.HTR3BE.CONTRAIL = RenderHTR3::contrail;
                             com.hbm.space.machine.SpaceLPW2.LPW2BE.CONTRAIL = com.hbm.space.client.LPW2Contrail::spawn;
                             com.hbm.space.machine.SpaceTransporter.OPEN_LINKER = ScreenTransporterLinker::open;
+                            // RenderBatterySocket: a socketed angel core is the balefire angel's body, turning
+                            com.hbm.client.render.SocketCentrepieces.register(com.hbm.space.SpaceFuels.CORE_ANGEL.get(),
+                                    new com.hbm.client.render.SocketCentrepieces.Centrepiece(
+                                            () -> com.hbm.client.model.Meshes.load(com.hbm.lib.Library.id("models/mobs/balefire_angel.obj")),
+                                            "body", com.hbm.lib.Library.id("textures/entity/bfa_body.png"), 2F, 5F));
                         }));
         // NTM:Space pulls the third-person camera out to 12 blocks while you ride a rocket
         NeoForge.EVENT_BUS.addListener((net.neoforged.neoforge.client.event.CalculateDetachedCameraDistanceEvent event) -> {
@@ -206,7 +257,10 @@ public final class SpaceClientHooks {
         SpaceAmbience.register();
         SpaceOreLocations.register();
         NeoForge.EVENT_BUS.addListener(
-                (ClientPlayerNetworkEvent.LoggingOut event) -> SolarSystemSavedData.onClientDisconnect());
+                (ClientPlayerNetworkEvent.LoggingOut event) -> {
+                    SolarSystemSavedData.onClientDisconnect();
+                    com.hbm.space.SpaceOxygenPayload.clientOxygen = 100;
+                });
         NeoForge.EVENT_BUS.addListener(
                 (ClientTickEvent.Post event) -> {
                     if (Minecraft.getInstance().level == null || Minecraft.getInstance().isPaused()) return;

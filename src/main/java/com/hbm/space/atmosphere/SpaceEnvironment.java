@@ -58,6 +58,8 @@ public final class SpaceEnvironment implements EnvironmentProvider {
     /** Ticks of breath left in a vacuum, NTM:Space's HbmLivingProps oxygen. */
     private static final Map<LivingEntity, int[]> OXYGEN = new WeakHashMap<>();
     private static final Map<LivingEntity, CBT_Atmosphere> CACHE = new WeakHashMap<>();
+    /** The breath last sent to each player's HUD. */
+    private static final Map<LivingEntity, Integer> SENT = new WeakHashMap<>();
 
     @Override
     public boolean breatheAir(ServerLevel level, BlockPos pos, int amount) {
@@ -96,14 +98,30 @@ public final class SpaceEnvironment implements EnvironmentProvider {
         int[] oxygen = OXYGEN.computeIfAbsent(entity, e -> new int[] {100});
         if (checkForOxy(entity, atmosphere)) {
             oxygen[0] = 100; // 5 seconds until vacuum damage
+            syncOxy(entity, 100);
             return;
         }
         int o = --oxygen[0];
+        syncOxy(entity, o);
         if (o > 0) return;
         if (entity.tickCount < 20) o = oxygen[0] = 0; // limit overdamage after relogging
         int interval = Mth.clamp(o / 60 + 8, 1, 8);
         int amount = Math.max(-o / 40 - 10, 1);
         if (entity.tickCount % interval == 0) entity.hurt(entity.damageSources().source(OXYPRIME), amount);
+    }
+
+    private static void syncOxy(LivingEntity entity, int oxygen) {
+        if (!(entity instanceof net.minecraft.server.level.ServerPlayer player)) return;
+        int shown = Mth.clamp(oxygen, 0, 100);
+        Integer last = SENT.put(player, shown);
+        if (last == null ? shown < 100 : last != shown) com.hbm.space.SpaceOxygenPayload.send(player, shown);
+    }
+
+    /** The oxygen tank on a sealed suit's helmet (ArmorUtil.getOxygenTank), or empty. */
+    public static ItemStack oxygenTank(Player player) {
+        if (!sealedSuit(player)) return ItemStack.EMPTY;
+        ItemStack tank = ArmorModHandler.pryMod(player.getItemBySlot(EquipmentSlot.HEAD), ArmorModHandler.PLATE_ONLY);
+        return tank.getItem() instanceof OxygenTank ? tank : ItemStack.EMPTY;
     }
 
     public static boolean checkForOxy(LivingEntity entity, @Nullable CBT_Atmosphere atmosphere) {

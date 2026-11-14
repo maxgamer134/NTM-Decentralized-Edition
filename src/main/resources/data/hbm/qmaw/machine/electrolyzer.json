@@ -1,0 +1,13 @@
+{
+  "content": {
+    "en_us": "Advanced processming machine, commonly used for increasing [[bedrock ore processing|Bedrock Ore Processing]] yields. Has two modes: One will electrolyze fluids, such as water into [[hydrogen|Liquid Hydrogen]] and [[oxygen|Liquid Oxygen]], and one that processes ore crystals using [[nitric acid|Nitric Acid]] into molten metals which can be cast. Necessary in the creation of [[deuterium|Deuterium]]."
+  },
+  "icon": "hbm:machine_electrolyser",
+  "name": "Electrolysis Machine",
+  "title": {
+    "en_us": "Electrolysis Machine"
+  },
+  "trigger": {
+    "items": "hbm:machine_electrolyser"
+  }
+}

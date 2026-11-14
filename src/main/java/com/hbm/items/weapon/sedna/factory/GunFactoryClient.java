@@ -81,6 +81,9 @@ public class GunFactoryClient {
                 ModItems.GUN_HENRY_LINCOLN::get,
                 new ItemRenderHenry(ResourceManager.henry_lincoln_tex));
         ItemRenderWeaponBase.register(
+                ModItems.GUN_HENRY_COUNTER::get,
+                new ItemRenderHenry(ResourceManager.henry_counter_tex));
+        ItemRenderWeaponBase.register(
                 ModItems.GUN_HEAVY_REVOLVER::get,
                 new ItemRenderHeavyRevolver(ResourceManager.heavy_revolver_tex));
         ItemRenderWeaponBase.register(
@@ -213,6 +216,10 @@ public class GunFactoryClient {
                 .getConfig(null, 0)
                 .hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
         ModItems.GUN_HENRY_LINCOLN
+                .get()
+                .getConfig(null, 0)
+                .hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
+        ModItems.GUN_HENRY_COUNTER
                 .get()
                 .getConfig(null, 0)
                 .hud(LegoClient.HUD_COMPONENT_DURABILITY, LegoClient.HUD_COMPONENT_AMMO);
@@ -525,6 +532,7 @@ public class GunFactoryClient {
         RenderBulletMK4.setRenderer(XFactory44.m44_fmj, LegoClient.RENDER_STANDARD_BULLET);
         RenderBulletMK4.setRenderer(XFactory44.m44_jhp, LegoClient.RENDER_STANDARD_BULLET);
         RenderBulletMK4.setRenderer(XFactory44.m44_ap, LegoClient.RENDER_AP_BULLET);
+        RenderBulletMK4.setRenderer(XFactory44.rebar, LegoClient.RENDER_AP_BULLET);
         RenderBulletMK4.setRenderer(XFactory44.m44_express, LegoClient.RENDER_EXPRESS_BULLET);
         RenderBulletMK4.setRenderer(
                 XFactory44.m44_equestrian_pip, LegoClient.RENDER_LEGENDARY_BULLET);

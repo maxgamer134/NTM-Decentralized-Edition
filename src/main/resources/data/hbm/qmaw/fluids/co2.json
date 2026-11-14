@@ -1,0 +1,24 @@
+{
+  "content": {
+    "en_us": "Inert gas, created as a byproduct from some processes, or directly in a chemical plant from [[natural gas|Natural Gas]]. Used primarily as a coolant in the [[ZIRNOX]]."
+  },
+  "icon": {
+    "components": {
+      "hbm:fluid_content": {
+        "amount": 0,
+        "type": "hbm:carbondioxide"
+      }
+    },
+    "id": "hbm:fluid_icon"
+  },
+  "name": "Carbon Dioxide",
+  "title": {
+    "en_us": "Carbon Dioxide"
+  },
+  "trigger": {
+    "items": "hbm:fluid_icon",
+    "predicates": {
+      "hbm:fluid_content": "hbm:carbondioxide"
+    }
+  }
+}

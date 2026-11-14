@@ -1,0 +1,24 @@
+{
+  "content": {
+    "en_us": "Acid derived from [[niter|Niter]]. Usable for solid rocket fuel, reprocessing nuclear fuel in the [[PUREX]], and processing items in the [[electrolysis machine|Electrolysis Machine]]."
+  },
+  "icon": {
+    "components": {
+      "hbm:fluid_content": {
+        "amount": 0,
+        "type": "hbm:nitric_acid"
+      }
+    },
+    "id": "hbm:fluid_icon"
+  },
+  "name": "Nitric Acid",
+  "title": {
+    "en_us": "Nitric Acid"
+  },
+  "trigger": {
+    "items": "hbm:fluid_icon",
+    "predicates": {
+      "hbm:fluid_content": "hbm:nitric_acid"
+    }
+  }
+}

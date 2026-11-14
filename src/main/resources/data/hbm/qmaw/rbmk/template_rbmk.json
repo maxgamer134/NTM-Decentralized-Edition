@@ -1,0 +1,10 @@
+{
+  "content": {
+    "en_us": "\u00a72[ \u00a72RBMK \u00a72]<br>[[RBMK]]<br>[[RBMK Structural Column]]<br>[[RBMK Fuel Channel]]<br>[[RBMK Graphite Moderator]]<br>[[RBMK Boron Neutron Absorber]]<br>[[RBMK Tungsten Carbide Neutron Reflector]]<br>[[RBMK Steam Channel]]<br>[[RBMK Fluid Heater]]<br>[[RBMK Cooler]]<br>[[RBMK Control Rods]]<br>[[RBMK Automatic Control Rods]]<br>[[RBMK Storage Column]]<br>[[RBMK Steam Connector]]<br>[[RBMK Console]]<br>[[RBMK Crane Console]]<br>[[RBMK Autoloader]]"
+  },
+  "name": "rbmk/template_rbmk",
+  "noindex": true,
+  "title": {
+    "en_us": "Template:RBMK"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "hbm:outgasser",
+  "duration": 10000,
+  "input_items": [
+    {
+      "ingredient": "minecraft:potato"
+    }
+  ],
+  "order": 3200,
+  "output_items": [
+    "minecraft:poisonous_potato"
+  ]
+}

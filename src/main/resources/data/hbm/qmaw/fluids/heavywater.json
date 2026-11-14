@@ -1,0 +1,32 @@
+{
+  "content": {
+    "en_us": "Heavy water can be filtered out of regular water using a [[deuterium extractor|Deuterium Extractor]] at a rate of 2% (1mB of heavy water per 50mB regular water). It is primarily used as an intermediate for making [[deuterium|Deuterium]].<br><br>It can also be used as a coolant in the [[PWR]], where it grants a +25% flux bonus."
+  },
+  "icon": {
+    "components": {
+      "hbm:fluid_content": {
+        "amount": 0,
+        "type": "hbm:heavywater"
+      }
+    },
+    "id": "hbm:fluid_icon"
+  },
+  "name": "Heavy Water",
+  "title": {
+    "en_us": "Heavy Water"
+  },
+  "trigger": [
+    {
+      "items": "hbm:fluid_icon",
+      "predicates": {
+        "hbm:fluid_content": "hbm:heavywater"
+      }
+    },
+    {
+      "items": "hbm:fluid_icon",
+      "predicates": {
+        "hbm:fluid_content": "hbm:heavywater_hot"
+      }
+    }
+  ]
+}

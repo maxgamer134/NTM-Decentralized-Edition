@@ -176,6 +176,10 @@ public final class NuclearTechNeoForge {
                         ArmorModHandler.onKilledByPlayer(event.getEntity());
                     }
                     ContagionUtil.onDeath(event.getEntity());
+                    // stat-tracking weapons (the corrupted Henry) count their holder's kills
+                    if (event.getSource().getEntity() instanceof net.minecraft.world.entity.LivingEntity source
+                            && source.getMainHandItem().getItem() instanceof com.hbm.items.IStatTrack weapon)
+                        weapon.tickUp(source.getMainHandItem(), event.getEntity());
                 });
         NeoForge.EVENT_BUS.addListener(
                 EventPriority.LOWEST,

@@ -1,0 +1,13 @@
+{
+  "content": {
+    "en_us": "Simple machine for making most ammo variants. The selected recipe will persist even if the GUI is closed, meaning that the press can be automated by selecting a recipe and then supplying items via automation. Does not require power to run."
+  },
+  "icon": "hbm:machine_ammo_press",
+  "name": "Ammo Press",
+  "title": {
+    "en_us": "Ammo Press"
+  },
+  "trigger": {
+    "items": "hbm:machine_ammo_press"
+  }
+}

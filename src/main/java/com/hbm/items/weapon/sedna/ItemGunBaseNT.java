@@ -104,8 +104,9 @@ public class ItemGunBaseNT extends ItemCompat implements IKeybindReceiver, IEqui
         this.quality = quality;
         this.lastShot = new long[cfg.length];
         for (int i = 0; i < cfg.length; i++) cfg[i].index = i;
-        if (quality == WeaponQuality.LEGENDARY || quality == WeaponQuality.SECRET)
-            secrets.add(this);
+        if (quality == WeaponQuality.LEGENDARY
+                || quality == WeaponQuality.SECRET
+                || quality == WeaponQuality.CORRUPTED) secrets.add(this);
     }
 
     public static void setupRecoil(float vertical, float horizontal, float decay, float rebound) {
@@ -532,6 +533,14 @@ public class ItemGunBaseNT extends ItemCompat implements IKeybindReceiver, IEqui
                         Component.translatable("gui.weapon.quality.utility")
                                 .withStyle(ChatFormatting.GREEN));
                 break;
+            case CORRUPTED:
+                list.accept(
+                        Component.translatable("gui.weapon.quality.corrupted")
+                                .withStyle(
+                                        BobMathUtil.getBlink()
+                                                ? ChatFormatting.DARK_PURPLE
+                                                : ChatFormatting.LIGHT_PURPLE));
+                break;
             case SECRET:
                 list.accept(
                         Component.translatable("gui.weapon.quality.secret")
@@ -726,6 +735,7 @@ public class ItemGunBaseNT extends ItemCompat implements IKeybindReceiver, IEqui
         LEGENDARY,
         SPECIAL,
         UTILITY,
+        CORRUPTED,
         SECRET,
         DEBUG
     }

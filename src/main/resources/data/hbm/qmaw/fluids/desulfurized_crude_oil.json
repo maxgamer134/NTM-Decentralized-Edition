@@ -1,0 +1,26 @@
+{
+  "content": {
+    "en_us": "Desulfurized crude oil can be produced by [[hydrotreating|Hydrotreater]] [[crude oil|Crude Oil]] with [[pressurized|Compressor]] [[liquid hydrogen|Liquid Hydrogen]]. It can be [[vacuum refined|Vacuum Refinery]] to produce products such as: <br>[[Vacuum Heavy Oil]] <br>[[Vacuum Light Oil]] <br>[[Reformate]] <br>[[Reformate Gas]] <br><br>It may also be [[heated|Boiler]] to obtain [[desulfurized hot crude oil|Desulfurized Hot Crude Oil]].<br><br>{{hbm:fluids/template_oil3.5}}",
+    "ru_ru": "\u041e\u0431\u0435\u0441\u0441\u0435\u0440\u0435\u043d\u043d\u0443\u044e \u0441\u044b\u0440\u0443\u044e \u043d\u0435\u0444\u0442\u044c \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u043b\u0443\u0447\u0438\u0442\u044c \u043f\u0443\u0442\u0435\u043c [[\u0433\u0438\u0434\u0440\u043e\u043e\u0447\u0438\u0441\u0442\u043a\u0438|Hydrotreater]] [[\u0441\u044b\u0440\u043e\u0439 \u043d\u0435\u0444\u0442\u0438|Crude Oil]] [[\u0441\u0436\u0430\u0442\u044b\u043c|Compressor]] [[\u0436\u0438\u0434\u043a\u0438\u043c \u0432\u043e\u0434\u043e\u0440\u043e\u0434\u043e\u043c|Liquid Hydrogen]]. \u0415\u0435 \u043c\u043e\u0436\u043d\u043e \u043f\u043e\u0434\u0432\u0435\u0440\u0433\u043d\u0443\u0442\u044c [[\u0432\u0430\u043a\u0443\u0443\u043c\u043d\u043e\u0439 \u043f\u0435\u0440\u0435\u0440\u0430\u0431\u043e\u0442\u043a\u0435|Vacuum Refinery]] \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u0442\u0430\u043a\u0438\u0445 \u043f\u0440\u043e\u0434\u0443\u043a\u0442\u043e\u0432, \u043a\u0430\u043a: <br>[[\u0412\u0430\u043a\u0443\u0443\u043c\u043d\u0430\u044f \u0442\u044f\u0436\u0451\u043b\u0430\u044f \u043d\u0435\u0444\u0442\u044c|Vacuum Heavy Oil]] <br>[[\u0412\u0430\u043a\u0443\u0443\u043c\u043d\u0430\u044f \u043b\u0451\u0433\u043a\u0430\u044f \u043d\u0435\u0444\u0442\u044c|Vacuum Light Oil]] <br>[[\u0420\u0435\u0444\u043e\u0440\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0435 \u0442\u043e\u043f\u043b\u0438\u0432\u043e|Reformate]] <br>[[\u0420\u0435\u0444\u043e\u0440\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u0433\u0430\u0437|Reformate Gas]] <br><br>\u0415\u0435 \u0442\u0430\u043a\u0436\u0435 \u043c\u043e\u0436\u043d\u043e [[\u043d\u0430\u0433\u0440\u0435\u0442\u044c|Boiler]] \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f [[\u043e\u0431\u0435\u0441\u0441\u0435\u0440\u0435\u043d\u043d\u043e\u0439 \u0433\u043e\u0440\u044f\u0447\u0435\u0439 \u0441\u044b\u0440\u043e\u0439 \u043d\u0435\u0444\u0442\u0438|Desulfurized Hot Crude Oil]].<br><br>{{hbm:fluids/template_oil3.5}}"
+  },
+  "icon": {
+    "components": {
+      "hbm:fluid_content": {
+        "amount": 0,
+        "type": "hbm:oil_ds"
+      }
+    },
+    "id": "hbm:fluid_icon"
+  },
+  "name": "Desulfurized Crude Oil",
+  "title": {
+    "en_us": "Desulfurized Crude Oil",
+    "ru_ru": "\u041e\u0431\u0435\u0441\u0441\u0435\u0440\u0435\u043d\u043d\u0430\u044f \u0441\u044b\u0440\u0430\u044f \u043d\u0435\u0444\u0442\u044c"
+  },
+  "trigger": {
+    "items": "hbm:fluid_icon",
+    "predicates": {
+      "hbm:fluid_content": "hbm:oil_ds"
+    }
+  }
+}

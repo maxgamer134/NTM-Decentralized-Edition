@@ -117,6 +117,7 @@ public abstract class BlockEntityMachinePumpBase extends BlockEntityCompat
                 || b == ModBlocks.DIRT_OILY.get()
                 || b == ModBlocks.SAND_DIRTY.get()
                 || b == ModBlocks.SAND_DIRTY_RED.get()
+                || b == ModBlocks.NTM_DIRT.get()
                 || isAddonGround(b);
     }
 

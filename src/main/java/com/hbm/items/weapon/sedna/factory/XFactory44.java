@@ -49,6 +49,7 @@ public class XFactory44 {
     public static BulletConfig m44_express;
     public static BulletConfig m44_equestrian_pip;
     public static BulletConfig m44_equestrian_mn7;
+    public static BulletConfig rebar;
 
     public static BiConsumer<EntityBulletBaseMK4, HitResult> LAMBDA_BOXCAR =
             (bullet, mop) -> {
@@ -601,6 +602,20 @@ public class XFactory44 {
                                         .setColor(SpentCasing.COLOR_CASE_EQUESTRIAN)
                                         .register("m44equestrianMn7"));
 
+        rebar =
+                new BulletConfig()
+                        .setItem(
+                                () ->
+                                        com.hbm.items.special.Autogen.require(
+                                                        com.hbm.inventory.material.MaterialShapes.BOLT,
+                                                        com.hbm.inventory.material.Mats.MAT_STEEL)
+                                                .asItem())
+                        .setupDamageClass(com.hbm.util.DamageClass.EXPLOSIVE)
+                        .setThresholdNegation(35F)
+                        .setArmorPiercing(0.5F)
+                        .setHeadshot(2.5F)
+                        .setCasing(casing44.clone().register("rebar"));
+
         ModItems.GUN_HENRY =
                 NeoForgeRegistrar.registerItem(
                         "gun_henry",
@@ -700,6 +715,50 @@ public class XFactory44 {
                                                         .anim(LAMBDA_HENRY_ANIMS)
                                                         .orchestra(Orchestras.ORCHESTRA_HENRY))
                                         .setDefaultAmmo(EnumAmmo.M44_JHP, 14),
+                        Item.Properties::new);
+
+        ModItems.GUN_HENRY_COUNTER =
+                NeoForgeRegistrar.registerItem(
+                        "gun_henry_counter",
+                        props ->
+                                new com.hbm.items.weapon.sedna.impl.ItemGunCounter(
+                                                WeaponQuality.CORRUPTED,
+                                                props,
+                                                new GunConfig()
+                                                        .dura(30_000)
+                                                        .draw(15)
+                                                        .inspect(23)
+                                                        .reloadSequential(true)
+                                                        .crosshair(Crosshair.L_CIRCUMFLEX)
+                                                        .smoke(Lego.LAMBDA_STANDARD_SMOKE)
+                                                        .rec(
+                                                                new Receiver(0)
+                                                                        .dmg(50F)
+                                                                        .spreadHipfire(0F)
+                                                                        .delay(20)
+                                                                        .reload(25, 11, 14, 8)
+                                                                        .jam(45)
+                                                                        .sound(
+                                                                                () ->
+                                                                                        ModSounds
+                                                                                                .GUN_RIFLE_FIRE
+                                                                                                .get(),
+                                                                                1.0F,
+                                                                                0.75F)
+                                                                        .mag(
+                                                                                new MagazineSingleReload(
+                                                                                                0,
+                                                                                                14)
+                                                                                        .addConfigs(rebar))
+                                                                        .offset(
+                                                                                0.75, -0.0625,
+                                                                                -0.1875D)
+                                                                        .setupStandardFire()
+                                                                        .recoil(
+                                                                                LAMBDA_RECOIL_HENRY))
+                                                        .setupStandardConfiguration()
+                                                        .anim(LAMBDA_HENRY_ANIMS)
+                                                        .orchestra(Orchestras.ORCHESTRA_HENRY)),
                         Item.Properties::new);
 
         ModItems.GUN_HEAVY_REVOLVER =

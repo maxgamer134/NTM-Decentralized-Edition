@@ -1,0 +1,18 @@
+{
+  "content": {
+    "en_us": "Groundwater pumps can be used as infinite water sources. These pumps can only access groundwater, which requires special placement, they do not access water source blocks.<br><br>For a pump to work, it needs to be placed on Y coordinate 70 or lower, and it needs to be placed on porous blocks, like dirt, sand or gravel. The pump will check a 3x3 area, four blocks down, and if at least half the blocks it detects are considered porous, it can operate.<br><br>The pumps come in two variants, steam-powered ones which use steam and create low-pressure steam, and electric ones. Electric pumps are substantially faster than steam-powered ones."
+  },
+  "icon": "hbm:pump_steam",
+  "name": "Groundwater Pump",
+  "title": {
+    "en_us": "Groundwater Pump"
+  },
+  "trigger": [
+    {
+      "items": "hbm:pump_steam"
+    },
+    {
+      "items": "hbm:pump_electric"
+    }
+  ]
+}

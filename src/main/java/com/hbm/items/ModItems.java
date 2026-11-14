@@ -9106,6 +9106,7 @@ public final class ModItems {
     public static RegistryHandle<ItemGunBaseNT> GUN_LIGHT_REVOLVER_DANI;
     public static RegistryHandle<ItemGunBaseNT> GUN_HENRY;
     public static RegistryHandle<ItemGunBaseNT> GUN_HENRY_LINCOLN;
+    public static RegistryHandle<ItemGunBaseNT> GUN_HENRY_COUNTER;
     public static RegistryHandle<ItemGunBaseNT> GUN_HEAVY_REVOLVER;
     public static RegistryHandle<ItemGunBaseNT> GUN_HEAVY_REVOLVER_LILMAC;
     public static RegistryHandle<ItemGunBaseNT> GUN_HEAVY_REVOLVER_PROTEGE;

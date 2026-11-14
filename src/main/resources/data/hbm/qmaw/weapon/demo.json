@@ -1,15 +1,15 @@
 {
   "content": {
     "en_us": "Demolition explosives are similar to regular high-explosives, however they have a larger splash radius, slightly lower damage, and they break blocks. Not recommended for home defense.<br><br>{{hbm:weapon/template_explosives}}",
-    "ru_ru": "Штурмовые заряды похожи на обычные осколочно-фугасные боеприпасы, однако имеют больший радиус поражения, немного меньший урон и разрушают блоки. Не рекомендуется для самообороны дома.<br><br>{{hbm:weapon/template_explosives}}",
-    "zh_cn": "破坏者弹药与普通的高爆弹药相似，但爆炸半径更大且伤害略低，并且会破坏 方块。不建议用于守卫基地。<br><br>{{hbm:weapon/template_explosives}}"
+    "ru_ru": "\u041f\u043e\u0434\u0440\u044b\u0432\u043d\u0430\u044f \u0432\u0437\u0440\u044b\u0432\u0447\u0430\u0442\u043a\u0430 \u043f\u043e\u0445\u043e\u0436\u0430 \u043d\u0430 \u043e\u0431\u044b\u0447\u043d\u0443\u044e \u0444\u0443\u0433\u0430\u0441\u043d\u0443\u044e, \u043e\u0434\u043d\u0430\u043a\u043e \u0438\u043c\u0435\u0435\u0442 \u0431\u043e\u043b\u044c\u0448\u0438\u0439 \u0440\u0430\u0434\u0438\u0443\u0441 \u043f\u043e\u0440\u0430\u0436\u0435\u043d\u0438\u044f, \u043d\u0435\u043c\u043d\u043e\u0433\u043e \u043c\u0435\u043d\u044c\u0448\u0438\u0439 \u0443\u0440\u043e\u043d \u0438 \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442 \u0441\u043e\u0431\u043e\u0439 \u0440\u0430\u0437\u0440\u0443\u0448\u0430\u044e\u0449\u0438\u0439 \u0431\u043b\u043e\u043a\u0438 \u0431\u043e\u0435\u043f\u0440\u0438\u043f\u0430\u0441. \u041d\u0435 \u0440\u0435\u043a\u043e\u043c\u0435\u043d\u0434\u0443\u0435\u0442\u0441\u044f \u0434\u043b\u044f \u0437\u0430\u0449\u0438\u0442\u044b \u0434\u043e\u043c\u0430.<br><br>{{hbm:weapon/template_explosives}}",
+    "zh_cn": "\u7834\u574f\u8005\u5f39\u836f\u4e0e\u666e\u901a\u7684\u9ad8\u7206\u5f39\u836f\u76f8\u4f3c\uff0c\u4f46\u7206\u70b8\u534a\u5f84\u66f4\u5927\u4e14\u4f24\u5bb3\u7565\u4f4e\uff0c\u5e76\u4e14\u4f1a\u7834\u574f \u65b9\u5757\u3002\u4e0d\u5efa\u8bae\u7528\u4e8e\u5b88\u536b\u57fa\u5730\u3002<br><br>{{hbm:weapon/template_explosives}}"
   },
   "icon": "hbm:ammo_standard_rocket_demo",
   "name": "Demolition Explosives",
   "title": {
     "en_us": "Demolition Explosives",
-    "ru_ru": "Штурмовой заряд",
-    "zh_cn": "破坏者弹药"
+    "ru_ru": "\u0420\u0430\u0437\u0440\u0443\u0448\u0430\u044e\u0449\u0438\u0439 \u0441\u043d\u0430\u0440\u044f\u0434",
+    "zh_cn": "\u7834\u574f\u8005\u5f39\u836f"
   },
   "trigger": [
     {

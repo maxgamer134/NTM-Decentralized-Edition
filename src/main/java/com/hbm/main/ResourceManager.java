@@ -982,6 +982,8 @@ public final class ResourceManager {
     public static final ResourceLocation henry_tex = Library.id("textures/models/weapons/henry.png");
     public static final ResourceLocation henry_lincoln_tex =
             Library.id("textures/models/weapons/henry_lincoln.png");
+    public static final ResourceLocation henry_counter_tex =
+            Library.id("textures/models/weapons/henry_counter.png");
     public static final HFRWavefrontObject lilmac = load("models/weapons/lilmac.obj");
     public static final ResourceLocation heavy_revolver_tex =
             Library.id("textures/models/weapons/heavy_revolver.png");

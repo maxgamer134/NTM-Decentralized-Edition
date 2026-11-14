@@ -1,0 +1,13 @@
+{
+  "content": {
+    "en_us": "A type of advanced refinery for [[vacuum oil refining|Vacuum Oil Processing]] wich can process non-heated [[crude oil|Crude Oil]]. Inputs need to be [[pressurized|Compressor]] to 2 PU first. Does not have a soild byproduct, unlike the standard [[refinery|Oil Refinery]]."
+  },
+  "icon": "hbm:machine_vacuum_distill",
+  "name": "Vacuum Refinery",
+  "title": {
+    "en_us": "Vacuum Refinery"
+  },
+  "trigger": {
+    "items": "hbm:machine_vacuum_distill"
+  }
+}

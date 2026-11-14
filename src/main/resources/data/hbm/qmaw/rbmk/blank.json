@@ -1,15 +1,15 @@
 {
   "content": {
-    "en_us": "RBMK structural columns, often called \"blanks\", are components of the [[RBMK]] that allow neutrons to pass and which conduct heat, but otherwise do not serve any added function. They are commonly used as filler in setups that are not very dense, and for making reactors more aesthetically pleasing.",
-    "ru_ru": "Структурные колонны РБМК, часто называемые «пустышками», — компоненты [[РБМК|RBMK]], которые пропускают нейтроны и проводят тепло, но не выполняют никаких других функций. Обычно их используют как заполнитель в неплотных схемах и для придания реакторам более эстетичного вида.",
-    "zh_cn": "RBMK结构柱是一种[[RBMK]]部件，允许中子通过且能够传导热量，除此之外没有功能。 其常在不太紧凑的反应堆设计中用作填充物，也可用于使反应堆更加美观。"
+    "en_us": "RBMK structural columns, often called \"blanks\", are components of the [[RBMK]] that allow neutrons to pass and which conduct heat, but otherwise do not serve any added function. They are commonly used as filler in setups that are not very dense, and for making reactors more aesthetically pleasing.<br><br>{{hbm:rbmk/template_rbmk}}",
+    "ru_ru": "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u043d\u044b\u0435 \u043a\u043e\u043b\u043e\u043d\u043d\u044b \u0420\u0411\u041c\u041a, \u0447\u0430\u0441\u0442\u043e \u043d\u0430\u0437\u044b\u0432\u0430\u0435\u043c\u044b\u0435 \u00ab\u043f\u0443\u0441\u0442\u044b\u0448\u043a\u0430\u043c\u0438\u00bb, \u2014 \u043a\u043e\u043c\u043f\u043e\u043d\u0435\u043d\u0442\u044b [[\u0420\u0411\u041c\u041a|RBMK]], \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u043f\u0440\u043e\u043f\u0443\u0441\u043a\u0430\u044e\u0442 \u043d\u0435\u0439\u0442\u0440\u043e\u043d\u044b \u0438 \u043f\u0440\u043e\u0432\u043e\u0434\u044f\u0442 \u0442\u0435\u043f\u043b\u043e, \u043d\u043e \u043d\u0435 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u044e\u0442 \u043d\u0438\u043a\u0430\u043a\u0438\u0445 \u0434\u0440\u0443\u0433\u0438\u0445 \u0444\u0443\u043d\u043a\u0446\u0438\u0439. \u041e\u0431\u044b\u0447\u043d\u043e \u0438\u0445 \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u044e\u0442 \u043a\u0430\u043a \u0437\u0430\u043f\u043e\u043b\u043d\u0438\u0442\u0435\u043b\u044c \u0432 \u043d\u0435\u043f\u043b\u043e\u0442\u043d\u044b\u0445 \u0441\u0445\u0435\u043c\u0430\u0445 \u0438 \u0434\u043b\u044f \u043f\u0440\u0438\u0434\u0430\u043d\u0438\u044f \u0440\u0435\u0430\u043a\u0442\u043e\u0440\u0430\u043c \u0431\u043e\u043b\u0435\u0435 \u044d\u0441\u0442\u0435\u0442\u0438\u0447\u043d\u043e\u0433\u043e \u0432\u0438\u0434\u0430.",
+    "zh_cn": "RBMK\u7ed3\u6784\u67f1\u662f\u4e00\u79cd[[RBMK]]\u90e8\u4ef6\uff0c\u5141\u8bb8\u4e2d\u5b50\u901a\u8fc7\u4e14\u80fd\u591f\u4f20\u5bfc\u70ed\u91cf\uff0c\u9664\u6b64\u4e4b\u5916\u6ca1\u6709\u529f\u80fd\u3002 \u5176\u5e38\u5728\u4e0d\u592a\u7d27\u51d1\u7684\u53cd\u5e94\u5806\u8bbe\u8ba1\u4e2d\u7528\u4f5c\u586b\u5145\u7269\uff0c\u4e5f\u53ef\u7528\u4e8e\u4f7f\u53cd\u5e94\u5806\u66f4\u52a0\u7f8e\u89c2\u3002"
   },
   "icon": "hbm:rbmk_blank",
   "name": "RBMK Structural Column",
   "title": {
     "en_us": "RBMK Structural Column",
-    "ru_ru": "Структурная колонна РБМК",
-    "zh_cn": "RBMK反应堆结构柱"
+    "ru_ru": "\u0421\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u043d\u0430\u044f \u043a\u043e\u043b\u043e\u043d\u043d\u0430 \u0420\u0411\u041c\u041a",
+    "zh_cn": "RBMK\u53cd\u5e94\u5806\u7ed3\u6784\u67f1"
   },
   "trigger": {
     "items": "hbm:rbmk_blank"

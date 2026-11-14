@@ -1,15 +1,15 @@
 {
   "content": {
-    "en_us": "The earliest way of making power out of [[steam|Steam]], usually from a [[boiler|Boiler]]. Outputs [[low-pressure steam|Low-Pressure Steam]], which either has to be vented or [[condensed|Condenser]] back into water.<br><br>Can only handle regular pressure steam, higher pressures require a [[steam turbine|Steam Turbine]].",
-    "ru_ru": "Самый ранний способ получения энергии из [[пара|Steam]], обычно с помощью [[бойлера|Boiler]]. Выдаёт [[пар низкого давления|Low-Pressure Steam]], который необходимо либо отвести, либо [[сконденсировать|Condenser]] обратно в воду.<br><br>Может работать исключительно с обычным паром, для более горячего пара требуется [[паровая турбина|Steam Turbine]].",
-    "zh_cn": "使用[[蒸汽|Steam]]发电的最早方式，而此时蒸汽通常来自[[锅炉|Boiler]]。会输出[[低压蒸汽|Low-Pressure Steam]]，这些低压蒸汽必须被排放，或者被[[冷凝|Condenser]]回水。<br><br>蒸汽机只能处理普通蒸汽，处理高等级蒸汽需要[[汽轮机|Steam Turbine]]。"
+    "en_us": "The earliest way of making power out of [[steam|Steam]], usually from a [[boiler|Boiler]]. Outputs [[low-pressure steam|Steam]], which either has to be vented or [[condensed|Condenser]] back into water.<br><br>Can only handle regular pressure steam, higher pressures require a [[steam turbine|Steam Turbine]].",
+    "ru_ru": "\u0421\u0430\u043c\u044b\u0439 \u0440\u0430\u043d\u043d\u0438\u0439 \u0441\u043f\u043e\u0441\u043e\u0431 \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u044d\u043d\u0435\u0440\u0433\u0438\u0438 \u0438\u0437 [[\u043f\u0430\u0440\u0430|Steam]], \u043e\u0431\u044b\u0447\u043d\u043e \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e [[\u0431\u043e\u0439\u043b\u0435\u0440\u0430|Boiler]]. \u0412\u044b\u0434\u0430\u0451\u0442 [[\u043f\u0430\u0440 \u043d\u0438\u0437\u043a\u043e\u0433\u043e \u0434\u0430\u0432\u043b\u0435\u043d\u0438\u044f|Steam]], \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e \u043b\u0438\u0431\u043e \u043e\u0442\u0432\u0435\u0441\u0442\u0438, \u043b\u0438\u0431\u043e [[\u0441\u043a\u043e\u043d\u0434\u0435\u043d\u0441\u0438\u0440\u043e\u0432\u0430\u0442\u044c|Condenser]] \u043e\u0431\u0440\u0430\u0442\u043d\u043e \u0432 \u0432\u043e\u0434\u0443.<br><br>\u041c\u043e\u0436\u0435\u0442 \u0440\u0430\u0431\u043e\u0442\u0430\u0442\u044c \u0438\u0441\u043a\u043b\u044e\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e \u0441 \u043e\u0431\u044b\u0447\u043d\u044b\u043c \u043f\u0430\u0440\u043e\u043c, \u0434\u043b\u044f \u0431\u043e\u043b\u0435\u0435 \u0433\u043e\u0440\u044f\u0447\u0435\u0433\u043e \u043f\u0430\u0440\u0430 \u0442\u0440\u0435\u0431\u0443\u0435\u0442\u0441\u044f [[\u043f\u0430\u0440\u043e\u0432\u0430\u044f \u0442\u0443\u0440\u0431\u0438\u043d\u0430|Steam Turbine]].",
+    "zh_cn": "\u4f7f\u7528[[\u84b8\u6c7d|Steam]]\u53d1\u7535\u7684\u6700\u65e9\u65b9\u5f0f\uff0c\u800c\u6b64\u65f6\u84b8\u6c7d\u901a\u5e38\u6765\u81ea[[\u9505\u7089|Boiler]]\u3002\u4f1a\u8f93\u51fa[[\u4f4e\u538b\u84b8\u6c7d|Steam]]\uff0c\u8fd9\u4e9b\u4f4e\u538b\u84b8\u6c7d\u5fc5\u987b\u88ab\u6392\u653e\uff0c\u6216\u8005\u88ab[[\u51b7\u51dd|Condenser]]\u56de\u6c34\u3002<br><br>\u84b8\u6c7d\u673a\u53ea\u80fd\u5904\u7406\u666e\u901a\u84b8\u6c7d\uff0c\u5904\u7406\u9ad8\u7b49\u7ea7\u84b8\u6c7d\u9700\u8981[[\u6c7d\u8f6e\u673a|Steam Turbine]]\u3002"
   },
   "icon": "hbm:machine_steam_engine",
   "name": "Steam Engine",
   "title": {
     "en_us": "Steam Engine",
-    "ru_ru": "Паровой двигатель",
-    "zh_cn": "蒸汽机"
+    "ru_ru": "\u041f\u0430\u0440\u043e\u0432\u043e\u0439 \u0434\u0432\u0438\u0433\u0430\u0442\u0435\u043b\u044c",
+    "zh_cn": "\u84b8\u6c7d\u673a"
   },
   "trigger": {
     "items": "hbm:machine_steam_engine"

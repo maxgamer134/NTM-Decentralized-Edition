@@ -1,0 +1,13 @@
+{
+  "content": {
+    "en_us": "Chemical processor, similar to the [[chemical plant|Chemical Plant]]. Specializes in reprocessing nuclear fuel, mainly of the [[Chicago Pile]], [[ZIRNOX]], [[PWR]] and [[Watz power plant|Watz Power Plant]]. Spent fuel from an [[RBMK]] however is recycled in a [[SILEX]]."
+  },
+  "icon": "hbm:machine_purex",
+  "name": "PUREX",
+  "title": {
+    "en_us": "PUREX"
+  },
+  "trigger": {
+    "items": "hbm:machine_purex"
+  }
+}

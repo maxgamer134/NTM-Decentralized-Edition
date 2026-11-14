@@ -1,0 +1,26 @@
+{
+  "content": {
+    "en_us": "Coal tar creosote can be made by coking any form of coal or lignite in a [[combination oven|Combination Oven]]. It is primarily [[fractioned|Fractioning Tower]] for [[coal oil|Coal Oil]] and [[bitumen|Bitumen]].",
+    "ru_ru": "\u041a\u0440\u0435\u043e\u0437\u043e\u0442 \u0438\u0437 \u0443\u0433\u043e\u043b\u044c\u043d\u043e\u0439 \u0441\u043c\u043e\u043b\u044b \u043e\u0431\u0440\u0430\u0437\u0443\u0435\u0442\u0441\u044f \u043f\u0443\u0442\u0435\u043c \u043a\u043e\u043a\u0441\u043e\u0432\u0430\u043d\u0438\u044f \u043b\u044e\u0431\u043e\u0439 \u0444\u043e\u0440\u043c\u044b \u0443\u0433\u043b\u044f \u0438\u043b\u0438 \u0431\u0443\u0440\u043e\u0433\u043e \u0443\u0433\u043b\u044f \u0432 [[\u043a\u043e\u043a\u0441\u043e\u0432\u043e\u0439 \u043f\u0435\u0447\u0438|Combination Oven]]. \u0412 \u043e\u0441\u043d\u043e\u0432\u043d\u043e\u043c \u0435\u0433\u043e [[\u0440\u0435\u043a\u0442\u0438\u0444\u0438\u0440\u0443\u044e\u0442|Fractioning Tower]] \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f [[\u0444\u043e\u0442\u043e\u0433\u0435\u043d|Coal Oil]] \u0438 [[\u0431\u0438\u0442\u0443\u043c\u0430|Bitumen]]."
+  },
+  "icon": {
+    "components": {
+      "hbm:fluid_content": {
+        "amount": 0,
+        "type": "hbm:coalcreosote"
+      }
+    },
+    "id": "hbm:fluid_icon"
+  },
+  "name": "Coal Tar Creosote",
+  "title": {
+    "en_us": "Coal Tar Creosote",
+    "ru_ru": "\u041a\u0440\u0435\u043e\u0437\u043e\u0442 \u0438\u0437 \u0443\u0433\u043e\u043b\u044c\u043d\u043e\u0439 \u0441\u043c\u043e\u043b\u044b"
+  },
+  "trigger": {
+    "items": "hbm:fluid_icon",
+    "predicates": {
+      "hbm:fluid_content": "hbm:coalcreosote"
+    }
+  }
+}

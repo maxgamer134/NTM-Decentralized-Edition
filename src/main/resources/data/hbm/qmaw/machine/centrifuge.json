@@ -1,15 +1,15 @@
 {
   "content": {
-    "en_us": "Separates items, can be used as a more efficient way of ore processing. Initially mainly used for gathering [[mercury|Mercury]] from redstone ore, required for making [[desh|Desh]].<br><br>Raw metals work as well as their ore blocks, so Silk Touch is not required.",
-    "ru_ru": "Разделяет предметы, позволяет куда эффективнее перерабатывать руду. Одно из первых применений — получение из руды красного камня [[ртути|Mercury]], необходимой для производства [[деш|Desh]].<br><br>Необработанные металлы подходят так же, как блоки их руды, так что Шёлковое касание не требуется.",
-    "zh_cn": "用于分离物品，可作为一种更高效的矿物处理手段。最初主要用于从红石矿石中 收集制作[[Desh]]需要的[[水银|Mercury]]。<br><br>粗金属也能像对应的矿石方块一样处理，因此不需要精准采集。"
+    "en_us": "Separates items, can be used as a more efficient way of ore processing. Initially mainly used for gathering [[mercury|Mercury]] from redstone ore, required for making [[desh|Desh]].",
+    "ru_ru": "\u0420\u0430\u0437\u0434\u0435\u043b\u044f\u0435\u0442 \u043f\u0440\u0435\u0434\u043c\u0435\u0442\u044b, \u043f\u043e\u0437\u0432\u043e\u043b\u044f\u0435\u0442 \u043a\u0443\u0434\u0430 \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u0435\u0435 \u043f\u0435\u0440\u0435\u0440\u0430\u0431\u0430\u0442\u044b\u0432\u0430\u0442\u044c \u0440\u0443\u0434\u0443. \u041e\u0434\u043d\u043e \u0438\u0437 \u043f\u0435\u0440\u0432\u044b\u0445 \u043f\u0440\u0438\u043c\u0435\u043d\u0435\u043d\u0438\u0439 \u2014 \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 \u0438\u0437 \u0440\u0443\u0434\u044b \u043a\u0440\u0430\u0441\u043d\u043e\u0433\u043e \u043a\u0430\u043c\u043d\u044f [[\u0440\u0442\u0443\u0442\u0438|Mercury]], \u043d\u0435\u043e\u0431\u0445\u043e\u0434\u0438\u043c\u043e\u0439 \u0434\u043b\u044f \u043f\u0440\u043e\u0438\u0437\u0432\u043e\u0434\u0441\u0442\u0432\u0430 [[\u0434\u0435\u0448|Desh]].",
+    "zh_cn": "\u7528\u4e8e\u5206\u79bb\u7269\u54c1\uff0c\u53ef\u4f5c\u4e3a\u4e00\u79cd\u66f4\u9ad8\u6548\u7684\u77ff\u7269\u5904\u7406\u624b\u6bb5\u3002\u6700\u521d\u4e3b\u8981\u7528\u4e8e\u4ece\u7ea2\u77f3\u77ff\u77f3\u4e2d \u6536\u96c6\u5236\u4f5c[[Desh]]\u9700\u8981\u7684[[\u6c34\u94f6|Mercury]]\u3002"
   },
   "icon": "hbm:machine_centrifuge",
   "name": "Centrifuge",
   "title": {
     "en_us": "Centrifuge",
-    "ru_ru": "Центрифуга",
-    "zh_cn": "离心机"
+    "ru_ru": "\u0426\u0435\u043d\u0442\u0440\u0438\u0444\u0443\u0433\u0430",
+    "zh_cn": "\u79bb\u5fc3\u673a"
   },
   "trigger": {
     "items": "hbm:machine_centrifuge"

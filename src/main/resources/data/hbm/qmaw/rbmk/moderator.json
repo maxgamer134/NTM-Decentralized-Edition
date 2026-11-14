@@ -1,15 +1,15 @@
 {
   "content": {
-    "en_us": "The graphite moderator converts all passing neutrons into slow neutrons. Most [[RBMK fuels|RBMK Fuel Rod]] split more effectively with slow neutrons, meaning that most [[RBMK]] designs either require dedicated graphite moderators between the [[fuel channels|RBMK Fuel Channel]], or moderated fuel channels directly.",
-    "ru_ru": "Графитовый замедлитель преобразует все проходящие через него нейтроны в медленные. Большинство видов [[топлива РБМК|RBMK Fuel Rod]] эффективнее делятся под действием медленных нейтронов, поэтому в большинстве схем [[РБМК|RBMK]] требуются либо отдельные графитовые замедлители между [[топливными каналами|RBMK Fuel Channel]], либо непосредственно замедляющие топливные каналы.",
-    "zh_cn": "石墨慢化剂会将所有通过的中子转化为慢中子。大多数[[RBMK燃料|RBMK Fuel Rod]] 在受到慢中子轰击时更容易裂变，这意味着大多数[[RBMK]]设计都需要在 [[燃料通道|RBMK Fuel Channel]]之间放置专门的慢化剂，或是直接使用慢化燃料通道。"
+    "en_us": "The graphite moderator converts all passing neutrons into slow neutrons. Most [[RBMK fuels|RBMK Fuel Rod]] split more effectively with slow neutrons, meaning that most [[RBMK]] designs either require dedicated graphite moderators between the [[fuel channels|RBMK Fuel Channel]], or moderated fuel channels directly.<br><br>{{hbm:rbmk/template_rbmk}}",
+    "ru_ru": "\u0413\u0440\u0430\u0444\u0438\u0442\u043e\u0432\u044b\u0439 \u0437\u0430\u043c\u0435\u0434\u043b\u0438\u0442\u0435\u043b\u044c \u043f\u0440\u0435\u043e\u0431\u0440\u0430\u0437\u0443\u0435\u0442 \u0432\u0441\u0435 \u043f\u0440\u043e\u0445\u043e\u0434\u044f\u0449\u0438\u0435 \u0447\u0435\u0440\u0435\u0437 \u043d\u0435\u0433\u043e \u043d\u0435\u0439\u0442\u0440\u043e\u043d\u044b \u0432 \u043c\u0435\u0434\u043b\u0435\u043d\u043d\u044b\u0435. \u0411\u043e\u043b\u044c\u0448\u0438\u043d\u0441\u0442\u0432\u043e \u0432\u0438\u0434\u043e\u0432 [[\u0442\u043e\u043f\u043b\u0438\u0432\u0430 \u0420\u0411\u041c\u041a|RBMK Fuel Rod]] \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u0435\u0435 \u0434\u0435\u043b\u044f\u0442\u0441\u044f \u043f\u043e\u0434 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435\u043c \u043c\u0435\u0434\u043b\u0435\u043d\u043d\u044b\u0445 \u043d\u0435\u0439\u0442\u0440\u043e\u043d\u043e\u0432, \u043f\u043e\u044d\u0442\u043e\u043c\u0443 \u0432 \u0431\u043e\u043b\u044c\u0448\u0438\u043d\u0441\u0442\u0432\u0435 \u0441\u0445\u0435\u043c [[\u0420\u0411\u041c\u041a|RBMK]] \u0442\u0440\u0435\u0431\u0443\u044e\u0442\u0441\u044f \u043b\u0438\u0431\u043e \u043e\u0442\u0434\u0435\u043b\u044c\u043d\u044b\u0435 \u0433\u0440\u0430\u0444\u0438\u0442\u043e\u0432\u044b\u0435 \u0437\u0430\u043c\u0435\u0434\u043b\u0438\u0442\u0435\u043b\u0438 \u043c\u0435\u0436\u0434\u0443 [[\u0442\u043e\u043f\u043b\u0438\u0432\u043d\u044b\u043c\u0438 \u043a\u0430\u043d\u0430\u043b\u0430\u043c\u0438|RBMK Fuel Channel]], \u043b\u0438\u0431\u043e \u043d\u0435\u043f\u043e\u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0435\u043d\u043d\u043e \u0437\u0430\u043c\u0435\u0434\u043b\u044f\u044e\u0449\u0438\u0435 \u0442\u043e\u043f\u043b\u0438\u0432\u043d\u044b\u0435 \u043a\u0430\u043d\u0430\u043b\u044b.",
+    "zh_cn": "\u77f3\u58a8\u6162\u5316\u5242\u4f1a\u5c06\u6240\u6709\u901a\u8fc7\u7684\u4e2d\u5b50\u8f6c\u5316\u4e3a\u6162\u4e2d\u5b50\u3002\u5927\u591a\u6570[[RBMK\u71c3\u6599|RBMK Fuel Rod]] \u5728\u53d7\u5230\u6162\u4e2d\u5b50\u8f70\u51fb\u65f6\u66f4\u5bb9\u6613\u88c2\u53d8\uff0c\u8fd9\u610f\u5473\u7740\u5927\u591a\u6570[[RBMK]]\u8bbe\u8ba1\u90fd\u9700\u8981\u5728 [[\u71c3\u6599\u901a\u9053|RBMK Fuel Channel]]\u4e4b\u95f4\u653e\u7f6e\u4e13\u95e8\u7684\u6162\u5316\u5242\uff0c\u6216\u662f\u76f4\u63a5\u4f7f\u7528\u6162\u5316\u71c3\u6599\u901a\u9053\u3002"
   },
   "icon": "hbm:rbmk_moderator",
   "name": "RBMK Graphite Moderator",
   "title": {
     "en_us": "RBMK Graphite Moderator",
-    "ru_ru": "Графитовый замедлитель РБМК",
-    "zh_cn": "RBMK反应堆石墨慢化剂"
+    "ru_ru": "\u0413\u0440\u0430\u0444\u0438\u0442\u043e\u0432\u044b\u0439 \u0437\u0430\u043c\u0435\u0434\u043b\u0438\u0442\u0435\u043b\u044c \u0420\u0411\u041c\u041a",
+    "zh_cn": "RBMK\u53cd\u5e94\u5806\u77f3\u58a8\u6162\u5316\u5242"
   },
   "trigger": {
     "items": "hbm:rbmk_moderator"

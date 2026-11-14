@@ -1,0 +1,13 @@
+{
+  "content": {
+    "en_us": "It's a furnace, but electric. I don't know what more you want from me."
+  },
+  "icon": "hbm:machine_electric_furnace",
+  "name": "Electric Furnace",
+  "title": {
+    "en_us": "Electric Furnace"
+  },
+  "trigger": {
+    "items": "hbm:machine_electric_furnace"
+  }
+}

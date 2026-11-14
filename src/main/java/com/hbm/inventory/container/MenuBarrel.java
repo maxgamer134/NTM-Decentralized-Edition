@@ -4,6 +4,8 @@
 package com.hbm.inventory.container;
 
 import com.hbm.blockentity.machine.storage.BlockEntityBarrel;
+import com.hbm.inventory.slot.SlotFiltered;
+import com.hbm.items.machine.FluidIdentifierItem;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -21,12 +23,13 @@ public class MenuBarrel extends BlockEntityMenu<BlockEntityBarrel> {
         super(ModMenus.BARREL.get(), containerId, barrel, container);
         checkContainerSize(container, BlockEntityBarrel.SLOT_COUNT);
 
-        addSlot(new Slot(container, 0, 8, 17));
-        addSlot(new Slot(container, 1, 8, 53));
+        // as in NTMain: the identifier slot takes identifiers, the output slots are take-only
+        addSlot(new SlotFiltered(container, 0, 8, 17, stack -> stack.getItem() instanceof FluidIdentifierItem));
+        addSlot(new SlotFiltered(container, 1, 8, 53, SlotFiltered.NONE));
         addSlot(new Slot(container, 2, 35, 17));
-        addSlot(new Slot(container, 3, 35, 53));
+        addSlot(new SlotFiltered(container, 3, 35, 53, SlotFiltered.NONE));
         addSlot(new Slot(container, 4, 125, 17));
-        addSlot(new Slot(container, 5, 125, 53));
+        addSlot(new SlotFiltered(container, 5, 125, 53, SlotFiltered.NONE));
 
         addStandardInventorySlots(playerInv, 8, 84);
     }

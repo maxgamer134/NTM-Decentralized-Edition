@@ -94,6 +94,16 @@ public class ScreenBatteryREDD extends ScreenInfoContainer<MenuBatteryREDD> {
         drawHalfScaleRight(
                 graphics, Component.literal(sign < 0 ? rate : "+" + rate).withStyle(colour), 65);
 
+        drawCustomInfoStat(
+                graphics,
+                mouseX,
+                mouseY,
+                PRIO_X,
+                PRIO_Y,
+                PRIO_W,
+                PRIO_H,
+                priorityInfo(menu.getPriorityOrdinal()));
+
         super.extractLabels(graphics, mouseX, mouseY);
     }
 

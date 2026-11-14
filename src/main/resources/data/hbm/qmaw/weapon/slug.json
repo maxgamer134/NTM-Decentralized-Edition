@@ -1,15 +1,15 @@
 {
   "content": {
     "en_us": "A shell type that only holds a single large projectile. Unlike shot, slugs do not have inherent spread, deal the gun's full damage on hit, and have some armor-piercing properties.<br><br>{{hbm:weapon/template_shotshell}}",
-    "ru_ru": "Тип ружейного патрона, содержащий всего один крупный поражающий элемент. В отличие от дроби, пули не имеют врождённого разлёта, наносят полный урон оружия при попадании и обладают некоторыми бронебойными свойствами.<br><br>{{hbm:weapon/template_shotshell}}",
-    "zh_cn": "一种仅含有一颗大弹丸的弹药。不像霰弹，独头弹不自带散布，击中目标时会 造成枪械的全部伤害，还具有一定的穿甲效果。<br><br>{{hbm:weapon/template_shotshell}}"
+    "ru_ru": "\u0422\u0438\u043f \u043f\u0430\u0442\u0440\u043e\u043d\u0430, \u0441\u043e\u0434\u0435\u0440\u0436\u0430\u0449\u0438\u0439 \u0432\u0441\u0435\u0433\u043e \u043e\u0434\u0438\u043d \u043a\u0440\u0443\u043f\u043d\u044b\u0439 \u0441\u043d\u0430\u0440\u044f\u0434. \u0412 \u043e\u0442\u043b\u0438\u0447\u0438\u0435 \u043e\u0442 \u043a\u0430\u0440\u0442\u0435\u0447\u0438, \u043f\u0443\u043b\u0438 \u043d\u0435 \u0438\u043c\u0435\u044e\u0442 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0433\u043e \u0440\u0430\u0437\u0431\u0440\u043e\u0441\u0430, \u043d\u0430\u043d\u043e\u0441\u044f\u0442 \u043f\u043e\u043b\u043d\u044b\u0439 \u0443\u0440\u043e\u043d \u043e\u0440\u0443\u0436\u0438\u044f \u043f\u0440\u0438 \u043f\u043e\u043f\u0430\u0434\u0430\u043d\u0438\u0438 \u0438 \u043e\u0431\u043b\u0430\u0434\u0430\u044e\u0442 \u043d\u0435\u043a\u043e\u0442\u043e\u0440\u044b\u043c\u0438 \u0431\u0440\u043e\u043d\u0435\u0431\u043e\u0439\u043d\u044b\u043c\u0438 \u0441\u0432\u043e\u0439\u0441\u0442\u0432\u0430\u043c\u0438.<br><br>{{hbm:weapon/template_shotshell}}",
+    "zh_cn": "\u4e00\u79cd\u4ec5\u542b\u6709\u4e00\u9897\u5927\u5f39\u4e38\u7684\u5f39\u836f\u3002\u4e0d\u50cf\u9730\u5f39\uff0c\u72ec\u5934\u5f39\u4e0d\u81ea\u5e26\u6563\u5e03\uff0c\u51fb\u4e2d\u76ee\u6807\u65f6\u4f1a \u9020\u6210\u67aa\u68b0\u7684\u5168\u90e8\u4f24\u5bb3\uff0c\u8fd8\u5177\u6709\u4e00\u5b9a\u7684\u7a7f\u7532\u6548\u679c\u3002<br><br>{{hbm:weapon/template_shotshell}}"
   },
   "icon": "hbm:ammo_standard_g12_slug",
   "name": "Slug",
   "title": {
     "en_us": "Slug",
-    "ru_ru": "Пулевой снаряд",
-    "zh_cn": "独头弹"
+    "ru_ru": "\u041f\u0443\u043b\u0435\u0432\u043e\u0439 \u0441\u043d\u0430\u0440\u044f\u0434",
+    "zh_cn": "\u72ec\u5934\u5f39"
   },
   "trigger": [
     {

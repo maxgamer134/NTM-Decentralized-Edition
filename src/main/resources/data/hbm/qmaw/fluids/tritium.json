@@ -1,0 +1,24 @@
+{
+  "content": {
+    "en_us": "Tritium is a type of heavy [[hydrogen|Hydrogen]], created out of [[lithium|Lithium]] through irradiation. This can be done either in a [[ZIRNOX]], an [[RBMK irradiation channel|RBMK Irradiation Channel]] or a [[fusion reactor breeding chamber|Fusion Reactor Breeding Chamber]]. It is mainly used as fuel for the [[fusion reactor|Fusion Reactor]]."
+  },
+  "icon": {
+    "components": {
+      "hbm:fluid_content": {
+        "amount": 0,
+        "type": "hbm:tritium"
+      }
+    },
+    "id": "hbm:fluid_icon"
+  },
+  "name": "Tritium",
+  "title": {
+    "en_us": "Tritium"
+  },
+  "trigger": {
+    "items": "hbm:fluid_icon",
+    "predicates": {
+      "hbm:fluid_content": "hbm:tritium"
+    }
+  }
+}

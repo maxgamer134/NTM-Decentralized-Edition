@@ -1,0 +1,18 @@
+{
+  "content": {
+    "en_us": "The deuterium extractor - and its big brother, the deuterium extraction tower - can filter out [[heavy water|Heavy Water]] from regular water. Heavy water is the base ingredient for making [[deuterium|Deuterium]]. The deuterium extraction tower runs 50x faster than the small extractor."
+  },
+  "icon": "hbm:machine_deuterium_extractor",
+  "name": "Deuterium Extractor",
+  "title": {
+    "en_us": "Deuterium Extractor"
+  },
+  "trigger": [
+    {
+      "items": "hbm:machine_deuterium_extractor"
+    },
+    {
+      "items": "hbm:machine_deuterium_tower"
+    }
+  ]
+}
